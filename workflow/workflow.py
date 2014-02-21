@@ -37,8 +37,42 @@ except ImportError:
 
 
 # Shown when a workflow throws an error
-ERROR_ICON = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+ICON_ERROR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
               '/Resources/AlertStopIcon.icns')
+ICON_WARNING = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/AlertCautionIcon.icns')
+ICON_NOTE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/AlertNoteIcon.icns')
+ICON_INFO = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/ToolbarInfo.icns')
+ICON_FAVORITE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                 '/Resources/ToolbarFavoritesIcon.icns')
+ICON_FAVOURITE = ICON_FAVORITE  # Queen's English, if you please
+ICON_USER = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/UserIcon.icns')
+ICON_GROUP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/GroupInfo.icns')
+ICON_HELP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/HelpInfo.icns')
+ICON_NETWORK = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/GenericNetworkIcon.icns')
+ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+            '/Resources/BookmarkInfo.icns')
+ICON_COLOR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/ProfileBackgroundColor.icns')
+ICON_COLOUR = ICON_COLOR
+ICON_SYNC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/Sync.icns')
+ICON_SETTINGS = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                 '/Resources/ToolbarAdvanced.icns')
+ICON_TRASH = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/TrashIcon.icns')
+ICON_MUSIC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/ToolbarMusicFolderIcon.icns')
+ICON_BURN = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/BurningIcon.icns')
+ICON_ACCOUNT = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/Accounts.icns')
 
 
 class Item(object):
@@ -452,7 +486,7 @@ class Workflow(object):
             else:
                 name = os.path.dirname(__file__)
             self.add_item("Error in workflow '%s'" % name, unicode(err),
-                          icon=ERROR_ICON)
+                          icon=ICON_ERROR)
             self.send_feedback()
             return 1
         return 0

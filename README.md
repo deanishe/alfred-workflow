@@ -1,6 +1,3 @@
-title: Alfred-Workflow
-author: deanishe@deanishe.net
-date: 2014-02-16
 
 # Alfred-Workflow #
 

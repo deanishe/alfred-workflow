@@ -13,6 +13,8 @@ workflow.py
 ===========
 
 Helper for Alfred 2 workflows.
+
+TODO: Add magic arguments for opening cache/data directories in Finder
 """
 
 from __future__ import print_function, unicode_literals
@@ -22,6 +24,7 @@ import sys
 import plistlib
 import subprocess
 import unicodedata
+import shutil
 import json
 import pickle
 import time
@@ -174,7 +177,7 @@ class Workflow(object):
         :param normalization: normalisation to apply to CLI args
         :type normalization: `unicode`. Use 'NFC'for Python, 'NFD' if working
                              with data from the filesystem.
-        :param capture_args: capture and act on 'workflow:openlog' argument
+        :param capture_args: capture and act on 'workflow:*' arguments
         :type capture_args: `Boolean`
         :param libraries: sequence of paths to directories containing
                           libraries. These paths will be added to `sys.path`.
@@ -261,6 +264,10 @@ class Workflow(object):
         if self._capture_args:
             if args[0] == 'workflow:openlog':
                 self.openlog()
+            elif args[0] == 'workflow:delcache':
+                self.clear_cache()
+            elif args[0] == 'workflow:delsettings':
+                self.clear_settings()
         return args
 
     @property
@@ -340,7 +347,7 @@ class Workflow(object):
             # Initialise logging
             logfile = logging.handlers.RotatingFileHandler(self.logfile,
                                                            maxBytes=1024*1024,
-                                                           backupCount=1)
+                                                           backupCount=0)
             console = logging.StreamHandler()
             fmt = logging.Formatter('%(asctime)s %(filename)s:%(lineno)s'
                                     ' %(levelname)-8s %(message)s',
@@ -450,6 +457,8 @@ class Workflow(object):
             return 1
         return 0
 
+    # Alfred feedback methods ------------------------------------------
+
     def add_item(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None):
@@ -497,9 +506,30 @@ class Workflow(object):
         sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
         sys.stdout.write(ET.tostring(root).encode('utf-8'))
 
+    ####################################################################
+    # Methods for workflow:* args
+    ####################################################################
+
     def openlog(self):
         """Open log file"""
         subprocess.call(['open', self.logfile])
+
+    def clear_cache(self):
+        """Delete all files in workflow cache directory"""
+        if os.path.exists(self.cachedir):
+            for filename in os.listdir(self.cachedir):
+                path = os.path.join(self.cachedir, filename)
+                if os.path.isdir(path):
+                    shutil.deltree(path)
+                else:
+                    os.unlink(path)
+                self.logger.debug('Deleted : %r', path)
+
+    def clear_settings(self):
+        """Delete settings file"""
+        if os.path.exists(self.settings_path):
+            os.unlink(self.settings_path)
+            self.logger.debug('Deleted : %r', self.settings_path)
 
     ####################################################################
     # Helper methods

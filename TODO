@@ -1,0 +1,19 @@
+General:
+	- Move workflow into top-level directory to allow use as a Git submodule.
+		Is this necessary? I have to copy stuff hither and thither all the time, but
+		I'm the one developing the workflow package. Will this be such a problem for
+		other developers?
+
+		In this case, where would the docs go? They don't exist yet, but should, and
+		including them in the workflow package would be antithetical to what I'm
+		trying to achieve. They would just be a duplication of the comments in the
+		source code in any case.
+
+web.py:
+	- Add unit tests
+
+workflow.py:
+	- Add unit tests
+
+Other:
+	- Add phyllistein's `keychain` module

@@ -295,7 +295,7 @@ class Workflow(object):
         """
 
         args = [self.decode(arg) for arg in sys.argv[1:]]
-        if self._capture_args:
+        if len(args) and self._capture_args:
             if args[0] == 'workflow:openlog':
                 self.openlog()
             elif args[0] == 'workflow:delcache':
@@ -314,7 +314,7 @@ class Workflow(object):
         """
 
         dirpath = os.path.join(os.path.expanduser(
-            '~/Library/Caches/com.runningswithcrayons.Alfred-2/Workflow Data/'),
+            '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/'),
             self.bundleid)
         return self._create(dirpath)
 
@@ -451,15 +451,47 @@ class Workflow(object):
         """
 
         cache_path = self.cachefile('%s.cache' % name)
-        if os.path.exists(cache_path):
-            age = time.time() - os.stat(cache_path).st_mtime
-            if age < max_age:
-                with open(cache_path, 'rb') as file:
-                    return pickle.load(file)
+        age = self.cached_data_age(name)
+        if age < max_age:
+            with open(cache_path, 'rb') as file:
+                self.logger.debug('Loading cached data from : %s',
+                                  cache_path)
+                return pickle.load(file)
         data = data_func()
         with open(cache_path, 'wb') as file:
             pickle.dump(data, file)
+        self.logger.debug('Cached data saved at : %s', cache_path)
         return data
+
+    def cached_data_fresh(self, name, max_age):
+        """Is data cached at `name` less than `max_age` old?
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param max_age: maximum age of data in seconds
+        :type max_age: ``int``
+        :returns: True if data is less than `max_age` old
+        :rtype: ``Boolean``
+
+        """
+
+        return self.cached_data_age(name) < max_age
+
+    def cached_data_age(self, name):
+        """Return age of data cached at `name` in seconds or 0 if
+        cache doesn't exist
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :returns: age of datastore in seconds
+        :rtype: ``int``
+
+        """
+
+        cache_path = self.cachefile('%s.cache' % name)
+        if not os.path.exists(cache_path):
+            return 0
+        return time.time() - os.stat(cache_path).st_mtime
 
     def run(self, func):
         """Call `func` to run your workflow

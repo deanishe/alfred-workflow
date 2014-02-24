@@ -467,11 +467,11 @@ class Workflow(object):
         """Is data cached at `name` less than `max_age` old?
 
         :param name: name of datastore
-        :type name: ``unicode``
+        :type name: `unicode`
         :param max_age: maximum age of data in seconds
-        :type max_age: ``int``
+        :type max_age: `int`
         :returns: True if data is less than `max_age` old
-        :rtype: ``Boolean``
+        :rtype: `Boolean`
 
         """
 
@@ -482,9 +482,9 @@ class Workflow(object):
         cache doesn't exist
 
         :param name: name of datastore
-        :type name: ``unicode``
+        :type name: `unicode`
         :returns: age of datastore in seconds
-        :rtype: ``int``
+        :rtype: `int`
 
         """
 

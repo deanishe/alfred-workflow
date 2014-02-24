@@ -169,7 +169,7 @@ class Response(object):
 
         """
 
-        return json.dumps(self.content)
+        return json.loads(self.content)
 
     @property
     def text(self):

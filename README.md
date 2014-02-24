@@ -9,7 +9,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Auto-saves settings
 - Super-simple data caching
 - Simple generation of Alfred feedback (XML output)
-- Input decoding
+- Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests](http://docs.python-requests.org/en/latest/)-like interface
 - Pre-configured logging
 - Built-in maintenance via workflow/CLI arguments
@@ -168,7 +168,7 @@ If possible, test your workflow with non-ASCII text to ensure it behaves properl
 
 ### "Magic" arguments ###
 
-`workflow` supports a few special arguments, which it will act upon automatically if they are the first argument passed to your script (via Alfred or the CLI). These all begin with `workflow:` and are:
+`workflow` supports a few special arguments, which it will act upon automatically if they are in the arguments passed to your script (via Alfred or the CLI). These all begin with `workflow:` and are:
 
 - `workflow:openlog` : Opens the workflow's log file in the default app (usually Console.app). The log will contain any errors that have occurred including corresponding tracebacks. It will also contain any messages logged with `Workflow.logger`.
 - `workflow:delcache` : Delete all cached files. Useful for resetting the workflow.
@@ -176,7 +176,7 @@ If possible, test your workflow with non-ASCII text to ensure it behaves properl
 
 ### Extending sys.path ###
 
-If your workflow has other dependencies, you can install this in a subdirectory and add it to `sys.path` by passing the `libraries=['dir/path/1', 'dir/path/2', ...]` argument to `Workflow()`. This
+If your workflow has other dependencies, you can install these in a subdirectory and add it to `sys.path` by passing the `libraries=['dir/path/1', 'dir/path/2', ...]` argument to `Workflow()`. This
 will only work if you're initialising `Workflow` *before* performing imports.
 
 ### Logging ###

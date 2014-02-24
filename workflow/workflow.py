@@ -296,11 +296,11 @@ class Workflow(object):
 
         args = [self.decode(arg) for arg in sys.argv[1:]]
         if len(args) and self._capture_args:
-            if args[0] == 'workflow:openlog':
+            if 'workflow:openlog' in args:
                 self.openlog()
-            elif args[0] == 'workflow:delcache':
+            elif 'workflow:delcache' in args:
                 self.clear_cache()
-            elif args[0] == 'workflow:delsettings':
+            elif 'workflow:delsettings' in args:
                 self.clear_settings()
         return args
 

@@ -14,6 +14,8 @@ web.py:
 
 workflow.py:
 	- Add unit tests
+	- Give log file more unique name
+		bundleid.log?
 
 Other:
 	- Add phyllistein's `keychain` module

@@ -437,7 +437,8 @@ class Workflow(object):
 
     def cached_data(self, name, data_func, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
-        stale/non-existant.
+        stale/non-existant. If ``max_age`` is 0, return cached data no
+        matter how old.
 
         :param name: name of datastore
         :type name: `unicode`
@@ -452,7 +453,7 @@ class Workflow(object):
 
         cache_path = self.cachefile('%s.cache' % name)
         age = self.cached_data_age(name)
-        if age < max_age:
+        if (age < max_age or max_age == 0) and os.path.exists(cache_path):
             with open(cache_path, 'rb') as file:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)

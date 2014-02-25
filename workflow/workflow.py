@@ -298,10 +298,13 @@ class Workflow(object):
         if len(args) and self._capture_args:
             if 'workflow:openlog' in args:
                 self.openlog()
+                sys.exit(0)
             elif 'workflow:delcache' in args:
                 self.clear_cache()
+                sys.exit(0)
             elif 'workflow:delsettings' in args:
                 self.clear_settings()
+                sys.exit(0)
         return args
 
     @property

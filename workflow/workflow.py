@@ -294,16 +294,23 @@ class Workflow(object):
 
         """
 
+        msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
         if len(args) and self._capture_args:
             if 'workflow:openlog' in args:
                 self.openlog()
-                sys.exit(0)
+                msg = 'Opening workflow log file'
             elif 'workflow:delcache' in args:
                 self.clear_cache()
-                sys.exit(0)
+                msg = 'Deleted workflow cache'
             elif 'workflow:delsettings' in args:
                 self.clear_settings()
+                msg = 'Deleted workflow settings'
+            if msg:
+                self.logger.info(msg)
+                if not sys.stdout.isatty():  # Show message in Alfred
+                    self.add_item(msg, valid=False, icon=ICON_INFO)
+                    self.send_feedback()
                 sys.exit(0)
         return args
 
@@ -514,16 +521,17 @@ class Workflow(object):
             func(self)
         except Exception as err:
             self.logger.exception(err)
-            self._items = []
-            if self._name:
-                name = self._name
-            elif self._bundleid:
-                name = self._bundleid
-            else:
-                name = os.path.dirname(__file__)
-            self.add_item("Error in workflow '%s'" % name, unicode(err),
-                          icon=ICON_ERROR)
-            self.send_feedback()
+            if not sys.stdout.isatty():  # Show error in Alfred
+                self._items = []
+                if self._name:
+                    name = self._name
+                elif self._bundleid:
+                    name = self._bundleid
+                else:
+                    name = os.path.dirname(__file__)
+                self.add_item("Error in workflow '%s'" % name, unicode(err),
+                              icon=ICON_ERROR)
+                self.send_feedback()
             return 1
         return 0
 

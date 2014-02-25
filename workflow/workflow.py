@@ -365,7 +365,7 @@ class Workflow(object):
 
         """
 
-        return self.cachefile('workflow.log')
+        return self.cachefile('%s.log' % self.bundleid)
 
     @property
     def logger(self):

@@ -14,7 +14,7 @@ web.py:
 
 workflow.py:
 	- Add unit tests
-	- Give log file more unique name
+	- Give log file more unique name @done(14-02-27 23:01)
 		bundleid.log?
 
 Other:

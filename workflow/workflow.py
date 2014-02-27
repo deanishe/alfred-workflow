@@ -21,6 +21,8 @@ from __future__ import print_function, unicode_literals
 
 import os
 import sys
+import string
+import re
 import plistlib
 import subprocess
 import unicodedata
@@ -35,6 +37,10 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
+
+####################################################################
+# Some standard system icons
+####################################################################
 
 # Shown when a workflow throws an error
 ICON_ERROR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
@@ -74,6 +80,37 @@ ICON_BURN = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
 ICON_ACCOUNT = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
                 '/Resources/Accounts.icns')
 
+
+####################################################################
+# Used by `Workflow.filter`
+####################################################################
+
+# Anchor characters in a name
+INITIALS = string.ascii_uppercase + string.digits
+
+# Split on non-letters, numbers
+split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
+
+
+####################################################################
+# Keychain access errors
+####################################################################
+
+class KeychainError(Exception):
+    pass
+
+
+class PasswordNotFound(KeychainError):
+    pass
+
+
+class PasswordExists(KeychainError):
+    pass
+
+
+####################################################################
+# Implementation classes
+####################################################################
 
 class Item(object):
     """A feedback item for Alfred.
@@ -137,6 +174,9 @@ class Item(object):
 class Settings(dict):
     """A dictionary that saves itself when changed.
 
+    An appropriate instance is provided by `Workflow` instances at
+    `Workflow.settings`.
+
     """
 
     def __init__(self, filepath, **defaults):
@@ -161,6 +201,8 @@ class Settings(dict):
             self._load()
 
     def _load(self):
+        """Load cached settings from JSON file `self._filepath`"""
+
         self._nosave = True
         with open(self._filepath, 'rb') as file:
             for key, value in json.load(file, encoding='utf-8').items():
@@ -168,6 +210,7 @@ class Settings(dict):
         self._nosave = False
 
     def _save(self):
+        """Save settings to JSON file `self._filepath`"""
         if self._nosave:
             return
         data = {}
@@ -192,6 +235,83 @@ class Settings(dict):
 
 class Workflow(object):
     """Helper class for Alfred workflow authors.
+
+    Provides convenience methods for:
+
+    - Parsing script arguments.
+    - Text decoding/normalisation.
+    - Caching data and settings.
+    - Secure storage (and sync) of passwords (using OS X Keychain)
+    - Generating XML output for Alfred.
+    - Including external libraries (adding directories to `sys.path`).
+    - Filtering results using an Alfred-like algorithm.
+    - Generating log output for debugging.
+    - Capturing errors, so the workflow doesn't fail silently.
+
+    Basic usage
+    -----------
+
+    Copy the ``workflow`` directory into the root directory of your workflow::
+
+        Your Workflow/
+            info.plist
+            icon.png
+            workflow/
+                __init__.py
+                workflow.py
+                web.py
+                etc.
+            yourscript.py
+            etc.
+
+    In Alfred, make sure your Script Filter is set to select ``/bin/bash`` as
+    the **Language**, and select the following (and only the following)
+    **Escaping** options:
+
+    - Backquotes
+    - Double Quotes
+    - Dollars
+    - Backslashes
+
+    The **Script** field should contain the following::
+
+        python yourscript.py "{query}"
+
+
+    where ``yourscript.py`` is the name of your script.
+
+    Your workflow should start out like this. This enables `Workflow`
+    to capture any errors thrown by your scripts::
+
+        #!/usr/bin/python
+        # encoding: utf-8
+
+        import sys
+
+        from workflow import Workflow
+
+
+        def main(wf):
+            # The Workflow instance will be passed to the function
+            # you call from `Workflow.run`
+            # Your imports here if you want to catch import errors
+            import somemodule
+            import anothermodule
+            # Get args from Workflow, already in normalised Unicode
+            args = wf.args
+
+            # Do stuff here ...
+
+            # Add an item to Alfred feedback
+            wf.add_item(u'Item title', u'Item subtitle')
+
+            # Send output to Alfred
+            wf.send_feedback()
+
+
+        if __name__ == '__main__':
+            wf = Workflow()
+            sys.exit(wf.run(main))
 
     """
 
@@ -504,6 +624,143 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
+
+
+
+    def filter(query, items, key=lambda x: x, ascending=False,
+               include_score=False):
+        """Fuzzy search filter. Returns list of `items` that match `query`.
+
+        Matching is case-insensitive. Any item that does not contain the
+        entirety of `query` is rejected.
+
+        Results are matched as follows:
+
+        1. Items whose capital letters match `query`, e.g.
+           ``of`` = ``OmniFocus``
+        2. Items that start with `query`. Shorter items are rated more highly
+        3. Items whose "initials" match `query`, e.g.
+           ``goc`` = ``Game of Cards``
+        4. Items that contain `query` as an "atom" (words between spaces
+           and other non-letter characters).
+        4. Items that contain all the characters in `query`. Matches nearer the
+           beginning of the item are prioritised, as are shorter items.
+
+        :param query: query to test items against
+        :type query: `unicode`
+        :param items: iterable of items to test
+        :type items: `iterable` (`list` or `tuple`)
+        :param key: function to get comparison key from `items`. Must return a
+                    `unicode` string.
+        :type key: `callable`
+        :param ascending: set to `True` to get worst matches first
+        :type ascending: `Boolean`
+        :param include_score: Useful for debugging the scoring algorithm.
+                              If `True`, results will be a list of tuples
+                              ``(item, score, rule)``.
+        :type include_score: `Boolean`
+        :returns: list of `items` matching `query` or list of
+                  ``(item, score, rule)`` `tuples` if `include_score` is `True`.
+                  ``rule`` is the name of the rule that matched the item.
+        :rtype: `list`
+
+        """
+
+        results = {}
+        query = query.lower()
+        queryset = set(query)
+
+        # Build pattern: include all characters
+        pattern = []
+        for c in query:
+            # pattern.append('[^{0}]*{0}'.format(re.escape(c)))
+            pattern.append('.*?{0}'.format(re.escape(c)))
+        pattern = ''.join(pattern)
+        search = re.compile(pattern, re.IGNORECASE).search
+        # print('filter: searching %d items' % len(items))
+
+        for item in items:
+            rule = None
+            score = 0
+            value = key(item)
+
+            # pre-filter any items that do not contain all characters of `query`
+            # to save on running several more expensive tests
+            if not queryset <= set(value.lower()):
+                continue
+
+            # item starts with query
+            if value.lower().startswith(query):
+                score = 100.0 - (len(value) - len(query))
+                rule = 'startswith'
+
+            else:
+                # query matches capitalised letters in item,
+                # e.g. of = OmniFocus
+                initials = ''.join([c for c in value if c in INITIALS])
+                if initials.lower().startswith(query):
+                    score = 100.0 - (len(initials) - len(query))
+                    rule = 'capitals'
+
+                else:
+                    # split the item into "atoms", i.e. words separated by
+                    # spaces or other non-word characters
+                    atoms = [s.lower() for s in split_on_delimiters(value)]
+                    # print('atoms : %s  -->  %s' % (value, atoms))
+                    # initials of the atoms
+                    initials = ''.join([s[0] for s in atoms if s])
+
+                    # is `query` one of the atoms in item?
+                    # similar to substring, but scores more highly, as it's
+                    # a word within the item
+                    if query in atoms:
+                        score = 100.0 - (len(value) - len(query))
+                        rule = 'atom'
+
+                    # `query` matches start (or all) of the initials of the
+                    # atoms, e.g. ``himym`` matches "How I Met Your Mother"
+                    # *and* "how i met your mother" (the ``capitals`` rule only
+                    # matches the former)
+                    elif initials.startswith(query):
+                        score = 100.0 - (len(initials) - len(query))
+                        rule = 'initials:startswith'
+
+                    # `query` is a substring of initials, e.g. ``doh`` matches
+                    # "The Dukes of Hazzard"
+                    elif query in initials:
+                        score = 95.0 - (len(initials) - len(query))
+                        rule = 'intials:contains'
+
+                    # `query` is a substring of item
+                    elif query in value.lower():
+                            score = 90.0 - (len(value) - len(query))
+                            rule = 'substring'
+
+                    # finally, assign a score based on how close together the
+                    # characters in `query` are in item.
+                    else:
+                        match = search(value)
+                        if match:
+                            score = 100.0 / ((1 + match.start()) *
+                                             (match.end() - match.start() + 1))
+                            rule = 'allchars'
+
+            if score > 0:
+                # use "reversed" `score` (i.e. highest becomes lowest) and
+                # `value` as sort key. This means items with the same score
+                # will be sorted in alphabetical not reverse alphabetical order
+                results[(100.0 / score, value.lower())] = (item, score, rule)
+
+        # sort on keys, then discard the keys
+        keys = sorted(results.keys(), reverse=ascending)
+        results = [results.get(k) for k in keys]
+
+        # return list of ``(item, score, rule)``
+        if include_score:
+            return results
+        # just return list of items
+        return [t[0] for t in results]
+
     def run(self, func):
         """Call `func` to run your workflow
 
@@ -577,7 +834,7 @@ class Workflow(object):
         return item
 
     def send_feedback(self):
-        """Print stored items to console/Alfred"""
+        """Print stored items to console/Alfred as XML"""
         root = ET.Element('items')
         for item in self._items:
             root.append(item.elem)
@@ -586,11 +843,53 @@ class Workflow(object):
         sys.stdout.flush()
 
     ####################################################################
-    # Methods for workflow:* args
+    # Keychain password storage methods
+    ####################################################################
+
+    def _save_password(self, account, password, service=None):
+        if not service:
+            service = self.bundleid
+        return self._call_security('add-generic-password', service, account,
+                                   '-w', password)
+
+    def save_password(self, account, password, service=None):
+        if not service:
+            service = self.bundleid
+        try:
+            retcode, output = self._save_password(account, password, service)
+            self.logger.debug('Saved password : %s:%s', service, account)
+        except PasswordExists:
+            self.logger.debug('Password exists : %s:%s', service, account)
+            current_password = self.get_password(account, service)
+            if current_password == password:
+                self.logger.debug('Password unchanged')
+            else:
+                self.delete_password(account, service)
+                retcode, output = self._save_password(account, password,
+                                                      service)
+                self.logger.debug('save_password : %s:%s', service, account)
+
+    def get_password(self, account, service=None):
+        if not service:
+            service = self.bundleid
+        retcode, password = self._call_security('find-generic-password',
+                                                service, account, '-w')
+        self.logger.debug('get_password : %s:%s', service, account)
+        return password
+
+    def delete_password(self, account, service=None):
+        if not service:
+            service = self.bundleid
+        retcode, output = self._call_security('delete-generic-password',
+                                              service, account)
+        self.logger.debug('delete_password : %s:%s', service, account)
+
+    ####################################################################
+    # Methods for workflow:* magic args
     ####################################################################
 
     def openlog(self):
-        """Open log file"""
+        """Open log file in standard application (usually Console.app)"""
         subprocess.call(['open', self.logfile])
 
     def clear_cache(self):
@@ -657,3 +956,20 @@ class Workflow(object):
         if not os.path.exists(dirpath):
             os.makedirs(dirpath)
         return dirpath
+
+    def _call_security(self, action, service, account, *args):
+        """Call the ``security`` CLI app that provides access to keychains"""
+
+        cmd = ['security', action, '-s', service, '-a', account] + list(args)
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+        retcode, output = p.wait(), p.stdout.read().strip()
+        if retcode == 44:  # password does not exist
+            raise PasswordNotFound()
+        elif retcode == 45:  # password already exists
+            raise PasswordExists()
+        elif retcode > 0:
+            err = KeychainError('Unknown Keychain error : %s' % output)
+            err.retcode = retcode
+            raise err
+        return (retcode, output)

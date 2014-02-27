@@ -18,4 +18,9 @@ workflow.py:
 		bundleid.log?
 
 Other:
-	- Add phyllistein's `keychain` module
+	- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
+		https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
+		Created own version
+	- Add and adapt phyllisstein's `fuzzy` module @done(14-02-27 22:56)
+		https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
+		Created own version

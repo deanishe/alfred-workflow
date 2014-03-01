@@ -624,9 +624,6 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-
-
-
     def filter(query, items, key=lambda x: x, ascending=False,
                include_score=False):
         """Fuzzy search filter. Returns list of `items` that match `query`.
@@ -847,12 +844,40 @@ class Workflow(object):
     ####################################################################
 
     def _save_password(self, account, password, service=None):
+        """Internal function to save account credentials.
+
+        :param account: name of the account the password is for, e.g. "Pinboard"
+        :type account: `unicode`
+        :param password: the password to secure
+        :type password: `unicode`
+        :param service: Name of the service. By default, this is the workflow's
+                        bundle ID
+        :type service: `unicode`
+
+        """
+
         if not service:
             service = self.bundleid
         return self._call_security('add-generic-password', service, account,
                                    '-w', password)
 
     def save_password(self, account, password, service=None):
+        """Save account credentials.
+
+        If the account exists, the old password will first be deleted (Keychain
+        throws an error otherwise).
+
+        If something goes wrong, a `KeychainError` exception will be raised.
+
+        :param account: name of the account the password is for, e.g. "Pinboard"
+        :type account: `unicode`
+        :param password: the password to secure
+        :type password: `unicode`
+        :param service: Name of the service. By default, this is the workflow's
+                        bundle ID
+        :type service: `unicode`
+
+        """
         if not service:
             service = self.bundleid
         try:
@@ -870,6 +895,19 @@ class Workflow(object):
                 self.logger.debug('save_password : %s:%s', service, account)
 
     def get_password(self, account, service=None):
+        """Retrieve the password saved at `service/account`. Raise
+        `PasswordNotFound` exception if password doesn't exist.
+
+        :param account: name of the account the password is for, e.g. "Pinboard"
+        :type account: `unicode`
+        :param service: Name of the service. By default, this is the workflow's
+                        bundle ID
+        :type service: `unicode`
+        :returns: account password
+        :rtype: `unicode`
+
+        """
+
         if not service:
             service = self.bundleid
         retcode, password = self._call_security('find-generic-password',
@@ -878,6 +916,17 @@ class Workflow(object):
         return password
 
     def delete_password(self, account, service=None):
+        """Delete the password stored at ``service/account``. Raises
+        `KeychainError` if account is unknown.
+
+        :param account: name of the account the password is for, e.g. "Pinboard"
+        :type account: `unicode`
+        :param service: Name of the service. By default, this is the workflow's
+                        bundle ID
+        :type service: `unicode`
+
+        """
+
         if not service:
             service = self.bundleid
         retcode, output = self._call_security('delete-generic-password',
@@ -958,12 +1007,34 @@ class Workflow(object):
         return dirpath
 
     def _call_security(self, action, service, account, *args):
-        """Call the ``security`` CLI app that provides access to keychains"""
+        """Call the ``security`` CLI app that provides access to keychains.
+
+
+        May raise `PasswordNotFound`, `PasswordExists` or `KeychainError`
+        exceptions (the first two are subclasses of `KeychainError`).
+
+        :param action: The ``security`` action to call, e.g.
+                           ``add-generic-password``
+        :type action: `unicode`
+        :param service: Name of the service.
+        :type service: `unicode`
+        :param account: name of the account the password is for, e.g. "Pinboard"
+        :type account: `unicode`
+        :param password: the password to secure
+        :type password: `unicode`
+        :param *args: list of command line arguments to be passed to
+                      ``security``
+        :type *args: `list` or `tuple`
+        :returns: ``(retcode, output)``. ``retcode`` is an `int`, ``output`` a
+                  `unicode` string.
+        :rtype: `tuple` (`int`, `unicode`)
+
+        """
 
         cmd = ['security', action, '-s', service, '-a', account] + list(args)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
-        retcode, output = p.wait(), p.stdout.read().strip()
+        retcode, output = p.wait(), p.stdout.read().strip().decode('utf-8')
         if retcode == 44:  # password does not exist
             raise PasswordNotFound()
         elif retcode == 45:  # password already exists

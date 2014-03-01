@@ -8,6 +8,8 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Catches and logs workflow errors for easier development and support
 - Auto-saves settings
 - Super-simple data caching
+- Fuzzy, Alfred-like search/filtering
+- Keychain support for secure storage of passwords, API keys etc.
 - Simple generation of Alfred feedback (XML output)
 - Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests](http://docs.python-requests.org/en/latest/)-like interface
@@ -165,6 +167,19 @@ You should also ensure that any data you load from external sources are also dec
 By default `Workflow.decode` normalises Unicode text to the **NFC** form. This is the default for Python and should work well with strings in scripts and from web services. OS X, however, uses **NFD** normalisation, so if you workflow primarily uses data from the system (including the filesystem via `subprocess` or `os.listdir` etc.), you should set the default normalisation to **NFD** by calling `Workflow` with the `normalization='NFD'` argument.
 
 If possible, test your workflow with non-ASCII text to ensure it behaves properly.
+
+### Keychain access ###
+
+You can easily save sensitive data to the user's Keychain:
+
+```python
+wf = Workflow()
+wf.save_password('name of account', password)
+wf.get_password('name of account')
+wf.delete_password('name of account')
+```
+
+
 
 ### "Magic" arguments ###
 

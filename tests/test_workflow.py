@@ -19,10 +19,13 @@ import json
 import tempfile
 import shutil
 import logging
+import time
 from xml.etree import ElementTree as ET
 from pprint import pprint
+import functools
 from unicodedata import normalize
-from workflow.workflow import Workflow, Settings
+from workflow.workflow import (Workflow, Settings, PasswordNotFound,
+                               KeychainError)
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
@@ -45,10 +48,20 @@ class WorkflowTests(unittest.TestCase):
     def setUp(self):
         self.libs = [os.path.join(os.path.dirname(__file__), 'lib')]
         self.wf = Workflow(libraries=self.libs)
+        self.account = 'this-is-my-test-account'
+        self.password = 'this-is-my-safe-password'
+        self.password2 = 'this-is-my-other-safe-password'
 
     def tearDown(self):
         self.wf.clear_cache()
         self.wf.clear_settings()
+        try:
+            self.wf.delete_password(self.account)
+        except PasswordNotFound:
+            pass
+        for dirpath in (self.wf.cachedir, self.wf.datadir):
+            if os.path.exists(dirpath):
+                shutil.rmtree(dirpath)
 
     def test_item_creation(self):
         """XML generation"""
@@ -111,6 +124,7 @@ class WorkflowTests(unittest.TestCase):
         """Additional libraries"""
         for path in self.libs:
             self.assert_(path in sys.path)
+        self.assertEquals(sys.path[0:len(self.libs)], self.libs)
         import youcanimportme
 
     def test_info_plist(self):
@@ -193,6 +207,124 @@ class WorkflowTests(unittest.TestCase):
         logger = logging.Logger('')
         self.wf.logger = logger
         self.assertEquals(self.wf.logger, logger)
+
+    def test_cached_data(self):
+        """Cached data stored"""
+        data = {'key1': 'value1'}
+        d = self.wf.cached_data('test', lambda: data, max_age=10)
+        self.assertEquals(data, d)
+
+    def test_cached_data_callback(self):
+        """Cached data callback"""
+        called = {'called': False}
+        data = [1, 2, 3]
+
+        def getdata():
+            called['called'] = True
+            return data
+
+        d = self.wf.cached_data('test', getdata, max_age=10)
+        self.assertEquals(d, data)
+        self.assertTrue(called['called'])
+
+    def test_cache_expires(self):
+        """Cached data expires"""
+        data = ('hello', 'goodbye')
+        called = {'called': False}
+
+        def getdata():
+            called['called'] = True
+            return data
+
+        d = self.wf.cached_data('test', getdata, max_age=1)
+        self.assertEquals(d, data)
+        self.assertTrue(called['called'])
+        # should be loaded from cache
+        called['called'] = False
+        d2 = self.wf.cached_data('test', getdata, max_age=1)
+        self.assertEquals(d2, data)
+        self.assertFalse(called['called'])
+        # cache has expired
+        time.sleep(1)
+        # should be loaded from cache (no expiry)
+        d3 = self.wf.cached_data('test', getdata, max_age=0)
+        self.assertEquals(d3, data)
+        self.assertFalse(called['called'])
+        # should hit data func (cached data older than 1 sec)
+        d4 = self.wf.cached_data('test', getdata, max_age=1)
+        self.assertEquals(d4, data)
+        self.assertTrue(called['called'])
+
+    def test_cache_fresh(self):
+        """Cached data is fresh"""
+        data = 'This is my data'
+        d = self.wf.cached_data('test', lambda: data, max_age=1)
+        self.assertEquals(d, data)
+        self.assertTrue(self.wf.cached_data_fresh('test', max_age=10))
+
+    def test_keychain(self):
+        """Save/get/delete password"""
+        self.assertRaises(PasswordNotFound,
+                          self.wf.delete_password, self.account)
+        self.assertRaises(PasswordNotFound, self.wf.get_password, self.account)
+        self.wf.save_password(self.account, self.password)
+        self.assertEquals(self.wf.get_password(self.account), self.password)
+        self.assertEquals(self.wf.get_password(self.account, BUNDLE_ID),
+                          self.password)
+        # try to set same password
+        self.wf.save_password(self.account, self.password)
+        self.assertEquals(self.wf.get_password(self.account), self.password)
+        # try to set different password
+        self.wf.save_password(self.account, self.password2)
+        self.assertEquals(self.wf.get_password(self.account), self.password2)
+        # bad call to _call_security
+        with self.assertRaises(KeychainError):
+            self.wf._call_security('pants', BUNDLE_ID, self.account)
+
+    def test_run_fails(self):
+        """Run fails"""
+        def cb(wf):
+            self.assertEquals(wf, self.wf)
+            raise ValueError('Have an error')
+        self.wf.name  # cause info.plist to be parsed
+        ret = self.wf.run(cb)
+        self.assertEquals(ret, 1)
+        # named after bundleid
+        self.wf = Workflow()
+        self.wf.bundleid
+        ret = self.wf.run(cb)
+        self.assertEquals(ret, 1)
+
+    def test_run_okay(self):
+        """Run okay"""
+        def cb(wf):
+            self.assertEquals(wf, self.wf)
+        ret = self.wf.run(cb)
+        self.assertEquals(ret, 0)
+
+    def test_filter(self):
+        """Filter"""
+        items = [
+            ('Test Item One', 'startswith'),
+            ('test item two', 'startswith'),
+            ('TwoExtraSpecialTests', 'capitals'),
+            ('this-is-a-test', 'atom'),
+            ('the extra special trials', 'initials:startswith'),
+            ('not the extra special trials', 'initials:contains'),
+            ('intestinal fortitude', 'substring'),
+            ('the splits', 'allchars'),
+            ('nomatch', ''),
+        ]
+        results = self.wf.filter('test', items, key=lambda x: x[0],
+                                 ascending=True)
+        self.assertEquals(len(results), 8)
+        results = self.wf.filter('test', items, key=lambda x: x[0],
+                                 include_score=True)
+        self.assertEquals(len(results), 8)
+        for item, score, rule in results:
+            for value, r in items:
+                if value == item[0]:
+                    self.assertEquals(rule, r)
 
 
 class SettingsTests(unittest.TestCase):

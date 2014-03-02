@@ -34,7 +34,7 @@ USER_AGENT = u'alfred-workflow-0.1'
 BOUNDARY_CHARS = string.digits + string.ascii_letters
 
 # Table mapping response codes to messages; entries have the
-# form {code: (shortmessage, longmessage)}.
+# form {code: message}.
 RESPONSES = {
     100: 'Continue',
     101: 'Switching Protocols',

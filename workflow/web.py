@@ -8,12 +8,17 @@
 #
 
 """
-web.py
+Basic, ``requests``-like API for retrieving data from the Web.
 
-Basic, requests-like API for retrieving data from the Web.
-
-Intended to replace most basic functionality of ``requests``, but at
+Intended to replace basic functionality of ``requests``, but at
 1/200th of the size.
+
+Features:
+
+- JSON requests and responses
+- Form data submission
+- File uploads
+- Redirection support
 
 """
 
@@ -80,10 +85,10 @@ RESPONSES = {
 
 
 def str_dict(dic):
-    """Convert keys and values in ``d`` into UTF-8-encoded `str`
+    """Convert keys and values in ``dic`` into UTF-8-encoded :class:`str`
 
-    :param dic: `dict`
-    :returns: `dict`
+    :param dic: :class:`dict`
+    :returns: :class:`dict`
 
     """
     dic2 = {}
@@ -105,7 +110,7 @@ class NoRedirectHandler(urllib2.HTTPRedirectHandler):
 
 class Response(object):
     """
-    Response returned by `request` / `get` / `post` functions.
+    Returned by :func:`request` / :func:`get` / :func:`post` functions.
 
     A simplified version of the ``Response`` object in the ``requests`` library.
 
@@ -116,16 +121,16 @@ class Response(object):
     ISO-8859-1
     >>> r.content  # bytes
     <html> ...
-    >>> r.text  # unicode, decoded according to encoding
+    >>> r.text  # unicode, decoded according to charset in HTTP header/meta tag
     u'<html> ...'
     >>> r.json()  # content parsed as JSON
 
     """
 
     def __init__(self, request):
-        """Call `request` with urllib2 and process results.
+        """Call `request` with :mod:`urllib2` and process results.
 
-        :param request: `~urllib2.Request` instance
+        :param request: :class:`urllib2.Request` instance
 
         """
 
@@ -170,7 +175,7 @@ class Response(object):
         """Decode response contents as JSON
 
         :returns: decoded JSON
-        :rtype: `list` / `dict`
+        :rtype: :class:`list` / :class:`dict`
 
         """
 
@@ -180,7 +185,7 @@ class Response(object):
     def text(self):
         """Return unicode-decoded content of response
 
-        :returns: `unicode`
+        :returns: :class:`unicode`
 
         """
 
@@ -191,7 +196,7 @@ class Response(object):
     def raise_for_status(self):
         """Raise stored error if one occurred
 
-        error will be instance of `~urllib2.HTTPError`
+        error will be instance of :class:`~urllib2.HTTPError`
         """
 
         if self.error:
@@ -202,7 +207,7 @@ class Response(object):
         """Get encoding from HTTP headers or content
 
         :returns: encoding or `None`
-        :rtype: `unicode` or `None`
+        :rtype: :class:`unicode` or :obj:`None`
 
         """
 
@@ -232,7 +237,7 @@ class Response(object):
 
 def request(method, url, params=None, data=None, headers=None, cookies=None,
             files=None, auth=None, timeout=60, allow_redirects=False):
-    """Initiate an HTTP(S) request.
+    """Initiate an HTTP(S) request. Returns :class:`Response` object.
 
     :param method: 'GET' or 'POST'
     :type method: `unicode`
@@ -254,7 +259,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     :type timeout: `int`
     :param allow_redirects: follow redirections
     :type allow_redirects: `Boolean`
-    :returns: `~web.Response` instance
+    :returns: :class:`Response` object
 
     """
 
@@ -305,9 +310,9 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
 def get(url, params=None, headers=None, cookies=None, auth=None,
         timeout=60, allow_redirects=True):
-    """Initiate a GET request. Arguments as for `request` function.
+    """Initiate a GET request. Arguments as for :func:`request` function.
 
-    :returns: `Request` instance
+    :returns: :class:`Request` instance
 
     """
 
@@ -317,9 +322,9 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
 
 def post(url, params=None, data=None, headers=None, cookies=None, files=None,
          auth=None, timeout=60, allow_redirects=False):
-    """Initiate a POST request. Arguments as for `request` function.
+    """Initiate a POST request. Arguments as for :func:`request` function.
 
-    :returns: `Request` instance
+    :returns: :class:`Request` instance
 
     """
     return request('POST', url, params, data, headers, cookies, files, auth,
@@ -327,19 +332,23 @@ def post(url, params=None, data=None, headers=None, cookies=None, files=None,
 
 
 def encode_multipart_formdata(fields, files):
-    """
+    """Encode form data (``fields``) and ``files`` for POST request.
 
     :param fields: mapping of ``{name : value}`` pairs for normal form fields.
-    :type fields: `dict`
-    :param files: mapping of ``{name : {
-                                 'filename': 'blah.txt',
-                                 'content': '<binary data>',
-                                 'mimetype': 'text/plain'}
-                                }`` elements for file data.
-                                ``mimetype`` is optional.
-    :type files: `dict` of ``dicts``
-    :returns: ``(headers, body)`` ``headers`` is a `dict` of HTTP headers
+    :type fields: :class:`dict`
+    :param files: dictionary of fieldnames/files elements for file data.
+                  :obj:`mimetype` is optional.
+    :type files: :class:`dict` of :class:`dicts`
+    :returns: ``(headers, body)`` ``headers`` is a :class:`dict` of HTTP headers
     :rtype: 2-tuple ``(dict, str)``
+
+    The ``files`` argument is a dictionary::
+
+        {'fieldname' : { 'filename': 'blah.txt',
+                         'content': '<binary data>',
+                         'mimetype': 'text/plain'}
+        }
+
     """
 
     def get_content_type(filename):
@@ -348,7 +357,7 @@ def encode_multipart_formdata(fields, files):
         :param filename: filename of file
         :type filename: unicode/string
         :returns: mime-type, e.g. ``text/html``
-        :rtype: string
+        :rtype: :class:`str`
 
         """
 

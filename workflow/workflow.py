@@ -8,11 +8,71 @@
 #
 
 """
-===========
-workflow.py
-===========
+Helper class for Alfred 2 workflow authors.
 
-Helper for Alfred 2 workflows.
+Basic usage
+-----------
+
+Copy the ``workflow`` directory into the root directory of your workflow::
+
+    Your Workflow/
+        info.plist
+        icon.png
+        workflow/
+            __init__.py
+            workflow.py
+            web.py
+        yourscript.py
+        etc.
+
+In Alfred, make sure your Script Filter is set to select ``/bin/bash`` as
+the **Language**, and select the following (and only the following)
+**Escaping** options:
+
+- Backquotes
+- Double Quotes
+- Dollars
+- Backslashes
+
+The **Script** field should contain the following::
+
+    python yourscript.py "{query}"
+
+
+where ``yourscript.py`` is the name of your script.
+
+Your workflow should start out like this. This enables :class:`Workflow`
+to capture any errors thrown by your scripts::
+
+    #!/usr/bin/python
+    # encoding: utf-8
+
+    import sys
+
+    from workflow import Workflow
+
+
+    def main(wf):
+        # The Workflow instance will be passed to the function
+        # you call from `Workflow.run`
+        # Your imports here if you want to catch import errors
+        import somemodule
+        import anothermodule
+        # Get args from Workflow, already in normalised Unicode
+        args = wf.args
+
+        # Do stuff here ...
+
+        # Add an item to Alfred feedback
+        wf.add_item(u'Item title', u'Item subtitle')
+
+        # Send output to Alfred
+        wf.send_feedback()
+
+
+    if __name__ == '__main__':
+        wf = Workflow()
+        sys.exit(wf.run(main))
 
 """
 
@@ -56,13 +116,13 @@ ICON_FAVOURITE = ICON_FAVORITE  # Queen's English, if you please
 ICON_USER = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
              '/Resources/UserIcon.icns')
 ICON_GROUP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/GroupInfo.icns')
+              '/Resources/GroupIcon.icns')
 ICON_HELP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/HelpInfo.icns')
+             '/Resources/HelpIcon.icns')
 ICON_NETWORK = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
                 '/Resources/GenericNetworkIcon.icns')
 ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-            '/Resources/BookmarkInfo.icns')
+            '/Resources/BookmarkIcon.icns')
 ICON_COLOR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
               '/Resources/ProfileBackgroundColor.icns')
 ICON_COLOUR = ICON_COLOR
@@ -115,14 +175,14 @@ class Item(object):
     """A feedback item for Alfred.
 
     You probably shouldn't use this class directly, but via
-    `Workflow.add_item`.
+    :class:`Workflow.add_item`.
 
     """
 
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None):
-        """Arguments the same as for `Workflow.add_item`.
+        """Arguments the same as for :class:`Workflow.add_item`.
 
         """
 
@@ -140,7 +200,8 @@ class Item(object):
     def elem(self):
         """Return item as XML element for Alfred
 
-        :returns: `~xml.etree.ElementTree.Element` instance for `Item`
+        :returns: :class:`~xml.etree.ElementTree.Element` instance
+                  for :class:`Item`
 
         """
 
@@ -234,84 +295,23 @@ class Settings(dict):
 
 
 class Workflow(object):
-    """Helper class for Alfred workflow authors.
+    """Create new :class:`Workflow` instance.
 
-    Provides convenience methods for:
-
-    - Parsing script arguments.
-    - Text decoding/normalisation.
-    - Caching data and settings.
-    - Secure storage (and sync) of passwords (using OS X Keychain)
-    - Generating XML output for Alfred.
-    - Including external libraries (adding directories to `sys.path`).
-    - Filtering results using an Alfred-like algorithm.
-    - Generating log output for debugging.
-    - Capturing errors, so the workflow doesn't fail silently.
-
-    Basic usage
-    -----------
-
-    Copy the ``workflow`` directory into the root directory of your workflow::
-
-        Your Workflow/
-            info.plist
-            icon.png
-            workflow/
-                __init__.py
-                workflow.py
-                web.py
-                etc.
-            yourscript.py
-            etc.
-
-    In Alfred, make sure your Script Filter is set to select ``/bin/bash`` as
-    the **Language**, and select the following (and only the following)
-    **Escaping** options:
-
-    - Backquotes
-    - Double Quotes
-    - Dollars
-    - Backslashes
-
-    The **Script** field should contain the following::
-
-        python yourscript.py "{query}"
-
-
-    where ``yourscript.py`` is the name of your script.
-
-    Your workflow should start out like this. This enables `Workflow`
-    to capture any errors thrown by your scripts::
-
-        #!/usr/bin/python
-        # encoding: utf-8
-
-        import sys
-
-        from workflow import Workflow
-
-
-        def main(wf):
-            # The Workflow instance will be passed to the function
-            # you call from `Workflow.run`
-            # Your imports here if you want to catch import errors
-            import somemodule
-            import anothermodule
-            # Get args from Workflow, already in normalised Unicode
-            args = wf.args
-
-            # Do stuff here ...
-
-            # Add an item to Alfred feedback
-            wf.add_item(u'Item title', u'Item subtitle')
-
-            # Send output to Alfred
-            wf.send_feedback()
-
-
-        if __name__ == '__main__':
-            wf = Workflow()
-            sys.exit(wf.run(main))
+        :param default_settings: default workflow settings. If no settings file
+            exists, :class:`Workflow.settings` will be pre-populated with
+            ``default_settings``.
+        :type default_settings: :class:`dict`
+        :param input_encoding: encoding of command line arguments
+        :type input_encoding: :class:`unicode`
+        :param normalization: normalisation to apply to CLI args.
+            Use ``NFC`` for Python, ``NFD`` if working with data
+            from the filesystem.
+        :type normalization: :class:`unicode`
+        :param capture_args: capture and act on ``workflow:*`` arguments
+        :type capture_args: :class:`Boolean`
+        :param libraries: sequence of paths to directories containing
+                          libraries. These paths will be prepended to `sys.path`.
+        :type libraries: :class:`tuple` or :class:`list`
 
     """
 
@@ -321,23 +321,6 @@ class Workflow(object):
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
                  normalization='NFC', capture_args=True, libraries=None):
-        """
-        Create new Workflow instance.
-
-        :param default_settings: default workflow settings
-        :type default_settings: `dict`
-        :param input_encoding: encoding of command line arguments
-        :type input_encoding: `unicode`
-        :param normalization: normalisation to apply to CLI args
-        :type normalization: `unicode`. Use 'NFC'for Python, 'NFD' if working
-                             with data from the filesystem.
-        :param capture_args: capture and act on 'workflow:*' arguments
-        :type capture_args: `Boolean`
-        :param libraries: sequence of paths to directories containing
-                          libraries. These paths will be added to `sys.path`.
-        :type libraries: sequence (`tuple` or `list`)
-
-        """
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding

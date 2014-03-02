@@ -325,6 +325,15 @@ class WorkflowTests(unittest.TestCase):
                 if value == item[0]:
                     self.assertEquals(rule, r)
 
+    def test_icons(self):
+        """Icons"""
+        import workflow
+        for name in dir(workflow):
+            if name.startswith('ICON_'):
+                path = getattr(workflow, name)
+                print(name, path)
+                self.assert_(os.path.exists(path))
+
 
 class SettingsTests(unittest.TestCase):
 

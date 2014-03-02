@@ -725,7 +725,7 @@ class Workflow(object):
                     # "The Dukes of Hazzard"
                     elif query in initials:
                         score = 95.0 - (len(initials) - len(query))
-                        rule = 'intials:contains'
+                        rule = 'initials:contains'
 
                     # `query` is a substring of item
                     elif query in value.lower():

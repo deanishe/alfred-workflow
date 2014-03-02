@@ -179,7 +179,7 @@ wf.get_password('name of account')
 wf.delete_password('name of account')
 ```
 
-
+If you try to retrieve or delete a password that doesn't exist, a `PasswordNotFound` exception will be raised.
 
 ### "Magic" arguments ###
 

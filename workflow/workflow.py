@@ -14,7 +14,6 @@ workflow.py
 
 Helper for Alfred 2 workflows.
 
-TODO: Add magic arguments for opening cache/data directories in Finder
 """
 
 from __future__ import print_function, unicode_literals
@@ -34,7 +33,7 @@ import logging
 import logging.handlers
 try:
     import xml.etree.cElementTree as ET
-except ImportError:
+except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
 
@@ -179,21 +178,22 @@ class Settings(dict):
 
     """
 
-    def __init__(self, filepath, **defaults):
+    def __init__(self, filepath, defaults=None):
         """Dictionary keys & values will be saved as a JSON file
         at `filepath`. If the file does not exist, the dictionary
         (and settings file) will be initialised with `defaults`.
 
         :param filepath: where to save the settings
         :type filepath: `unicode`
-        :param **defaults: default settings
+        :param defaults: dict of default settings
+        :type defaults: `dict`
 
         """
 
         super(Settings, self).__init__()
         self._filepath = filepath
         self._nosave = False
-        if not os.path.exists(self._filepath):
+        if not os.path.exists(self._filepath) and defaults:
             for key, val in defaults.items():
                 self[key] = val
             self._save()  # save default settings
@@ -562,7 +562,7 @@ class Workflow(object):
 
         if not self._settings:
             self._settings = Settings(self.settings_path,
-                                      **self._default_settings)
+                                      self._default_settings)
         return self._settings
 
     def cached_data(self, name, data_func, max_age=60):
@@ -826,7 +826,7 @@ class Workflow(object):
         """
 
         item = self.item_class(title, subtitle, arg, autocomplete, valid,
-                               uid, icon)
+                               uid, icon, icontype, type)
         self._items.append(item)
         return item
 
@@ -947,7 +947,7 @@ class Workflow(object):
             for filename in os.listdir(self.cachedir):
                 path = os.path.join(self.cachedir, filename)
                 if os.path.isdir(path):
-                    shutil.deltree(path)
+                    shutil.rmtree(path)
                 else:
                     os.unlink(path)
                 self.logger.debug('Deleted : %r', path)
@@ -984,8 +984,6 @@ class Workflow(object):
 
     def _load_info_plist(self):
         """Load workflow info from ``info.plist``
-
-        :returns: `None`
 
         """
 

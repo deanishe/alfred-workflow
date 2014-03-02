@@ -144,7 +144,12 @@ class Response(object):
             self.raw = urllib2.urlopen(request)
         except urllib2.HTTPError as err:
             self.error = err
-            self.url = err.geturl()
+            try:
+                self.url = err.geturl()
+            # sometimes (e.g. when authentication fails)
+            # urllib can't get a URL from an HTTPError
+            except AttributeError:
+                pass
             self.status_code = err.code
         else:
             self.status_code = self.raw.getcode()
@@ -210,15 +215,18 @@ class Response(object):
                           self.content)
             if m:
                 encoding = m.group(1)
-        elif (self.mimetype.startswith('application/') and
+        elif ((self.mimetype.startswith('application/') or
+               self.mimetype.startswith('text/')) and
               'xml' in self.mimetype):
-            m = re.search("""<?xml.+encoding=["']{0,1}(.+)["'].*>""",
+            m = re.search("""<?xml.+encoding=["'](.+?)["'].*>""",
                           self.content)
             if m:
                 encoding = m.group(1)
         elif self.mimetype == 'application/json' and not encoding:
             # The default encoding for JSON
             encoding = 'utf-8'
+        if encoding:
+            encoding = encoding.lower()
         return encoding
 
 

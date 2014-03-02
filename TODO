@@ -10,12 +10,19 @@ General:
 		source code in any case.
 
 web.py:
-	- Add unit tests
+	- Add unit tests @done(14-03-02 01:23)
 
 workflow.py:
 	- Add unit tests
 	- Give log file more unique name @done(14-02-27 23:01)
 		bundleid.log?
+	- Add magic arguments for opening cache/data directories in Finder
+
+	Unit Tests:
+		- Tests for `Workflow` Keychain methods
+		- Tests for `Workflow.run` method
+		- Tests for `Workflow` data caching methods
+		- 
 
 Other:
 	- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)

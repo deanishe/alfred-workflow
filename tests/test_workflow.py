@@ -21,9 +21,8 @@ import shutil
 import logging
 import time
 from xml.etree import ElementTree as ET
-from pprint import pprint
-import functools
 from unicodedata import normalize
+
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError)
 

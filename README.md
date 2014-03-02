@@ -29,7 +29,6 @@ of your workflow:
 			__init__.py
 			workflow.py
 			web.py
-			etc.
 		yourscript.py
 		etc.
 
@@ -50,6 +49,7 @@ def main(wf):
     # The Workflow instance will be passed to the function
     # you call from `Workflow.run`
     # Your imports here if you want to catch import errors
+    # or if the modules/packages are in a directory added via `Workflow(libraries=...)`
     import somemodule
     import anothermodule
     # Get args from Workflow, already in normalised Unicode
@@ -192,8 +192,8 @@ wf.delete_password('name of account')
 ### Extending sys.path ###
 
 If your workflow has other dependencies, you can install these in a subdirectory and add it to `sys.path` by passing the `libraries=['dir/path/1', 'dir/path/2', ...]` argument to `Workflow()`. This
-will only work if you're initialising `Workflow` *before* performing imports.
+will only work if you initialise `Workflow` *before* performing imports.
 
 ### Logging ###
 
-The `Workflow` class provides a pre-configured `logging.Logger` instance at `Workflow.logger`. This will log all messages both to the Terminal (if running as a CLI script) and to the workflow's log file, named `workflow.log` and stored in the workflow's cache directory. You can open it by passing `workflow:openlog` as the first argument to your workflow script.
+The `Workflow` class provides a pre-configured `logging.Logger` instance at `Workflow.logger`. This will log all messages both to the Terminal (if running as a CLI script) and to the workflow's log file, named `<bundleid>.log` and stored in the workflow's cache directory. You can open it by passing `workflow:openlog` as the first argument to your workflow script.

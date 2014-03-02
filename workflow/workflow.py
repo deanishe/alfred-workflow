@@ -356,8 +356,7 @@ class Workflow(object):
         self._logger = None
         self._items = []
         if libraries:
-            for path in libraries:
-                sys.path.insert(0, path)
+            sys.path = libraries + sys.path
 
     ####################################################################
     # API methods
@@ -624,24 +623,25 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-    def filter(query, items, key=lambda x: x, ascending=False,
+    def filter(self, query, items, key=lambda x: x, ascending=False,
                include_score=False):
-        """Fuzzy search filter. Returns list of `items` that match `query`.
+        """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         Matching is case-insensitive. Any item that does not contain the
-        entirety of `query` is rejected.
+        entirety of ``query`` is rejected.
 
         Results are matched as follows:
 
-        1. Items whose capital letters match `query`, e.g.
+        1. Items whose capital letters match ``query``, e.g.
            ``of`` = ``OmniFocus``
-        2. Items that start with `query`. Shorter items are rated more highly
-        3. Items whose "initials" match `query`, e.g.
+        2. Items that start with ``query``. Shorter items are rated more highly
+        3. Items whose "initials" match ``query``, e.g.
            ``goc`` = ``Game of Cards``
-        4. Items that contain `query` as an "atom" (words between spaces
+        4. Items that contain ``query`` as an "atom" (words between spaces
            and other non-letter characters).
-        4. Items that contain all the characters in `query`. Matches nearer the
-           beginning of the item are prioritised, as are shorter items.
+        4. Items that contain all the characters in ``query``.
+           Matches nearer the beginning of the item are prioritised,
+           as are shorter items.
 
         :param query: query to test items against
         :type query: `unicode`
@@ -653,12 +653,11 @@ class Workflow(object):
         :param ascending: set to `True` to get worst matches first
         :type ascending: `Boolean`
         :param include_score: Useful for debugging the scoring algorithm.
-                              If `True`, results will be a list of tuples
-                              ``(item, score, rule)``.
+            If `True`, results will be a list of tuples ``(item, score, rule)``.
         :type include_score: `Boolean`
-        :returns: list of `items` matching `query` or list of
-                  ``(item, score, rule)`` `tuples` if `include_score` is `True`.
-                  ``rule`` is the name of the rule that matched the item.
+        :returns: list of `items` matching ``query`` or list of
+            ``(item, score, rule)`` `tuples` if `include_score` is `True`.
+            ``rule`` is the name of the rule that matched the item.
         :rtype: `list`
 
         """
@@ -781,7 +780,7 @@ class Workflow(object):
                     name = self._name
                 elif self._bundleid:
                     name = self._bundleid
-                else:
+                else:  # pragma: no cover
                     name = os.path.dirname(__file__)
                 self.add_item("Error in workflow '%s'" % name, unicode(err),
                               icon=ICON_ERROR)
@@ -843,24 +842,6 @@ class Workflow(object):
     # Keychain password storage methods
     ####################################################################
 
-    def _save_password(self, account, password, service=None):
-        """Internal function to save account credentials.
-
-        :param account: name of the account the password is for, e.g. "Pinboard"
-        :type account: `unicode`
-        :param password: the password to secure
-        :type password: `unicode`
-        :param service: Name of the service. By default, this is the workflow's
-                        bundle ID
-        :type service: `unicode`
-
-        """
-
-        if not service:
-            service = self.bundleid
-        return self._call_security('add-generic-password', service, account,
-                                   '-w', password)
-
     def save_password(self, account, password, service=None):
         """Save account credentials.
 
@@ -881,7 +862,9 @@ class Workflow(object):
         if not service:
             service = self.bundleid
         try:
-            retcode, output = self._save_password(account, password, service)
+            retcode, output = self._call_security('add-generic-password',
+                                                  service, account,
+                                                  '-w', password)
             self.logger.debug('Saved password : %s:%s', service, account)
         except PasswordExists:
             self.logger.debug('Password exists : %s:%s', service, account)
@@ -890,8 +873,9 @@ class Workflow(object):
                 self.logger.debug('Password unchanged')
             else:
                 self.delete_password(account, service)
-                retcode, output = self._save_password(account, password,
-                                                      service)
+                retcode, output = self._call_security('add-generic-password',
+                                                      service, account,
+                                                      '-w', password)
                 self.logger.debug('save_password : %s:%s', service, account)
 
     def get_password(self, account, service=None):
@@ -917,7 +901,7 @@ class Workflow(object):
 
     def delete_password(self, account, service=None):
         """Delete the password stored at ``service/account``. Raises
-        `KeychainError` if account is unknown.
+        `PasswordNotFound` if account is unknown.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
         :type account: `unicode`

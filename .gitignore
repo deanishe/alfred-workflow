@@ -1,3 +1,5 @@
 /test-workflow
 *.log
 .coverage
+_build/
+posts.json

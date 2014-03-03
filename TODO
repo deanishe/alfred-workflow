@@ -13,16 +13,16 @@ web.py:
 	- Add unit tests @done(14-03-02 01:23)
 
 workflow.py:
-	- Add unit tests
+	- Add unit tests @done(14-03-03 03:20)
 	- Give log file more unique name @done(14-02-27 23:01)
 		bundleid.log?
 	- Add magic arguments for opening cache/data directories in Finder
+	- Move `INITIALS` and `split_on_delimiters` to Workflow class attributes
 
 	Unit Tests:
-		- Tests for `Workflow` Keychain methods
-		- Tests for `Workflow.run` method
-		- Tests for `Workflow` data caching methods
-		- 
+		- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
+		- Tests for `Workflow.run` method @done(14-03-03 03:21)
+		- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
 
 Other:
 	- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)

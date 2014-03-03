@@ -1,0 +1,74 @@
+{% extends "basic/layout.html" %}
+
+{# add image for OpenGraph #}
+{% block extrahead %}
+  {% if theme_opengraph_image %}
+    <link rel="image_src" href="{{ pathto(theme_opengraph_image, 1) }}" />
+  {% endif %}
+{% endblock %}
+
+{# wrap contents #}
+{% block header %}
+  <div class="wrap">
+    {% if not theme_hide_toc %}
+      <div class="tocwrapper">
+        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
+        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
+        <div class="toc">{{ toc }}</div>
+        <script>
+          var toc = $( ".toc" );
+          $( ".showtoc span" ).click(function() {
+            $( this ).parent().hide().next().show();
+            toc.slideDown( "fast" );
+          });
+          $( ".hidetoc span" ).click(function() {
+            $( this ).parent().hide().prev().show();
+            toc.slideUp( "fast" );
+          });
+        </script>
+      </div>
+    {% endif %}
+    {{ super() }}
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+  </div>
+  {% if theme_google_analytics %}
+    <script>
+      var domainMatch = /https?:\/\/([^\/]+)/.exec(location.href);
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{{ theme_google_analytics }}']);
+      if (domainMatch) {
+        _gaq.push(['_setDomainName', domainMatch[1]]);
+      }
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var isHTTPS = 'https:' == document.location.protocol;
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        var url = isHTTPS ? 'https://ssl' : 'http://www';
+        url += '.google-analytics.com/ga.js';
+        ga.src = url;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  {% endif %}
+{% endblock %}
+
+{# do not display relbars #}
+{% block relbar1 %}{% endblock %}
+{% block relbar2 %}
+  {% if theme_github_fork %}
+    <a href="http://github.com/{{ theme_github_fork }}" style="
+      display: block; position: absolute; top: 0; right: 0;
+      width: 149px; height: 149px; text-indent: -9999px;
+      background: url('{{ pathto(theme_github_ribbon, 1) }}') no-repeat;
+    ">Fork me on GitHub</a>
+  {% endif %}
+{% endblock %}
+{% block sidebar1 %}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+{% block sidebarsourcelink %}{% endblock %}
+{% block sidebarsearch %}{% endblock %}

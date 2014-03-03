@@ -8,71 +8,12 @@
 #
 
 """
-Helper class for Alfred 2 workflow authors.
+Helper library for Alfred 2 workflow authors.
 
-Basic usage
------------
+You probably only want to use the :class:`Workflow` class directly.
 
-Copy the ``workflow`` directory into the root directory of your workflow::
-
-    Your Workflow/
-        info.plist
-        icon.png
-        workflow/
-            __init__.py
-            workflow.py
-            web.py
-        yourscript.py
-        etc.
-
-In Alfred, make sure your Script Filter is set to select ``/bin/bash`` as
-the **Language**, and select the following (and only the following)
-**Escaping** options:
-
-- Backquotes
-- Double Quotes
-- Dollars
-- Backslashes
-
-The **Script** field should contain the following::
-
-    python yourscript.py "{query}"
-
-
-where ``yourscript.py`` is the name of your script.
-
-Your workflow should start out like this. This enables :class:`Workflow`
-to capture any errors thrown by your scripts::
-
-    #!/usr/bin/python
-    # encoding: utf-8
-
-    import sys
-
-    from workflow import Workflow
-
-
-    def main(wf):
-        # The Workflow instance will be passed to the function
-        # you call from `Workflow.run`
-        # Your imports here if you want to catch import errors
-        import somemodule
-        import anothermodule
-        # Get args from Workflow, already in normalised Unicode
-        args = wf.args
-
-        # Do stuff here ...
-
-        # Add an item to Alfred feedback
-        wf.add_item(u'Item title', u'Item subtitle')
-
-        # Send output to Alfred
-        wf.send_feedback()
-
-
-    if __name__ == '__main__':
-        wf = Workflow()
-        sys.exit(wf.run(main))
+The :class:`Item` and :class:`Settings` classes are supporting classes,
+which are meant to be accessed via :class:`Workflow` instances.
 
 """
 
@@ -156,15 +97,27 @@ split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
 ####################################################################
 
 class KeychainError(Exception):
-    pass
+    """Raised by methods :meth:`~Workflow.save_password`,
+    :meth:`~Workflow.get_password` and :meth:`~Workflow.delete_password`
+     when ``security`` CLI app returns an unknown code.
+
+     """
 
 
 class PasswordNotFound(KeychainError):
-    pass
+    """Raised by method :meth:`~Workflow.get_password` when ``account``
+    is unknown to the Keychain.
+
+    """
 
 
 class PasswordExists(KeychainError):
-    pass
+    """Raised when trying to overwrite an existing ``account`` password.
+
+    The API user should never receive this error: it is used internally
+    by the :meth:`~Workflow.save_password` method.
+
+    """
 
 
 ####################################################################
@@ -172,17 +125,19 @@ class PasswordExists(KeychainError):
 ####################################################################
 
 class Item(object):
-    """A feedback item for Alfred.
+    """Represents a feedback item for Alfred. Generates Alfred-compliant
+    XML for a single item.
 
     You probably shouldn't use this class directly, but via
-    :class:`Workflow.add_item`.
+    :meth:`Workflow.add_item`. See :meth:`~Workflow.add_item`
+    for details of arguments.
 
     """
 
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None):
-        """Arguments the same as for :class:`Workflow.add_item`.
+        """Arguments the same as for :meth:`Workflow.add_item`.
 
         """
 
@@ -198,7 +153,7 @@ class Item(object):
 
     @property
     def elem(self):
-        """Return item as XML element for Alfred
+        """Create and return feedback item for Alfred.
 
         :returns: :class:`~xml.etree.ElementTree.Element` instance
                   for :class:`Item`
@@ -234,22 +189,22 @@ class Item(object):
 class Settings(dict):
     """A dictionary that saves itself when changed.
 
-    An appropriate instance is provided by `Workflow` instances at
-    `Workflow.settings`.
+    Dictionary keys & values will be saved as a JSON file
+    at ``filepath``. If the file does not exist, the dictionary
+    (and settings file) will be initialised with ``defaults``.
+
+    :param filepath: where to save the settings
+    :type filepath: :class:`unicode`
+    :param defaults: dict of default settings
+    :type defaults: :class:`dict`
+
+
+    An appropriate instance is provided by :class:`Workflow` instances at
+    :attr:`Workflow.settings`.
 
     """
 
     def __init__(self, filepath, defaults=None):
-        """Dictionary keys & values will be saved as a JSON file
-        at `filepath`. If the file does not exist, the dictionary
-        (and settings file) will be initialised with `defaults`.
-
-        :param filepath: where to save the settings
-        :type filepath: `unicode`
-        :param defaults: dict of default settings
-        :type defaults: `dict`
-
-        """
 
         super(Settings, self).__init__()
         self._filepath = filepath
@@ -286,10 +241,12 @@ class Settings(dict):
         self._save()
 
     def update(self, *args, **kwargs):
+        """Override :class:`dict` method"""
         super(Settings, self).update(*args, **kwargs)
         self._save()
 
     def setdefault(self, key, value=None):
+        """Override :class:`dict` method"""
         super(Settings, self).setdefault(key, value)
         self._save()
 
@@ -307,10 +264,11 @@ class Workflow(object):
             Use ``NFC`` for Python, ``NFD`` if working with data
             from the filesystem.
         :type normalization: :class:`unicode`
-        :param capture_args: capture and act on ``workflow:*`` arguments
+        :param capture_args: capture and act on ``workflow:*`` arguments. See
+            :ref:`Magic arguments <magic-arguments>` for details.
         :type capture_args: :class:`Boolean`
         :param libraries: sequence of paths to directories containing
-                          libraries. These paths will be prepended to `sys.path`.
+            libraries. These paths will be prepended to ``sys.path``.
         :type libraries: :class:`tuple` or :class:`list`
 
     """
@@ -389,10 +347,13 @@ class Workflow(object):
 
     @property
     def args(self):
-        """Return command line args as normalised unicode
+        """Return command line args as normalised unicode.
 
-        If `self._capture_args` is True, `Workflow` will interpret "capture"
-        the argument 'workflow:openlog' and open the log file.
+        Args are decoded and normalised via :meth:`~Workflow.decode`.
+
+        If :class:`Workflow` is called with ``capture_args=True``,
+        :class:`Workflow` will "capture" certain
+        ``workflow:*`` args and perform corresponding actions.
 
         """
 
@@ -933,7 +894,7 @@ class Workflow(object):
         """Return `text` as normalised unicode.
 
         If `encoding` and/or `normalization` is `None`, `self._input_encoding`
-        and `self._normalizsation` will be used.
+        and `self._normalization` will be used.
 
         :param text: string
         :type text: encoded string

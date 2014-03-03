@@ -1,0 +1,173 @@
+@import url(basic.css);
+
+body {
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  background: #fefefa url('bg.gif') no-repeat center top;
+  color: #554;
+}
+
+h1 {
+  position: absolute;
+  top: 8px;
+  margin: 0 auto;
+  text-indent: -9999px;
+  background: url(alfred-workflow.png) no-repeat center center;
+  width: 600px;
+  height: 120px;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: NeoSans, 'Trebuchet MS', sans-serif;
+}
+
+h2 {
+  padding-top: 15px;
+  border-bottom: 1px solid #e6e7db;
+  color: #332;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h3 {
+  padding-top: 10px;
+}
+
+em {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+a:link {
+  color: #369;
+}
+a:visited {
+  color: #669;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.highlight {
+  border: 1px solid;
+  border-color: #ccc #ddd #eee;
+  border-radius: 5px;
+}
+
+dd .highlight {
+  margin-bottom: 1em;
+}
+
+.highlight pre, .pre {
+  font-family: 'Lucida Console', Monaco, monospace;
+  color: #567;
+}
+
+.highlight pre {
+  margin: 9px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pre {
+  background: #f4f4f4;
+}
+
+dt:target, .highlighted {
+  background: #efb;
+}
+
+.figure {
+  text-align: center;
+}
+
+.wrap {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px solid #e6e7db;
+  font-size: 11px;
+  text-align: center;
+}
+
+.tocwrapper {
+  padding: 0;
+  margin: 128px auto 0;
+  font-size: 12px;
+}
+
+.toc {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border: solid #e6e7db;
+  border-width: 1px 0;
+}
+
+.toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li {
+  margin: 0;
+  padding: 0;
+}
+
+.toc ul ul li {
+  background: url(tree.gif) no-repeat 5px 0;
+  line-height: 20px;
+  margin-left: 6px;
+  padding-left: 16px;
+}
+
+.toc ul ul li:last-child {
+  background-repeat: no-repeat;
+  background-position: 5px -1766px;
+}
+
+.toc > ul > li > a {
+  background: url(favicon.ico) no-repeat 4px;
+  padding-left: 22px;
+  font-weight: bolder;
+  color: #554;
+}
+
+.toc a tt {
+  font-weight: normal;
+}
+
+.showtoc, .hidetoc {
+  font-size: 11px;
+  text-align: center;
+  color: #ccc;
+}
+
+.showtoc span, .hidetoc span {
+  cursor: pointer;
+  color: #999;
+}
+
+.hidetoc {
+  display: none;
+}
+
+.field-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.field-list .field-name {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+}
+

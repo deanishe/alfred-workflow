@@ -289,7 +289,7 @@ class Workflow(object):
         self._bundleid = None
         self._name = None
         # info.plist should be in the directory above this one
-        self._info_plist = self.localfile('info.plist')
+        self._info_plist = self.workflowfile('info.plist')
         self._info = None
         self._info_loaded = False
         self._logger = None
@@ -427,7 +427,7 @@ class Workflow(object):
 
         return os.path.join(self.datadir, filename)
 
-    def localfile(self, filename):
+    def workflowfile(self, filename):
         """Return full path to ``filename`` in workflow's root dir
         (where ``info.plist`` is)
 

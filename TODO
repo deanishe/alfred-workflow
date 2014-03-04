@@ -16,8 +16,11 @@ workflow.py:
 	- Add unit tests @done(14-03-03 03:20)
 	- Give log file more unique name @done(14-02-27 23:01)
 		bundleid.log?
-	- Add magic arguments for opening cache/data directories in Finder
+	- Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
 	- Move `INITIALS` and `split_on_delimiters` to Workflow class attributes
+	- Update method documentation to refer to __init__ args, not the _* attributes they're saved as.
+	- Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
+	- make settings.json chmod 600. Also make cache- and datadirs only user-readable/writeable.
 
 	Unit Tests:
 		- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)

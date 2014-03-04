@@ -3,7 +3,8 @@
 # https://github.com/maxcountryman/flask-login
 
 # OUTPUT_PATH=$(pwd)/tests_output
-LOGPATH=$(pwd)/test.log
+
+LOGPATH="$(dirname $0)/test.log"
 
 function log() {
     echo "$@" | tee -a $LOGPATH
@@ -33,10 +34,11 @@ fi
 if [ -n "$TESTS" ]; then
     NOSETEST_OPTIONS="$NOSETEST_OPTIONS $TESTS"
 else
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS --with-coverage --cover-min-percentage=100 --cover-package=flask_login"
+    NOSETEST_OPTIONS="$NOSETEST_OPTIONS --with-coverage --cover-min-percentage=100 --cover-package=workflow"
 fi
 
 log "Running tests..."
+
 nosetests $NOSETEST_OPTIONS 2>&1 | tee -a $LOGPATH
 ret=${PIPESTATUS[0]}
 

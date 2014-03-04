@@ -2,61 +2,61 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>bundleid</key>
-	<string>net.deanishe.alfred-workflow</string>
-	<key>connections</key>
-	<dict/>
-	<key>createdby</key>
-	<string>Dean Jackson</string>
-	<key>description</key>
-	<string>Test alfred-workflow library</string>
-	<key>disabled</key>
-	<false/>
-	<key>name</key>
-	<string>Alfred-Workflow Test</string>
-	<key>objects</key>
-	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>wftest</string>
-				<key>runningsubtext</key>
-				<string>Doin' stuff…</string>
-				<key>script</key>
-				<string>python test.py "{query}"</string>
-				<key>subtext</key>
-				<string>Test alfred-workflow Python lib</string>
-				<key>title</key>
-				<string>Alfred-Workflow Test</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>5F480F88-2088-4D34-B621-ACEBCB5E6753</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-	</array>
-	<key>readme</key>
-	<string></string>
-	<key>uidata</key>
-	<dict>
-		<key>5F480F88-2088-4D34-B621-ACEBCB5E6753</key>
-		<dict>
-			<key>ypos</key>
-			<real>10</real>
-		</dict>
-	</dict>
-	<key>webaddress</key>
-	<string></string>
+    <key>bundleid</key>
+    <string>net.deanishe.alfred-workflow</string>
+    <key>connections</key>
+    <dict/>
+    <key>createdby</key>
+    <string>Dean Jackson</string>
+    <key>description</key>
+    <string>Test alfred-workflow library</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>Alfred-Workflow Test</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>0</integer>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>keyword</key>
+                <string>wftest</string>
+                <key>runningsubtext</key>
+                <string>Doin' stuff…</string>
+                <key>script</key>
+                <string>python test.py "{query}"</string>
+                <key>subtext</key>
+                <string>Test alfred-workflow Python lib</string>
+                <key>title</key>
+                <string>Alfred-Workflow Test</string>
+                <key>type</key>
+                <integer>0</integer>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.scriptfilter</string>
+            <key>uid</key>
+            <string>5F480F88-2088-4D34-B621-ACEBCB5E6753</string>
+            <key>version</key>
+            <integer>0</integer>
+        </dict>
+    </array>
+    <key>readme</key>
+    <string></string>
+    <key>uidata</key>
+    <dict>
+        <key>5F480F88-2088-4D34-B621-ACEBCB5E6753</key>
+        <dict>
+            <key>ypos</key>
+            <real>10</real>
+        </dict>
+    </dict>
+    <key>webaddress</key>
+    <string></string>
 </dict>
 </plist>

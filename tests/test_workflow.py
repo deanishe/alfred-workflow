@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 # vim: fileencoding=utf-8
 """
@@ -160,15 +160,15 @@ class WorkflowTests(unittest.TestCase):
         # cache original sys.argv
         oargs = sys.argv[:]
 
-        # openlog
-        sys.argv = [oargs[0]] + [b'workflow:openlog']
-        try:
-            wf = Workflow()
-            wf.logger.debug('This is a test message')  # ensure log file exists
-            with self.assertRaises(SystemExit):
-                wf.args
-        finally:
-            sys.argv = oargs[:]
+        # # openlog
+        # sys.argv = [oargs[0]] + [b'workflow:openlog']
+        # try:
+        #     wf = Workflow()
+        #     wf.logger.debug('This is a test message')  # ensure log file exists
+        #     with self.assertRaises(SystemExit):
+        #         wf.args
+        # finally:
+        #     sys.argv = oargs[:]
 
         # delsettings
         sys.argv = [oargs[0]] + [b'workflow:delsettings']

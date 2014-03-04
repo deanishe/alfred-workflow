@@ -209,12 +209,12 @@ class Settings(dict):
         super(Settings, self).__init__()
         self._filepath = filepath
         self._nosave = False
-        if not os.path.exists(self._filepath) and defaults:
+        if os.path.exists(self._filepath):
+            self._load()
+        elif defaults:
             for key, val in defaults.items():
                 self[key] = val
             self._save()  # save default settings
-        else:
-            self._load()
 
     def _load(self):
         """Load cached settings from JSON file `self._filepath`"""

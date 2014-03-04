@@ -33,7 +33,7 @@ In which we make our `Pinboard.in <https://pinboard.in/>`_ Workflow ready for
 the masses.
 
 Demonstrates more advanced usage of **Alfred-Workflow** and a few Workflow
-tricks that might also be of interest to more knowledgeable Pythonistas.
+tricks that might also be of interest to folks familiar with Python.
 
 .. toctree::
    :maxdepth: 3

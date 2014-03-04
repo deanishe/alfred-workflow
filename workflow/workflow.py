@@ -284,6 +284,7 @@ class Workflow(object):
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self._workflowdir = None
         self._settings_path = None
         self._settings = None
         self._bundleid = None
@@ -367,6 +368,15 @@ class Workflow(object):
             elif 'workflow:delsettings' in args:
                 self.clear_settings()
                 msg = 'Deleted workflow settings'
+            elif 'workflow:openworkflow' in args:
+                self.open_workflowdir()
+                msg = 'Opening workflow directory'
+            elif 'workflow:opendata' in args:
+                self.open_datadir()
+                msg = 'Opening workflow data directory'
+            elif 'workflow:opencache' in args:
+                self.open_cachedir()
+                msg = 'Opening workflow cache directory'
             if msg:
                 self.logger.info(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
@@ -380,7 +390,7 @@ class Workflow(object):
         """Path to workflow's cache directory
 
         :returns: full path to workflow's cache directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -394,7 +404,7 @@ class Workflow(object):
         """Path to workflow's data directory
 
         :returns: full path to workflow data directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -402,6 +412,29 @@ class Workflow(object):
             '~/Library/Application Support/Alfred 2/Workflow Data/'),
             self.bundleid)
         return self._create(dirpath)
+
+    @property
+    def workflowdir(self):
+        """Path to workflow's root directory (where ``info.plist`` is)
+
+        :returns: full path to workflow root directory
+        :rtype: ``unicode``
+
+        """
+
+        if not self._workflowdir:
+            # climb the directory tree until we find `info.plist`
+            dirpath = os.path.abspath(os.path.dirname(__file__))
+            while True:
+                dirpath = os.path.dirname(dirpath)
+                if os.path.exists(os.path.join(dirpath, 'info.plist')):
+                    self._workflowdir = dirpath
+                    break
+                elif dirpath == '/':  # pragma: no cover
+                    # no `info.plist` found
+                    raise IOError("'info.plist' not found in directory tree")
+
+        return self._workflowdir
 
     def cachefile(self, filename):
         """Return full path to ``filename`` in workflow's cache dir
@@ -438,8 +471,7 @@ class Workflow(object):
 
         """
 
-        return os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                            filename)
+        return os.path.join(self.workflowdir, filename)
 
     @property
     def logfile(self):
@@ -877,10 +909,6 @@ class Workflow(object):
     # Methods for workflow:* magic args
     ####################################################################
 
-    def open_log(self):
-        """Open log file in standard application (usually Console.app)"""
-        subprocess.call(['open', self.logfile])
-
     def clear_cache(self):
         """Delete all files in workflow cache directory"""
         if os.path.exists(self.cachedir):
@@ -897,6 +925,22 @@ class Workflow(object):
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
             self.logger.debug('Deleted : %r', self.settings_path)
+
+    def open_log(self):
+        """Open log file in standard application (usually Console.app)"""
+        subprocess.call(['open', self.logfile])  # pragma: no cover
+
+    def open_cachedir(self):
+        """Open the workflow cache directory in Finder"""
+        subprocess.call(['open', self.cachedir])  # pragma: no cover
+
+    def open_datadir(self):
+        """Open the workflow data directory in Finder"""
+        subprocess.call(['open', self.datadir])  # pragma: no cover
+
+    def open_workflowdir(self):
+        """Open the workflow directory in Finder"""
+        subprocess.call(['open', self.workflowdir])  # pragma: no cover
 
     ####################################################################
     # Helper methods

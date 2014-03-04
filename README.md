@@ -188,6 +188,9 @@ If you try to retrieve or delete a password that doesn't exist, a `PasswordNotFo
 - `workflow:openlog` : Opens the workflow's log file in the default app (usually Console.app). The log will contain any errors that have occurred including corresponding tracebacks. It will also contain any messages logged with `Workflow.logger`.
 - `workflow:delcache` : Delete all cached files. Useful for resetting the workflow.
 - `workflow:delsettings` : Delete the settings file. Useful for resetting the workflow.
+- `workflow:opencache` : Open the workflow's cache directory in Finder
+- `workflow:opendata` : Open the workflow's data directory in Finder
+- `workflow:openworkflow` : Open the workflow's root directory in Finder
 
 ### Extending sys.path ###
 

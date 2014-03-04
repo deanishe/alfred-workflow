@@ -359,7 +359,7 @@ class Workflow(object):
         args = [self.decode(arg) for arg in sys.argv[1:]]
         if len(args) and self._capture_args:
             if 'workflow:openlog' in args:
-                self.openlog()
+                self.open_log()
                 msg = 'Opening workflow log file'
             elif 'workflow:delcache' in args:
                 self.clear_cache()
@@ -877,7 +877,7 @@ class Workflow(object):
     # Methods for workflow:* magic args
     ####################################################################
 
-    def openlog(self):
+    def open_log(self):
         """Open log file in standard application (usually Console.app)"""
         subprocess.call(['open', self.logfile])
 

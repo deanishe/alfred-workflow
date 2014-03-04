@@ -91,6 +91,9 @@ INITIALS = string.ascii_uppercase + string.digits
 # Split on non-letters, numbers
 split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
 
+# List of all possible fuzzy match rules
+ALL_RULES = [u'startswith', u'capitals', u'atom', u'initials:startswith', u'initials:contains', u'substring', u'allchars']
+
 
 ####################################################################
 # Keychain access errors
@@ -579,7 +582,7 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-    def filter(self, query, items, key=lambda x: x, ascending=False,
+    def filter(self, query, items, key=lambda x: x, score_limit=0, rules=ALL_RULES, ascending=False,
                include_score=False):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
@@ -697,7 +700,7 @@ class Workflow(object):
                                              (match.end() - match.start() + 1))
                             rule = 'allchars'
 
-            if score > 0:
+            if score > score_limit and rule in rules:
                 # use "reversed" `score` (i.e. highest becomes lowest) and
                 # `value` as sort key. This means items with the same score
                 # will be sorted in alphabetical not reverse alphabetical order

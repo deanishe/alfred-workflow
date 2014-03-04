@@ -91,6 +91,9 @@ INITIALS = string.ascii_uppercase + string.digits
 # Split on non-letters, numbers
 split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
 
+# List of all possible fuzzy match rules
+ALL_RULES = [u'startswith', u'capitals', u'atom', u'initials:startswith', u'initials:contains', u'substring', u'allchars']
+
 
 ####################################################################
 # Keychain access errors
@@ -611,7 +614,7 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-    def filter(self, query, items, key=lambda x: x, ascending=False,
+    def filter(self, query, items, key=lambda x: x, score_limit=0, rules=ALL_RULES, result_limit=None, ascending=False,
                include_score=False):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
@@ -630,6 +633,9 @@ class Workflow(object):
         4. Items that contain all the characters in ``query``.
            Matches nearer the beginning of the item are prioritised,
            as are shorter items.
+           
+        For finer-grained control on the scope of results, use one or more
+        of the :param score_limit:, :param rules:, and/or :param result_limit:.
 
         :param query: query to test items against
         :type query: `unicode`
@@ -638,6 +644,12 @@ class Workflow(object):
         :param key: function to get comparison key from `items`. Must return a
                     `unicode` string.
         :type key: `callable`
+        :param score_limit: minimum limit of score of possible results
+        :type score_limit: `integer`
+        :param rules: iterable of possible rules to use for matching
+        :type rules: `iterable` (`list` or `tuple`)
+        :param result_limit: maximum limit of number of results
+        :type result_limit: `integer`
         :param ascending: set to `True` to get worst matches first
         :type ascending: `Boolean`
         :param include_score: Useful for debugging the scoring algorithm.
@@ -729,7 +741,7 @@ class Workflow(object):
                                              (match.end() - match.start() + 1))
                             rule = 'allchars'
 
-            if score > 0:
+            if score > score_limit and rule in rules:
                 # use "reversed" `score` (i.e. highest becomes lowest) and
                 # `value` as sort key. This means items with the same score
                 # will be sorted in alphabetical not reverse alphabetical order
@@ -741,9 +753,9 @@ class Workflow(object):
 
         # return list of ``(item, score, rule)``
         if include_score:
-            return results
+            return results[:result_limit]
         # just return list of items
-        return [t[0] for t in results]
+        return [t[0] for t in results[:result_limit]]
 
     def run(self, func):
         """Call `func` to run your workflow

@@ -8,7 +8,7 @@ body {
   color: #554;
 }
 
-h1 {
+div#logo {
   position: absolute;
   top: 8px;
   margin: 0 auto;

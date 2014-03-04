@@ -10,6 +10,7 @@
 {# wrap contents #}
 {% block header %}
   <div class="wrap">
+    <div id="logo">&nbsp;</div>
     {% if not theme_hide_toc %}
       <div class="tocwrapper">
         <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
@@ -29,6 +30,9 @@
       </div>
     {% endif %}
     {{ super() }}
+{% endblock %}
+{% block document %}
+{{ super() }}
 {% endblock %}
 {% block footer %}
     {{ super() }}

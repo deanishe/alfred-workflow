@@ -240,6 +240,11 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(d, data)
         self.assertTrue(called['called'])
 
+    def test_cached_data_no_callback(self):
+        """Cached data no callback"""
+        d = self.wf.cached_data('nonexistent', None)
+        self.assertEquals(d, None)
+
     def test_cache_expires(self):
         """Cached data expires"""
         data = ('hello', 'goodbye')

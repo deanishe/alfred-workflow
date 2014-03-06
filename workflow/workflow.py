@@ -569,7 +569,7 @@ class Workflow(object):
                                       self._default_settings)
         return self._settings
 
-    def cached_data(self, name, data_func, max_age=60):
+    def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
         matter how old.
@@ -580,8 +580,9 @@ class Workflow(object):
         :type data_func: `callable`
         :param max_age: maximum age of cached data in seconds
         :type max_age: `int`
-        :returns: cached data or return value of ``data_func``
-        :rtype: whatever ``data_func`` returns
+        :returns: cached data, return value of ``data_func`` or ``None``
+            if ``data_func`` is not set
+        :rtype: whatever ``data_func`` returns or ``None``
 
         """
 
@@ -592,6 +593,8 @@ class Workflow(object):
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
                 return pickle.load(file)
+        if not data_func:
+            return None
         data = data_func()
         with open(cache_path, 'wb') as file:
             pickle.dump(data, file)

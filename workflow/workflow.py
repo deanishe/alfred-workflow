@@ -43,42 +43,42 @@ except ImportError:  # pragma: no cover
 ####################################################################
 
 # Shown when a workflow throws an error
+ICON_ACCOUNT = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/Accounts.icns')
+ICON_BURN = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/BurningIcon.icns')
+ICON_COLOR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/ProfileBackgroundColor.icns')
+ICON_COLOUR = ICON_COLOR  # Queen's English, if you please
 ICON_ERROR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
               '/Resources/AlertStopIcon.icns')
-ICON_WARNING = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/AlertCautionIcon.icns')
-ICON_NOTE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/AlertNoteIcon.icns')
-ICON_INFO = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/ToolbarInfo.icns')
 ICON_FAVORITE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
                  '/Resources/ToolbarFavoritesIcon.icns')
-ICON_FAVOURITE = ICON_FAVORITE  # Queen's English, if you please
-ICON_USER = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/UserIcon.icns')
+ICON_FAVOURITE = ICON_FAVORITE
 ICON_GROUP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
               '/Resources/GroupIcon.icns')
 ICON_HELP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
              '/Resources/HelpIcon.icns')
-ICON_NETWORK = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/GenericNetworkIcon.icns')
-ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-            '/Resources/BookmarkIcon.icns')
-ICON_COLOR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/ProfileBackgroundColor.icns')
-ICON_COLOUR = ICON_COLOR
-ICON_SYNC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/Sync.icns')
-ICON_SETTINGS = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                 '/Resources/ToolbarAdvanced.icns')
-ICON_TRASH = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/TrashIcon.icns')
+ICON_INFO = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/ToolbarInfo.icns')
 ICON_MUSIC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
               '/Resources/ToolbarMusicFolderIcon.icns')
-ICON_BURN = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/BurningIcon.icns')
-ICON_ACCOUNT = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/Accounts.icns')
+ICON_NETWORK = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/GenericNetworkIcon.icns')
+ICON_NOTE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/AlertNoteIcon.icns')
+ICON_SETTINGS = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                 '/Resources/ToolbarAdvanced.icns')
+ICON_SYNC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/Sync.icns')
+ICON_TRASH = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+              '/Resources/TrashIcon.icns')
+ICON_USER = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+             '/Resources/UserIcon.icns')
+ICON_WARNING = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+                '/Resources/AlertCautionIcon.icns')
+ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
+            '/Resources/BookmarkIcon.icns')
 
 
 ####################################################################
@@ -251,12 +251,12 @@ class Settings(dict):
         self._save()
 
     def update(self, *args, **kwargs):
-        """Override :class:`dict` method"""
+        """Override :class:`dict` method to save on update."""
         super(Settings, self).update(*args, **kwargs)
         self._save()
 
     def setdefault(self, key, value=None):
-        """Override :class:`dict` method"""
+        """Override :class:`dict` method to save on update."""
         super(Settings, self).setdefault(key, value)
         self._save()
 
@@ -316,9 +316,9 @@ class Workflow(object):
 
     @property
     def info(self):
-        """`dict` of ``info.plist`` contents
+        """`dict` of ``info.plist`` contents.
 
-        :returns: `dict`
+        :returns: ``dict``
 
         """
 
@@ -328,10 +328,10 @@ class Workflow(object):
 
     @property
     def bundleid(self):
-        """Workflow bundle ID from ``info.plist``
+        """Workflow bundle ID from ``info.plist``.
 
         :returns: bundle ID
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -341,10 +341,10 @@ class Workflow(object):
 
     @property
     def name(self):
-        """Workflow name from ``info.plist``
+        """Workflow name from ``info.plist``.
 
         :returns: workflow name
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -360,9 +360,15 @@ class Workflow(object):
 
         Args are decoded and normalised via :meth:`~Workflow.decode`.
 
-        If :class:`Workflow` is called with ``capture_args=True``,
-        :class:`Workflow` will "capture" certain
-        ``workflow:*`` args and perform corresponding actions.
+        The encoding and normalisation are the ``input_encoding`` and
+        ``normalization`` arguments passed to :class:`Workflow` (``UTF-8``
+        and ``NFC`` are the defaults).
+
+        If :class:`Workflow` is called with ``capture_args=True`` (the default),
+        :class:`Workflow` will "capture" certain ``workflow:*`` args and
+        perform corresponding actions.
+
+        See :ref:`Magic arguments <magic-arguments>` for details.
 
         """
 
@@ -397,7 +403,7 @@ class Workflow(object):
 
     @property
     def cachedir(self):
-        """Path to workflow's cache directory
+        """Path to workflow's cache directory.
 
         :returns: full path to workflow's cache directory
         :rtype: ``unicode``
@@ -411,7 +417,7 @@ class Workflow(object):
 
     @property
     def datadir(self):
-        """Path to workflow's data directory
+        """Path to workflow's data directory.
 
         :returns: full path to workflow data directory
         :rtype: ``unicode``
@@ -447,24 +453,24 @@ class Workflow(object):
         return self._workflowdir
 
     def cachefile(self, filename):
-        """Return full path to ``filename`` in workflow's cache dir
+        """Return full path to ``filename`` within workflow's cache dir.
 
         :param filename: basename of file
-        :type filename: `unicode`
+        :type filename: ``unicode``
         :returns: full path to file within cache directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
-        """Return full path to ``filename`` in workflow's data dir
+        """Return full path to ``filename`` within workflow's data dir.
 
         :param filename: basename of file
-        :type filename: `unicode`
+        :type filename: ``unicode``
         :returns: full path to file within data directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -472,12 +478,12 @@ class Workflow(object):
 
     def workflowfile(self, filename):
         """Return full path to ``filename`` in workflow's root dir
-        (where ``info.plist`` is)
+        (where ``info.plist`` is).
 
         :param filename: basename of file
-        :type filename: `unicode`
+        :type filename: ``unicode``
         :returns: full path to file within data directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -488,7 +494,7 @@ class Workflow(object):
         """Return path to logfile
 
         :returns: path to logfile within workflow's cache directory
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -539,7 +545,7 @@ class Workflow(object):
         """Path to settings file within workflow's data directory
 
         :returns: path to ``settings.json`` file
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -551,9 +557,10 @@ class Workflow(object):
     def settings(self):
         """Return a dictionary subclass that saves itself when changed.
 
-        :returns: `Settings` instance initialised with
-                  `~Workflow._default_settings`
-        :rtype: `Settings` instance
+        :returns: :class:`Settings` instance initialised from the data
+        in :attr:`settings_path` or if that doesn't exist, with the
+            ``default_settings`` ``dict`` passed to :class:`Workflow`.
+        :rtype: :class:`Settings` instance
 
         """
 
@@ -568,7 +575,7 @@ class Workflow(object):
         matter how old.
 
         :param name: name of datastore
-        :type name: `unicode`
+        :type name: ``unicode``
         :param data_func: function to (re-)generate data.
         :type data_func: `callable`
         :param max_age: maximum age of cached data in seconds
@@ -595,10 +602,10 @@ class Workflow(object):
         """Is data cached at `name` less than `max_age` old?
 
         :param name: name of datastore
-        :type name: `unicode`
+        :type name: ``unicode``
         :param max_age: maximum age of data in seconds
         :type max_age: `int`
-        :returns: True if data is less than `max_age` old
+        :returns: ``True`` if data is less than `max_age` old, else ``False``
         :rtype: `Boolean`
 
         """
@@ -610,7 +617,7 @@ class Workflow(object):
         cache doesn't exist
 
         :param name: name of datastore
-        :type name: `unicode`
+        :type name: ``unicode``
         :returns: age of datastore in seconds
         :rtype: `int`
 
@@ -633,15 +640,15 @@ class Workflow(object):
         :type query: ``unicode``
         :param items: iterable of items to test
         :type items: ``list`` or ``tuple``
-        :param key: function to get comparison key from `items`. Must return a
-                    ``unicode`` string.
+        :param key: function to get comparison key from ``items``. Must return a
+                    ``unicode`` string. The default simply returns the item.
         :type key: ``callable``
         :param ascending: set to ``True`` to get worst matches first
         :type ascending: ``Boolean``
         :param include_score: Useful for debugging the scoring algorithm.
             If ``True``, results will be a list of tuples
             ``(item, score, rule)``.
-        :type include_score: `Boolean`
+        :type include_score: ``Boolean``
         :param min_score: If non-zero, ignore results with a score lower
             than this.
         :type min_score: ``int``
@@ -650,16 +657,16 @@ class Workflow(object):
         :param match_on: Filter option flags. Bitwise-combined list of
             ``MATCH_*`` constants (see below).
         :type match_on: ``int``
-        :returns: list of `items` matching ``query`` or list of
-            ``(item, score, rule)`` `tuples` if `include_score` is `True`.
-            ``rule`` is the name of the rule that matched the item.
-        :rtype: `list`
+        :returns: list of ``items`` matching ``query`` or list of
+            ``(item, score, rule)`` `tuples` if ``include_score`` is ``True``.
+            ``rule`` is the ``MATCH_`` rule that matched the item.
+        :rtype: ``list``
 
         Matching rules
         --------------
 
         By default, :meth:`filter` uses all of the following flags in the
-        specified order (i.e. :const:`MATCH_ALL``):
+        specified order (i.e. :const:`MATCH_ALL`):
 
         1. ``MATCH_STARTSWITH`` : Item search key startswith ``query`` (case-insensitive).
         2. ``MATCH_CAPITALS`` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
@@ -829,19 +836,19 @@ class Workflow(object):
         """Add an item to be output to Alfred
 
         :param title: Title shown in Alfred
-        :type title: `unicode`
+        :type title: ``unicode``
         :param subtitle: Subtitle shown in Alfred
-        :type subtitle: `unicode`
+        :type subtitle: ``unicode``
         :param arg: Argument passed by Alfred as `{query}` when item is actioned
-        :type arg: `unicode`
+        :type arg: ``unicode``
         :param autocomplete: Text expanded in Alfred when item is TABbed
-        :type autocomplete: `unicode`
+        :type autocomplete: ``unicode``
         :param valid: Whether or not item can be actioned
         :type valid: `Boolean`
         :uid: Used by Alfred to remember/sort items
-        :type uid: `unicode`
+        :type uid: ``unicode``
         :icon: Filename of icon to use
-        :type icon: `unicode`
+        :type icon: ``unicode``
         :param icontype: Type of icon. Must be one of `None` , ``filetype``
                    or ``fileicon``. Use ``filetype`` when ``icon`` is a
                    filetype such as ``public.folder``. Use ``fileicon``
@@ -849,10 +856,10 @@ class Workflow(object):
                    as ``icon``, e.g. ``icon='/Applications/Safari.app',
                    icontype='fileicon'``. Leave as `None` if ``icon`` points
                    to an actual icon file.
-        :type icontype: `unicode`
+        :type icontype: ``unicode``
         :param type: Result type. Currently only ``file`` is supported. This
                      will tell Alfred to enable file actions for this item.
-        :type type: `unicode`
+        :type type: ``unicode``
         :returns: `~workflow.Item` instance
 
         """
@@ -884,12 +891,12 @@ class Workflow(object):
         If something goes wrong, a `KeychainError` exception will be raised.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
-        :type account: `unicode`
+        :type account: ``unicode``
         :param password: the password to secure
-        :type password: `unicode`
+        :type password: ``unicode``
         :param service: Name of the service. By default, this is the workflow's
                         bundle ID
-        :type service: `unicode`
+        :type service: ``unicode``
 
         """
         if not service:
@@ -912,16 +919,16 @@ class Workflow(object):
                 self.logger.debug('save_password : %s:%s', service, account)
 
     def get_password(self, account, service=None):
-        """Retrieve the password saved at `service/account`. Raise
-        `PasswordNotFound` exception if password doesn't exist.
+        """Retrieve the password saved at ``service/account``. Raise
+        :class:`PasswordNotFound` exception if password doesn't exist.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
-        :type account: `unicode`
+        :type account: ``unicode``
         :param service: Name of the service. By default, this is the workflow's
                         bundle ID
-        :type service: `unicode`
+        :type service: ``unicode``
         :returns: account password
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -934,13 +941,13 @@ class Workflow(object):
 
     def delete_password(self, account, service=None):
         """Delete the password stored at ``service/account``. Raises
-        `PasswordNotFound` if account is unknown.
+        :class:`PasswordNotFound` if account is unknown.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
-        :type account: `unicode`
+        :type account: ``unicode``
         :param service: Name of the service. By default, this is the workflow's
                         bundle ID
-        :type service: `unicode`
+        :type service: ``unicode``
 
         """
 
@@ -955,7 +962,7 @@ class Workflow(object):
     ####################################################################
 
     def clear_cache(self):
-        """Delete all files in workflow cache directory"""
+        """Delete all files in workflow cache directory."""
         if os.path.exists(self.cachedir):
             for filename in os.listdir(self.cachedir):
                 path = os.path.join(self.cachedir, filename)
@@ -966,25 +973,25 @@ class Workflow(object):
                 self.logger.debug('Deleted : %r', path)
 
     def clear_settings(self):
-        """Delete settings file"""
+        """Delete settings file."""
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
             self.logger.debug('Deleted : %r', self.settings_path)
 
     def open_log(self):
-        """Open log file in standard application (usually Console.app)"""
+        """Open log file in standard application (usually Console.app)."""
         subprocess.call(['open', self.logfile])  # pragma: no cover
 
     def open_cachedir(self):
-        """Open the workflow cache directory in Finder"""
+        """Open the workflow cache directory in Finder."""
         subprocess.call(['open', self.cachedir])  # pragma: no cover
 
     def open_datadir(self):
-        """Open the workflow data directory in Finder"""
+        """Open the workflow data directory in Finder."""
         subprocess.call(['open', self.datadir])  # pragma: no cover
 
     def open_workflowdir(self):
-        """Open the workflow directory in Finder"""
+        """Open the workflow directory in Finder."""
         subprocess.call(['open', self.workflowdir])  # pragma: no cover
 
     ####################################################################
@@ -992,18 +999,29 @@ class Workflow(object):
     ####################################################################
 
     def decode(self, text, encoding=None, normalization=None):
-        """Return `text` as normalised unicode.
+        """Return ``text`` as normalised unicode.
 
-        If `encoding` and/or `normalization` is `None`, `self._input_encoding`
-        and `self._normalization` will be used.
+        If ``encoding`` and/or ``normalization`` is ``None``, the
+        ``input_encoding``and ``normalization`` parameters passed to
+        :class:`Workflow` are used.
 
         :param text: string
         :type text: encoded string
-        :param encoding:
-        :type encoding: `unicode` or None
-        :param normalization:
-        :type normalization: `unicode` or None
-        :returns: decoded and normalised `unicode`
+        :param encoding: The text encoding to use to decode ``text`` to Unicode.
+        :type encoding: ``unicode`` or ``None``
+        :param normalization: The nomalisation form to apply to ``text``.
+        :type normalization: ``unicode`` or ``None``
+        :returns: decoded and normalised ``unicode``
+
+        :class:`Workflow` uses "NFC" normalisation by default. This is the
+        standard for Python and will work well with data from the web (via
+        :mod:`~workflow.web` or :mod:`json`).
+
+        OS X, on the other hand, uses "NFD" normalisation (nearly), so data
+        coming from the system (e.g. via :mod:`subprocess` or
+        :func:`os.listdir`/:mod:`os.path`) may not match. You should either
+        normalise this data, too, or change the default normalisation used by
+        :class:`Workflow`.
 
         """
 
@@ -1023,9 +1041,9 @@ class Workflow(object):
         """Create directory `dirpath` if it doesn't exist
 
         :param dirpath: path to directory
-        :type dirpath: `unicode`
+        :type dirpath: ``unicode``
         :returns: ``dirpath`` argument
-        :rtype: `unicode`
+        :rtype: ``unicode``
 
         """
 
@@ -1042,19 +1060,19 @@ class Workflow(object):
 
         :param action: The ``security`` action to call, e.g.
                            ``add-generic-password``
-        :type action: `unicode`
+        :type action: ``unicode``
         :param service: Name of the service.
-        :type service: `unicode`
+        :type service: ``unicode``
         :param account: name of the account the password is for, e.g. "Pinboard"
-        :type account: `unicode`
+        :type account: ``unicode``
         :param password: the password to secure
-        :type password: `unicode`
+        :type password: ``unicode``
         :param *args: list of command line arguments to be passed to
                       ``security``
         :type *args: `list` or `tuple`
         :returns: ``(retcode, output)``. ``retcode`` is an `int`, ``output`` a
-                  `unicode` string.
-        :rtype: `tuple` (`int`, `unicode`)
+                  ``unicode`` string.
+        :rtype: `tuple` (`int`, ``unicode``)
 
         """
 

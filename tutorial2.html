@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building a user-ready Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
+    <link rel="next" title="Using Alfred-Workflow" href="howto.html" />
+    <link rel="prev" title="Writing a Pinboard.in Workflow with Alfred-Workflow" href="tutorial.html" />
+  
+
+  </head>
+  <body>
+  <div class="wrap">
+    <div id="logo">&nbsp;</div>
+    
+      <div class="tocwrapper">
+        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
+        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
+        <div class="toc"><ul>
+<li><a class="reference internal" href="#">Building a user-ready Workflow</a><ul>
+<li><a class="reference internal" href="#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
+<li><a class="reference internal" href="#multi-step-actions">Multi-step actions</a></li>
+<li><a class="reference internal" href="#saving-settings">Saving settings</a></li>
+<li><a class="reference internal" href="#saving-settings-securely">Saving settings securely</a></li>
+<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#spit-and-polish">Spit and polish</a><ul>
+<li><a class="reference internal" href="#two-actions-one-keyword">Two actions, one keyword</a></li>
+<li><a class="reference internal" href="#our-last-hurrah">Our last hurrah</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        <script>
+          var toc = $( ".toc" );
+          $( ".showtoc span" ).click(function() {
+            $( this ).parent().hide().next().show();
+            toc.slideDown( "fast" );
+          });
+          $( ".hidetoc span" ).click(function() {
+            $( this ).parent().hide().prev().show();
+            toc.slideUp( "fast" );
+          });
+        </script>
+      </div>
+    
+    
+
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-a-user-ready-workflow">
+<span id="tutorial2"></span><h1>Building a user-ready Workflow<a class="headerlink" href="#building-a-user-ready-workflow" title="Permalink to this headline">¶</a></h1>
+<p>In which we create a <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> Workflow ready for
+the masses.</p>
+<p>In the <a class="reference internal" href="tutorial.html#tutorial"><em>first part</em></a> of the tutorial, we built a useable Workflow
+to view, search and open your recent Pinboard posts. The Workflow isn&#8217;t quite
+ready to be distributed to other users however: we can&#8217;t expect them to go
+grubbing around in the source code, changing constants like an animal to set
+their own API key.</p>
+<p>What&#8217;s more, an update to the Workflow would overwrite their changes.</p>
+<p>So now we&#8217;re going to edit the Workflow so users can add their API key from the
+comfort of Alfred&#8217;s friendly query box and use <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a>
+to save it in the Workflow&#8217;s data directory where it won&#8217;t get overwritten.</p>
+<div class="section" id="performing-multiple-actions-from-one-script">
+<h2>Performing multiple actions from one script<a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
+<p>To set the user&#8217;s API key, we&#8217;re going to need a new action. We could write a
+second script to do this, but we&#8217;re going to stick with one script and make it
+smart enough to do two things, instead. The advantage of using one script is
+that if you build a workflow with lots of actions, you don&#8217;t have a dozen or more
+scripts to manage.</p>
+<p>We&#8217;ll start by adding an argument parser (using <a class="reference external" href="http://docs.python.org/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a>) to <tt class="docutils literal"><span class="pre">main</span></tt> and some
+<tt class="docutils literal"><span class="pre">if</span></tt>-statements to alter the script behaviour depending on the arguments passed
+to the script.</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+
+ <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="kn">import</span> <span class="nn">argparse</span>
+<span class="hll"> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">ICON_WARNING</span><span class="p">,</span> <span class="n">web</span>
+</span>
+
+<span class="hll"> <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">):</span>
+</span><span class="hll">     <span class="sd">&quot;&quot;&quot;Retrieve recent posts from Pinboard.in</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sd">     Returns a list of post dictionaries.</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sd">     &quot;&quot;&quot;</span>
+</span><span class="hll">     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+</span><span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+     <span class="c"># throw an error if request failed</span>
+     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="k">return</span> <span class="n">posts</span>
+
+
+ <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
+     <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
+     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+
+
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+
+<span class="hll">     <span class="c"># build argument parser to parse script args and collect their</span>
+</span><span class="hll">     <span class="c"># values</span>
+</span><span class="hll">     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span><span class="hll">     <span class="c"># add an optional (nargs=&#39;?&#39;) --setkey argument and save its</span>
+</span><span class="hll">     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+</span><span class="hll">     <span class="c"># action with the API key</span>
+</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
+</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="c"># parse the script&#39;s arguments</span>
+</span><span class="hll">     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c"># Save the provided API key</span>
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="c"># decide what to do based on arguments</span>
+</span><span class="hll">     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
+</span><span class="hll">         <span class="c"># save the key</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span>
+</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c"># Check that we have an API key saved</span>
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;api_key&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+</span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c"># View/filter Pinboard posts</span>
+</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
+</span><span class="hll">     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
+</span><span class="hll">     <span class="c"># seconds old</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class="hll">         <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
+</span><span class="hll"><span class="sd">         so we need to wrap callables needing arguments in a function</span>
+</span><span class="hll"><span class="sd">         that needs none.</span>
+</span><span class="hll"><span class="sd">         &quot;&quot;&quot;</span>
+</span><span class="hll">         <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</span>
+     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
+
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
+     <span class="c"># the list of results for Alfred</span>
+     <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
+
+     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+     <span class="k">return</span> <span class="mi">0</span>
+
+
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Quite a lot has happened here: at the top, we&#8217;re importing a couple more icons
+that we use in <tt class="docutils literal"><span class="pre">main</span></tt> to notify the user that their API key is missing and
+that they should set it.</p>
+<p>We&#8217;ve adapted <tt class="docutils literal"><span class="pre">get_recent_posts</span></tt> to accept an <tt class="docutils literal"><span class="pre">api_key</span></tt> argument. We <em>could</em>
+continue to use the <tt class="docutils literal"><span class="pre">API_KEY</span></tt> global variable, but that&#8217;s considered bad form.</p>
+<p>As a result of this, we&#8217;ve had to alter the way
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> is called. It can&#8217;t call a function
+that requires any arguments, so we&#8217;ve added a <tt class="docutils literal"><span class="pre">wrapper</span></tt> function within <tt class="docutils literal"><span class="pre">main</span></tt>
+that calls <tt class="docutils literal"><span class="pre">get_recent_posts</span></tt> with the necessary <tt class="docutils literal"><span class="pre">api_key</span></tt> arguments, and
+we pass this <tt class="docutils literal"><span class="pre">wrapper</span></tt> function (which needs no arguments) to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> instead.</p>
+<p>At the top of <tt class="docutils literal"><span class="pre">main</span></tt>, we&#8217;ve added an argument parser using <a class="reference external" href="http://docs.python.org/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a>
+that can take an optional <tt class="docutils literal"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></tt> argument and an optional <tt class="docutils literal"><span class="pre">query</span></tt>
+argument (remember the script doesn&#8217;t require a query).</p>
+<p>Then we check if an API key was passed using <tt class="docutils literal"><span class="pre">--apikey</span></tt>. If it was, we save
+it using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a> (see <cite>below &lt;settings&gt;</cite>).</p>
+<p>Once this is done, we post a message to the user informing them that their API
+key has been saved and exit the script.</p>
+<p>If no API key was specified with <tt class="docutils literal"><span class="pre">--apikey</span></tt>, we try to show/filter Pinboard
+posts as before. But first of all, we now have to check to see if we already
+have an API key saved. If not, we show the user a warning (No API key set) and
+exit the script.</p>
+<p>Finally, if we have an API key saved, we retrieve it and show/filter the Pinboard
+posts just as before.</p>
+<p>Of course, we don&#8217;t have an API key saved, and we haven&#8217;t yet set up our Workflow
+in Alfred to save one, so the Workflow currently won&#8217;t work. Try to run it,
+and you&#8217;ll see the warning we just implemented:</p>
+<img alt="_images/screen15_no_api_key.png" src="_images/screen15_no_api_key.png" />
+<p>So let&#8217;s add that functionality now.</p>
+</div>
+<div class="section" id="multi-step-actions">
+<h2>Multi-step actions<a class="headerlink" href="#multi-step-actions" title="Permalink to this headline">¶</a></h2>
+<p>Asking the user for input and saving it is best done in two steps:</p>
+<ol class="arabic simple">
+<li>Ask for the data.</li>
+<li>Pass it to a second action to save it.</li>
+</ol>
+<p>A Script Filter is designed to be called constantly by Alfred and return results.
+This time, we just want to get some data, so we&#8217;ll use a <strong>Keyword</strong> input instead.</p>
+<p>Go back to your Workflow in Alfred&#8217;s Preferences and add a <strong>Keyword</strong> input:</p>
+<img alt="_images/screen16_keyword.png" src="_images/screen16_keyword.png" />
+<p>And set it up as follows (we&#8217;ll use the keyword <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> because that&#8217;s what we told the user to use
+in the above warning message):</p>
+<img alt="_images/screen17_set_apikey_keyword.png" src="_images/screen17_set_apikey_keyword.png" />
+<p>You can now enter <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> in Alfred and see the following:</p>
+<img alt="_images/screen18_pbsetkey.png" src="_images/screen18_pbsetkey.png" />
+<p>It won&#8217;t do anything yet, though, as we haven&#8217;t connected its output to anything.</p>
+<p>Back in Alfred&#8217;s Preferences, add a <strong>Run Script</strong> action:</p>
+<img alt="_images/screen19_runscript.png" src="_images/screen19_runscript.png" />
+<p>and point it at our <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> script with the <tt class="docutils literal"><span class="pre">--setkey</span></tt> argument:</p>
+<img alt="_images/screen20_runscript_settings.png" src="_images/screen20_runscript_settings.png" />
+<p>Finally, connect the <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> <strong>Keyword</strong> to the new <strong>Run Script</strong> action:</p>
+<img alt="_images/screen21_connection.png" src="_images/screen21_connection.png" />
+<p>Now you can call <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> in Alfred, paste in your Pinboard API key and hit
+<strong>ENTER</strong>. It will be saved by the Workflow and <tt class="docutils literal"><span class="pre">pbrecent</span></tt> will once again
+work as expected. Try it.</p>
+<p>It&#8217;s a little confusing receiving no feedback on whether the key was saved or not,
+so go back into Alfred&#8217;s Preferences, and add an <strong>Output &gt; Post Notification</strong>
+action to your Workflow:</p>
+<img alt="_images/screen22_add_notification.png" src="_images/screen22_add_notification.png" />
+<p>In the resulting pop-up, enter a message to be shown in Notification Center:</p>
+<img alt="_images/screen22_notification_settings.png" src="_images/screen22_notification_settings.png" />
+<p>and connect the <strong>Run Script</strong> we just added to it:</p>
+<img alt="_images/screen23_three_way.png" src="_images/screen23_three_way.png" />
+<p>Try setting your API key again with <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> and this time you&#8217;ll get a
+notification that it was saved.</p>
+</div>
+<div class="section" id="saving-settings">
+<span id="settings"></span><h2>Saving settings<a class="headerlink" href="#saving-settings" title="Permalink to this headline">¶</a></h2>
+<p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a>
+is a special dictionary that automatically saves itself when you change its
+contents. It can be used much like a normal dictionary with the caveat that all
+values must be serialisable to JSON as the settings are saved as a JSON file in
+the Workflow&#8217;s data directory.</p>
+<p>Very simple, yes, but secure? No. A better place to save the API key would be
+in the user&#8217;s Keychain. Let&#8217;s do that.</p>
+</div>
+<div class="section" id="saving-settings-securely">
+<h2>Saving settings securely<a class="headerlink" href="#saving-settings-securely" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides three methods for managing data
+saved in OS X&#8217;s Keychain: <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">get_password()</span></tt></a>,
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">save_password()</span></tt></a> and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></tt></a>.</p>
+<p>They are all called with an <tt class="docutils literal"><span class="pre">account</span></tt> name and an optional <tt class="docutils literal"><span class="pre">service</span></tt> name
+(by default, this is your Workflow&#8217;s <tt class="docutils literal"><span class="pre">bundle</span> <span class="pre">ID</span></tt>).</p>
+<p>Change your <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> script as follows to use Keychain instead of a JSON
+file to store your API key:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+
+ <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="kn">import</span> <span class="nn">argparse</span>
+<span class="hll"> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">ICON_WARNING</span><span class="p">,</span> <span class="n">web</span><span class="p">,</span> <span class="n">PasswordNotFound</span>
+</span>
+
+ <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;Retrieve recent posts from Pinboard.in</span>
+
+<span class="sd">     Returns a list of post dictionaries.</span>
+
+<span class="sd">     &quot;&quot;&quot;</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+     <span class="c"># throw an error if request failed</span>
+     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="k">return</span> <span class="n">posts</span>
+
+
+ <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
+     <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
+     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+
+
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+
+     <span class="c"># build argument parser to parse script args and collect their</span>
+     <span class="c"># values</span>
+     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+     <span class="c"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
+     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+     <span class="c"># action with the API key</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c"># parse the script&#39;s arguments</span>
+     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># Save the provided API key</span>
+     <span class="c">####################################################################</span>
+
+     <span class="c"># decide what to do based on arguments</span>
+     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
+         <span class="c"># save the key</span>
+<span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+</span>         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># Check that we have an API key saved</span>
+     <span class="c">####################################################################</span>
+
+<span class="hll">     <span class="k">try</span><span class="p">:</span>
+</span><span class="hll">         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+</span><span class="hll">     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+</span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+</span>         <span class="k">return</span> <span class="mi">0</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># View/filter Pinboard posts</span>
+     <span class="c">####################################################################</span>
+
+     <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
+     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c"># seconds old</span>
+
+     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+         <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
+<span class="sd">         so we need to wrap callables needing arguments in a function</span>
+<span class="sd">         that needs none.</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+         <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
+
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
+     <span class="c"># the list of results for Alfred</span>
+     <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
+
+     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+     <span class="k">return</span> <span class="mi">0</span>
+
+
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">get_password()</span></tt></a> raises a
+<tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt> exception if the requested
+password isn&#8217;t in your Keychain, so we import <tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt>
+and change <tt class="docutils literal"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">api_key</span></tt> to a <tt class="docutils literal"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></tt> clause.</p>
+<p>Try running your Workflow again. It will complain that you haven&#8217;t saved your
+API key (it&#8217;s looking in Keychain now, not the settings), so set your API key
+once again, and you should be able to browse your recent posts in Alfred once more.</p>
+<p>And if you open <strong>Keychain Access</strong>, you&#8217;ll find the API key safely tucked away
+in your Keychain:</p>
+<img alt="_images/screen24_keychain.png" src="_images/screen24_keychain.png" />
+<p>As a bonus, if you have multiple Macs and use iCloud Keychain, the API key will
+be seamlessly synced across machines, saving you the trouble of setting up the
+Workflow multiple times.</p>
+</div>
+<div class="section" id="magic-arguments">
+<h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Now that the API key is stored in Keychain, we don&#8217;t need it saved in the
+Workflow&#8217;s settings any more (and having it there that kind of defeats the
+purpose of using Keychain). To get rid of it, we can use one of <strong>Alfred-Workflow</strong>&#8216;s
+&#8220;magic&#8221; arguments: <tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt>.</p>
+<p>Open up Alfred, and enter <tt class="docutils literal"><span class="pre">pbrecent</span> <span class="pre">workflow:delsettings</span></tt>. You should see the
+following message:</p>
+<img alt="_images/screen25_magic.png" src="_images/screen25_magic.png" />
+<p><strong>Alfred-Workflow</strong> has recognised one of its &#8220;magic&#8221; arguments, performed the
+appropriate action, posted a notification and exited the Workflow.</p>
+<p>Currently, the following magic arguments are available:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — deletes the Workflow&#8217;s settings file</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — clears the Workflow&#8217;s cache</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> — open the Workflow&#8217;s log file in the default application (usually <strong>Console.app</strong>)</li>
+</ul>
+<p>These are to aid coders in the development and debugging of Workflows. In particular,
+it makes debugging errors encountered by Terminal-averse users much easier: any
+exceptions raised within the <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt></a> method are
+logged together with the corresponding traceback, and you can ask users to call
+your Workflow&#8217;s keyword with the <tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> query to more easily send
+you the contents of the log.</p>
+<p><strong>Note:</strong> magic arguments will only work with scripts that accept arguments <em>and</em>
+use the <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> property (where &#8220;magic&#8221; arguments
+are parsed).</p>
+<p>You can turn off magic arguments by passing <tt class="docutils literal"><span class="pre">capture_args=False</span></tt> to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a>, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>
+and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_settings" title="workflow.workflow.Workflow.clear_settings"><tt class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></tt></a> methods directly, perhaps
+assigning them to your own Keywords.</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>There&#8217;s a log, you say? Yup. There&#8217;s a <a class="reference external" href="http://docs.python.org/library/logging.html#logging.Logger" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></tt></a>
+instance at <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></tt></a> configured to output to
+both the Terminal and your Workflow&#8217;s log file. Normally, I use it like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Started&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Assigning <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">logger</span></tt></a> to the module-global <tt class="docutils literal"><span class="pre">log</span></tt>
+means it can be accessed from within any function without having to pass the
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">logger</span></tt></a>
+instance around.</p>
+</div>
+<div class="section" id="spit-and-polish">
+<h2>Spit and polish<a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
+<p>So far, the Workflow&#8217;s looking pretty good. But there are still a couple of things
+that could be better. For one, it&#8217;s not necessarily obvious to a user where to
+find their Pinboard API key (it took me a good, hard Googling to find it while
+writing these tutorials). For another, the Workflow is unresponsive while updating
+the list of recent posts from Pinboard. That can&#8217;t be helped if we don&#8217;t have any
+posts cached, but apart from the very first run, we always will, so why don&#8217;t
+we show what we have and update in the background?</p>
+<p>Let&#8217;s fix those issues. The easy one first.</p>
+<div class="section" id="two-actions-one-keyword">
+<h3>Two actions, one keyword<a class="headerlink" href="#two-actions-one-keyword" title="Permalink to this headline">¶</a></h3>
+<p>To solve the first issue (Pinboard API keys being hard to find), we&#8217;ll add a second
+<strong>Keyword</strong> input that responds to the same <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> keyword as our other
+action, but this one will just send the user to the Pinboard
+<a class="reference external" href="https://pinboard.in/settings/password">password settings page</a> where the API
+keys are kept.</p>
+<p>Go back to your Workflow in Alfred&#8217;s Preferences and add a new <strong>Keyword</strong> with
+the following settings:</p>
+<img alt="_images/screen26_keyword2.png" src="_images/screen26_keyword2.png" />
+<p>Now when you type <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> into Alfred, you should see two options:</p>
+<img alt="_images/screen27_1_keyword_2_actions.png" src="_images/screen27_1_keyword_2_actions.png" />
+<p>The second action doesn&#8217;t do anything yet, of course, because we haven&#8217;t connected
+it to anything. So add an <strong>Open URL</strong> action in Alfred, enter this URL:</p>
+<p><a class="reference external" href="https://pinboard.in/settings/password">https://pinboard.in/settings/password</a></p>
+<p>and leave all the settings at their defaults.</p>
+<img alt="_images/screen28_open_url.png" src="_images/screen28_open_url.png" />
+<p>Finally, connect your new <strong>Keyword</strong> to the new <strong>Open URL</strong> action:</p>
+<img alt="_images/screen29_link.png" src="_images/screen29_link.png" />
+<p>Enter <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> into Alfred once more and try out the new action. Pinboard
+should open in your default browser.</p>
+<p>Easy peasy.</p>
+</div>
+<div class="section" id="our-last-hurrah">
+<h3>Our last hurrah<a class="headerlink" href="#our-last-hurrah" title="Permalink to this headline">¶</a></h3>
+<p>All that remains is for our Workflow to provide the blazing fast results Alfred
+users have come to expect. No waiting around for glacial web services for the
+likes of us. As long as we have some posts saved in the cache, we can show those
+while grabbing an updated list in the background (and notifying the user of
+the update, of course).</p>
+<p>Now, there are different ways to start a background process. We could ask the user
+to set up a <cite>cron</cite> job, but <cite>cron</cite> isn&#8217;t the easiest software to use. We could
+add and load a Launch Agent, but that&#8217;d run indefinitely, whether or not the
+Workflow is being used, and even if the Workflow were uninstalled. So we&#8217;d
+best start our background process from within the Workflow itself.</p>
+<p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process, but
+that doesn&#8217;t work quite as you&#8217;d expect in Alfred: it treats your Workflow
+as still running till the background process has finished, too, so it won&#8217;t call
+your Workflow with a new query till the Pinboard update is done. Which is
+exactly what happens now.</p>
+<p>To solve this problem, we&#8217;re still going to use <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a>, but
+our updater script is going to fork into the background and become a daemon process
+before performing the update. This way, it will appear to exit immediately, so
+Alfred will keep on calling our Workflow every time the query changes.</p>
+<p>Meanwhile, our main Workflow script will check if the background updater is
+running and post a useful, friendly notification if it is.</p>
+<p>Let&#8217;s have at it.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/deanishe/alfred-workflow" style="
+      display: block; position: absolute; top: 0; right: 0;
+      width: 149px; height: 149px; text-indent: -9999px;
+      background: url('_static/fork_jdoctest.png') no-repeat;
+    ">Fork me on GitHub</a>
+  
+
+    
+    <div class="footer">
+        &copy; Copyright 2014, Dean Jackson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </div>
+  
+
+  </body>
+</html>

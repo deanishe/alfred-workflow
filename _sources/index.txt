@@ -1,0 +1,73 @@
+.. Alfred-Workflow documentation master file, created by
+   sphinx-quickstart on Sun Mar  2 12:09:28 2014.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+===============
+Alfred-Workflow
+===============
+
+
+.. automodule:: workflow
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Tutorial
+--------
+
+In which we build an Alfred Workflow to view recent posts to
+`Pinboard.in <https://pinboard.in/>`_.
+
+If you're new to Alfred and/or coding in general, start here.
+
+.. toctree::
+   :maxdepth: 3
+
+   tutorial
+
+Tutorial, Part 2
+----------------
+
+In which we make our `Pinboard.in <https://pinboard.in/>`_ Workflow ready for
+the masses.
+
+Demonstrates more advanced usage of **Alfred-Workflow** and a few Workflow
+tricks that might also be of interest to folks familiar with Python.
+
+.. toctree::
+   :maxdepth: 3
+
+   tutorial2
+
+
+Alfred-Workflow quick reference
+-------------------------------
+
+If you know your way around Python and Alfred, here's an overview of what
+**Alfred-Workflow** does.
+
+.. toctree::
+   :maxdepth: 3
+
+   howto
+
+
+API docs
+--------
+
+Documentation automatically generated from the code.
+
+.. toctree::
+   :maxdepth: 2
+
+   workflow
+   web
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
+

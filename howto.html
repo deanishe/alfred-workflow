@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using Alfred-Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
+    <link rel="next" title="workflow.workflow" href="workflow.html" />
+    <link rel="prev" title="Building a user-ready Workflow" href="tutorial2.html" />
+  
+
+  </head>
+  <body>
+  <div class="wrap">
+    <div id="logo">&nbsp;</div>
+    
+      <div class="tocwrapper">
+        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
+        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
+        <div class="toc"><ul>
+<li><a class="reference internal" href="#">Using <strong>Alfred-Workflow</strong></a><ul>
+<li><a class="reference internal" href="#writing-a-workflow-with-alfred-python">Writing a Workflow with <strong>Alfred-Python</strong></a></li>
+<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        <script>
+          var toc = $( ".toc" );
+          $( ".showtoc span" ).click(function() {
+            $( this ).parent().hide().next().show();
+            toc.slideDown( "fast" );
+          });
+          $( ".hidetoc span" ).click(function() {
+            $( this ).parent().hide().prev().show();
+            toc.slideUp( "fast" );
+          });
+        </script>
+      </div>
+    
+    
+
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-alfred-workflow">
+<h1>Using <strong>Alfred-Workflow</strong><a class="headerlink" href="#using-alfred-workflow" title="Permalink to this headline">¶</a></h1>
+<p>This document serves as a quick-reference/recipe book for the features of
+<strong>Alfred-Python</strong>.</p>
+<p>If you&#8217;re new to writing Workflows or coding in general, start with the
+<a class="reference internal" href="tutorial.html#tutorial"><em>Tutorial</em></a>.</p>
+<div class="section" id="writing-a-workflow-with-alfred-python">
+<h2>Writing a Workflow with <strong>Alfred-Python</strong><a class="headerlink" href="#writing-a-workflow-with-alfred-python" title="Permalink to this headline">¶</a></h2>
+<p><strong>Alfred-Python</strong> is aimed particularly at authors of so-called
+<strong>Script Filters</strong>. These are activated by a keyword in Alfred, receive
+user input and return results to Alfred.</p>
+<p>To create a <strong>Script Filter</strong> in Alfred, make sure your <strong>Script Filter</strong>
+is set to use <tt class="docutils literal"><span class="pre">/bin/bash</span></tt> as the <strong>Language</strong>, and select the
+following (and only the following) <strong>Escaping</strong> options:</p>
+<ul class="simple">
+<li>Backquotes</li>
+<li>Double Quotes</li>
+<li>Dollars</li>
+<li>Backslashes</li>
+</ul>
+<p>The <strong>Script</strong> field should contain the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>python yourscript.py &quot;{query}&quot;
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">yourscript.py</span></tt> is the name of your script.</p>
+<p>Your workflow should start out like this. This enables <tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt>
+to capture any errors thrown by your scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+<span class="c"># encoding: utf-8</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="c"># The Workflow instance will be passed to the function</span>
+    <span class="c"># you call from `Workflow.run`</span>
+    <span class="c"># Your imports here if you want to catch import errors</span>
+    <span class="kn">import</span> <span class="nn">somemodule</span>
+    <span class="kn">import</span> <span class="nn">anothermodule</span>
+    <span class="c"># Get args from Workflow, already in normalised Unicode</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span>
+
+    <span class="c"># Do stuff here ...</span>
+
+    <span class="c"># Add an item to Alfred feedback</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;Item title&#39;</span><span class="p">,</span> <span class="s">u&#39;Item subtitle&#39;</span><span class="p">)</span>
+
+    <span class="c"># Send output to Alfred</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="magic-arguments">
+<span id="id1"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<p>If your Script Filter (or script) accepts a query, you can pass it so-called
+magic arguments that instruct <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform
+certain actions, such as opening the log file or clearing the cache/settings.</p>
+<p>These can be a big help while developing and debugging and especially when
+debugging problems your Workflow&#8217;s users may be having.</p>
+<p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt></a> method of
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (which you should &#8220;wrap&#8221; your Workflow&#8217;s
+entry functions in) will catch any raised exceptions, log them and display
+them in Alfred. You can call your Workflow with <tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> as an
+Alfred query/command line argument and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
+will open the Workflow&#8217;s log file in the default app (usually <strong>Console.app</strong>).</p>
+<p>This makes it easy for you to get at the log (hidden away in <tt class="docutils literal"><span class="pre">~/Library</span></tt>) and
+for your users to send you their logs for debugging.</p>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following &#8220;magic&#8221; args:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> — open the Workflow&#8217;s log file in the default app.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — delete any data cached by the Workflow.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — delete the Workflow&#8217;s settings file (the data saved using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a>).</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/deanishe/alfred-workflow" style="
+      display: block; position: absolute; top: 0; right: 0;
+      width: 149px; height: 149px; text-indent: -9999px;
+      background: url('_static/fork_jdoctest.png') no-repeat;
+    ">Fork me on GitHub</a>
+  
+
+    
+    <div class="footer">
+        &copy; Copyright 2014, Dean Jackson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </div>
+  
+
+  </body>
+</html>

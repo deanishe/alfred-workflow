@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Alfred-Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Alfred-Workflow 1.0 documentation" href="#" />
+    <link rel="next" title="Writing a Pinboard.in Workflow with Alfred-Workflow" href="tutorial.html" />
+  
+
+  </head>
+  <body>
+  <div class="wrap">
+    <div id="logo">&nbsp;</div>
+    
+      <div class="tocwrapper">
+        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
+        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
+        <div class="toc"><ul>
+<li><a class="reference internal" href="#">Alfred-Workflow</a><ul>
+<li><a class="reference internal" href="#quick-example">Quick Example</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#tutorial-part-2">Tutorial, Part 2</a></li>
+<li><a class="reference internal" href="#alfred-workflow-quick-reference">Alfred-Workflow quick reference</a></li>
+<li><a class="reference internal" href="#api-docs">API docs</a><ul>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        <script>
+          var toc = $( ".toc" );
+          $( ".showtoc span" ).click(function() {
+            $( this ).parent().hide().next().show();
+            toc.slideDown( "fast" );
+          });
+          $( ".hidetoc span" ).click(function() {
+            $( this ).parent().hide().prev().show();
+            toc.slideUp( "fast" );
+          });
+        </script>
+      </div>
+    
+    
+
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-workflow">
+<span id="alfred-workflow"></span><h1>Alfred-Workflow<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
+<p>A Python helper library for <a class="reference external" href="http://www.alfredapp.com/">Alfred 2</a> Workflow
+authors.</p>
+<p>Alfred Workflows typically take user input, fetch data from the Web or
+elsewhere, filter them and display results to the user. <strong>Alfred-Workflow</strong>
+helps you do these things.</p>
+<p>There are convenience methods for:</p>
+<ul class="simple">
+<li>Parsing script arguments.</li>
+<li>Text decoding/normalisation.</li>
+<li>Caching data and settings.</li>
+<li>Secure storage (and sync) of passwords (using OS X Keychain).</li>
+<li>Generating XML output for Alfred.</li>
+<li>Including external libraries (adding directories to <tt class="docutils literal"><span class="pre">sys.path</span></tt>).</li>
+<li>Filtering results using an Alfred-like algorithm.</li>
+<li>Generating log output for debugging.</li>
+<li>Capturing errors, so the workflow doesn&#8217;t fail silently.</li>
+</ul>
+<div class="section" id="quick-example">
+<h2>Quick Example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s how to show recent <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> posts in Alfred.</p>
+<p>Create a new Workflow in Alfred&#8217;s preferences. Add a <strong>Script Filter</strong> with
+Language <tt class="docutils literal"><span class="pre">/usr/bin/python</span></tt> and paste the following into the <strong>Script</strong> field:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
+
+<span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;posts&#39;</span><span class="p">]:</span>
+        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span> <span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span> <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                    <span class="n">uid</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;hash&#39;</span><span class="p">],</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Add an <strong>Open URL</strong> action to your Workflow with <tt class="docutils literal"><span class="pre">{query}</span></tt> as the <strong>URL</strong>,
+connect your <strong>Script Filter</strong> to it, and you can now hit <strong>ENTER</strong> on a
+Pinboard item in Alfred to open it in your browser.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Download
+<a class="reference external" href="https://github.com/deanishe/alfred-workflow/archive/master.zip">the archive</a>
+from the <a class="reference external" href="https://github.com/deanishe/alfred-workflow">GitHub repository</a> and
+copy the <tt class="docutils literal"><span class="pre">workflow</span></tt> subfolder to the root directory of your Workflow.</p>
+<p>Your Workflow directory should look something like this (where
+<tt class="docutils literal"><span class="pre">yourscript.py</span></tt> contains your Workflow code and <tt class="docutils literal"><span class="pre">info.plist</span></tt> is
+the Workflow information file generated by Alfred):</p>
+<div class="highlight-python"><div class="highlight"><pre>Your Workflow/
+    info.plist
+    icon.png
+    workflow/
+        __init__.py
+        workflow.py
+        web.py
+    yourscript.py
+    etc.
+</pre></div>
+</div>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>In which we build an Alfred Workflow to view recent posts to
+<a class="reference external" href="https://pinboard.in/">Pinboard.in</a>.</p>
+<p>If you&#8217;re new to Alfred and/or coding in general, start here.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Writing a Pinboard.in Workflow with <strong>Alfred-Workflow</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-a-new-workflow">Creating a new Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#describing-your-workflow">Describing your Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-a-script-filter">Adding a Script Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#writing-your-python-script">Writing your Python script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#making-the-workflow-useful">Making the Workflow useful</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#improving-performance-and-not-getting-banned">Improving performance and not getting banned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#making-the-posts-searchable">Making the posts searchable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#what-now">What now?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="tutorial-part-2">
+<h2>Tutorial, Part 2<a class="headerlink" href="#tutorial-part-2" title="Permalink to this headline">¶</a></h2>
+<p>In which we make our <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> Workflow ready for
+the masses.</p>
+<p>Demonstrates more advanced usage of <strong>Alfred-Workflow</strong> and a few Workflow
+tricks that might also be of interest to folks familiar with Python.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Building a user-ready Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#multi-step-actions">Multi-step actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#saving-settings">Saving settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#saving-settings-securely">Saving settings securely</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#spit-and-polish">Spit and polish</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#two-actions-one-keyword">Two actions, one keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#our-last-hurrah">Our last hurrah</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="alfred-workflow-quick-reference">
+<h2>Alfred-Workflow quick reference<a class="headerlink" href="#alfred-workflow-quick-reference" title="Permalink to this headline">¶</a></h2>
+<p>If you know your way around Python and Alfred, here&#8217;s an overview of what
+<strong>Alfred-Workflow</strong> does.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">Using <strong>Alfred-Workflow</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#writing-a-workflow-with-alfred-python">Writing a Workflow with <strong>Alfred-Python</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="api-docs">
+<h2>API docs<a class="headerlink" href="#api-docs" title="Permalink to this headline">¶</a></h2>
+<p>Documentation automatically generated from the code.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">workflow.workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/deanishe/alfred-workflow" style="
+      display: block; position: absolute; top: 0; right: 0;
+      width: 149px; height: 149px; text-indent: -9999px;
+      background: url('_static/fork_jdoctest.png') no-repeat;
+    ">Fork me on GitHub</a>
+  
+
+    
+    <div class="footer">
+        &copy; Copyright 2014, Dean Jackson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </div>
+  
+
+  </body>
+</html>

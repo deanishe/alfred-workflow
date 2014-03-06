@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>workflow.web &mdash; Alfred-Workflow 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
+    <link rel="prev" title="workflow.workflow" href="workflow.html" />
+  
+
+  </head>
+  <body>
+  <div class="wrap">
+    <div id="logo">&nbsp;</div>
+    
+      <div class="tocwrapper">
+        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
+        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
+        <div class="toc"><ul>
+<li><a class="reference internal" href="#">workflow.web</a></li>
+</ul>
+</div>
+        <script>
+          var toc = $( ".toc" );
+          $( ".showtoc span" ).click(function() {
+            $( this ).parent().hide().next().show();
+            toc.slideDown( "fast" );
+          });
+          $( ".hidetoc span" ).click(function() {
+            $( this ).parent().hide().prev().show();
+            toc.slideUp( "fast" );
+          });
+        </script>
+      </div>
+    
+    
+
+
+    <div class="document">
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-workflow.web">
+<span id="workflow-web"></span><h1>workflow.web<a class="headerlink" href="#module-workflow.web" title="Permalink to this headline">¶</a></h1>
+<p>Basic, <tt class="docutils literal"><span class="pre">requests</span></tt>-like API for retrieving data from the Web.</p>
+<p>Intended to replace basic functionality of <tt class="docutils literal"><span class="pre">requests</span></tt>, but at
+1/200th of the size.</p>
+<p>Features:</p>
+<ul class="simple">
+<li>JSON requests and responses</li>
+<li>Form data submission</li>
+<li>File uploads</li>
+<li>Redirection support</li>
+</ul>
+<dl class="class">
+<dt id="workflow.web.NoRedirectHandler">
+<em class="property">class </em><tt class="descclassname">workflow.web.</tt><tt class="descname">NoRedirectHandler</tt><a class="headerlink" href="#workflow.web.NoRedirectHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/urllib2.html#urllib2.HTTPRedirectHandler" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">urllib2.HTTPRedirectHandler</span></tt></a></p>
+<p>Prevent redirections</p>
+<dl class="method">
+<dt id="workflow.web.NoRedirectHandler.redirect_request">
+<tt class="descname">redirect_request</tt><big>(</big><em>req</em>, <em>fp</em>, <em>code</em>, <em>msg</em>, <em>hdrs</em>, <em>newurl</em><big>)</big><a class="headerlink" href="#workflow.web.NoRedirectHandler.redirect_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.web.Response">
+<em class="property">class </em><tt class="descclassname">workflow.web.</tt><tt class="descname">Response</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#workflow.web.Response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Returned by <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><tt class="xref py py-func docutils literal"><span class="pre">request()</span></tt></a> / <a class="reference internal" href="#workflow.web.get" title="workflow.web.get"><tt class="xref py py-func docutils literal"><span class="pre">get()</span></tt></a> / <a class="reference internal" href="#workflow.web.post" title="workflow.web.post"><tt class="xref py py-func docutils literal"><span class="pre">post()</span></tt></a> functions.</p>
+<p>A simplified version of the <tt class="docutils literal"><span class="pre">Response</span></tt> object in the <tt class="docutils literal"><span class="pre">requests</span></tt> library.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s">&#39;http://www.google.com&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">encoding</span>
+<span class="go">ISO-8859-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">content</span>  <span class="c"># bytes</span>
+<span class="go">&lt;html&gt; ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">text</span>  <span class="c"># unicode, decoded according to charset in HTTP header/meta tag</span>
+<span class="go">u&#39;&lt;html&gt; ...&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>  <span class="c"># content parsed as JSON</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="workflow.web.Response.json">
+<tt class="descname">json</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.web.Response.json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode response contents as JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">decoded JSON</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">list</span></tt> / <tt class="docutils literal"><span class="pre">dict</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.web.Response.raise_for_status">
+<tt class="descname">raise_for_status</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.web.Response.raise_for_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise stored error if one occurred.</p>
+<p>error will be instance of <a class="reference external" href="http://docs.python.org/library/urllib2.html#urllib2.HTTPError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">urllib2.HTTPError</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.web.Response.text">
+<tt class="descname">text</tt><a class="headerlink" href="#workflow.web.Response.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return unicode-decoded content of response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.web.encode_multipart_formdata">
+<tt class="descclassname">workflow.web.</tt><tt class="descname">encode_multipart_formdata</tt><big>(</big><em>fields</em>, <em>files</em><big>)</big><a class="headerlink" href="#workflow.web.encode_multipart_formdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode form data (<tt class="docutils literal"><span class="pre">fields</span></tt>) and <tt class="docutils literal"><span class="pre">files</span></tt> for POST request.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fields</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>) &#8211; mapping of <tt class="docutils literal"><span class="pre">{name</span> <span class="pre">:</span> <span class="pre">value}</span></tt> pairs for normal form fields.</li>
+<li><strong>files</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> of <tt class="xref py py-class docutils literal"><span class="pre">dicts</span></tt>) &#8211; dictionary of fieldnames/files elements for file data.
+<tt class="xref py py-obj docutils literal"><span class="pre">mimetype</span></tt> is optional.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">(headers,</span> <span class="pre">body)</span></tt> <tt class="docutils literal"><span class="pre">headers</span></tt> is a <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> of HTTP headers</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">2-tuple <tt class="docutils literal"><span class="pre">(dict,</span> <span class="pre">str)</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The <tt class="docutils literal"><span class="pre">files</span></tt> argument is a dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;fieldname&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="s">&#39;filename&#39;</span><span class="p">:</span> <span class="s">&#39;blah.txt&#39;</span><span class="p">,</span>
+                 <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;binary data&gt;&#39;</span><span class="p">,</span>
+                 <span class="s">&#39;mimetype&#39;</span><span class="p">:</span> <span class="s">&#39;text/plain&#39;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.web.get">
+<tt class="descclassname">workflow.web.</tt><tt class="descname">get</tt><big>(</big><em>url</em>, <em>params=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=True</em><big>)</big><a class="headerlink" href="#workflow.web.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate a GET request. Arguments as for <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><tt class="xref py py-func docutils literal"><span class="pre">request()</span></tt></a> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Request</span></tt> instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.web.post">
+<tt class="descclassname">workflow.web.</tt><tt class="descname">post</tt><big>(</big><em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em><big>)</big><a class="headerlink" href="#workflow.web.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate a POST request. Arguments as for <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><tt class="xref py py-func docutils literal"><span class="pre">request()</span></tt></a> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Request</span></tt> instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.web.request">
+<tt class="descclassname">workflow.web.</tt><tt class="descname">request</tt><big>(</big><em>method</em>, <em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em><big>)</big><a class="headerlink" href="#workflow.web.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate an HTTP(S) request. Returns <a class="reference internal" href="#workflow.web.Response" title="workflow.web.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a> object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>method</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; &#8216;GET&#8217; or &#8216;POST&#8217;</li>
+<li><strong>url</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; URL to open</li>
+<li><strong>params</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt>) &#8211; mapping of URL parameters</li>
+<li><strong>data</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; mapping of form data <tt class="docutils literal"><span class="pre">{'field_name':</span> <span class="pre">'value'}</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt></li>
+<li><strong>headers</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt>) &#8211; HTTP headers</li>
+<li><strong>cookies</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt>) &#8211; cookies to send to server</li>
+<li><strong>files</strong> &#8211; files to upload</li>
+<li><strong>auth</strong> (<tt class="docutils literal"><span class="pre">tuple</span></tt>) &#8211; username, password</li>
+<li><strong>timeout</strong> (<tt class="docutils literal"><span class="pre">int</span></tt>) &#8211; connection timeout limit in seconds</li>
+<li><strong>allow_redirects</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; follow redirections</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.web.Response" title="workflow.web.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a> object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.web.str_dict">
+<tt class="descclassname">workflow.web.</tt><tt class="descname">str_dict</tt><big>(</big><em>dic</em><big>)</big><a class="headerlink" href="#workflow.web.str_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert keys and values in <tt class="docutils literal"><span class="pre">dic</span></tt> into UTF-8-encoded <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dic</strong> &#8211; <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/deanishe/alfred-workflow" style="
+      display: block; position: absolute; top: 0; right: 0;
+      width: 149px; height: 149px; text-indent: -9999px;
+      background: url('_static/fork_jdoctest.png') no-repeat;
+    ">Fork me on GitHub</a>
+  
+
+    
+    <div class="footer">
+        &copy; Copyright 2014, Dean Jackson.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </div>
+  
+
+  </body>
+</html>

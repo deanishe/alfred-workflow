@@ -4,7 +4,7 @@
 
 # OUTPUT_PATH=$(pwd)/tests_output
 
-LOGPATH="$(dirname $0)/test.log"
+LOGPATH="$(pwd)/test.log"
 
 function log() {
     echo "$@" | tee -a $LOGPATH

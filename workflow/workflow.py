@@ -613,7 +613,10 @@ class Workflow(object):
 
         """
 
-        return self.cached_data_age(name) < max_age
+        age = self.cached_data_age(name)
+        if not age:
+            return False
+        return age < max_age
 
     def cached_data_age(self, name):
         """Return age of data cached at `name` in seconds or 0 if

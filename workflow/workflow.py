@@ -91,6 +91,16 @@ INITIALS = string.ascii_uppercase + string.digits
 # Split on non-letters, numbers
 split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
 
+# Match filter flags
+MATCH_STARTSWITH = 1
+MATCH_CAPITALS = 2
+MATCH_ATOM = 4
+MATCH_INITIALS_STARTSWITH = 8
+MATCH_INITIALS_CONTAIN = 16
+MATCH_SUBSTRING = 32
+MATCH_ALLCHARS = 64
+MATCH_ALL = 127
+
 
 ####################################################################
 # Keychain access errors
@@ -358,7 +368,7 @@ class Workflow(object):
 
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
-        if len(args) and self._capture_args:
+        if len(args) and self._capture_args:  # pragma: no cover
             if 'workflow:openlog' in args:
                 self.open_log()
                 msg = 'Opening workflow log file'
@@ -612,41 +622,60 @@ class Workflow(object):
         return time.time() - os.stat(cache_path).st_mtime
 
     def filter(self, query, items, key=lambda x: x, ascending=False,
-               include_score=False):
+               include_score=False, min_score=0, max_results=0,
+               match_on=MATCH_ALL):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         Matching is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected.
 
-        Results are matched as follows:
-
-        1. Items whose capital letters match ``query``, e.g.
-           ``of`` = ``OmniFocus``
-        2. Items that start with ``query``. Shorter items are rated more highly
-        3. Items whose "initials" match ``query``, e.g.
-           ``goc`` = ``Game of Cards``
-        4. Items that contain ``query`` as an "atom" (words between spaces
-           and other non-letter characters).
-        4. Items that contain all the characters in ``query``.
-           Matches nearer the beginning of the item are prioritised,
-           as are shorter items.
-
         :param query: query to test items against
-        :type query: `unicode`
+        :type query: ``unicode``
         :param items: iterable of items to test
-        :type items: `iterable` (`list` or `tuple`)
+        :type items: ``list`` or ``tuple``
         :param key: function to get comparison key from `items`. Must return a
-                    `unicode` string.
-        :type key: `callable`
-        :param ascending: set to `True` to get worst matches first
-        :type ascending: `Boolean`
+                    ``unicode`` string.
+        :type key: ``callable``
+        :param ascending: set to ``True`` to get worst matches first
+        :type ascending: ``Boolean``
         :param include_score: Useful for debugging the scoring algorithm.
-            If `True`, results will be a list of tuples ``(item, score, rule)``.
+            If ``True``, results will be a list of tuples
+            ``(item, score, rule)``.
         :type include_score: `Boolean`
+        :param min_score: If non-zero, ignore results with a score lower
+            than this.
+        :type min_score: ``int``
+        :param max_results: If non-zero, prune results list to this length.
+        :type max_results: ``int``
+        :param match_on: Filter option flags. Bitwise-combined list of
+            ``MATCH_*`` constants (see below).
+        :type match_on: ``int``
         :returns: list of `items` matching ``query`` or list of
             ``(item, score, rule)`` `tuples` if `include_score` is `True`.
             ``rule`` is the name of the rule that matched the item.
         :rtype: `list`
+
+        Matching rules
+        --------------
+
+        By default, :meth:`filter` uses all of the following flags in the
+        specified order (i.e. :const:`MATCH_ALL``):
+
+        1. ``MATCH_STARTSWITH`` : Item search key startswith ``query`` (case-insensitive).
+        2. ``MATCH_CAPITALS`` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
+        3. ``MATCH_ATOM`` : Search key is split into "atoms" on non-word characters (.,-,' etc.). Matches if ``query`` is one of these atoms (case-insensitive).
+        4. ``MATCH_INITIALS_STARTSWITH`` : Initials are the first characters of the above-described "atoms" (case-insensitive).
+        5. ``MATCH_INITIALS_CONTAIN`` : ``query`` is a substring of the above-described initials.
+        6. ``MATCH_SUBSTRING`` : Match if ``query`` is a substring of item search key (case-insensitive).
+        7. ``MATCH_ALLCHARS`` : Matches if all characters in ``query`` appear in item search key in the same order (case-insensitive).
+
+        To ignore ``MATCH_ALLCHARS`` (tends to provide the worst matches and
+        is expensive to run), use ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
+
+        To match only on capitals, use ``match_on=MATCH_CAPITALS``.
+
+        To match only on startswith and substring, use
+        ``match_on=MATCH_STARTSWITH | MATCH_SUBSTRING``.
 
         """
 
@@ -674,19 +703,23 @@ class Workflow(object):
                 continue
 
             # item starts with query
-            if value.lower().startswith(query):
+            if (match_on & MATCH_STARTSWITH and
+                    value.lower().startswith(query)):
                 score = 100.0 - (len(value) - len(query))
-                rule = 'startswith'
+                rule = MATCH_STARTSWITH
 
-            else:
+            if not score and match_on & MATCH_CAPITALS:
                 # query matches capitalised letters in item,
                 # e.g. of = OmniFocus
                 initials = ''.join([c for c in value if c in INITIALS])
                 if initials.lower().startswith(query):
                     score = 100.0 - (len(initials) - len(query))
-                    rule = 'capitals'
+                    rule = MATCH_CAPITALS
 
-                else:
+            if not score:
+                if (match_on & MATCH_ATOM or
+                        match_on & MATCH_INITIALS_CONTAIN or
+                        match_on & MATCH_INITIALS_STARTSWITH):
                     # split the item into "atoms", i.e. words separated by
                     # spaces or other non-word characters
                     atoms = [s.lower() for s in split_on_delimiters(value)]
@@ -694,40 +727,49 @@ class Workflow(object):
                     # initials of the atoms
                     initials = ''.join([s[0] for s in atoms if s])
 
+                if match_on & MATCH_ATOM:
                     # is `query` one of the atoms in item?
                     # similar to substring, but scores more highly, as it's
                     # a word within the item
                     if query in atoms:
                         score = 100.0 - (len(value) - len(query))
-                        rule = 'atom'
+                        rule = MATCH_ATOM
 
-                    # `query` matches start (or all) of the initials of the
-                    # atoms, e.g. ``himym`` matches "How I Met Your Mother"
-                    # *and* "how i met your mother" (the ``capitals`` rule only
-                    # matches the former)
-                    elif initials.startswith(query):
-                        score = 100.0 - (len(initials) - len(query))
-                        rule = 'initials:startswith'
+            if not score:
+                # `query` matches start (or all) of the initials of the
+                # atoms, e.g. ``himym`` matches "How I Met Your Mother"
+                # *and* "how i met your mother" (the ``capitals`` rule only
+                # matches the former)
+                if (match_on & MATCH_INITIALS_STARTSWITH and
+                        initials.startswith(query)):
+                    score = 100.0 - (len(initials) - len(query))
+                    rule = MATCH_INITIALS_STARTSWITH
 
-                    # `query` is a substring of initials, e.g. ``doh`` matches
-                    # "The Dukes of Hazzard"
-                    elif query in initials:
-                        score = 95.0 - (len(initials) - len(query))
-                        rule = 'initials:contains'
+                # `query` is a substring of initials, e.g. ``doh`` matches
+                # "The Dukes of Hazzard"
+                elif (match_on & MATCH_INITIALS_CONTAIN and
+                        query in initials):
+                    score = 95.0 - (len(initials) - len(query))
+                    rule = MATCH_INITIALS_CONTAIN
 
-                    # `query` is a substring of item
-                    elif query in value.lower():
-                            score = 90.0 - (len(value) - len(query))
-                            rule = 'substring'
+            if not score:
+                # `query` is a substring of item
+                if match_on & MATCH_SUBSTRING and query in value.lower():
+                        score = 90.0 - (len(value) - len(query))
+                        rule = MATCH_SUBSTRING
 
-                    # finally, assign a score based on how close together the
-                    # characters in `query` are in item.
-                    else:
-                        match = search(value)
-                        if match:
-                            score = 100.0 / ((1 + match.start()) *
-                                             (match.end() - match.start() + 1))
-                            rule = 'allchars'
+            if not score:
+                # finally, assign a score based on how close together the
+                # characters in `query` are in item.
+                if match_on & MATCH_ALLCHARS:
+                    match = search(value)
+                    if match:
+                        score = 100.0 / ((1 + match.start()) *
+                                         (match.end() - match.start() + 1))
+                        rule = MATCH_ALLCHARS
+
+            if min_score and score < min_score:
+                continue
 
             if score > 0:
                 # use "reversed" `score` (i.e. highest becomes lowest) and
@@ -738,6 +780,9 @@ class Workflow(object):
         # sort on keys, then discard the keys
         keys = sorted(results.keys(), reverse=ascending)
         results = [results.get(k) for k in keys]
+
+        if max_results and len(results) > max_results:
+            results = results[:max_results]
 
         # return list of ``(item, score, rule)``
         if include_score:

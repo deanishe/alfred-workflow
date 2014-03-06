@@ -24,7 +24,10 @@ from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
-                               KeychainError)
+                               KeychainError, MATCH_ALL, MATCH_ALLCHARS,
+                               MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
+                               MATCH_SUBSTRING, MATCH_INITIALS_CONTAIN,
+                               MATCH_INITIALS_STARTSWITH)
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
@@ -50,6 +53,17 @@ class WorkflowTests(unittest.TestCase):
         self.account = 'this-is-my-test-account'
         self.password = 'this-is-my-safe-password'
         self.password2 = 'this-is-my-other-safe-password'
+        self.search_items = [
+            ('Test Item One', MATCH_STARTSWITH),
+            ('test item two', MATCH_STARTSWITH),
+            ('TwoExtraSpecialTests', MATCH_CAPITALS),
+            ('this-is-a-test', MATCH_ATOM),
+            ('the extra special trials', MATCH_INITIALS_STARTSWITH),
+            ('not the extra special trials', MATCH_INITIALS_CONTAIN),
+            ('intestinal fortitude', MATCH_SUBSTRING),
+            ('the splits', MATCH_ALLCHARS),
+            ('nomatch', 0),
+        ]
 
     def tearDown(self):
         self.wf.clear_cache()
@@ -301,29 +315,54 @@ class WorkflowTests(unittest.TestCase):
         ret = self.wf.run(cb)
         self.assertEquals(ret, 0)
 
-    def test_filter(self):
-        """Filter"""
-        items = [
-            ('Test Item One', 'startswith'),
-            ('test item two', 'startswith'),
-            ('TwoExtraSpecialTests', 'capitals'),
-            ('this-is-a-test', 'atom'),
-            ('the extra special trials', 'initials:startswith'),
-            ('not the extra special trials', 'initials:contains'),
-            ('intestinal fortitude', 'substring'),
-            ('the splits', 'allchars'),
-            ('nomatch', ''),
-        ]
-        results = self.wf.filter('test', items, key=lambda x: x[0],
+    def test_filter_all_rules(self):
+        """Filter: all rules"""
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
                                  ascending=True)
         self.assertEquals(len(results), 8)
-        results = self.wf.filter('test', items, key=lambda x: x[0],
+        # now with scores, rules
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
                                  include_score=True)
         self.assertEquals(len(results), 8)
         for item, score, rule in results:
-            for value, r in items:
+            self.wf.logger.debug('{} : {}'.format(item, score))
+            for value, r in self.search_items:
                 if value == item[0]:
                     self.assertEquals(rule, r)
+        # self.assertTrue(False)
+
+    def test_filter_no_caps(self):
+        """Filter: no caps"""
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
+                                 ascending=True,
+                                 match_on=MATCH_ALL ^ MATCH_CAPITALS,
+                                 include_score=True)
+        self._print_results(results)
+        for item, score, rule in results:
+            self.assertNotEqual(rule, MATCH_CAPITALS)
+        # self.assertEquals(len(results), 7)
+
+    def test_filter_only_caps(self):
+        """Filter: only caps"""
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
+                                 ascending=True,
+                                 match_on=MATCH_CAPITALS,
+                                 include_score=True)
+        self._print_results(results)
+        self.assertEqual(len(results), 1)
+
+    def test_filter_max_results(self):
+        """Filter: max results"""
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
+                                 ascending=True, max_results=4)
+        self.assertEquals(len(results), 4)
+
+    def test_filter_min_score(self):
+        """Filter: min score"""
+        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
+                                 ascending=True, min_score=90,
+                                 include_score=True)
+        self.assertEquals(len(results), 6)
 
     def test_icons(self):
         """Icons"""
@@ -333,6 +372,11 @@ class WorkflowTests(unittest.TestCase):
                 path = getattr(workflow, name)
                 print(name, path)
                 self.assert_(os.path.exists(path))
+
+    def _print_results(self, results):
+        """Print results of Workflow.filter"""
+        for item, score, rule in results:
+            print('{0} (rule {1}) : {2}'.format(item[0], rule, score))
 
 
 class SettingsTests(unittest.TestCase):

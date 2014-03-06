@@ -32,6 +32,8 @@ import string
 import random
 import json
 import re
+import unicodedata
+
 
 USER_AGENT = u'alfred-workflow-0.1'
 
@@ -172,10 +174,10 @@ class Response(object):
             self.encoding = self._get_encoding()
 
     def json(self):
-        """Decode response contents as JSON
+        """Decode response contents as JSON.
 
         :returns: decoded JSON
-        :rtype: :class:`list` / :class:`dict`
+        :rtype: ``list`` / ``dict``
 
         """
 
@@ -183,20 +185,21 @@ class Response(object):
 
     @property
     def text(self):
-        """Return unicode-decoded content of response
+        """Return unicode-decoded content of response.
 
-        :returns: :class:`unicode`
+        :returns: ``unicode``
 
         """
 
         if self.encoding:
-            return unicode(self.content, self.encoding)
+            return unicodedata.normalize('NFC', unicode(self.content,
+                                                        self.encoding))
         return self.content
 
     def raise_for_status(self):
-        """Raise stored error if one occurred
+        """Raise stored error if one occurred.
 
-        error will be instance of :class:`~urllib2.HTTPError`
+        error will be instance of :class:`urllib2.HTTPError`
         """
 
         if self.error:
@@ -204,10 +207,10 @@ class Response(object):
         return
 
     def _get_encoding(self):
-        """Get encoding from HTTP headers or content
+        """Get encoding from HTTP headers or content.
 
         :returns: encoding or `None`
-        :rtype: :class:`unicode` or :obj:`None`
+        :rtype: ``unicode`` or ``None``
 
         """
 
@@ -240,25 +243,25 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     """Initiate an HTTP(S) request. Returns :class:`Response` object.
 
     :param method: 'GET' or 'POST'
-    :type method: `unicode`
+    :type method: ``unicode``
     :param url: URL to open
-    :type url: `unicode`
+    :type url: ``unicode``
     :param params: mapping of URL parameters
-    :type params: `dict`
-    :param data: mapping of form data {'field_name': 'value'} or `str`
-    :type data: `dict` or `str`
+    :type params: ``dict``
+    :param data: mapping of form data ``{'field_name': 'value'}`` or ``str``
+    :type data: ``dict`` or ``str``
     :param headers: HTTP headers
-    :type headers: `dict`
+    :type headers: ``dict``
     :param cookies: cookies to send to server
-    :type cookies: `dict`
+    :type cookies: ``dict``
     :param files: files to upload
     :type files:
     :param auth: username, password
-    :type auth: `tuple`
+    :type auth: ``tuple``
     :param timeout: connection timeout limit in seconds
-    :type timeout: `int`
+    :type timeout: ``int``
     :param allow_redirects: follow redirections
-    :type allow_redirects: `Boolean`
+    :type allow_redirects: ``Boolean``
     :returns: :class:`Response` object
 
     """
@@ -357,7 +360,7 @@ def encode_multipart_formdata(fields, files):
         :param filename: filename of file
         :type filename: unicode/string
         :returns: mime-type, e.g. ``text/html``
-        :rtype: :class:`str`
+        :rtype: :class:``str``
 
         """
 

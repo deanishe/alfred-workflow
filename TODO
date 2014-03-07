@@ -10,29 +10,49 @@ General:
 		source code in any case.
 
 web.py:
-	- Add unit tests @done(14-03-02 01:23)
-	- Normalise Unicode @done(14-03-06 20:34)
-	- What about the "json" module normalisation?
-
 workflow.py:
-	- Add unit tests @done(14-03-03 03:20)
-	- Give log file more unique name @done(14-02-27 23:01)
-		bundleid.log?
-	- Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
-	- Move `INITIALS` and `split_on_delimiters` to Workflow class attributes
-	- Update method documentation to refer to __init__ args, not the _* attributes they're saved as.
-	- Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
-	- make settings.json chmod 600. Also make cache- and datadirs only user-readable/writeable.
 
 	Unit Tests:
-		- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
-		- Tests for `Workflow.run` method @done(14-03-03 03:21)
-		- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
+	ui.py:
+	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
+	- Yes/no dialog
+	- Text input
+	- Select list
+	- Notification center notifications
+	search.py:
+		Interface to `mdfind`
+Docs:
+	- Add tutorial using `workflow.web`
+	- Add tutorial using filesystem/Unicode
 
-Other:
-	- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
-		https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
-		Created own version
-	- Add and adapt phyllisstein's `fuzzy` module @done(14-02-27 22:56)
-		https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
-		Created own version
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+- Add unit tests @done(14-03-02 01:23)
+ @project(web.py)
+- Normalise Unicode @done(14-03-06 20:34)
+ @project(web.py)
+- Add unit tests @done(14-03-03 03:20)
+ @project(workflow.py)
+- Give log file more unique name @done(14-02-27 23:01)
+ @project(workflow.py)
+bundleid.log?
+- Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
+ @project(workflow.py)
+- Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
+ @project(workflow.py)
+- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
+ @project(workflow.py / Unit Tests)
+- Tests for `Workflow.run` method @done(14-03-03 03:21)
+ @project(workflow.py / Unit Tests)
+- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
+ @project(workflow.py / Unit Tests)
+- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
+ @project(Docs)
+- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
+ @project(Other)
+https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
+Created own version
+- Add and adapt phyllisstein's `fuzzy` module @done(14-02-27 22:56)
+ @project(Other)
+https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
+Created own version

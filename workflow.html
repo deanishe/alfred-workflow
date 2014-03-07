@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,8 +8,10 @@
     
     <title>workflow.workflow &mdash; Alfred-Workflow 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.1.0/readable/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,35 +25,116 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
-    <link rel="prev" title="Using Alfred-Workflow" href="howto.html" /> 
+    <link rel="prev" title="Quick Reference" href="howto.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link rel="stylesheet" href="_static/custom.css">
+
   </head>
   <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="web.html" title="workflow.web"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="howto.html" title="Using Alfred-Workflow"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Alfred-Workflow</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
             
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Writing A Pinboard Workflow, Part 1</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Writing A Pinboard Workflow, Part 2</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">Quick Reference</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">workflow.workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">workflow.workflow</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
   <div class="section" id="module-workflow.workflow">
 <span id="workflow-workflow"></span><h1>workflow.workflow<a class="headerlink" href="#module-workflow.workflow" title="Permalink to this headline">¶</a></h1>
 <p>Helper library for Alfred 2 workflow authors.</p>
@@ -75,8 +158,8 @@ for details of arguments.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">Element</span></tt></a> instance
-for <a class="reference internal" href="#workflow.workflow.Item" title="workflow.workflow.Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a></td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">ElementTree.Element</span></tt></a>
+instance for this <a class="reference internal" href="#workflow.workflow.Item" title="workflow.workflow.Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> instance.</td>
 </tr>
 </tbody>
 </table>
@@ -88,26 +171,25 @@ for <a class="reference internal" href="#workflow.workflow.Item" title="workflow
 <dt id="workflow.workflow.KeychainError">
 <em class="property">exception </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">KeychainError</tt><a class="headerlink" href="#workflow.workflow.KeychainError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
-<p>Raised by methods <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">save_password()</span></tt></a>,
-<a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">get_password()</span></tt></a> and <a class="reference internal" href="#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></tt></a></p>
-<blockquote>
-<div>when <tt class="docutils literal"><span class="pre">security</span></tt> CLI app returns an unknown code.</div></blockquote>
+<p>Raised by methods <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></tt></a>,
+<a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a> and <a class="reference internal" href="#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.delete_password()</span></tt></a>
+when <tt class="docutils literal"><span class="pre">security</span></tt> CLI app returns an unknown code.</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="workflow.workflow.PasswordExists">
 <em class="property">exception </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PasswordExists</tt><a class="headerlink" href="#workflow.workflow.PasswordExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#workflow.workflow.KeychainError" title="workflow.workflow.KeychainError"><tt class="xref py py-class docutils literal"><span class="pre">workflow.workflow.KeychainError</span></tt></a></p>
-<p>Raised when trying to overwrite an existing <tt class="docutils literal"><span class="pre">account</span></tt> password.</p>
+<p>Raised when trying to overwrite an existing account password.</p>
 <p>The API user should never receive this error: it is used internally
-by the <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">save_password()</span></tt></a> method.</p>
+by the <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></tt></a> method.</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="workflow.workflow.PasswordNotFound">
 <em class="property">exception </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PasswordNotFound</tt><a class="headerlink" href="#workflow.workflow.PasswordNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#workflow.workflow.KeychainError" title="workflow.workflow.KeychainError"><tt class="xref py py-class docutils literal"><span class="pre">workflow.workflow.KeychainError</span></tt></a></p>
-<p>Raised by method <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">get_password()</span></tt></a> when <tt class="docutils literal"><span class="pre">account</span></tt>
+<p>Raised by method <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a> when <tt class="docutils literal"><span class="pre">account</span></tt>
 is unknown to the Keychain.</p>
 </dd></dl>
 
@@ -162,8 +244,7 @@ exists, <a class="reference internal" href="#workflow.workflow.Workflow.settings
 <tt class="docutils literal"><span class="pre">default_settings</span></tt>.</li>
 <li><strong>input_encoding</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>) &#8211; encoding of command line arguments</li>
 <li><strong>normalization</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>) &#8211; normalisation to apply to CLI args.
-Use <tt class="docutils literal"><span class="pre">NFC</span></tt> for Python, <tt class="docutils literal"><span class="pre">NFD</span></tt> if working with data
-from the filesystem.</li>
+See <a class="reference internal" href="#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for more details.</li>
 <li><strong>capture_args</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Boolean</span></tt>) &#8211; capture and act on <tt class="docutils literal"><span class="pre">workflow:*</span></tt> arguments. See
 <a class="reference internal" href="howto.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
 <li><strong>libraries</strong> (<tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt>) &#8211; sequence of paths to directories containing
@@ -187,25 +268,22 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 <li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <cite>{query}</cite> when item is actioned</li>
 <li><strong>autocomplete</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text expanded in Alfred when item is TABbed</li>
 <li><strong>valid</strong> (<cite>Boolean</cite>) &#8211; Whether or not item can be actioned</li>
-<li><strong>icontype</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Type of icon. Must be one of <cite>None</cite> , <tt class="docutils literal"><span class="pre">filetype</span></tt>
-or <tt class="docutils literal"><span class="pre">fileicon</span></tt>. Use <tt class="docutils literal"><span class="pre">filetype</span></tt> when <tt class="docutils literal"><span class="pre">icon</span></tt> is a
-filetype such as <tt class="docutils literal"><span class="pre">public.folder</span></tt>. Use <tt class="docutils literal"><span class="pre">fileicon</span></tt>
-when you wish to use the icon of the file specified
-as <tt class="docutils literal"><span class="pre">icon</span></tt>, e.g. <tt class="docutils literal"><span class="pre">icon='/Applications/Safari.app',</span>
-<span class="pre">icontype='fileicon'</span></tt>. Leave as <cite>None</cite> if <tt class="docutils literal"><span class="pre">icon</span></tt> points
-to an actual icon file.</li>
-<li><strong>type</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Result type. Currently only <tt class="docutils literal"><span class="pre">file</span></tt> is supported. This
-will tell Alfred to enable file actions for this item.</li>
+<li><strong>uid</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Used by Alfred to remember/sort items</li>
+<li><strong>icon</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Filename of icon to use</li>
+<li><strong>icontype</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Type of icon. Must be one of <tt class="docutils literal"><span class="pre">None</span></tt> , <tt class="docutils literal"><span class="pre">'filetype'</span></tt>
+or <tt class="docutils literal"><span class="pre">'fileicon'</span></tt>. Use <tt class="docutils literal"><span class="pre">'filetype'</span></tt> when <tt class="docutils literal"><span class="pre">icon</span></tt> is a filetype
+such as``public.folder``. Use <tt class="docutils literal"><span class="pre">'fileicon'</span></tt> when you wish to
+use the icon of the file specified as <tt class="docutils literal"><span class="pre">icon</span></tt>, e.g.
+<tt class="docutils literal"><span class="pre">icon='/Applications/Safari.app',</span> <span class="pre">icontype='fileicon'</span></tt>.
+Leave as <cite>None</cite> if <tt class="docutils literal"><span class="pre">icon</span></tt> points to an actual
+icon file.</li>
+<li><strong>type</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Result type. Currently only <tt class="docutils literal"><span class="pre">'file'</span></tt> is supported
+(by Alfred). This will tell Alfred to enable file actions for
+this item.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Uid:</th><td class="field-body"><p class="first">Used by Alfred to remember/sort items</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Icon:</th><td class="field-body"><p class="first">Filename of icon to use</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>~workflow.Item</cite> instance</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.workflow.Item" title="workflow.workflow.Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> instance</p>
 </td>
 </tr>
 </tbody>
@@ -221,8 +299,8 @@ will tell Alfred to enable file actions for this item.</li>
 <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments passed to <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (<tt class="docutils literal"><span class="pre">UTF-8</span></tt>
 and <tt class="docutils literal"><span class="pre">NFC</span></tt> are the defaults).</p>
 <p>If <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> is called with <tt class="docutils literal"><span class="pre">capture_args=True</span></tt> (the default),
-<a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will &#8220;capture&#8221; certain <tt class="docutils literal"><span class="pre">workflow:*</span></tt> args and
-perform corresponding actions.</p>
+<a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will look for certain <tt class="docutils literal"><span class="pre">workflow:*</span></tt> args and, if
+found, perform the corresponding actions and exit the workflow.</p>
 <p>See <a class="reference internal" href="howto.html#magic-arguments"><em>Magic arguments</em></a> for details.</p>
 </dd></dl>
 
@@ -405,7 +483,8 @@ cache doesn&#8217;t exist</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>text</strong> (<em>encoded string</em>) &#8211; string</li>
+<li><strong>text</strong> (encoded or Unicode string. If <tt class="docutils literal"><span class="pre">text</span></tt> is already a
+Unicode string, it will only be normalised.) &#8211; string</li>
 <li><strong>encoding</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>) &#8211; The text encoding to use to decode <tt class="docutils literal"><span class="pre">text</span></tt> to Unicode.</li>
 <li><strong>normalization</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>) &#8211; The nomalisation form to apply to <tt class="docutils literal"><span class="pre">text</span></tt>.</li>
 </ul>
@@ -448,7 +527,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x103d2b0c8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1034341b8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -486,13 +565,15 @@ than this.</li>
 <p>By default, <a class="reference internal" href="#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">filter()</span></tt></a> uses all of the following flags (i.e.
 <tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt>). The tests are always run in the given order:</p>
 <ol class="arabic simple">
-<li><tt class="docutils literal"><span class="pre">MATCH_STARTSWITH</span></tt> : Item search key startswith <tt class="docutils literal"><span class="pre">query</span></tt> (case-insensitive).</li>
-<li><tt class="docutils literal"><span class="pre">MATCH_CAPITALS</span></tt> : The list of capital letters in item search key starts with <tt class="docutils literal"><span class="pre">query</span></tt> (<tt class="docutils literal"><span class="pre">query</span></tt> may be lower-case). E.g., <tt class="docutils literal"><span class="pre">of</span></tt> would match <tt class="docutils literal"><span class="pre">OmniFocus</span></tt>, <tt class="docutils literal"><span class="pre">gc</span></tt> would match <tt class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">MATCH_ATOM</span></tt> : Search key is split into &#8220;atoms&#8221; on non-word characters (.,-,&#8217; etc.). Matches if <tt class="docutils literal"><span class="pre">query</span></tt> is one of these atoms (case-insensitive).</li>
-<li><tt class="docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></tt> : Initials are the first characters of the above-described &#8220;atoms&#8221; (case-insensitive).</li>
-<li><tt class="docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></tt> : <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of the above-described initials.</li>
-<li><tt class="docutils literal"><span class="pre">MATCH_SUBSTRING</span></tt> : Match if <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of item search key (case-insensitive).</li>
-<li><tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> : Matches if all characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in item search key in the same order (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></tt> : Item search key startswith <tt class="docutils literal"><span class="pre">query</span></tt> (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></tt> : The list of capital letters in item search key starts with <tt class="docutils literal"><span class="pre">query</span></tt> (<tt class="docutils literal"><span class="pre">query</span></tt> may be lower-case). E.g., <tt class="docutils literal"><span class="pre">of</span></tt> would match <tt class="docutils literal"><span class="pre">OmniFocus</span></tt>, <tt class="docutils literal"><span class="pre">gc</span></tt> would match <tt class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></tt></li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></tt> : Search key is split into &#8220;atoms&#8221; on non-word characters (.,-,&#8217; etc.). Matches if <tt class="docutils literal"><span class="pre">query</span></tt> is one of these atoms (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></tt> : Initials are the first characters of the above-described &#8220;atoms&#8221; (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></tt> : <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of the above-described initials.</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></tt> : Combination of (4) and (5).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></tt> : Match if <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of item search key (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> : Matches if all characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in item search key in the same order (case-insensitive).</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt> : Combination of all the above. The default.</li>
 </ol>
 <p><strong>Examples:</strong></p>
 <p>To ignore <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> (tends to provide the worst matches and
@@ -665,7 +746,7 @@ bundle ID</li>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.send_feedback">
 <tt class="descname">send_feedback</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.send_feedback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print stored items to console/Alfred as XML</p>
+<dd><p>Print stored items to console/Alfred as XML.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -676,19 +757,11 @@ bundle ID</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> instance initialised from the data</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> instance initialised from the data
+in JSON file at <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings_path</span></tt></a> or if that doesn&#8217;t exist,
+with the <tt class="docutils literal"><span class="pre">default_settings</span></tt> <tt class="docutils literal"><span class="pre">dict</span></tt> passed to <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>.</td>
 </tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>in <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings_path</span></tt></a> or if that doesn&#8217;t exist, with the</dt>
-<dd><tt class="docutils literal"><span class="pre">default_settings</span></tt> <tt class="docutils literal"><span class="pre">dict</span></tt> passed to <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>.</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> instance</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> instance</td>
 </tr>
 </tbody>
 </table>
@@ -757,60 +830,29 @@ Split string by the occurrences of pattern.</p>
 </div>
 
 
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="howto.html"
-                        title="previous chapter">Using <strong>Alfred-Workflow</strong></a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="web.html"
-                        title="next chapter">workflow.web</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/workflow.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
+      
+  </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="web.html" title="workflow.web"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="howto.html" title="Using Alfred-Workflow"
-             >previous</a> |</li>
-        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2014, Dean Jackson.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/workflow.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, Dean Jackson.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>

@@ -1,15 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Alfred-Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
+    <title>Howto &mdash; Alfred-Workflow 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.1.0/readable/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,47 +25,173 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
-    <link rel="prev" title="Building a user-ready Workflow" href="tutorial2.html" /> 
+    <link rel="prev" title="Writing A Pinboard Workflow, Part 2" href="tutorial2.html" />
+
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link rel="stylesheet" href="_static/custom.css">
+
   </head>
   <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="workflow.html" title="workflow.workflow"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tutorial2.html" title="Building a user-ready Workflow"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Alfred-Workflow</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
             
-  <div class="section" id="using-alfred-workflow">
-<h1>Using <strong>Alfred-Workflow</strong><a class="headerlink" href="#using-alfred-workflow" title="Permalink to this headline">¶</a></h1>
-<p>This document serves as a quick-reference/recipe book for the features of
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Documentation <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Writing A Pinboard Workflow, Part 1</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Writing A Pinboard Workflow, Part 2</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Howto</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">workflow.workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Howto</a><ul>
+<li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
+<li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
+<li><a class="reference internal" href="#settings">Settings</a></li>
+<li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
+<li><a class="reference internal" href="#caching-data">Caching data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
+<li><a class="reference internal" href="#restricting-results">Restricting results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
+<li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Howto</a><ul>
+<li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
+<li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
+<li><a class="reference internal" href="#settings">Settings</a></li>
+<li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
+<li><a class="reference internal" href="#caching-data">Caching data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
+<li><a class="reference internal" href="#restricting-results">Restricting results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
+<li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9">
+      
+  <div class="section" id="howto">
+<h1>Howto<a class="headerlink" href="#howto" title="Permalink to this headline">¶</a></h1>
+<p>This document serves as a quick reference on using the features of
 <strong>Alfred-Python</strong>.</p>
 <p>If you&#8217;re new to writing Workflows or coding in general, start with the
 <a class="reference internal" href="tutorial.html#tutorial"><em>Tutorial</em></a>.</p>
-<div class="section" id="writing-a-workflow-with-alfred-python">
-<h2>Writing a Workflow with <strong>Alfred-Python</strong><a class="headerlink" href="#writing-a-workflow-with-alfred-python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="workflow-setup-and-skeleton">
+<h2>Workflow setup and skeleton<a class="headerlink" href="#workflow-setup-and-skeleton" title="Permalink to this headline">¶</a></h2>
 <p><strong>Alfred-Python</strong> is aimed particularly at authors of so-called
 <strong>Script Filters</strong>. These are activated by a keyword in Alfred, receive
 user input and return results to Alfred.</p>
-<p>To create a <strong>Script Filter</strong> in Alfred, make sure your <strong>Script Filter</strong>
+<p>To write a Script Filter with <strong>Alfred-Workflow</strong>, make sure your Script Filter
 is set to use <tt class="docutils literal"><span class="pre">/bin/bash</span></tt> as the <strong>Language</strong>, and select the
 following (and only the following) <strong>Escaping</strong> options:</p>
 <ul class="simple">
@@ -107,21 +235,33 @@ to capture any errors thrown by your scripts:</p>
 26
 27
 28
-29</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c">#!/usr/bin/python</span>
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c">#!/usr/bin/python</span>
  <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
 
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
+ <span class="n">log</span> <span class="o">=</span> <span class="bp">None</span>
+
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
      <span class="c"># The Workflow instance will be passed to the function</span>
      <span class="c"># you call from `Workflow.run`</span>
+
      <span class="c"># Your imports here if you want to catch import errors</span>
      <span class="kn">import</span> <span class="nn">somemodule</span>
      <span class="kn">import</span> <span class="nn">anothermodule</span>
-     <span class="c"># Get args from Workflow, already in normalised Unicode</span>
+
+     <span class="c"># Get args from Workflow as normalised Unicode</span>
      <span class="n">args</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span>
 
      <span class="c"># Do stuff here ...</span>
@@ -135,98 +275,410 @@ to capture any errors thrown by your scripts:</p>
 
  <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+     <span class="c"># Assign Workflow logger to a global variable, so all module</span>
+     <span class="c"># functions can access it without having to pass the Workflow</span>
+     <span class="c"># instance around</span>
+     <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 </div>
+<div class="section" id="persistent-data">
+<h2>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>
+<p>Alfred provides special data and cache directories for each Workflow (in
+<tt class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></tt> and <tt class="docutils literal"><span class="pre">~/Library/Caches</span></tt> respectively).
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides the following
+attributes/methods to make it easier to access these directories:</p>
+<ul class="simple">
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a> — The full path to your Workflow&#8217;s data directory.</li>
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a> — The full path to your Workflow&#8217;s cache directory.</li>
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.datafile" title="workflow.workflow.Workflow.datafile"><tt class="xref py py-meth docutils literal"><span class="pre">datafile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under the data directory.</li>
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cachefile" title="workflow.workflow.Workflow.cachefile"><tt class="xref py py-meth docutils literal"><span class="pre">cachefile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under the cache directory.</li>
+</ul>
+<p>There are also corresponding features related to the root directory of your Workflow
+(where <tt class="docutils literal"><span class="pre">info.plist</span></tt> and your code are):</p>
+<ul class="simple">
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowdir" title="workflow.workflow.Workflow.workflowdir"><tt class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></tt></a> — The full path to your Workflow&#8217;s root directory.</li>
+<li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">datafile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under your Workflow&#8217;s root directory.</li>
+</ul>
+<p>These are used internally to implement <cite>magic arguments &lt;magic-arguments&gt;</cite>, which
+may help you with development/debugging.</p>
+<p>In addition, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
+convenient interface for storing persistent settings with
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.</p>
+<div class="section" id="settings">
+<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a> is a subclass
+of <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that automatically saves its contents to the <tt class="docutils literal"><span class="pre">settings.json</span></tt>
+file in your Workflow&#8217;s data directory when it is changed.</p>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> can be used just like a normal <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>
+with the caveat that all keys and values must be serialisable to JSON.</p>
+<p>If you need to store arbitrary data, you can use the <a class="reference internal" href="#caching-data"><em>cached data API</em></a>.</p>
+<p>If you need to store data securely (such as passwords and API keys),
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides simple access to
+the OS X Keychain.</p>
+</div>
+<div class="section" id="keychain-access">
+<h3>Keychain access<a class="headerlink" href="#keychain-access" title="Permalink to this headline">¶</a></h3>
+<p>Methods <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password(account,</span> <span class="pre">password)</span></tt></a>,
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password(account)</span></tt></a>
+and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.delete_password(account)</span></tt></a>
+allow access to the Keychain. They may raise
+<tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt> if
+no password is set for the given <tt class="docutils literal"><span class="pre">account</span></tt> or
+<tt class="xref py py-class docutils literal"><span class="pre">KeychainError</span></tt> if there is
+a problem accessing the Keychain. Passwords are stored in the user&#8217;s default
+Keychain. By default, the Workflow&#8217;s Bundle ID will be used as the service name,
+but this can be overridden by setting the <tt class="docutils literal"><span class="pre">service</span></tt> argument to the above
+methods.</p>
+<p>Example usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">,</span> <span class="s">&#39;password1lolz&#39;</span><span class="p">)</span>
+
+<span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">delete_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+
+<span class="c"># raises PasswordNotFound exception</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="tutorial2.html#secure-settings"><em>the relevant part of the tutorial</em></a> for a full example.</p>
+</div>
+<div class="section" id="caching-data">
+<span id="id1"></span><h3>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides a few methods to simplify
+caching data that is slow to retrieve or expensive to generate. The main method
+is <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>, which
+takes a name under which the data should be cached, a callable to retrieve
+the data if they aren&#8217;t in the cache (or are too old), and a maximum age in seconds
+for the cached data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span>
+
+<span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://example.com/api/stuff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To only retrieve data if they are in the cache, call with <tt class="docutils literal"><span class="pre">None</span></tt> as the
+data-retrieval function (which is the default):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: This will return <tt class="docutils literal"><span class="pre">None</span></tt> if there are no corresponding data in the
+cache.</p>
+<p>This is useful if you want to update your cache in the background, so it doesn&#8217;t
+impact your Workflow&#8217;s responsiveness in Alfred. (See
+<a class="reference internal" href="tutorial2.html#background-updates"><em>the tutorial</em></a> for an example of how to run an update
+script in the background.)</p>
+<p>Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
+</div>
+</div>
+<div class="section" id="searching-filtering-data">
+<span id="filtering"></span><h2>Searching/filtering data<a class="headerlink" href="#searching-filtering-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> provides an
+Alfred-like search algorithm for filtering your Workflow&#8217;s data. By default,
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> will try to match
+your search query via CamelCase, substring, initials and all characters, applying
+different weightings to the various kind of matches (see
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> for a detailed
+description of the algorithm and match flags).</p>
+<p><strong>Note:</strong> By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
+will match and return anything that contains all the characters in <tt class="docutils literal"><span class="pre">query</span></tt>
+in the same order, regardless of case. It&#8217;s very likely that you&#8217;ll want to set
+the standard a little higher. See <a class="reference internal" href="#restricting-results"><em>Restricting results</em></a> for info on how
+to do that.</p>
+<p>To use <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>, pass it
+a query, a list of items to filter and sort, and if your list contains items
+other than strings, a <tt class="docutils literal"><span class="pre">key</span></tt> function that generates a string search key for
+each item:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+
+<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(<tt class="docutils literal"><span class="pre">bs</span></tt> are Bob Smith&#8217;s initials and <tt class="docutils literal"><span class="pre">Butterkeks</span></tt> contains both letters in that order.)</p>
+<p>If your data are not strings:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+ <span class="n">books</span> <span class="o">=</span> <span class="p">[</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;My splendid adventure&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">}</span>
+ <span class="p">]</span>
+
+
+<span class="hll"> <span class="k">def</span> <span class="nf">key_for_book</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
+</span><span class="hll">     <span class="k">return</span> <span class="s">&#39;{} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span> <span class="n">book</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">])</span>
+</span>
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+
+<span class="hll"> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Which returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<div class="section" id="restricting-results">
+<span id="id2"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
+<p>Chances are, you would not want <tt class="docutils literal"><span class="pre">bot</span></tt> to match <tt class="docutils literal"><span class="pre">Bob</span> <span class="pre">Smith</span> <span class="pre">A</span> <span class="pre">damn</span> <span class="pre">fine</span> <span class="pre">afternoon</span></tt>
+at all, or indeed any of the other books. Indeed, they have very low scores:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>produces:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
+  <span class="mf">11.11111111111111</span><span class="p">,</span>
+  <span class="mi">64</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+  <span class="mf">3.3333333333333335</span><span class="p">,</span>
+  <span class="mi">64</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span> <span class="mf">3.125</span><span class="p">,</span> <span class="mi">64</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>(<tt class="docutils literal"><span class="pre">64</span></tt> is the rule that matched, <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>, which matches
+if all the characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in order in the search key, regardless
+of case).</p>
+<p>If we filter <tt class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Brienne</span> <span class="pre">of</span> <span class="pre">Tarth',</span> <span class="pre">'title':</span> <span class="pre">'How</span> <span class="pre">to</span> <span class="pre">beat</span> <span class="pre">up</span> <span class="pre">men'}</span></tt> and
+<tt class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Zoltar',</span> <span class="pre">'title':</span> <span class="pre">'Battle</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Planets'}</span></tt>, which we probably
+would want to match <tt class="docutils literal"><span class="pre">bot</span></tt>, we get:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Brienne of Tarth&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;How to beat up men&#39;</span><span class="p">},</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>(The ranking would be reversed if <tt class="docutils literal"><span class="pre">key_for_book()</span></tt> returned <tt class="docutils literal"><span class="pre">author</span> <span class="pre">title</span></tt>
+instead of <tt class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></tt>.)</p>
+<p>So in all likelihood, you&#8217;ll want to pass a <tt class="docutils literal"><span class="pre">min_score</span></tt> argument to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and/or exclude some of the matching rules:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">MATCH_ALL</span><span class="p">,</span> <span class="n">MATCH_ALLCHARS</span>
+
+<span class="c"># [...]</span>
+
+<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can set match rules using bitwise operators, so <tt class="docutils literal"><span class="pre">|</span></tt> to combine them or
+<tt class="docutils literal"><span class="pre">^</span></tt> to remove them from <tt class="docutils literal"><span class="pre">MATCH_ALL</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># match only CamelCase and initials</span>
+<span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_CAPITALS</span> <span class="o">|</span> <span class="n">MATCH_INITIALS</span>
+
+<span class="c"># match everything but all-characters-in-item and substring</span>
+<span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span> <span class="o">^</span> <span class="n">MATCH_SUBSTRING</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> is particularly slow and provides the
+worst matches. You should consider excluding it, especially if you&#8217;re calling
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> with &gt; 5000 items.</p>
+</div>
+</div>
+<div class="section" id="text-encoding-decoding">
+<h2>Text encoding/decoding<a class="headerlink" href="#text-encoding-decoding" title="Permalink to this headline">¶</a></h2>
+<p>By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (and <a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>)
+return command line arguments from Alfred as NFC-normalised Unicode strings.
+This is the default for Python. You can change this via the <tt class="docutils literal"><span class="pre">input_encoding</span></tt>
+and <tt class="docutils literal"><span class="pre">normalization</span></tt> keywords to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
+(this will not affect <a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>).</p>
+<p>If your Workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
+<a class="reference external" href="http://docs.python.org/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should consider also NFC-normalising those strings
+or changing the default normalisation to <strong>NFD</strong>, which is (more or less) what
+OS X uses. <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> can
+help with this.</p>
+<p>If you pass a Unicode string to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>,
+it will just be normalised using the form passed in the <tt class="docutils literal"><span class="pre">normalization</span></tt> argument
+to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
+or to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation.</p>
+<p>If you pass an encoded string, it will be decoded to Unicode with the encoding
+passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt> argument to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
+or to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation and then
+normalised.</p>
+</div>
+<div class="section" id="built-in-icons">
+<h2>Built-in icons<a class="headerlink" href="#built-in-icons" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a> module provides access to a number of default
+OS X icons via <tt class="docutils literal"><span class="pre">ICON_*</span></tt> constants for use when generating Alfred feedback:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;For your information&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="list-of-icons">
+<span id="icon-list"></span><h3>List of icons<a class="headerlink" href="#list-of-icons" title="Permalink to this headline">¶</a></h3>
+<p>These are all the icons accessible in <a class="reference internal" href="workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a>. They (and more) can
+be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/</span></tt>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Preview</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ACCOUNT</span></tt></td>
+<td><img alt="_images/ICON_ACCOUNT.png" class="first last" src="_images/ICON_ACCOUNT.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_BURN</span></tt></td>
+<td><img alt="_images/ICON_BURN.png" class="first last" src="_images/ICON_BURN.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_COLOR</span></tt></td>
+<td><img alt="_images/ICON_COLOR.png" class="first last" src="_images/ICON_COLOR.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_COLOUR</span></tt></td>
+<td><img alt="_images/ICON_COLOUR.png" class="first last" src="_images/ICON_COLOUR.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ERROR</span></tt></td>
+<td><img alt="_images/ICON_ERROR.png" class="first last" src="_images/ICON_ERROR.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_FAVORITE</span></tt></td>
+<td><img alt="_images/ICON_FAVORITE.png" class="first last" src="_images/ICON_FAVORITE.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_FAVOURITE</span></tt></td>
+<td><img alt="_images/ICON_FAVOURITE.png" class="first last" src="_images/ICON_FAVOURITE.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_GROUP</span></tt></td>
+<td><img alt="_images/ICON_GROUP.png" class="first last" src="_images/ICON_GROUP.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_HELP</span></tt></td>
+<td><img alt="_images/ICON_HELP.png" class="first last" src="_images/ICON_HELP.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_INFO</span></tt></td>
+<td><img alt="_images/ICON_INFO.png" class="first last" src="_images/ICON_INFO.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_MUSIC</span></tt></td>
+<td><img alt="_images/ICON_MUSIC.png" class="first last" src="_images/ICON_MUSIC.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_NETWORK</span></tt></td>
+<td><img alt="_images/ICON_NETWORK.png" class="first last" src="_images/ICON_NETWORK.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_NOTE</span></tt></td>
+<td><img alt="_images/ICON_NOTE.png" class="first last" src="_images/ICON_NOTE.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_SETTINGS</span></tt></td>
+<td><img alt="_images/ICON_SETTINGS.png" class="first last" src="_images/ICON_SETTINGS.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_SYNC</span></tt></td>
+<td><img alt="_images/ICON_SYNC.png" class="first last" src="_images/ICON_SYNC.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_TRASH</span></tt></td>
+<td><img alt="_images/ICON_TRASH.png" class="first last" src="_images/ICON_TRASH.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_USER</span></tt></td>
+<td><img alt="_images/ICON_USER.png" class="first last" src="_images/ICON_USER.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_WARNING</span></tt></td>
+<td><img alt="_images/ICON_WARNING.png" class="first last" src="_images/ICON_WARNING.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_WEB</span></tt></td>
+<td><img alt="_images/ICON_WEB.png" class="first last" src="_images/ICON_WEB.png" />
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="section" id="magic-arguments">
-<span id="id1"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
-<p>If your Script Filter (or script) accepts a query, you can pass it so-called
-magic arguments that instruct <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform
-certain actions, such as opening the log file or clearing the cache/settings.</p>
+<span id="id3"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<p>If your Script Filter (or script) accepts a query (or command line arguments),
+you can pass it so-called magic arguments that instruct
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as
+opening the log file or clearing the cache/settings.</p>
 <p>These can be a big help while developing and debugging and especially when
 debugging problems your Workflow&#8217;s users may be having.</p>
-<p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt></a> method of
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (which you should &#8220;wrap&#8221; your Workflow&#8217;s
-entry functions in) will catch any raised exceptions, log them and display
-them in Alfred. You can call your Workflow with <tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> as an
-Alfred query/command line argument and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
-will open the Workflow&#8217;s log file in the default app (usually <strong>Console.app</strong>).</p>
-<p>This makes it easy for you to get at the log (hidden away in <tt class="docutils literal"><span class="pre">~/Library</span></tt>) and
-for your users to send you their logs for debugging.</p>
-<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following &#8220;magic&#8221; args:</p>
+<p>The <tt class="xref py py-meth docutils literal"><span class="pre">Workflow.run()</span></tt> method
+(which you should &#8220;wrap&#8221; your Workflow&#8217;s entry functions in) will catch any
+raised exceptions, log them and display them in Alfred. You can call your
+Workflow with <tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> as an Alfred query/command line argument
+and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will open the Workflow&#8217;s log file
+in the default app (usually <strong>Console.app</strong>).</p>
+<p>This makes it easy for you to get at the log file and data and cache directories
+(hidden away in <tt class="docutils literal"><span class="pre">~/Library</span></tt>), and for your users to send you their logs
+for debugging.</p>
+<p><strong>Note:</strong> Magic arguments will only work with scripts that accept arguments <em>and</em>
+use the <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> property (where magic arguments
+are parsed).</p>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following magic args:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> — open the Workflow&#8217;s log file in the default app.</li>
-<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — delete any data cached by the Workflow.</li>
-<li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — delete the Workflow&#8217;s settings file (the data saved using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a>).</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> — Open the Workflow&#8217;s log file in the default app.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:opencache</span></tt> — Open the Workflow&#8217;s cache directory.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:opendata</span></tt> — Open the Workflow&#8217;s data directory.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openworkflow</span></tt> — Open the Workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete any data cached by the Workflow.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — Delete the Workflow&#8217;s settings file (which contains the data stored using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>).</li>
 </ul>
+<p>You can turn off magic arguments by passing <tt class="docutils literal"><span class="pre">capture_args=False</span></tt> to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a>, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>
+and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_settings" title="workflow.workflow.Workflow.clear_settings"><tt class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></tt></a> methods directly, perhaps
+assigning them to your own Keywords.</p>
 </div>
 </div>
 
 
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Using <strong>Alfred-Workflow</strong></a><ul>
-<li><a class="reference internal" href="#writing-a-workflow-with-alfred-python">Writing a Workflow with <strong>Alfred-Python</strong></a></li>
-<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-</ul>
-</li>
-</ul>
+    </div>
+      
+  </div>
+</div>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial2.html"
-                        title="previous chapter">Building a user-ready Workflow</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="workflow.html"
-                        title="next chapter">workflow.workflow</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/howto.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/howto.txt"
+     rel="nofollow">Source</a>
+</div>
+      
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="workflow.html" title="workflow.workflow"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tutorial2.html" title="Building a user-ready Workflow"
-             >previous</a> |</li>
-        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2014, Dean Jackson.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
-    </div>
+    <p>
+        &copy; Copyright 2014, Dean Jackson.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>

@@ -13,8 +13,14 @@ Alfred-Workflow
     :undoc-members:
     :show-inheritance:
 
-Tutorial Part 1: Writing a Pinboard Workflow for Alfred
--------------------------------------------------------
+Tutorial
+========
+
+How to write an Alfred Workflow with **Alfred-Python**, taking you through the
+basics to a full-featured Workflow.
+
+Writing A Pinboard Workflow, Part 1
+-----------------------------------
 
 In which we build an Alfred Workflow to view recent posts to
 `Pinboard <https://pinboard.in/>`_.
@@ -26,14 +32,14 @@ If you're new to Alfred and/or coding in general, start here.
 
    tutorial
 
-Tutorial Part 2: Making the Pinboard Workflow user-friendly
------------------------------------------------------------
+Writing A Pinboard Workflow, Part 2
+-----------------------------------
 
 In which we make our `Pinboard <https://pinboard.in/>`_ Workflow ready for
 the masses.
 
 Demonstrates more advanced usage of **Alfred-Workflow** and a few Workflow
-tricks that might also be of interest to folks familiar with Python.
+tricks that might also be of interest to intermediate Pythonistas.
 
 .. toctree::
    :maxdepth: 3
@@ -41,11 +47,11 @@ tricks that might also be of interest to folks familiar with Python.
    tutorial2
 
 
-Alfred-Workflow quick reference
--------------------------------
+Alfred-Workflow howto
+=====================
 
 If you know your way around Python and Alfred, here's an overview of what
-**Alfred-Workflow** does.
+**Alfred-Workflow** does and how to do it.
 
 .. toctree::
    :maxdepth: 3
@@ -54,9 +60,9 @@ If you know your way around Python and Alfred, here's an overview of what
 
 
 API docs
---------
+========
 
-Documentation automatically generated from the code.
+Documentation automatically generated from the source code.
 
 .. toctree::
    :maxdepth: 2

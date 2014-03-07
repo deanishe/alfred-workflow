@@ -95,7 +95,7 @@ def main(wf):
 Grab data from a JSON web API:
 
 ```python
-data = web.get('http://www.example.com/api/1/stuff')
+data = web.get('http://www.example.com/api/1/stuff').json()
 ```
 
 Post a form:
@@ -119,7 +119,7 @@ Save password:
 
 ```python
 wf = Workflow()
-wf.save_password('name of account', password)
+wf.save_password('name of account', 'password1lolz')
 ```
 
 Retrieve password:

@@ -473,6 +473,7 @@ are parsed).
 - ``workflow:opencache`` — Open the Workflow's cache directory.
 - ``workflow:opendata`` — Open the Workflow's data directory.
 - ``workflow:openworkflow`` — Open the Workflow's root directory (where ``info.plist`` is).
+- ``workflow:openterm`` — Open a Terminal window in the Workflow's root directory.
 - ``workflow:delcache`` — Delete any data cached by the Workflow.
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).
 

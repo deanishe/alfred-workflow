@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Alfred-Workflow'
-copyright = u'2014, Dean Jackson'
+copyright = u'2014, Dean Jackson <deanishe@deanishe.net>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -227,7 +227,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     ('index', 'Alfred-Workflow.tex', u'Alfred-Workflow Documentation',
-     u'Dean Jackson', 'manual'),
+     u'Dean Jackson <deanishe@deanishe.net>', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -257,7 +257,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'alfred-workflow', u'Alfred-Workflow Documentation',
-     [u'Dean Jackson'], 1)
+     [u'Dean Jackson <deanishe@deanishe.net>'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -271,7 +271,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
-     u'Dean Jackson', 'Alfred-Workflow', 'One line description of project.',
+     u'Dean Jackson <deanishe@deanishe.net>', 'Alfred-Workflow', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -292,9 +292,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'Alfred-Workflow'
-epub_author = u'Dean Jackson'
-epub_publisher = u'Dean Jackson'
-epub_copyright = u'2014, Dean Jackson'
+epub_author = u'Dean Jackson <deanishe@deanishe.net>'
+epub_publisher = u'Dean Jackson <deanishe@deanishe.net>'
+epub_copyright = u'2014, Dean Jackson <deanishe@deanishe.net>'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'Alfred-Workflow'

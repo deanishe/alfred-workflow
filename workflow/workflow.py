@@ -376,8 +376,8 @@ class Workflow(object):
         args = [self.decode(arg) for arg in sys.argv[1:]]
         if len(args) and self._capture_args:  # pragma: no cover
             if 'workflow:openlog' in args:
-                self.open_log()
                 msg = 'Opening workflow log file'
+                self.open_log()
             elif 'workflow:delcache' in args:
                 self.clear_cache()
                 msg = 'Deleted workflow cache'
@@ -385,14 +385,17 @@ class Workflow(object):
                 self.clear_settings()
                 msg = 'Deleted workflow settings'
             elif 'workflow:openworkflow' in args:
-                self.open_workflowdir()
                 msg = 'Opening workflow directory'
+                self.open_workflowdir()
             elif 'workflow:opendata' in args:
-                self.open_datadir()
                 msg = 'Opening workflow data directory'
+                self.open_datadir()
             elif 'workflow:opencache' in args:
-                self.open_cachedir()
                 msg = 'Opening workflow cache directory'
+                self.open_cachedir()
+            elif 'workflow:openterm' in args:
+                msg = 'Opening workflow root directory in Terminal'
+                self.open_terminal()
             if msg:
                 self.logger.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
@@ -1004,6 +1007,11 @@ class Workflow(object):
     def open_workflowdir(self):
         """Open the workflow directory in Finder."""
         subprocess.call(['open', self.workflowdir])  # pragma: no cover
+
+    def open_terminal(self):
+        """Open a Terminal window at workflow directory."""
+        subprocess.call(['open', '-a', 'Terminal',
+                        self.workflowdir])  # pragma: no cover
 
     ####################################################################
     # Helper methods

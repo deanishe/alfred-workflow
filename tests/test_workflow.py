@@ -284,6 +284,11 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(d, data)
         self.assertTrue(self.wf.cached_data_fresh('test', max_age=10))
 
+    def test_cache_fresh_non_existent(self):
+        """Non-existant cache data is not fresh"""
+        self.assertEquals(self.wf.cached_data_fresh('popsicle', max_age=10000),
+                          False)
+
     def test_keychain(self):
         """Save/get/delete password"""
         self.assertRaises(PasswordNotFound,

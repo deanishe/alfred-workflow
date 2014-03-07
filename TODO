@@ -11,8 +11,8 @@ General:
 
 web.py:
 workflow.py:
-
-	Unit Tests:
+	- automatically add `lib` and/or `packages` subdirectory to `sys.path`?
+	- move "magic" args to class-level dictionary, so authors can add their own.
 	ui.py:
 	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
 	- Yes/no dialog
@@ -27,6 +27,8 @@ Docs:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+- add `openterminal` magic arg. @done(14-03-08 00:05)
+ @project(workflow.py)
 - Add unit tests @done(14-03-02 01:23)
  @project(web.py)
 - Normalise Unicode @done(14-03-06 20:34)

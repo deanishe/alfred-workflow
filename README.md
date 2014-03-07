@@ -15,7 +15,6 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests](http://docs.python-requests.org/en/latest/)-like interface
 - Pre-configured logging
-- Built-in maintenance via workflow/CLI arguments
 - Painlessly add directories to `sys.path`
 
 ## Installation ##

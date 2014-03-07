@@ -1,1 +1,0 @@
-$ git submodule add git@github.com:sublee/sublee-sphinx-themes.git docs/_themes

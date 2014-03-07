@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import sphinx_bootstrap_theme
 import sys
 import os
 
@@ -106,15 +107,36 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'jdoctest'
+# html_theme = 'jdoctest'
+html_theme = 'bootstrap'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {'github_fork': 'deanishe/alfred-workflow'}
+# html_theme_options = {'github_fork': 'deanishe/alfred-workflow'}
+
+
+html_theme_options = {
+    'navbar_site_name': 'Documentation',
+    'navbar_pagenav': True,  # Current page TOC in navbar
+    'navbar_sidebarrel': False,  # next/previous links in navbar
+    'source_link_position': 'footer',
+    'bootstrap_version': '3',
+    'bootswatch_theme': 'readable'
+
+}
+
+html_sidebars = {
+    'howto': ['localtoc.html'],
+    'index': ['localtoc.html'],
+    'tutorial': ['localtoc.html'],
+    'tutorial2': ['localtoc.html'],
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = ['_themes']
+# html_theme_path = ['_themes']
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -190,22 +212,22 @@ htmlhelp_basename = 'Alfred-Workflowdoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    # 'papersize': 'a4paper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#'preamble': '',
+    # Additional stuff for the LaTeX preamble.
+    #'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Alfred-Workflow.tex', u'Alfred-Workflow Documentation',
-   u'Dean Jackson', 'manual'),
+    ('index', 'Alfred-Workflow.tex', u'Alfred-Workflow Documentation',
+     u'Dean Jackson', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -248,9 +270,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
-   u'Dean Jackson', 'Alfred-Workflow', 'One line description of project.',
-   'Miscellaneous'),
+    ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
+     u'Dean Jackson', 'Alfred-Workflow', 'One line description of project.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

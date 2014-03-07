@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Copyright © 2014 deanishe@deanishe.net
+# Copyright (c) 2014 Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
@@ -97,6 +97,7 @@ MATCH_CAPITALS = 2
 MATCH_ATOM = 4
 MATCH_INITIALS_STARTSWITH = 8
 MATCH_INITIALS_CONTAIN = 16
+MATCH_INITIALS = 24
 MATCH_SUBSTRING = 32
 MATCH_ALLCHARS = 64
 MATCH_ALL = 127
@@ -107,25 +108,25 @@ MATCH_ALL = 127
 ####################################################################
 
 class KeychainError(Exception):
-    """Raised by methods :meth:`~Workflow.save_password`,
-    :meth:`~Workflow.get_password` and :meth:`~Workflow.delete_password`
-     when ``security`` CLI app returns an unknown code.
+    """Raised by methods :meth:`Workflow.save_password`,
+    :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
+    when ``security`` CLI app returns an unknown code.
 
-     """
+    """
 
 
 class PasswordNotFound(KeychainError):
-    """Raised by method :meth:`~Workflow.get_password` when ``account``
+    """Raised by method :meth:`Workflow.get_password` when ``account``
     is unknown to the Keychain.
 
     """
 
 
 class PasswordExists(KeychainError):
-    """Raised when trying to overwrite an existing ``account`` password.
+    """Raised when trying to overwrite an existing account password.
 
     The API user should never receive this error: it is used internally
-    by the :meth:`~Workflow.save_password` method.
+    by the :meth:`Workflow.save_password` method.
 
     """
 
@@ -165,8 +166,8 @@ class Item(object):
     def elem(self):
         """Create and return feedback item for Alfred.
 
-        :returns: :class:`~xml.etree.ElementTree.Element` instance
-                  for :class:`Item`
+        :returns: :class:`ElementTree.Element <xml.etree.ElementTree.Element>`
+            instance for this :class:`Item` instance.
 
         """
 
@@ -271,8 +272,7 @@ class Workflow(object):
         :param input_encoding: encoding of command line arguments
         :type input_encoding: :class:`unicode`
         :param normalization: normalisation to apply to CLI args.
-            Use ``NFC`` for Python, ``NFD`` if working with data
-            from the filesystem.
+            See :meth:`Workflow.decode` for more details.
         :type normalization: :class:`unicode`
         :param capture_args: capture and act on ``workflow:*`` arguments. See
             :ref:`Magic arguments <magic-arguments>` for details.
@@ -365,8 +365,8 @@ class Workflow(object):
         and ``NFC`` are the defaults).
 
         If :class:`Workflow` is called with ``capture_args=True`` (the default),
-        :class:`Workflow` will "capture" certain ``workflow:*`` args and
-        perform corresponding actions.
+        :class:`Workflow` will look for certain ``workflow:*`` args and, if
+        found, perform the corresponding actions and exit the workflow.
 
         See :ref:`Magic arguments <magic-arguments>` for details.
 
@@ -394,7 +394,7 @@ class Workflow(object):
                 self.open_cachedir()
                 msg = 'Opening workflow cache directory'
             if msg:
-                self.logger.info(msg)
+                self.logger.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
                     self.add_item(msg, valid=False, icon=ICON_INFO)
                     self.send_feedback()
@@ -431,7 +431,7 @@ class Workflow(object):
 
     @property
     def workflowdir(self):
-        """Path to workflow's root directory (where ``info.plist`` is)
+        """Path to workflow's root directory (where ``info.plist`` is).
 
         :returns: full path to workflow root directory
         :rtype: ``unicode``
@@ -542,7 +542,7 @@ class Workflow(object):
 
     @property
     def settings_path(self):
-        """Path to settings file within workflow's data directory
+        """Path to settings file within workflow's data directory.
 
         :returns: path to ``settings.json`` file
         :rtype: ``unicode``
@@ -558,8 +558,8 @@ class Workflow(object):
         """Return a dictionary subclass that saves itself when changed.
 
         :returns: :class:`Settings` instance initialised from the data
-        in :attr:`settings_path` or if that doesn't exist, with the
-            ``default_settings`` ``dict`` passed to :class:`Workflow`.
+            in JSON file at :attr:`settings_path` or if that doesn't exist,
+            with the ``default_settings`` ``dict`` passed to :class:`Workflow`.
         :rtype: :class:`Settings` instance
 
         """
@@ -639,7 +639,7 @@ class Workflow(object):
                match_on=MATCH_ALL):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
-        Matching is case-insensitive. Any item that does not contain the
+        ``query`` is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected.
 
         :param query: query to test items against
@@ -671,16 +671,20 @@ class Workflow(object):
         Matching rules
         --------------
 
-        By default, :meth:`filter` uses all of the following flags in the
-        specified order (i.e. :const:`MATCH_ALL`):
+        By default, :meth:`filter` uses all of the following flags (i.e.
+        :const:`MATCH_ALL`). The tests are always run in the given order:
 
-        1. ``MATCH_STARTSWITH`` : Item search key startswith ``query`` (case-insensitive).
-        2. ``MATCH_CAPITALS`` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
-        3. ``MATCH_ATOM`` : Search key is split into "atoms" on non-word characters (.,-,' etc.). Matches if ``query`` is one of these atoms (case-insensitive).
-        4. ``MATCH_INITIALS_STARTSWITH`` : Initials are the first characters of the above-described "atoms" (case-insensitive).
-        5. ``MATCH_INITIALS_CONTAIN`` : ``query`` is a substring of the above-described initials.
-        6. ``MATCH_SUBSTRING`` : Match if ``query`` is a substring of item search key (case-insensitive).
-        7. ``MATCH_ALLCHARS`` : Matches if all characters in ``query`` appear in item search key in the same order (case-insensitive).
+        1. :const:`MATCH_STARTSWITH` : Item search key startswith ``query`` (case-insensitive).
+        2. :const:`MATCH_CAPITALS` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
+        3. :const:`MATCH_ATOM` : Search key is split into "atoms" on non-word characters (.,-,' etc.). Matches if ``query`` is one of these atoms (case-insensitive).
+        4. :const:`MATCH_INITIALS_STARTSWITH` : Initials are the first characters of the above-described "atoms" (case-insensitive).
+        5. :const:`MATCH_INITIALS_CONTAIN` : ``query`` is a substring of the above-described initials.
+        6. :const:`MATCH_INITIALS` : Combination of (4) and (5).
+        7. :const:`MATCH_SUBSTRING` : Match if ``query`` is a substring of item search key (case-insensitive).
+        8. :const:`MATCH_ALLCHARS` : Matches if all characters in ``query`` appear in item search key in the same order (case-insensitive).
+        9. :const:`MATCH_ALL` : Combination of all the above. The default.
+
+        **Examples:**
 
         To ignore ``MATCH_ALLCHARS`` (tends to provide the worst matches and
         is expensive to run), use ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
@@ -851,22 +855,23 @@ class Workflow(object):
         :type autocomplete: ``unicode``
         :param valid: Whether or not item can be actioned
         :type valid: `Boolean`
-        :uid: Used by Alfred to remember/sort items
+        :param uid: Used by Alfred to remember/sort items
         :type uid: ``unicode``
-        :icon: Filename of icon to use
+        :param icon: Filename of icon to use
         :type icon: ``unicode``
-        :param icontype: Type of icon. Must be one of `None` , ``filetype``
-                   or ``fileicon``. Use ``filetype`` when ``icon`` is a
-                   filetype such as ``public.folder``. Use ``fileicon``
-                   when you wish to use the icon of the file specified
-                   as ``icon``, e.g. ``icon='/Applications/Safari.app',
-                   icontype='fileicon'``. Leave as `None` if ``icon`` points
-                   to an actual icon file.
+        :param icontype: Type of icon. Must be one of ``None`` , ``'filetype'``
+           or ``'fileicon'``. Use ``'filetype'`` when ``icon`` is a filetype
+           such as``public.folder``. Use ``'fileicon'`` when you wish to
+           use the icon of the file specified as ``icon``, e.g.
+           ``icon='/Applications/Safari.app', icontype='fileicon'``.
+           Leave as `None` if ``icon`` points to an actual
+           icon file.
         :type icontype: ``unicode``
-        :param type: Result type. Currently only ``file`` is supported. This
-                     will tell Alfred to enable file actions for this item.
+        :param type: Result type. Currently only ``'file'`` is supported
+            (by Alfred). This will tell Alfred to enable file actions for
+            this item.
         :type type: ``unicode``
-        :returns: `~workflow.Item` instance
+        :returns: :class:`Item` instance
 
         """
 
@@ -876,7 +881,7 @@ class Workflow(object):
         return item
 
     def send_feedback(self):
-        """Print stored items to console/Alfred as XML"""
+        """Print stored items to console/Alfred as XML."""
         root = ET.Element('items')
         for item in self._items:
             root.append(item.elem)
@@ -1012,7 +1017,8 @@ class Workflow(object):
         :class:`Workflow` are used.
 
         :param text: string
-        :type text: encoded string
+        :type text: encoded or Unicode string. If ``text`` is already a
+            Unicode string, it will only be normalised.
         :param encoding: The text encoding to use to decode ``text`` to Unicode.
         :type encoding: ``unicode`` or ``None``
         :param normalization: The nomalisation form to apply to ``text``.
@@ -1033,7 +1039,9 @@ class Workflow(object):
 
         encoding = encoding or self._input_encoding
         normalization = normalization or self._normalizsation
-        return unicodedata.normalize(normalization, unicode(text, encoding))
+        if not isinstance(text, unicode):
+            text = unicode(text, encoding)
+        return unicodedata.normalize(normalization, text)
 
     def _load_info_plist(self):
         """Load workflow info from ``info.plist``

@@ -79,6 +79,32 @@ to capture any errors thrown by your scripts:
         sys.exit(wf.run(main))
 
 
+Including 3rd party libraries
+=============================
+
+It's a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
+in the OS X system Python. **Alfred-Workflow** makes it easy to include them in
+your Workflow.
+
+Simply create a ``lib`` subdirectory under your Workflow's root directory
+(or call it whatever you want), install your dependencies there with
+
+.. code-block:: bash
+
+    pip install --target=my-workflow-root-dir/lib my-workflows-dependency
+
+and instantiate :class:`Workflow <workflow.workflow.Workflow>`
+with the ``libraries`` argument::
+
+    from workflow import Workflow
+
+    def main(wf):
+        import module_from_lib_subdirectory_here
+
+    if __name__ == '__main__':
+        wf = Workflow(libraries=['./lib'])
+        sys.exit(wf.run(main))
+
 
 Persistent data
 ===============

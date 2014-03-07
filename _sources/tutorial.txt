@@ -487,7 +487,7 @@ posts based on it:
         sys.exit(wf.run(main))
 
 
-Looking at ``main`` first, we add a ``query`` variable (lines 40–44).
+Looking at ``main()`` first, we add a ``query`` variable (lines 40–44).
 Because our Script Filter can run with or without an argument, we test to see
 if any were passed to the script using via :attr:`~workflow.workflow.Workflow.args`
 attribute of :class:`~workflow.workflow.Workflow`, and grab the first one if there were

@@ -107,6 +107,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Howto</a><ul>
 <li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
+<li><a class="reference internal" href="#including-3rd-party-libraries">Including 3rd party libraries</a></li>
 <li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
@@ -156,6 +157,7 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Howto</a><ul>
 <li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
+<li><a class="reference internal" href="#including-3rd-party-libraries">Including 3rd party libraries</a></li>
 <li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
@@ -282,6 +284,29 @@ to capture any errors thrown by your scripts:</p>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
+</div>
+<div class="section" id="including-3rd-party-libraries">
+<h2>Including 3rd party libraries<a class="headerlink" href="#including-3rd-party-libraries" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
+in the OS X system Python. <strong>Alfred-Workflow</strong> makes it easy to include them in
+your Workflow.</p>
+<p>Simply create a <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory under your Workflow&#8217;s root directory
+(or call it whatever you want), install your dependencies there with</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install --target<span class="o">=</span>my-workflow-root-dir/lib my-workflows-dependency
+</pre></div>
+</div>
+<p>and instantiate <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
+with the <tt class="docutils literal"><span class="pre">libraries</span></tt> argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">module_from_lib_subdirectory_here</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;./lib&#39;</span><span class="p">])</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="persistent-data">
 <h2>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>

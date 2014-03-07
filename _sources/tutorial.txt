@@ -170,6 +170,7 @@ will be opened in your browser).
 Add the highlighted lines to your ``pinboard.py`` file:
 
 .. code-block:: python
+   :linenos:
    :emphasize-lines: 27,28
 
     # encoding: utf-8
@@ -248,6 +249,7 @@ results from the API and use the cached data for at least a minute.
 Go back to ``pinboard.py`` and make the following changes:
 
 .. code-block:: python
+   :linenos:
    :emphasize-lines: 9-26,31-33
 
     # encoding: utf-8
@@ -344,6 +346,7 @@ allowed) and to cache them for 10 minutes (or use 300 seconds for 5 minutes
 if you're a heavy Pinboardista):
 
 .. code-block:: python
+   :linenos:
    :emphasize-lines: 16,33
 
     # encoding: utf-8
@@ -402,6 +405,7 @@ Then we need to add the ability to receive the query from Alfred and filter our
 posts based on it:
 
 .. code-block:: python
+   :linenos:
    :emphasize-lines: 29-35,40-44,50-52
 
     # encoding: utf-8

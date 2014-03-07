@@ -8,7 +8,7 @@
     
     <title>Writing a Pinboard.in Workflow with Alfred-Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -25,49 +25,29 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
     <link rel="next" title="Building a user-ready Workflow" href="tutorial2.html" />
-    <link rel="prev" title="Alfred-Workflow" href="index.html" />
-  
-
+    <link rel="prev" title="Alfred-Workflow" href="index.html" /> 
   </head>
   <body>
-  <div class="wrap">
-    <div id="logo">&nbsp;</div>
-    
-      <div class="tocwrapper">
-        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
-        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
-        <div class="toc"><ul>
-<li><a class="reference internal" href="#">Writing a Pinboard.in Workflow with <strong>Alfred-Workflow</strong></a><ul>
-<li><a class="reference internal" href="#creating-a-new-workflow">Creating a new Workflow</a></li>
-<li><a class="reference internal" href="#describing-your-workflow">Describing your Workflow</a></li>
-<li><a class="reference internal" href="#adding-a-script-filter">Adding a Script Filter</a></li>
-<li><a class="reference internal" href="#writing-your-python-script">Writing your Python script</a></li>
-<li><a class="reference internal" href="#making-the-workflow-useful">Making the Workflow useful</a></li>
-<li><a class="reference internal" href="#improving-performance-and-not-getting-banned">Improving performance and not getting banned</a></li>
-<li><a class="reference internal" href="#making-the-posts-searchable">Making the posts searchable</a></li>
-<li><a class="reference internal" href="#what-now">What now?</a></li>
-</ul>
-</li>
-</ul>
-</div>
-        <script>
-          var toc = $( ".toc" );
-          $( ".showtoc span" ).click(function() {
-            $( this ).parent().hide().next().show();
-            toc.slideDown( "fast" );
-          });
-          $( ".hidetoc span" ).click(function() {
-            $( this ).parent().hide().prev().show();
-            toc.slideUp( "fast" );
-          });
-        </script>
-      </div>
-    
-    
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="Building a user-ready Workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Alfred-Workflow"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
-
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
@@ -203,7 +183,43 @@ them. We&#8217;re going to change that and make the items &#8220;actionable&#822
 can hit <strong>ENTER</strong> on them and something happens, in this case, the page
 will be opened in your browser).</p>
 <p>Add the highlighted lines to your <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> file:</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
@@ -241,7 +257,7 @@ will be opened in your browser).</p>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><tt class="docutils literal"><span class="pre">valid=True</span></tt> tells Alfred that the item is actionable and <tt class="docutils literal"><span class="pre">arg</span></tt> is the
 value it will pass to the next action (in this case a URL).</p>
 <p>Go back to Alfred&#8217;s Preferences and add an <strong>Open URL</strong> action:</p>
@@ -265,7 +281,51 @@ results from the API and use the cached data for at least a minute.
 <strong>Alfred-Workflow</strong> makes this a doddle with its
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> method.</p>
 <p>Go back to <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> and make the following changes:</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
@@ -311,7 +371,7 @@ results from the API and use the cached data for at least a minute.
      <span class="c"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We&#8217;ve moved the code that retrieves the data from the API to a separate
 function (<tt class="docutils literal"><span class="pre">get_recent_posts</span></tt>) and instead we ask
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> for the data cached under
@@ -351,7 +411,56 @@ this:</p>
 <p>First, we&#8217;ll set the script to get 100 recent posts from Pinboard (the maximum
 allowed) and to cache them for 10 minutes (or use 300 seconds for 5 minutes
 if you&#8217;re a heavy Pinboardista):</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
@@ -402,10 +511,78 @@ if you&#8217;re a heavy Pinboardista):</p>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Then we need to add the ability to receive the query from Alfred and filter our
 posts based on it:</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
@@ -475,7 +652,7 @@ posts based on it:</p>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Looking at <tt class="docutils literal"><span class="pre">main</span></tt> first, we add a <tt class="docutils literal"><span class="pre">query</span></tt> variable. Because our Script Filter
 can run with or without an argument, we test to see if any were passed to the
 script using via <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> attribute of
@@ -525,24 +702,72 @@ API key). We&#8217;ll turn what we&#8217;ve got into a distribution-ready Workfl
           </div>
         </div>
       </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing a Pinboard.in Workflow with <strong>Alfred-Workflow</strong></a><ul>
+<li><a class="reference internal" href="#creating-a-new-workflow">Creating a new Workflow</a></li>
+<li><a class="reference internal" href="#describing-your-workflow">Describing your Workflow</a></li>
+<li><a class="reference internal" href="#adding-a-script-filter">Adding a Script Filter</a></li>
+<li><a class="reference internal" href="#writing-your-python-script">Writing your Python script</a></li>
+<li><a class="reference internal" href="#making-the-workflow-useful">Making the Workflow useful</a></li>
+<li><a class="reference internal" href="#improving-performance-and-not-getting-banned">Improving performance and not getting banned</a></li>
+<li><a class="reference internal" href="#making-the-posts-searchable">Making the posts searchable</a></li>
+<li><a class="reference internal" href="#what-now">What now?</a></li>
+</ul>
+</li>
+</ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Alfred-Workflow</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial2.html"
+                        title="next chapter">Building a user-ready Workflow</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
-  
-    <a href="http://github.com/deanishe/alfred-workflow" style="
-      display: block; position: absolute; top: 0; right: 0;
-      width: 149px; height: 149px; text-indent: -9999px;
-      background: url('_static/fork_jdoctest.png') no-repeat;
-    ">Fork me on GitHub</a>
-  
-
-    
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="Building a user-ready Workflow"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Alfred-Workflow"
+             >previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
     <div class="footer">
         &copy; Copyright 2014, Dean Jackson.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
-  </div>
-  
-
   </body>
 </html>

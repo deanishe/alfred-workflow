@@ -33,7 +33,10 @@ The **Script** field should contain the following::
 where ``yourscript.py`` is the name of your script.
 
 Your workflow should start out like this. This enables :class:`Workflow`
-to capture any errors thrown by your scripts::
+to capture any errors thrown by your scripts:
+
+.. code-block:: python
+   :linenos:
 
     #!/usr/bin/python
     # encoding: utf-8

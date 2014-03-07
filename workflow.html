@@ -8,7 +8,7 @@
     
     <title>workflow.workflow &mdash; Alfred-Workflow 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -25,39 +25,29 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
-    <link rel="prev" title="Using Alfred-Workflow" href="howto.html" />
-  
-
+    <link rel="prev" title="Using Alfred-Workflow" href="howto.html" /> 
   </head>
   <body>
-  <div class="wrap">
-    <div id="logo">&nbsp;</div>
-    
-      <div class="tocwrapper">
-        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
-        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
-        <div class="toc"><ul>
-<li><a class="reference internal" href="#">workflow.workflow</a></li>
-</ul>
-</div>
-        <script>
-          var toc = $( ".toc" );
-          $( ".showtoc span" ).click(function() {
-            $( this ).parent().hide().next().show();
-            toc.slideDown( "fast" );
-          });
-          $( ".hidetoc span" ).click(function() {
-            $( this ).parent().hide().prev().show();
-            toc.slideUp( "fast" );
-          });
-        </script>
-      </div>
-    
-    
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="web.html" title="workflow.web"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="Using Alfred-Workflow"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
-
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
@@ -254,7 +244,7 @@ perform corresponding actions.</p>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data">
-<tt class="descname">cached_data</tt><big>(</big><em>name</em>, <em>data_func</em>, <em>max_age=60</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.cached_data" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">cached_data</tt><big>(</big><em>name</em>, <em>data_func=None</em>, <em>max_age=60</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.cached_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve data from cache or re-generate and re-cache data if
 stale/non-existant. If <tt class="docutils literal"><span class="pre">max_age</span></tt> is 0, return cached data no
 matter how old.</p>
@@ -269,10 +259,11 @@ matter how old.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">cached data or return value of <tt class="docutils literal"><span class="pre">data_func</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">cached data, return value of <tt class="docutils literal"><span class="pre">data_func</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>
+if <tt class="docutils literal"><span class="pre">data_func</span></tt> is not set</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">whatever <tt class="docutils literal"><span class="pre">data_func</span></tt> returns</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">whatever <tt class="docutils literal"><span class="pre">data_func</span></tt> returns or <tt class="docutils literal"><span class="pre">None</span></tt></p>
 </td>
 </tr>
 </tbody>
@@ -457,9 +448,9 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x104e3c0c8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x103d2b0c8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
-<p>Matching is case-insensitive. Any item that does not contain the
+<p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -492,8 +483,8 @@ than this.</li>
 </tr>
 </tbody>
 </table>
-<p>By default, <a class="reference internal" href="#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">filter()</span></tt></a> uses all of the following flags in the
-specified order (i.e. <tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt>):</p>
+<p>By default, <a class="reference internal" href="#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">filter()</span></tt></a> uses all of the following flags (i.e.
+<tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt>). The tests are always run in the given order:</p>
 <ol class="arabic simple">
 <li><tt class="docutils literal"><span class="pre">MATCH_STARTSWITH</span></tt> : Item search key startswith <tt class="docutils literal"><span class="pre">query</span></tt> (case-insensitive).</li>
 <li><tt class="docutils literal"><span class="pre">MATCH_CAPITALS</span></tt> : The list of capital letters in item search key starts with <tt class="docutils literal"><span class="pre">query</span></tt> (<tt class="docutils literal"><span class="pre">query</span></tt> may be lower-case). E.g., <tt class="docutils literal"><span class="pre">of</span></tt> would match <tt class="docutils literal"><span class="pre">OmniFocus</span></tt>, <tt class="docutils literal"><span class="pre">gc</span></tt> would match <tt class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></tt></li>
@@ -503,6 +494,7 @@ specified order (i.e. <tt class="xref py py-const docutils literal"><span class=
 <li><tt class="docutils literal"><span class="pre">MATCH_SUBSTRING</span></tt> : Match if <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of item search key (case-insensitive).</li>
 <li><tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> : Matches if all characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in item search key in the same order (case-insensitive).</li>
 </ol>
+<p><strong>Examples:</strong></p>
 <p>To ignore <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> (tends to provide the worst matches and
 is expensive to run), use <tt class="docutils literal"><span class="pre">match_on=MATCH_ALL</span> <span class="pre">^</span> <span class="pre">MATCH_ALLCHARS</span></tt>.</p>
 <p>To match only on capitals, use <tt class="docutils literal"><span class="pre">match_on=MATCH_CAPITALS</span></tt>.</p>
@@ -705,7 +697,7 @@ bundle ID</li>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.settings_path">
 <tt class="descname">settings_path</tt><a class="headerlink" href="#workflow.workflow.Workflow.settings_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to settings file within workflow&#8217;s data directory</p>
+<dd><p>Path to settings file within workflow&#8217;s data directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -721,7 +713,7 @@ bundle ID</li>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.workflowdir">
 <tt class="descname">workflowdir</tt><a class="headerlink" href="#workflow.workflow.Workflow.workflowdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is)</p>
+<dd><p>Path to workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -768,24 +760,57 @@ Split string by the occurrences of pattern.</p>
           </div>
         </div>
       </div>
-
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="howto.html"
+                        title="previous chapter">Using <strong>Alfred-Workflow</strong></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="web.html"
+                        title="next chapter">workflow.web</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/workflow.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
-  
-    <a href="http://github.com/deanishe/alfred-workflow" style="
-      display: block; position: absolute; top: 0; right: 0;
-      width: 149px; height: 149px; text-indent: -9999px;
-      background: url('_static/fork_jdoctest.png') no-repeat;
-    ">Fork me on GitHub</a>
-  
-
-    
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="web.html" title="workflow.web"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="Using Alfred-Workflow"
+             >previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
     <div class="footer">
         &copy; Copyright 2014, Dean Jackson.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
-  </div>
-  
-
   </body>
 </html>

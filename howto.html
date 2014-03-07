@@ -8,7 +8,7 @@
     
     <title>Using Alfred-Workflow &mdash; Alfred-Workflow 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -25,43 +25,29 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Alfred-Workflow 1.0 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
-    <link rel="prev" title="Building a user-ready Workflow" href="tutorial2.html" />
-  
-
+    <link rel="prev" title="Building a user-ready Workflow" href="tutorial2.html" /> 
   </head>
   <body>
-  <div class="wrap">
-    <div id="logo">&nbsp;</div>
-    
-      <div class="tocwrapper">
-        <div class="showtoc">(<span>Show Table Of Contents</span>)</div>
-        <div class="hidetoc">(<span>Hide Table Of Contents</span>)</div>
-        <div class="toc"><ul>
-<li><a class="reference internal" href="#">Using <strong>Alfred-Workflow</strong></a><ul>
-<li><a class="reference internal" href="#writing-a-workflow-with-alfred-python">Writing a Workflow with <strong>Alfred-Python</strong></a></li>
-<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-</ul>
-</li>
-</ul>
-</div>
-        <script>
-          var toc = $( ".toc" );
-          $( ".showtoc span" ).click(function() {
-            $( this ).parent().hide().next().show();
-            toc.slideDown( "fast" );
-          });
-          $( ".hidetoc span" ).click(function() {
-            $( this ).parent().hide().prev().show();
-            toc.slideUp( "fast" );
-          });
-        </script>
-      </div>
-    
-    
-
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="workflow.html" title="workflow.workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="Building a user-ready Workflow"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
-
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
@@ -93,37 +79,65 @@ following (and only the following) <strong>Escaping</strong> options:</p>
 <p>where <tt class="docutils literal"><span class="pre">yourscript.py</span></tt> is the name of your script.</p>
 <p>Your workflow should start out like this. This enables <tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt>
 to capture any errors thrown by your scripts:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
-<span class="c"># encoding: utf-8</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c">#!/usr/bin/python</span>
+ <span class="c"># encoding: utf-8</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
+ <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
-
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-    <span class="c"># The Workflow instance will be passed to the function</span>
-    <span class="c"># you call from `Workflow.run`</span>
-    <span class="c"># Your imports here if you want to catch import errors</span>
-    <span class="kn">import</span> <span class="nn">somemodule</span>
-    <span class="kn">import</span> <span class="nn">anothermodule</span>
-    <span class="c"># Get args from Workflow, already in normalised Unicode</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span>
-
-    <span class="c"># Do stuff here ...</span>
-
-    <span class="c"># Add an item to Alfred feedback</span>
-    <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;Item title&#39;</span><span class="p">,</span> <span class="s">u&#39;Item subtitle&#39;</span><span class="p">)</span>
-
-    <span class="c"># Send output to Alfred</span>
-    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+ <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+     <span class="c"># The Workflow instance will be passed to the function</span>
+     <span class="c"># you call from `Workflow.run`</span>
+     <span class="c"># Your imports here if you want to catch import errors</span>
+     <span class="kn">import</span> <span class="nn">somemodule</span>
+     <span class="kn">import</span> <span class="nn">anothermodule</span>
+     <span class="c"># Get args from Workflow, already in normalised Unicode</span>
+     <span class="n">args</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span>
+
+     <span class="c"># Do stuff here ...</span>
+
+     <span class="c"># Add an item to Alfred feedback</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;Item title&#39;</span><span class="p">,</span> <span class="s">u&#39;Item subtitle&#39;</span><span class="p">)</span>
+
+     <span class="c"># Send output to Alfred</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+
+
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="magic-arguments">
 <span id="id1"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
@@ -153,24 +167,66 @@ for your users to send you their logs for debugging.</p>
           </div>
         </div>
       </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using <strong>Alfred-Workflow</strong></a><ul>
+<li><a class="reference internal" href="#writing-a-workflow-with-alfred-python">Writing a Workflow with <strong>Alfred-Python</strong></a></li>
+<li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+</ul>
+</li>
+</ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial2.html"
+                        title="previous chapter">Building a user-ready Workflow</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="workflow.html"
+                        title="next chapter">workflow.workflow</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/howto.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
-  
-    <a href="http://github.com/deanishe/alfred-workflow" style="
-      display: block; position: absolute; top: 0; right: 0;
-      width: 149px; height: 149px; text-indent: -9999px;
-      background: url('_static/fork_jdoctest.png') no-repeat;
-    ">Fork me on GitHub</a>
-  
-
-    
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="workflow.html" title="workflow.workflow"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial2.html" title="Building a user-ready Workflow"
+             >previous</a> |</li>
+        <li><a href="index.html">Alfred-Workflow 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
     <div class="footer">
         &copy; Copyright 2014, Dean Jackson.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
-  </div>
-  
-
   </body>
 </html>

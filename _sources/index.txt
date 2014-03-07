@@ -13,11 +13,11 @@ Alfred-Workflow
     :undoc-members:
     :show-inheritance:
 
-Tutorial
---------
+Tutorial Part 1: Writing a Pinboard Workflow for Alfred
+-------------------------------------------------------
 
 In which we build an Alfred Workflow to view recent posts to
-`Pinboard.in <https://pinboard.in/>`_.
+`Pinboard <https://pinboard.in/>`_.
 
 If you're new to Alfred and/or coding in general, start here.
 
@@ -26,10 +26,10 @@ If you're new to Alfred and/or coding in general, start here.
 
    tutorial
 
-Tutorial, Part 2
-----------------
+Tutorial Part 2: Making the Pinboard Workflow user-friendly
+-----------------------------------------------------------
 
-In which we make our `Pinboard.in <https://pinboard.in/>`_ Workflow ready for
+In which we make our `Pinboard <https://pinboard.in/>`_ Workflow ready for
 the masses.
 
 Demonstrates more advanced usage of **Alfred-Workflow** and a few Workflow

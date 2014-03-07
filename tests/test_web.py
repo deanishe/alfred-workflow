@@ -1,11 +1,15 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: fileencoding=utf-8
+# encoding: utf-8
+#
+# Copyright (c) 2014 Dean Jackson <deanishe@deanishe.net>
+#
+# MIT Licence. See http://opensource.org/licenses/MIT
+#
+# Created on 2014-03-01
+#
 """
 test_web.py
 
-Created by deanishe@deanishe.net on 2014-03-01.
-Copyright (c) 2014 deanishe@deanishe.net.
 """
 
 from __future__ import print_function, unicode_literals

@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Copyright © 2014 deanishe@deanishe.net
+# Copyright (c) 2014 Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
@@ -89,7 +89,7 @@ RESPONSES = {
 def str_dict(dic):
     """Convert keys and values in ``dic`` into UTF-8-encoded :class:`str`
 
-    :param dic: :class:`dict`
+    :param dic: :class:`dict` of Unicode strings
     :returns: :class:`dict`
 
     """
@@ -315,7 +315,7 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
         timeout=60, allow_redirects=True):
     """Initiate a GET request. Arguments as for :func:`request` function.
 
-    :returns: :class:`Request` instance
+    :returns: :class:`Response` instance
 
     """
 
@@ -327,7 +327,7 @@ def post(url, params=None, data=None, headers=None, cookies=None, files=None,
          auth=None, timeout=60, allow_redirects=False):
     """Initiate a POST request. Arguments as for :func:`request` function.
 
-    :returns: :class:`Request` instance
+    :returns: :class:`Response` instance
 
     """
     return request('POST', url, params, data, headers, cookies, files, auth,
@@ -340,7 +340,7 @@ def encode_multipart_formdata(fields, files):
     :param fields: mapping of ``{name : value}`` pairs for normal form fields.
     :type fields: :class:`dict`
     :param files: dictionary of fieldnames/files elements for file data.
-                  :obj:`mimetype` is optional.
+                  See below for details.
     :type files: :class:`dict` of :class:`dicts`
     :returns: ``(headers, body)`` ``headers`` is a :class:`dict` of HTTP headers
     :rtype: 2-tuple ``(dict, str)``
@@ -351,6 +351,9 @@ def encode_multipart_formdata(fields, files):
                          'content': '<binary data>',
                          'mimetype': 'text/plain'}
         }
+
+    - ``fieldname`` is the name of the field in the HTML form.
+    - ``mimetype`` is optional. If not provided, :mod:`mimetypes` will be used to guess the mimetype, or ``application/octet-stream`` will be used.
 
     """
 

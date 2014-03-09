@@ -885,8 +885,8 @@ imported another icon (``ICON_INFO``) to show our update message. We'll want
 :mod:`os` as well to check if the ``update.pid`` file created by ``update.py``
 when it's running exists, so we can tell if an update is currently running.
 
-As noted before, ``get_recent_posts`` has now moved to ``update.py``, as has
-the ``wrapper`` function inside ``main()``.
+As noted before, ``get_recent_posts()`` has now moved to ``update.py``, as has
+the ``wrapper()`` function inside ``main()``.
 
 Also in ``main()``, we no longer need ``api_key``. However, we still want to know
 if it has been saved, so we can show a warning if not, so we still call

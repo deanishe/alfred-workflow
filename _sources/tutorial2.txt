@@ -717,13 +717,14 @@ Alfred), while the ``update.py`` process gets on with the potentially (relativel
 slow business of getting new data from the Pinboard web API.
 
 If there is no pidfile or it contains an invalid PID, we write our own PID to
-the pidfile (line 94) and get on with the business of updating. We wrap the code
+the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
 in a ``try … except … finally`` clause to ensure we delete the pidfile at the end
-(lines 117–119).
+(lines 117–119). This is basically a duplication of what we do earlier in the
+script, but belt-and-braces approach is generally a good thing.
 
 The ``except`` clause (lines 113–115) is to trap the
 :class:`~workflow.workflow.PasswordNotFound`
-error that :meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password`
+error that :meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password>`
 will raise if the user hasn't set their API key via Alfred yet. ``update.py``
 can quietly die if no API key has been set because ``pinboard.py`` takes care
 of notifying the user to set their API key.

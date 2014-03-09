@@ -1150,12 +1150,13 @@ process that called it, allowing the latter to exit (and be called again by
 Alfred), while the <tt class="docutils literal"><span class="pre">update.py</span></tt> process gets on with the potentially (relatively)
 slow business of getting new data from the Pinboard web API.</p>
 <p>If there is no pidfile or it contains an invalid PID, we write our own PID to
-the pidfile (line 94) and get on with the business of updating. We wrap the code
+the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
 in a <tt class="docutils literal"><span class="pre">try</span> <span class="pre">…</span> <span class="pre">except</span> <span class="pre">…</span> <span class="pre">finally</span></tt> clause to ensure we delete the pidfile at the end
-(lines 117–119).</p>
+(lines 117–119). This is basically a duplication of what we do earlier in the
+script, but belt-and-braces approach is generally a good thing.</p>
 <p>The <tt class="docutils literal"><span class="pre">except</span></tt> clause (lines 113–115) is to trap the
 <a class="reference internal" href="workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt></a>
-error that <tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span> <span class="pre">&lt;workflow.workflow.Workflow.get_password()</span></tt>
+error that <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a>
 will raise if the user hasn&#8217;t set their API key via Alfred yet. <tt class="docutils literal"><span class="pre">update.py</span></tt>
 can quietly die if no API key has been set because <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> takes care
 of notifying the user to set their API key.</p>

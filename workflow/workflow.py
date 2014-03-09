@@ -258,8 +258,9 @@ class Settings(dict):
 
     def setdefault(self, key, value=None):
         """Override :class:`dict` method to save on update."""
-        super(Settings, self).setdefault(key, value)
+        ret = super(Settings, self).setdefault(key, value)
         self._save()
+        return ret
 
 
 class Workflow(object):

@@ -599,10 +599,23 @@ class Workflow(object):
         if not data_func:
             return None
         data = data_func()
+        self.cache_data(name, data)
+        return data
+
+    def cache_data(self, name, data):
+        """Save ``data`` to cache under ``name``
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data: data to store
+        :type data: any object supported by :mod:`pickle`
+
+        """
+
+        cache_path = self.cachefile('%s.cache' % name)
         with open(cache_path, 'wb') as file:
             pickle.dump(data, file)
         self.logger.debug('Cached data saved at : %s', cache_path)
-        return data
 
     def cached_data_fresh(self, name, max_age):
         """Is data cached at `name` less than `max_age` old?

@@ -936,7 +936,7 @@ other people. ``.alfredworkflow`` files are just ZIP files with a different exte
 If you want to have a poke around inside one, just change the extension to ``.zip``
 and extract it the normal way.
 
-And how to do that?
+And how do you share your Workflow with the world?
 
 There's a `Share your Workflows thread <http://www.alfredforum.com/forum/3-share-your-workflows/>`_
 on `the official Alfred forum <http://www.alfredforum.com/>`_, but being a forum,

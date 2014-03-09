@@ -932,7 +932,9 @@ Now you've produced a technical marvel, it's time to tell the world and enjoy
 the well-earned plaudits. To build your Workflow, open it up in Alfred's Preferences,
 right-click on the Workflow's name in the list on the left-hand side, and choose
 **Export…**. This will save a ``.alfredworkflow`` file that you can share with
-other people.
+other people. ``.alfredworkflow`` files are just ZIP files with a different extension.
+If you want to have a poke around inside one, just change the extension to ``.zip``
+and extract it the normal way.
 
 And how to do that?
 

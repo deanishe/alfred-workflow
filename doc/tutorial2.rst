@@ -717,13 +717,14 @@ Alfred), while the ``update.py`` process gets on with the potentially (relativel
 slow business of getting new data from the Pinboard web API.
 
 If there is no pidfile or it contains an invalid PID, we write our own PID to
-the pidfile (line 94) and get on with the business of updating. We wrap the code
+the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
 in a ``try … except … finally`` clause to ensure we delete the pidfile at the end
-(lines 117–119).
+(lines 117–119). This is basically a duplication of what we do earlier in the
+script, but belt-and-braces approach is generally a good thing.
 
 The ``except`` clause (lines 113–115) is to trap the
 :class:`~workflow.workflow.PasswordNotFound`
-error that :meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password`
+error that :meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password>`
 will raise if the user hasn't set their API key via Alfred yet. ``update.py``
 can quietly die if no API key has been set because ``pinboard.py`` takes care
 of notifying the user to set their API key.
@@ -884,8 +885,8 @@ imported another icon (``ICON_INFO``) to show our update message. We'll want
 :mod:`os` as well to check if the ``update.pid`` file created by ``update.py``
 when it's running exists, so we can tell if an update is currently running.
 
-As noted before, ``get_recent_posts`` has now moved to ``update.py``, as has
-the ``wrapper`` function inside ``main()``.
+As noted before, ``get_recent_posts()`` has now moved to ``update.py``, as has
+the ``wrapper()`` function inside ``main()``.
 
 Also in ``main()``, we no longer need ``api_key``. However, we still want to know
 if it has been saved, so we can show a warning if not, so we still call
@@ -911,7 +912,7 @@ The fruits of your labour
 =========================
 
 Now let's give it a spin. Open up Alfred and enter ``pbrecent workflow:delcache`` to
-clear the cached data. Then enter ``pbrecent `` and start typing a query. You should see
+clear the cached data. Then enter ``pbrecent`` and start typing a query. You should see
 the "Getting new posts from Pinboard" message appear. Unfortunately, we won't
 see any results at the moment because we just deleted the cached data.
 
@@ -919,7 +920,7 @@ To see our background updater weave its magic, we can change the ``max_age`` par
 passed to :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
 in ``update.py`` on line 109 and to
 :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
-in ``pinboard.py`` on line 70 to ``60``. Open up Alfred, enter ``pbrecent `` and
+in ``pinboard.py`` on line 70 to ``60``. Open up Alfred, enter ``pbrecent`` and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the "Getting new posts…" message *and* search
 results. Cool, huh?
@@ -931,9 +932,11 @@ Now you've produced a technical marvel, it's time to tell the world and enjoy
 the well-earned plaudits. To build your Workflow, open it up in Alfred's Preferences,
 right-click on the Workflow's name in the list on the left-hand side, and choose
 **Export…**. This will save a ``.alfredworkflow`` file that you can share with
-other people.
+other people. ``.alfredworkflow`` files are just ZIP files with a different extension.
+If you want to have a poke around inside one, just change the extension to ``.zip``
+and extract it the normal way.
 
-And how to do that?
+And how do you share your Workflow with the world?
 
 There's a `Share your Workflows thread <http://www.alfredforum.com/forum/3-share-your-workflows/>`_
 on `the official Alfred forum <http://www.alfredforum.com/>`_, but being a forum,

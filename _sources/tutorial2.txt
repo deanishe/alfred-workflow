@@ -912,7 +912,7 @@ The fruits of your labour
 =========================
 
 Now let's give it a spin. Open up Alfred and enter ``pbrecent workflow:delcache`` to
-clear the cached data. Then enter ``pbrecent `` and start typing a query. You should see
+clear the cached data. Then enter ``pbrecent`` and start typing a query. You should see
 the "Getting new posts from Pinboard" message appear. Unfortunately, we won't
 see any results at the moment because we just deleted the cached data.
 
@@ -920,7 +920,7 @@ To see our background updater weave its magic, we can change the ``max_age`` par
 passed to :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
 in ``update.py`` on line 109 and to
 :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
-in ``pinboard.py`` on line 70 to ``60``. Open up Alfred, enter ``pbrecent `` and
+in ``pinboard.py`` on line 70 to ``60``. Open up Alfred, enter ``pbrecent`` and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the "Getting new posts…" message *and* search
 results. Cool, huh?

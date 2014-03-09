@@ -1433,14 +1433,14 @@ so we check for this and exit the script if we have no posts to show.</p>
 <div class="section" id="the-fruits-of-your-labour">
 <h2>The fruits of your labour<a class="headerlink" href="#the-fruits-of-your-labour" title="Permalink to this headline">¶</a></h2>
 <p>Now let&#8217;s give it a spin. Open up Alfred and enter <tt class="docutils literal"><span class="pre">pbrecent</span> <span class="pre">workflow:delcache</span></tt> to
-clear the cached data. Then enter <a href="#id1"><span class="problematic" id="id2">``</span></a>pbrecent `` and start typing a query. You should see
+clear the cached data. Then enter <tt class="docutils literal"><span class="pre">pbrecent</span></tt> and start typing a query. You should see
 the &#8220;Getting new posts from Pinboard&#8221; message appear. Unfortunately, we won&#8217;t
 see any results at the moment because we just deleted the cached data.</p>
 <p>To see our background updater weave its magic, we can change the <tt class="docutils literal"><span class="pre">max_age</span></tt> parameter
 passed to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>
 in <tt class="docutils literal"><span class="pre">update.py</span></tt> on line 109 and to
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></tt></a>
-in <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> on line 70 to <tt class="docutils literal"><span class="pre">60</span></tt>. Open up Alfred, enter <a href="#id3"><span class="problematic" id="id4">``</span></a>pbrecent `` and
+in <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> on line 70 to <tt class="docutils literal"><span class="pre">60</span></tt>. Open up Alfred, enter <tt class="docutils literal"><span class="pre">pbrecent</span></tt> and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the &#8220;Getting new posts…&#8221; message <em>and</em> search
 results. Cool, huh?</p>

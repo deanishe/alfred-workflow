@@ -59,7 +59,7 @@ class WebTests(unittest.TestCase):
         newurl = 'http://www.kulturliste-duesseldorf.de/'
         url = BASE_URL + 'redirect-to?url=' + newurl
         r = web.get(url)
-        self.assertEquals(r.url, newurl)
+        self.assertEqual(r.url, newurl)
 
     def test_no_follow_redirect(self):
         """Redirects are not followed"""
@@ -68,7 +68,7 @@ class WebTests(unittest.TestCase):
         r = web.get(url, allow_redirects=False)
         self.assertNotEquals(r.url, newurl)
         self.assertRaises(urllib2.HTTPError, r.raise_for_status)
-        self.assertEquals(r.status_code, 302)
+        self.assertEqual(r.status_code, 302)
 
     def test_post_form(self):
         """POST Form data"""
@@ -89,7 +89,7 @@ class WebTests(unittest.TestCase):
         self.assert_(r.status_code == 200)
         data = r.json()
         pprint(data)
-        self.assertEquals(data['headers']['Content-Type'],
+        self.assertEqual(data['headers']['Content-Type'],
                           'application/json')
         for key in self.data:
             self.assert_(data['json'][key] == self.data[key])
@@ -104,7 +104,7 @@ class WebTests(unittest.TestCase):
         """HTML is decoded"""
         url = BASE_URL + 'html'
         r = web.get(url)
-        self.assertEquals(r.encoding, 'utf-8')
+        self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
 
     def test_no_encoding(self):
@@ -112,39 +112,39 @@ class WebTests(unittest.TestCase):
         # Is an image
         url = 'https://avatars.githubusercontent.com/u/747913'
         r = web.get(url)
-        self.assertEquals(r.encoding, None)
+        self.assertEqual(r.encoding, None)
         self.assert_(isinstance(r.text, str))
 
     def test_xml_encoding(self):
         """XML is decoded"""
         url = 'http://feeds.theguardian.com/theguardian/technology/rss'
         r = web.get(url)
-        self.assertEquals(r.encoding, 'utf-8')
+        self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
 
     def test_get_vars(self):
         """GET vars"""
         url = BASE_URL + 'get'
         r = web.get(url, params=self.data)
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
         args = r.json()['args']
         for key in self.data:
-            self.assertEquals(args[key], self.data[key])
+            self.assertEqual(args[key], self.data[key])
 
     def test_auth_succeeds(self):
         """Basic AUTH succeeds"""
         url = BASE_URL + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password1'))
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
         data = r.json()
-        self.assertEquals(data['user'], 'bobsmith')
+        self.assertEqual(data['user'], 'bobsmith')
         self.assertTrue(data['authenticated'])
 
     def test_auth_fails(self):
         """Basic AUTH fails"""
         url = BASE_URL + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password2'))
-        self.assertEquals(r.status_code, 401)
+        self.assertEqual(r.status_code, 401)
         self.assertRaises(urllib2.HTTPError, r.raise_for_status)
 
     def test_file_upload(self):
@@ -155,17 +155,17 @@ class WebTests(unittest.TestCase):
                           'mimetype': 'image/gif',
                           }}
         r = web.post(url, data=self.data, files=files)
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
         data = r.json()
         form = data['form']
         for key in self.data:
-            self.assertEquals(self.data[key], form[key])
+            self.assertEqual(self.data[key], form[key])
         # image
         bindata = data['files']['file']
         preamble = 'data:image/gif;base64,'
         self.assert_(bindata.startswith(preamble))
         bindata = b64decode(bindata[len(preamble):])
-        self.assertEquals(bindata, open(self.test_file, 'rb').read())
+        self.assertEqual(bindata, open(self.test_file, 'rb').read())
 
     def test_file_upload_without_form_data(self):
         """File upload w/o form data"""
@@ -174,14 +174,14 @@ class WebTests(unittest.TestCase):
                           'content': open(self.test_file, 'rb').read()
                           }}
         r = web.post(url, files=files)
-        self.assertEquals(r.status_code, 200)
+        self.assertEqual(r.status_code, 200)
         data = r.json()
         # image
         bindata = data['files']['file']
         preamble = 'data:image/gif;base64,'
         self.assert_(bindata.startswith(preamble))
         bindata = b64decode(bindata[len(preamble):])
-        self.assertEquals(bindata, open(self.test_file, 'rb').read())
+        self.assertEqual(bindata, open(self.test_file, 'rb').read())
 
 
 if __name__ == '__main__':  # pragma: no cover

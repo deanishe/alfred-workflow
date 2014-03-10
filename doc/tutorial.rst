@@ -161,7 +161,7 @@ you should see an error like this:
 .. image:: _static/screen10_workflow_error.png
 
 If Alfred shows nothing at all, it probably couldn't run your Python script at
-all. You'll have to `open the Workflow directory in Terminal <<http://www.youtube.com/watch?v=xsCCgITrrWI>`
+all. You'll have to `open the Workflow directory in Terminal <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the script by hand to see the error::
 
 	python pinboard.py

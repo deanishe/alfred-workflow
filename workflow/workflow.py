@@ -726,7 +726,7 @@ class Workflow(object):
         search = re.compile(pattern, re.IGNORECASE).search
         # print('filter: searching %d items' % len(items))
 
-        for item in items:
+        for i, item in enumerate(items):
             rule = None
             score = 0
             value = key(item)
@@ -739,7 +739,7 @@ class Workflow(object):
             # item starts with query
             if (match_on & MATCH_STARTSWITH and
                     value.lower().startswith(query)):
-                score = 100.0 - (len(value) - len(query))
+                score = 100.0 - (len(value) / len(query))
                 rule = MATCH_STARTSWITH
 
             if not score and match_on & MATCH_CAPITALS:
@@ -747,7 +747,7 @@ class Workflow(object):
                 # e.g. of = OmniFocus
                 initials = ''.join([c for c in value if c in INITIALS])
                 if initials.lower().startswith(query):
-                    score = 100.0 - (len(initials) - len(query))
+                    score = 100.0 - (len(initials) / len(query))
                     rule = MATCH_CAPITALS
 
             if not score:
@@ -766,7 +766,7 @@ class Workflow(object):
                     # similar to substring, but scores more highly, as it's
                     # a word within the item
                     if query in atoms:
-                        score = 100.0 - (len(value) - len(query))
+                        score = 100.0 - (len(value) / len(query))
                         rule = MATCH_ATOM
 
             if not score:
@@ -776,20 +776,20 @@ class Workflow(object):
                 # matches the former)
                 if (match_on & MATCH_INITIALS_STARTSWITH and
                         initials.startswith(query)):
-                    score = 100.0 - (len(initials) - len(query))
+                    score = 100.0 - (len(initials) / len(query))
                     rule = MATCH_INITIALS_STARTSWITH
 
                 # `query` is a substring of initials, e.g. ``doh`` matches
                 # "The Dukes of Hazzard"
                 elif (match_on & MATCH_INITIALS_CONTAIN and
                         query in initials):
-                    score = 95.0 - (len(initials) - len(query))
+                    score = 95.0 - (len(initials) / len(query))
                     rule = MATCH_INITIALS_CONTAIN
 
             if not score:
                 # `query` is a substring of item
                 if match_on & MATCH_SUBSTRING and query in value.lower():
-                        score = 90.0 - (len(value) - len(query))
+                        score = 90.0 - (len(value) / len(query))
                         rule = MATCH_SUBSTRING
 
             if not score:
@@ -809,7 +809,7 @@ class Workflow(object):
                 # use "reversed" `score` (i.e. highest becomes lowest) and
                 # `value` as sort key. This means items with the same score
                 # will be sorted in alphabetical not reverse alphabetical order
-                results[(100.0 / score, value.lower())] = (item, score, rule)
+                results[(100.0 / score, value.lower(), i)] = (item, score, rule)
 
         # sort on keys, then discard the keys
         keys = sorted(results.keys(), reverse=ascending)

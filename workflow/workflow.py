@@ -726,7 +726,7 @@ class Workflow(object):
         search = re.compile(pattern, re.IGNORECASE).search
         # print('filter: searching %d items' % len(items))
 
-        for item in items:
+        for i, item in enumerate(items):
             rule = None
             score = 0
             value = key(item)
@@ -809,7 +809,7 @@ class Workflow(object):
                 # use "reversed" `score` (i.e. highest becomes lowest) and
                 # `value` as sort key. This means items with the same score
                 # will be sorted in alphabetical not reverse alphabetical order
-                results[(100.0 / score, value.lower())] = (item, score, rule)
+                results[(100.0 / score, value.lower(), i)] = (item, score, rule)
 
         # sort on keys, then discard the keys
         keys = sorted(results.keys(), reverse=ascending)

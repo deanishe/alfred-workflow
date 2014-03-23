@@ -80,6 +80,154 @@ ICON_WARNING = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
 ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
             '/Resources/BookmarkIcon.icns')
 
+####################################################################
+# Used by `fold`
+####################################################################
+
+REPLACEMENTS = {
+    u'ı': u'i',
+    u'đ': u'd',
+    u'Đ': u'D',
+    u'ħ': u'h',
+    u'Ħ': u'H',
+    u'ł': u'l',
+    u'Ł': u'L',
+    u'ø': u'o',
+    u'Ø': u'O',
+    u'ŧ': u't',
+    u'Ŧ': u'T',
+    u'æ': u'ae',
+    u'Æ': u'AE',
+    u'œ': u'oe',
+    u'Œ': u'OE',
+    u'ß': u'ss',
+    u'ŋ': u'n',
+    u'Ŋ': u'N',
+    u'ð': u'd',
+    u'Ð': u'D',
+    u'þ': u'th',
+    u'Þ': u'TH',
+    u'ĸ': u'q',
+    u'Α': u'A',
+    u'Β': u'B',
+    u'Γ': u'G',
+    u'Δ': u'D',
+    u'Ε': u'E',
+    u'Ζ': u'Z',
+    u'Η': u'E',
+    u'Θ': u'TH',
+    u'Ι': u'I',
+    u'Κ': u'K',
+    u'Λ': u'L',
+    u'Μ': u'M',
+    u'Ν': u'N',
+    u'Ξ': u'X',
+    u'Ο': u'O',
+    u'Π': u'P',
+    u'Ρ': u'R',
+    u'Σ': u'S',
+    u'Τ': u'T',
+    u'Υ': u'U',
+    u'Φ': u'PH',
+    u'Χ': u'CH',
+    u'Ψ': u'PS',
+    u'Ω': u'O',
+    u'α': u'a',
+    u'β': u'b',
+    u'γ': u'g',
+    u'δ': u'd',
+    u'ε': u'e',
+    u'ζ': u'z',
+    u'η': u'e',
+    u'θ': u'th',
+    u'ι': u'i',
+    u'κ': u'k',
+    u'λ': u'l',
+    u'μ': u'm',
+    u'ν': u'n',
+    u'ξ': u'x',
+    u'ο': u'o',
+    u'π': u'p',
+    u'ρ': u'r',
+    u'ς': u's',
+    u'σ': u's',
+    u'τ': u't',
+    u'υ': u'u',
+    u'φ': u'ph',
+    u'χ': u'ch',
+    u'ψ': u'ps',
+    u'ω': u'o',
+    u'А': u'A',
+    u'Б': u'B',
+    u'В': u'V',
+    u'Г': u'G',
+    u'Д': u'D',
+    u'Е': u'YE',
+    u'Ж': u'Zh',
+    u'З': u'Z',
+    u'И': u'EE',
+    u'Й': u'I',
+    u'К': u'K',
+    u'Л': u'L',
+    u'М': u'M',
+    u'Н': u'N',
+    u'О': u'O',
+    u'П': u'P',
+    u'Р': u'R',
+    u'С': u'S',
+    u'Т': u'T',
+    u'У': u'U',
+    u'Ф': u'F',
+    u'Х': u'KH',
+    u'Ц': u'TS',
+    u'Ч': u'CH',
+    u'Ш': u'SH',
+    u'Щ': u'SH',
+    u'Ъ': u'',
+    u'Ы': u'I',
+    u'Ь': u'',
+    u'Э': u'E',
+    u'Ю': u'YU',
+    u'Я': u'YA',
+    u'а': u'a',
+    u'б': u'b',
+    u'в': u'v',
+    u'г': u'g',
+    u'д': u'd',
+    u'е': u'ye',
+    u'ж': u'zh',
+    u'з': u'z',
+    u'и': u'ee',
+    u'й': u'i',
+    u'к': u'k',
+    u'л': u'l',
+    u'м': u'm',
+    u'н': u'n',
+    u'о': u'o',
+    u'п': u'p',
+    u'р': u'r',
+    u'с': u's',
+    u'т': u't',
+    u'у': u'u',
+    u'ф': u'f',
+    u'х': u'kh',
+    u'ц': u'ts',
+    u'ч': u'ch',
+    u'ш': u'sh',
+    u'щ': u'sh',
+    u'ъ': u'',
+    u'ы': u'i',
+    u'ь': u'',
+    u'э': u'e',
+    u'ю': u'yu',
+    u'я': u'ya',
+    u'ᴦ': u'G',
+    u'ᴧ': u'L',
+    u'ᴨ': u'P',
+    u'ᴩ': u'R',
+    u'ᴪ': u'PS',
+    u'ẞ': u'SS'
+}
 
 ####################################################################
 # Used by `Workflow.filter`
@@ -289,12 +437,13 @@ class Workflow(object):
     item_class = Item
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+                 normalization='NFC', capture_args=True, libraries=None, fold_input=False):
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self._fold_input = fold_input
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -397,6 +546,9 @@ class Workflow(object):
             elif 'workflow:openterm' in args:
                 msg = 'Opening workflow root directory in Terminal'
                 self.open_terminal()
+            elif 'workflow:togglefold' in args:
+                msg = 'Toggling value of `fold_input`'
+                self.toggle_fold()
             if msg:
                 self.logger.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
@@ -657,7 +809,9 @@ class Workflow(object):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         ``query`` is case-insensitive. Any item that does not contain the
-        entirety of ``query`` is rejected.
+        entirety of ``query`` is rejected. If ``fold_input`` is ``True`` 
+        when ``Workflow`` object is initialised, all searched items are
+        translated to ASCII characters.
 
         :param query: query to test items against
         :type query: ``unicode``
@@ -730,6 +884,10 @@ class Workflow(object):
             rule = None
             score = 0
             value = key(item)
+
+            # ``fold`` item to ASCII characters only
+            if self._fold_input:
+                value = self.fold(value)
 
             # pre-filter any items that do not contain all characters of `query`
             # to save on running several more expensive tests
@@ -1027,6 +1185,10 @@ class Workflow(object):
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])  # pragma: no cover
 
+    def toggle_fold(self):
+        """Change value of ``self._fold_input``"""
+        self._fold_input = not fold_input
+
     ####################################################################
     # Helper methods
     ####################################################################
@@ -1064,6 +1226,29 @@ class Workflow(object):
         if not isinstance(text, unicode):
             text = unicode(text, encoding)
         return unicodedata.normalize(normalization, text)
+
+    def fold(self, text, flag='ignore'):
+        """
+        :param text: string
+        :type text: encoded or Unicode string.
+        :param flag: string
+        :type flag: three options:
+            ``strict`` (raise a ``UnicodeDecodeError`` exception), 
+            ``replace`` (add U+FFFD, ‘REPLACEMENT CHARACTER’), or 
+            ``ignore`` (leave the character out of the Unicode result).
+        """
+        if not self._is_ascii(text):
+            s = ''.join([REPLACEMENTS.get(c, c) for c in text])
+            return unicode(unicodedata.normalize('NFKD', text).encode('ascii', flag))
+        else:
+            return text
+
+    def _is_ascii(self, s):
+        try: 
+            s.decode('ascii') 
+            return True
+        except UnicodeEncodeError:
+            return False
 
     def _load_info_plist(self):
         """Load workflow info from ``info.plist``

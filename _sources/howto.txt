@@ -123,9 +123,9 @@ There are also corresponding features related to the root directory of your Work
 (where ``info.plist`` and your code are):
 
 - :attr:`~workflow.workflow.Workflow.workflowdir` — The full path to your Workflow's root directory.
-- :meth:`datafile(filename) <workflow.workflow.Workflow.workflowfile>` — The full path to ``filename`` under your Workflow's root directory.
+- :meth:`workflowfile(filename) <workflow.workflow.Workflow.workflowfile>` — The full path to ``filename`` under your Workflow's root directory.
 
-These are used internally to implement `magic arguments <magic-arguments>`, which
+These are used internally to implement :ref:`magic arguments <magic-arguments>`, which
 may help you with development/debugging.
 
 In addition, :class:`Workflow <workflow.workflow.Workflow>` also provides a

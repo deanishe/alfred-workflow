@@ -32,6 +32,7 @@ import pickle
 import time
 import logging
 import logging.handlers
+import math
 try:
     import xml.etree.cElementTree as ET
 except ImportError:  # pragma: no cover
@@ -549,6 +550,11 @@ class Workflow(object):
             elif 'workflow:togglefold' in args:
                 msg = 'Toggling value of `fold_input` from ' + self._fold_input + ' to ' + (not self._fold_input)
                 self.toggle_fold()
+            elif 'workflow:filterinfo' in args:
+                msg = 'Retrieving info for workflows directories'
+                self.filter_info()
+                self.send_feedback()
+                
             if msg:
                 self.logger.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
@@ -1185,17 +1191,32 @@ class Workflow(object):
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])  # pragma: no cover
 
+    def filter_info(self):
+        cache_sub = self.get_info(self.cachedir)
+        cache_title = "Info for {0}'s Cache directory".format(self.name)
+        self.add_item(cache_title, cache_sub, valid=False)
+
+        data_sub = self.get_info(self.datadir)
+        data_title = "Info for {0}'s Storage directory".format(self.name)
+        self.add_item(data_title, data_sub, valid=False)
+
+        workflow_sub = self.get_info(self.workflowdir)
+        workflow_title = "Info for {0}'s Root directory".format(self.name)
+        self.add_item(workflow_title, workflow_sub, valid=False)
+
     def toggle_fold(self):
         """Change value of ``self._fold_input``"""
         self._fold_input = not self._fold_input
         return self.settings_path()
 
+   
     ####################################################################
     # Helper methods
     ####################################################################
 
     def decode(self, text, encoding=None, normalization=None):
-        """Return ``text`` as normalised unicode.
+        """
+        Return ``text`` as normalised unicode.
 
         If ``encoding`` and/or ``normalization`` is ``None``, the
         ``input_encoding``and ``normalization`` parameters passed to
@@ -1219,7 +1240,6 @@ class Workflow(object):
         :func:`os.listdir`/:mod:`os.path`) may not match. You should either
         normalise this data, too, or change the default normalisation used by
         :class:`Workflow`.
-
         """
 
         encoding = encoding or self._input_encoding
@@ -1244,6 +1264,52 @@ class Workflow(object):
         else:
             return text
 
+    def get_info(self, _dir):
+        size = self._pretty_size(self._get_size(_dir))
+        files = len([_file for _file in os.listdir(_dir) if os.path.isfile(os.path.join(_dir, _file))])
+        dirs = len([_d for _d in os.listdir(_dir) if os.path.isdir(os.path.join(_dir, _d))])
+
+        if dirs == 0 or dirs > 1:
+            if files == 0 or files > 1:
+                info_sub =  "{0} in {1} files and {2} directories".format(size, files, dirs)
+            else:
+                info_sub =  "{0} in {1} file and {2} directories".format(size, files, dirs)
+        else:
+            if files == 0 or files > 1:
+                info_sub =  "{0} in {1} files and {2} directory".format(size, files, dirs)
+            else:
+                info_sub =  "{0} in {1} file and {2} directory".format(size, files, dirs)
+        return info_sub
+
+    def _get_size(self, start_path):
+        """
+        Return size of ``start_path`` in bytes
+        :param start_path: full POSIX path to directory
+        :type start_path: string
+        """
+        total_size = 0
+        for path, dirs, files in os.walk(start_path):
+            for file in files:
+                file_path = os.path.join(path, file)
+                total_size += os.path.getsize(file_path)
+        return total_size
+
+    def _pretty_size(self, size):
+        """
+        Returns prettified version of ``size``
+
+        :param size: size of item in bytes
+        :type size: int
+        """
+        size_name = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')
+        n = int(math.floor(math.log(size, 1024)))
+        p = math.pow(1024, n)
+        s = round(size/p, 2)
+        if (s > 0):
+            return '{0} {1}'.format(s, size_name[n])
+        else:
+            return '0 B'
+
     def _is_ascii(self, s):
         try: 
             s.decode('ascii') 
@@ -1252,8 +1318,8 @@ class Workflow(object):
             return False
 
     def _load_info_plist(self):
-        """Load workflow info from ``info.plist``
-
+        """
+        Load workflow info from ``info.plist``
         """
 
         self._info = plistlib.readPlist(self._info_plist)

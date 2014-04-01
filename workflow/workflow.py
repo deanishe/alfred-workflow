@@ -897,7 +897,7 @@ class Workflow(object):
             value = key(item)
 
             # ``fold`` item to ASCII characters only
-            if self._fold_input and _is_ascii(query):
+            if self._fold_input and self._is_ascii(query):
                 value = self.fold(value)
 
             # pre-filter any items that do not contain all characters of `query`

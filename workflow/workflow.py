@@ -257,7 +257,7 @@ MATCH_ALL = 127
 
 class KeychainError(Exception):
     """
-	Raised by methods :meth:`Workflow.save_password`,
+    Raised by methods :meth:`Workflow.save_password`,
     :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
     when ``security`` CLI app returns an unknown code.
     """
@@ -265,14 +265,14 @@ class KeychainError(Exception):
 
 class PasswordNotFound(KeychainError):
     """
-	Raised by method :meth:`Workflow.get_password` when ``account``
+    Raised by method :meth:`Workflow.get_password` when ``account``
     is unknown to the Keychain.
     """
 
 
 class PasswordExists(KeychainError):
     """
-	Raised when trying to overwrite an existing account password.
+    Raised when trying to overwrite an existing account password.
 
     The API user should never receive this error: it is used internally
     by the :meth:`Workflow.save_password` method.
@@ -285,7 +285,7 @@ class PasswordExists(KeychainError):
 
 class Item(object):
     """
-	Represents a feedback item for Alfred. Generates Alfred-compliant
+    Represents a feedback item for Alfred. Generates Alfred-compliant
     XML for a single item.
 
     You probably shouldn't use this class directly, but via
@@ -297,7 +297,7 @@ class Item(object):
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None):
         """
-		Arguments the same as for :meth:`Workflow.add_item`.
+        Arguments the same as for :meth:`Workflow.add_item`.
         """
 
         self.title = title
@@ -313,7 +313,7 @@ class Item(object):
     @property
     def elem(self):
         """
-		Create and return feedback item for Alfred.
+        Create and return feedback item for Alfred.
 
         :returns: :class:`ElementTree.Element <xml.etree.ElementTree.Element>`
             instance for this :class:`Item` instance.
@@ -347,7 +347,7 @@ class Item(object):
 
 class Settings(dict):
     """
-	A dictionary that saves itself when changed.
+    A dictionary that saves itself when changed.
 
     Dictionary keys & values will be saved as a JSON file
     at ``filepath``. If the file does not exist, the dictionary
@@ -377,7 +377,7 @@ class Settings(dict):
 
     def _load(self):
         """
-		Load cached settings from JSON file `self._filepath`
+        Load cached settings from JSON file `self._filepath`
         """
 
         self._nosave = True
@@ -388,7 +388,7 @@ class Settings(dict):
 
     def _save(self):
         """
-		Save settings to JSON file `self._filepath`
+        Save settings to JSON file `self._filepath`
         """
         if self._nosave:
             return
@@ -405,14 +405,14 @@ class Settings(dict):
 
     def update(self, *args, **kwargs):
         """
-		Override :class:`dict` method to save on update.
+        Override :class:`dict` method to save on update.
         """
         super(Settings, self).update(*args, **kwargs)
         self._save()
 
     def setdefault(self, key, value=None):
         """
-		Override :class:`dict` method to save on update.
+        Override :class:`dict` method to save on update.
         """
         ret = super(Settings, self).setdefault(key, value)
         self._save()
@@ -421,7 +421,7 @@ class Settings(dict):
 
 class Workflow(object):
     """
-	Create new :class:`Workflow` instance.
+    Create new :class:`Workflow` instance.
 
     :param default_settings: default workflow settings. If no settings file
         exists, :class:`Workflow.settings` will be pre-populated with
@@ -475,7 +475,7 @@ class Workflow(object):
     @property
     def info(self):
         """
-		`dict` of ``info.plist`` contents.
+        `dict` of ``info.plist`` contents.
 
         :returns: ``dict``
         """
@@ -487,7 +487,7 @@ class Workflow(object):
     @property
     def bundleid(self):
         """
-		Workflow bundle ID from ``info.plist``.
+        Workflow bundle ID from ``info.plist``.
 
         :returns: bundle ID
         :rtype: ``unicode``
@@ -500,7 +500,7 @@ class Workflow(object):
     @property
     def name(self):
         """
-		Workflow name from ``info.plist``.
+        Workflow name from ``info.plist``.
 
         :returns: workflow name
         :rtype: ``unicode``
@@ -515,7 +515,7 @@ class Workflow(object):
     @property
     def args(self):
         """
-		Return command line args as normalised unicode.
+        Return command line args as normalised unicode.
 
         Args are decoded and normalised via :meth:`~Workflow.decode`.
 
@@ -585,7 +585,7 @@ class Workflow(object):
     @property
     def datadir(self):
         """
-		Path to workflow's data directory.
+        Path to workflow's data directory.
 
         :returns: full path to workflow data directory
         :rtype: ``unicode``
@@ -599,7 +599,7 @@ class Workflow(object):
     @property
     def workflowdir(self):
         """
-		Path to workflow's root directory (where ``info.plist`` is).
+        Path to workflow's root directory (where ``info.plist`` is).
 
         :returns: full path to workflow root directory
         :rtype: ``unicode``
@@ -621,7 +621,7 @@ class Workflow(object):
 
     def cachefile(self, filename):
         """
-		Return full path to ``filename`` within workflow's cache dir.
+        Return full path to ``filename`` within workflow's cache dir.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -633,7 +633,7 @@ class Workflow(object):
 
     def datafile(self, filename):
         """
-		Return full path to ``filename`` within workflow's data dir.
+        Return full path to ``filename`` within workflow's data dir.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -645,7 +645,7 @@ class Workflow(object):
 
     def workflowfile(self, filename):
         """
-		Return full path to ``filename`` in workflow's root dir
+        Return full path to ``filename`` in workflow's root dir
         (where ``info.plist`` is).
 
         :param filename: basename of file
@@ -659,7 +659,7 @@ class Workflow(object):
     @property
     def logfile(self):
         """
-		Return path to logfile
+        Return path to logfile
 
         :returns: path to logfile within workflow's cache directory
         :rtype: ``unicode``
@@ -670,7 +670,7 @@ class Workflow(object):
     @property
     def logger(self):
         """
-		Create and return a logger that logs to both console and
+        Create and return a logger that logs to both console and
         a log file. Use `~Workflow.openlog` to open the log file in Console.
 
         :returns: an initialised logger
@@ -699,7 +699,7 @@ class Workflow(object):
     @logger.setter
     def logger(self, logger):
         """
-		Set a custom logger.
+        Set a custom logger.
 
         :param logger: The logger to use
         :type logger: `~logging.Logger` instance
@@ -710,7 +710,7 @@ class Workflow(object):
     @property
     def settings_path(self):
         """
-		Path to settings file within workflow's data directory.
+        Path to settings file within workflow's data directory.
 
         :returns: path to ``settings.json`` file
         :rtype: ``unicode``
@@ -723,7 +723,7 @@ class Workflow(object):
     @property
     def settings(self):
         """
-		Return a dictionary subclass that saves itself when changed.
+        Return a dictionary subclass that saves itself when changed.
 
         :returns: :class:`Settings` instance initialised from the data
             in JSON file at :attr:`settings_path` or if that doesn't exist,
@@ -738,7 +738,7 @@ class Workflow(object):
 
     def cached_data(self, name, data_func=None, max_age=60):
         """
-		Retrieve data from cache or re-generate and re-cache data if
+        Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
         matter how old.
 
@@ -768,7 +768,7 @@ class Workflow(object):
 
     def cache_data(self, name, data):
         """
-		Save ``data`` to cache under ``name``
+        Save ``data`` to cache under ``name``
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -783,7 +783,7 @@ class Workflow(object):
 
     def cached_data_fresh(self, name, max_age):
         """
-		Is data cached at `name` less than `max_age` old?
+        Is data cached at `name` less than `max_age` old?
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -800,7 +800,7 @@ class Workflow(object):
 
     def cached_data_age(self, name):
         """
-		Return age of data cached at `name` in seconds or 0 if
+        Return age of data cached at `name` in seconds or 0 if
         cache doesn't exist
 
         :param name: name of datastore
@@ -818,7 +818,7 @@ class Workflow(object):
                include_score=False, min_score=0, max_results=0,
                match_on=MATCH_ALL, fold_input=False):
         """
-		Fuzzy search filter. Returns list of ``items`` that match ``query``.
+        Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         ``query`` is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected. If ``fold_input`` is ``True`` 
@@ -995,7 +995,7 @@ class Workflow(object):
 
     def run(self, func):
         """
-		Call `func` to run your workflow
+        Call `func` to run your workflow
 
         `func` will be called with `Workflow` instance as first argument.
         `func` should be the main entry point to your workflow.
@@ -1030,7 +1030,7 @@ class Workflow(object):
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None):
         """
-		Add an item to be output to Alfred
+        Add an item to be output to Alfred
 
         :param title: Title shown in Alfred
         :type title: ``unicode``
@@ -1068,7 +1068,7 @@ class Workflow(object):
 
     def send_feedback(self):
         """
-		Print stored items to console/Alfred as XML."""
+        Print stored items to console/Alfred as XML."""
         root = ET.Element('items')
         for item in self._items:
             root.append(item.elem)
@@ -1082,7 +1082,7 @@ class Workflow(object):
 
     def save_password(self, account, password, service=None):
         """
-		Save account credentials.
+        Save account credentials.
 
         If the account exists, the old password will first be deleted (Keychain
         throws an error otherwise).
@@ -1118,7 +1118,7 @@ class Workflow(object):
 
     def get_password(self, account, service=None):
         """
-		Retrieve the password saved at ``service/account``. Raise
+        Retrieve the password saved at ``service/account``. Raise
         :class:`PasswordNotFound` exception if password doesn't exist.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
@@ -1139,7 +1139,7 @@ class Workflow(object):
 
     def delete_password(self, account, service=None):
         """
-		Delete the password stored at ``service/account``. Raises
+        Delete the password stored at ``service/account``. Raises
         :class:`PasswordNotFound` if account is unknown.
 
         :param account: name of the account the password is for, e.g. "Pinboard"
@@ -1161,7 +1161,7 @@ class Workflow(object):
 
     def clear_cache(self):
         """
-		Delete all files in workflow cache directory.
+        Delete all files in workflow cache directory.
         """
         if os.path.exists(self.cachedir):
             for filename in os.listdir(self.cachedir):
@@ -1174,7 +1174,7 @@ class Workflow(object):
 
     def clear_settings(self):
         """
-		Delete settings file.
+        Delete settings file.
         """
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
@@ -1182,31 +1182,31 @@ class Workflow(object):
 
     def open_log(self):
         """
-		Open log file in standard application (usually Console.app).
+        Open log file in standard application (usually Console.app).
         """
         subprocess.call(['open', self.logfile])  # pragma: no cover
 
     def open_cachedir(self):
         """
-		Open the workflow cache directory in Finder.
+        Open the workflow cache directory in Finder.
         """
         subprocess.call(['open', self.cachedir])  # pragma: no cover
 
     def open_datadir(self):
         """
-		Open the workflow data directory in Finder.
+        Open the workflow data directory in Finder.
         """
         subprocess.call(['open', self.datadir])  # pragma: no cover
 
     def open_workflowdir(self):
         """
-		Open the workflow directory in Finder.
+        Open the workflow directory in Finder.
         """
         subprocess.call(['open', self.workflowdir])  # pragma: no cover
 
     def open_terminal(self):
         """
-		Open a Terminal window at workflow directory.
+        Open a Terminal window at workflow directory.
         """
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])  # pragma: no cover
@@ -1233,7 +1233,7 @@ class Workflow(object):
 
     def toggle_fold(self):
         """
-		Change value of ``self._fold_input``
+        Change value of ``self._fold_input``
         """
         self._fold_input = not self._fold_input
         return self.settings_path()
@@ -1362,7 +1362,7 @@ class Workflow(object):
 
     def _create(self, dirpath):
         """
-		Create directory `dirpath` if it doesn't exist
+        Create directory `dirpath` if it doesn't exist
 
         :param dirpath: path to directory
         :type dirpath: ``unicode``
@@ -1376,7 +1376,7 @@ class Workflow(object):
 
     def _call_security(self, action, service, account, *args):
         """
-		Call the ``security`` CLI app that provides access to keychains.
+        Call the ``security`` CLI app that provides access to keychains.
 
 
         May raise `PasswordNotFound`, `PasswordExists` or `KeychainError`

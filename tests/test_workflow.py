@@ -344,11 +344,11 @@ class WorkflowTests(unittest.TestCase):
     def test_filter_all_rules(self):
         """Filter: all rules"""
         results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True)
+                                 ascending=True, match_on=MATCH_ALL)
         self.assertEqual(len(results), 8)
         # now with scores, rules
         results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 include_score=True)
+                                 include_score=True, match_on=MATCH_ALL)
         self.assertEqual(len(results), 8)
         for item, score, rule in results:
             self.wf.logger.debug('{} : {}'.format(item, score))

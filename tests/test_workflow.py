@@ -69,6 +69,18 @@ class WorkflowTests(unittest.TestCase):
             ('nomatch', 0),
         ]
 
+        self.search_items_diacritics = [
+            # search key, query
+            ('Änderungen vorbehalten', 'av'),
+            ('Änderungen', 'anderungen'),
+            ('überwiegend bewolkt', 'ub'),
+            ('überwiegend', 'uberwiegend'),
+            ('Öffnungszeiten an Feiertagen', 'offnungszeiten'),
+            ('Öffnungszeiten an Feiertagen', 'oaf'),
+            ('Fußpilz', 'fuss'),
+            ('salé', 'sale')
+        ]
+
     def tearDown(self):
         self.wf.clear_cache()
         self.wf.clear_settings()
@@ -287,7 +299,7 @@ class WorkflowTests(unittest.TestCase):
     def test_cache_fresh_non_existent(self):
         """Non-existant cache data is not fresh"""
         self.assertEqual(self.wf.cached_data_fresh('popsicle', max_age=10000),
-                          False)
+                         False)
 
     def test_keychain(self):
         """Save/get/delete password"""
@@ -297,7 +309,7 @@ class WorkflowTests(unittest.TestCase):
         self.wf.save_password(self.account, self.password)
         self.assertEqual(self.wf.get_password(self.account), self.password)
         self.assertEqual(self.wf.get_password(self.account, BUNDLE_ID),
-                          self.password)
+                         self.password)
         # try to set same password
         self.wf.save_password(self.account, self.password)
         self.assertEqual(self.wf.get_password(self.account), self.password)
@@ -378,6 +390,38 @@ class WorkflowTests(unittest.TestCase):
                                  include_score=True)
         self.assertEqual(len(results), 6)
 
+    def test_filter_folding(self):
+        """Filter: diacritic folding"""
+        for key, query in self.search_items_diacritics:
+            results = self.wf.filter(query, [key], min_score=90,
+                                     include_score=True)
+            self.assertEqual(len(results), 1)
+
+    def test_filter_folding_off(self):
+        """Filter: diacritic folding off"""
+        for key, query in self.search_items_diacritics:
+            results = self.wf.filter(query, [key], min_score=90,
+                                     include_score=True,
+                                     fold_diacritics=False)
+            self.assertEqual(len(results), 0)
+
+    def test_filter_folding_force_on(self):
+        """Filter: diacritic folding forced on"""
+        self.wf.settings['__workflows_diacritic_folding'] = True
+        for key, query in self.search_items_diacritics:
+            results = self.wf.filter(query, [key], min_score=90,
+                                     include_score=True,
+                                     fold_diacritics=False)
+            self.assertEqual(len(results), 1)
+
+    def test_filter_folding_force_off(self):
+        """Filter: diacritic folding forced off"""
+        self.wf.settings['__workflows_diacritic_folding'] = False
+        for key, query in self.search_items_diacritics:
+            results = self.wf.filter(query, [key], min_score=90,
+                                     include_score=True)
+            self.assertEqual(len(results), 0)
+
     def test_icons(self):
         """Icons"""
         import workflow
@@ -390,7 +434,7 @@ class WorkflowTests(unittest.TestCase):
     def _print_results(self, results):
         """Print results of Workflow.filter"""
         for item, score, rule in results:
-            print('{0} (rule {1}) : {2}'.format(item[0], rule, score))
+            print('{!r} (rule {}) : {}'.format(item[0], rule, score))
 
 
 class SettingsTests(unittest.TestCase):

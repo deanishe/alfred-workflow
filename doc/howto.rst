@@ -349,6 +349,22 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 worst matches. You should consider excluding it, especially if you're calling
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with > 5000 items.
 
+Diacritic folding
+-----------------
+
+By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will fold non-ASCII characters
+to ASCII equivalents (e.g. *é* -> *e*, *ü* -> *u*) if the ``query`` contains
+only ASCII characters. This behaviour can be turned off by passing
+``fold_diacritics=False`` to :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
+
+**Note:** To keep the library small, only a subset of European languages are
+supported. The `Unidecode <https://pypi.python.org/pypi/Unidecode>`_ library
+should be used for comprehensive support of non-European alphabets.
+
+Users may override a Workflow's default settings via ``workflow:folding…``
+:ref:`magic arguments <magic-arguments>`.
+
+
 Text encoding/decoding
 ======================
 
@@ -476,6 +492,13 @@ are parsed).
 - ``workflow:openterm`` — Open a Terminal window in the Workflow's root directory.
 - ``workflow:delcache`` — Delete any data cached by the Workflow.
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).
+- ``workflow:foldingon`` — Force diacritic folding in search keys (e.g. convert *ü* to *ue*)
+- ``workflow:foldingoff`` — Never fold diacritics in search keys
+- ``workflow:foldingon`` — Reset diacritic folding to workflow default
+
+The three ``workflow:folding…`` settings allow users to override the diacritic
+folding set by a workflow's author. This may be useful if the author's choice
+does not correspond with a user's usage pattern.
 
 You can turn off magic arguments by passing ``capture_args=False`` to
 :class:`~workflow.workflow.Workflow` on instantiation, or call the corresponding

@@ -1011,8 +1011,7 @@ class Workflow(object):
             ``rule`` is the ``MATCH_`` rule that matched the item.
         :rtype: ``list``
 
-        Matching rules
-        --------------
+        **Matching rules**
 
         The tests are always run in this order:
 
@@ -1043,8 +1042,9 @@ class Workflow(object):
         To match only on startswith and substring, use
         ``match_on=MATCH_STARTSWITH | MATCH_SUBSTRING``.
 
-        Diacritic folding
-        -----------------
+        **Diacritic folding**
+
+        .. versionadded:: 1.3
 
         If ``fold_diacritics`` is ``True`` (the default), and ``query``
         contains only ASCII characters, non-ASCII characters in search keys
@@ -1428,6 +1428,8 @@ class Workflow(object):
 
     def fold_to_ascii(self, text):
         """
+        .. versionadded:: 1.3
+
         Convert non-ASCII characters to closest ASCII equivalent.
 
         :param text: text to convert

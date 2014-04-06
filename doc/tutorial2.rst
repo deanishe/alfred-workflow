@@ -134,7 +134,6 @@ passed to it by Alfred.
         # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
-            wf.logger.debug(post)
             wf.add_item(title=post['description'],
                         subtitle=post['href'],
                         arg=post['href'],
@@ -388,7 +387,6 @@ file to store your API key:
         # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
-            wf.logger.debug(post)
             wf.add_item(title=post['description'],
                         subtitle=post['href'],
                         arg=post['href'],
@@ -476,15 +474,17 @@ without having to pass the :class:`~workflow.workflow.Workflow` or
 Spit and polish
 ===============
 
-So far, the Workflow's looking pretty good. But there are still a couple of things
+So far, the Workflow's looking pretty good. But there are still a few of things
 that could be better. For one, it's not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
-writing these tutorials). For another, the Workflow is unresponsive while updating
+writing these tutorials). For another, it can be confusing if there are no results
+from a Workflow and Alfred shows its default Google/Amazon searches instead.
+Finally, the Workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can't be helped if we don't have any
 posts cached, but apart from the very first run, we always will, so why don't
 we show what we have and update in the background?
 
-Let's fix those issues. The easy one first.
+Let's fix those issues. The easy ones first.
 
 Two actions, one keyword
 ------------------------
@@ -522,6 +522,145 @@ should open in your default browser.
 
 Easy peasy.
 
+.. _no-results-warning:
+
+Notifying the user if there are no results
+------------------------------------------
+
+Alfred's default behaviour when a Script Filter returns no results is to show
+its fallback searches. This is also what it does if a Workflow crashes. So,
+the best thing to do when a user is explicitly using your Workflow is to
+show a message indicating that no results were found.
+
+Change ``pinboard.py`` to the following:
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 96-99
+
+    # encoding: utf-8
+
+    import sys
+    import argparse
+    from workflow import Workflow, ICON_WEB, ICON_WARNING, web, PasswordNotFound
+
+
+    def get_recent_posts(api_key):
+        """Retrieve recent posts from Pinboard.in
+
+        Returns a list of post dictionaries.
+
+        """
+        url = 'https://api.pinboard.in/v1/posts/recent'
+        params = dict(auth_token=api_key, count=100, format='json')
+        r = web.get(url, params)
+
+        # throw an error if request failed
+        # Workflow will catch this and show it to the user
+        r.raise_for_status()
+
+        # Parse the JSON returned by pinboard and extract the posts
+        result = r.json()
+        posts = result['posts']
+        return posts
+
+
+    def search_key_for_post(post):
+        """Generate a string search key for a post"""
+        elements = []
+        elements.append(post['description'])  # title of post
+        elements.append(post['tags'])  # post tags
+        elements.append(post['extended'])  # description
+        return u' '.join(elements)
+
+
+    def main(wf):
+
+        # build argument parser to parse script args and collect their
+        # values
+        parser = argparse.ArgumentParser()
+        # add an optional (nargs='?') --apikey argument and save its
+        # value to 'apikey' (dest). This will be called from a separate "Run Script"
+        # action with the API key
+        parser.add_argument('--setkey', dest='apikey', nargs='?', default=None)
+        # add an optional query and save it to 'query'
+        parser.add_argument('query', nargs='?', default=None)
+        # parse the script's arguments
+        args = parser.parse_args(wf.args)
+
+        ####################################################################
+        # Save the provided API key
+        ####################################################################
+
+        # decide what to do based on arguments
+        if args.apikey:  # Script was passed an API key
+            # save the key
+            wf.save_password('pinboard_api_key', args.apikey)
+            return 0  # 0 means script exited cleanly
+
+        ####################################################################
+        # Check that we have an API key saved
+        ####################################################################
+
+        try:
+            api_key = wf.get_password('pinboard_api_key')
+        except PasswordNotFound:  # API key has not yet been set
+            wf.add_item('No API key set.',
+                        'Please use pbsetkey to set your Pinboard API key.',
+                        valid=False,
+                        icon=ICON_WARNING)
+            wf.send_feedback()
+            return 0
+
+        ####################################################################
+        # View/filter Pinboard posts
+        ####################################################################
+
+        query = args.query
+        # Retrieve posts from cache if available and no more than 600
+        # seconds old
+
+        def wrapper():
+            """`cached_data` can only take a bare callable (no args),
+            so we need to wrap callables needing arguments in a function
+            that needs none.
+            """
+            return get_recent_posts(api_key)
+
+        posts = wf.cached_data('posts', wrapper, max_age=600)
+
+        # If script was passed a query, use it to filter posts
+        if query:
+            posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
+
+        if not posts:  # we have no data to show, so show a warning and stop
+            wf.add_item('No posts found', icon=ICON_WARNING)
+            wf.send_feedback()
+            return 0
+
+        # Loop through the returned posts and add an item for each to
+        # the list of results for Alfred
+        for post in posts:
+            wf.add_item(title=post['description'],
+                        subtitle=post['href'],
+                        arg=post['href'],
+                        valid=True,
+                        icon=ICON_WEB)
+
+        # Send the results to Alfred as XML
+        wf.send_feedback()
+        return 0
+
+
+    if __name__ == u"__main__":
+        wf = Workflow()
+        sys.exit(wf.run(main))
+
+In lines 96-99, we check to see it there are any posts, and if not, we show
+the user a warning, send the results to Alfred and exit. This does away with
+Alfred's distracting default searches and lets the user know exactly what's
+going on.
+
 .. _background-updates:
 
 Greased lightning: background updates
@@ -543,12 +682,22 @@ from within the Workflow itself.
 Normally, you'd use :class:`subprocess.Popen` to start a background process, but
 that doesn't work quite as you might expect in Alfred: it treats your Workflow
 as still running till the background process has finished, too, so it won't call
-your Workflow with a new query till the Pinboard update is done. Which is
-exactly what happens now and the behaviour we want to avoid.
+your Workflow with a new query till the update is done. Which is exactly what
+happens now and the behaviour we want to avoid.
 
-To solve this problem, we're still going to use :mod:`subprocess`, but
-our updater script is going to fork into the background and become a (short-running)
-daemon process before performing the update. This way, it will appear to exit
+Fortunately, **Alfred-Workflow** provides the :mod:`~workflow.background` module
+to solve this problem.
+
+Using the :func:`background.run_in_background() <workflow.background.run_in_background>`
+and :func:`background.is_running() <workflow.background.is_running>` functions,
+we can easily run a script in the background while our Workflow remains
+responsive to Alfred's queries.
+
+To solve this problem, we're going to use **Alfred-Workflow**'s :mod:`~workflow.background`
+module. (This is based on, and works like, :func:`subprocess.call`, but transparently
+runs the command as a background process). So, our updater script will be called
+from our main Workflow script, but :mod:`~workflow.background` will run it
+as a background process. This way, it will appear to exit
 immediately, so Alfred will keep on calling our Workflow every time the query changes.
 
 Meanwhile, our main Workflow script will check if the background updater is
@@ -567,9 +716,6 @@ contents:
 
     # encoding: utf-8
 
-
-    import os
-    import sys
 
     from workflow import web, Workflow, PasswordNotFound
 
@@ -594,71 +740,7 @@ contents:
         return posts
 
 
-    def process_exists(pid):
-        """Does a process with PID `pid` actually exist?"""
-
-        try:
-            os.kill(pid, 0)
-        except OSError:  # not running
-            return False
-        return True
-
-
-    def daemonise(stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
-        """This forks the current process into a daemon.
-        The stdin, stdout, and stderr arguments are file names that
-        will be opened and be used to replace the standard file descriptors
-        in sys.stdin, sys.stdout, and sys.stderr.
-        These arguments are optional and default to /dev/null.
-        Note that stderr is opened unbuffered, so
-        if it shares a file with stdout then interleaved output
-        may not appear in the order that you expect.
-
-        """
-
-        # Do first fork.
-        try:
-            pid = os.fork()
-            if pid > 0:
-                sys.exit(0)  # Exit first parent.
-        except OSError, e:
-            sys.stderr.write("fork #1 failed: (%d) %s\n" % (e.errno, e.strerror))
-            sys.exit(1)
-        # Decouple from parent environment.
-        os.chdir("/")
-        os.umask(0)
-        os.setsid()
-        # Do second fork.
-        try:
-            pid = os.fork()
-            if pid > 0:
-                sys.exit(0)  # Exit second parent.
-        except OSError, e:
-            sys.stderr.write("fork #2 failed: (%d) %s\n" % (e.errno, e.strerror))
-            sys.exit(1)
-        # Now I am a daemon!
-        # Redirect standard file descriptors.
-        si = file(stdin, 'r', 0)
-        so = file(stdout, 'a+', 0)
-        se = file(stderr, 'a+', 0)
-        os.dup2(si.fileno(), sys.stdin.fileno())
-        os.dup2(so.fileno(), sys.stdout.fileno())
-        os.dup2(se.fileno(), sys.stderr.fileno())
-
-
     def main(wf):
-        # First check if a copy of this script is already running
-        pidfile = wf.cachefile('update.pid')
-        if os.path.exists(pidfile):
-            pid = int(open(pidfile, 'rb').read())
-            if process_exists(pid):
-                wf.logger.debug('Update script is already running')
-                sys.exit(0)
-
-        # Fork into background
-        daemonise()
-        # Save PID of this process
-        open(pidfile, 'wb').write('{}'.format(os.getpid()))
         try:
             # Get API key from Keychain
             api_key = wf.get_password('pinboard_api_key')
@@ -681,74 +763,31 @@ contents:
             # Nothing we can do about this, so just log it
             wf.logger.error('No API key saved')
 
-        finally:
-            if os.path.exists(pidfile):
-                os.unlink(pidfile)
-
-
     if __name__ == '__main__':
         wf = Workflow()
         wf.run(main)
 
-At the top of the file (line 10), we've copied the ``get_recent_posts()``
+
+At the top of the file (line 7), we've copied the ``get_recent_posts()``
 function from ``pinboard.py`` (we won't need it there any more).
 
-We've added a new function, ``process_exists()``, (line 30) which will tell us if
-a specific process is running, and below that (line 40) is the ``daemonise()``
-function, which
-`forks <http://www.petercollingridge.co.uk/blog/running-multiple-processes-python>`_
-the process into the background and disconnects from the parent process
-(allowing it to exit).
+The contents of the ``try`` block in ``main()`` (lines 29–44) are once again
+copied straight from ``pinboard.py`` (where we won't be needing them any more).
 
-Now onto ``main()`` (line 82). We're going to write the PID of our process to a file in the
-cache whenever the ``update.py`` script runs, and delete it when it finishes.
-
-This allows both ``update.py`` and ``pinboard.py`` to see if an update is currently
-taking place, and if so, to exit or notify the user respectively. If the file
-exists (line 84), we read the PID from it and call ``process_exists()`` to see if
-it's really running (something may have gone wrong, leaving a stale pidfile).
-If the process exists, we exit the script (line 89) as we don't want two updates running
-simultaneously.
-
-If the script doesn't exit immediately because an update is already in progress,
-it then forks into the background (line 92), disconnecting from the ``pinboard.py``
-process that called it, allowing the latter to exit (and be called again by
-Alfred), while the ``update.py`` process gets on with the potentially (relatively)
-slow business of getting new data from the Pinboard web API.
-
-If there is no pidfile or it contains an invalid PID, we write our own PID to
-the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
-in a ``try … except … finally`` clause to ensure we delete the pidfile at the end
-(lines 117–119). This is basically a duplication of what we do earlier in the
-script, but a belt-and-braces approach is generally a good thing.
-
-The ``except`` clause (lines 113–115) is to trap the
+The ``except`` clause (lines 46–48) is to trap the
 :class:`~workflow.workflow.PasswordNotFound`
 error that :meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password>`
 will raise if the user hasn't set their API key via Alfred yet. ``update.py``
 can quietly die if no API key has been set because ``pinboard.py`` takes care
 of notifying the user to set their API key.
 
-The contents of the ``try`` block (lines 97–109) are once again copied straight
-from ``pinboard.py`` (where we won't be needing them any more).
 
 Let's try out ``update.py``. `Open a Terminal window at the Workflow root directory <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the following::
 
    python update.py
 
-If it works, you should see … precisely nothing. Practically the first thing the
-script does is fork into the background and disconnect from the world, so if it's
-working correctly, it should appear to exit instantly with no output.
-
-To see if it's worked, we need to look at the log file, which we can open using
-one of **Alfred-Workflow**'s :ref:`"magic" arguments <magic-arguments>`. Run this
-in the Terminal::
-
-   python pinboard.py workflow:openlog
-
-And the Workflow log file should open in Console.app. The last few lines of
-the log should look very much like this:
+If it works, you should see something like this:
 
 .. code-block:: bash
    :linenos:
@@ -761,6 +800,7 @@ the log should look very much like this:
 
 As you can see in the 3rd line, ``update.py`` did its job.
 
+
 Running ``update.py`` from ``pinboard.py``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -769,16 +809,15 @@ update itself:
 
 .. code-block:: python
    :linenos:
-   :emphasize-lines: 4,6-8,49,64-82
+   :emphasize-lines: 5-7,48,66-77,80
 
     # encoding: utf-8
 
     import sys
-    import os
     import argparse
-    import subprocess
     from workflow import (Workflow, ICON_WEB, ICON_INFO, ICON_WARNING,
                           PasswordNotFound)
+    from workflow.background import run_in_background, is_running
 
 
     def search_key_for_post(post):
@@ -841,27 +880,27 @@ update itself:
 
         # Start update script if cached data is too old (or doesn't exist)
         if not wf.cached_data_fresh('posts', max_age=600):
-            cmd = ['python', wf.workflowfile('update.py')]
-            subprocess.call(cmd)
+            cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
+            run_in_background('update', cmd)
 
         # Notify the user if the cache is being updated
-        if os.path.exists(wf.cachefile('update.pid')):
+        if is_running('update'):
             wf.add_item('Getting new posts from Pinboard',
                         valid=False,
                         icon=ICON_INFO)
 
-        if not posts:  # we have no data to show, so stop here
+        # If script was passed a query, use it to filter posts if we have some
+        if query and posts:
+            posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
+
+        if not posts:  # we have no data to show, so show a warning and stop
+            wf.add_item('No posts found', icon=ICON_WARNING)
             wf.send_feedback()
             return 0
-
-        # If script was passed a query, use it to filter posts
-        if query:
-            posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
 
         # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
-            wf.logger.debug(post)
             wf.add_item(title=post['description'],
                         subtitle=post['href'],
                         arg=post['href'],
@@ -878,12 +917,10 @@ update itself:
         sys.exit(wf.run(main))
 
 
-
 First of all, we've changed the imports a bit. We no longer need :mod:`workflow.web`,
-because we'll use :mod:`subprocess` to call ``update.py`` instead, and we've also
-imported another icon (``ICON_INFO``) to show our update message. We'll want
-:mod:`os` as well to check if the ``update.pid`` file created by ``update.py``
-when it's running exists, so we can tell if an update is currently running.
+because we'll use the functions :func:`~workflow.background.run_in_background`
+from :mod:`workflow.background` to call ``update.py`` instead,
+and we've also imported another icon (``ICON_INFO``) to show our update message.
 
 As noted before, ``get_recent_posts()`` has now moved to ``update.py``, as has
 the ``wrapper()`` function inside ``main()``.
@@ -895,18 +932,21 @@ but without saving the result.
 
 Most importantly, we've now expanded the update code to check if our cached data
 is fresh with :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
-and to run the ``update.py`` script via :func:`subprocess.call` if not
-(:meth:`Workflow.workflowfile() <workflow.workflow.Workflow.workflowfile>`
+and to run the ``update.py`` script via
+:func:`background.run_in_background() <workflow.background.run_in_background>`
+if not (:meth:`Workflow.workflowfile() <workflow.workflow.Workflow.workflowfile>`
 returns the full path to a file in the Workflow's root directory).
 
-Then we check for the existence of the ``update.pid`` file created by ``update.py``
-when it's running, and notify the user of any running update via Alfred's results.
+Then we check if the update process is running via
+:func:`background.is_running() <workflow.background.is_running>` using the
+name we assigned to the process (``update``), and notify the user via Alfred's
+results if it is.
 
 Finally, we call :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
-with ``None`` as the data-retrieval function because we don't want to run an
+with ``None`` as the data-retrieval function (line 66) because we don't want to run an
 update from this script, blocking Alfred. As a consequence, it's possible that
 we'll get back ``None`` instead of a list of posts if there are no cached data,
-so we check for this and exit the script if we have no posts to show.
+so we check for this before trying to filter ``None`` in line 80.
 
 The fruits of your labour
 =========================
@@ -918,9 +958,9 @@ see any results at the moment because we just deleted the cached data.
 
 To see our background updater weave its magic, we can change the ``max_age`` parameter
 passed to :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
-in ``update.py`` on line 109 and to
+in ``update.py`` on line 42 and to
 :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
-in ``pinboard.py`` on line 70 to ``60``. Open up Alfred, enter ``pbrecent`` and
+in ``pinboard.py`` on line 69 to ``60``. Open up Alfred, enter ``pbrecent`` and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the "Getting new posts…" message *and* search
 results. Cool, huh?

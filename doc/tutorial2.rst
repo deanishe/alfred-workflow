@@ -35,7 +35,7 @@ passed to it by Alfred.
 
 .. code-block:: python
    :linenos:
-   :emphasize-lines: 5,8-15,39-89
+   :emphasize-lines: 4,5,8-15,39-89
 
     # encoding: utf-8
 
@@ -385,7 +385,7 @@ file to store your API key:
         if query:
             posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.logger.debug(post)
@@ -720,7 +720,7 @@ If there is no pidfile or it contains an invalid PID, we write our own PID to
 the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
 in a ``try … except … finally`` clause to ensure we delete the pidfile at the end
 (lines 117–119). This is basically a duplication of what we do earlier in the
-script, but belt-and-braces approach is generally a good thing.
+script, but a belt-and-braces approach is generally a good thing.
 
 The ``except`` clause (lines 113–115) is to trap the
 :class:`~workflow.workflow.PasswordNotFound`

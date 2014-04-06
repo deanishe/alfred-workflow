@@ -16,6 +16,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Lightweight web API with [Requests](http://docs.python-requests.org/en/latest/)-like interface
 - Pre-configured logging
 - Painlessly add directories to `sys.path`
+- Easily launch background tasks (daemons) to keep your workflow responsive
 
 ## Installation ##
 

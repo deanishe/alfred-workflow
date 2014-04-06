@@ -69,6 +69,7 @@ Documentation automatically generated from the source code.
 
    workflow
    web
+   background
 
 
 Indices and tables

@@ -92,6 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">workflow.workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">workflow.background</a></li>
 </ul>
 </ul>
 </li>
@@ -116,6 +117,7 @@
 <li><a class="reference internal" href="#logging">Logging</a></li>
 <li><a class="reference internal" href="#spit-and-polish">Spit and polish</a><ul>
 <li><a class="reference internal" href="#two-actions-one-keyword">Two actions, one keyword</a></li>
+<li><a class="reference internal" href="#notifying-the-user-if-there-are-no-results">Notifying the user if there are no results</a></li>
 <li><a class="reference internal" href="#greased-lightning-background-updates">Greased lightning: background updates</a><ul>
 <li><a class="reference internal" href="#background-updater-script">Background updater script</a></li>
 <li><a class="reference internal" href="#running-update-py-from-pinboard-py">Running <tt class="docutils literal"><span class="pre">update.py</span></tt> from <tt class="docutils literal"><span class="pre">pinboard.py</span></tt></a></li>
@@ -169,6 +171,7 @@
 <li><a class="reference internal" href="#logging">Logging</a></li>
 <li><a class="reference internal" href="#spit-and-polish">Spit and polish</a><ul>
 <li><a class="reference internal" href="#two-actions-one-keyword">Two actions, one keyword</a></li>
+<li><a class="reference internal" href="#notifying-the-user-if-there-are-no-results">Notifying the user if there are no results</a></li>
 <li><a class="reference internal" href="#greased-lightning-background-updates">Greased lightning: background updates</a><ul>
 <li><a class="reference internal" href="#background-updater-script">Background updater script</a></li>
 <li><a class="reference internal" href="#running-update-py-from-pinboard-py">Running <tt class="docutils literal"><span class="pre">update.py</span></tt> from <tt class="docutils literal"><span class="pre">pinboard.py</span></tt></a></li>
@@ -321,8 +324,7 @@ passed to it by Alfred.</p>
 108
 109
 110
-111
-112</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+111</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
 <span class="hll"> <span class="kn">import</span> <span class="nn">argparse</span>
@@ -419,7 +421,6 @@ passed to it by Alfred.</p>
      <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
                      <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
@@ -635,8 +636,7 @@ file to store your API key:</p>
 109
 110
 111
-112
-113</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+112</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">import</span> <span class="nn">argparse</span>
@@ -734,7 +734,6 @@ file to store your API key:</p>
      <span class="c"># Loop through the returned posts and add an item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
                      <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
@@ -819,14 +818,16 @@ without having to pass the <a class="reference internal" href="workflow.html#wor
 </div>
 <div class="section" id="spit-and-polish">
 <h2>Spit and polish<a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
-<p>So far, the Workflow&#8217;s looking pretty good. But there are still a couple of things
+<p>So far, the Workflow&#8217;s looking pretty good. But there are still a few of things
 that could be better. For one, it&#8217;s not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
-writing these tutorials). For another, the Workflow is unresponsive while updating
+writing these tutorials). For another, it can be confusing if there are no results
+from a Workflow and Alfred shows its default Google/Amazon searches instead.
+Finally, the Workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can&#8217;t be helped if we don&#8217;t have any
 posts cached, but apart from the very first run, we always will, so why don&#8217;t
 we show what we have and update in the background?</p>
-<p>Let&#8217;s fix those issues. The easy one first.</p>
+<p>Let&#8217;s fix those issues. The easy ones first.</p>
 <div class="section" id="two-actions-one-keyword">
 <h3>Two actions, one keyword<a class="headerlink" href="#two-actions-one-keyword" title="Permalink to this headline">¶</a></h3>
 <p>To solve the first issue (Pinboard API keys being hard to find), we&#8217;ll add a second
@@ -850,35 +851,13 @@ it to anything. So add an <strong>Open URL</strong> action in Alfred, enter this
 should open in your default browser.</p>
 <p>Easy peasy.</p>
 </div>
-<div class="section" id="greased-lightning-background-updates">
-<span id="background-updates"></span><h3>Greased lightning: background updates<a class="headerlink" href="#greased-lightning-background-updates" title="Permalink to this headline">¶</a></h3>
-<p>All that remains is for our Workflow to provide the blazing fast results Alfred
-users have come to expect. No waiting around for glacial web services for the
-likes of us. As long as we have some posts saved in the cache, we can show those
-while grabbing an updated list in the background (and notifying the user of
-the update, of course).</p>
-<p>Now, there are a few different ways to start a background process. We could ask the user
-to set up a <tt class="docutils literal"><span class="pre">cron</span></tt> job, but <tt class="docutils literal"><span class="pre">cron</span></tt> isn&#8217;t the easiest software to use. We could
-add and load a <a class="reference external" href="http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd">Launch Agent</a>,
-but that&#8217;d run indefinitely, whether or not the Workflow is being used, and
-even if the Workflow were uninstalled. So we&#8217;d best start our background process
-from within the Workflow itself.</p>
-<p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process, but
-that doesn&#8217;t work quite as you might expect in Alfred: it treats your Workflow
-as still running till the background process has finished, too, so it won&#8217;t call
-your Workflow with a new query till the Pinboard update is done. Which is
-exactly what happens now and the behaviour we want to avoid.</p>
-<p>To solve this problem, we&#8217;re still going to use <a class="reference external" href="http://docs.python.org/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>, but
-our updater script is going to fork into the background and become a (short-running)
-daemon process before performing the update. This way, it will appear to exit
-immediately, so Alfred will keep on calling our Workflow every time the query changes.</p>
-<p>Meanwhile, our main Workflow script will check if the background updater is
-running and post a useful, friendly notification if it is.</p>
-<p>Let&#8217;s have at it.</p>
-<div class="section" id="background-updater-script">
-<h4>Background updater script<a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
-<p>Create a new file in the Workflow root directory called <tt class="docutils literal"><span class="pre">update.py</span></tt> with these
-contents:</p>
+<div class="section" id="notifying-the-user-if-there-are-no-results">
+<span id="no-results-warning"></span><h3>Notifying the user if there are no results<a class="headerlink" href="#notifying-the-user-if-there-are-no-results" title="Permalink to this headline">¶</a></h3>
+<p>Alfred&#8217;s default behaviour when a Script Filter returns no results is to show
+its fallback searches. This is also what it does if a Workflow crashes. So,
+the best thing to do when a user is explicitly using your Workflow is to
+show a message indicating that no results were found.</p>
+<p>Change <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> to the following:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
@@ -995,18 +974,220 @@ contents:</p>
 114
 115
 116
-117
-118
-119
-120
-121
-122
-123
-124</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+117</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
-
- <span class="kn">import</span> <span class="nn">os</span>
  <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="kn">import</span> <span class="nn">argparse</span>
+ <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">ICON_WARNING</span><span class="p">,</span> <span class="n">web</span><span class="p">,</span> <span class="n">PasswordNotFound</span>
+
+
+ <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;Retrieve recent posts from Pinboard.in</span>
+
+<span class="sd">     Returns a list of post dictionaries.</span>
+
+<span class="sd">     &quot;&quot;&quot;</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+     <span class="c"># throw an error if request failed</span>
+     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="k">return</span> <span class="n">posts</span>
+
+
+ <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
+     <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
+     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+
+
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+
+     <span class="c"># build argument parser to parse script args and collect their</span>
+     <span class="c"># values</span>
+     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+     <span class="c"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
+     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+     <span class="c"># action with the API key</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c"># parse the script&#39;s arguments</span>
+     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># Save the provided API key</span>
+     <span class="c">####################################################################</span>
+
+     <span class="c"># decide what to do based on arguments</span>
+     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
+         <span class="c"># save the key</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># Check that we have an API key saved</span>
+     <span class="c">####################################################################</span>
+
+     <span class="k">try</span><span class="p">:</span>
+         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+         <span class="k">return</span> <span class="mi">0</span>
+
+     <span class="c">####################################################################</span>
+     <span class="c"># View/filter Pinboard posts</span>
+     <span class="c">####################################################################</span>
+
+     <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
+     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c"># seconds old</span>
+
+     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+         <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
+<span class="sd">         so we need to wrap callables needing arguments in a function</span>
+<span class="sd">         that needs none.</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+         <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c"># we have no data to show, so show a warning and stop</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>
+</span>
+     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># the list of results for Alfred</span>
+     <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
+
+     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+     <span class="k">return</span> <span class="mi">0</span>
+
+
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>In lines 96-99, we check to see it there are any posts, and if not, we show
+the user a warning, send the results to Alfred and exit. This does away with
+Alfred&#8217;s distracting default searches and lets the user know exactly what&#8217;s
+going on.</p>
+</div>
+<div class="section" id="greased-lightning-background-updates">
+<span id="background-updates"></span><h3>Greased lightning: background updates<a class="headerlink" href="#greased-lightning-background-updates" title="Permalink to this headline">¶</a></h3>
+<p>All that remains is for our Workflow to provide the blazing fast results Alfred
+users have come to expect. No waiting around for glacial web services for the
+likes of us. As long as we have some posts saved in the cache, we can show those
+while grabbing an updated list in the background (and notifying the user of
+the update, of course).</p>
+<p>Now, there are a few different ways to start a background process. We could ask the user
+to set up a <tt class="docutils literal"><span class="pre">cron</span></tt> job, but <tt class="docutils literal"><span class="pre">cron</span></tt> isn&#8217;t the easiest software to use. We could
+add and load a <a class="reference external" href="http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd">Launch Agent</a>,
+but that&#8217;d run indefinitely, whether or not the Workflow is being used, and
+even if the Workflow were uninstalled. So we&#8217;d best start our background process
+from within the Workflow itself.</p>
+<p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process, but
+that doesn&#8217;t work quite as you might expect in Alfred: it treats your Workflow
+as still running till the background process has finished, too, so it won&#8217;t call
+your Workflow with a new query till the update is done. Which is exactly what
+happens now and the behaviour we want to avoid.</p>
+<p>Fortunately, <strong>Alfred-Workflow</strong> provides the <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module
+to solve this problem.</p>
+<p>Using the <a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
+and <a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> functions,
+we can easily run a script in the background while our Workflow remains
+responsive to Alfred&#8217;s queries.</p>
+<p>To solve this problem, we&#8217;re going to use <strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
+module. (This is based on, and works like, <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but transparently
+runs the command as a background process). So, our updater script will be called
+from our main Workflow script, but <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will run it
+as a background process. This way, it will appear to exit
+immediately, so Alfred will keep on calling our Workflow every time the query changes.</p>
+<p>Meanwhile, our main Workflow script will check if the background updater is
+running and post a useful, friendly notification if it is.</p>
+<p>Let&#8217;s have at it.</p>
+<div class="section" id="background-updater-script">
+<h4>Background updater script<a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
+<p>Create a new file in the Workflow root directory called <tt class="docutils literal"><span class="pre">update.py</span></tt> with these
+contents:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+
 
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">PasswordNotFound</span>
 
@@ -1031,71 +1212,7 @@ contents:</p>
      <span class="k">return</span> <span class="n">posts</span>
 
 
- <span class="k">def</span> <span class="nf">process_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Does a process with PID `pid` actually exist?&quot;&quot;&quot;</span>
-
-     <span class="k">try</span><span class="p">:</span>
-         <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-     <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>  <span class="c"># not running</span>
-         <span class="k">return</span> <span class="bp">False</span>
-     <span class="k">return</span> <span class="bp">True</span>
-
-
- <span class="k">def</span> <span class="nf">daemonise</span><span class="p">(</span><span class="n">stdin</span><span class="o">=</span><span class="s">&#39;/dev/null&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="s">&#39;/dev/null&#39;</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="s">&#39;/dev/null&#39;</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;This forks the current process into a daemon.</span>
-<span class="sd">     The stdin, stdout, and stderr arguments are file names that</span>
-<span class="sd">     will be opened and be used to replace the standard file descriptors</span>
-<span class="sd">     in sys.stdin, sys.stdout, and sys.stderr.</span>
-<span class="sd">     These arguments are optional and default to /dev/null.</span>
-<span class="sd">     Note that stderr is opened unbuffered, so</span>
-<span class="sd">     if it shares a file with stdout then interleaved output</span>
-<span class="sd">     may not appear in the order that you expect.</span>
-
-<span class="sd">     &quot;&quot;&quot;</span>
-
-     <span class="c"># Do first fork.</span>
-     <span class="k">try</span><span class="p">:</span>
-         <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-         <span class="k">if</span> <span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># Exit first parent.</span>
-     <span class="k">except</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-         <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fork #1 failed: (</span><span class="si">%d</span><span class="s">) </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">))</span>
-         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-     <span class="c"># Decouple from parent environment.</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">setsid</span><span class="p">()</span>
-     <span class="c"># Do second fork.</span>
-     <span class="k">try</span><span class="p">:</span>
-         <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-         <span class="k">if</span> <span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c"># Exit second parent.</span>
-     <span class="k">except</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-         <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fork #2 failed: (</span><span class="si">%d</span><span class="s">) </span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span><span class="p">))</span>
-         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-     <span class="c"># Now I am a daemon!</span>
-     <span class="c"># Redirect standard file descriptors.</span>
-     <span class="n">si</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-     <span class="n">so</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="s">&#39;a+&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-     <span class="n">se</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#39;a+&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">si</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
-     <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">se</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
-
-
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="c"># First check if a copy of this script is already running</span>
-     <span class="n">pidfile</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cachefile</span><span class="p">(</span><span class="s">&#39;update.pid&#39;</span><span class="p">)</span>
-     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pidfile</span><span class="p">):</span>
-         <span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">pidfile</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-         <span class="k">if</span> <span class="n">process_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
-             <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Update script is already running&#39;</span><span class="p">)</span>
-             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-     <span class="c"># Fork into background</span>
-     <span class="n">daemonise</span><span class="p">()</span>
-     <span class="c"># Save PID of this process</span>
-     <span class="nb">open</span><span class="p">(</span><span class="n">pidfile</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()))</span>
      <span class="k">try</span><span class="p">:</span>
          <span class="c"># Get API key from Keychain</span>
          <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
@@ -1118,66 +1235,27 @@ contents:</p>
          <span class="c"># Nothing we can do about this, so just log it</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;No API key saved&#39;</span><span class="p">)</span>
 
-     <span class="k">finally</span><span class="p">:</span>
-         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pidfile</span><span class="p">):</span>
-             <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">pidfile</span><span class="p">)</span>
-
-
  <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>At the top of the file (line 10), we&#8217;ve copied the <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt>
+<p>At the top of the file (line 7), we&#8217;ve copied the <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt>
 function from <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (we won&#8217;t need it there any more).</p>
-<p>We&#8217;ve added a new function, <tt class="docutils literal"><span class="pre">process_exists()</span></tt>, (line 30) which will tell us if
-a specific process is running, and below that (line 40) is the <tt class="docutils literal"><span class="pre">daemonise()</span></tt>
-function, which
-<a class="reference external" href="http://www.petercollingridge.co.uk/blog/running-multiple-processes-python">forks</a>
-the process into the background and disconnects from the parent process
-(allowing it to exit).</p>
-<p>Now onto <tt class="docutils literal"><span class="pre">main()</span></tt> (line 82). We&#8217;re going to write the PID of our process to a file in the
-cache whenever the <tt class="docutils literal"><span class="pre">update.py</span></tt> script runs, and delete it when it finishes.</p>
-<p>This allows both <tt class="docutils literal"><span class="pre">update.py</span></tt> and <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> to see if an update is currently
-taking place, and if so, to exit or notify the user respectively. If the file
-exists (line 84), we read the PID from it and call <tt class="docutils literal"><span class="pre">process_exists()</span></tt> to see if
-it&#8217;s really running (something may have gone wrong, leaving a stale pidfile).
-If the process exists, we exit the script (line 89) as we don&#8217;t want two updates running
-simultaneously.</p>
-<p>If the script doesn&#8217;t exit immediately because an update is already in progress,
-it then forks into the background (line 92), disconnecting from the <tt class="docutils literal"><span class="pre">pinboard.py</span></tt>
-process that called it, allowing the latter to exit (and be called again by
-Alfred), while the <tt class="docutils literal"><span class="pre">update.py</span></tt> process gets on with the potentially (relatively)
-slow business of getting new data from the Pinboard web API.</p>
-<p>If there is no pidfile or it contains an invalid PID, we write our own PID to
-the pidfile (line 94) and get on with the updating our posts cache. We wrap the code
-in a <tt class="docutils literal"><span class="pre">try</span> <span class="pre">…</span> <span class="pre">except</span> <span class="pre">…</span> <span class="pre">finally</span></tt> clause to ensure we delete the pidfile at the end
-(lines 117–119). This is basically a duplication of what we do earlier in the
-script, but a belt-and-braces approach is generally a good thing.</p>
-<p>The <tt class="docutils literal"><span class="pre">except</span></tt> clause (lines 113–115) is to trap the
+<p>The contents of the <tt class="docutils literal"><span class="pre">try</span></tt> block in <tt class="docutils literal"><span class="pre">main()</span></tt> (lines 29–44) are once again
+copied straight from <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (where we won&#8217;t be needing them any more).</p>
+<p>The <tt class="docutils literal"><span class="pre">except</span></tt> clause (lines 46–48) is to trap the
 <a class="reference internal" href="workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt></a>
 error that <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a>
 will raise if the user hasn&#8217;t set their API key via Alfred yet. <tt class="docutils literal"><span class="pre">update.py</span></tt>
 can quietly die if no API key has been set because <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> takes care
 of notifying the user to set their API key.</p>
-<p>The contents of the <tt class="docutils literal"><span class="pre">try</span></tt> block (lines 97–109) are once again copied straight
-from <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (where we won&#8217;t be needing them any more).</p>
 <p>Let&#8217;s try out <tt class="docutils literal"><span class="pre">update.py</span></tt>. <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the Workflow root directory</a>
 and run the following:</p>
 <div class="highlight-python"><div class="highlight"><pre>python update.py
 </pre></div>
 </div>
-<p>If it works, you should see … precisely nothing. Practically the first thing the
-script does is fork into the background and disconnect from the world, so if it&#8217;s
-working correctly, it should appear to exit instantly with no output.</p>
-<p>To see if it&#8217;s worked, we need to look at the log file, which we can open using
-one of <strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="howto.html#magic-arguments"><em>&#8220;magic&#8221; arguments</em></a>. Run this
-in the Terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>python pinboard.py workflow:openlog
-</pre></div>
-</div>
-<p>And the Workflow log file should open in Console.app. The last few lines of
-the log should look very much like this:</p>
+<p>If it works, you should see something like this:</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -1296,15 +1374,13 @@ update itself:</p>
 101
 102
 103
-104
-105</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+104</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
-<span class="hll"> <span class="kn">import</span> <span class="nn">os</span>
-</span> <span class="kn">import</span> <span class="nn">argparse</span>
-<span class="hll"> <span class="kn">import</span> <span class="nn">subprocess</span>
-</span><span class="hll"> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">ICON_INFO</span><span class="p">,</span> <span class="n">ICON_WARNING</span><span class="p">,</span>
+ <span class="kn">import</span> <span class="nn">argparse</span>
+<span class="hll"> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">ICON_INFO</span><span class="p">,</span> <span class="n">ICON_WARNING</span><span class="p">,</span>
 </span><span class="hll">                       <span class="n">PasswordNotFound</span><span class="p">)</span>
+</span><span class="hll"> <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
 </span>
 
  <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
@@ -1360,34 +1436,34 @@ update itself:</p>
 
      <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
 
-<span class="hll">     <span class="c"># Get posts from cache. Set `data_func` to None, as we don&#39;t want to</span>
-</span><span class="hll">     <span class="c"># update the cache in this script and `max_age` to 0 because we want</span>
-</span><span class="hll">     <span class="c"># the cached data regardless of age</span>
-</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+     <span class="c"># Get posts from cache. Set `data_func` to None, as we don&#39;t want to</span>
+     <span class="c"># update the cache in this script and `max_age` to 0 because we want</span>
+     <span class="c"># the cached data regardless of age</span>
+<span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span class="hll">
 </span><span class="hll">     <span class="c"># Start update script if cached data is too old (or doesn&#39;t exist)</span>
 </span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
-</span><span class="hll">         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;python&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update.py&#39;</span><span class="p">)]</span>
-</span><span class="hll">         <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update.py&#39;</span><span class="p">)]</span>
+</span><span class="hll">         <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
 </span><span class="hll">
 </span><span class="hll">     <span class="c"># Notify the user if the cache is being updated</span>
-</span><span class="hll">     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">cachefile</span><span class="p">(</span><span class="s">&#39;update.pid&#39;</span><span class="p">)):</span>
+</span><span class="hll">     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
 </span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Getting new posts from Pinboard&#39;</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
-</span><span class="hll">
-</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c"># we have no data to show, so stop here</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
-</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>
 </span>
-     <span class="c"># If script was passed a query, use it to filter posts</span>
-     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+     <span class="c"># If script was passed a query, use it to filter posts if we have some</span>
+<span class="hll">     <span class="k">if</span> <span class="n">query</span> <span class="ow">and</span> <span class="n">posts</span><span class="p">:</span>
+</span>         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c"># we have no data to show, so show a warning and stop</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+         <span class="k">return</span> <span class="mi">0</span>
 
      <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
                      <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
@@ -1405,10 +1481,9 @@ update itself:</p>
 </pre></div>
 </td></tr></table></div>
 <p>First of all, we&#8217;ve changed the imports a bit. We no longer need <a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>,
-because we&#8217;ll use <a class="reference external" href="http://docs.python.org/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> to call <tt class="docutils literal"><span class="pre">update.py</span></tt> instead, and we&#8217;ve also
-imported another icon (<tt class="docutils literal"><span class="pre">ICON_INFO</span></tt>) to show our update message. We&#8217;ll want
-<a class="reference external" href="http://docs.python.org/library/os.html#module-os" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">os</span></tt></a> as well to check if the <tt class="docutils literal"><span class="pre">update.pid</span></tt> file created by <tt class="docutils literal"><span class="pre">update.py</span></tt>
-when it&#8217;s running exists, so we can tell if an update is currently running.</p>
+because we&#8217;ll use the functions <a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a>
+from <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></tt></a> to call <tt class="docutils literal"><span class="pre">update.py</span></tt> instead,
+and we&#8217;ve also imported another icon (<tt class="docutils literal"><span class="pre">ICON_INFO</span></tt>) to show our update message.</p>
 <p>As noted before, <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt> has now moved to <tt class="docutils literal"><span class="pre">update.py</span></tt>, as has
 the <tt class="docutils literal"><span class="pre">wrapper()</span></tt> function inside <tt class="docutils literal"><span class="pre">main()</span></tt>.</p>
 <p>Also in <tt class="docutils literal"><span class="pre">main()</span></tt>, we no longer need <tt class="docutils literal"><span class="pre">api_key</span></tt>. However, we still want to know
@@ -1417,16 +1492,19 @@ if it has been saved, so we can show a warning if not, so we still call
 but without saving the result.</p>
 <p>Most importantly, we&#8217;ve now expanded the update code to check if our cached data
 is fresh with <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></tt></a>
-and to run the <tt class="docutils literal"><span class="pre">update.py</span></tt> script via <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a> if not
-(<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></tt></a>
+and to run the <tt class="docutils literal"><span class="pre">update.py</span></tt> script via
+<a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
+if not (<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></tt></a>
 returns the full path to a file in the Workflow&#8217;s root directory).</p>
-<p>Then we check for the existence of the <tt class="docutils literal"><span class="pre">update.pid</span></tt> file created by <tt class="docutils literal"><span class="pre">update.py</span></tt>
-when it&#8217;s running, and notify the user of any running update via Alfred&#8217;s results.</p>
+<p>Then we check if the update process is running via
+<a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> using the
+name we assigned to the process (<tt class="docutils literal"><span class="pre">update</span></tt>), and notify the user via Alfred&#8217;s
+results if it is.</p>
 <p>Finally, we call <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>
-with <tt class="docutils literal"><span class="pre">None</span></tt> as the data-retrieval function because we don&#8217;t want to run an
+with <tt class="docutils literal"><span class="pre">None</span></tt> as the data-retrieval function (line 66) because we don&#8217;t want to run an
 update from this script, blocking Alfred. As a consequence, it&#8217;s possible that
 we&#8217;ll get back <tt class="docutils literal"><span class="pre">None</span></tt> instead of a list of posts if there are no cached data,
-so we check for this and exit the script if we have no posts to show.</p>
+so we check for this before trying to filter <tt class="docutils literal"><span class="pre">None</span></tt> in line 80.</p>
 </div>
 </div>
 </div>
@@ -1438,9 +1516,9 @@ the &#8220;Getting new posts from Pinboard&#8221; message appear. Unfortunately,
 see any results at the moment because we just deleted the cached data.</p>
 <p>To see our background updater weave its magic, we can change the <tt class="docutils literal"><span class="pre">max_age</span></tt> parameter
 passed to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>
-in <tt class="docutils literal"><span class="pre">update.py</span></tt> on line 109 and to
+in <tt class="docutils literal"><span class="pre">update.py</span></tt> on line 42 and to
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></tt></a>
-in <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> on line 70 to <tt class="docutils literal"><span class="pre">60</span></tt>. Open up Alfred, enter <tt class="docutils literal"><span class="pre">pbrecent</span></tt> and
+in <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> on line 69 to <tt class="docutils literal"><span class="pre">60</span></tt>. Open up Alfred, enter <tt class="docutils literal"><span class="pre">pbrecent</span></tt> and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the &#8220;Getting new posts…&#8221; message <em>and</em> search
 results. Cool, huh?</p>

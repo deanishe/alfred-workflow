@@ -7,3 +7,4 @@ posts.json
 /benchmark_*.py
 /temp_*.py
 /info.plist
+/publish-docs.sh

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.2 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.3 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.2',
+        VERSION:     '1.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.2 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.3 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -265,7 +265,8 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>title</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Title shown in Alfred</li>
 <li><strong>subtitle</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Subtitle shown in Alfred</li>
-<li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <cite>{query}</cite> when item is actioned</li>
+<li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <cite>{query}</cite> when item is
+actioned</li>
 <li><strong>autocomplete</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text expanded in Alfred when item is TABbed</li>
 <li><strong>valid</strong> (<cite>Boolean</cite>) &#8211; Whether or not item can be actioned</li>
 <li><strong>uid</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Used by Alfred to remember/sort items</li>
@@ -503,7 +504,8 @@ cache doesn&#8217;t exist</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>text</strong> (encoded or Unicode string. If <tt class="docutils literal"><span class="pre">text</span></tt> is already a
 Unicode string, it will only be normalised.) &#8211; string</li>
-<li><strong>encoding</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>) &#8211; The text encoding to use to decode <tt class="docutils literal"><span class="pre">text</span></tt> to Unicode.</li>
+<li><strong>encoding</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>) &#8211; The text encoding to use to decode <tt class="docutils literal"><span class="pre">text</span></tt> to
+Unicode.</li>
 <li><strong>normalization</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>) &#8211; The nomalisation form to apply to <tt class="docutils literal"><span class="pre">text</span></tt>.</li>
 </ul>
 </td>
@@ -533,7 +535,8 @@ normalise this data, too, or change the default normalisation used by
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g. &#8220;Pinboard&#8221;</li>
+<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g.
+&#8220;Pinboard&#8221;</li>
 <li><strong>service</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Name of the service. By default, this is the workflow&#8217;s
 bundle ID</li>
 </ul>
@@ -545,7 +548,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10560d1b8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x104de7320&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=63</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -567,6 +570,8 @@ than this.</li>
 <li><strong>max_results</strong> (<tt class="docutils literal"><span class="pre">int</span></tt>) &#8211; If non-zero, prune results list to this length.</li>
 <li><strong>match_on</strong> (<tt class="docutils literal"><span class="pre">int</span></tt>) &#8211; Filter option flags. Bitwise-combined list of
 <tt class="docutils literal"><span class="pre">MATCH_*</span></tt> constants (see below).</li>
+<li><strong>fold_diacritics</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; Convert search keys to ASCII-only
+characters if <tt class="docutils literal"><span class="pre">query</span></tt> only contains ASCII characters.</li>
 </ul>
 </td>
 </tr>
@@ -580,8 +585,7 @@ than this.</li>
 </tr>
 </tbody>
 </table>
-<p>By default, <a class="reference internal" href="#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">filter()</span></tt></a> uses all of the following flags (i.e.
-<tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt>). The tests are always run in the given order:</p>
+<p>The tests are always run in this order:</p>
 <ol class="arabic simple">
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></tt> : Item search key startswith <tt class="docutils literal"><span class="pre">query</span></tt> (case-insensitive).</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></tt> : The list of capital letters in item search key starts with <tt class="docutils literal"><span class="pre">query</span></tt> (<tt class="docutils literal"><span class="pre">query</span></tt> may be lower-case). E.g., <tt class="docutils literal"><span class="pre">of</span></tt> would match <tt class="docutils literal"><span class="pre">OmniFocus</span></tt>, <tt class="docutils literal"><span class="pre">gc</span></tt> would match <tt class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></tt></li>
@@ -591,14 +595,43 @@ than this.</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></tt> : Combination of (4) and (5).</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></tt> : Match if <tt class="docutils literal"><span class="pre">query</span></tt> is a substring of item search key (case-insensitive).</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> : Matches if all characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in item search key in the same order (case-insensitive).</li>
-<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt> : Combination of all the above. The default.</li>
+<li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt> : Combination of all the above.</li>
 </ol>
+<p>The default is <tt class="docutils literal"><span class="pre">MATCH_ALL</span> <span class="pre">^</span> <span class="pre">MATCH_ALLCHARS</span></tt>, i.e. all tests but
+<tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> is considerably slower than the other tests and
+provides much less accurate results.</p>
 <p><strong>Examples:</strong></p>
-<p>To ignore <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> (tends to provide the worst matches and
-is expensive to run), use <tt class="docutils literal"><span class="pre">match_on=MATCH_ALL</span> <span class="pre">^</span> <span class="pre">MATCH_ALLCHARS</span></tt>.</p>
+<p>To include <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>, which tends to provide the worst
+matches and is expensive to run, use <tt class="docutils literal"><span class="pre">match_on=MATCH_ALL</span></tt>.</p>
 <p>To match only on capitals, use <tt class="docutils literal"><span class="pre">match_on=MATCH_CAPITALS</span></tt>.</p>
 <p>To match only on startswith and substring, use
 <tt class="docutils literal"><span class="pre">match_on=MATCH_STARTSWITH</span> <span class="pre">|</span> <span class="pre">MATCH_SUBSTRING</span></tt>.</p>
+<p>If <tt class="docutils literal"><span class="pre">fold_diacritics</span></tt> is <tt class="docutils literal"><span class="pre">True</span></tt> (the default), and <tt class="docutils literal"><span class="pre">query</span></tt>
+contains only ASCII characters, non-ASCII characters in search keys
+will be converted to ASCII equivalents (e.g. <em>ü</em> -&gt; <em>u</em>, <em>ß</em> -&gt; <em>ss</em>,
+<em>é</em> -&gt; <em>e</em>).</p>
+<p>See <tt class="xref py py-const docutils literal"><span class="pre">ASCII_REPLACEMENTS</span></tt> for all replacements.</p>
+<p>If <tt class="docutils literal"><span class="pre">query</span></tt> contains non-ASCII characters, search keys will not be
+altered.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.Workflow.fold_to_ascii">
+<tt class="descname">fold_to_ascii</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.fold_to_ascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert non-ASCII characters to closest ASCII equivalent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; text to convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">text containing only ASCII characters</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -611,7 +644,8 @@ is expensive to run), use <tt class="docutils literal"><span class="pre">match_o
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g. &#8220;Pinboard&#8221;</li>
+<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g.
+&#8220;Pinboard&#8221;</li>
 <li><strong>service</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Name of the service. By default, this is the workflow&#8217;s
 bundle ID</li>
 </ul>
@@ -756,7 +790,8 @@ throws an error otherwise).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g. &#8220;Pinboard&#8221;</li>
+<li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g.
+&#8220;Pinboard&#8221;</li>
 <li><strong>password</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; the password to secure</li>
 <li><strong>service</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Name of the service. By default, this is the workflow&#8217;s
 bundle ID</li>
@@ -842,6 +877,24 @@ with the <tt class="docutils literal"><span class="pre">default_settings</span><
 </table>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.workflow.isascii">
+<tt class="descclassname">workflow.workflow.</tt><tt class="descname">isascii</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#workflow.workflow.isascii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if <tt class="docutils literal"><span class="pre">text</span></tt> contains only ASCII characters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; text to test for ASCII-ness</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if <tt class="docutils literal"><span class="pre">text</span></tt> contains only ASCII characters</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">

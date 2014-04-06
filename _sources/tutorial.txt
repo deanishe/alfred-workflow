@@ -529,11 +529,16 @@ match a lot of posts they really shouldn't. The reason for this is that,
 by default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` matches
 *anything* that contains all the characters of ``query`` in the same order,
 regardless of case. To fix this, we'll add a ``min_score`` argument to
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`. Change the line::
+:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`. Change the line:
+
+.. code-block:: python
+
 
     posts = wf.filter(query, posts, key=search_key_for_post)
 
-to::
+to:
+
+.. code-block:: python
 
     posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
 

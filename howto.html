@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Howto &mdash; Alfred-Workflow 1.2 documentation</title>
+    <title>Howto &mdash; Alfred-Workflow 1.3 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.2',
+        VERSION:     '1.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.2 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.3 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
     <link rel="prev" title="Writing A Pinboard Workflow, Part 2" href="tutorial2.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -115,7 +115,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
-<li><a class="reference internal" href="#restricting-results">Restricting results</a></li>
+<li><a class="reference internal" href="#restricting-results">Restricting results</a><ul>
+<li><a class="reference internal" href="#score-threshold">Score threshold</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#diacritic-folding">Diacritic folding</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
@@ -165,7 +169,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
-<li><a class="reference internal" href="#restricting-results">Restricting results</a></li>
+<li><a class="reference internal" href="#restricting-results">Restricting results</a><ul>
+<li><a class="reference internal" href="#score-threshold">Score threshold</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#diacritic-folding">Diacritic folding</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
@@ -269,7 +277,7 @@ to capture any errors thrown by your scripts:</p>
      <span class="c"># Do stuff here ...</span>
 
      <span class="c"># Add an item to Alfred feedback</span>
-     <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;Item title&#39;</span><span class="p">,</span> <span class="s">u&#39;Item subtitle&#39;</span><span class="p">)</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Item title&#39;</span><span class="p">,</span> <span class="s">&#39;Item subtitle&#39;</span><span class="p">)</span>
 
      <span class="c"># Send output to Alfred</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
@@ -297,16 +305,23 @@ your Workflow.</p>
 </div>
 <p>and instantiate <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
 with the <tt class="docutils literal"><span class="pre">libraries</span></tt> argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">module_from_lib_subdirectory_here</span>
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+     <span class="kn">import</span> <span class="nn">module_from_lib_subdirectory_here</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;./lib&#39;</span><span class="p">])</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;./lib&#39;</span><span class="p">])</span>
+     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="persistent-data">
 <h2>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>
@@ -357,20 +372,31 @@ Keychain. By default, the Workflow&#8217;s Bundle ID will be used as the service
 but this can be overridden by setting the <tt class="docutils literal"><span class="pre">service</span></tt> argument to the above
 methods.</p>
 <p>Example usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">,</span> <span class="s">&#39;password1lolz&#39;</span><span class="p">)</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">,</span> <span class="s">&#39;password1lolz&#39;</span><span class="p">)</span>
 
-<span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+ <span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
 
-<span class="n">wf</span><span class="o">.</span><span class="n">delete_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">delete_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
 
-<span class="c"># raises PasswordNotFound exception</span>
-<span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
+ <span class="c"># raises PasswordNotFound exception</span>
+ <span class="n">password</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;hotmail-password&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>See <a class="reference internal" href="tutorial2.html#secure-settings"><em>the relevant part of the tutorial</em></a> for a full example.</p>
 </div>
 <div class="section" id="caching-data">
@@ -381,20 +407,26 @@ is <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.
 takes a name under which the data should be cached, a callable to retrieve
 the data if they aren&#8217;t in the cache (or are too old), and a maximum age in seconds
 for the cached data:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span>
 
-<span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://example.com/api/stuff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+ <span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+     <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://example.com/api/stuff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>To only retrieve data if they are in the cache, call with <tt class="docutils literal"><span class="pre">None</span></tt> as the
 data-retrieval function (which is the default):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><strong>Note</strong>: This will return <tt class="docutils literal"><span class="pre">None</span></tt> if there are no corresponding data in the
 cache.</p>
 <p>This is useful if you want to update your cache in the background, so it doesn&#8217;t
@@ -409,41 +441,89 @@ script in the background.)</p>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> provides an
 Alfred-like search algorithm for filtering your Workflow&#8217;s data. By default,
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> will try to match
-your search query via CamelCase, substring, initials and all characters, applying
+your search query via CamelCase, substring and initials, applying
 different weightings to the various kind of matches (see
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> for a detailed
 description of the algorithm and match flags).</p>
 <p><strong>Note:</strong> By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
 will match and return anything that contains all the characters in <tt class="docutils literal"><span class="pre">query</span></tt>
-in the same order, regardless of case. It&#8217;s very likely that you&#8217;ll want to set
+in the same order, regardless of case. It&#8217;s very likely that yo&#8217;ll want to set
 the standard a little higher. See <a class="reference internal" href="#restricting-results"><em>Restricting results</em></a> for info on how
 to do that.</p>
 <p>To use <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>, pass it
 a query, a list of items to filter and sort, and if your list contains items
 other than strings, a <tt class="docutils literal"><span class="pre">key</span></tt> function that generates a string search key for
 each item:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+ <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
 
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Which returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>(<tt class="docutils literal"><span class="pre">bs</span></tt> are Bob Smith&#8217;s initials.)</p>
+<p>For more relaxed filtering:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">MATCH_ALL</span>
+
+ <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
 <p>Which returns:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>(<tt class="docutils literal"><span class="pre">bs</span></tt> are Bob Smith&#8217;s initials and <tt class="docutils literal"><span class="pre">Butterkeks</span></tt> contains both letters in that order.)</p>
 <p>If your data are not strings:</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
  <span class="n">books</span> <span class="o">=</span> <span class="p">[</span>
      <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">},</span>
      <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;My splendid adventure&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">},</span>
      <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">},</span>
-     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">}</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Delerium and my nan&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Richie Rich&#39;</span><span class="p">},</span>
+     <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The House&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Spade&#39;</span><span class="p">},</span>
  <span class="p">]</span>
 
 
@@ -452,68 +532,173 @@ each item:</p>
 </span>
  <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="hll"> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+<span class="hll"> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;boll&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
 </span></pre></div>
-</div>
+</td></tr></table></div>
 <p>Which returns:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
- <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+<span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>Note that <tt class="docutils literal"><span class="pre">Böll</span></tt> has matched <tt class="docutils literal"><span class="pre">boll</span></tt>. By default,
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
+converts non-ASCII text to ASCII as best it can if the <tt class="docutils literal"><span class="pre">query</span></tt> is also ASCII.</p>
+<p>Try this query instead:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;böll&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>and you will only get one result:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>The query <tt class="docutils literal"><span class="pre">boll</span></tt> matches <tt class="docutils literal"><span class="pre">Böll</span></tt>, but <tt class="docutils literal"><span class="pre">böll</span></tt> will not match <tt class="docutils literal"><span class="pre">Boll</span></tt>.</p>
+<p>You can turn off this behaviour by passing <tt class="docutils literal"><span class="pre">fold_diacritics=False</span></tt> to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;boll&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">fold_diacritics</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>produces:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
 <div class="section" id="restricting-results">
 <span id="id2"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
-<p>Chances are, you would not want <tt class="docutils literal"><span class="pre">bot</span></tt> to match <tt class="docutils literal"><span class="pre">Bob</span> <span class="pre">Smith</span> <span class="pre">A</span> <span class="pre">damn</span> <span class="pre">fine</span> <span class="pre">afternoon</span></tt>
-at all, or indeed any of the other books. Indeed, they have very low scores:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<p>If you run the following queries:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;hot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;damn&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>You will get the following results respectively:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">}]</span>
+
+<span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Richie Rich&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Delerium and my nan&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
-<p>produces:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
-  <span class="mf">11.11111111111111</span><span class="p">,</span>
-  <span class="mi">64</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+<p>It&#8217;s quite likely that you wouldn&#8217;t want <cite>hot</cite> to match <cite>The horrors of Tuesdays</cite>,
+nor <cite>damn</cite> to match <cite>Delerium and my nan</cite>, let alone to rate them more highly.</p>
+<p>The reason for this is that <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
+is tuned to prioritise initial matching over substring, e.g. <cite>got</cite> matches
+<cite>Game of Thrones</cite> better than <cite>Baby Got Back</cite>.</p>
+<p>To alter this behaviour, you can specify custom match rules:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">MATCH_STARTSWITH</span><span class="p">,</span> <span class="n">MATCH_ATOM</span><span class="p">,</span> <span class="n">MATCH_SUBSTRING</span>
+
+ <span class="n">rules</span> <span class="o">=</span> <span class="n">MATCH_STARTSWITH</span> <span class="o">|</span> <span class="n">MATCH_ATOM</span> <span class="o">|</span> <span class="n">MATCH_SUBSTRING</span>
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;hot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">rules</span><span class="p">)</span>
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;damn&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">rules</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Returns the expected:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">}]</span>
+
+<span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<div class="section" id="score-threshold">
+<h4>Score threshold<a class="headerlink" href="#score-threshold" title="Permalink to this headline">¶</a></h4>
+<p>If you&#8217;re searching a large set of data, it&#8217;s possible that a large number of
+irrelevant results will be returned, especially if you&#8217;re using <tt class="docutils literal"><span class="pre">MATCH_ALL</span></tt>
+or <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;th&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Spade&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The House&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>which is almost everything. Let&#8217;s see why:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;th&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span><span class="p">,</span>
+<span class="hll">                  <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></pre></div>
+</td></tr></table></div>
+<p>Now we can see how highly the matches are rated:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span>
+   <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+  <span class="mf">92.0</span><span class="p">,</span>
+  <span class="mi">16</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Spade&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The House&#39;</span><span class="p">},</span> <span class="mf">91.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+  <span class="mf">82.0</span><span class="p">,</span>
+  <span class="mi">1</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">},</span>
+  <span class="mf">6.666666666666667</span><span class="p">,</span>
+  <span class="mi">64</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Each result is a tuple of <tt class="docutils literal"><span class="pre">(result,</span> <span class="pre">score,</span> <span class="pre">rule)</span></tt>. As we can see, the nonsense
+result has a rubbish score.</p>
+<p><strong>Note:</strong> <tt class="docutils literal"><span class="pre">Bollards</span> <span class="pre">and</span> <span class="pre">other</span> <span class="pre">street</span> <span class="pre">treasures</span></tt>
+is the best result because <tt class="docutils literal"><span class="pre">key_for_book</span></tt> returns <tt class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></tt>, so
+<tt class="docutils literal"><span class="pre">th</span></tt> is matching the initials in <tt class="docutils literal"><span class="pre">…treasures</span> <span class="pre">Harry…</span></tt>.
+If we change <tt class="docutils literal"><span class="pre">key_for_book</span></tt>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="hll"> <span class="k">def</span> <span class="nf">key_for_book</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
+</span><span class="hll">     <span class="k">return</span> <span class="s">&#39;{} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span> <span class="n">book</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">])</span>
+</span>
+ <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;th&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span><span class="p">,</span>
+                  <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>The results make more sense:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Spade&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The House&#39;</span><span class="p">},</span> <span class="mf">93.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+  <span class="mf">92.0</span><span class="p">,</span>
+  <span class="mi">16</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span>
+   <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+  <span class="mf">66.0</span><span class="p">,</span>
+  <span class="mi">32</span><span class="p">),</span>
+ <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Marilyn Monroe&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Some like it hot&#39;</span><span class="p">},</span>
   <span class="mf">3.3333333333333335</span><span class="p">,</span>
-  <span class="mi">64</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span> <span class="mf">3.125</span><span class="p">,</span> <span class="mi">64</span><span class="p">)]</span>
+  <span class="mi">64</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>(<tt class="docutils literal"><span class="pre">64</span></tt> is the rule that matched, <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>, which matches
-if all the characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in order in the search key, regardless
-of case).</p>
-<p>If we filter <tt class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Brienne</span> <span class="pre">of</span> <span class="pre">Tarth',</span> <span class="pre">'title':</span> <span class="pre">'How</span> <span class="pre">to</span> <span class="pre">beat</span> <span class="pre">up</span> <span class="pre">men'}</span></tt> and
-<tt class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Zoltar',</span> <span class="pre">'title':</span> <span class="pre">'Battle</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Planets'}</span></tt>, which we probably
-would want to match <tt class="docutils literal"><span class="pre">bot</span></tt>, we get:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Brienne of Tarth&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;How to beat up men&#39;</span><span class="p">},</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
-</pre></div>
-</div>
-<p>(The ranking would be reversed if <tt class="docutils literal"><span class="pre">key_for_book()</span></tt> returned <tt class="docutils literal"><span class="pre">author</span> <span class="pre">title</span></tt>
-instead of <tt class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></tt>.)</p>
-<p>So in all likelihood, you&#8217;ll want to pass a <tt class="docutils literal"><span class="pre">min_score</span></tt> argument to
+<p>Choose your key function wisely.</p>
+<p>To exclude very low-scoring results, pass the <tt class="docutils literal"><span class="pre">min_score</span></tt> argument to
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;th&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span><span class="p">,</span>
+                  <span class="n">min_score</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>results in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Spade&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The House&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Heinrich Böll&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
-<p>and/or exclude some of the matching rules:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">MATCH_ALL</span><span class="p">,</span> <span class="n">MATCH_ALLCHARS</span>
-
-<span class="c"># [...]</span>
-
-<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span><span class="p">)</span>
-</pre></div>
+<p>By adjusting the filtering rules, <tt class="docutils literal"><span class="pre">key</span></tt> function and <tt class="docutils literal"><span class="pre">min_score</span></tt>, you
+should be able to fine-tune <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
+to your workflow&#8217;s needs.</p>
 </div>
-<p>You can set match rules using bitwise operators, so <tt class="docutils literal"><span class="pre">|</span></tt> to combine them or
-<tt class="docutils literal"><span class="pre">^</span></tt> to remove them from <tt class="docutils literal"><span class="pre">MATCH_ALL</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># match only CamelCase and initials</span>
-<span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_CAPITALS</span> <span class="o">|</span> <span class="n">MATCH_INITIALS</span>
-
-<span class="c"># match everything but all-characters-in-item and substring</span>
-<span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span> <span class="o">^</span> <span class="n">MATCH_SUBSTRING</span>
-</pre></div>
 </div>
-<p><strong>Note:</strong> <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> is particularly slow and provides the
-worst matches. You should consider excluding it, especially if you&#8217;re calling
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> with &gt; 5000 items.</p>
+<div class="section" id="diacritic-folding">
+<h3>Diacritic folding<a class="headerlink" href="#diacritic-folding" title="Permalink to this headline">¶</a></h3>
+<p>By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> will fold non-ASCII characters
+to ASCII equivalents (e.g. <em>é</em> -&gt; <em>e</em>, <em>ü</em> -&gt; <em>u</em>) if the <tt class="docutils literal"><span class="pre">query</span></tt> contains
+only ASCII characters. This behaviour can be turned off by passing
+<tt class="docutils literal"><span class="pre">fold_diacritics=False</span></tt> to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>.</p>
+<p><strong>Note:</strong> To keep the library small, only a subset of European languages are
+supported. The <a class="reference external" href="https://pypi.python.org/pypi/Unidecode">Unidecode</a> library
+should be used for comprehensive support of non-European alphabets.</p>
+<p>Users may override a Workflow&#8217;s default settings via <tt class="docutils literal"><span class="pre">workflow:folding…</span></tt>
+<a class="reference internal" href="#magic-arguments"><em>magic arguments</em></a>.</p>
 </div>
 </div>
 <div class="section" id="text-encoding-decoding">
@@ -541,13 +726,17 @@ normalised.</p>
 <h2>Built-in icons<a class="headerlink" href="#built-in-icons" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a> module provides access to a number of default
 OS X icons via <tt class="docutils literal"><span class="pre">ICON_*</span></tt> constants for use when generating Alfred feedback:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
 
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;For your information&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;For your information&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="list-of-icons">
 <span id="icon-list"></span><h3>List of icons<a class="headerlink" href="#list-of-icons" title="Permalink to this headline">¶</a></h3>
 <p>These are all the icons accessible in <a class="reference internal" href="workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a>. They (and more) can
@@ -672,7 +861,13 @@ are parsed).</p>
 <li><tt class="docutils literal"><span class="pre">workflow:openterm</span></tt> — Open a Terminal window in the Workflow&#8217;s root directory.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete any data cached by the Workflow.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — Delete the Workflow&#8217;s settings file (which contains the data stored using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>).</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingon</span></tt> — Force diacritic folding in search keys (e.g. convert <em>ü</em> to <em>ue</em>)</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingoff</span></tt> — Never fold diacritics in search keys</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingon</span></tt> — Reset diacritic folding to workflow default</li>
 </ul>
+<p>The three <tt class="docutils literal"><span class="pre">workflow:folding…</span></tt> settings allow users to override the diacritic
+folding set by a workflow&#8217;s author. This may be useful if the author&#8217;s choice
+does not correspond with a user&#8217;s usage pattern.</p>
 <p>You can turn off magic arguments by passing <tt class="docutils literal"><span class="pre">capture_args=False</span></tt> to
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a>, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>

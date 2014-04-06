@@ -8,21 +8,31 @@
 # Created on 2014-03-04
 #
 """
-test_workflow_dir.py
 
-This test can't be included in the main test library, as it requires
-no `info.plist` to be present in order to function (i.e. fail)
+Ensure Workflow fails if there is no ``info.plist``.
 
 """
 
 from __future__ import print_function
 
+import os
 import unittest
 
 from workflow import Workflow
 
+INFO_PLIST = os.path.join(os.path.dirname(__file__), 'info.plist')
+TEMP_PATH = INFO_PLIST + '.temp'
+
 
 class WorkflowDirTests(unittest.TestCase):
+
+    def setUp(self):
+        if os.path.exists(INFO_PLIST):
+            os.rename(INFO_PLIST, TEMP_PATH)
+
+    def tearDown(self):
+        if os.path.exists(TEMP_PATH):
+            os.rename(TEMP_PATH, INFO_PLIST)
 
     def test_workflowdir(self):
         """workflowdir fails"""

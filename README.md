@@ -9,7 +9,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - "Magic" arguments to help development/debugging
 - Auto-saves settings
 - Super-simple data caching
-- Fuzzy, Alfred-like search/filtering
+- Fuzzy, Alfred-like search/filtering with diacritic folding
 - Keychain support for secure storage of passwords, API keys etc.
 - Simple generation of Alfred feedback (XML output)
 - Input/output decoding for handling non-ASCII text
@@ -19,18 +19,32 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 
 ## Installation ##
 
-Download this repository and copy the `workflow` directory contained within it to the root
-of your workflow:
+1. Download the `alfred-workflow-x.x.zip` from the [releases page](https://github.com/deanishe/alfred-workflow/releases).
+2. Either extract the ZIP archive and place the `workflow` directory in the root folder of your workflow (where `info.plist` is) **or**
+3. Place the ZIP archive in the root folder of your workflow and add `sys.path.insert(0, 'alfred-workflow-x.x.zip')` at the top of your Python script(s).
 
-	Your Workflow/
-		info.plist
-		icon.png
-		workflow/
-			__init__.py
-			workflow.py
-			web.py
-		yourscript.py
-		etc.
+Your workflow should look something like this:
+
+    Your Workflow/
+        info.plist
+        icon.png
+        workflow/
+            __init__.py
+            workflow.py
+            web.py
+        yourscript.py
+        etc.
+
+Or this:
+
+    Your Workflow/
+        info.plist
+        icon.png
+        workflow-1.3.zip
+        yourscript.py
+        etc.
+
+Alternatively, you can clone/download the Alfred-Workflow [repository](https://github.com/deanishe/alfred-workflow) and copy the `workflow` subdirectory to your workflow's root directory.
 
 ## Usage ##
 

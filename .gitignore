@@ -3,3 +3,5 @@
 .coverage
 _build/
 posts.json
+*.pyc
+/benchmark_*.py

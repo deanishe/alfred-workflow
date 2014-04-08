@@ -1121,7 +1121,7 @@ class Workflow(object):
                     # similar to substring, but scores more highly, as it's
                     # a word within the item
                     if len(query.split(' ')) > 1:
-                        if set(query.split(' ')).issubset(set(value.split(' '))):
+                        if set(query.split(' ')).issubset(set(atoms)):
                             score = 100.0 - (len(value) / len(query))
                             rule = MATCH_ATOM
                     else:

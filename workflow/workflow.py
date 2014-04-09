@@ -837,22 +837,33 @@ class Workflow(object):
 
         """
 
-        if not self._logger:
-            # Initialise logging
-            logfile = logging.handlers.RotatingFileHandler(self.logfile,
-                                                           maxBytes=1024*1024,
-                                                           backupCount=0)
+        if self._logger:
+            return self._logger
+
+        # Initialise new logger and optionally handlers
+        logger = logging.getLogger('workflow')
+
+        if not logger.handlers:  # Only add one set of handlers
+            logfile = logging.handlers.RotatingFileHandler(
+                self.logfile,
+                maxBytes=1024*1024,
+                backupCount=0)
+
             console = logging.StreamHandler()
-            fmt = logging.Formatter('%(asctime)s %(filename)s:%(lineno)s'
-                                    ' %(levelname)-8s %(message)s',
-                                    datefmt='%H:%M:%S')
+
+            fmt = logging.Formatter(
+                '%(asctime)s %(filename)s:%(lineno)s'
+                ' %(levelname)-8s %(message)s',
+                datefmt='%H:%M:%S')
+
             logfile.setFormatter(fmt)
             console.setFormatter(fmt)
-            logger = logging.getLogger('')
+
             logger.addHandler(logfile)
             logger.addHandler(console)
-            logger.setLevel(logging.DEBUG)
-            self._logger = logger
+
+        logger.setLevel(logging.DEBUG)
+        self._logger = logger
 
         return self._logger
 

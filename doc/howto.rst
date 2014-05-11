@@ -250,9 +250,10 @@ description of the algorithm and match flags).
 
 **Note:** By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
 will match and return anything that contains all the characters in ``query``
-in the same order, regardless of case. It's very likely that you'll want to set
-the standard a little higher. See :ref:`restricting-results` for info on how
-to do that.
+in the same order, regardless of case. Not only can this lead to unacceptable
+performance when working with thousands of results, but it's also very likely
+that you'll want to set the standard a little higher.
+See :ref:`restricting-results` for info on how to do that.
 
 To use :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`, pass it
 a query, a list of items to filter and sort, and if your list contains items
@@ -376,15 +377,17 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 
 **Note:** ``MATCH_ALLCHARS`` is particularly slow and provides the
 worst matches. You should consider excluding it, especially if you're calling
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with > 5000 items.
+:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with more than a
+few hundred items or expect multi-word queries.
 
 Diacritic folding
 -----------------
 
-By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will fold non-ASCII characters
-to ASCII equivalents (e.g. *é* -> *e*, *ü* -> *u*) if the ``query`` contains
-only ASCII characters. This behaviour can be turned off by passing
-``fold_diacritics=False`` to :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
+By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
+will fold non-ASCII characters to ASCII equivalents (e.g. *é* -> *e*, *ü* -> *u*)
+if the ``query`` contains only ASCII characters. This behaviour can be turned
+off by passing ``fold_diacritics=False`` to
+:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
 
 **Note:** To keep the library small, only a subset of European languages are
 supported. The `Unidecode <https://pypi.python.org/pypi/Unidecode>`_ library

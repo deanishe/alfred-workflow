@@ -13,6 +13,7 @@ web.py:
 workflow.py:
 	- automatically add `lib` and/or `packages` subdirectory to `sys.path`?
 	- move "magic" args to class-level dictionary, so authors can add their own.
+	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13)
 	ui.py:
 	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
 	- Yes/no dialog

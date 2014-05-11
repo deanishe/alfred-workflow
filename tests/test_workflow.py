@@ -94,7 +94,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_item_creation(self):
         """XML generation"""
-        self.wf.add_item('title', 'subtitle', 'arg',
+        self.wf.add_item('title', 'subtitle', arg='arg',
                          autocomplete='autocomplete',
                          valid=True, uid='uid', icon='icon.png',
                          icontype='fileicon',
@@ -106,7 +106,8 @@ class WorkflowTests(unittest.TestCase):
         sys.stdout = stdout
         output = sio.getvalue()
         sio.close()
-        # pprint(output)
+        from pprint import pprint
+        pprint(output)
         root = ET.fromstring(output)
         item = list(root)[0]
         self.assertEqual(item.attrib['uid'], 'uid')
@@ -124,10 +125,58 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(icon.tag, 'icon')
         self.assertEqual(icon.attrib['type'], 'fileicon')
 
+    def test_item_creation_with_modifiers(self):
+        """XML generation (with modifiers)"""
+        mod_subs = {}
+        for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
+            mod_subs[mod] = mod
+        self.wf.add_item('title', 'subtitle',
+                         mod_subs,
+                         arg='arg',
+                         autocomplete='autocomplete',
+                         valid=True, uid='uid', icon='icon.png',
+                         icontype='fileicon',
+                         type='file')
+        stdout = sys.stdout
+        sio = StringIO()
+        sys.stdout = sio
+        self.wf.send_feedback()
+        sys.stdout = stdout
+        output = sio.getvalue()
+        sio.close()
+        from pprint import pprint
+        pprint(output)
+        root = ET.fromstring(output)
+        item = list(root)[0]
+        self.assertEqual(item.attrib['uid'], 'uid')
+        self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
+        self.assertEqual(item.attrib['valid'], 'yes')
+        self.assertEqual(item.attrib['uid'], 'uid')
+        (title, subtitle, sub_cmd, sub_ctrl, sub_alt, sub_shift, sub_fn, arg,
+         icon) = list(item)
+        self.assertEqual(title.text, 'title')
+        self.assertEqual(title.tag, 'title')
+        self.assertEqual(subtitle.text, 'subtitle')
+        self.assertEqual(sub_cmd.text, 'cmd')
+        self.assertEqual(sub_cmd.attrib['mod'], 'cmd')
+        self.assertEqual(sub_ctrl.text, 'ctrl')
+        self.assertEqual(sub_ctrl.attrib['mod'], 'ctrl')
+        self.assertEqual(sub_alt.text, 'alt')
+        self.assertEqual(sub_alt.attrib['mod'], 'alt')
+        self.assertEqual(sub_shift.text, 'shift')
+        self.assertEqual(sub_shift.attrib['mod'], 'shift')
+        self.assertEqual(sub_fn.text, 'fn')
+        self.assertEqual(sub_fn.attrib['mod'], 'fn')
+        self.assertEqual(subtitle.tag, 'subtitle')
+        self.assertEqual(arg.text, 'arg')
+        self.assertEqual(arg.tag, 'arg')
+        self.assertEqual(icon.text, 'icon.png')
+        self.assertEqual(icon.tag, 'icon')
+        self.assertEqual(icon.attrib['type'], 'fileicon')
+
     def test_item_creation_no_optionals(self):
         """XML generation (no optionals)"""
-        self.wf.add_item('title',
-                         valid=False)
+        self.wf.add_item('title')
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio

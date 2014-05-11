@@ -457,15 +457,16 @@ class Item(object):
 
     """
 
-    def __init__(self, title, subtitle='', arg=None, autocomplete=None,
-                 valid=False, uid=None, icon=None, icontype=None,
-                 type=None):
+    def __init__(self, title, subtitle='', modifier_subtitles=None,
+                 arg=None, autocomplete=None, valid=False, uid=None,
+                 icon=None, icontype=None, type=None):
         """Arguments the same as for :meth:`Workflow.add_item`.
 
         """
 
         self.title = title
         self.subtitle = subtitle
+        self.modifier_subtitles = modifier_subtitles or {}
         self.arg = arg
         self.autocomplete = autocomplete
         self.valid = valid
@@ -497,6 +498,12 @@ class Item(object):
         root = ET.Element('item', attr)
         ET.SubElement(root, 'title').text = self.title
         ET.SubElement(root, 'subtitle').text = self.subtitle
+        # Add modifier subtitles
+        for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
+            if mod in self.modifier_subtitles:
+                ET.SubElement(root, 'subtitle',
+                              {'mod': mod}).text = self.modifier_subtitles[mod]
+
         if self.arg:
             ET.SubElement(root, 'arg').text = self.arg
         # Add icon if there is one
@@ -1224,15 +1231,19 @@ class Workflow(object):
 
     # Alfred feedback methods ------------------------------------------
 
-    def add_item(self, title, subtitle='', arg=None, autocomplete=None,
-                 valid=False, uid=None, icon=None, icontype=None,
-                 type=None):
+    def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
+                 autocomplete=None, valid=False, uid=None, icon=None,
+                 icontype=None, type=None):
         """Add an item to be output to Alfred
 
         :param title: Title shown in Alfred
         :type title: ``unicode``
         :param subtitle: Subtitle shown in Alfred
         :type subtitle: ``unicode``
+        :param modifier_subtitles: Subtitles shown when modifier
+            (CMD, OPT etc.) is pressed. Use a ``dict`` with the lowercase
+            keys ``cmd``, ``ctrl``, ``shift``, ``alt`` and ``fn``
+        :type modifier_subtitles: ``dict``
         :param arg: Argument passed by Alfred as `{query}` when item is
             actioned
         :type arg: ``unicode``
@@ -1260,8 +1271,8 @@ class Workflow(object):
 
         """
 
-        item = self.item_class(title, subtitle, arg, autocomplete, valid,
-                               uid, icon, icontype, type)
+        item = self.item_class(title, subtitle, modifier_subtitles, arg,
+                               autocomplete, valid, uid, icon, icontype, type)
         self._items.append(item)
         return item
 

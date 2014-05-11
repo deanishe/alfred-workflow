@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.4 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.4.4 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.4',
+        VERSION:     '1.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.4 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.4.4 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.4.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,7 +144,7 @@
 which are meant to be accessed via <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> instances.</p>
 <dl class="class">
 <dt id="workflow.workflow.Item">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Item" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Represents a feedback item for Alfred. Generates Alfred-compliant
 XML for a single item.</p>
@@ -257,7 +257,7 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 </table>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.add_item">
-<tt class="descname">add_item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an item to be output to Alfred</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -266,6 +266,9 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>title</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Title shown in Alfred</li>
 <li><strong>subtitle</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Subtitle shown in Alfred</li>
+<li><strong>modifier_subtitles</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt>) &#8211; Subtitles shown when modifier
+(CMD, OPT etc.) is pressed. Use a <tt class="docutils literal"><span class="pre">dict</span></tt> with the lowercase
+keys <tt class="docutils literal"><span class="pre">cmd</span></tt>, <tt class="docutils literal"><span class="pre">ctrl</span></tt>, <tt class="docutils literal"><span class="pre">shift</span></tt>, <tt class="docutils literal"><span class="pre">alt</span></tt> and <tt class="docutils literal"><span class="pre">fn</span></tt></li>
 <li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <cite>{query}</cite> when item is
 actioned</li>
 <li><strong>autocomplete</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text expanded in Alfred when item is TABbed</li>
@@ -549,7 +552,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x105511500&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=63</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x105513488&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -587,7 +590,8 @@ characters if <tt class="docutils literal"><span class="pre">query</span></tt> o
 </tbody>
 </table>
 <p><strong>Matching rules</strong></p>
-<p>The tests are always run in this order:</p>
+<p>By default, <a class="reference internal" href="#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">filter()</span></tt></a> uses all of the following flags (i.e.
+<tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt>). The tests are always run in the given order:</p>
 <ol class="arabic simple">
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></tt> : Item search key startswith <tt class="docutils literal"><span class="pre">query</span></tt> (case-insensitive).</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></tt> : The list of capital letters in item search key starts with <tt class="docutils literal"><span class="pre">query</span></tt> (<tt class="docutils literal"><span class="pre">query</span></tt> may be lower-case). E.g., <tt class="docutils literal"><span class="pre">of</span></tt> would match <tt class="docutils literal"><span class="pre">OmniFocus</span></tt>, <tt class="docutils literal"><span class="pre">gc</span></tt> would match <tt class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></tt></li>
@@ -599,13 +603,11 @@ characters if <tt class="docutils literal"><span class="pre">query</span></tt> o
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> : Matches if all characters in <tt class="docutils literal"><span class="pre">query</span></tt> appear in item search key in the same order (case-insensitive).</li>
 <li><tt class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></tt> : Combination of all the above.</li>
 </ol>
-<p>The default is <tt class="docutils literal"><span class="pre">MATCH_ALL</span> <span class="pre">^</span> <span class="pre">MATCH_ALLCHARS</span></tt>, i.e. all tests but
-<tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> is considerably slower than the other tests and
 provides much less accurate results.</p>
 <p><strong>Examples:</strong></p>
-<p>To include <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt>, which tends to provide the worst
-matches and is expensive to run, use <tt class="docutils literal"><span class="pre">match_on=MATCH_ALL</span></tt>.</p>
+<p>To ignore <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> (tends to provide the worst matches and
+is expensive to run), use <tt class="docutils literal"><span class="pre">match_on=MATCH_ALL</span> <span class="pre">^</span> <span class="pre">MATCH_ALLCHARS</span></tt>.</p>
 <p>To match only on capitals, use <tt class="docutils literal"><span class="pre">match_on=MATCH_CAPITALS</span></tt>.</p>
 <p>To match only on startswith and substring, use
 <tt class="docutils literal"><span class="pre">match_on=MATCH_STARTSWITH</span> <span class="pre">|</span> <span class="pre">MATCH_SUBSTRING</span></tt>.</p>

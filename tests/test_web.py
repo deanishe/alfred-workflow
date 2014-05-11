@@ -183,6 +183,14 @@ class WebTests(unittest.TestCase):
         bindata = b64decode(bindata[len(preamble):])
         self.assertEqual(bindata, open(self.test_file, 'rb').read())
 
+    def test_json_encoding(self):
+        """JSON decoded correctly"""
+        url = 'https://suggestqueries.google.com/complete/search?client=firefox&q=münchen'
+        r = web.get(url)
+        self.assertEqual(r.status_code, 200)
+        data = r.json()
+        self.assertEqual(data[0], 'münchen')
+
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

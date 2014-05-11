@@ -46,6 +46,8 @@ Or this:
         yourscript.py
         etc.
 
+**Note:** the `background.py` module will not work from within a zip archive.
+
 Alternatively, you can clone/download the Alfred-Workflow [repository](https://github.com/deanishe/alfred-workflow) and copy the `workflow` subdirectory to your workflow's root directory.
 
 ## Usage ##

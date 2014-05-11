@@ -181,7 +181,7 @@ class Response(object):
 
         """
 
-        return json.loads(self.content)
+        return json.loads(self.content, self.encoding or 'utf-8')
 
     @property
     def text(self):

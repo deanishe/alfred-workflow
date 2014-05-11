@@ -625,6 +625,7 @@ class Workflow(object):
         self._info_loaded = False
         self._logger = None
         self._items = []
+        self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
 
@@ -1086,9 +1087,13 @@ class Workflow(object):
         for i, item in enumerate(items):
             skip = False
             score = 0
-            words = query.split(' ')
-            value = key(item)
+            words = [s.strip() for s in query.split(' ')]
+            value = key(item).strip()
+            if value == '':
+                continue
             for word in words:
+                if word == '':
+                    continue
                 s, r = self._filter_item(value, word, match_on,
                                          fold_diacritics)
 
@@ -1134,14 +1139,6 @@ class Workflow(object):
 
         if not isascii(query):
             fold_diacritics = False
-
-        # Build pattern: include all characters
-        pattern = []
-        for c in query:
-            # pattern.append('[^{0}]*{0}'.format(re.escape(c)))
-            pattern.append('.*?{0}'.format(re.escape(c)))
-        pattern = ''.join(pattern)
-        search = re.compile(pattern, re.IGNORECASE).search
 
         rule = None
         score = 0
@@ -1214,6 +1211,7 @@ class Workflow(object):
             # finally, assign a score based on how close together the
             # characters in `query` are in item.
             if match_on & MATCH_ALLCHARS:
+                search = self._search_for_query(query)
                 match = search(value)
                 if match:
                     score = 100.0 / ((1 + match.start()) *
@@ -1223,6 +1221,21 @@ class Workflow(object):
         if score > 0:
             return (score, rule)
         return (0, None)
+
+    def _search_for_query(self, query):
+        if query in self._search_pattern_cache:
+            return self._search_pattern_cache[query]
+
+        # Build pattern: include all characters
+        pattern = []
+        for c in query:
+            # pattern.append('[^{0}]*{0}'.format(re.escape(c)))
+            pattern.append('.*?{0}'.format(re.escape(c)))
+        pattern = ''.join(pattern)
+        search = re.compile(pattern, re.IGNORECASE).search
+
+        self._search_pattern_cache[query] = search
+        return search
 
     def run(self, func):
         """Call `func` to run your workflow

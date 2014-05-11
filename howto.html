@@ -442,9 +442,10 @@ different weightings to the various kind of matches (see
 description of the algorithm and match flags).</p>
 <p><strong>Note:</strong> By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
 will match and return anything that contains all the characters in <tt class="docutils literal"><span class="pre">query</span></tt>
-in the same order, regardless of case. It&#8217;s very likely that you&#8217;ll want to set
-the standard a little higher. See <a class="reference internal" href="#restricting-results"><em>Restricting results</em></a> for info on how
-to do that.</p>
+in the same order, regardless of case. Not only can this lead to unacceptable
+performance when working with thousands of results, but it&#8217;s also very likely
+that you&#8217;ll want to set the standard a little higher.
+See <a class="reference internal" href="#restricting-results"><em>Restricting results</em></a> for info on how to do that.</p>
 <p>To use <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>, pass it
 a query, a list of items to filter and sort, and if your list contains items
 other than strings, a <tt class="docutils literal"><span class="pre">key</span></tt> function that generates a string search key for
@@ -569,14 +570,16 @@ instead of <tt class="docutils literal"><span class="pre">title</span> <span cla
 </td></tr></table></div>
 <p><strong>Note:</strong> <tt class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></tt> is particularly slow and provides the
 worst matches. You should consider excluding it, especially if you&#8217;re calling
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> with &gt; 5000 items.</p>
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> with more than a
+few hundred items or expect multi-word queries.</p>
 </div>
 <div class="section" id="diacritic-folding">
 <h3>Diacritic folding<a class="headerlink" href="#diacritic-folding" title="Permalink to this headline">¶</a></h3>
-<p>By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> will fold non-ASCII characters
-to ASCII equivalents (e.g. <em>é</em> -&gt; <em>e</em>, <em>ü</em> -&gt; <em>u</em>) if the <tt class="docutils literal"><span class="pre">query</span></tt> contains
-only ASCII characters. This behaviour can be turned off by passing
-<tt class="docutils literal"><span class="pre">fold_diacritics=False</span></tt> to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>.</p>
+<p>By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>
+will fold non-ASCII characters to ASCII equivalents (e.g. <em>é</em> -&gt; <em>e</em>, <em>ü</em> -&gt; <em>u</em>)
+if the <tt class="docutils literal"><span class="pre">query</span></tt> contains only ASCII characters. This behaviour can be turned
+off by passing <tt class="docutils literal"><span class="pre">fold_diacritics=False</span></tt> to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>.</p>
 <p><strong>Note:</strong> To keep the library small, only a subset of European languages are
 supported. The <a class="reference external" href="https://pypi.python.org/pypi/Unidecode">Unidecode</a> library
 should be used for comprehensive support of non-European alphabets.</p>

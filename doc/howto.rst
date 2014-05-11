@@ -90,8 +90,9 @@ Simply create a ``lib`` subdirectory under your Workflow's root directory
 (or call it whatever you want), install your dependencies there with
 
 .. code-block:: bash
+   :linenos:
 
-    pip install --target=my-workflow-root-dir/lib my-workflows-dependency
+    pip install --target=my-workflow-root-dir/lib python-lib-name
 
 and instantiate :class:`Workflow <workflow.workflow.Workflow>`
 with the ``libraries`` argument:
@@ -242,14 +243,14 @@ Searching/filtering data
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` provides an
 Alfred-like search algorithm for filtering your Workflow's data. By default,
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will try to match
-your search query via CamelCase, substring and initials, applying
+your search query via CamelCase, substring, initials and all characters, applying
 different weightings to the various kind of matches (see
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` for a detailed
 description of the algorithm and match flags).
 
 **Note:** By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
 will match and return anything that contains all the characters in ``query``
-in the same order, regardless of case. It's very likely that yo'll want to set
+in the same order, regardless of case. It's very likely that you'll want to set
 the standard a little higher. See :ref:`restricting-results` for info on how
 to do that.
 
@@ -271,25 +272,6 @@ each item:
 
 Which returns::
 
-    ['Bob Smith']
-
-(``bs`` are Bob Smith's initials.)
-
-For more relaxed filtering:
-
-.. code-block:: python
-   :linenos:
-
-    from workflow import Workflow, MATCH_ALL
-
-    names = ['Bob Smith', 'Carrie Jones', 'Harry Johnson', 'Sam Butterkeks']
-
-    wf = Workflow()
-
-    hits = wf.filter('bs', names, match_on=MATCH_ALL)
-
-Which returns::
-
     ['Bob Smith', 'Sam Butterkeks']
 
 (``bs`` are Bob Smith's initials and ``Butterkeks`` contains both letters in that order.)
@@ -298,8 +280,8 @@ Which returns::
 If your data are not strings:
 
 .. code-block:: python
+   :emphasize-lines: 11-12,16
    :linenos:
-   :emphasize-lines: 14-15,19
 
     from workflow import Workflow
 
@@ -307,10 +289,7 @@ If your data are not strings:
         {'title': 'A damn fine afternoon', 'author': 'Bob Smith'},
         {'title': 'My splendid adventure', 'author': 'Carrie Jones'},
         {'title': 'Bollards and other street treasures', 'author': 'Harry Johnson'},
-        {'title': 'The horrors of Tuesdays', 'author': 'Heinrich Böll'},
-        {'title': 'Some like it hot', 'author': 'Marilyn Monroe'},
-        {'title': 'Delerium and my nan', 'author': 'Richie Rich'},
-        {'title': 'The House', 'author': 'Sam Spade'},
+        {'title': 'The horrors of Tuesdays', 'author': 'Sam Butterkeks'}
     ]
 
 
@@ -319,186 +298,85 @@ If your data are not strings:
 
     wf = Workflow()
 
-    hits = wf.filter('boll', books, key_for_book)
+    hits = wf.filter('bot', books, key_for_book)
 
 Which returns::
 
-    [{'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-    {'author': 'Harry Johnson', 'title': 'Bollards and other street treasures'}]
+    [{'author': 'Harry Johnson', 'title': 'Bollards and other street treasures'},
+     {'author': 'Bob Smith', 'title': 'A damn fine afternoon'}]
 
-Note that ``Böll`` has matched ``boll``. By default,
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-converts non-ASCII text to ASCII as best it can if the ``query`` is also ASCII.
-
-Try this query instead:
-
-.. code-block:: python
-   :linenos:
-
-    hits = wf.filter('böll', books, key_for_book)
-
-and you will only get one result::
-
-    [{'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'}]
-
-The query ``boll`` matches ``Böll``, but ``böll`` will not match ``Boll``.
-
-You can turn off this behaviour by passing ``fold_diacritics=False`` to
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`:
-
-.. code-block:: python
-   :linenos:
-
-    hits = wf.filter('boll', books, key_for_book, fold_diacritics=False)
-
-produces::
-
-    [{'author': 'Harry Johnson', 'title': 'Bollards and other street treasures'}]
 
 .. _restricting-results:
 
 Restricting results
 -------------------
 
-If you run the following queries:
+Chances are, you would not want ``bot`` to match ``Bob Smith A damn fine afternoon``
+at all, or indeed any of the other books. Indeed, they have very low scores:
 
 .. code-block:: python
    :linenos:
 
-    hits = wf.filter('hot', books, key_for_book)
-    hits = wf.filter('damn', books, key_for_book)
+    hits = wf.filter('bot', books, key_for_book, include_score=True)
 
-You will get the following results respectively::
+produces::
 
-    [{'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-     {'author': 'Marilyn Monroe', 'title': 'Some like it hot'}]
-
-    [{'author': 'Richie Rich', 'title': 'Delerium and my nan'},
-     {'author': 'Bob Smith', 'title': 'A damn fine afternoon'}]
-
-It's quite likely that you wouldn't want `hot` to match `The horrors of Tuesdays`,
-nor `damn` to match `Delerium and my nan`, let alone to rate them more highly.
-
-The reason for this is that :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-is tuned to prioritise initial matching over substring, e.g. `got` matches
-`Game of Thrones` better than `Baby Got Back`.
-
-To alter this behaviour, you can specify custom match rules:
-
-.. code-block:: python
-   :linenos:
-
-    from workflow import MATCH_STARTSWITH, MATCH_ATOM, MATCH_SUBSTRING
-
-    rules = MATCH_STARTSWITH | MATCH_ATOM | MATCH_SUBSTRING
-    hits = wf.filter('hot', books, key_for_book, match_on=rules)
-    hits = wf.filter('damn', books, key_for_book, match_on=rules)
-
-Returns the expected::
-
-    [{'author': 'Marilyn Monroe', 'title': 'Some like it hot'}]
-
-    [{'author': 'Bob Smith', 'title': 'A damn fine afternoon'}]
-
-
-Score threshold
-~~~~~~~~~~~~~~~
-
-If you're searching a large set of data, it's possible that a large number of
-irrelevant results will be returned, especially if you're using ``MATCH_ALL``
-or ``MATCH_ALLCHARS``:
-
-.. code-block:: python
-   :linenos:
-
-    hits = wf.filter('th', books, key_for_book, match_on=MATCH_ALL)
-
-returns::
-
-    [{'author': 'Harry Johnson', 'title': 'Bollards and other street treasures'},
-     {'author': 'Sam Spade', 'title': 'The House'},
-     {'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-     {'author': 'Bob Smith', 'title': 'A damn fine afternoon'},
-     {'author': 'Marilyn Monroe', 'title': 'Some like it hot'}]
-
-which is almost everything. Let's see why:
-
-.. code-block:: python
-   :linenos:
-   :emphasize-lines: 2
-
-    hits = wf.filter('th', books, key_for_book, match_on=MATCH_ALL,
-                     include_score=True)
-
-Now we can see how highly the matches are rated::
-
-    [({'author': 'Harry Johnson',
-       'title': 'Bollards and other street treasures'},
-      92.0,
-      16),
-     ({'author': 'Sam Spade', 'title': 'The House'}, 91.0, 1),
-     ({'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-      82.0,
-      1),
-     ({'author': 'Bob Smith', 'title': 'A damn fine afternoon'}, 75.0, 32),
-     ({'author': 'Marilyn Monroe', 'title': 'Some like it hot'},
-      6.666666666666667,
-      64)]
-
-Each result is a tuple of ``(result, score, rule)``. As we can see, the nonsense
-result has a rubbish score.
-
-**Note:** ``Bollards and other street treasures``
-is the best result because ``key_for_book`` returns ``title author``, so
-``th`` is matching the initials in ``…treasures Harry…``.
-If we change ``key_for_book``:
-
-.. code-block:: python
-   :linenos:
-   :emphasize-lines: 1-2
-
-    def key_for_book(book):
-        return '{} {}'.format(book['title'], book['author'])
-
-    hits = wf.filter('th', books, key_for_book, match_on=MATCH_ALL,
-                     include_score=True)
-
-
-The results make more sense::
-
-    [({'author': 'Sam Spade', 'title': 'The House'}, 93.0, 16),
-     ({'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-      92.0,
-      16),
-     ({'author': 'Bob Smith', 'title': 'A damn fine afternoon'}, 75.0, 32),
-     ({'author': 'Harry Johnson',
-       'title': 'Bollards and other street treasures'},
-      66.0,
-      32),
-     ({'author': 'Marilyn Monroe', 'title': 'Some like it hot'},
+    [({'author': 'Bob Smith', 'title': 'A damn fine afternoon'},
+      11.11111111111111,
+      64),
+     ({'author': 'Harry Johnson', 'title': 'Bollards and other street treasures'},
       3.3333333333333335,
-      64)]
+      64),
+     ({'author': 'Sam Butterkeks', 'title': 'The horrors of Tuesdays'}, 3.125, 64)]
 
-Choose your key function wisely.
+(``64`` is the rule that matched, ``MATCH_ALLCHARS``, which matches
+if all the characters in ``query`` appear in order in the search key, regardless
+of case).
 
-To exclude very low-scoring results, pass the ``min_score`` argument to
+If we filter ``{'author': 'Brienne of Tarth', 'title': 'How to beat up men'}`` and
+``{'author': 'Zoltar', 'title': 'Battle of the Planets'}``, which we probably
+would want to match ``bot``, we get::
+
+    [({'author': 'Zoltar', 'title': 'Battle of the Planets'}, 98.0, 8),
+     ({'author': 'Brienne of Tarth', 'title': 'How to beat up men'}, 90.0, 16)]
+
+(The ranking would be reversed if ``key_for_book()`` returned ``author title``
+instead of ``title author``.)
+
+So in all likelihood, you'll want to pass a ``min_score`` argument to
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`:
 
 .. code-block:: python
    :linenos:
 
-    hits = wf.filter('th', books, key_for_book, match_on=MATCH_ALL,
-                     min_score=70)
+    hits = wf.filter('bot', books, key_for_book, min_score=20)
 
-results in::
+and/or exclude some of the matching rules:
 
-    [{'author': 'Sam Spade', 'title': 'The House'},
-     {'author': 'Heinrich Böll', 'title': 'The horrors of Tuesdays'},
-     {'author': 'Bob Smith', 'title': 'A damn fine afternoon'}]
+.. code-block:: python
+   :linenos:
 
-By adjusting the filtering rules, ``key`` function and ``min_score``, you
-should be able to fine-tune :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-to your workflow's needs.
+    from workflow import Workflow, MATCH_ALL, MATCH_ALLCHARS
+
+    # [...]
+
+    hits = wf.filter('bot', books, key_for_book, match_on=MATCH_ALL ^ MATCH_ALLCHARS)
+
+You can set match rules using bitwise operators, so ``|`` to combine them or
+``^`` to remove them from ``MATCH_ALL``:
+
+.. code-block:: python
+   :linenos:
+
+    # match only CamelCase and initials
+    match_on=MATCH_CAPITALS | MATCH_INITIALS
+
+    # match everything but all-characters-in-item and substring
+    match_on=MATCH_ALL ^ MATCH_ALLCHARS ^ MATCH_SUBSTRING
+
+**Note:** ``MATCH_ALLCHARS`` is particularly slow and provides the
+worst matches. You should consider excluding it, especially if you're calling
+:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with > 5000 items.
 
 Diacritic folding
 -----------------
@@ -648,7 +526,7 @@ are parsed).
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).
 - ``workflow:foldingon`` — Force diacritic folding in search keys (e.g. convert *ü* to *ue*)
 - ``workflow:foldingoff`` — Never fold diacritics in search keys
-- ``workflow:foldingon`` — Reset diacritic folding to workflow default
+- ``workflow:foldingdefault`` — Reset diacritic folding to workflow default
 
 The three ``workflow:folding…`` settings allow users to override the diacritic
 folding set by a workflow's author. This may be useful if the author's choice

@@ -994,7 +994,7 @@ class Workflow(object):
 
     def filter(self, query, items, key=lambda x: x, ascending=False,
                include_score=False, min_score=0, max_results=0,
-               match_on=MATCH_ALL ^ MATCH_ALLCHARS, fold_diacritics=True):
+               match_on=MATCH_ALL, fold_diacritics=True):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         ``query`` is case-insensitive. Any item that does not contain the
@@ -1031,7 +1031,8 @@ class Workflow(object):
 
         **Matching rules**
 
-        The tests are always run in this order:
+        By default, :meth:`filter` uses all of the following flags (i.e.
+        :const:`MATCH_ALL`). The tests are always run in the given order:
 
         1. :const:`MATCH_STARTSWITH` : Item search key startswith ``query`` (case-insensitive).
         2. :const:`MATCH_CAPITALS` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
@@ -1044,16 +1045,13 @@ class Workflow(object):
         9. :const:`MATCH_ALL` : Combination of all the above.
 
 
-        The default is ``MATCH_ALL ^ MATCH_ALLCHARS``, i.e. all tests but
-        ``MATCH_ALLCHARS``.
-
         ``MATCH_ALLCHARS`` is considerably slower than the other tests and
         provides much less accurate results.
 
         **Examples:**
 
-        To include ``MATCH_ALLCHARS``, which tends to provide the worst
-        matches and is expensive to run, use ``match_on=MATCH_ALL``.
+        To ignore ``MATCH_ALLCHARS`` (tends to provide the worst matches and
+        is expensive to run), use ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
 
         To match only on capitals, use ``match_on=MATCH_CAPITALS``.
 

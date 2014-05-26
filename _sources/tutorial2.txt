@@ -693,9 +693,10 @@ and :func:`background.is_running() <workflow.background.is_running>` functions,
 we can easily run a script in the background while our Workflow remains
 responsive to Alfred's queries.
 
-**Alfred-Workflow**'s :mod:`~workflow.background` module is based on, and works
-like, :func:`subprocess.call`, but transparently runs the command as a background
-process. So, our updater script will be called from our main Workflow script,
+**Alfred-Workflow**'s :mod:`~workflow.background` module is based on, and uses
+the same API as :func:`subprocess.call`, but it runs the command as a background
+process (consequently, it won't return anything).
+So, our updater script will be called from our main Workflow script,
 but :mod:`~workflow.background` will run it as a background process. This way,
 it will appear to exit immediately, so Alfred will keep on calling our Workflow
 every time the query changes.

@@ -1122,12 +1122,12 @@ to solve this problem.</p>
 and <a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> functions,
 we can easily run a script in the background while our Workflow remains
 responsive to Alfred&#8217;s queries.</p>
-<p>To solve this problem, we&#8217;re going to use <strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
-module. (This is based on, and works like, <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but transparently
-runs the command as a background process). So, our updater script will be called
-from our main Workflow script, but <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will run it
-as a background process. This way, it will appear to exit
-immediately, so Alfred will keep on calling our Workflow every time the query changes.</p>
+<p><strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module is based on, and works
+like, <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but transparently runs the command as a background
+process. So, our updater script will be called from our main Workflow script,
+but <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will run it as a background process. This way,
+it will appear to exit immediately, so Alfred will keep on calling our Workflow
+every time the query changes.</p>
 <p>Meanwhile, our main Workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.</p>
 <p>Let&#8217;s have at it.</p>

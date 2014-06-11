@@ -149,7 +149,7 @@ wf.get_password('name of account')
 
 ## Documentation ##
 
-The full documentation, including auto-generated API docs and a tutorial, can be found [here](http://deanishe.github.io/alfred-workflow/).
+The full documentation, including auto-generated API docs and a tutorial, can be found [here](http://www.deanishe.net/alfred-workflow/).
 
 ## Licensing, thanks ##
 

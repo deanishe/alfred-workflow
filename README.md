@@ -153,9 +153,9 @@ The full documentation, including auto-generated API docs and a tutorial, can be
 
 ## Licensing, thanks ##
 
-The code and the documentation are released under the MIT and Creative [Commons Attribution-NonCommercial](https://creativecommons.org/licenses/by-nc/4.0/legalcode) licences respectively. See LICENSE for details.
+The code and the documentation are released under the MIT and [Creative Commons Attribution-NonCommercial](https://creativecommons.org/licenses/by-nc/4.0/legalcode) licences respectively. See LICENSE for details.
 
-The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx Boostrap Theme](http://ryan-roemer.github.io/sphinx-bootstrap-theme/), [Bootstrap](http://getbootstrap.com/) and the [Readable Bootswatch theme](http://bootswatch.com/readable/).
+The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx Bootstrap Theme](http://ryan-roemer.github.io/sphinx-bootstrap-theme/), [Bootstrap](http://getbootstrap.com/) and the [Readable Bootswatch theme](http://bootswatch.com/readable/).
 
 
 ## Contributors ##

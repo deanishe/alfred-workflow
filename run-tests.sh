@@ -34,7 +34,7 @@ fi
 if [ -n "$TESTS" ]; then
     NOSETEST_OPTIONS="$NOSETEST_OPTIONS $TESTS"
 else
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS -v --with-coverage --cover-min-percentage=100 --cover-package=workflow --logging-clear-handlers"
+    NOSETEST_OPTIONS="$NOSETEST_OPTIONS -v --with-coverage --cover-min-percentage=100 --cover-package=workflow --cover-erase --logging-clear-handlers"
 fi
 
 log "Running tests..."

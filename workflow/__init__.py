@@ -108,7 +108,7 @@ Or like this::
 
 """
 
-__version__ = '1.5'
+__version__ = '1.5.1'
 
 from .workflow import Workflow, PasswordNotFound, KeychainError
 from .workflow import (ICON_ERROR, ICON_WARNING, ICON_NOTE, ICON_INFO,

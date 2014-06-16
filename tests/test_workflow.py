@@ -292,6 +292,17 @@ class WorkflowTests(unittest.TestCase):
         d = self.wf.cached_data('test', lambda: data, max_age=10)
         self.assertEqual(data, d)
 
+    def test_cached_data_deleted(self):
+        """Cached data deleted"""
+        data = {'key1': 'value1'}
+        d = self.wf.cached_data('test', lambda: data, max_age=10)
+        self.assertEqual(data, d)
+        ret = self.wf.cache_data('test', None)
+        self.assertEquals(ret, None)
+        self.assertFalse(os.path.exists(self.wf.cachefile('test.cache')))
+        # Test alternate code path for non-existent file
+        self.assertEqual(self.wf.cache_data('test', None), None)
+
     def test_cached_data_callback(self):
         """Cached data callback"""
         called = {'called': False}
@@ -446,6 +457,12 @@ class WorkflowTests(unittest.TestCase):
                                      include_score=True)
             self.assertEqual(len(results), 1)
 
+    def test_filter_no_folding(self):
+        """Filter: folding turned off for non-ASCII query"""
+        data = ['fühler', 'fuhler', 'fübar', 'fubar']
+        results = self.wf.filter('fü', data)
+        self.assertEquals(len(results), 2)
+
     def test_filter_folding_off(self):
         """Filter: diacritic folding off"""
         for key, query in self.search_items_diacritics:
@@ -470,6 +487,22 @@ class WorkflowTests(unittest.TestCase):
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True)
             self.assertEqual(len(results), 0)
+
+    def test_filter_empty_key(self):
+        """Filter: empty keys are ignored"""
+        data = ['bob', 'sue', 'henry']
+
+        def key(s):
+            return ''
+
+        results = self.wf.filter('lager', data, key)
+        self.assertEquals(len(results), 0)
+
+    def test_filter_empty_query_words(self):
+        """Filter: empty query words are ignored"""
+        data = ['bob', 'sue', 'henry']
+        results = self.wf.filter('   ', data)
+        self.assertEquals(len(results), 0)
 
     def test_icons(self):
         """Icons"""

@@ -20,6 +20,16 @@ Features:
 - File uploads
 - Redirection support
 
+**WARNING**: As ``web.py`` is based on Python 2's standard HTTP libraries, it
+**does not** verify SSL certificates when establishing HTTPS connections.
+
+As a result, you *must not* use this module for sensitive connections.
+
+If you require certificate verification (which you really should), you should
+use the `requests <http://docs.python-requests.org/en/latest/>`_
+Python library (upon which the `web.py` API is based) or the
+command-line tool `cURL <http://curl.haxx.se/>`_ instead.
+
 """
 
 from __future__ import print_function

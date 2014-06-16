@@ -131,6 +131,8 @@ files = {'fieldname' : {'filename': "It's not unusual.mp3",
 r = web.post('http://www.example.com/upload/', files=files)
 ```
 
+**WARNING**: As this module is based on Python 2's standard HTTP libraries, it *cannot* validate SSL certificates when making HTTPS connections. If your workflow uses sensitive passwords/API keys, you should *strongly consider* using the [requests](http://docs.python-requests.org/en/latest/) library upon which the `web.py` API is based.
+
 #### Keychain access ####
 
 Save password:
@@ -167,6 +169,6 @@ The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx 
 
 These are some of the Alfred workflows that use this library.
 
-- AppScripts ([AppScripts](https://github.com/deanishe/alfred-appscripts), [Packal](http://www.packal.org/users/deanishe))
+- AppScripts ([GitHub](https://github.com/deanishe/alfred-appscripts), [Packal](http://www.packal.org/users/deanishe))
 - FuzzyFolders ([GitHub](https://github.com/deanishe/alfred-fuzzyfolders), [Packal](http://www.packal.org/workflow/fuzzy-folders))
 - ZotQuery ([GitHub](https://github.com/smargh/alfred_zotquery), [Packal](http://www.packal.org/workflow/zotquery))

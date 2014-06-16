@@ -946,7 +946,9 @@ class Workflow(object):
         return data
 
     def cache_data(self, name, data):
-        """Save ``data`` to cache under ``name``
+        """Save ``data`` to cache under ``name``.
+
+        If ``data`` is ``None``, the corresponding cache file will be deleted.
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -956,6 +958,13 @@ class Workflow(object):
         """
 
         cache_path = self.cachefile('%s.cache' % name)
+
+        if data is None:
+            if os.path.exists(cache_path):
+                os.unlink(cache_path)
+                self.logger.debug('Deleted cache file : %s', cache_path)
+            return
+
         with open(cache_path, 'wb') as file:
             pickle.dump(data, file)
         self.logger.debug('Cached data saved at : %s', cache_path)

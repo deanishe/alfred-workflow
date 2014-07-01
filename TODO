@@ -1,3 +1,26 @@
+Possible Features:
+	- `handlers.py` module to provide system-default apps for protocols like `http`, `mailto` etc.
+	- Enable `background.py` to be run from within a ZIP file
+	- Add `first_run()` to determine if the workflow has been run on this computer before.
+		Save a "flag" in the data directory upon first run.
+		Should the file only be created the first time `first_run()` is called instead?
+		How about being able to pass a version argument to `first_run()`?
+
+	ui.py:
+	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
+	NOTE: The bundler would obviate the need for this
+	- Yes/no dialog
+	- Text input
+	- Select list
+	- Notification center notifications
+
+	search.py:
+	Interface to `mdfind`
+
+	bundler.py:
+	Integrate Shawn's bundler
+
+
 General:
 	- Move workflow into top-level directory to allow use as a Git submodule.
 		Is this necessary? I have to copy stuff hither and thither all the time, but
@@ -10,19 +33,16 @@ General:
 		source code in any case.
 	- Add `setup.py` so `Alfred-Workflow` can be added to PyPi and installed with `pip`
 
+
 web.py:
+
+
 workflow.py:
 	- automatically add `lib` and/or `packages` subdirectory to `sys.path`?
 	- move "magic" args to class-level dictionary, so authors can add their own.
 	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13)
-	ui.py:
-	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
-	- Yes/no dialog
-	- Text input
-	- Select list
-	- Notification center notifications
-	search.py:
-		Interface to `mdfind`
+
+
 Docs:
 	- Add tutorial using `workflow.web`
 	- Add tutorial using filesystem/Unicode

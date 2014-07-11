@@ -134,7 +134,7 @@ your pinboard API key. You can find it on the
         result = r.json()
         posts = result['posts']
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -201,7 +201,7 @@ Add the highlighted lines (27–28) to your ``pinboard.py`` file:
         result = r.json()
         posts = result['posts']
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -293,7 +293,7 @@ Go back to ``pinboard.py`` and make the following changes:
         # seconds old
         posts = wf.cached_data('posts', get_recent_posts, max_age=60)
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -391,7 +391,7 @@ seconds for 5 minutes if you're a heavy Pinboardista):
         # seconds old
         posts = wf.cached_data('posts', get_recent_posts, max_age=600)
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -469,7 +469,7 @@ posts based on it:
         if query:
             posts = wf.filter(query, posts, key=search_key_for_post)
 
-        # Loop through the returned posts and add a item for each to
+        # Loop through the returned posts and add an item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],

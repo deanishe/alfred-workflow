@@ -520,7 +520,7 @@ Unicode when it arrives in your Workflow (from the Web, filesystem etc.).
 :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` method to help you
 properly decode encoded strings from other sources.
 
-**Note**: In addition to decoding encoded strings to Unicode,
+In addition to decoding encoded strings to Unicode,
 :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` also normalises
 the Unicode string. This can be important as Unicode text from OS X, e.g. the
 filesystem, is ``NFD``-normalised, while Unicode text from Python libraries or

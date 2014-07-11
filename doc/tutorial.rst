@@ -517,8 +517,23 @@ encoding) is something you must be aware of when developing Workflows in
 Python. Best practice is to use Unicode internally and decode all text to
 Unicode when it arrives in your Workflow (from the Web, filesystem etc.).
 **Alfred-Workflow** uses Unicode internally and provides the
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` method to help you.
+:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` method to help you
+properly decode encoded strings from other sources.
 
+**Note**: In addition to decoding encoded strings to Unicode,
+:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` also normalises
+the Unicode string. This can be important as Unicode text from OS X, e.g. the
+filesystem, is ``NFD``-normalised, while Unicode text from Python libraries or
+source files are ``NFC``-normalised. In practice, this means that "fübar" from
+a JSON file or in the source code won't match "fübar" from the filesystem unless
+you process data from the filesystem with
+:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`.
+
+By default, :class:`Workflow <workflow.workflow.Workflow>` uses ``NFC`` decoding,
+on the assumption that incoming data will be from the web via Python's ``json``
+library or similar. If your workflow works with data from the system, you should
+create your :class:`Workflow <workflow.workflow.Workflow>` object with
+the ``normalization='NFD'`` argument.
 
 
 Improving the search results

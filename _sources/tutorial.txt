@@ -533,7 +533,7 @@ By default, :class:`Workflow <workflow.workflow.Workflow>` uses ``NFC`` decoding
 on the assumption that incoming data will be from the web via Python's ``json``
 library or similar. If your workflow works with data from the system, you should
 create your :class:`Workflow <workflow.workflow.Workflow>` object with
-``normalization='NFD'``.
+the ``normalization='NFD'`` argument.
 
 
 Improving the search results

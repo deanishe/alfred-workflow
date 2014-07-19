@@ -185,6 +185,41 @@ command-line tool <a class="reference external" href="http://curl.haxx.se/">cURL
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>  <span class="c"># content parsed as JSON</span>
 </pre></div>
 </div>
+<dl class="attribute">
+<dt id="workflow.web.Response.content">
+<tt class="descname">content</tt><a class="headerlink" href="#workflow.web.Response.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return raw content of response (i.e. bytes)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">str</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.web.Response.iter_content">
+<tt class="descname">iter_content</tt><big>(</big><em>chunk_size=1</em>, <em>decode_unicode=False</em><big>)</big><a class="headerlink" href="#workflow.web.Response.iter_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over response data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>chunk_size</strong> (<tt class="docutils literal"><span class="pre">int</span></tt>) &#8211; Number of bytes to read into memory</li>
+<li><strong>decode_unicode</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; Decode to Unicode using detected encoding</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">iterator</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="workflow.web.Response.json">
 <tt class="descname">json</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.web.Response.json" title="Permalink to this definition">¶</a></dt>

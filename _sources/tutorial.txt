@@ -134,7 +134,7 @@ your pinboard API key. You can find it on the
         result = r.json()
         posts = result['posts']
 
-        # Loop through the returned posts and add an item for each to
+        # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -201,7 +201,7 @@ Add the highlighted lines (27–28) to your ``pinboard.py`` file:
         result = r.json()
         posts = result['posts']
 
-        # Loop through the returned posts and add an item for each to
+        # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -293,7 +293,7 @@ Go back to ``pinboard.py`` and make the following changes:
         # seconds old
         posts = wf.cached_data('posts', get_recent_posts, max_age=60)
 
-        # Loop through the returned posts and add an item for each to
+        # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -391,7 +391,7 @@ seconds for 5 minutes if you're a heavy Pinboardista):
         # seconds old
         posts = wf.cached_data('posts', get_recent_posts, max_age=600)
 
-        # Loop through the returned posts and add an item for each to
+        # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -469,7 +469,7 @@ posts based on it:
         if query:
             posts = wf.filter(query, posts, key=search_key_for_post)
 
-        # Loop through the returned posts and add an item for each to
+        # Loop through the returned posts and add a item for each to
         # the list of results for Alfred
         for post in posts:
             wf.add_item(title=post['description'],
@@ -517,23 +517,8 @@ encoding) is something you must be aware of when developing Workflows in
 Python. Best practice is to use Unicode internally and decode all text to
 Unicode when it arrives in your Workflow (from the Web, filesystem etc.).
 **Alfred-Workflow** uses Unicode internally and provides the
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` method to help you
-properly decode encoded strings from other sources.
+:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` method to help you.
 
-In addition to decoding encoded strings to Unicode,
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` also normalises
-the Unicode string. This can be important as Unicode text from OS X, e.g. the
-filesystem, is ``NFD``-normalised, while Unicode text from Python libraries or
-source files are ``NFC``-normalised. In practice, this means that "fübar" from
-a JSON file or in the source code won't match "fübar" from the filesystem unless
-you process data from the filesystem with
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`.
-
-By default, :class:`Workflow <workflow.workflow.Workflow>` uses ``NFC`` decoding,
-on the assumption that incoming data will be from the web via Python's ``json``
-library or similar. If your workflow works with data from the system, you should
-create your :class:`Workflow <workflow.workflow.Workflow>` object with
-the ``normalization='NFD'`` argument.
 
 
 Improving the search results

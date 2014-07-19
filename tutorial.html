@@ -308,7 +308,7 @@ your pinboard API key. You can find it on the
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
      <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
 
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
@@ -401,7 +401,7 @@ will be opened in your browser).</p>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
      <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
 
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
@@ -520,7 +520,7 @@ results from the API and use the cached data for at least a minute.
 </span><span class="hll">     <span class="c"># seconds old</span>
 </span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
@@ -656,7 +656,7 @@ seconds for 5 minutes if you&#8217;re a heavy Pinboardista):</p>
      <span class="c"># seconds old</span>
 <span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
@@ -797,7 +797,7 @@ posts based on it:</p>
 </span><span class="hll">     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
 </span><span class="hll">         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
+     <span class="c"># Loop through the returned posts and add a item for each to</span>
      <span class="c"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
@@ -841,21 +841,7 @@ encoding) is something you must be aware of when developing Workflows in
 Python. Best practice is to use Unicode internally and decode all text to
 Unicode when it arrives in your Workflow (from the Web, filesystem etc.).
 <strong>Alfred-Workflow</strong> uses Unicode internally and provides the
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> method to help you
-properly decode encoded strings from other sources.</p>
-<p>In addition to decoding encoded strings to Unicode,
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> also normalises
-the Unicode string. This can be important as Unicode text from OS X, e.g. the
-filesystem, is <tt class="docutils literal"><span class="pre">NFD</span></tt>-normalised, while Unicode text from Python libraries or
-source files are <tt class="docutils literal"><span class="pre">NFC</span></tt>-normalised. In practice, this means that &#8220;fübar&#8221; from
-a JSON file or in the source code won&#8217;t match &#8220;fübar&#8221; from the filesystem unless
-you process data from the filesystem with
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>.</p>
-<p>By default, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> uses <tt class="docutils literal"><span class="pre">NFC</span></tt> decoding,
-on the assumption that incoming data will be from the web via Python&#8217;s <tt class="docutils literal"><span class="pre">json</span></tt>
-library or similar. If your workflow works with data from the system, you should
-create your <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> object with
-the <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt> argument.</p>
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> method to help you.</p>
 <div class="section" id="improving-the-search-results">
 <h3>Improving the search results<a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
 <p>If you&#8217;ve been trying out the Workflow, you&#8217;ve probably noticed that your queries

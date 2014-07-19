@@ -43,6 +43,9 @@ class WebTests(unittest.TestCase):
                      'address': 'Hürterstr. 42\nEssen'}
         self.test_file = os.path.join(os.path.dirname(__file__),
                                       'cönfüsed.gif')
+        self.fubar_url = 'http://deanishe.net/fubar.txt'
+        self.fubar_bytes = b'fübar'
+        self.fubar_unicode = 'fübar'
 
     def tearDown(self):
         pass
@@ -190,6 +193,24 @@ class WebTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         data = r.json()
         self.assertEqual(data[0], 'münchen')
+
+    def test_iter_content(self):
+        """iter_content returns content"""
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+        contents = b''
+        for s in r.iter_content(chunk_size=1):
+            contents += s
+        self.assertEqual(contents, self.fubar_bytes)
+
+    def test_iter_content_decoded(self):
+        """iter_content returns content"""
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+        contents = ''
+        for u in r.iter_content(chunk_size=1, decode_unicode=True):
+            contents += u
+        self.assertEqual(contents, self.fubar_unicode)
 
 
 if __name__ == '__main__':  # pragma: no cover

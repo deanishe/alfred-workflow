@@ -212,6 +212,26 @@ class WebTests(unittest.TestCase):
             contents += u
         self.assertEqual(contents, self.fubar_unicode)
 
+    def test_encoded_content(self):
+        """Encoded content"""
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.content, self.fubar_bytes)
+        self.assertEqual(r.text, self.fubar_unicode)
+
+    def test_decoded_content(self):
+        """Decoded content"""
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.text, self.fubar_unicode)
+
+    def test_encoded_decode_content(self):
+        """Encoded and decoded content"""
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.content, self.fubar_bytes)
+        self.assertEqual(r.text, self.fubar_unicode)
+
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

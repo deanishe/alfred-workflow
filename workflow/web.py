@@ -155,6 +155,7 @@ class Response(object):
         self.status_code = None
         self.reason = None
         self.headers = {}
+        self._content = None
 
         # Execute query
         try:
@@ -200,7 +201,10 @@ class Response(object):
 
         """
 
-        return self.raw.read()
+        if not self._content:
+            self._content = self.raw.read()
+
+        return self._content
 
     @property
     def text(self):

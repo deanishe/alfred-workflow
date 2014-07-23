@@ -504,6 +504,12 @@ class WorkflowTests(unittest.TestCase):
         results = self.wf.filter('   ', data)
         self.assertEquals(len(results), 0)
 
+    def test_filter_identical_items(self):
+        """Filter: identical items are not discarded"""
+        data = ['bob', 'bob', 'bob']
+        results = self.wf.filter('bob', data)
+        self.assertEquals(len(results), len(data))
+
     def test_icons(self):
         """Icons"""
         import workflow

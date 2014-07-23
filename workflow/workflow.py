@@ -1091,7 +1091,7 @@ class Workflow(object):
         fold_diacritics = self.settings.get('__workflows_diacritic_folding',
                                             fold_diacritics)
 
-        results = {}
+        results = []
 
         for i, item in enumerate(items):
             skip = False
@@ -1117,12 +1117,12 @@ class Workflow(object):
                 # use "reversed" `score` (i.e. highest becomes lowest) and
                 # `value` as sort key. This means items with the same score
                 # will be sorted in alphabetical not reverse alphabetical order
-                results[(100.0 / score, value.lower(), score)] = (item, score,
-                                                                  r)
+                results.append(((100.0 / score, value.lower(), score),
+                                (item, score, r)))
 
         # sort on keys, then discard the keys
-        keys = sorted(results.keys(), reverse=ascending)
-        results = [results.get(k) for k in keys]
+        results.sort(reverse=True)
+        results = [t[1] for t in results]
 
         if max_results and len(results) > max_results:
             results = results[:max_results]

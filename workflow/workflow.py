@@ -28,7 +28,7 @@ import subprocess
 import unicodedata
 import shutil
 import json
-import pickle
+import cPickle as pickle
 import time
 import logging
 import logging.handlers
@@ -1058,7 +1058,7 @@ class Workflow(object):
             return
 
         with open(cache_path, 'wb') as file:
-            pickle.dump(data, file)
+            pickle.dump(data, file, protocol=-1)
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):

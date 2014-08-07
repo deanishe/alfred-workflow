@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.5.1 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.7 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5.1',
+        VERSION:     '1.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.5.1 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.5.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -290,6 +290,86 @@ this item.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.workflow.Item" title="workflow.workflow.Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> instance</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.alfred_env">
+<tt class="descname">alfred_env</tt><a class="headerlink" href="#workflow.workflow.Workflow.alfred_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alfred&#8217;s environmental variables minus the <tt class="docutils literal"><span class="pre">alfred_</span></tt> prefix.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.7.</span></p>
+</div>
+<p>The variables Alfred 2.4+ exports are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>alfred_preferences</td>
+<td>Path to Alfred.alfredpreferences
+(where your workflows and settings are
+stored).</td>
+</tr>
+<tr class="row-odd"><td>alfred_preferences_localhash</td>
+<td>Machine-specific preferences are stored
+in <tt class="docutils literal"><span class="pre">Alfred.alfredpreferences/preferences/local/&lt;hash&gt;</span></tt>
+(see <tt class="docutils literal"><span class="pre">alfred_preferences</span></tt> above for
+the path to <tt class="docutils literal"><span class="pre">Alfred.alfredpreferences</span></tt>)</td>
+</tr>
+<tr class="row-even"><td>alfred_theme</td>
+<td>ID of selected theme</td>
+</tr>
+<tr class="row-odd"><td>alfred_theme_background</td>
+<td>Background colour of selected theme in
+format <tt class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></tt></td>
+</tr>
+<tr class="row-even"><td>alfred_theme_subtext</td>
+<td>Show result subtext.
+<tt class="docutils literal"><span class="pre">0</span></tt> = Always,
+<tt class="docutils literal"><span class="pre">1</span></tt> = Alternative actions only,
+<tt class="docutils literal"><span class="pre">2</span></tt> = Selected result only,
+<tt class="docutils literal"><span class="pre">3</span></tt> = Never</td>
+</tr>
+<tr class="row-odd"><td>alfred_version</td>
+<td>Alfred version number, e.g. <tt class="docutils literal"><span class="pre">2.4</span></tt></td>
+</tr>
+<tr class="row-even"><td>alfred_version_build</td>
+<td>Alfred build number, e.g. <tt class="docutils literal"><span class="pre">277</span></tt></td>
+</tr>
+<tr class="row-odd"><td>alfred_workflow_bundleid</td>
+<td>Bundle ID, e.g.
+<tt class="docutils literal"><span class="pre">net.deanishe.alfred-mailto</span></tt></td>
+</tr>
+<tr class="row-even"><td>alfred_workflow_cache</td>
+<td>Path to workflow&#8217;s cache directory</td>
+</tr>
+<tr class="row-odd"><td>alfred_workflow_data</td>
+<td>Path to workflow&#8217;s data directory</td>
+</tr>
+<tr class="row-even"><td>alfred_workflow_name</td>
+<td>Name of current workflow</td>
+</tr>
+<tr class="row-odd"><td>alfred_workflow_uid</td>
+<td>UID of workflow</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> all values are Unicode strings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">dict</span></tt> of Alfred&#8217;s environmental variables without the
+<tt class="docutils literal"><span class="pre">alfred_</span></tt> prefix, e.g. <tt class="docutils literal"><span class="pre">preferences</span></tt>, <tt class="docutils literal"><span class="pre">workflow_data</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -553,7 +633,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1107946e0&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x107aa0848&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>

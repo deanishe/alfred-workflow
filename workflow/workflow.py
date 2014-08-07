@@ -28,7 +28,6 @@ import subprocess
 import unicodedata
 import shutil
 import json
-import pickle
 import time
 import logging
 import logging.handlers
@@ -932,13 +931,13 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        cache_path = self.cachefile('%s.json' % name)
         age = self.cached_data_age(name)
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
             with open(cache_path, 'rb') as file:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
-                return pickle.load(file)
+                return json.load(file)
         if not data_func:
             return None
         data = data_func()
@@ -952,12 +951,11 @@ class Workflow(object):
 
         :param name: name of datastore
         :type name: ``unicode``
-        :param data: data to store
-        :type data: any object supported by :mod:`pickle`
+        :param data: data to store`
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        cache_path = self.cachefile('%s.json' % name)
 
         if data is None:
             if os.path.exists(cache_path):
@@ -966,7 +964,7 @@ class Workflow(object):
             return
 
         with open(cache_path, 'wb') as file:
-            pickle.dump(data, file)
+            json.dump(data, file)
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
@@ -1002,9 +1000,59 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-    def filter(self, query, items, key=lambda x: x, empty_query='',
-               ascending=False, include_score=False, min_score=0, 
-               max_results=0, match_on=MATCH_ALL, fold_diacritics=True):
+    def stored_data(self, name, data_func=None):
+        """Retrieve data from storage or re-generate and re-store data if
+        non-existant. 
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data_func: function to (re-)generate data.
+        :type data_func: `callable`
+        :returns: cached data, return value of ``data_func`` or ``None``
+            if ``data_func`` is not set
+        :rtype: whatever ``data_func`` returns or ``None``
+
+        """
+
+        store_path = self.datafile('%s.json' % name)
+        if os.path.exists(store_path):
+            with open(store_path, 'rb') as file:
+                self.logger.debug('Loading stored data from : %s',
+                                  store_path)
+                return json.load(file)
+        if not data_func:
+            return None
+        data = data_func()
+        self.store_data(name, data)
+        return data
+
+    def store_data(self, name, data):
+        """Save ``data`` to storage dir under ``name``.
+
+        If ``data`` is ``None``, the corresponding cache file will be deleted.
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data: data to store`
+
+        """
+
+        store_path = self.datafile('%s.json' % name)
+
+        if data is None:
+            if os.path.exists(store_path):
+                os.unlink(store_path)
+                self.logger.debug('Deleted storage file : %s', store_path)
+            return
+
+        with open(store_path, 'wb') as file:
+            json.dump(data, file)
+        self.logger.debug('Stored data saved at : %s', store_path)
+
+
+    def filter(self, query, items, key=lambda x: x, ascending=False, 
+               include_score=False, min_score=0, max_results=0, 
+               match_on=MATCH_ALL, fold_diacritics=True):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         ``query`` is case-insensitive. Any item that does not contain the
@@ -1086,10 +1134,6 @@ class Workflow(object):
 
         # Remove preceding/trailing spaces
         query = query.strip()
-
-        # Return full data set if query is empty
-        if query == empty_query:
-            return items
 
         # Use user override if there is one
         fold_diacritics = self.settings.get('__workflows_diacritic_folding',

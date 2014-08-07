@@ -108,7 +108,11 @@ Or like this::
 
 """
 
+<<<<<<< HEAD
 __version__ = '1.6.2'
+=======
+__version__ = '1.7'
+>>>>>>> release/v1.7
 
 from .workflow import Workflow, PasswordNotFound, KeychainError
 from .workflow import (ICON_ERROR, ICON_WARNING, ICON_NOTE, ICON_INFO,

@@ -81,6 +81,30 @@ class WorkflowTests(unittest.TestCase):
             ('salé', 'sale')
         ]
 
+        self.env_data = {
+            'alfred_preferences':
+            os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
+            'alfred_preferences_localhash':
+            b'adbd4f66bc3ae8493832af61a41ee609b20d8705',
+            'alfred_theme': b'alfred.theme.yosemite',
+            'alfred_theme_background': b'rgba(255,255,255,0.98)',
+            'alfred_theme_subtext': b'3',
+            'alfred_version': b'2.4',
+            'alfred_version_build': b'277',
+            'alfred_workflow_bundleid': b'com.alfredapp.david.googlesuggest',
+            'alfred_workflow_cache':
+            os.path.expanduser('~/Library/Caches/com.runningwithcrayons.'
+                               'Alfred-2/Workflow Data/com.alfredapp.david'
+                               '.googlesuggest'),
+            'alfred_workflow_data':
+            os.path.expanduser('~/Library/Application Support/Alfred 2/'
+                               'Workflow Data/com.alfredapp.david.'
+                               'googlesuggest'),
+            'alfred_workflow_name': b'Google Suggest',
+            'alfred_workflow_uid':
+            b'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
+        }
+
     def tearDown(self):
         self.wf.clear_cache()
         self.wf.clear_settings()
@@ -88,9 +112,14 @@ class WorkflowTests(unittest.TestCase):
             self.wf.delete_password(self.account)
         except PasswordNotFound:
             pass
+
         for dirpath in (self.wf.cachedir, self.wf.datadir):
             if os.path.exists(dirpath):
                 shutil.rmtree(dirpath)
+
+        for key in self.env_data:
+            if key in os.environ:
+                del os.environ[key]
 
     def test_item_creation(self):
         """XML generation"""
@@ -210,6 +239,25 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
 
+    def test_alfred_env_vars(self):
+        """Alfred environmental variables"""
+
+        for key in self.env_data:
+            os.environ[key] = self.env_data[key]
+
+        for key in self.env_data:
+            value = self.env_data[key]
+            key = key.replace('alfred_', '')
+            self.assertEqual(value, self.wf.alfred_env[key])
+
+        self.assertEqual(self.wf.datadir, self.env_data['alfred_workflow_data'])
+        self.assertEqual(self.wf.cachedir,
+                         self.env_data['alfred_workflow_cache'])
+        self.assertEqual(self.wf.bundleid,
+                         self.env_data['alfred_workflow_bundleid'])
+        self.assertEqual(self.wf.name,
+                         self.env_data['alfred_workflow_name'])
+
     def test_args(self):
         """ARGV"""
         args = ['arg1', 'arg2', 'füntíme']
@@ -238,16 +286,6 @@ class WorkflowTests(unittest.TestCase):
         """Magic args"""
         # cache original sys.argv
         oargs = sys.argv[:]
-
-        # # openlog
-        # sys.argv = [oargs[0]] + [b'workflow:openlog']
-        # try:
-        #     wf = Workflow()
-        #     wf.logger.debug('This is a test message')  # ensure log file exists
-        #     with self.assertRaises(SystemExit):
-        #         wf.args
-        # finally:
-        #     sys.argv = oargs[:]
 
         # delsettings
         sys.argv = [oargs[0]] + [b'workflow:delsettings']

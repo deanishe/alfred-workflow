@@ -625,6 +625,7 @@ class Workflow(object):
         self._info_loaded = False
         self._logger = None
         self._items = []
+        self._alfred_env = None
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
@@ -633,7 +634,80 @@ class Workflow(object):
     # API methods
     ####################################################################
 
-    # info.plist contents ----------------------------------------------
+    # info.plist contents and alfred_* environment variables  ----------
+
+    @property
+    def alfred_env(self):
+        """Alfred's environmental variables minus the ``alfred_`` prefix.
+
+        .. versionadded:: 1.7
+
+        The variables Alfred 2.4+ exports are:
+
+        ============================  =========================================
+        Variable                      Description
+        ============================  =========================================
+        alfred_preferences            Path to Alfred.alfredpreferences
+                                      (where your workflows and settings are
+                                      stored).
+        alfred_preferences_localhash  Machine-specific preferences are stored
+                                      in ``Alfred.alfredpreferences/preferences/local/<hash>``
+                                      (see ``alfred_preferences`` above for
+                                      the path to ``Alfred.alfredpreferences``)
+        alfred_theme                  ID of selected theme
+        alfred_theme_background       Background colour of selected theme in
+                                      format ``rgba(r,g,b,a)``
+        alfred_theme_subtext          Show result subtext.
+                                      ``0`` = Always,
+                                      ``1`` = Alternative actions only,
+                                      ``2`` = Selected result only,
+                                      ``3`` = Never
+        alfred_version                Alfred version number, e.g. ``2.4``
+        alfred_version_build          Alfred build number, e.g. ``277``
+        alfred_workflow_bundleid      Bundle ID, e.g.
+                                      ``net.deanishe.alfred-mailto``
+        alfred_workflow_cache         Path to workflow's cache directory
+        alfred_workflow_data          Path to workflow's data directory
+        alfred_workflow_name          Name of current workflow
+        alfred_workflow_uid           UID of workflow
+        ============================  =========================================
+
+        **Note:** all values are Unicode strings
+
+        :returns: ``dict`` of Alfred's environmental variables without the
+            ``alfred_`` prefix, e.g. ``preferences``, ``workflow_data``.
+
+        """
+
+        if self._alfred_env is not None:
+            return self._alfred_env
+
+        data = {}
+
+        for key in (
+                'alfred_preferences',
+                'alfred_preferences_localhash',
+                'alfred_theme',
+                'alfred_theme_background',
+                'alfred_theme_subtext',
+                'alfred_version',
+                'alfred_version_build',
+                'alfred_workflow_bundleid',
+                'alfred_workflow_cache',
+                'alfred_workflow_data',
+                'alfred_workflow_name',
+                'alfred_workflow_uid'):
+
+            value = os.getenv(key)
+
+            if isinstance(value, str):
+                value = self.decode(value)
+
+            data[key[7:]] = value
+
+        self._alfred_env = data
+
+        return self._alfred_env
 
     @property
     def info(self):
@@ -657,7 +731,11 @@ class Workflow(object):
         """
 
         if not self._bundleid:
-            self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+            if self.alfred_env.get('workflow_bundleid'):
+                self._bundleid = self.alfred_env.get('workflow_bundleid')
+            else:
+                self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+
         return self._bundleid
 
     @property
@@ -670,7 +748,11 @@ class Workflow(object):
         """
 
         if not self._name:
-            self._name = unicode(self.info['name'], 'utf-8')
+            if self.alfred_env.get('workflow_name'):
+                self._name = self.alfred_env.get('workflow_name')
+            else:
+                self._name = unicode(self.info['name'], 'utf-8')
+
         return self._name
 
     # Workflow utility methods -----------------------------------------
@@ -745,9 +827,15 @@ class Workflow(object):
 
         """
 
-        dirpath = os.path.join(os.path.expanduser(
-            '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/'),
-            self.bundleid)
+        if self.alfred_env.get('workflow_cache'):
+            dirpath = self.alfred_env.get('workflow_cache')
+        else:
+            dirpath = os.path.join(
+                os.path.expanduser(
+                    '~/Library/Caches/com.runningwithcrayons.Alfred-2/'
+                    'Workflow Data/'),
+                self.bundleid)
+
         return self._create(dirpath)
 
     @property
@@ -759,9 +847,13 @@ class Workflow(object):
 
         """
 
-        dirpath = os.path.join(os.path.expanduser(
-            '~/Library/Application Support/Alfred 2/Workflow Data/'),
-            self.bundleid)
+        if self.alfred_env.get('workflow_data'):
+            dirpath = self.alfred_env.get('workflow_data')
+        else:
+            dirpath = os.path.join(os.path.expanduser(
+                '~/Library/Application Support/Alfred 2/Workflow Data/'),
+                self.bundleid)
+
         return self._create(dirpath)
 
     @property

@@ -550,8 +550,8 @@ class Settings(dict):
         """Load cached settings from JSON file `self._filepath`"""
 
         self._nosave = True
-        with open(self._filepath, 'rb') as file:
-            for key, value in json.load(file, encoding='utf-8').items():
+        with open(self._filepath, 'rb') as file_obj:
+            for key, value in json.load(file_obj, encoding='utf-8').items():
                 self[key] = value
         self._nosave = False
 
@@ -562,8 +562,9 @@ class Settings(dict):
         data = {}
         for key, value in self.items():
             data[key] = value
-        with open(self._filepath, 'wb') as file:
-            json.dump(data, file, sort_keys=True, indent=2, encoding='utf-8')
+        with open(self._filepath, 'wb') as file_obj:
+            json.dump(data, file_obj,
+                      sort_keys=True, indent=2, encoding='utf-8')
 
     # dict methods
     def __setitem__(self, key, value):
@@ -608,12 +609,14 @@ class Workflow(object):
     item_class = Item
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+                 normalization='NFC', capture_args=True, libraries=None,
+                 serializer=pickle):
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self._serializer = serializer
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -1007,6 +1010,57 @@ class Workflow(object):
                                       self._default_settings)
         return self._settings
 
+    def stored_data(self, name, data_func=None):
+        """Retrieve data from storage or re-generate and re-store data if
+        non-existant. 
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data_func: function to (re-)generate data.
+        :type data_func: `callable`
+        :returns: cached data, return value of ``data_func`` or ``None``
+            if ``data_func`` is not set
+        :rtype: whatever ``data_func`` returns or ``None``
+
+        """
+
+        store_path = self.datafile('{}.{}'.format(name,
+                                                  self._serializer.__name__))
+        if os.path.exists(store_path):
+            with open(store_path, 'rb') as file_obj:
+                self.logger.debug('Loading stored data from : %s',
+                                  store_path)
+                return self._serializer.load(file_obj)
+        if not data_func:
+            return None
+        data = data_func()
+        self.store_data(name, data)
+        return data
+
+    def store_data(self, name, data):
+        """Save ``data`` to storage dir under ``name``.
+
+        If ``data`` is ``None``, the corresponding cache file will be deleted.
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data: data to store`
+
+        """
+
+        store_path = self.datafile('{}.{}'.format(name,
+                                                  self._serializer.__name__))
+
+        if data is None:
+            if os.path.exists(store_path):
+                os.unlink(store_path)
+                self.logger.debug('Deleted storage file : %s', store_path)
+            return
+
+        with open(store_path, 'wb') as file_obj:
+            self._serializer.dump(data, file_obj)
+        self.logger.debug('Stored data saved at : %s', store_path)
+
     def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
@@ -1024,13 +1078,14 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        cache_path = self.cachefile('{}.{}'.format(name,
+                                                   self._serializer.__name__))
         age = self.cached_data_age(name)
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
-            with open(cache_path, 'rb') as file:
+            with open(cache_path, 'rb') as file_obj:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
-                return pickle.load(file)
+                return self._serializer.load(file_obj)
         if not data_func:
             return None
         data = data_func()
@@ -1049,16 +1104,16 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
-
+        cache_path = self.cachefile('{}.{}'.format(name,
+                                                   self._serializer.__name__))
         if data is None:
             if os.path.exists(cache_path):
                 os.unlink(cache_path)
                 self.logger.debug('Deleted cache file : %s', cache_path)
             return
 
-        with open(cache_path, 'wb') as file:
-            pickle.dump(data, file)
+        with open(cache_path, 'wb') as file_obj:
+            self._serializer.dump(data, file_obj)
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):

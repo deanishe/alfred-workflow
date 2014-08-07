@@ -28,6 +28,7 @@ import subprocess
 import unicodedata
 import shutil
 import json
+import pickle
 import time
 import logging
 import logging.handlers
@@ -549,8 +550,8 @@ class Settings(dict):
         """Load cached settings from JSON file `self._filepath`"""
 
         self._nosave = True
-        with open(self._filepath, 'rb') as file:
-            for key, value in json.load(file, encoding='utf-8').items():
+        with open(self._filepath, 'rb') as file_obj:
+            for key, value in json.load(file_obj, encoding='utf-8').items():
                 self[key] = value
         self._nosave = False
 
@@ -561,8 +562,9 @@ class Settings(dict):
         data = {}
         for key, value in self.items():
             data[key] = value
-        with open(self._filepath, 'wb') as file:
-            json.dump(data, file, sort_keys=True, indent=2, encoding='utf-8')
+        with open(self._filepath, 'wb') as file_obj:
+            json.dump(data, file_obj,
+                      sort_keys=True, indent=2, encoding='utf-8')
 
     # dict methods
     def __setitem__(self, key, value):
@@ -607,12 +609,14 @@ class Workflow(object):
     item_class = Item
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+                 normalization='NFC', capture_args=True, libraries=None,
+                 serializer=pickle):
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self._serializer = serializer
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -624,6 +628,7 @@ class Workflow(object):
         self._info_loaded = False
         self._logger = None
         self._items = []
+        self._alfred_env = None
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
@@ -632,7 +637,80 @@ class Workflow(object):
     # API methods
     ####################################################################
 
-    # info.plist contents ----------------------------------------------
+    # info.plist contents and alfred_* environment variables  ----------
+
+    @property
+    def alfred_env(self):
+        """Alfred's environmental variables minus the ``alfred_`` prefix.
+
+        .. versionadded:: 1.7
+
+        The variables Alfred 2.4+ exports are:
+
+        ============================  =========================================
+        Variable                      Description
+        ============================  =========================================
+        alfred_preferences            Path to Alfred.alfredpreferences
+                                      (where your workflows and settings are
+                                      stored).
+        alfred_preferences_localhash  Machine-specific preferences are stored
+                                      in ``Alfred.alfredpreferences/preferences/local/<hash>``
+                                      (see ``alfred_preferences`` above for
+                                      the path to ``Alfred.alfredpreferences``)
+        alfred_theme                  ID of selected theme
+        alfred_theme_background       Background colour of selected theme in
+                                      format ``rgba(r,g,b,a)``
+        alfred_theme_subtext          Show result subtext.
+                                      ``0`` = Always,
+                                      ``1`` = Alternative actions only,
+                                      ``2`` = Selected result only,
+                                      ``3`` = Never
+        alfred_version                Alfred version number, e.g. ``2.4``
+        alfred_version_build          Alfred build number, e.g. ``277``
+        alfred_workflow_bundleid      Bundle ID, e.g.
+                                      ``net.deanishe.alfred-mailto``
+        alfred_workflow_cache         Path to workflow's cache directory
+        alfred_workflow_data          Path to workflow's data directory
+        alfred_workflow_name          Name of current workflow
+        alfred_workflow_uid           UID of workflow
+        ============================  =========================================
+
+        **Note:** all values are Unicode strings
+
+        :returns: ``dict`` of Alfred's environmental variables without the
+            ``alfred_`` prefix, e.g. ``preferences``, ``workflow_data``.
+
+        """
+
+        if self._alfred_env is not None:
+            return self._alfred_env
+
+        data = {}
+
+        for key in (
+                'alfred_preferences',
+                'alfred_preferences_localhash',
+                'alfred_theme',
+                'alfred_theme_background',
+                'alfred_theme_subtext',
+                'alfred_version',
+                'alfred_version_build',
+                'alfred_workflow_bundleid',
+                'alfred_workflow_cache',
+                'alfred_workflow_data',
+                'alfred_workflow_name',
+                'alfred_workflow_uid'):
+
+            value = os.getenv(key)
+
+            if isinstance(value, str):
+                value = self.decode(value)
+
+            data[key[7:]] = value
+
+        self._alfred_env = data
+
+        return self._alfred_env
 
     @property
     def info(self):
@@ -656,7 +734,11 @@ class Workflow(object):
         """
 
         if not self._bundleid:
-            self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+            if self.alfred_env.get('workflow_bundleid'):
+                self._bundleid = self.alfred_env.get('workflow_bundleid')
+            else:
+                self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+
         return self._bundleid
 
     @property
@@ -669,7 +751,11 @@ class Workflow(object):
         """
 
         if not self._name:
-            self._name = unicode(self.info['name'], 'utf-8')
+            if self.alfred_env.get('workflow_name'):
+                self._name = self.alfred_env.get('workflow_name')
+            else:
+                self._name = unicode(self.info['name'], 'utf-8')
+
         return self._name
 
     # Workflow utility methods -----------------------------------------
@@ -744,9 +830,15 @@ class Workflow(object):
 
         """
 
-        dirpath = os.path.join(os.path.expanduser(
-            '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/'),
-            self.bundleid)
+        if self.alfred_env.get('workflow_cache'):
+            dirpath = self.alfred_env.get('workflow_cache')
+        else:
+            dirpath = os.path.join(
+                os.path.expanduser(
+                    '~/Library/Caches/com.runningwithcrayons.Alfred-2/'
+                    'Workflow Data/'),
+                self.bundleid)
+
         return self._create(dirpath)
 
     @property
@@ -758,9 +850,13 @@ class Workflow(object):
 
         """
 
-        dirpath = os.path.join(os.path.expanduser(
-            '~/Library/Application Support/Alfred 2/Workflow Data/'),
-            self.bundleid)
+        if self.alfred_env.get('workflow_data'):
+            dirpath = self.alfred_env.get('workflow_data')
+        else:
+            dirpath = os.path.join(os.path.expanduser(
+                '~/Library/Application Support/Alfred 2/Workflow Data/'),
+                self.bundleid)
+
         return self._create(dirpath)
 
     @property
@@ -914,6 +1010,57 @@ class Workflow(object):
                                       self._default_settings)
         return self._settings
 
+    def stored_data(self, name, data_func=None):
+        """Retrieve data from storage or re-generate and re-store data if
+        non-existant. 
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data_func: function to (re-)generate data.
+        :type data_func: `callable`
+        :returns: cached data, return value of ``data_func`` or ``None``
+            if ``data_func`` is not set
+        :rtype: whatever ``data_func`` returns or ``None``
+
+        """
+
+        store_path = self.datafile('{}.{}'.format(name,
+                                                  self._serializer.__name__))
+        if os.path.exists(store_path):
+            with open(store_path, 'rb') as file_obj:
+                self.logger.debug('Loading stored data from : %s',
+                                  store_path)
+                return self._serializer.load(file_obj)
+        if not data_func:
+            return None
+        data = data_func()
+        self.store_data(name, data)
+        return data
+
+    def store_data(self, name, data):
+        """Save ``data`` to storage dir under ``name``.
+
+        If ``data`` is ``None``, the corresponding cache file will be deleted.
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data: data to store`
+
+        """
+
+        store_path = self.datafile('{}.{}'.format(name,
+                                                  self._serializer.__name__))
+
+        if data is None:
+            if os.path.exists(store_path):
+                os.unlink(store_path)
+                self.logger.debug('Deleted storage file : %s', store_path)
+            return
+
+        with open(store_path, 'wb') as file_obj:
+            self._serializer.dump(data, file_obj)
+        self.logger.debug('Stored data saved at : %s', store_path)
+
     def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
@@ -931,13 +1078,14 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.json' % name)
+        cache_path = self.cachefile('{}.{}'.format(name,
+                                                   self._serializer.__name__))
         age = self.cached_data_age(name)
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
-            with open(cache_path, 'rb') as file:
+            with open(cache_path, 'rb') as file_obj:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
-                return json.load(file)
+                return self._serializer.load(file_obj)
         if not data_func:
             return None
         data = data_func()
@@ -951,20 +1099,21 @@ class Workflow(object):
 
         :param name: name of datastore
         :type name: ``unicode``
-        :param data: data to store`
+        :param data: data to store
+        :type data: any object supported by :mod:`pickle`
 
         """
 
-        cache_path = self.cachefile('%s.json' % name)
-
+        cache_path = self.cachefile('{}.{}'.format(name,
+                                                   self._serializer.__name__))
         if data is None:
             if os.path.exists(cache_path):
                 os.unlink(cache_path)
                 self.logger.debug('Deleted cache file : %s', cache_path)
             return
 
-        with open(cache_path, 'wb') as file:
-            json.dump(data, file)
+        with open(cache_path, 'wb') as file_obj:
+            self._serializer.dump(data, file_obj)
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
@@ -1000,58 +1149,8 @@ class Workflow(object):
             return 0
         return time.time() - os.stat(cache_path).st_mtime
 
-    def stored_data(self, name, data_func=None):
-        """Retrieve data from storage or re-generate and re-store data if
-        non-existant. 
-
-        :param name: name of datastore
-        :type name: ``unicode``
-        :param data_func: function to (re-)generate data.
-        :type data_func: `callable`
-        :returns: cached data, return value of ``data_func`` or ``None``
-            if ``data_func`` is not set
-        :rtype: whatever ``data_func`` returns or ``None``
-
-        """
-
-        store_path = self.datafile('%s.json' % name)
-        if os.path.exists(store_path):
-            with open(store_path, 'rb') as file:
-                self.logger.debug('Loading stored data from : %s',
-                                  store_path)
-                return json.load(file)
-        if not data_func:
-            return None
-        data = data_func()
-        self.store_data(name, data)
-        return data
-
-    def store_data(self, name, data):
-        """Save ``data`` to storage dir under ``name``.
-
-        If ``data`` is ``None``, the corresponding cache file will be deleted.
-
-        :param name: name of datastore
-        :type name: ``unicode``
-        :param data: data to store`
-
-        """
-
-        store_path = self.datafile('%s.json' % name)
-
-        if data is None:
-            if os.path.exists(store_path):
-                os.unlink(store_path)
-                self.logger.debug('Deleted storage file : %s', store_path)
-            return
-
-        with open(store_path, 'wb') as file:
-            json.dump(data, file)
-        self.logger.debug('Stored data saved at : %s', store_path)
-
-
-    def filter(self, query, items, key=lambda x: x, ascending=False, 
-               include_score=False, min_score=0, max_results=0, 
+    def filter(self, query, items, key=lambda x: x, ascending=False,
+               include_score=False, min_score=0, max_results=0,
                match_on=MATCH_ALL, fold_diacritics=True):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
@@ -1177,9 +1276,6 @@ class Workflow(object):
 
         if min_score:
             results = [r for r in results if r[1] > min_score]
-
-        if ascending:
-            results = results.reverse()
 
         # return list of ``(item, score, rule)``
         if include_score:

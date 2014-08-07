@@ -15,6 +15,9 @@ rm -rf $LOGPATH
 curdir=$(pwd)
 wdir="${curdir}/tests"
 
+# link info.plist to parent directory so `background.py` can find it
+ln -s "${wdir}/info.plist"
+
 cd "$wdir"
 
 NOSETEST_OPTIONS="-d"
@@ -50,5 +53,7 @@ case "$ret" in
 esac
 
 cd "$curdir"
+
+rm -f "info.plist"
 
 exit $ret

@@ -15,6 +15,49 @@ You probably only want to use the :class:`Workflow` class directly.
 The :class:`Item` and :class:`Settings` classes are supporting classes,
 which are meant to be accessed via :class:`Workflow` instances.
 
+Classes :class:`SerializerManager`, :class:`JSONSerializer`,
+:class:`CPickleSerializer` and :class:`PickleSerializer` are part of
+the data/cache serialization features of :class:`Workflow`, accessible
+by the module-level ``manager`` object.
+
+To register a new serializer, do:
+
+.. code-block:: python
+   :linenos:
+
+    from workflow import Workflow, manager
+
+
+    class MySerializer(object):
+
+        @classmethod
+        def load(cls, file_obj):
+            # load data from file_obj
+
+        @classmethod
+        def dump(cls, data, file_obj):
+            # write data to file_obj
+
+    manager.register('myformat', MySerializer())
+
+
+The name under which you register your serializer will be used as the
+file extension of any saved files.
+
+To set the default serializer for cached data,
+set :attr:`Workflow.cache_serializer`, and to set the default
+serializer for stored data, set :attr:`Workflow.data_serializer`.
+
+Cached data is stored in the Workflow's cache directory, which is intended
+for temporary and easily regenerated data.
+
+Stored data is stored in the Workflow's data directory, which is intended
+for data that is user-generated or not easily recreated.
+
+The default serializer for both cached and stored data is ``cpickle``.
+
+For more information, please see :ref:`Persistent data <persistent-data>`.
+
 """
 
 from __future__ import print_function, unicode_literals
@@ -28,7 +71,8 @@ import subprocess
 import unicodedata
 import shutil
 import json
-import cPickle as pickle
+import cPickle
+import pickle
 import time
 import logging
 import logging.handlers
@@ -447,6 +491,162 @@ def isascii(text):
 # Implementation classes
 ####################################################################
 
+class SerializerManager(object):
+    """Contains registered serializers.
+
+    A configured instance of this class is available at ``workflow.manager``.
+
+    Use :meth:`register()` to register new (or replace
+    existing) serializers, which you can specify by name when calling
+    :class:`Workflow` data storage methods.
+
+    A ``serializer`` object must have ``load()`` and ``dump()`` methods
+    that work the same way as in the built-in :mod:`json` and
+    :mod:`pickle` libraries, i.e.:
+
+    .. code-block:: python
+        :linenos:
+
+        # Reading
+        data = serializer.load(open('filename', 'rb'))
+        # Writing
+        serializer.dump(data, open('filename', 'wb'))
+
+    There are 3 pre-configured serializers: ``json``, ``pickle``
+    and ``cpickle``. The default is ``cpickle``, as it is very fast and
+    can handle most Python objects.
+
+    If you need custom pickling, use the ``pickle`` serializer instead.
+
+    Be careful using ``json``: JSON only supports a subset of Python's
+    native data types (e.g., no ``tuple`` or :class:`set`) and
+    doesn't, for example, support ``dict`` keys that aren't strings.
+
+    See the built-in :mod:`cPickle`, :mod:`pickle` and :mod:`json`
+    libraries for more information on the serialization formats.
+
+    """
+
+    def __init__(self):
+        self._serializers = {}
+
+    def register(self, name, serializer):
+        """Register ``serializer`` object under ``name``.
+
+        Raises :class:`AttributeError` if ``serializer`` in invalid.
+
+        **Note:** ``name`` will be used as the file extension of the
+        saved files.
+
+        :param name: Name to register ``serializer`` under
+        :type name: ``unicode`` or ``str``
+        :param serilializer: object with ``load()`` and ``dump()``
+            methods
+
+        """
+
+        # Basic validation
+        getattr(serializer, 'load')
+        getattr(serializer, 'dump')
+
+        self._serializers[name] = serializer
+
+    def serializer(self, name):
+        """Return serializer object for ``name`` or ``None`` if no such
+        serializer is registered
+
+        :param name: Name of serializer to return
+        :type name: ``unicode`` or ``str``
+        :returns: serializer object or ``None``
+
+        """
+
+        return self._serializers.get(name)
+
+    def unregister(self, name):
+        """Remove registered serializer with ``name``
+
+        Raises a :class:`ValueError` if there is no such registered
+        serializer.
+
+        :param name: Name of serializer to remove
+        :type name: ``unicode`` or ``str``
+        :returns: serializer object
+
+        """
+
+        if name not in self._serializers:
+            raise ValueError('No such serializer registered : {}'.format(name))
+
+        serializer = self._serializers[name]
+        del self._serializers[name]
+
+        return serializer
+
+    @property
+    def serializers(self):
+        """Return names of registered serializers"""
+        return sorted(self._serializers.keys())
+
+
+class JSONSerializer(object):
+    """Wrapper around :mod:`json`. Sets ``indent`` and ``encoding``.
+
+    Use this serializer if you need readable data files. JSON doesn't
+    support Python objects as well as ``cPickle``/``pickle``, so be
+    careful which data you try to serialize as JSON.
+
+    """
+
+    @classmethod
+    def load(cls, file_obj):
+        return json.load(file_obj)
+
+    @classmethod
+    def dump(cls, obj, file_obj):
+        return json.dump(obj, file_obj, indent=2, encoding='utf-8')
+
+
+class CPickleSerializer(object):
+    """Wrapper around :mod:`cPickle`. Sets ``protocol``.
+
+    This is the default serializer and the best combination of speed and
+    flexibility.
+
+    """
+
+    @classmethod
+    def load(cls, file_obj):
+        return cPickle.load(file_obj)
+
+    @classmethod
+    def dump(cls, obj, file_obj):
+        return cPickle.dump(obj, file_obj, protocol=-1)
+
+
+class PickleSerializer(object):
+    """Wrapper around :mod:`pickle`. Sets ``protocol``.
+
+    Use this serializer if you need to add custom pickling.
+
+    """
+
+    @classmethod
+    def load(cls, file_obj):
+        return pickle.load(file_obj)
+
+    @classmethod
+    def dump(cls, obj, file_obj):
+        return pickle.dump(obj, file_obj, protocol=-1)
+
+
+# Set up default manager and register built-in serializers
+manager = SerializerManager()
+manager.register('cpickle', CPickleSerializer)
+manager.register('pickle', PickleSerializer)
+manager.register('json', JSONSerializer)
+
+
 class Item(object):
     """Represents a feedback item for Alfred. Generates Alfred-compliant
     XML for a single item.
@@ -619,6 +819,8 @@ class Workflow(object):
         self._settings = None
         self._bundleid = None
         self._name = None
+        self._cache_serializer = 'cpickle'
+        self._data_serializer = 'cpickle'
         # info.plist should be in the directory above this one
         self._info_plist = self.workflowfile('info.plist')
         self._info = None
@@ -781,9 +983,15 @@ class Workflow(object):
             if 'workflow:openlog' in args:
                 msg = 'Opening workflow log file'
                 self.open_log()
+            elif 'workflow:reset' in args:
+                self.reset()
+                msg = 'Reset workflow'
             elif 'workflow:delcache' in args:
                 self.clear_cache()
                 msg = 'Deleted workflow cache'
+            elif 'workflow:deldata' in args:
+                self.clear_data()
+                msg = 'Deleted workflow data'
             elif 'workflow:delsettings' in args:
                 self.clear_settings()
                 msg = 'Deleted workflow settings'
@@ -1007,6 +1215,191 @@ class Workflow(object):
                                       self._default_settings)
         return self._settings
 
+    @property
+    def cache_serializer(self):
+        """Name of default cache serializer.
+
+        This serializer is used by :meth:`cache_data()` and
+        :meth:`cached_data()`
+
+        See :class:`SerializerManager` for details.
+
+        :returns: serializer name
+        :rtype: ``unicode``
+
+        """
+
+        return self._cache_serializer
+
+    @cache_serializer.setter
+    def cache_serializer(self, serializer_name):
+        """Set the default cache serialization format.
+
+        This serializer is used by :meth:`cache_data()` and
+        :meth:`cached_data()`
+
+        The specified serializer must already by registered with the
+        :class:`SerializerManager` at `~workflow.workflow.manager`,
+        otherwise a :class:`ValueError` will be raised.
+
+        :param serializer_name: Name of default serializer to use.
+        :type serializer_name:
+
+        """
+
+        if manager.serializer(serializer_name) is None:
+            raise ValueError(
+                'Unknown serializer : `{}`. Register your serializer '
+                'with `manager` first.'.format(serializer_name))
+
+        self.logger.debug(
+            'default cache serializer set to `{}`'.format(serializer_name))
+
+        self._cache_serializer = serializer_name
+
+    @property
+    def data_serializer(self):
+        """Name of default data serializer.
+
+        This serializer is used by :meth:`store_data()` and
+        :meth:`stored_data()`
+
+        See :class:`SerializerManager` for details.
+
+        :returns: serializer name
+        :rtype: ``unicode``
+
+        """
+
+        return self._data_serializer
+
+    @data_serializer.setter
+    def data_serializer(self, serializer_name):
+        """Set the default cache serialization format.
+
+        This serializer is used by :meth:`store_data()` and
+        :meth:`stored_data()`
+
+        The specified serializer must already by registered with the
+        :class:`SerializerManager` at `~workflow.workflow.manager`,
+        otherwise a :class:`ValueError` will be raised.
+
+        :param serializer_name: Name of default serializer to use.
+        :type serializer_name:
+
+        """
+
+        if manager.serializer(serializer_name) is None:
+            raise ValueError(
+                'Unknown serializer : `{}`. Register your serializer '
+                'with `manager` first.'.format(serializer_name))
+
+        self.logger.debug(
+            'default data serializer set to `{}`'.format(serializer_name))
+
+        self._data_serializer = serializer_name
+
+    def stored_data(self, name):
+        """Retrieve data from data directory. Returns ``None`` if there
+        is no data stored.
+
+        :param name: name of datastore
+        :type name: ``unicode``
+
+        """
+
+        metadata_path = self.datafile('.{}.alfred-workflow'.format(name))
+
+        if not os.path.exists(metadata_path):
+            self.logger.debug('No data stored for `{}`'.format(name))
+            return None
+
+        with open(metadata_path, 'rb') as file_obj:
+            serializer_name = file_obj.read().strip()
+
+        serializer = manager.serializer(serializer_name)
+
+        if serializer is None:
+            raise ValueError(
+                'Unknown serializer `{}`. Register a corresponding serializer '
+                'with `manager.register()` to load this data.'.format(
+                serializer_name))
+
+        self.logger.debug('Data `{}` stored in `{}` format'.format(
+                          name, serializer_name))
+
+        filename = '{}.{}'.format(name, serializer_name)
+        data_path = self.datafile(filename)
+
+        if not os.path.exists(data_path):
+            self.logger.debug('No data stored for `{}`'.format(name))
+            if os.path.exists(metadata_path):
+                os.unlink(metadata_path)
+
+            return None
+
+        with open(data_path, 'rb') as file_obj:
+            data = serializer.load(file_obj)
+
+        self.logger.debug('Stored data loaded from : {}'.format(data_path))
+
+        return data
+
+    def store_data(self, name, data, serializer=None):
+        """Save data to data directory.
+
+        If ``data`` is ``None``, the datastore will be deleted.
+
+        :param name: name of datastore
+        :type name: ``unicode``
+        :param data: object(s) to store
+        :type data: artibrary Python objects. **Note:** some serializers
+            can only handled certain types of data.
+        :param serializer: name of serializer to use.
+            See :class:`SerializerManager` for more information.
+        :type serializer: ``unicode``
+        :returns: data in datastore or ``None``
+
+        """
+
+        serializer_name = serializer or self.data_serializer
+
+        if serializer_name == 'json' and name == 'settings':
+            raise ValueError(
+                'Cannot save data to `settings` with format `json`. '
+                "This would overwrite Alfred-Workflow's settings file.")
+
+        serializer = manager.serializer(serializer_name)
+
+        if serializer is None:
+            raise ValueError(
+                'Invalid serializer `{}`. Register your serializer with '
+                '`manager.register()` first.'.format(serializer_name))
+
+        # In order for `stored_data()` to be able to load data stored with
+        # an arbitrary serializer, yet still have meaningful file extensions,
+        # the format (i.e. extension) is saved to an accompanying file
+        metadata_path = self.datafile('.{}.alfred-workflow'.format(name))
+        filename = '{}.{}'.format(name, serializer_name)
+        data_path = self.datafile(filename)
+
+        if data is None:  # Delete cached data
+            for path in (metadata_path, data_path):
+                if os.path.exists(path):
+                    os.unlink(path)
+                    self.logger.debug('Deleted data file : {}'.format(path))
+
+            return
+
+        # Save file extension
+        with open(metadata_path, 'wb') as file_obj:
+            file_obj.write(serializer_name)
+
+        with open(data_path, 'wb') as file_obj:
+            serializer.dump(data, file_obj)
+
+        self.logger.debug('Stored data saved at : {}'.format(data_path))
+
     def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
@@ -1024,17 +1417,24 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        serializer = manager.serializer(self.cache_serializer)
+
+        cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
         age = self.cached_data_age(name)
+
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
+
             with open(cache_path, 'rb') as file:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
-                return pickle.load(file)
+                return serializer.load(file)
+
         if not data_func:
             return None
+
         data = data_func()
         self.cache_data(name, data)
+
         return data
 
     def cache_data(self, name, data):
@@ -1049,7 +1449,9 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        serializer = manager.serializer(self.cache_serializer)
+
+        cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
 
         if data is None:
             if os.path.exists(cache_path):
@@ -1058,7 +1460,8 @@ class Workflow(object):
             return
 
         with open(cache_path, 'wb') as file:
-            pickle.dump(data, file, protocol=-1)
+            serializer.dump(data, file)
+
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
@@ -1074,8 +1477,10 @@ class Workflow(object):
         """
 
         age = self.cached_data_age(name)
+
         if not age:
             return False
+
         return age < max_age
 
     def cached_data_age(self, name):
@@ -1089,9 +1494,11 @@ class Workflow(object):
 
         """
 
-        cache_path = self.cachefile('%s.cache' % name)
+        cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
+
         if not os.path.exists(cache_path):
             return 0
+
         return time.time() - os.stat(cache_path).st_mtime
 
     def filter(self, query, items, key=lambda x: x, ascending=False,
@@ -1513,20 +1920,23 @@ class Workflow(object):
 
     def clear_cache(self):
         """Delete all files in workflow cache directory."""
-        if os.path.exists(self.cachedir):
-            for filename in os.listdir(self.cachedir):
-                path = os.path.join(self.cachedir, filename)
-                if os.path.isdir(path):
-                    shutil.rmtree(path)
-                else:
-                    os.unlink(path)
-                self.logger.debug('Deleted : %r', path)
+        self._delete_directory_contents(self.cachedir)
+
+    def clear_data(self):
+        """Delete all files in workflow data directory."""
+        self._delete_directory_contents(self.datadir)
 
     def clear_settings(self):
         """Delete settings file."""
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
             self.logger.debug('Deleted : %r', self.settings_path)
+
+    def reset(self):
+        """Delete settings, cache and data"""
+        self.clear_cache()
+        self.clear_data()
+        self.clear_settings()
 
     def open_log(self):
         """Open log file in standard application (usually Console.app)."""
@@ -1605,6 +2015,23 @@ class Workflow(object):
         text = ''.join([ASCII_REPLACEMENTS.get(c, c) for c in text])
         return unicode(unicodedata.normalize('NFKD',
                        text).encode('ascii', 'ignore'))
+
+    def _delete_directory_contents(self, dirpath):
+        """Delete all files in a directory
+
+        :param dirpath: path to directory to clear
+        :type dirpath: ``unicode`` or ``str``
+
+        """
+
+        if os.path.exists(dirpath):
+            for filename in os.listdir(dirpath):
+                path = os.path.join(dirpath, filename)
+                if os.path.isdir(path):
+                    shutil.rmtree(path)
+                else:
+                    os.unlink(path)
+                self.logger.debug('Deleted : %r', path)
 
     def _load_info_plist(self):
         """Load workflow info from ``info.plist``

@@ -170,26 +170,37 @@ The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx 
 These are some of the Alfred workflows that use this library.
 
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) by XedMada. Pause and Start Backblaze online backups.
+- [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python) by deanishe. Demonstration on how to use the Alfred Bundler in Python.
 - [AppScripts](http://www.packal.org/workflow/appscripts) by deanishe. List, search and run/open AppleScripts for the active application.
 - [BibQuery](http://www.packal.org/workflow/bibquery) by hackademic. Search BibDesk from the comfort of your keyboard.
 - [Blur](http://www.packal.org/workflow/blur) by Tyler Eich. Set Alfred's background blur radius.
 - [Convert](http://www.packal.org/workflow/convert) by deanishe. Convert between different units. No Internet connection required.
-- [Date Calculator](http://www.packal.org/workflow/date-calculator) by MuppetGate. A very basic date calculator.
+- [Date Calculator](http://www.packal.org/workflow/date-calculator) by MuppetGate. A basic date calculator.
+- [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by frankspin. Check the status of your Digital Ocean droplets.
 - [Dropbox Client for Alfred](http://www.packal.org/workflow/dropbox-client-alfred) by fniephaus. Access multiple Dropbox accounts with Alfred.
+- [Duden Search](http://www.packal.org/workflow/duden-search) by deanishe. Search duden.de German dictionary (with auto-suggest).
 - [Fabric for Alfred](http://www.packal.org/workflow/fabric-alfred) by fniephaus. Quickly execute Fabric tasks.
 - [Fuzzy Folders](http://www.packal.org/workflow/fuzzy-folders) by deanishe. Fuzzy search across folder subtrees.
+- [Git Repos](http://www.packal.org/workflow/git-repos) by deanishe. Browse, search and open Git repositories from within Alfred.
 - [Glosbe Translation](http://www.packal.org/workflow/glosbe-translation) by deanishe. Translate text using Glosbe.com.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks) by nkeim. Search notebook titles on your IPython notebook server.
+- [Laser SSH](http://www.packal.org/workflow/laser-ssh) by paperElectron. Choose SSH connection from filterable list.
+- [LibGen](http://www.packal.org/workflow/libgen) by hackademic. Search and Download pdfs and ebooks from Library Genesis.
 - [Network Location](http://www.packal.org/workflow/network-location) by deanishe. List, filter and activate network locations from within Alfred.
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search) by deanishe. Search Packal.org from the comfort of Alfred.
+- [Pandoctor](http://www.packal.org/workflow/pandoctor) by hackademic. An Alfred GUI for Pandoc.
 - [Parsers](http://www.packal.org/workflow/parsers) by hackademic. Greek and Latin parsers.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred) by fniephaus. Manage your Pocket list with Alfred.
+- [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by paperElectron. Add some stock symbols for Alfred to check for you.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred) by fniephaus. Manage your Readability list with Alfred.
 - [Relative Dates](http://www.packal.org/workflow/relative-dates) by deanishe. Generate relative dates based on a simple input format.
 - [SEND](http://www.packal.org/workflow/send) by hackademic. Send documents to the cloud.
+- [Searchio!](http://www.packal.org/workflow/searchio) by deanishe. Auto-suggest search results from multiple search engines and languages.
 - [Skimmer](http://www.packal.org/workflow/skimmer) by hackademic. Actions for PDF viewer Skim.
+- [Snippets](http://www.packal.org/workflow/snippets) by hackademic. Simple, document-specific text snippets.
 - [Spritzr](http://www.packal.org/workflow/spritzr) by hackademic. An Alfred Speed-Reader.
 - [Sublime Text Projects](http://www.packal.org/workflow/sublime-text-projects) by deanishe. View, filter and open your Sublime Text (2 and 3) project files.
+- [Torrent](http://www.packal.org/workflow/torrent) by bfw. Search for torrents, choose among the results in Alfred and start the download in uTorrent.
 - [Travis CI for Alfred](http://www.packal.org/workflow/travis-ci-alfred) by fniephaus. Quickly check build statuses on travis-ci.org.
 - [VM Control](http://www.packal.org/workflow/vm-control) by fniephaus. Control your Parallels and Virtual Box virtual machines.
 - [Wikify](http://www.packal.org/workflow/wikify) by hackademic. Your little Evernote Wiki-Helper.

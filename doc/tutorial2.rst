@@ -264,7 +264,7 @@ Saving settings
 Saving the API key was pretty easy (1 line of code). :class:`~workflow.workflow.Settings`
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
-values must be serialisable to JSON as the settings are saved as a JSON file in
+values must be serializable to JSON as the settings are saved as a JSON file in
 the Workflow's data directory.
 
 Very simple, yes, but secure? No. A better place to save the API key would be

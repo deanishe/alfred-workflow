@@ -704,7 +704,7 @@ every time the query changes.
 Meanwhile, our main Workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.
 
-Let's have at it.
+Let's have a look at it.
 
 Background updater script
 ~~~~~~~~~~~~~~~~~~~~~~~~~

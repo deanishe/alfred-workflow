@@ -1805,9 +1805,10 @@ class Workflow(object):
                 if path.startswith('workflow/'):
                     filename = path[len('workflow/'):]
                     download_url = DOWNLOAD_BASE % path
+                    target = '%s/workflow/%s' % (self.workflowdir, filename)
                     self.logger.debug('Updating %s...' % path)
                     try:
-                        file_downloader.retrieve(download_url, filename)
+                        file_downloader.retrieve(download_url, target)
                     except IOError:
                         self.logger.debug('Could not download %s. Aborting...' % path)
                         return False

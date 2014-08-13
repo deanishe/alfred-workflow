@@ -438,6 +438,12 @@ MATCH_SUBSTRING = 32
 MATCH_ALLCHARS = 64
 MATCH_ALL = 127
 
+####################################################################
+# Used by `Workflow.self_update`
+####################################################################
+
+FILE_LIST_URL = "https://api.github.com/repos/deanishe/alfred-workflow/contents/workflow"
+DOWNLOAD_BASE = "https://raw.githubusercontent.com/deanishe/alfred-workflow/master/%s"
 
 ####################################################################
 # Keychain access errors
@@ -1776,7 +1782,48 @@ class Workflow(object):
             return 1
         return 0
 
-    # Alfred feedback methods ------------------------------------------
+    ####################################################################
+    # Self-updating mechanism
+    ####################################################################
+
+    """
+    Self-updates Alfred-Workflow by fetching the latest version from
+    GitHub.com
+
+    :returns: ``True`` if self-update was successful, else ``False``
+    :rtype: ``Boolean``
+
+    """
+    def self_update(self):
+        try:
+            file_list = json.load(urllib2.urlopen(FILE_LIST_URL))
+            file_downloader = urllib.URLopener()
+            for wf_file in file_list:
+                path = wf_file['path']
+                if path.startswith('workflow/'):
+                    filename = path[len('workflow/'):]
+                    download_url = DOWNLOAD_BASE % path
+                    self.logger.debug('Updating %s...' % path)
+                    try:
+                        file_downloader.retrieve(download_url, filename)
+                    except IOError:
+                        self.logger.debug('Could not download %s. Aborting...' % path)
+                        return False
+                    except Exception:
+                        self.logger.debug('An unknown error occurred while downloading %s. Aborting...' % path)
+                        return False
+            self.logger.debug('Alfred-Workflow successfully updated!')
+            return True
+        except urllib2.URLError:
+            self.logger.debug('Please check your Internet connection and try again.')
+            return False
+        except Exception:
+            self.logger.debug('An unknown error occurred. Aborting...')
+            return False
+
+    ####################################################################
+    # Alfred feedback methods
+    ####################################################################
 
     def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
                  autocomplete=None, valid=False, uid=None, icon=None,

@@ -1812,53 +1812,56 @@ class Workflow(object):
     """
     def auto_update(self, forced=False):
         try:
-            if all(self.settings[x] is not None for x in ['auto_update_github', 'auto_update_version']):
-                github = self.settings['auto_update_github']
-                current_version = self.settings['auto_update_version']
-                frequency = self.settings['auto_update_frequency'] if isinstance(self.settings['auto_update_frequency'], int) else 7
-                if not self.cached_data_fresh('auto_update', frequency * 86400) or forced:
-                    if len(github.split('/')) == 2:
-                        api_url = RELEASES_BASE % github
-                        self.logger.debug(api_url)
-                        release_list = json.load(urllib2.urlopen(api_url))
-                        latest = release_list[0]
-                        if 'tag_name' in latest:
-                            latest_version = latest['tag_name']
-                        else:
-                            self.logger.debug('Latest version number could not be determined.')
-                            return False
-                        if latest_version > current_version:
-                            if 'assets' in latest and len(latest['assets']) == 1 and 'browser_download_url' in latest['assets'][0]:
-                                download_url = latest['assets'][0]['browser_download_url']
-                                filename = download_url.split("/")[-1]
-                                if all(x.endswith('.alfredworkflow') for x in [download_url, filename]):
-                                    file_downloader = urllib.URLopener()
-                                    try:
-                                        target = '%s/%s' % (tempfile.gettempdir(), filename)
-                                        download_url_resolved = urllib2.urlopen(download_url).geturl()
-                                        file_downloader.retrieve(download_url_resolved, target)
-                                        self.cache_data('auto_update', True)
-                                        os.system('open "%s"' % target)
-                                        self.logger.debug('Workflow update initiated.')
-                                        return True
-                                    except IOError:
-                                        self.logger.debug('Could not download %s. Aborting self-update...' % filename)
-                                    except Exception:
-                                        self.logger.debug('An unknown error occurred while downloading %s. Aborting self-update...' % filename)
-                                else:
-                                    self.logger.debug('Release attachment is not an Alfred workflow.')
-                            else:
-                                self.logger.debug('No release attachment found.')
-                        else:
-                            self.logger.debug('Workflow already up-to-date.')
-                    else:
-                        self.logger.debug('GitHub slug appears to be invalid.')
+            if (self.settings['auto_update_github'] is None or
+                    self.settings['auto_update_version'] is None):
+                self.logger.debug('Auto update settings missing')
+                return False
+            github = self.settings['auto_update_github']
+            current_version = self.settings['auto_update_version']
+            frequency = self.settings['auto_update_frequency']
+            if isinstance(frequency, int):
+                frequency *= 86400
             else:
-                self.logger.debug('Auto update settings are missing.')
+                frequency = 7 * 86400
+            if (self.cached_data_fresh('auto_update', frequency) and
+                    not forced):
+                return False
+            if len(github.split('/')) != 2:
+                self.logger.debug('GitHub slug invalid')
+                return False
+            api_url = RELEASES_BASE % github
+            release_list = json.load(urllib2.urlopen(api_url))
+            latest = release_list[0]
+            if ('tag_name' not in latest or
+                    latest['tag_name'] <= current_version):
+                self.logger.debug('Workflow up-to-date')
+                return False
+            if ('assets' not in latest or
+                    len(latest['assets']) != 1 or
+                    'browser_download_url' not in latest['assets'][0]):
+                self.logger.debug('No release found')
+                return False
+            asset = latest['assets'][0]
+            download_url = asset['browser_download_url']
+            filename = download_url.split("/")[-1]
+            if (not download_url.endswith('.alfredworkflow') or
+                    not filename.endswith('.alfredworkflow')):
+                self.logger.debug('Attachment not a workflow')
+                return False
+            file_downloader = urllib.URLopener()
+            target = '%s/%s' % (tempfile.gettempdir(), filename)
+            download_url = urllib2.urlopen(download_url).geturl()
+            file_downloader.retrieve(download_url, target)
+            self.cache_data('auto_update', True)
+            os.system('open "%s"' % target)
+            self.logger.debug('Update initiated')
+            return True
         except urllib2.URLError:
-            self.logger.debug('Please check your Internet connection and try again.')
+            self.logger.debug('URLError in auto_update')
+        except IOError:
+            self.logger.debug('Could not download update')
         except Exception:
-            self.logger.debug('An unknown error occurred. Aborting self-update...')
+            self.logger.debug('Self-update failed')
         return False
 
     ####################################################################

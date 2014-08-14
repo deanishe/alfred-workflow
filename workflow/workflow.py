@@ -839,6 +839,10 @@ class Workflow(object):
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
+        if (default_settings and
+                'auto_update_github' in default_settings and
+                'auto_update_version' in default_settings):
+            self.auto_update()
 
     ####################################################################
     # API methods
@@ -1812,13 +1816,13 @@ class Workflow(object):
     """
     def auto_update(self, forced=False):
         try:
-            if (self.settings['auto_update_github'] is None or
-                    self.settings['auto_update_version'] is None):
-                self.logger.debug('Auto update settings missing')
-                return False
             github = self.settings['auto_update_github']
             current_version = self.settings['auto_update_version']
             frequency = self.settings['auto_update_frequency']
+            if (github is None or
+                    current_version is None):
+                self.logger.debug('Auto update settings missing')
+                return False
             if isinstance(frequency, int):
                 frequency *= 86400
             else:

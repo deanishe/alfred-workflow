@@ -578,7 +578,7 @@ are parsed).
 - ``workflow:foldingon`` — Force diacritic folding in search keys (e.g. convert *ü* to *ue*)
 - ``workflow:foldingoff`` — Never fold diacritics in search keys
 - ``workflow:foldingdefault`` — Reset diacritic folding to workflow default
-- ``workflow:update`` — Self-update workflow if auto update feature is enable
+- ``workflow:update`` — Self-update workflow if auto update feature is enabled
 
 The three ``workflow:folding…`` settings allow users to override the diacritic
 folding set by a workflow's author. This may be useful if the author's choice

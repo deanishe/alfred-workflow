@@ -73,6 +73,7 @@ import shutil
 import json
 import urllib
 import urllib2
+import tempfile
 import cPickle
 import pickle
 import time
@@ -441,11 +442,10 @@ MATCH_ALLCHARS = 64
 MATCH_ALL = 127
 
 ####################################################################
-# Used by `Workflow.self_update`
+# Used by `Workflow.auto_update`
 ####################################################################
 
-FILE_LIST_URL = "https://api.github.com/repos/deanishe/alfred-workflow/contents/workflow"
-DOWNLOAD_BASE = "https://raw.githubusercontent.com/deanishe/alfred-workflow/master/%s"
+RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
 
 ####################################################################
 # Keychain access errors
@@ -1025,6 +1025,9 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflows_diacritic_folding' in self.settings:
                     del self.settings['__workflows_diacritic_folding']
+            elif 'workflow:update' in args:
+                msg = 'Self-updating workflow'
+                self.auto_update(forced=True)
 
             if msg:
                 self.logger.debug(msg)
@@ -1785,44 +1788,78 @@ class Workflow(object):
         return 0
 
     ####################################################################
-    # Self-updating mechanism
+    # Auto-updating mechanism
     ####################################################################
 
     """
-    Self-updates Alfred-Workflow by fetching the latest version from
-    GitHub.com
+    Enables self-updating capabilities for a workflow. It regularly (7 days
+    by default) fetches the latest releases from a given GitHub repository
+    and then asks the user to replace the workflow if a newer version is
+    available.
 
-    :returns: ``True`` if self-update was successful, else ``False``
+    This feature requires default settings to be set like this:
+
+    wf = Workflow(default_settings={
+        'auto_update_github': 'username/reponame',  # GitHub slug
+        'auto_update_version': 'v1.0',  # Version number
+        'auto_update_frequency': 7, # Optional
+    })
+
+    :param forced: Force an update check
+    :type forced: ``Boolean``
     :rtype: ``Boolean``
 
     """
-    def self_update(self):
+    def auto_update(self, forced=False):
         try:
-            file_list = json.load(urllib2.urlopen(FILE_LIST_URL))
-            file_downloader = urllib.URLopener()
-            for wf_file in file_list:
-                path = wf_file['path']
-                if path.startswith('workflow/'):
-                    filename = path[len('workflow/'):]
-                    download_url = DOWNLOAD_BASE % path
-                    target = '%s/workflow/%s' % (self.workflowdir, filename)
-                    self.logger.debug('Updating %s...' % path)
-                    try:
-                        file_downloader.retrieve(download_url, target)
-                    except IOError:
-                        self.logger.debug('Could not download %s. Aborting...' % path)
-                        return False
-                    except Exception:
-                        self.logger.debug('An unknown error occurred while downloading %s. Aborting...' % path)
-                        return False
-            self.logger.debug('Alfred-Workflow successfully updated!')
-            return True
+            if all(self.settings[x] is not None for x in ['auto_update_github', 'auto_update_version']):
+                github = self.settings['auto_update_github']
+                current_version = self.settings['auto_update_version']
+                frequency = self.settings['auto_update_frequency'] if isinstance(self.settings['auto_update_frequency'], int) else 7
+                if not self.cached_data_fresh('auto_update', frequency * 86400) or forced:
+                    if len(github.split('/')) == 2:
+                        api_url = RELEASES_BASE % github
+                        self.logger.debug(api_url)
+                        release_list = json.load(urllib2.urlopen(api_url))
+                        latest = release_list[0]
+                        if 'tag_name' in latest:
+                            latest_version = latest['tag_name']
+                        else:
+                            self.logger.debug('Latest version number could not be determined.')
+                            return False
+                        if latest_version > current_version:
+                            if 'assets' in latest and len(latest['assets']) == 1 and 'browser_download_url' in latest['assets'][0]:
+                                download_url = latest['assets'][0]['browser_download_url']
+                                filename = download_url.split("/")[-1]
+                                if all(x.endswith('.alfredworkflow') for x in [download_url, filename]):
+                                    file_downloader = urllib.URLopener()
+                                    try:
+                                        target = '%s/%s' % (tempfile.gettempdir(), filename)
+                                        download_url_resolved = urllib2.urlopen(download_url).geturl()
+                                        file_downloader.retrieve(download_url_resolved, target)
+                                        self.cache_data('auto_update', True)
+                                        os.system('open "%s"' % target)
+                                        self.logger.debug('Workflow update initiated.')
+                                        return True
+                                    except IOError:
+                                        self.logger.debug('Could not download %s. Aborting self-update...' % filename)
+                                    except Exception:
+                                        self.logger.debug('An unknown error occurred while downloading %s. Aborting self-update...' % filename)
+                                else:
+                                    self.logger.debug('Release attachment is not an Alfred workflow.')
+                            else:
+                                self.logger.debug('No release attachment found.')
+                        else:
+                            self.logger.debug('Workflow already up-to-date.')
+                    else:
+                        self.logger.debug('GitHub slug appears to be invalid.')
+            else:
+                self.logger.debug('Auto update settings are missing.')
         except urllib2.URLError:
             self.logger.debug('Please check your Internet connection and try again.')
-            return False
         except Exception:
-            self.logger.debug('An unknown error occurred. Aborting...')
-            return False
+            self.logger.debug('An unknown error occurred. Aborting self-update...')
+        return False
 
     ####################################################################
     # Alfred feedback methods

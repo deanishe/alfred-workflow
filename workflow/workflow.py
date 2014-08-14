@@ -808,6 +808,8 @@ class Workflow(object):
         :param libraries: sequence of paths to directories containing
             libraries. These paths will be prepended to ``sys.path``.
         :type libraries: :class:`tuple` or :class:`list`
+        :param autoupdate: Enable auto update mechanism.
+        :type autoupdate: :class:`Boolean`
 
     """
 
@@ -816,7 +818,8 @@ class Workflow(object):
     item_class = Item
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+                 normalization='NFC', capture_args=True, libraries=None,
+                 autoupdate=True):
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding
@@ -839,7 +842,7 @@ class Workflow(object):
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
-        if (default_settings and
+        if (autoupdate and default_settings and
                 'auto_update_github' in default_settings and
                 'auto_update_version' in default_settings):
             self.auto_update()
@@ -1031,7 +1034,7 @@ class Workflow(object):
                     del self.settings['__workflows_diacritic_folding']
             elif 'workflow:update' in args:
                 msg = 'Self-updating workflow'
-                self.auto_update(forced=True)
+                self.auto_update(force=True)
 
             if msg:
                 self.logger.debug(msg)
@@ -1809,49 +1812,51 @@ class Workflow(object):
         'auto_update_frequency': 7, # Optional
     })
 
-    :param forced: Force an update check
-    :type forced: ``Boolean``
+    :param force: Force an update check
+    :type force: ``Boolean``
     :rtype: ``Boolean``
 
     """
-    def auto_update(self, forced=False):
+    def auto_update(self, force=False):
         try:
             github = self.settings['auto_update_github']
             current_version = self.settings['auto_update_version']
-            frequency = self.settings['auto_update_frequency']
-            if (github is None or
-                    current_version is None):
-                self.logger.debug('Auto update settings missing')
-                return False
+            frequency = None
+            if 'auto_update_frequency' in self.settings:
+                frequency = self.settings['auto_update_frequency']
             if isinstance(frequency, int):
                 frequency *= 86400
             else:
                 frequency = 7 * 86400
             if (self.cached_data_fresh('auto_update', frequency) and
-                    not forced):
+                    not force):
                 return False
             if len(github.split('/')) != 2:
                 self.logger.debug('GitHub slug invalid')
-                return False
+                raise Exception
             api_url = RELEASES_BASE % github
+            self.logger.debug(api_url)
             release_list = json.load(urllib2.urlopen(api_url))
+            if len(release_list) < 1:
+                self.logger.debug('No release found')
+                raise Exception
             latest = release_list[0]
             if ('tag_name' not in latest or
                     latest['tag_name'] <= current_version):
                 self.logger.debug('Workflow up-to-date')
-                return False
+                raise Exception
             if ('assets' not in latest or
                     len(latest['assets']) != 1 or
                     'browser_download_url' not in latest['assets'][0]):
-                self.logger.debug('No release found')
-                return False
+                self.logger.debug('No attachment found')
+                raise Exception
             asset = latest['assets'][0]
             download_url = asset['browser_download_url']
             filename = download_url.split("/")[-1]
             if (not download_url.endswith('.alfredworkflow') or
                     not filename.endswith('.alfredworkflow')):
                 self.logger.debug('Attachment not a workflow')
-                return False
+                raise Exception
             file_downloader = urllib.URLopener()
             target = '%s/%s' % (tempfile.gettempdir(), filename)
             download_url = urllib2.urlopen(download_url).geturl()
@@ -1860,10 +1865,8 @@ class Workflow(object):
             os.system('open "%s"' % target)
             self.logger.debug('Update initiated')
             return True
-        except urllib2.URLError:
-            self.logger.debug('URLError in auto_update')
-        except IOError:
-            self.logger.debug('Could not download update')
+        except KeyError:
+            self.logger.debug('Auto update settings missing')
         except Exception:
             self.logger.debug('Self-update failed')
         return False

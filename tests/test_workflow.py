@@ -382,7 +382,7 @@ class WorkflowTests(unittest.TestCase):
         wf = Workflow(default_settings={
             'auto_update_github': 'fniephaus/alfred-pocket',
             'auto_update_version': 'v0.0',
-        }, autoupdate=False)
+        })
         self.assertTrue(wf.auto_update())
         self.assertFalse(wf.auto_update())
 

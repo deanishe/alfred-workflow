@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Writing A Pinboard Workflow, Part 2 &mdash; Alfred-Workflow 1.7 documentation</title>
+    <title>Writing A Pinboard Workflow, Part 2 &mdash; Alfred-Workflow 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
     <link rel="next" title="Howto" href="howto.html" />
     <link rel="prev" title="Writing A Pinboard Workflow, Part 1" href="tutorial.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -512,7 +512,7 @@ notification that it was saved.</p>
 <p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a>
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
-values must be serialisable to JSON as the settings are saved as a JSON file in
+values must be serializable to JSON as the settings are saved as a JSON file in
 the Workflow&#8217;s data directory.</p>
 <p>Very simple, yes, but secure? No. A better place to save the API key would be
 in the user&#8217;s Keychain. Let&#8217;s do that.</p>
@@ -1116,17 +1116,17 @@ that doesn&#8217;t work quite as you might expect in Alfred: it treats your Work
 as still running till the background process has finished, too, so it won&#8217;t call
 your Workflow with a new query till the update is done. Which is exactly what
 happens now and the behaviour we want to avoid.</p>
-<p>Fortunately, <strong>Alfred-Workflow</strong> provides the <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module
+<p>Fortunately, <strong>Alfred-Workflow</strong> provides the <tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt> module
 to solve this problem.</p>
-<p>Using the <a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
-and <a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> functions,
+<p>Using the <tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt>
+and <tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt> functions,
 we can easily run a script in the background while our Workflow remains
 responsive to Alfred&#8217;s queries.</p>
-<p><strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module is based on, and uses
+<p><strong>Alfred-Workflow</strong>&#8216;s <tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt> module is based on, and uses
 the same API as <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but it runs the command as a background
 process (consequently, it won&#8217;t return anything).
 So, our updater script will be called from our main Workflow script,
-but <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will run it as a background process. This way,
+but <tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt> will run it as a background process. This way,
 it will appear to exit immediately, so Alfred will keep on calling our Workflow
 every time the query changes.</p>
 <p>Meanwhile, our main Workflow script will check if the background updater is
@@ -1482,8 +1482,8 @@ update itself:</p>
 </pre></div>
 </td></tr></table></div>
 <p>First of all, we&#8217;ve changed the imports a bit. We no longer need <a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>,
-because we&#8217;ll use the functions <a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a>
-from <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></tt></a> to call <tt class="docutils literal"><span class="pre">update.py</span></tt> instead,
+because we&#8217;ll use the functions <tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt>
+from <tt class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></tt> to call <tt class="docutils literal"><span class="pre">update.py</span></tt> instead,
 and we&#8217;ve also imported another icon (<tt class="docutils literal"><span class="pre">ICON_INFO</span></tt>) to show our update message.</p>
 <p>As noted before, <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt> has now moved to <tt class="docutils literal"><span class="pre">update.py</span></tt>, as has
 the <tt class="docutils literal"><span class="pre">wrapper()</span></tt> function inside <tt class="docutils literal"><span class="pre">main()</span></tt>.</p>
@@ -1494,11 +1494,11 @@ but without saving the result.</p>
 <p>Most importantly, we&#8217;ve now expanded the update code to check if our cached data
 is fresh with <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></tt></a>
 and to run the <tt class="docutils literal"><span class="pre">update.py</span></tt> script via
-<a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
+<tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt>
 if not (<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></tt></a>
 returns the full path to a file in the Workflow&#8217;s root directory).</p>
 <p>Then we check if the update process is running via
-<a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> using the
+<tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt> using the
 name we assigned to the process (<tt class="docutils literal"><span class="pre">update</span></tt>), and notify the user via Alfred&#8217;s
 results if it is.</p>
 <p>Finally, we call <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>

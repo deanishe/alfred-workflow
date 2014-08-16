@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.background &mdash; Alfred-Workflow 1.7 documentation</title>
+    <title>workflow.background &mdash; Alfred-Workflow 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
     <link rel="prev" title="workflow.web" href="web.html" />
 
 <meta charset='utf-8'>
@@ -63,7 +63,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -137,117 +137,6 @@
       
   <div class="section" id="workflow-background">
 <h1>workflow.background<a class="headerlink" href="#workflow-background" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-workflow.background"></span><div class="versionadded">
-<p><span class="versionmodified">New in version 1.4.</span></p>
-</div>
-<p>Run scripts in the background.</p>
-<p>This module allows your workflow to execute longer-running processes, e.g.
-updating the data cache from a webservice, in the background, allowing
-the workflow to remain responsive in Alfred.</p>
-<p>For example, if your workflow requires up-to-date exchange rates, you might
-write a script <tt class="docutils literal"><span class="pre">update_exchange_rates.py</span></tt> to retrieve the data from the
-relevant webservice, and call it from your main workflow script:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
- <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
-
- <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="c"># Is cache over 6 hours old or non-existent?</span>
-     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
-         <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span>
-                           <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
-                            <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
-
-     <span class="c"># Add a notification if the script is running</span>
-     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
-
-     <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;exchage-rates&#39;</span><span class="p">)</span>
-
-     <span class="c"># Display (possibly stale) cache data</span>
-     <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
-         <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
-             <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
-
-     <span class="c"># Send results to Alfred</span>
-     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
-
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-     <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p>For a working example, see <a class="reference internal" href="tutorial2.html#tutorial2"><em>Part 2 of the tutorial</em></a>.</p>
-<dl class="function">
-<dt id="workflow.background.run_in_background">
-<tt class="descclassname">workflow.background.</tt><tt class="descname">run_in_background</tt><big>(</big><em>name</em>, <em>args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pickle arguments to cache file, then call this script again via
-<tt class="xref py py-meth docutils literal"><span class="pre">subprocess.call()</span></tt>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of task</li>
-<li><strong>args</strong> &#8211; arguments passed as first argument to <tt class="xref py py-meth docutils literal"><span class="pre">subprocess.call()</span></tt></li>
-<li><strong>*kwargs</strong> &#8211; <p>keyword arguments to <tt class="xref py py-meth docutils literal"><span class="pre">subprocess.call()</span></tt></p>
-</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">exit code of sub-process</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">int</span></tt></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="workflow.background.is_running">
-<tt class="descclassname">workflow.background.</tt><tt class="descname">is_running</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether task is running under <tt class="docutils literal"><span class="pre">name</span></tt></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of task</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if task with name <tt class="docutils literal"><span class="pre">name</span></tt> is running, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 
 

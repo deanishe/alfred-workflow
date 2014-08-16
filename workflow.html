@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.7 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -142,6 +142,70 @@
 <p>You probably only want to use the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> class directly.</p>
 <p>The <a class="reference internal" href="#workflow.workflow.Item" title="workflow.workflow.Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> and <a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> classes are supporting classes,
 which are meant to be accessed via <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> instances.</p>
+<p>Classes <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a>, <a class="reference internal" href="#workflow.workflow.JSONSerializer" title="workflow.workflow.JSONSerializer"><tt class="xref py py-class docutils literal"><span class="pre">JSONSerializer</span></tt></a>,
+<a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a> and <a class="reference internal" href="#workflow.workflow.PickleSerializer" title="workflow.workflow.PickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">PickleSerializer</span></tt></a> are part of
+the data/cache serialization features of <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>, accessible
+by the module-level <tt class="docutils literal"><span class="pre">manager</span></tt> object.</p>
+<p>To register a new serializer, do:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
+
+
+ <span class="k">class</span> <span class="nc">MySerializer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+     <span class="nd">@classmethod</span>
+     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">):</span>
+         <span class="c"># load data from file_obj</span>
+
+     <span class="nd">@classmethod</span>
+     <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">):</span>
+         <span class="c"># write data to file_obj</span>
+
+ <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">MySerializer</span><span class="p">())</span>
+</pre></div>
+</td></tr></table></div>
+<p>The name under which you register your serializer will be used as the
+file extension of any saved files.</p>
+<p>To set the default serializer for cached data,
+set <a class="reference internal" href="#workflow.workflow.Workflow.cache_serializer" title="workflow.workflow.Workflow.cache_serializer"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.cache_serializer</span></tt></a>, and to set the default
+serializer for stored data, set <a class="reference internal" href="#workflow.workflow.Workflow.data_serializer" title="workflow.workflow.Workflow.data_serializer"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.data_serializer</span></tt></a>.</p>
+<p>Cached data is stored in the Workflow&#8217;s cache directory, which is intended
+for temporary and easily regenerated data.</p>
+<p>Stored data is stored in the Workflow&#8217;s data directory, which is intended
+for data that is user-generated or not easily recreated.</p>
+<p>The default serializer for both cached and stored data is <tt class="docutils literal"><span class="pre">cpickle</span></tt>.</p>
+<p>For more information, please see <a class="reference internal" href="howto.html#persistent-data"><em>Persistent data</em></a>.</p>
+<dl class="class">
+<dt id="workflow.workflow.CPickleSerializer">
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">CPickleSerializer</tt><a class="headerlink" href="#workflow.workflow.CPickleSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<p>This is the default serializer and the best combination of speed and
+flexibility.</p>
+<dl class="classmethod">
+<dt id="workflow.workflow.CPickleSerializer.dump">
+<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.CPickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="workflow.workflow.CPickleSerializer.load">
+<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.CPickleSerializer.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="workflow.workflow.Item">
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Item" title="Permalink to this definition">¶</a></dt>
@@ -165,6 +229,26 @@ instance for this <a class="reference internal" href="#workflow.workflow.Item" t
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.workflow.JSONSerializer">
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">JSONSerializer</tt><a class="headerlink" href="#workflow.workflow.JSONSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Wrapper around <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">indent</span></tt> and <tt class="docutils literal"><span class="pre">encoding</span></tt>.</p>
+<p>Use this serializer if you need readable data files. JSON doesn&#8217;t
+support Python objects as well as <tt class="docutils literal"><span class="pre">cPickle</span></tt>/<tt class="docutils literal"><span class="pre">pickle</span></tt>, so be
+careful which data you try to serialize as JSON.</p>
+<dl class="classmethod">
+<dt id="workflow.workflow.JSONSerializer.dump">
+<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.JSONSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="workflow.workflow.JSONSerializer.load">
+<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.JSONSerializer.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -192,6 +276,119 @@ by the <a class="reference internal" href="#workflow.workflow.Workflow.save_pass
 <dd><p>Bases: <a class="reference internal" href="#workflow.workflow.KeychainError" title="workflow.workflow.KeychainError"><tt class="xref py py-class docutils literal"><span class="pre">workflow.workflow.KeychainError</span></tt></a></p>
 <p>Raised by method <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a> when <tt class="docutils literal"><span class="pre">account</span></tt>
 is unknown to the Keychain.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.workflow.PickleSerializer">
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PickleSerializer</tt><a class="headerlink" href="#workflow.workflow.PickleSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<p>Use this serializer if you need to add custom pickling.</p>
+<dl class="classmethod">
+<dt id="workflow.workflow.PickleSerializer.dump">
+<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.PickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="workflow.workflow.PickleSerializer.load">
+<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.PickleSerializer.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.workflow.SerializerManager">
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">SerializerManager</tt><a class="headerlink" href="#workflow.workflow.SerializerManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Contains registered serializers.</p>
+<p>A configured instance of this class is available at <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>.</p>
+<p>Use <a class="reference internal" href="#workflow.workflow.SerializerManager.register" title="workflow.workflow.SerializerManager.register"><tt class="xref py py-meth docutils literal"><span class="pre">register()</span></tt></a> to register new (or replace
+existing) serializers, which you can specify by name when calling
+<a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> data storage methods.</p>
+<p>A <tt class="docutils literal"><span class="pre">serializer</span></tt> object must have <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt> methods
+that work the same way as in the built-in <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and
+<a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> libraries, i.e.:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Reading</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+<span class="c"># Writing</span>
+<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>There are 3 pre-configured serializers: <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">pickle</span></tt>
+and <tt class="docutils literal"><span class="pre">cpickle</span></tt>. The default is <tt class="docutils literal"><span class="pre">cpickle</span></tt>, as it is very fast and
+can handle most Python objects.</p>
+<p>If you need custom pickling, use the <tt class="docutils literal"><span class="pre">pickle</span></tt> serializer instead.</p>
+<p>Be careful using <tt class="docutils literal"><span class="pre">json</span></tt>: JSON only supports a subset of Python&#8217;s
+native data types (e.g., no <tt class="docutils literal"><span class="pre">tuple</span></tt> or <a class="reference external" href="http://docs.python.org/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a>) and
+doesn&#8217;t, for example, support <tt class="docutils literal"><span class="pre">dict</span></tt> keys that aren&#8217;t strings.</p>
+<p>See the built-in <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>, <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>
+libraries for more information on the serialization formats.</p>
+<dl class="method">
+<dt id="workflow.workflow.SerializerManager.register">
+<tt class="descname">register</tt><big>(</big><em>name</em>, <em>serializer</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register <tt class="docutils literal"><span class="pre">serializer</span></tt> object under <tt class="docutils literal"><span class="pre">name</span></tt>.</p>
+<p>Raises <tt class="xref py py-class docutils literal"><span class="pre">AttributeError</span></tt> if <tt class="docutils literal"><span class="pre">serializer</span></tt> in invalid.</p>
+<p><strong>Note:</strong> <tt class="docutils literal"><span class="pre">name</span></tt> will be used as the file extension of the
+saved files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name to register <tt class="docutils literal"><span class="pre">serializer</span></tt> under</li>
+<li><strong>serilializer</strong> &#8211; object with <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt>
+methods</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.SerializerManager.serializer">
+<tt class="descname">serializer</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.serializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return serializer object for <tt class="docutils literal"><span class="pre">name</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt> if no such
+serializer is registered</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name of serializer to return</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow.SerializerManager.serializers">
+<tt class="descname">serializers</tt><a class="headerlink" href="#workflow.workflow.SerializerManager.serializers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return names of registered serializers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.SerializerManager.unregister">
+<tt class="descname">unregister</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove registered serializer with <tt class="docutils literal"><span class="pre">name</span></tt></p>
+<p>Raises a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> if there is no such registered
+serializer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name of serializer to remove</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -424,6 +621,25 @@ found, perform the corresponding actions and exit the workflow.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.cache_serializer">
+<tt class="descname">cache_serializer</tt><a class="headerlink" href="#workflow.workflow.Workflow.cache_serializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of default cache serializer.</p>
+<p>This serializer is used by <a class="reference internal" href="#workflow.workflow.Workflow.cache_data" title="workflow.workflow.Workflow.cache_data"><tt class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></tt></a> and
+<a class="reference internal" href="#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a></p>
+<p>See <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">serializer name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data">
 <tt class="descname">cached_data</tt><big>(</big><em>name</em>, <em>data_func=None</em>, <em>max_age=60</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.cached_data" title="Permalink to this definition">¶</a></dt>
@@ -536,9 +752,34 @@ cache doesn&#8217;t exist</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="workflow.workflow.Workflow.clear_data">
+<tt class="descname">clear_data</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all files in workflow data directory.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="workflow.workflow.Workflow.clear_settings">
 <tt class="descname">clear_settings</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete settings file.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.data_serializer">
+<tt class="descname">data_serializer</tt><a class="headerlink" href="#workflow.workflow.Workflow.data_serializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of default data serializer.</p>
+<p>This serializer is used by <a class="reference internal" href="#workflow.workflow.Workflow.store_data" title="workflow.workflow.Workflow.store_data"><tt class="xref py py-meth docutils literal"><span class="pre">store_data()</span></tt></a> and
+<a class="reference internal" href="#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a></p>
+<p>See <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">serializer name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -633,7 +874,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x107aa0848&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10ea69b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -853,6 +1094,12 @@ a log file. Use <cite>~Workflow.openlog</cite> to open the log file in Console.<
 </dd></dl>
 
 <dl class="method">
+<dt id="workflow.workflow.Workflow.reset">
+<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete settings, cache and data</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="workflow.workflow.Workflow.run">
 <tt class="descname">run</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call <cite>func</cite> to run your workflow</p>
@@ -929,6 +1176,46 @@ with the <tt class="docutils literal"><span class="pre">default_settings</span><
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">path to <tt class="docutils literal"><span class="pre">settings.json</span></tt> file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.Workflow.store_data">
+<tt class="descname">store_data</tt><big>(</big><em>name</em>, <em>data</em>, <em>serializer=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.store_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data to data directory.</p>
+<p>If <tt class="docutils literal"><span class="pre">data</span></tt> is <tt class="docutils literal"><span class="pre">None</span></tt>, the datastore will be deleted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of datastore</li>
+<li><strong>data</strong> (artibrary Python objects. <strong>Note:</strong> some serializers
+can only handled certain types of data.) &#8211; object(s) to store</li>
+<li><strong>serializer</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of serializer to use.
+See <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> for more information.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">data in datastore or <tt class="docutils literal"><span class="pre">None</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.Workflow.stored_data">
+<tt class="descname">stored_data</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.stored_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve data from data directory. Returns <tt class="docutils literal"><span class="pre">None</span></tt> if there
+is no data stored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of datastore</td>
 </tr>
 </tbody>
 </table>

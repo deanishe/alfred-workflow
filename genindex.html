@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; Alfred-Workflow 1.7 documentation</title>
+    <title>Index &mdash; Alfred-Workflow 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
 
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -63,7 +63,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -195,6 +195,10 @@
   </dt>
 
       
+  <dt><a href="workflow.html#workflow.workflow.Workflow.cache_serializer">cache_serializer (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
   <dt><a href="workflow.html#workflow.workflow.Workflow.cached_data">cached_data() (workflow.workflow.Workflow method)</a>
   </dt>
 
@@ -221,11 +225,19 @@
   </dt>
 
       
+  <dt><a href="workflow.html#workflow.workflow.Workflow.clear_data">clear_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="workflow.html#workflow.workflow.Workflow.clear_settings">clear_settings() (workflow.workflow.Workflow method)</a>
   </dt>
 
       
   <dt><a href="web.html#workflow.web.Response.content">content (workflow.web.Response attribute)</a>
+  </dt>
+
+      
+  <dt><a href="workflow.html#workflow.workflow.CPickleSerializer">CPickleSerializer (class in workflow.workflow)</a>
   </dt>
 
   </dl></td>
@@ -234,6 +246,10 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="workflow.html#workflow.workflow.Workflow.data_serializer">data_serializer (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
       
   <dt><a href="workflow.html#workflow.workflow.Workflow.datadir">datadir (workflow.workflow.Workflow attribute)</a>
   </dt>
@@ -252,6 +268,20 @@
   <dt><a href="workflow.html#workflow.workflow.Workflow.delete_password">delete_password() (workflow.workflow.Workflow method)</a>
   </dt>
 
+      
+  <dt><a href="workflow.html#workflow.workflow.CPickleSerializer.dump">dump() (workflow.workflow.CPickleSerializer class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="workflow.html#workflow.workflow.JSONSerializer.dump">(workflow.workflow.JSONSerializer class method)</a>
+  </dt>
+
+        
+  <dt><a href="workflow.html#workflow.workflow.PickleSerializer.dump">(workflow.workflow.PickleSerializer class method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -311,19 +341,15 @@
   </dt>
 
       
-  <dt><a href="background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
-  </dt>
-
-      
   <dt><a href="workflow.html#workflow.workflow.isascii">isascii() (in module workflow.workflow)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="workflow.html#workflow.workflow.Item">Item (class in workflow.workflow)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="workflow.html#workflow.workflow.Workflow.item_class">item_class (workflow.workflow.Workflow attribute)</a>
   </dt>
@@ -343,6 +369,12 @@
   </dt>
 
   </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="workflow.html#workflow.workflow.JSONSerializer">JSONSerializer (class in workflow.workflow)</a>
+  </dt>
+
+  </dl></td>
 </tr></table>
 
 <h2 id="K">K</h2>
@@ -358,6 +390,20 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="workflow.html#workflow.workflow.CPickleSerializer.load">load() (workflow.workflow.CPickleSerializer class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="workflow.html#workflow.workflow.JSONSerializer.load">(workflow.workflow.JSONSerializer class method)</a>
+  </dt>
+
+        
+  <dt><a href="workflow.html#workflow.workflow.PickleSerializer.load">(workflow.workflow.PickleSerializer class method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="workflow.html#workflow.workflow.Workflow.logfile">logfile (workflow.workflow.Workflow attribute)</a>
   </dt>
@@ -429,6 +475,10 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="workflow.html#workflow.workflow.PickleSerializer">PickleSerializer (class in workflow.workflow)</a>
+  </dt>
+
+      
   <dt><a href="web.html#workflow.web.post">post() (in module workflow.web)</a>
   </dt>
 
@@ -447,21 +497,25 @@
   </dt>
 
       
+  <dt><a href="workflow.html#workflow.workflow.SerializerManager.register">register() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+      
   <dt><a href="web.html#workflow.web.request">request() (in module workflow.web)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="workflow.html#workflow.workflow.Workflow.reset">reset() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="web.html#workflow.web.Response">Response (class in workflow.web)</a>
   </dt>
 
       
   <dt><a href="workflow.html#workflow.workflow.Workflow.run">run() (workflow.workflow.Workflow method)</a>
-  </dt>
-
-      
-  <dt><a href="background.html#workflow.background.run_in_background">run_in_background() (in module workflow.background)</a>
   </dt>
 
   </dl></td>
@@ -476,6 +530,18 @@
 
       
   <dt><a href="workflow.html#workflow.workflow.Workflow.send_feedback">send_feedback() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="workflow.html#workflow.workflow.SerializerManager.serializer">serializer() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+      
+  <dt><a href="workflow.html#workflow.workflow.SerializerManager">SerializerManager (class in workflow.workflow)</a>
+  </dt>
+
+      
+  <dt><a href="workflow.html#workflow.workflow.SerializerManager.serializers">serializers (workflow.workflow.SerializerManager attribute)</a>
   </dt>
 
       
@@ -501,6 +567,14 @@
   </dt>
 
       
+  <dt><a href="workflow.html#workflow.workflow.Workflow.store_data">store_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="workflow.html#workflow.workflow.Workflow.stored_data">stored_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="web.html#workflow.web.str_dict">str_dict() (in module workflow.web)</a>
   </dt>
 
@@ -521,6 +595,12 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="workflow.html#workflow.workflow.SerializerManager.unregister">unregister() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="workflow.html#workflow.workflow.Settings.update">update() (workflow.workflow.Settings method)</a>
   </dt>
 
@@ -536,10 +616,6 @@
 
       
   <dt><a href="index.html#module-workflow">workflow (module)</a>
-  </dt>
-
-      
-  <dt><a href="background.html#module-workflow.background">workflow.background (module)</a>
   </dt>
 
       

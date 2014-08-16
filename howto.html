@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Howto &mdash; Alfred-Workflow 1.7 documentation</title>
+    <title>Howto &mdash; Alfred-Workflow 1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7',
+        VERSION:     '1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.7 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
     <link rel="prev" title="Writing A Pinboard Workflow, Part 2" href="tutorial2.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -110,9 +110,10 @@
 <li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
 <li><a class="reference internal" href="#including-3rd-party-libraries">Including 3rd party libraries</a></li>
 <li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
+<li><a class="reference internal" href="#caching-data">Caching data</a></li>
+<li><a class="reference internal" href="#storing-data">Storing data</a></li>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
-<li><a class="reference internal" href="#caching-data">Caching data</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
@@ -126,6 +127,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+<li><a class="reference internal" href="#serialization">Serialization</a></li>
 </ul>
 </li>
 </ul>
@@ -161,9 +163,10 @@
 <li><a class="reference internal" href="#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
 <li><a class="reference internal" href="#including-3rd-party-libraries">Including 3rd party libraries</a></li>
 <li><a class="reference internal" href="#persistent-data">Persistent data</a><ul>
+<li><a class="reference internal" href="#caching-data">Caching data</a></li>
+<li><a class="reference internal" href="#storing-data">Storing data</a></li>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#keychain-access">Keychain access</a></li>
-<li><a class="reference internal" href="#caching-data">Caching data</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#searching-filtering-data">Searching/filtering data</a><ul>
@@ -177,6 +180,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+<li><a class="reference internal" href="#serialization">Serialization</a></li>
 </ul>
 </li>
 </ul>
@@ -319,7 +323,7 @@ with the <tt class="docutils literal"><span class="pre">libraries</span></tt> ar
 </td></tr></table></div>
 </div>
 <div class="section" id="persistent-data">
-<h2>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h2>
 <p>Alfred provides special data and cache directories for each Workflow (in
 <tt class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></tt> and <tt class="docutils literal"><span class="pre">~/Library/Caches</span></tt> respectively).
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides the following
@@ -330,7 +334,15 @@ attributes/methods to make it easier to access these directories:</p>
 <li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.datafile" title="workflow.workflow.Workflow.datafile"><tt class="xref py py-meth docutils literal"><span class="pre">datafile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under the data directory.</li>
 <li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cachefile" title="workflow.workflow.Workflow.cachefile"><tt class="xref py py-meth docutils literal"><span class="pre">cachefile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under the cache directory.</li>
 </ul>
-<p>There are also corresponding features related to the root directory of your Workflow
+<p>The cache directory may be deleted during system maintenance, and is thus only
+suitable for temporary data or data that is easily recreated.
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>&#8216;s cache methods reflect this,
+and make it easy to replace cached data that are too old.
+See <a class="reference internal" href="#caching-data"><em>Caching data</em></a> for more details.</p>
+<p>The data directory is intended for more permanent, user-generated data, or data
+that cannot be otherwise easily recreated. See <a class="reference internal" href="#storing-data"><em>Storing data</em></a>
+for details.</p>
+<p>There are also simliar methods related to the root directory of your Workflow
 (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> and your code are):</p>
 <ul class="simple">
 <li><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.workflowdir" title="workflow.workflow.Workflow.workflowdir"><tt class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></tt></a> — The full path to your Workflow&#8217;s root directory.</li>
@@ -340,21 +352,86 @@ attributes/methods to make it easier to access these directories:</p>
 may help you with development/debugging.</p>
 <p>In addition, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
 convenient interface for storing persistent settings with
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.</p>
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.
+See <a class="reference internal" href="tutorial2.html#settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
+information on storing settings and sensitive data.</p>
+<div class="section" id="caching-data">
+<span id="id2"></span><h3>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides a few methods to simplify
+caching data that is slow to retrieve or expensive to generate. The main method
+is <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>, which
+takes a name under which the data should be cached, a callable to retrieve
+the data if they aren&#8217;t in the cache (or are too old), and a maximum age in seconds
+for the cached data:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span>
+
+ <span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+     <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://example.com/api/stuff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>To retrieve data only if they are in the cache, call with <tt class="docutils literal"><span class="pre">None</span></tt> as the
+data-retrieval function (which is the default):</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>Note</strong>: This will return <tt class="docutils literal"><span class="pre">None</span></tt> if there are no corresponding data in the
+cache.</p>
+<p>This is useful if you want to update your cache in the background, so it doesn&#8217;t
+impact your Workflow&#8217;s responsiveness in Alfred. (See
+<a class="reference internal" href="tutorial2.html#background-updates"><em>the tutorial</em></a> for an example of how to run an update
+script in the background.)</p>
+<p>Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
+</div>
+<div class="section" id="storing-data">
+<span id="id3"></span><h3>Storing data<a class="headerlink" href="#storing-data" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides two methods to store
+and retrieve permanent data:
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.store_data" title="workflow.workflow.Workflow.store_data"><tt class="xref py py-meth docutils literal"><span class="pre">store_data()</span></tt></a> and
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a>.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="c"># data will be `None` if there is nothing stored under `name`</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">stored_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>These methods do not support the data expiry features of the cached data methods,
+but you can specify your own serializer for each datastore, making it simple
+to store data in, e.g., JSON or YAML format.</p>
+<p>You should use these methods (and not the data caching ones) if the data you
+are saving should not be deleted as part of system maintenance.</p>
+<p>If you want to specify your own file format/serializer, please see
+<a class="reference internal" href="#serialization"><em>Serialization</em></a> for details.</p>
+</div>
 <div class="section" id="settings">
-<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a> is a subclass
 of <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that automatically saves its contents to the <tt class="docutils literal"><span class="pre">settings.json</span></tt>
 file in your Workflow&#8217;s data directory when it is changed.</p>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> can be used just like a normal <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>
-with the caveat that all keys and values must be serialisable to JSON.</p>
+with the caveat that all keys and values must be serializable to JSON.</p>
 <p>If you need to store arbitrary data, you can use the <a class="reference internal" href="#caching-data"><em>cached data API</em></a>.</p>
 <p>If you need to store data securely (such as passwords and API keys),
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides simple access to
 the OS X Keychain.</p>
 </div>
 <div class="section" id="keychain-access">
-<h3>Keychain access<a class="headerlink" href="#keychain-access" title="Permalink to this headline">¶</a></h3>
+<span id="keychain"></span><h3>Keychain access<a class="headerlink" href="#keychain-access" title="Permalink to this headline">¶</a></h3>
 <p>Methods <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password(account,</span> <span class="pre">password)</span></tt></a>,
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password(account)</span></tt></a>
 and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.delete_password(account)</span></tt></a>
@@ -393,42 +470,6 @@ methods.</p>
 </pre></div>
 </td></tr></table></div>
 <p>See <a class="reference internal" href="tutorial2.html#secure-settings"><em>the relevant part of the tutorial</em></a> for a full example.</p>
-</div>
-<div class="section" id="caching-data">
-<span id="id1"></span><h3>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides a few methods to simplify
-caching data that is slow to retrieve or expensive to generate. The main method
-is <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>, which
-takes a name under which the data should be cached, a callable to retrieve
-the data if they aren&#8217;t in the cache (or are too old), and a maximum age in seconds
-for the cached data:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span>
-
- <span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
-     <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://example.com/api/stuff&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-
- <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
- <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p>To only retrieve data if they are in the cache, call with <tt class="docutils literal"><span class="pre">None</span></tt> as the
-data-retrieval function (which is the default):</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p><strong>Note</strong>: This will return <tt class="docutils literal"><span class="pre">None</span></tt> if there are no corresponding data in the
-cache.</p>
-<p>This is useful if you want to update your cache in the background, so it doesn&#8217;t
-impact your Workflow&#8217;s responsiveness in Alfred. (See
-<a class="reference internal" href="tutorial2.html#background-updates"><em>the tutorial</em></a> for an example of how to run an update
-script in the background.)</p>
-<p>Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
 </div>
 </div>
 <div class="section" id="searching-filtering-data">
@@ -510,7 +551,7 @@ each item:</p>
 </pre></div>
 </div>
 <div class="section" id="restricting-results">
-<span id="id2"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
+<span id="id5"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
 <p>Chances are, you would not want <tt class="docutils literal"><span class="pre">bot</span></tt> to match <tt class="docutils literal"><span class="pre">Bob</span> <span class="pre">Smith</span> <span class="pre">A</span> <span class="pre">damn</span> <span class="pre">fine</span> <span class="pre">afternoon</span></tt>
 at all, or indeed any of the other books. Indeed, they have very low scores:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -719,7 +760,7 @@ be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreS
 </div>
 </div>
 <div class="section" id="magic-arguments">
-<span id="id3"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as
@@ -745,7 +786,9 @@ are parsed).</p>
 <li><tt class="docutils literal"><span class="pre">workflow:opendata</span></tt> — Open the Workflow&#8217;s data directory.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:openworkflow</span></tt> — Open the Workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</li>
 <li><tt class="docutils literal"><span class="pre">workflow:openterm</span></tt> — Open a Terminal window in the Workflow&#8217;s root directory.</li>
-<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete any data cached by the Workflow.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:reset</span></tt> — Delete the Workflow&#8217;s settings, cache and saved data.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete the Workflow&#8217;s cache.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> — Delete the Workflow&#8217;s saved data.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — Delete the Workflow&#8217;s settings file (which contains the data stored using <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>).</li>
 <li><tt class="docutils literal"><span class="pre">workflow:foldingon</span></tt> — Force diacritic folding in search keys (e.g. convert <em>ü</em> to <em>ue</em>)</li>
 <li><tt class="docutils literal"><span class="pre">workflow:foldingoff</span></tt> — Never fold diacritics in search keys</li>
@@ -759,6 +802,64 @@ does not correspond with a user&#8217;s usage pattern.</p>
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a>, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>
 and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_settings" title="workflow.workflow.Workflow.clear_settings"><tt class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></tt></a> methods directly, perhaps
 assigning them to your own Keywords.</p>
+</div>
+<div class="section" id="serialization">
+<span id="id7"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<p>By default, both cache and data files are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This
+provides a great compromise in terms of speed and ability to store arbitrary
+objects.</p>
+<p>When it comes to cache data, it is strongly recommended to stick with
+the default. <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is very fast and fully supports standard Python
+data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>, <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">set</span></tt> etc.).</p>
+<p>If you need the ability to customise caching, you can change the default
+cache serialization format to <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the case of stored data, you are free to specify either a global default
+serializer of one for each individual datastore:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># Use `pickle` as the global default serializer</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+
+ <span class="c"># Use the JSON serializer only for these data</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>This is primarily so you can create files that are human-readable or useable
+by non-Python programs.</p>
+<p>By default, <tt class="docutils literal"><span class="pre">cpickle</span></tt>, <tt class="docutils literal"><span class="pre">pickle</span></tt> and <tt class="docutils literal"><span class="pre">json</span></tt> serializers are available.</p>
+<p>You can also register your own custom serializers using the
+<a class="reference internal" href="workflow.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> interface.</p>
+<p>To register a new serializer, call the <tt class="docutils literal"><span class="pre">register</span></tt> method of the <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>
+object:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
+
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;format&#39;</span><span class="p">,</span> <span class="n">object_with_load_and_dump_methods</span><span class="p">)</span>
+
+ <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;format&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A serializer <em>must</em> conform to this interface (like <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
+ <span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>Note:</strong> The name you use for your serializer will be the file extension
+of the stored file.</p>
+<p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
+automatically determine the serialization of the stored data, provided the
+relevant serializer is registered. If it isn&#8217;t, an exception will be raised.</p>
 </div>
 </div>
 

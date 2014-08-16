@@ -540,7 +540,7 @@ class SerializerManager(object):
 
         :param name: Name to register ``serializer`` under
         :type name: ``unicode`` or ``str``
-        :param serilializer: object with ``load()`` and ``dump()``
+        :param serializer: object with ``load()`` and ``dump()``
             methods
 
         """
@@ -744,7 +744,7 @@ class Settings(dict):
         elif defaults:
             for key, val in defaults.items():
                 self[key] = val
-            self._save()  # save default settings
+            self.save()  # save default settings
 
     def _load(self):
         """Load cached settings from JSON file `self._filepath`"""
@@ -755,8 +755,13 @@ class Settings(dict):
                 self[key] = value
         self._nosave = False
 
-    def _save(self):
-        """Save settings to JSON file `self._filepath`"""
+    def save(self):
+        """Save settings to JSON file specified in ``self._filepath``
+
+        If you're using this class via :attr:`Workflow.settings`, which
+        you probably are, ``self._filepath`` will be ``settings.json``
+        in your workflow's data directory (see :attr:`~Workflow.datadir`).
+        """
         if self._nosave:
             return
         data = {}
@@ -768,17 +773,17 @@ class Settings(dict):
     # dict methods
     def __setitem__(self, key, value):
         super(Settings, self).__setitem__(key, value)
-        self._save()
+        self.save()
 
     def update(self, *args, **kwargs):
         """Override :class:`dict` method to save on update."""
         super(Settings, self).update(*args, **kwargs)
-        self._save()
+        self.save()
 
     def setdefault(self, key, value=None):
         """Override :class:`dict` method to save on update."""
         ret = super(Settings, self).setdefault(key, value)
-        self._save()
+        self.save()
         return ret
 
 
@@ -1030,6 +1035,11 @@ class Workflow(object):
     def cachedir(self):
         """Path to workflow's cache directory.
 
+        The cache directory is a subdirectory of Alfred's own cache directory in
+        ``~/Library/Caches``. The full path is:
+
+        ``~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/<bundle id>``
+
         :returns: full path to workflow's cache directory
         :rtype: ``unicode``
 
@@ -1049,6 +1059,11 @@ class Workflow(object):
     @property
     def datadir(self):
         """Path to workflow's data directory.
+
+        The data directory is a subdirectory of Alfred's own data directory in
+        ``~/Library/Application Support``. The full path is:
+
+        ``~/Library/Application Support/Alfred 2/Workflow Data/<bundle id>``
 
         :returns: full path to workflow data directory
         :rtype: ``unicode``
@@ -1088,7 +1103,8 @@ class Workflow(object):
         return self._workflowdir
 
     def cachefile(self, filename):
-        """Return full path to ``filename`` within workflow's cache dir.
+        """Return full path to ``filename`` within your workflow's
+        :attr:`cache directory <Workflow.cachedir>`.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -1100,7 +1116,8 @@ class Workflow(object):
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
-        """Return full path to ``filename`` within workflow's data dir.
+        """Return full path to ``filename`` within your workflow's
+        :attr:`data directory <Workflow.datadir>`.
 
         :param filename: basename of file
         :type filename: ``unicode``

@@ -20,12 +20,14 @@ There are convenience methods for:
 
 - Parsing script arguments.
 - Text decoding/normalisation.
-- Caching data and settings.
-- Secure storage (and sync) of passwords (using OS X Keychain).
+- Storing data and settings.
+- Caching data from, e.g., web services with a simple API for updating expired data.
+- Securely storing (and syncing) passwords using OS X Keychain.
 - Generating XML output for Alfred.
 - Including external libraries (adding directories to ``sys.path``).
-- Filtering results using an Alfred-like algorithm.
+- Filtering results using an Alfred-like, fuzzy search algorithm.
 - Generating log output for debugging.
+- Running background processes to keep your workflow responsive.
 - Capturing errors, so the workflow doesn't fail silently.
 
 Quick Example
@@ -108,7 +110,7 @@ Or like this::
 
 """
 
-__version__ = '1.8'
+__version__ = '1.8.1'
 
 
 from .workflow import Workflow, PasswordNotFound, KeychainError

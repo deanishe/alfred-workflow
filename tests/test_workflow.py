@@ -337,55 +337,6 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.wf.name,
                          self.env_data['alfred_workflow_name'])
 
-    def test_auto_update(self):
-        """Auto update capabilities"""
-        wf = Workflow()
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'fniephausalfred-pocket',
-            'auto_update_version': 'v0.0',
-        }, autoupdate=False)
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'deanishe/alfred-workflow',
-            'auto_update_version': 'v0.0',
-        }, autoupdate=False)
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'django/django',
-            'auto_update_version': 'v0.0',
-        }, autoupdate=False)
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'SWTI2014/AutoTDD',
-            'auto_update_version': 'v0.0',
-        }, autoupdate=False)
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'fniephaus/alfred-pocket',
-            'auto_update_version': 'v999.9',
-            'auto_update_frequency': 14,
-        })
-        self.assertFalse(wf.auto_update())
-        wf.reset()
-
-        wf = Workflow(default_settings={
-            'auto_update_github': 'fniephaus/alfred-pocket',
-            'auto_update_version': 'v0.0',
-        }, autoupdate=False)
-        self.assertTrue(wf.auto_update())
-        self.assertFalse(wf.auto_update())
-
     def test_args(self):
         """ARGV"""
         args = ['arg1', 'arg2', 'füntíme']

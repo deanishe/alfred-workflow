@@ -122,12 +122,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#serialization">Serialization</a></li>
 <li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
 <li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-<li><a class="reference internal" href="#serialization">Serialization</a></li>
 </ul>
 </li>
 </ul>
@@ -175,12 +175,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#serialization">Serialization</a></li>
 <li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
 <li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-<li><a class="reference internal" href="#serialization">Serialization</a></li>
 </ul>
 </li>
 </ul>
@@ -353,7 +353,7 @@ may help you with development/debugging.</p>
 <p>In addition, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
 convenient interface for storing persistent settings with
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.
-See <a class="reference internal" href="tutorial2.html#settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
+See <a class="reference internal" href="#settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
 information on storing settings and sensitive data.</p>
 <div class="section" id="caching-data">
 <span id="id2"></span><h3>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h3>
@@ -649,6 +649,68 @@ passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt
 or to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation and then
 normalised.</p>
 </div>
+<div class="section" id="serialization">
+<span id="id6"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<p>By default, both cache and data files are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This
+provides a great compromise in terms of speed and ability to store arbitrary
+objects.</p>
+<p>When it comes to cache data, it is strongly recommended to stick with
+the default. <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is very fast and fully supports standard Python
+data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>, <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">set</span></tt> etc.).</p>
+<p>If you need the ability to customise caching, you can change the default
+cache serialization format to <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the case of stored data, you are free to specify either a global default
+serializer of one for each individual datastore:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="c"># Use `pickle` as the global default serializer</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+
+ <span class="c"># Use the JSON serializer only for these data</span>
+ <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>This is primarily so you can create files that are human-readable or useable
+by non-Python programs.</p>
+<p>By default, <tt class="docutils literal"><span class="pre">cpickle</span></tt>, <tt class="docutils literal"><span class="pre">pickle</span></tt> and <tt class="docutils literal"><span class="pre">json</span></tt> serializers are available.</p>
+<p>You can also register your own custom serializers using the
+<a class="reference internal" href="workflow.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> interface.</p>
+<p>To register a new serializer, call the <tt class="docutils literal"><span class="pre">register</span></tt> method of the <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>
+object:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
+
+ <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+ <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">object_with_load_and_dump_methods</span><span class="p">)</span>
+
+ <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;myformat&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A serializer <em>must</em> conform to this interface (like <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
+ <span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>Note:</strong> The name you use for your serializer will be the file extension
+of the stored file.</p>
+<p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
+automatically determine the serialization of the stored data, provided the
+relevant serializer is registered. If it isn&#8217;t, an exception will be raised.</p>
+</div>
 <div class="section" id="built-in-icons">
 <h2>Built-in icons<a class="headerlink" href="#built-in-icons" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a> module provides access to a number of default
@@ -760,7 +822,7 @@ be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreS
 </div>
 </div>
 <div class="section" id="magic-arguments">
-<span id="id6"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as
@@ -802,64 +864,6 @@ does not correspond with a user&#8217;s usage pattern.</p>
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a>, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>
 and <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.clear_settings" title="workflow.workflow.Workflow.clear_settings"><tt class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></tt></a> methods directly, perhaps
 assigning them to your own Keywords.</p>
-</div>
-<div class="section" id="serialization">
-<span id="id7"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
-<p>By default, both cache and data files are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This
-provides a great compromise in terms of speed and ability to store arbitrary
-objects.</p>
-<p>When it comes to cache data, it is strongly recommended to stick with
-the default. <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is very fast and fully supports standard Python
-data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>, <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">set</span></tt> etc.).</p>
-<p>If you need the ability to customise caching, you can change the default
-cache serialization format to <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
-</pre></div>
-</td></tr></table></div>
-<p>In the case of stored data, you are free to specify either a global default
-serializer of one for each individual datastore:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># Use `pickle` as the global default serializer</span>
- <span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
-
- <span class="c"># Use the JSON serializer only for these data</span>
- <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p>This is primarily so you can create files that are human-readable or useable
-by non-Python programs.</p>
-<p>By default, <tt class="docutils literal"><span class="pre">cpickle</span></tt>, <tt class="docutils literal"><span class="pre">pickle</span></tt> and <tt class="docutils literal"><span class="pre">json</span></tt> serializers are available.</p>
-<p>You can also register your own custom serializers using the
-<a class="reference internal" href="workflow.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> interface.</p>
-<p>To register a new serializer, call the <tt class="docutils literal"><span class="pre">register</span></tt> method of the <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>
-object:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
-
- <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
- <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;format&#39;</span><span class="p">,</span> <span class="n">object_with_load_and_dump_methods</span><span class="p">)</span>
-
- <span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;format&#39;</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p>A serializer <em>must</em> conform to this interface (like <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
- <span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p><strong>Note:</strong> The name you use for your serializer will be the file extension
-of the stored file.</p>
-<p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
-automatically determine the serialization of the stored data, provided the
-relevant serializer is registered. If it isn&#8217;t, an exception will be raised.</p>
 </div>
 </div>
 

@@ -3,6 +3,8 @@
 
 A helper library in Python for authors of workflows for [Alfred 2](http://www.alfredapp.com/).
 
+![](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master "Travis CI status")
+
 ## Features ##
 
 - Catches and logs workflow errors for easier development and support

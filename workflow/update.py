@@ -58,12 +58,12 @@ RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
 
 def auto_update(config, force=False):
     try:
-        wf.settings['auto_update_github_slug'] = config['github_slug']
-        wf.settings['auto_update_version'] = config['version']
+        wf.settings['__update_github_slug'] = config['github_slug']
+        wf.settings['__update_version'] = config['version']
     except KeyError:
         raise ValueError('Auto update settings incorrect')
     if 'frequency' in config:
-        wf.settings['auto_update_frequency'] = config['frequency']
+        wf.settings['__update_frequency'] = config['frequency']
     if force:
         wf.cache_data('auto_update', None)
     if not is_running('auto_update'):
@@ -84,7 +84,7 @@ def _download_workflow(github_url):
 def _frequency():
     frequency = None
     if 'auto_update_frequency' in wf.settings:
-        frequency = wf.settings['auto_update_frequency']
+        frequency = wf.settings['__update_frequency']
     if isinstance(frequency, int):
         return frequency * 86400
     else:
@@ -115,8 +115,8 @@ def _get_latest_release(release_list):
         raise RuntimeError('No release found')
     return release_list[0]
 def main(wf):
-    github_slug = wf.settings['auto_update_github_slug']
-    current_version = wf.settings['auto_update_version']
+    github_slug = wf.settings['__update_github_slug']
+    current_version = wf.settings['__update_version']
     if wf.cached_data_fresh('auto_update', _frequency()):
         return False
     release_list = get(_get_api_url(github_slug)).json()

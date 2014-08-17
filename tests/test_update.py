@@ -36,9 +36,9 @@ class UpdateTests(unittest.TestCase):
             'version': version,  # Version number
             'frequency': frequency, # Optional
         }, force=True)
-        self.assertEquals(self.wf.settings['auto_update_github_slug'], slug)
-        self.assertEquals(self.wf.settings['auto_update_version'], version)
-        self.assertEquals(self.wf.settings['auto_update_frequency'], frequency)
+        self.assertEquals(self.wf.settings['__update_github_slug'], slug)
+        self.assertEquals(self.wf.settings['__update_version'], version)
+        self.assertEquals(self.wf.settings['__update_frequency'], frequency)
 
     def test_download_workflow(self):
         """Update: Bad attachment"""
@@ -46,9 +46,9 @@ class UpdateTests(unittest.TestCase):
 
     def test_frequency(self):
         """Update: Frequency"""
-        update.wf.settings['auto_update_frequency'] = None
+        update.wf.settings['__update_frequency'] = None
         self.assertEquals(update._frequency(), update.DEFAULT_FREQUENCY * 60 * 60 * 24)
-        update.wf.settings['auto_update_frequency'] = 14
+        update.wf.settings['__update_frequency'] = 14
         self.assertEquals(update._frequency(), 14 * 60 * 60 * 24)
 
     def test_get_api_url(self):
@@ -89,10 +89,10 @@ class UpdateTests(unittest.TestCase):
 
     def test_main(self):
         """Update: Main function"""
-        self.wf.settings['auto_update_version'] = 'v999.9'
+        self.wf.settings['__update_version'] = 'v999.9'
         self.assertFalse(update.main(self.wf))
         self.wf.clear_cache()
-        self.wf.settings['auto_update_version'] = 'v0.0'
+        self.wf.settings['__update_version'] = 'v0.0'
         self.assertTrue(update.main(self.wf))
         self.assertFalse(update.main(self.wf))
 

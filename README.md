@@ -194,12 +194,14 @@ These are some of the Alfred workflows that use this library.
 - [Convert](http://www.packal.org/workflow/convert) by [deanishe](http://www.packal.org/users/deanishe). Convert between different units. No Internet connection required.
 - [Date Calculator](http://www.packal.org/workflow/date-calculator) by [MuppetGate](http://www.packal.org/users/MuppetGate). A basic date calculator.
 - [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by [frankspin](http://www.packal.org/users/frankspin). Check the status of your Digital Ocean droplets.
+- [Display Brightness](http://www.packal.org/workflow/display-brightness) by [fniephaus](http://www.packal.org/users/fniephaus). Adjust your display's brightness with Alfred.
 - [Dropbox Client for Alfred](http://www.packal.org/workflow/dropbox-client-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Access multiple Dropbox accounts with Alfred.
 - [Duden Search](http://www.packal.org/workflow/duden-search) by [deanishe](http://www.packal.org/users/deanishe). Search duden.de German dictionary (with auto-suggest).
 - [Fabric for Alfred](http://www.packal.org/workflow/fabric-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Quickly execute Fabric tasks.
 - [Fuzzy Folders](http://www.packal.org/workflow/fuzzy-folders) by [deanishe](http://www.packal.org/users/deanishe). Fuzzy search across folder subtrees.
 - [Git Repos](http://www.packal.org/workflow/git-repos) by [deanishe](http://www.packal.org/users/deanishe). Browse, search and open Git repositories from within Alfred.
 - [Glosbe Translation](http://www.packal.org/workflow/glosbe-translation) by [deanishe](http://www.packal.org/users/deanishe). Translate text using Glosbe.com.
+- [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Easily control Homebrew with Alfred.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks) by [nkeim](http://www.packal.org/users/nkeim). Search notebook titles on your IPython notebook server.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperElectron). Choose SSH connection from filterable list.
 - [LibGen](http://www.packal.org/workflow/libgen) by [hackademic](http://www.packal.org/users/hackademic). Search and Download pdfs and ebooks from Library Genesis.

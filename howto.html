@@ -428,7 +428,7 @@ are saving should not be deleted as part of system maintenance.</p>
 <a class="reference internal" href="#serialization"><em>Serialization</em></a> for details.</p>
 </div>
 <div class="section" id="settings">
-<span id="id4"></span><h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<span id="howto-settings"></span><h3>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a> is a subclass
 of <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that automatically saves its contents to the <tt class="docutils literal"><span class="pre">settings.json</span></tt>
 file in your Workflow&#8217;s data directory when it is changed.</p>
@@ -572,7 +572,7 @@ each item:</p>
 </pre></div>
 </div>
 <div class="section" id="restricting-results">
-<span id="id5"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h3>
 <p>Chances are, you would not want <tt class="docutils literal"><span class="pre">bot</span></tt> to match <tt class="docutils literal"><span class="pre">Bob</span> <span class="pre">Smith</span> <span class="pre">A</span> <span class="pre">damn</span> <span class="pre">fine</span> <span class="pre">afternoon</span></tt>
 at all, or indeed any of the other books. Indeed, they have very low scores:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre> <span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -671,7 +671,7 @@ or to <a class="reference internal" href="workflow.html#workflow.workflow.Workfl
 normalised.</p>
 </div>
 <div class="section" id="background-processes">
-<span id="id6"></span><h2>Background processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Background processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h2>
 <p>Many workflows provide a convenient interface to applications and/or web services.</p>
 <p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
 updating this cache typically takes a few seconds, making your workflow
@@ -760,7 +760,7 @@ of my <a class="reference external" href="https://github.com/deanishe/alfred-rep
 which is a bit smarter about showing the user update information.</p>
 </div>
 <div class="section" id="serialization">
-<span id="id7"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
 <p>By default, both cache and data files are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This
 provides a great compromise in terms of speed and ability to store arbitrary
 objects.</p>
@@ -932,7 +932,7 @@ be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreS
 </div>
 </div>
 <div class="section" id="magic-arguments">
-<span id="id8"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as

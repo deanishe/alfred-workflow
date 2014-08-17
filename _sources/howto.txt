@@ -232,7 +232,7 @@ If you want to specify your own file format/serializer, please see
 :ref:`Serialization <serialization>` for details.
 
 
-.. _settings:
+.. _howto-settings:
 
 Settings
 --------

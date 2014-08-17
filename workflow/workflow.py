@@ -1089,16 +1089,31 @@ class Workflow(object):
         """
 
         if not self._workflowdir:
+            # Try the working directory first, then the directory
+            # the library is in. CWD will be the workflow root if
+            # a workflow is being run in Alfred
+            candidates = [
+                os.path.abspath(os.getcwd()),
+                os.path.dirname(os.path.abspath(os.path.dirname(__file__)))]
+
             # climb the directory tree until we find `info.plist`
-            dirpath = os.path.abspath(os.path.dirname(__file__))
-            while True:
-                dirpath = os.path.dirname(dirpath)
-                if os.path.exists(os.path.join(dirpath, 'info.plist')):
-                    self._workflowdir = dirpath
+            for dirpath in candidates:
+
+                while True:
+                    if os.path.exists(os.path.join(dirpath, 'info.plist')):
+                        self._workflowdir = dirpath
+                        break
+                    elif dirpath == '/':  # pragma: no cover
+                        # no `info.plist` found
+                        break
+                    dirpath = os.path.dirname(dirpath)
+
+                # No need to check other candidates
+                if self._workflowdir:
                     break
-                elif dirpath == '/':  # pragma: no cover
-                    # no `info.plist` found
-                    raise IOError("'info.plist' not found in directory tree")
+
+            if not self._workflowdir:  # pragma: no cover
+                raise IOError("'info.plist' not found in directory tree")
 
         return self._workflowdir
 

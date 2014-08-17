@@ -110,7 +110,7 @@ Or like this::
 
 """
 
-__version__ = '1.8.3'
+__version__ = '1.8.4'
 
 
 from .workflow import Workflow, PasswordNotFound, KeychainError

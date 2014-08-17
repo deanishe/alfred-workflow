@@ -16,7 +16,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-version = '1.8.3'
+version = '1.8.4'
 name = 'Alfred-Workflow'
 author = 'Dean Jackson'
 author_email = 'deanishe@deanishe.net'

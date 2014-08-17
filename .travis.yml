@@ -4,7 +4,7 @@ python:
   - 2.7
 before_install:
   - brew update
-  - if brew outdated | grep -qx duti; then brew upgrade duti; fi
+  - brew install duti
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 install:
   - sudo pip install nose coverage yanc

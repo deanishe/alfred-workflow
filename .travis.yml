@@ -2,6 +2,10 @@ language: objective-c
 python:
   - 2.6
   - 2.7
+before_install:
+  - brew update
+  - if brew outdated | grep -qx duti; then brew upgrade duti; fi
+  - sudo duti -s com.apple.TextEdit alfredworkflow all
 install:
   - sudo pip install nose coverage yanc
 script: bash run-tests.sh

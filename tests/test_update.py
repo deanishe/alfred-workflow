@@ -94,10 +94,8 @@ class UpdateTests(unittest.TestCase):
         self.assertTrue(u.update_available())
         u.wf.clear_settings()
         u.wf = Workflow()
-        u.update({
-            'github_slug': 'fniephaus/alfred-pocket',
-            'version': 'v999.9'
-        })
+        u.wf.settings['__update_github_slug'] = 'fniephaus/alfred-pocket'
+        u.wf.settings['__update_version'] = 'v999.9'
         self.assertFalse(u._update_available())
         self.assertFalse(u.update_available())
 

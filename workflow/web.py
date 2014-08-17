@@ -150,7 +150,7 @@ class Response(object):
         self.request = request
         self.url = None
         self.raw = None
-        self.encoding = None
+        self._encoding = None
         self.error = None
         self.status_code = None
         self.reason = None
@@ -181,7 +181,6 @@ class Response(object):
             self.mimetype = headers.gettype()
             for key in headers.keys():
                 self.headers[key.lower()] = headers.get(key)
-            self.encoding = self._get_encoding()
 
     def json(self):
         """Decode response contents as JSON.
@@ -192,6 +191,19 @@ class Response(object):
         """
 
         return json.loads(self.content, self.encoding or 'utf-8')
+
+    @property
+    def encoding(self):
+        """Return text encoding of document or ``None``
+
+        :returns: ``str``
+
+        """
+
+        if not self._encoding:
+            self._encoding = self._get_encoding()
+
+        return self._encoding
 
     @property
     def content(self):
@@ -274,27 +286,45 @@ class Response(object):
 
         """
 
-        # HTTP Content-Type header
         headers = self.raw.info()
-        # _, params = cgi.parse_header(self.headers.get('content-type'))
-        encoding = headers.getparam('charset')
+        encoding = None
+
+        if headers.getparam('charset'):
+            encoding = headers.getparam('charset')
+
+        # HTTP Content-Type header
+        for param in headers.getplist():
+            if param.startswith('charset='):
+                encoding = param[8:]
+                break
+
+        # Encoding declared in document should override HTTP headers
         if self.mimetype == 'text/html':  # sniff HTML headers
-            m = re.search("""<meta.+charset=["']{0,1}(.+)["'].*>""",
+            m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
                           self.content)
             if m:
                 encoding = m.group(1)
+
         elif ((self.mimetype.startswith('application/') or
                self.mimetype.startswith('text/')) and
               'xml' in self.mimetype):
-            m = re.search("""<?xml.+encoding=["'](.+?)["'].*>""",
+            m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
                           self.content)
             if m:
                 encoding = m.group(1)
-        elif self.mimetype == 'application/json' and not encoding:
+
+        # Format defaults
+        if self.mimetype == 'application/json' and not encoding:
             # The default encoding for JSON
             encoding = 'utf-8'
+
+        elif self.mimetype == 'application/xml' and not encoding:
+            # The default for 'application/xml'
+            encoding = 'utf-8'
+
         if encoding:
             encoding = encoding.lower()
+
         return encoding
 
 

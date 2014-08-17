@@ -42,7 +42,6 @@ from __future__ import print_function, unicode_literals
 import os
 import urllib
 import tempfile
-from pkg_resources import parse_version
 
 from workflow import Workflow
 from background import is_running, run_in_background
@@ -74,7 +73,7 @@ def update(config, force=False):
         run_in_background('__update', cmd)
 
 def update_available():
-    update_data = cached_data('__update')
+    update_data = wf.cached_data('__update')
     if (update_data is None or
         'available' not in update_data):
         return False
@@ -93,7 +92,7 @@ def _download_workflow(github_url):
 
 def _frequency():
     frequency = None
-    if 'auto_update_frequency' in wf.settings:
+    if '__update_frequency' in wf.settings:
         frequency = wf.settings['__update_frequency']
     if isinstance(frequency, int):
         return frequency * 86400
@@ -110,9 +109,6 @@ def _extract_version(release):
         raise RuntimeError('No version found')
     return release['tag_name']
 
-def _is_latest(current_version, latest_version):
-    return parse_version(current_version) >= parse_version(latest_version)
-
 def _extract_download_url(release):
     if ('assets' not in release or
             len(release['assets']) != 1 or
@@ -126,12 +122,15 @@ def _get_latest_release(release_list):
     return release_list[0]
 
 def _update_available():
-    github_slug = wf.settings['__update_github_slug']
-    current_version = wf.settings['__update_version']
+    try:
+        github_slug = wf.settings['__update_github_slug']
+        current_version = wf.settings['__update_version']
+    except KeyError:
+        raise ValueError('Auto update settings incorrect')
     release_list = get(_get_api_url(github_slug)).json()
     latest_release = _get_latest_release(release_list)
     latest_version = _extract_version(latest_release)
-    if _is_latest(current_version, latest_version):
+    if current_version == latest_version:
         wf.cache_data('__update', {
             'available': False
         })
@@ -145,7 +144,7 @@ def _update_available():
 
 def _initiate_update():
     _update_available()
-    update_data = cached_data('__update')
+    update_data = wf.cached_data('__update')
     if (update_data is None or
         'download_url' not in update_data):
         return False
@@ -155,16 +154,15 @@ def _initiate_update():
     wf.logger.debug('Update initiated')
     return True
 
-def main(wf):
+def main(workflow):
     if wf.cached_data_fresh('__update', _frequency()):
         return False
-
     if ('__update_auto' in wf.settings and 
             wf.settings['__update_auto'] == True):
         return _initiate_update()
     else:
         return _update_available()
 
-if __name__ == '__main__':  # pragma: no cover
+if __name__ == '__main__':  # pragma: nocover
     wf.run(main)
     

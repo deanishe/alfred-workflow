@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Howto &mdash; Alfred-Workflow 1.8.4 documentation</title>
+    <title>Howto &mdash; Alfred-Workflow 1.8.5 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8.4',
+        VERSION:     '1.8.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8.4 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8.5 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
     <link rel="prev" title="Writing A Pinboard Workflow, Part 2" href="tutorial2.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8.4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -676,10 +676,10 @@ normalised.</p>
 <p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
 updating this cache typically takes a few seconds, making your workflow
 unresponsive while an update is occurring, which is very un-Alfred-like.</p>
-<p>To avoid such delays, <strong>Alfred-Workflow</strong> provides the <tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt>
+<p>To avoid such delays, <strong>Alfred-Workflow</strong> provides the <a class="reference internal" href="background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
 module to allow you to easily run scripts in the background.</p>
-<p>There are two functions, <tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt> and
-<tt class="xref py py-func docutils literal"><span class="pre">is_running()</span></tt>, that provide the interface. The
+<p>There are two functions, <a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a> and
+<a class="reference internal" href="background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">is_running()</span></tt></a>, that provide the interface. The
 processes started are proper background daemon processes, so you can start
 proper servers as easily as simple scripts.</p>
 <p>Here&#8217;s an example of a common usage pattern (updating cached data in the
@@ -687,7 +687,7 @@ background). What we&#8217;re doing is:</p>
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Check the age of the cached data and run the update script via</dt>
-<dd><p class="first last"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt> if the cached data are too old
+<dd><p class="first last"><a class="reference internal" href="background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a> if the cached data are too old
 or don&#8217;t exist.</p>
 </dd>
 </dl>

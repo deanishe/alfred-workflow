@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.8.4 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.8.5 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8.4',
+        VERSION:     '1.8.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8.4 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8.5 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8.4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -211,7 +211,7 @@ flexibility.</p>
 
 <dl class="class">
 <dt id="workflow.workflow.Item">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Item" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Represents a feedback item for Alfred. Generates Alfred-compliant
 XML for a single item.</p>
@@ -475,7 +475,7 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 </table>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.add_item">
-<tt class="descname">add_item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_item</tt><big>(</big><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an item to be output to Alfred</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -503,6 +503,10 @@ icon file.</li>
 <li><strong>type</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Result type. Currently only <tt class="docutils literal"><span class="pre">'file'</span></tt> is supported
 (by Alfred). This will tell Alfred to enable file actions for
 this item.</li>
+<li><strong>largetext</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text to be displayed in Alfred&#8217;s large text box
+if user presses CMD+L on item.</li>
+<li><strong>copytext</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text to be copied to pasteboard if user presses
+CMD+C on item.</li>
 </ul>
 </td>
 </tr>
@@ -909,7 +913,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10bd85b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10edc4b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>

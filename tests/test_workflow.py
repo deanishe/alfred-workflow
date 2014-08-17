@@ -209,7 +209,8 @@ class WorkflowTests(unittest.TestCase):
                          autocomplete='autocomplete',
                          valid=True, uid='uid', icon='icon.png',
                          icontype='fileicon',
-                         type='file')
+                         type='file', largetext='largetext',
+                         copytext='copytext')
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio
@@ -219,19 +220,34 @@ class WorkflowTests(unittest.TestCase):
         sio.close()
         from pprint import pprint
         pprint(output)
+
         root = ET.fromstring(output)
         item = list(root)[0]
+
         self.assertEqual(item.attrib['uid'], 'uid')
         self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
         self.assertEqual(item.attrib['valid'], 'yes')
         self.assertEqual(item.attrib['uid'], 'uid')
-        title, subtitle, arg, icon = list(item)
+
+        title, subtitle, arg, icon, largetext, copytext = list(item)
+
         self.assertEqual(title.text, 'title')
         self.assertEqual(title.tag, 'title')
+
         self.assertEqual(subtitle.text, 'subtitle')
         self.assertEqual(subtitle.tag, 'subtitle')
+
         self.assertEqual(arg.text, 'arg')
         self.assertEqual(arg.tag, 'arg')
+
+        self.assertEqual(largetext.tag, 'text')
+        self.assertEqual(largetext.text, 'largetext')
+        self.assertEqual(largetext.attrib['type'], 'largetype')
+
+        self.assertEqual(copytext.tag, 'text')
+        self.assertEqual(copytext.text, 'copytext')
+        self.assertEqual(copytext.attrib['type'], 'copy')
+
         self.assertEqual(icon.text, 'icon.png')
         self.assertEqual(icon.tag, 'icon')
         self.assertEqual(icon.attrib['type'], 'fileicon')

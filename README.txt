@@ -59,17 +59,18 @@ Pinboard item in Alfred to open it in your browser.
 Installation
 ============
 
-With ``pip``
-------------
+With pip
+--------
 
-You can install **Alfred-Workflow** directory into your workflow with::
+You can install **Alfred-Workflow** directly into your workflow with::
 
     pip install --target=/path/to/my/workflow Alfred-Workflow
 
 
 **Note**: If you intend to distribute your workflow to other users, you should
 include **Alfred-Workflow** (and other Python libraries your workflow requires)
-as described. Do not ask users to install anything into their system Python.
+within your workflow as described. Do not ask users to install anything into
+their system Python.
 
 From source
 -----------
@@ -107,7 +108,12 @@ Or like this::
     Your Workflow/
         info.plist
         icon.png
-        workflow-1.4.zip
+        workflow-1.X.X.zip
         yourscript.py
         etc.
 
+Documentation
+=============
+
+Detailed documentation, including a tutorial and auto-generated API docs, is
+available at `the Alfred-Workflow website <http://www.deanishe.net/alfred-workflow/>`_.

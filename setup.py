@@ -8,8 +8,6 @@
 # Created on 2014-08-17
 #
 
-from __future__ import unicode_literals
-
 import os
 from distutils.core import setup
 

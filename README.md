@@ -22,6 +22,21 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 
 ## Installation ##
 
+### With pip ###
+
+You can install **Alfred-Workflow** directly into your workflow with:
+
+```bash
+pip install --target=/path/to/my/workflow Alfred-Workflow
+```
+
+**Note**: If you intend to distribute your workflow to other users, you should
+include **Alfred-Workflow** (and other Python libraries your workflow requires)
+within your workflow as described. Do not ask users to install anything into
+their system Python.
+
+### From source ###
+
 1. Download the `alfred-workflow-X.X.zip` from the [releases page](https://github.com/deanishe/alfred-workflow/releases).
 2. Either extract the ZIP archive and place the `workflow` directory in the root folder of your workflow (where `info.plist` is) **or**
 3. Place the ZIP archive in the root folder of your workflow and add `sys.path.insert(0, 'alfred-workflow-X.X.zip')` at the top of your Python script(s).
@@ -44,7 +59,7 @@ Or this:
     Your Workflow/
         info.plist
         icon.png
-        workflow-1.3.zip
+        workflow-1.X.X.zip
         yourscript.py
         etc.
 

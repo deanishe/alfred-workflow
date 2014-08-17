@@ -27,6 +27,8 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
+from util import create_info_plist, delete_info_plist
+
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError, MATCH_ALL, MATCH_ALLCHARS,
                                MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
@@ -40,6 +42,7 @@ WORKFLOW_NAME = 'Alfred-Workflow Test'
 
 DEFAULT_SETTINGS = {'key1': 'value1',
                     'key2': 'hübner'}
+
 
 
 def setUp():
@@ -317,6 +320,15 @@ class WorkflowTests(unittest.TestCase):
         """info.plist"""
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
+
+    def test_info_plist_missing(self):
+        """Info.plist missing"""
+        delete_info_plist()
+        try:
+            with self.assertRaises(IOError):
+                Workflow()
+        finally:
+            create_info_plist()
 
     def test_alfred_env_vars(self):
         """Alfred environmental variables"""

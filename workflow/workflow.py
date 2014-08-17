@@ -1103,7 +1103,7 @@ class Workflow(object):
                     if os.path.exists(os.path.join(dirpath, 'info.plist')):
                         self._workflowdir = dirpath
                         break
-                    elif dirpath == '/':  # pragma: no cover
+                    elif dirpath == '/':
                         # no `info.plist` found
                         break
                     dirpath = os.path.dirname(dirpath)
@@ -1112,7 +1112,7 @@ class Workflow(object):
                 if self._workflowdir:
                     break
 
-            if not self._workflowdir:  # pragma: no cover
+            if not self._workflowdir:
                 raise IOError("'info.plist' not found in directory tree")
 
         return self._workflowdir

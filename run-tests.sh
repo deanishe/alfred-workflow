@@ -4,7 +4,9 @@
 
 # OUTPUT_PATH=$(pwd)/tests_output
 
-LOGPATH="$(pwd)/test.log"
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+LOGPATH="${mydir}/test.log"
 
 function log() {
     echo "$@" | tee -a $LOGPATH
@@ -13,13 +15,13 @@ function log() {
 rm -rf $LOGPATH
 
 curdir=$(pwd)
-wdir="${curdir}/tests"
+wdir="${mydir}/tests"
 info_linked=0
 
 
 if [[ ! -f "info.plist" ]]; then
 	# link info.plist to parent directory so `background.py` can find it
-	ln -s "${wdir}/info.plist"
+	ln -s "${wdir}/info.plist.test" "${mydir}/info.plist"
 	info_linked=1
 fi
 
@@ -60,7 +62,7 @@ esac
 cd "$curdir"
 
 if [[ $info_linked -eq 1 ]]; then
-	rm -f "info.plist"
+	rm -f "${mydir}/info.plist"
 fi
 
 exit $ret

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>workflow.workflow &mdash; Alfred-Workflow 1.8 documentation</title>
+    <title>workflow.workflow &mdash; Alfred-Workflow 1.8.4 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8',
+        VERSION:     '1.8.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8.4 documentation" href="index.html" />
     <link rel="next" title="workflow.web" href="web.html" />
     <link rel="prev" title="Howto" href="howto.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -192,6 +192,9 @@ for data that is user-generated or not easily recreated.</p>
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">CPickleSerializer</tt><a class="headerlink" href="#workflow.workflow.CPickleSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>This is the default serializer and the best combination of speed and
 flexibility.</p>
 <dl class="classmethod">
@@ -237,6 +240,9 @@ instance for this <a class="reference internal" href="#workflow.workflow.Item" t
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">JSONSerializer</tt><a class="headerlink" href="#workflow.workflow.JSONSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Wrapper around <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">indent</span></tt> and <tt class="docutils literal"><span class="pre">encoding</span></tt>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>Use this serializer if you need readable data files. JSON doesn&#8217;t
 support Python objects as well as <tt class="docutils literal"><span class="pre">cPickle</span></tt>/<tt class="docutils literal"><span class="pre">pickle</span></tt>, so be
 careful which data you try to serialize as JSON.</p>
@@ -283,6 +289,9 @@ is unknown to the Keychain.</p>
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PickleSerializer</tt><a class="headerlink" href="#workflow.workflow.PickleSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>Use this serializer if you need to add custom pickling.</p>
 <dl class="classmethod">
 <dt id="workflow.workflow.PickleSerializer.dump">
@@ -301,6 +310,9 @@ is unknown to the Keychain.</p>
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">SerializerManager</tt><a class="headerlink" href="#workflow.workflow.SerializerManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Contains registered serializers.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>A configured instance of this class is available at <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>.</p>
 <p>Use <a class="reference internal" href="#workflow.workflow.SerializerManager.register" title="workflow.workflow.SerializerManager.register"><tt class="xref py py-meth docutils literal"><span class="pre">register()</span></tt></a> to register new (or replace
 existing) serializers, which you can specify by name when calling
@@ -339,7 +351,7 @@ saved files.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name to register <tt class="docutils literal"><span class="pre">serializer</span></tt> under</li>
-<li><strong>serilializer</strong> &#8211; object with <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt>
+<li><strong>serializer</strong> &#8211; object with <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt>
 methods</li>
 </ul>
 </td>
@@ -413,6 +425,15 @@ at <tt class="docutils literal"><span class="pre">filepath</span></tt>. If the f
 </table>
 <p>An appropriate instance is provided by <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> instances at
 <a class="reference internal" href="#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.</p>
+<dl class="method">
+<dt id="workflow.workflow.Settings.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Settings.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save settings to JSON file specified in <tt class="docutils literal"><span class="pre">self._filepath</span></tt></p>
+<p>If you&#8217;re using this class via <a class="reference internal" href="#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>, which
+you probably are, <tt class="docutils literal"><span class="pre">self._filepath</span></tt> will be <tt class="docutils literal"><span class="pre">settings.json</span></tt>
+in your workflow&#8217;s data directory (see <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>).</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="workflow.workflow.Settings.setdefault">
 <tt class="descname">setdefault</tt><big>(</big><em>key</em>, <em>value=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Settings.setdefault" title="Permalink to this definition">¶</a></dt>
@@ -625,6 +646,9 @@ found, perform the corresponding actions and exit the workflow.</p>
 <dt id="workflow.workflow.Workflow.cache_serializer">
 <tt class="descname">cache_serializer</tt><a class="headerlink" href="#workflow.workflow.Workflow.cache_serializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of default cache serializer.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>This serializer is used by <a class="reference internal" href="#workflow.workflow.Workflow.cache_data" title="workflow.workflow.Workflow.cache_data"><tt class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></tt></a> and
 <a class="reference internal" href="#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a></p>
 <p>See <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> for details.</p>
@@ -715,6 +739,9 @@ cache doesn&#8217;t exist</p>
 <dt id="workflow.workflow.Workflow.cachedir">
 <tt class="descname">cachedir</tt><a class="headerlink" href="#workflow.workflow.Workflow.cachedir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to workflow&#8217;s cache directory.</p>
+<p>The cache directory is a subdirectory of Alfred&#8217;s own cache directory in
+<tt class="docutils literal"><span class="pre">~/Library/Caches</span></tt>. The full path is:</p>
+<p><tt class="docutils literal"><span class="pre">~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -730,7 +757,8 @@ cache doesn&#8217;t exist</p>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cachefile">
 <tt class="descname">cachefile</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.cachefile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <tt class="docutils literal"><span class="pre">filename</span></tt> within workflow&#8217;s cache dir.</p>
+<dd><p>Return full path to <tt class="docutils literal"><span class="pre">filename</span></tt> within your workflow&#8217;s
+<a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cache</span> <span class="pre">directory</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -767,6 +795,9 @@ cache doesn&#8217;t exist</p>
 <dt id="workflow.workflow.Workflow.data_serializer">
 <tt class="descname">data_serializer</tt><a class="headerlink" href="#workflow.workflow.Workflow.data_serializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of default data serializer.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>This serializer is used by <a class="reference internal" href="#workflow.workflow.Workflow.store_data" title="workflow.workflow.Workflow.store_data"><tt class="xref py py-meth docutils literal"><span class="pre">store_data()</span></tt></a> and
 <a class="reference internal" href="#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a></p>
 <p>See <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> for details.</p>
@@ -786,6 +817,9 @@ cache doesn&#8217;t exist</p>
 <dt id="workflow.workflow.Workflow.datadir">
 <tt class="descname">datadir</tt><a class="headerlink" href="#workflow.workflow.Workflow.datadir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to workflow&#8217;s data directory.</p>
+<p>The data directory is a subdirectory of Alfred&#8217;s own data directory in
+<tt class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></tt>. The full path is:</p>
+<p><tt class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support/Alfred</span> <span class="pre">2/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -801,7 +835,8 @@ cache doesn&#8217;t exist</p>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.datafile">
 <tt class="descname">datafile</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.datafile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <tt class="docutils literal"><span class="pre">filename</span></tt> within workflow&#8217;s data dir.</p>
+<dd><p>Return full path to <tt class="docutils literal"><span class="pre">filename</span></tt> within your workflow&#8217;s
+<a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">data</span> <span class="pre">directory</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -874,7 +909,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10ea69b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10bd85b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -1185,6 +1220,9 @@ with the <tt class="docutils literal"><span class="pre">default_settings</span><
 <dt id="workflow.workflow.Workflow.store_data">
 <tt class="descname">store_data</tt><big>(</big><em>name</em>, <em>data</em>, <em>serializer=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.store_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save data to data directory.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <p>If <tt class="docutils literal"><span class="pre">data</span></tt> is <tt class="docutils literal"><span class="pre">None</span></tt>, the datastore will be deleted.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1211,6 +1249,9 @@ See <a class="reference internal" href="#workflow.workflow.SerializerManager" ti
 <tt class="descname">stored_data</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.stored_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve data from data directory. Returns <tt class="docutils literal"><span class="pre">None</span></tt> if there
 is no data stored.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.8.</span></p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

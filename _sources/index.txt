@@ -47,8 +47,8 @@ tricks that might also be of interest to intermediate Pythonistas.
    tutorial2
 
 
-Alfred-Workflow howto
-=====================
+Howto
+=====
 
 If you know your way around Python and Alfred, here's an overview of what
 **Alfred-Workflow** does and how to do it.

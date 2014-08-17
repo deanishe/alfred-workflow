@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Howto &mdash; Alfred-Workflow 1.8 documentation</title>
+    <title>Howto &mdash; Alfred-Workflow 1.8.4 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8',
+        VERSION:     '1.8.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.8.4 documentation" href="index.html" />
     <link rel="next" title="workflow.workflow" href="workflow.html" />
     <link rel="prev" title="Writing A Pinboard Workflow, Part 2" href="tutorial2.html" />
 
@@ -64,7 +64,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -122,6 +122,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#background-processes">Background processes</a></li>
 <li><a class="reference internal" href="#serialization">Serialization</a></li>
 <li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
 <li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
@@ -175,6 +176,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#text-encoding-decoding">Text encoding/decoding</a></li>
+<li><a class="reference internal" href="#background-processes">Background processes</a></li>
 <li><a class="reference internal" href="#serialization">Serialization</a></li>
 <li><a class="reference internal" href="#built-in-icons">Built-in icons</a><ul>
 <li><a class="reference internal" href="#list-of-icons">List of icons</a></li>
@@ -342,6 +344,9 @@ See <a class="reference internal" href="#caching-data"><em>Caching data</em></a>
 <p>The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See <a class="reference internal" href="#storing-data"><em>Storing data</em></a>
 for details.</p>
+<p>It is easy to specify a custom file format for your stored data
+via the <tt class="docutils literal"><span class="pre">serializer</span></tt> argument if you want your data to be readable by the user
+or by other software. See <a class="reference internal" href="#serialization"><em>Serialization</em></a> for more details.</p>
 <p>There are also simliar methods related to the root directory of your Workflow
 (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> and your code are):</p>
 <ul class="simple">
@@ -353,13 +358,15 @@ may help you with development/debugging.</p>
 <p>In addition, <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
 convenient interface for storing persistent settings with
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.
-See <a class="reference internal" href="#settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
+See <a class="reference internal" href="tutorial2.html#settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
 information on storing settings and sensitive data.</p>
 <div class="section" id="caching-data">
 <span id="id2"></span><h3>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides a few methods to simplify
-caching data that is slow to retrieve or expensive to generate. The main method
-is <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>, which
+caching data that is slow to retrieve or expensive to generate (e.g. downloaded
+from a web API). These data are cached in your workflow&#8217;s cache directory (see
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>). The main method is
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>, which
 takes a name under which the data should be cached, a callable to retrieve
 the data if they aren&#8217;t in the cache (or are too old), and a maximum age in seconds
 for the cached data:</p>
@@ -397,6 +404,8 @@ script in the background.)</p>
 and retrieve permanent data:
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.store_data" title="workflow.workflow.Workflow.store_data"><tt class="xref py py-meth docutils literal"><span class="pre">store_data()</span></tt></a> and
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a>.</p>
+<p>These data are stored in your workflow&#8217;s data directory
+(see <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>).</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -425,6 +434,18 @@ of <a class="reference external" href="http://docs.python.org/library/stdtypes.h
 file in your Workflow&#8217;s data directory when it is changed.</p>
 <p><a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> can be used just like a normal <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>
 with the caveat that all keys and values must be serializable to JSON.</p>
+<p><strong>Note:</strong> A <a class="reference internal" href="workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> instance can only automatically
+recognise when you directly alter the values of its own keys:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;key2&#39;</span><span class="p">:</span> <span class="s">&#39;value&#39;</span><span class="p">}</span>  <span class="c"># will be automatically saved</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">][</span><span class="s">&#39;key2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;value2&#39;</span>  <span class="c"># will *not* be automatically saved</span>
+</pre></div>
+</td></tr></table></div>
+<p>If you&#8217;ve altered a data structure stored within your workflow&#8217;s
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>, you need to
+explicitly call <a class="reference internal" href="workflow.html#workflow.workflow.Settings.save" title="workflow.workflow.Settings.save"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.settings.save()</span></tt></a>.</p>
 <p>If you need to store arbitrary data, you can use the <a class="reference internal" href="#caching-data"><em>cached data API</em></a>.</p>
 <p>If you need to store data securely (such as passwords and API keys),
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides simple access to
@@ -649,8 +670,97 @@ passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt
 or to <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation and then
 normalised.</p>
 </div>
+<div class="section" id="background-processes">
+<span id="id6"></span><h2>Background processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h2>
+<p>Many workflows provide a convenient interface to applications and/or web services.</p>
+<p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
+updating this cache typically takes a few seconds, making your workflow
+unresponsive while an update is occurring, which is very un-Alfred-like.</p>
+<p>To avoid such delays, <strong>Alfred-Workflow</strong> provides the <tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt>
+module to allow you to easily run scripts in the background.</p>
+<p>There are two functions, <tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt> and
+<tt class="xref py py-func docutils literal"><span class="pre">is_running()</span></tt>, that provide the interface. The
+processes started are proper background daemon processes, so you can start
+proper servers as easily as simple scripts.</p>
+<p>Here&#8217;s an example of a common usage pattern (updating cached data in the
+background). What we&#8217;re doing is:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Check the age of the cached data and run the update script via</dt>
+<dd><p class="first last"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt> if the cached data are too old
+or don&#8217;t exist.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">(Optionally) inform the user that data are being updated.</p>
+</li>
+<li><p class="first">Load the cached data regardless of age.</p>
+</li>
+<li><p class="first">Display the cached data (if any).</p>
+</li>
+</ol>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+<span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+   <span class="c"># Is cache over 6 hours old or non-existent?</span>
+   <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
+       <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span>
+                         <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
+                          <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
+
+   <span class="c"># Add a notification if the script is running</span>
+   <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
+       <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+
+   <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;exchage-rates&#39;</span><span class="p">)</span>
+
+   <span class="c"># Display (possibly stale) cache data</span>
+   <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
+       <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
+           <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+
+   <span class="c"># Send results to Alfred</span>
+   <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+   <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>For a working example, see <a class="reference internal" href="tutorial2.html#background-updates"><em>Part 2 of the Tutorial</em></a> or
+the <a class="reference external" href="https://github.com/deanishe/alfred-repos/blob/master/src/repos.py">source code</a>
+of my <a class="reference external" href="https://github.com/deanishe/alfred-repos">Git Repos</a> workflow,
+which is a bit smarter about showing the user update information.</p>
+</div>
 <div class="section" id="serialization">
-<span id="id6"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
 <p>By default, both cache and data files are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This
 provides a great compromise in terms of speed and ability to store arbitrary
 objects.</p>
@@ -709,7 +819,7 @@ object:</p>
 of the stored file.</p>
 <p>The <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
 automatically determine the serialization of the stored data, provided the
-relevant serializer is registered. If it isn&#8217;t, an exception will be raised.</p>
+corresponding serializer is registered. If it isn&#8217;t, an exception will be raised.</p>
 </div>
 <div class="section" id="built-in-icons">
 <h2>Built-in icons<a class="headerlink" href="#built-in-icons" title="Permalink to this headline">¶</a></h2>
@@ -822,7 +932,7 @@ be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreS
 </div>
 </div>
 <div class="section" id="magic-arguments">
-<span id="id7"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<span id="id8"></span><h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
 <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as

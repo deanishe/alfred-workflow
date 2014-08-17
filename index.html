@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Alfred-Workflow &mdash; Alfred-Workflow 1.8 documentation</title>
+    <title>Alfred-Workflow &mdash; Alfred-Workflow 1.8.4 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.8',
+        VERSION:     '1.8.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8 documentation" href="#" />
+    <link rel="top" title="Alfred-Workflow 1.8.4 documentation" href="#" />
     <link rel="next" title="Writing A Pinboard Workflow, Part 1" href="tutorial.html" />
 
 <meta charset='utf-8'>
@@ -63,7 +63,7 @@
         </button>
         <a class="navbar-brand" href="#">
           Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.8.4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -107,13 +107,17 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Alfred-Workflow</a><ul>
 <li><a class="reference internal" href="#quick-example">Quick Example</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#with-pip">With pip</a></li>
+<li><a class="reference internal" href="#from-source">From source</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
 <li><a class="reference internal" href="#writing-a-pinboard-workflow-part-1">Writing A Pinboard Workflow, Part 1</a></li>
 <li><a class="reference internal" href="#writing-a-pinboard-workflow-part-2">Writing A Pinboard Workflow, Part 2</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#alfred-workflow-howto">Alfred-Workflow howto</a></li>
+<li><a class="reference internal" href="#howto">Howto</a></li>
 <li><a class="reference internal" href="#api-docs">API docs</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -149,13 +153,17 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Alfred-Workflow</a><ul>
 <li><a class="reference internal" href="#quick-example">Quick Example</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#with-pip">With pip</a></li>
+<li><a class="reference internal" href="#from-source">From source</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
 <li><a class="reference internal" href="#writing-a-pinboard-workflow-part-1">Writing A Pinboard Workflow, Part 1</a></li>
 <li><a class="reference internal" href="#writing-a-pinboard-workflow-part-2">Writing A Pinboard Workflow, Part 2</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#alfred-workflow-howto">Alfred-Workflow howto</a></li>
+<li><a class="reference internal" href="#howto">Howto</a></li>
 <li><a class="reference internal" href="#api-docs">API docs</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -177,12 +185,15 @@ helps you do these things.</p>
 <ul class="simple">
 <li>Parsing script arguments.</li>
 <li>Text decoding/normalisation.</li>
-<li>Caching data and settings.</li>
-<li>Secure storage (and sync) of passwords (using OS X Keychain).</li>
+<li>Storing data and settings.</li>
+<li>Caching data from, e.g., web services with a simple API for updating expired
+data.</li>
+<li>Securely storing (and syncing) passwords using OS X Keychain.</li>
 <li>Generating XML output for Alfred.</li>
 <li>Including external libraries (adding directories to <tt class="docutils literal"><span class="pre">sys.path</span></tt>).</li>
-<li>Filtering results using an Alfred-like algorithm.</li>
+<li>Filtering results using an Alfred-like, fuzzy search algorithm.</li>
 <li>Generating log output for debugging.</li>
+<li>Running background processes to keep your workflow responsive.</li>
 <li>Capturing errors, so the workflow doesn&#8217;t fail silently.</li>
 </ul>
 <div class="section" id="quick-example">
@@ -218,6 +229,19 @@ Pinboard item in Alfred to open it in your browser.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="with-pip">
+<h3>With pip<a class="headerlink" href="#with-pip" title="Permalink to this headline">¶</a></h3>
+<p>You can install <strong>Alfred-Workflow</strong> directly into your workflow with:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install --target=/path/to/my/workflow Alfred-Workflow
+</pre></div>
+</div>
+<p><strong>Note</strong>: If you intend to distribute your workflow to other users, you should
+include <strong>Alfred-Workflow</strong> (and other Python libraries your workflow requires)
+within your workflow as described. Do not ask users to install anything into
+their system Python.</p>
+</div>
+<div class="section" id="from-source">
+<h3>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
 <p>Download the <tt class="docutils literal"><span class="pre">alfred-workflow-X.X.zip</span></tt> file from the
 <a class="reference external" href="https://github.com/deanishe/alfred-workflow/releases">GitHub releases page</a>
 and either extract the ZIP to the root directory of your workflow (where
@@ -247,10 +271,11 @@ the Workflow information file generated by Alfred):</p>
 <div class="highlight-python"><div class="highlight"><pre>Your Workflow/
     info.plist
     icon.png
-    workflow-1.4.zip
+    workflow-1.X.X.zip
     yourscript.py
     etc.
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="tutorial">
@@ -317,8 +342,8 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 </div>
 </div>
 </div>
-<div class="section" id="alfred-workflow-howto">
-<h2>Alfred-Workflow howto<a class="headerlink" href="#alfred-workflow-howto" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="howto">
+<h2>Howto<a class="headerlink" href="#howto" title="Permalink to this headline">¶</a></h2>
 <p>If you know your way around Python and Alfred, here&#8217;s an overview of what
 <strong>Alfred-Workflow</strong> does and how to do it.</p>
 <div class="toctree-wrapper compound">
@@ -339,6 +364,7 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="howto.html#text-encoding-decoding">Text encoding/decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howto.html#background-processes">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howto.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howto.html#built-in-icons">Built-in icons</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="howto.html#list-of-icons">List of icons</a></li>

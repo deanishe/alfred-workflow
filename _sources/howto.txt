@@ -135,6 +135,10 @@ The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See :ref:`Storing data <storing-data>`
 for details.
 
+It is easy to specify a custom file format for your stored data
+via the ``serializer`` argument if you want your data to be readable by the user
+or by other software. See :ref:`Serialization <serialization>` for more details.
+
 There are also simliar methods related to the root directory of your Workflow
 (where ``info.plist`` and your code are):
 
@@ -156,8 +160,10 @@ Caching data
 ------------
 
 :class:`Workflow <workflow.workflow.Workflow>` provides a few methods to simplify
-caching data that is slow to retrieve or expensive to generate. The main method
-is :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`, which
+caching data that is slow to retrieve or expensive to generate (e.g. downloaded
+from a web API). These data are cached in your workflow's cache directory (see
+:attr:`~workflow.workflow.Workflow.cachedir`). The main method is
+:meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`, which
 takes a name under which the data should be cached, a callable to retrieve
 the data if they aren't in the cache (or are too old), and a maximum age in seconds
 for the cached data:
@@ -202,6 +208,9 @@ and retrieve permanent data:
 :meth:`store_data() <workflow.workflow.Workflow.store_data>` and
 :meth:`stored_data() <workflow.workflow.Workflow.stored_data>`.
 
+These data are stored in your workflow's data directory
+(see :attr:`~workflow.workflow.Workflow.datadir`).
+
 .. code-block:: python
    :linenos:
 
@@ -234,6 +243,20 @@ file in your Workflow's data directory when it is changed.
 
 :class:`~workflow.workflow.Settings` can be used just like a normal :class:`dict`
 with the caveat that all keys and values must be serializable to JSON.
+
+**Note:** A :class:`~workflow.workflow.Settings` instance can only automatically
+recognise when you directly alter the values of its own keys:
+
+.. code-block:: python
+   :linenos:
+
+   wf = Workflow()
+   wf.settings['key'] = {'key2': 'value'}  # will be automatically saved
+   wf.settings['key']['key2'] = 'value2'  # will *not* be automatically saved
+
+If you've altered a data structure stored within your workflow's
+:attr:`Workflow.settings <workflow.workflow.Workflow.settings>`, you need to
+explicitly call :meth:`Workflow.settings.save() <workflow.workflow.Settings.save>`.
 
 If you need to store arbitrary data, you can use the :ref:`cached data API <caching-data>`.
 
@@ -469,6 +492,72 @@ or to :class:`Workflow <workflow.workflow.Workflow>` on instantiation and then
 normalised.
 
 
+.. _background-processes:
+
+Background processes
+====================
+
+Many workflows provide a convenient interface to applications and/or web services.
+
+For performance reasons, it's common for workflows to cache data locally, but
+updating this cache typically takes a few seconds, making your workflow
+unresponsive while an update is occurring, which is very un-Alfred-like.
+
+To avoid such delays, **Alfred-Workflow** provides the :mod:`~workflow.background`
+module to allow you to easily run scripts in the background.
+
+There are two functions, :func:`~workflow.background.run_in_background` and
+:func:`~workflow.background.is_running`, that provide the interface. The
+processes started are proper background daemon processes, so you can start
+proper servers as easily as simple scripts.
+
+Here's an example of a common usage pattern (updating cached data in the
+background). What we're doing is:
+
+1. Check the age of the cached data and run the update script via
+    :func:`~workflow.background.run_in_background` if the cached data are too old
+    or don't exist.
+2. (Optionally) inform the user that data are being updated.
+3. Load the cached data regardless of age.
+4. Display the cached data (if any).
+
+..  code-block:: python
+    :linenos:
+
+    from workflow import Workflow, ICON_INFO
+    from workflow.background import run_in_background, is_running
+
+    def main(wf):
+       # Is cache over 6 hours old or non-existent?
+       if not wf.cached_data_fresh('exchange-rates', 3600):
+           run_in_background('update',
+                             ['/usr/bin/python',
+                              wf.workflowfile('update_exchange_rates.py')])
+
+       # Add a notification if the script is running
+       if is_running('update'):
+           wf.add_item('Updating exchange rates...', icon=ICON_INFO)
+
+       exchange_rates = wf.cached_data('exchage-rates')
+
+       # Display (possibly stale) cache data
+       if exchange_rates:
+           for rate in exchange_rates:
+               wf.add_item(rate)
+
+       # Send results to Alfred
+       wf.send_feedback()
+
+    if __name__ == '__main__':
+       wf = Workflow()
+       wf.run(main)
+
+For a working example, see :ref:`Part 2 of the Tutorial <background-updates>` or
+the `source code <https://github.com/deanishe/alfred-repos/blob/master/src/repos.py>`_
+of my `Git Repos <https://github.com/deanishe/alfred-repos>`_ workflow,
+which is a bit smarter about showing the user update information.
+
+
 .. _serialization:
 
 Serialization
@@ -539,7 +628,7 @@ of the stored file.
 
 The :meth:`stored_data() <workflow.workflow.Workflow.stored_data>` method can
 automatically determine the serialization of the stored data, provided the
-relevant serializer is registered. If it isn't, an exception will be raised.
+corresponding serializer is registered. If it isn't, an exception will be raised.
 
 
 Built-in icons

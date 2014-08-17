@@ -14,7 +14,7 @@ Possible Features:
 	- Select list
 	- Notification center notifications
 
-	search.py:
+	filesearch.py:
 	Interface to `mdfind`
 
 	bundler.py:

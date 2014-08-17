@@ -98,7 +98,10 @@ def _get_api_url(slug):
 def _extract_version(release):
     if 'tag_name' not in release:
         raise RuntimeError('No version found')
-    return parse_version(release['tag_name'])
+    return release['tag_name']
+
+def _is_latest(current_version, latest_version):
+    return parse_version(current_version) >= parse_version(latest_version)
 
 def _extract_download_url(release):
     if ('assets' not in release or
@@ -111,16 +114,15 @@ def _get_latest_release(release_list):
     if len(release_list) < 1:
         raise RuntimeError('No release found')
     return release_list[0]
-
 def main(wf):
     github_slug = wf.settings['auto_update_github_slug']
-    current_version = parse_version(wf.settings['auto_update_version'])
+    current_version = wf.settings['auto_update_version']
     if wf.cached_data_fresh('auto_update', _frequency()):
         return False
     release_list = get(_get_api_url(github_slug)).json()
     latest_release = _get_latest_release(release_list)
     latest_version = _extract_version(latest_release)
-    if current_version >= latest_version:
+    if _is_latest(current_version, latest_version):
         return False
     download_url = _extract_download_url(latest_release)
     local_file = _download_workflow(download_url)

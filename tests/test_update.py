@@ -61,9 +61,18 @@ class UpdateTests(unittest.TestCase):
     def test_extract_version(self):
         """Update: Extract version"""
         version = update._extract_version({'tag_name': 'v1.0'})
-        expected = parse_version('v1.0')
+        expected = 'v1.0'
         self.assertEquals(version, expected)
         self.assertRaises(RuntimeError, update._extract_version, {})
+
+    def test_is_latest(self):
+        """Update: Is latest"""
+        self.assertTrue(update._is_latest('v1.0', 'v1.0'))
+        self.assertTrue(update._is_latest('v1.0', 'v0.9'))
+        self.assertTrue(update._is_latest('v2.10', 'v2.9'))
+        self.assertFalse(update._is_latest('v0.9', 'v1.0'))
+        self.assertFalse(update._is_latest('v1.9', 'v1.10'))
+        self.assertFalse(update._is_latest('v99.100', 'v100'))
 
     def test_extract_download_url(self):
         """Update: Extract download URL"""

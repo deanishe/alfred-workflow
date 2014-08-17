@@ -71,9 +71,6 @@ import subprocess
 import unicodedata
 import shutil
 import json
-import urllib
-import urllib2
-import tempfile
 import cPickle
 import pickle
 import time
@@ -441,11 +438,6 @@ MATCH_SUBSTRING = 32
 MATCH_ALLCHARS = 64
 MATCH_ALL = 127
 
-####################################################################
-# Used by `Workflow.auto_update`
-####################################################################
-
-RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
 
 ####################################################################
 # Keychain access errors
@@ -548,7 +540,7 @@ class SerializerManager(object):
 
         :param name: Name to register ``serializer`` under
         :type name: ``unicode`` or ``str``
-        :param serilializer: object with ``load()`` and ``dump()``
+        :param serializer: object with ``load()`` and ``dump()``
             methods
 
         """
@@ -752,7 +744,7 @@ class Settings(dict):
         elif defaults:
             for key, val in defaults.items():
                 self[key] = val
-            self._save()  # save default settings
+            self.save()  # save default settings
 
     def _load(self):
         """Load cached settings from JSON file `self._filepath`"""
@@ -763,8 +755,13 @@ class Settings(dict):
                 self[key] = value
         self._nosave = False
 
-    def _save(self):
-        """Save settings to JSON file `self._filepath`"""
+    def save(self):
+        """Save settings to JSON file specified in ``self._filepath``
+
+        If you're using this class via :attr:`Workflow.settings`, which
+        you probably are, ``self._filepath`` will be ``settings.json``
+        in your workflow's data directory (see :attr:`~Workflow.datadir`).
+        """
         if self._nosave:
             return
         data = {}
@@ -776,17 +773,17 @@ class Settings(dict):
     # dict methods
     def __setitem__(self, key, value):
         super(Settings, self).__setitem__(key, value)
-        self._save()
+        self.save()
 
     def update(self, *args, **kwargs):
         """Override :class:`dict` method to save on update."""
         super(Settings, self).update(*args, **kwargs)
-        self._save()
+        self.save()
 
     def setdefault(self, key, value=None):
         """Override :class:`dict` method to save on update."""
         ret = super(Settings, self).setdefault(key, value)
-        self._save()
+        self.save()
         return ret
 
 
@@ -808,8 +805,6 @@ class Workflow(object):
         :param libraries: sequence of paths to directories containing
             libraries. These paths will be prepended to ``sys.path``.
         :type libraries: :class:`tuple` or :class:`list`
-        :param autoupdate: Enable auto update mechanism.
-        :type autoupdate: :class:`Boolean`
 
     """
 
@@ -818,8 +813,7 @@ class Workflow(object):
     item_class = Item
 
     def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None,
-                 autoupdate=True):
+                 normalization='NFC', capture_args=True, libraries=None):
 
         self._default_settings = default_settings or {}
         self._input_encoding = input_encoding
@@ -842,10 +836,6 @@ class Workflow(object):
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
-        if (autoupdate and default_settings and
-                'auto_update_github' in default_settings and
-                'auto_update_version' in default_settings):
-            self.auto_update()
 
     ####################################################################
     # API methods
@@ -1032,9 +1022,6 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflows_diacritic_folding' in self.settings:
                     del self.settings['__workflows_diacritic_folding']
-            elif 'workflow:update' in args:
-                msg = 'Self-updating workflow'
-                self.auto_update(force=True)
 
             if msg:
                 self.logger.debug(msg)
@@ -1047,6 +1034,11 @@ class Workflow(object):
     @property
     def cachedir(self):
         """Path to workflow's cache directory.
+
+        The cache directory is a subdirectory of Alfred's own cache directory in
+        ``~/Library/Caches``. The full path is:
+
+        ``~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/<bundle id>``
 
         :returns: full path to workflow's cache directory
         :rtype: ``unicode``
@@ -1067,6 +1059,11 @@ class Workflow(object):
     @property
     def datadir(self):
         """Path to workflow's data directory.
+
+        The data directory is a subdirectory of Alfred's own data directory in
+        ``~/Library/Application Support``. The full path is:
+
+        ``~/Library/Application Support/Alfred 2/Workflow Data/<bundle id>``
 
         :returns: full path to workflow data directory
         :rtype: ``unicode``
@@ -1106,7 +1103,8 @@ class Workflow(object):
         return self._workflowdir
 
     def cachefile(self, filename):
-        """Return full path to ``filename`` within workflow's cache dir.
+        """Return full path to ``filename`` within your workflow's
+        :attr:`cache directory <Workflow.cachedir>`.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -1118,7 +1116,8 @@ class Workflow(object):
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
-        """Return full path to ``filename`` within workflow's data dir.
+        """Return full path to ``filename`` within your workflow's
+        :attr:`data directory <Workflow.datadir>`.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -1794,86 +1793,7 @@ class Workflow(object):
             return 1
         return 0
 
-    ####################################################################
-    # Auto-updating mechanism
-    ####################################################################
-
-    """
-    Enables self-updating capabilities for a workflow. It regularly (7 days
-    by default) fetches the latest releases from a given GitHub repository
-    and then asks the user to replace the workflow if a newer version is
-    available.
-
-    This feature requires default settings to be set like this:
-
-    wf = Workflow(default_settings={
-        'auto_update_github': 'username/reponame',  # GitHub slug
-        'auto_update_version': 'v1.0',  # Version number
-        'auto_update_frequency': 7, # Optional
-    })
-
-    :param force: Force an update check
-    :type force: ``Boolean``
-    :rtype: ``Boolean``
-
-    """
-    def auto_update(self, force=False):
-        try:
-            github = self.settings['auto_update_github']
-            current_version = self.settings['auto_update_version']
-            frequency = None
-            if 'auto_update_frequency' in self.settings:
-                frequency = self.settings['auto_update_frequency']
-            if isinstance(frequency, int):
-                frequency *= 86400
-            else:
-                frequency = 7 * 86400
-            if (self.cached_data_fresh('auto_update', frequency) and
-                    not force):
-                return False
-            if len(github.split('/')) != 2:
-                self.logger.debug('GitHub slug invalid')
-                raise Exception
-            api_url = RELEASES_BASE % github
-            self.logger.debug(api_url)
-            release_list = json.load(urllib2.urlopen(api_url))
-            if len(release_list) < 1:
-                self.logger.debug('No release found')
-                raise Exception
-            latest = release_list[0]
-            if ('tag_name' not in latest or
-                    latest['tag_name'] <= current_version):
-                self.logger.debug('Workflow up-to-date')
-                raise Exception
-            if ('assets' not in latest or
-                    len(latest['assets']) != 1 or
-                    'browser_download_url' not in latest['assets'][0]):
-                self.logger.debug('No attachment found')
-                raise Exception
-            asset = latest['assets'][0]
-            download_url = asset['browser_download_url']
-            filename = download_url.split("/")[-1]
-            if (not download_url.endswith('.alfredworkflow') or
-                    not filename.endswith('.alfredworkflow')):
-                self.logger.debug('Attachment not a workflow')
-                raise Exception
-            file_downloader = urllib.URLopener()
-            target = '%s/%s' % (tempfile.gettempdir(), filename)
-            download_url = urllib2.urlopen(download_url).geturl()
-            file_downloader.retrieve(download_url, target)
-            self.cache_data('auto_update', True)
-            os.system('open "%s"' % target)
-            self.logger.debug('Update initiated')
-            return True
-        except KeyError:
-            self.logger.debug('Auto update settings missing')
-        except Exception:
-            self.logger.debug('Self-update failed')
-        return False
-
-    ####################################################################
-    # Alfred feedback methods
-    ####################################################################
+    # Alfred feedback methods ------------------------------------------
 
     def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
                  autocomplete=None, valid=False, uid=None, icon=None,

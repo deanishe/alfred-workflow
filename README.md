@@ -3,6 +3,8 @@
 
 A helper library in Python for authors of workflows for [Alfred 2](http://www.alfredapp.com/).
 
+[![Build Status](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master)](https://travis-ci.org/deanishe/alfred-workflow) [![Latest Version](https://pypip.in/version/Alfred-Workflow/badge.svg?text=version)](https://pypi.python.org/pypi/Alfred-Workflow/) [![Supported Python versions](https://pypip.in/py_versions/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/) [![License](https://pypip.in/license/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
+
 ## Features ##
 
 - Catches and logs workflow errors for easier development and support
@@ -19,6 +21,21 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Easily launch background tasks (daemons) to keep your workflow responsive
 
 ## Installation ##
+
+### With pip ###
+
+You can install **Alfred-Workflow** directly into your workflow with:
+
+```bash
+pip install --target=/path/to/my/workflow Alfred-Workflow
+```
+
+**Note**: If you intend to distribute your workflow to other users, you should
+include **Alfred-Workflow** (and other Python libraries your workflow requires)
+within your workflow as described. Do not ask users to install anything into
+their system Python.
+
+### From source ###
 
 1. Download the `alfred-workflow-X.X.zip` from the [releases page](https://github.com/deanishe/alfred-workflow/releases).
 2. Either extract the ZIP archive and place the `workflow` directory in the root folder of your workflow (where `info.plist` is) **or**
@@ -42,7 +59,7 @@ Or this:
     Your Workflow/
         info.plist
         icon.png
-        workflow-1.3.zip
+        workflow-1.X.X.zip
         yourscript.py
         etc.
 
@@ -169,29 +186,31 @@ The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx 
 
 These are some of the Alfred workflows that use this library.
 
-- [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) by [XedMada](http://www.packal.org/users/XedMada). Pause and Start Backblaze online backups.
+- [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) by [XedMada](http://www.packal.org/users/xedmada). Pause and Start Backblaze online backups.
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python) by [deanishe](http://www.packal.org/users/deanishe). Demonstration on how to use the Alfred Bundler in Python.
 - [AppScripts](http://www.packal.org/workflow/appscripts) by [deanishe](http://www.packal.org/users/deanishe). List, search and run/open AppleScripts for the active application.
 - [BibQuery](http://www.packal.org/workflow/bibquery) by [hackademic](http://www.packal.org/users/hackademic). Search BibDesk from the comfort of your keyboard.
-- [Blur](http://www.packal.org/workflow/blur) by [Tyler Eich](http://www.packal.org/users/Tyler Eich). Set Alfred's background blur radius.
+- [Blur](http://www.packal.org/workflow/blur) by [Tyler Eich](http://www.packal.org/users/tyler-eich). Set Alfred's background blur radius.
 - [Convert](http://www.packal.org/workflow/convert) by [deanishe](http://www.packal.org/users/deanishe). Convert between different units. No Internet connection required.
-- [Date Calculator](http://www.packal.org/workflow/date-calculator) by [MuppetGate](http://www.packal.org/users/MuppetGate). A basic date calculator.
+- [Date Calculator](http://www.packal.org/workflow/date-calculator) by [MuppetGate](http://www.packal.org/users/muppetgate). A basic date calculator.
 - [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by [frankspin](http://www.packal.org/users/frankspin). Check the status of your Digital Ocean droplets.
+- [Display Brightness](http://www.packal.org/workflow/display-brightness) by [fniephaus](http://www.packal.org/users/fniephaus). Adjust your display's brightness with Alfred.
 - [Dropbox Client for Alfred](http://www.packal.org/workflow/dropbox-client-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Access multiple Dropbox accounts with Alfred.
 - [Duden Search](http://www.packal.org/workflow/duden-search) by [deanishe](http://www.packal.org/users/deanishe). Search duden.de German dictionary (with auto-suggest).
 - [Fabric for Alfred](http://www.packal.org/workflow/fabric-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Quickly execute Fabric tasks.
 - [Fuzzy Folders](http://www.packal.org/workflow/fuzzy-folders) by [deanishe](http://www.packal.org/users/deanishe). Fuzzy search across folder subtrees.
 - [Git Repos](http://www.packal.org/workflow/git-repos) by [deanishe](http://www.packal.org/users/deanishe). Browse, search and open Git repositories from within Alfred.
 - [Glosbe Translation](http://www.packal.org/workflow/glosbe-translation) by [deanishe](http://www.packal.org/users/deanishe). Translate text using Glosbe.com.
+- [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Easily control Homebrew with Alfred.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks) by [nkeim](http://www.packal.org/users/nkeim). Search notebook titles on your IPython notebook server.
-- [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperElectron). Choose SSH connection from filterable list.
+- [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperelectron). Choose SSH connection from filterable list.
 - [LibGen](http://www.packal.org/workflow/libgen) by [hackademic](http://www.packal.org/users/hackademic). Search and Download pdfs and ebooks from Library Genesis.
 - [Network Location](http://www.packal.org/workflow/network-location) by [deanishe](http://www.packal.org/users/deanishe). List, filter and activate network locations from within Alfred.
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search) by [deanishe](http://www.packal.org/users/deanishe). Search Packal.org from the comfort of Alfred.
 - [Pandoctor](http://www.packal.org/workflow/pandoctor) by [hackademic](http://www.packal.org/users/hackademic). An Alfred GUI for Pandoc.
 - [Parsers](http://www.packal.org/workflow/parsers) by [hackademic](http://www.packal.org/users/hackademic). Greek and Latin parsers.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Manage your Pocket list with Alfred.
-- [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by [paperElectron](http://www.packal.org/users/paperElectron). Add some stock symbols for Alfred to check for you.
+- [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by [paperElectron](http://www.packal.org/users/paperelectron). Add some stock symbols for Alfred to check for you.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Manage your Readability list with Alfred.
 - [Relative Dates](http://www.packal.org/workflow/relative-dates) by [deanishe](http://www.packal.org/users/deanishe). Generate relative dates based on a simple input format.
 - [SEND](http://www.packal.org/workflow/send) by [hackademic](http://www.packal.org/users/hackademic). Send documents to the cloud.

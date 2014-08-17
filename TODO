@@ -14,7 +14,7 @@ Possible Features:
 	- Select list
 	- Notification center notifications
 
-	search.py:
+	filesearch.py:
 	Interface to `mdfind`
 
 	bundler.py:
@@ -32,7 +32,11 @@ General:
 		trying to achieve. They would just be a duplication of the comments in the
 		source code in any case.
 	- Add `setup.py` so `Alfred-Workflow` can be added to PyPi and installed with `pip`
+	- Add explicit `save()` method to `Settings` @done(14-08-17 00:08)
 
+background.py:
+	- Add `stop_process()` function.
+		Allow `killing` of running processes. Can be used for stopping servers.
 
 web.py:
 

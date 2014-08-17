@@ -494,6 +494,8 @@ def isascii(text):
 class SerializerManager(object):
     """Contains registered serializers.
 
+    .. versionadded:: 1.8
+
     A configured instance of this class is available at ``workflow.manager``.
 
     Use :meth:`register()` to register new (or replace
@@ -592,6 +594,8 @@ class SerializerManager(object):
 class JSONSerializer(object):
     """Wrapper around :mod:`json`. Sets ``indent`` and ``encoding``.
 
+    .. versionadded:: 1.8
+
     Use this serializer if you need readable data files. JSON doesn't
     support Python objects as well as ``cPickle``/``pickle``, so be
     careful which data you try to serialize as JSON.
@@ -610,6 +614,8 @@ class JSONSerializer(object):
 class CPickleSerializer(object):
     """Wrapper around :mod:`cPickle`. Sets ``protocol``.
 
+    .. versionadded:: 1.8
+
     This is the default serializer and the best combination of speed and
     flexibility.
 
@@ -626,6 +632,8 @@ class CPickleSerializer(object):
 
 class PickleSerializer(object):
     """Wrapper around :mod:`pickle`. Sets ``protocol``.
+
+    .. versionadded:: 1.8
 
     Use this serializer if you need to add custom pickling.
 
@@ -659,7 +667,8 @@ class Item(object):
 
     def __init__(self, title, subtitle='', modifier_subtitles=None,
                  arg=None, autocomplete=None, valid=False, uid=None,
-                 icon=None, icontype=None, type=None):
+                 icon=None, icontype=None, type=None, largetext=None,
+                 copytext=None):
         """Arguments the same as for :meth:`Workflow.add_item`.
 
         """
@@ -674,6 +683,8 @@ class Item(object):
         self.icon = icon
         self.icontype = icontype
         self.type = type
+        self.largetext = largetext
+        self.copytext = copytext
 
     @property
     def elem(self):
@@ -713,6 +724,15 @@ class Item(object):
             else:
                 attr = {}
             ET.SubElement(root, 'icon', attr).text = self.icon
+
+        if self.largetext:
+            ET.SubElement(root, 'text',
+                          {'type': 'largetype'}).text = self.largetext
+
+        if self.copytext:
+            ET.SubElement(root, 'text',
+                          {'type': 'copy'}).text = self.copytext
+
         return root
 
 
@@ -1089,16 +1109,31 @@ class Workflow(object):
         """
 
         if not self._workflowdir:
+            # Try the working directory first, then the directory
+            # the library is in. CWD will be the workflow root if
+            # a workflow is being run in Alfred
+            candidates = [
+                os.path.abspath(os.getcwd()),
+                os.path.dirname(os.path.abspath(os.path.dirname(__file__)))]
+
             # climb the directory tree until we find `info.plist`
-            dirpath = os.path.abspath(os.path.dirname(__file__))
-            while True:
-                dirpath = os.path.dirname(dirpath)
-                if os.path.exists(os.path.join(dirpath, 'info.plist')):
-                    self._workflowdir = dirpath
+            for dirpath in candidates:
+
+                while True:
+                    if os.path.exists(os.path.join(dirpath, 'info.plist')):
+                        self._workflowdir = dirpath
+                        break
+                    elif dirpath == '/':
+                        # no `info.plist` found
+                        break
+                    dirpath = os.path.dirname(dirpath)
+
+                # No need to check other candidates
+                if self._workflowdir:
                     break
-                elif dirpath == '/':  # pragma: no cover
-                    # no `info.plist` found
-                    raise IOError("'info.plist' not found in directory tree")
+
+            if not self._workflowdir:
+                raise IOError("'info.plist' not found in directory tree")
 
         return self._workflowdir
 
@@ -1236,6 +1271,8 @@ class Workflow(object):
     def cache_serializer(self):
         """Name of default cache serializer.
 
+        .. versionadded:: 1.8
+
         This serializer is used by :meth:`cache_data()` and
         :meth:`cached_data()`
 
@@ -1251,6 +1288,8 @@ class Workflow(object):
     @cache_serializer.setter
     def cache_serializer(self, serializer_name):
         """Set the default cache serialization format.
+
+        .. versionadded:: 1.8
 
         This serializer is used by :meth:`cache_data()` and
         :meth:`cached_data()`
@@ -1278,6 +1317,8 @@ class Workflow(object):
     def data_serializer(self):
         """Name of default data serializer.
 
+        .. versionadded:: 1.8
+
         This serializer is used by :meth:`store_data()` and
         :meth:`stored_data()`
 
@@ -1293,6 +1334,8 @@ class Workflow(object):
     @data_serializer.setter
     def data_serializer(self, serializer_name):
         """Set the default cache serialization format.
+
+        .. versionadded:: 1.8
 
         This serializer is used by :meth:`store_data()` and
         :meth:`stored_data()`
@@ -1319,6 +1362,8 @@ class Workflow(object):
     def stored_data(self, name):
         """Retrieve data from data directory. Returns ``None`` if there
         is no data stored.
+
+        .. versionadded:: 1.8
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -1364,6 +1409,8 @@ class Workflow(object):
 
     def store_data(self, name, data, serializer=None):
         """Save data to data directory.
+
+        .. versionadded:: 1.8
 
         If ``data`` is ``None``, the datastore will be deleted.
 
@@ -1797,7 +1844,7 @@ class Workflow(object):
 
     def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
                  autocomplete=None, valid=False, uid=None, icon=None,
-                 icontype=None, type=None):
+                 icontype=None, type=None, largetext=None, copytext=None):
         """Add an item to be output to Alfred
 
         :param title: Title shown in Alfred
@@ -1831,12 +1878,19 @@ class Workflow(object):
             (by Alfred). This will tell Alfred to enable file actions for
             this item.
         :type type: ``unicode``
+        :param largetext: Text to be displayed in Alfred's large text box
+            if user presses CMD+L on item.
+        :type largetext: ``unicode``
+        :param copytext: Text to be copied to pasteboard if user presses
+            CMD+C on item.
+        :type copytext: ``unicode``
         :returns: :class:`Item` instance
 
         """
 
         item = self.item_class(title, subtitle, modifier_subtitles, arg,
-                               autocomplete, valid, uid, icon, icontype, type)
+                               autocomplete, valid, uid, icon, icontype, type,
+                               largetext, copytext)
         self._items.append(item)
         return item
 

@@ -27,6 +27,8 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
+from util import create_info_plist, delete_info_plist
+
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError, MATCH_ALL, MATCH_ALLCHARS,
                                MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
@@ -40,6 +42,7 @@ WORKFLOW_NAME = 'Alfred-Workflow Test'
 
 DEFAULT_SETTINGS = {'key1': 'value1',
                     'key2': 'hübner'}
+
 
 
 def setUp():
@@ -206,7 +209,8 @@ class WorkflowTests(unittest.TestCase):
                          autocomplete='autocomplete',
                          valid=True, uid='uid', icon='icon.png',
                          icontype='fileicon',
-                         type='file')
+                         type='file', largetext='largetext',
+                         copytext='copytext')
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio
@@ -216,19 +220,34 @@ class WorkflowTests(unittest.TestCase):
         sio.close()
         from pprint import pprint
         pprint(output)
+
         root = ET.fromstring(output)
         item = list(root)[0]
+
         self.assertEqual(item.attrib['uid'], 'uid')
         self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
         self.assertEqual(item.attrib['valid'], 'yes')
         self.assertEqual(item.attrib['uid'], 'uid')
-        title, subtitle, arg, icon = list(item)
+
+        title, subtitle, arg, icon, largetext, copytext = list(item)
+
         self.assertEqual(title.text, 'title')
         self.assertEqual(title.tag, 'title')
+
         self.assertEqual(subtitle.text, 'subtitle')
         self.assertEqual(subtitle.tag, 'subtitle')
+
         self.assertEqual(arg.text, 'arg')
         self.assertEqual(arg.tag, 'arg')
+
+        self.assertEqual(largetext.tag, 'text')
+        self.assertEqual(largetext.text, 'largetext')
+        self.assertEqual(largetext.attrib['type'], 'largetype')
+
+        self.assertEqual(copytext.tag, 'text')
+        self.assertEqual(copytext.text, 'copytext')
+        self.assertEqual(copytext.attrib['type'], 'copy')
+
         self.assertEqual(icon.text, 'icon.png')
         self.assertEqual(icon.tag, 'icon')
         self.assertEqual(icon.attrib['type'], 'fileicon')
@@ -317,6 +336,15 @@ class WorkflowTests(unittest.TestCase):
         """info.plist"""
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
+
+    def test_info_plist_missing(self):
+        """Info.plist missing"""
+        delete_info_plist()
+        try:
+            with self.assertRaises(IOError):
+                Workflow()
+        finally:
+            create_info_plist()
 
     def test_alfred_env_vars(self):
         """Alfred environmental variables"""

@@ -3,7 +3,7 @@
 
 A helper library in Python for authors of workflows for [Alfred 2](http://www.alfredapp.com/).
 
-![](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master "Travis CI status")
+[![Build Status](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master)](https://travis-ci.org/deanishe/alfred-workflow) [![Latest Version](https://pypip.in/version/Alfred-Workflow/badge.svg?text=version)](https://pypi.python.org/pypi/Alfred-Workflow/) [![Supported Python versions](https://pypip.in/py_versions/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/) [![License](https://pypip.in/license/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
 
 ## Features ##
 

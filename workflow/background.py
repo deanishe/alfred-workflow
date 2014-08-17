@@ -189,12 +189,12 @@ def _background(stdin='/dev/null', stdout='/dev/null',
 
 def run_in_background(name, args, **kwargs):
     """Pickle arguments to cache file, then call this script again via
-    :meth:`subprocess.call`.
+    :func:`subprocess.call`.
 
     :param name: name of task
     :type name: ``unicode``
-    :param args: arguments passed as first argument to :meth:`subprocess.call`
-    :param *kwargs: keyword arguments to :meth:`subprocess.call`
+    :param args: arguments passed as first argument to :func:`subprocess.call`
+    :param \**kwargs: keyword arguments to :func:`subprocess.call`
     :returns: exit code of sub-process
     :rtype: ``int``
 

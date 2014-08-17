@@ -494,6 +494,8 @@ def isascii(text):
 class SerializerManager(object):
     """Contains registered serializers.
 
+    .. versionadded:: 1.8
+
     A configured instance of this class is available at ``workflow.manager``.
 
     Use :meth:`register()` to register new (or replace
@@ -592,6 +594,8 @@ class SerializerManager(object):
 class JSONSerializer(object):
     """Wrapper around :mod:`json`. Sets ``indent`` and ``encoding``.
 
+    .. versionadded:: 1.8
+
     Use this serializer if you need readable data files. JSON doesn't
     support Python objects as well as ``cPickle``/``pickle``, so be
     careful which data you try to serialize as JSON.
@@ -610,6 +614,8 @@ class JSONSerializer(object):
 class CPickleSerializer(object):
     """Wrapper around :mod:`cPickle`. Sets ``protocol``.
 
+    .. versionadded:: 1.8
+
     This is the default serializer and the best combination of speed and
     flexibility.
 
@@ -626,6 +632,8 @@ class CPickleSerializer(object):
 
 class PickleSerializer(object):
     """Wrapper around :mod:`pickle`. Sets ``protocol``.
+
+    .. versionadded:: 1.8
 
     Use this serializer if you need to add custom pickling.
 
@@ -1251,6 +1259,8 @@ class Workflow(object):
     def cache_serializer(self):
         """Name of default cache serializer.
 
+        .. versionadded:: 1.8
+
         This serializer is used by :meth:`cache_data()` and
         :meth:`cached_data()`
 
@@ -1266,6 +1276,8 @@ class Workflow(object):
     @cache_serializer.setter
     def cache_serializer(self, serializer_name):
         """Set the default cache serialization format.
+
+        .. versionadded:: 1.8
 
         This serializer is used by :meth:`cache_data()` and
         :meth:`cached_data()`
@@ -1293,6 +1305,8 @@ class Workflow(object):
     def data_serializer(self):
         """Name of default data serializer.
 
+        .. versionadded:: 1.8
+
         This serializer is used by :meth:`store_data()` and
         :meth:`stored_data()`
 
@@ -1308,6 +1322,8 @@ class Workflow(object):
     @data_serializer.setter
     def data_serializer(self, serializer_name):
         """Set the default cache serialization format.
+
+        .. versionadded:: 1.8
 
         This serializer is used by :meth:`store_data()` and
         :meth:`stored_data()`
@@ -1334,6 +1350,8 @@ class Workflow(object):
     def stored_data(self, name):
         """Retrieve data from data directory. Returns ``None`` if there
         is no data stored.
+
+        .. versionadded:: 1.8
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -1379,6 +1397,8 @@ class Workflow(object):
 
     def store_data(self, name, data, serializer=None):
         """Save data to data directory.
+
+        .. versionadded:: 1.8
 
         If ``data`` is ``None``, the datastore will be deleted.
 

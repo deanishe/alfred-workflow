@@ -10,7 +10,8 @@ There are convenience methods for:
 - Parsing script arguments.
 - Text decoding/normalisation.
 - Storing data and settings.
-- Caching data from, e.g., web services with a simple API for updating expired data.
+- Caching data from, e.g., web services with a simple API for updating expired
+  data.
 - Securely storing (and syncing) passwords using OS X Keychain.
 - Generating XML output for Alfred.
 - Including external libraries (adding directories to ``sys.path``).

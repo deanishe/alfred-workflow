@@ -234,6 +234,8 @@ class Response(object):
     def iter_content(self, chunk_size=1, decode_unicode=False):
         """Iterate over response data.
 
+        .. versionadded:: 1.6
+
         :param chunk_size: Number of bytes to read into memory
         :type chunk_size: ``int``
         :param decode_unicode: Decode to Unicode using detected encoding

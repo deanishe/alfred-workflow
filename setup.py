@@ -9,11 +9,24 @@
 #
 
 import os
-from distutils.core import setup
+import subprocess
+from setuptools import setup
+from setuptools.command.test import test as TestCommand
 
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+
+class NoseTestCommand(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        subprocess.call(['/bin/bash', os.path.join(os.path.dirname(__file__),
+                        'run-tests.sh')])
 
 
 version = '1.8.4'
@@ -21,7 +34,8 @@ name = 'Alfred-Workflow'
 author = 'Dean Jackson'
 author_email = 'deanishe@deanishe.net'
 url = 'http://www.deanishe.net/alfred-workflow/'
-description = 'A Python helper library for writing Alfred 2 workflows.'
+description = 'Full-featured helper library for writing Alfred 2 workflows'
+keywords = 'alfred workflow'
 packages = ['workflow']
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -33,13 +47,17 @@ classifiers = [
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
+tests_require = ['nose', 'coverage', 'yanc']
 
 setup(name=name,
       version=version,
       description=description,
       long_description=read('README.txt'),
+      keywords=keywords,
       author=author,
       author_email=author_email,
       url=url,
       packages=packages,
-      classifiers=classifiers)
+      classifiers=classifiers,
+      tests_require=tests_require,
+      cmdclass={'test': NoseTestCommand})

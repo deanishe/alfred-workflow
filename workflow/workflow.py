@@ -832,10 +832,12 @@ class Workflow(object):
     # won't want to change this
     item_class = Item
 
-    def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+    def __init__(self, default_settings=None, update_info=None,
+                 input_encoding='utf-8', normalization='NFC',
+                 capture_args=True, libraries=None):
 
         self._default_settings = default_settings or {}
+        self._update_info = update_info
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
@@ -856,6 +858,8 @@ class Workflow(object):
         self._search_pattern_cache = {}
         if libraries:
             sys.path = libraries + sys.path
+        if update_info:
+            self.check_update()
 
     ####################################################################
     # API methods
@@ -982,6 +986,20 @@ class Workflow(object):
 
         return self._name
 
+    @property
+    def update_available(self):
+        """Is an update available?
+
+        :returns: ``True`` if an update is available, else ``False``
+        :rtype: ``Boolean``
+
+        """
+
+        __update = self.cached_data('__update')
+        if __update is None or 'available' not in __update:
+            return False
+        return __update['available']
+
     # Workflow utility methods -----------------------------------------
 
     @property
@@ -1042,6 +1060,9 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflows_diacritic_folding' in self.settings:
                     del self.settings['__workflows_diacritic_folding']
+            elif 'workflow:update' in args:
+                msg = 'Updating workflow'
+                self.start_update()
 
             if msg:
                 self.logger.debug(msg)
@@ -1902,6 +1923,47 @@ class Workflow(object):
         sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
         sys.stdout.write(ET.tostring(root).encode('utf-8'))
         sys.stdout.flush()
+
+    ####################################################################
+    # Updating methods
+    ####################################################################
+
+    def check_update(self, force=False):
+        from background import is_running, run_in_background
+        if force:
+            self.cache_data('__update', None)
+        (github_slug, version, frequency) = self._get_update_info()
+        cmd = ['/usr/bin/python', self.workflowfile('workflow/update.py')]
+        if (isinstance(frequency, int)):
+            cmd += ['--frequency', str(frequency)]
+        cmd += [github_slug, version]
+        run_in_background('__update', cmd)
+
+    def start_update(self):
+        import update
+        (github_slug, version, _) = self._get_update_info()
+        if not update._update_available(github_slug, version):
+            return False
+        update_data = self.cached_data('__update')
+        if (update_data is None or
+            'download_url' not in update_data):
+            return False
+        local_file = update._download_workflow(update_data['download_url'])
+        self.cache_data('__update', True)
+        os.system('open "%s"' % local_file)
+        self.logger.debug('Update initiated')
+        return True
+
+    def _get_update_info(self):
+        try:
+            github_slug = self._update_info['github_slug']
+            version = self._update_info['version']
+        except KeyError:
+            raise ValueError('Auto update settings incorrect')
+        frequency = None
+        if 'frequency' in self._update_info:
+            frequency = self._update_info['frequency']
+        return (github_slug, version, frequency)
 
     ####################################################################
     # Keychain password storage methods

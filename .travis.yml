@@ -5,7 +5,6 @@ python:
 before_install:
   - brew update
   - brew install duti
-  - sudo duti -x alfredworkflow
   - sudo duti -s com.apple.TextEdit alfredworkflow all
   - sudo duti -x alfredworkflow
 install:

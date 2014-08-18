@@ -48,7 +48,7 @@ __all__ = ['']
 wf = workflow.Workflow()
 log = wf.logger
 
-DEFAULT_FREQUENCY = 7
+DEFAULT_FREQUENCY = 1
 RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
 COMPONENT_RE = re.compile(r'(\d+ | [a-z]+ | \.| -)', re.VERBOSE)
 

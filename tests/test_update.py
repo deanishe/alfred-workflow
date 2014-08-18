@@ -65,6 +65,18 @@ class UpdateTests(unittest.TestCase):
         self.assertEquals(version, expected)
         self.assertRaises(RuntimeError, u._extract_version, {})
 
+    def test_is_latest(self):
+        """Update: Is latest"""
+        self.assertTrue(u._is_latest('v1.0', 'v1.0'))
+        self.assertTrue(u._is_latest('v1.0', 'v0.9'))
+        self.assertTrue(u._is_latest('v2.10', 'v2.9'))
+        self.assertFalse(u._is_latest('Taurus', 'Aries'))
+        self.assertFalse(u._is_latest('Aries', 'Taurus'))
+        self.assertFalse(u._is_latest('v0.9', 'v1.0'))
+        self.assertFalse(u._is_latest('v1.9', 'v1.10'))
+        self.assertFalse(u._is_latest('v99.100', 'v100'))
+        self.assertRaises(RuntimeError, u._extract_version, {})
+
     def test_extract_download_url(self):
         """Update: Extract download URL"""
         url = u._extract_download_url({'assets': [{'browser_download_url': 'http://github.com/'}]})

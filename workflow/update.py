@@ -42,6 +42,7 @@ from __future__ import print_function, unicode_literals
 import os
 import urllib
 import tempfile
+import re
 
 from workflow import Workflow
 from background import is_running, run_in_background
@@ -54,7 +55,7 @@ log = wf.logger
 
 DEFAULT_FREQUENCY = 7
 RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
-
+COMPONENT_RE = re.compile(r'(\d+ | [a-z]+ | \.| -)', re.VERBOSE)
 
 def update(config, force=False):
     try:
@@ -109,6 +110,40 @@ def _extract_version(release):
         raise RuntimeError('No version found')
     return release['tag_name']
 
+def _parse_version_parts(s):
+    for part in COMPONENT_RE.split(s):
+        if not part or part=='.':
+            continue
+        if part[:1] in '0123456789':
+            yield int(part)
+        else:
+            yield part
+    yield ''
+
+def _parse_version(s):
+    parts = []
+    for part in _parse_version_parts(s.lower()):
+        if part is not '':
+            parts.append(part)
+    return tuple(parts)
+
+def _is_latest(local, remote):
+    local = _parse_version(local)
+    remote = _parse_version(remote)
+    if len(local) != len(remote):
+        return False
+    for i in range(len(local)):
+        if (isinstance(local[i], int) and
+                isinstance(remote[i], int)):
+            if local[i] < remote[i]:
+                return False
+            elif local[i] > remote[i]:
+                return True
+        else:
+            if local[i] != remote[i]:
+                return False
+    return True
+
 def _extract_download_url(release):
     if ('assets' not in release or
             len(release['assets']) != 1 or
@@ -130,7 +165,7 @@ def _update_available():
     release_list = get(_get_api_url(github_slug)).json()
     latest_release = _get_latest_release(release_list)
     latest_version = _extract_version(latest_release)
-    if current_version == latest_version:
+    if _is_latest(current_version, latest_version):
         wf.cache_data('__update', {
             'available': False
         })

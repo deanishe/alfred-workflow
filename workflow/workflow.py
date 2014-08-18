@@ -995,10 +995,10 @@ class Workflow(object):
 
         """
 
-        __update = self.cached_data('__update')
-        if __update is None or 'available' not in __update:
+        update_data = self.cached_data('__workflow_update_available')
+        if update_data is None or 'available' not in update_data:
             return False
-        return __update['available']
+        return update_data['available']
 
     # Workflow utility methods -----------------------------------------
 
@@ -1931,7 +1931,7 @@ class Workflow(object):
     def check_update(self, force=False):
         from background import is_running, run_in_background
         if force:
-            self.cache_data('__update', None)
+            self.cache_data('__workflow_update_available', None)
         (github_slug, version, frequency) = self._get_update_info()
         cmd = ['/usr/bin/python', self.workflowfile('workflow/update.py')]
         if (isinstance(frequency, int)):
@@ -1944,14 +1944,15 @@ class Workflow(object):
         (github_slug, version, _) = self._get_update_info()
         if not update._update_available(github_slug, version):
             return False
-        update_data = self.cached_data('__update')
+        update_data = self.cached_data('__workflow_update_available')
         if (update_data is None or
             'download_url' not in update_data):
             return False
         local_file = update._download_workflow(update_data['download_url'])
-        self.cache_data('__update', True)
         os.system('open "%s"' % local_file)
         self.logger.debug('Update initiated')
+        update_data['available'] = False
+        self.cache_data('__workflow_update_available', update_data)
         return True
 
     def _get_update_info(self):

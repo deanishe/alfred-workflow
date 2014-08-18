@@ -18,7 +18,6 @@ This feature requires default settings to be set like this:
 
 
 from workflow import Workflow
-from workflow.update import auto_update
 ...
 wf = Workflow(update_info={
     'github_slug': 'username/reponame',  # GitHub slug
@@ -124,11 +123,11 @@ def _update_available(github_slug, current_version):
     latest_release = _get_latest_release(release_list)
     latest_version = _extract_version(latest_release)
     if _is_latest(current_version, latest_version):
-        wf.cache_data('__update', {
+        wf.cache_data('__workflow_update_available', {
             'available': False
         })
         return False
-    wf.cache_data('__update', {
+    wf.cache_data('__workflow_update_available', {
         'version': latest_version,
         'download_url': _extract_download_url(latest_release),
         'available': True
@@ -136,7 +135,7 @@ def _update_available(github_slug, current_version):
     return True
 
 def main(github_slug, version, frequency):
-    if not wf.cached_data_fresh('__update', frequency * 86400):
+    if not wf.cached_data_fresh('__workflow_update_available', frequency * 86400):
         _update_available(github_slug, version)
 
 if __name__ == '__main__':  # pragma: nocover

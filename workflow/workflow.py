@@ -1034,14 +1034,14 @@ class Workflow(object):
                 self.open_terminal()
             elif 'workflow:foldingon' in args:
                 msg = 'Diacritics will always be folded'
-                self.settings['__workflows_diacritic_folding'] = True
+                self.settings['__workflow_diacritic_folding'] = True
             elif 'workflow:foldingoff' in args:
                 msg = 'Diacritics will never be folded'
-                self.settings['__workflows_diacritic_folding'] = False
+                self.settings['__workflow_diacritic_folding'] = False
             elif 'workflow:foldingdefault' in args:
                 msg = 'Diacritics folding reset'
-                if '__workflows_diacritic_folding' in self.settings:
-                    del self.settings['__workflows_diacritic_folding']
+                if '__workflow_diacritic_folding' in self.settings:
+                    del self.settings['__workflow_diacritic_folding']
 
             if msg:
                 self.logger.debug(msg)
@@ -1651,7 +1651,7 @@ class Workflow(object):
         query = query.strip()
 
         # Use user override if there is one
-        fold_diacritics = self.settings.get('__workflows_diacritic_folding',
+        fold_diacritics = self.settings.get('__workflow_diacritic_folding',
                                             fold_diacritics)
 
         results = []
@@ -1855,7 +1855,7 @@ class Workflow(object):
             (CMD, OPT etc.) is pressed. Use a ``dict`` with the lowercase
             keys ``cmd``, ``ctrl``, ``shift``, ``alt`` and ``fn``
         :type modifier_subtitles: ``dict``
-        :param arg: Argument passed by Alfred as `{query}` when item is
+        :param arg: Argument passed by Alfred as ``{query}`` when item is
             actioned
         :type arg: ``unicode``
         :param autocomplete: Text expanded in Alfred when item is TABbed
@@ -1868,7 +1868,7 @@ class Workflow(object):
         :type icon: ``unicode``
         :param icontype: Type of icon. Must be one of ``None`` , ``'filetype'``
            or ``'fileicon'``. Use ``'filetype'`` when ``icon`` is a filetype
-           such as``public.folder``. Use ``'fileicon'`` when you wish to
+           such as ``'public.folder'``. Use ``'fileicon'`` when you wish to
            use the icon of the file specified as ``icon``, e.g.
            ``icon='/Applications/Safari.app', icontype='fileicon'``.
            Leave as `None` if ``icon`` points to an actual
@@ -1885,6 +1885,9 @@ class Workflow(object):
             CMD+C on item.
         :type copytext: ``unicode``
         :returns: :class:`Item` instance
+
+        See the :ref:`script-filter-results` section of the documentation
+        for more information.
 
         """
 

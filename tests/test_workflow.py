@@ -44,7 +44,6 @@ DEFAULT_SETTINGS = {'key1': 'value1',
                     'key2': 'hübner'}
 
 
-
 def setUp():
     pass
 

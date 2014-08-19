@@ -438,6 +438,11 @@ MATCH_SUBSTRING = 32
 MATCH_ALLCHARS = 64
 MATCH_ALL = 127
 
+####################################################################
+# Used by `Workflow.check_update`
+####################################################################
+
+DEFAULT_FREQUENCY = 1
 
 ####################################################################
 # Keychain access errors
@@ -1929,19 +1934,21 @@ class Workflow(object):
     ####################################################################
 
     def check_update(self, force=False):
-        from background import is_running, run_in_background
-        if force:
-            self.cache_data('__workflow_update_available', None)
-        (github_slug, version, frequency) = self._get_update_info()
-        cmd = ['/usr/bin/python', self.workflowfile('workflow/update.py')]
-        if (isinstance(frequency, int)):
-            cmd += ['--frequency', str(frequency)]
-        cmd += [github_slug, version]
-        run_in_background('__update', cmd)
+        frequency = self._update_info.get('frequency', DEFAULT_FREQUENCY)
+        if (force or
+                not wf.cached_data_fresh(
+                    '__workflow_update_available', frequency * 86400)):
+            github_slug = self._update_info.get('github_slug')
+            version = self._update_info.get('version')
+            from background import run_in_background
+            cmd = ['/usr/bin/python', self.workflowfile('workflow/update.py'),
+                    github_slug, version]
+            run_in_background('__update', cmd)
 
     def start_update(self):
         import update
-        (github_slug, version, _) = self._get_update_info()
+        github_slug = self._update_info.get('github_slug')
+        version = self._update_info.get('version')
         if not update._update_available(github_slug, version):
             return False
         update_data = self.cached_data('__workflow_update_available')
@@ -1949,22 +1956,11 @@ class Workflow(object):
             'download_url' not in update_data):
             return False
         local_file = update._download_workflow(update_data['download_url'])
-        os.system('open "%s"' % local_file)
+        subprocess.call(['open', local_file])
         self.logger.debug('Update initiated')
         update_data['available'] = False
         self.cache_data('__workflow_update_available', update_data)
         return True
-
-    def _get_update_info(self):
-        try:
-            github_slug = self._update_info['github_slug']
-            version = self._update_info['version']
-        except KeyError:
-            raise ValueError('Auto update settings incorrect')
-        frequency = None
-        if 'frequency' in self._update_info:
-            frequency = self._update_info['frequency']
-        return (github_slug, version, frequency)
 
     ####################################################################
     # Keychain password storage methods

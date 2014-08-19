@@ -47,7 +47,6 @@ __all__ = ['']
 wf = workflow.Workflow()
 log = wf.logger
 
-DEFAULT_FREQUENCY = 1
 RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
 COMPONENT_RE = re.compile(r'(\d+ | [a-z]+ | \.| -)', re.VERBOSE)
 
@@ -70,7 +69,7 @@ def _get_api_url(slug):
 def _extract_version(release):
     if 'tag_name' not in release:
         raise RuntimeError('No version found')
-    return release['tag_name']
+    return _parse_version(release['tag_name'])
 
 def _parse_version_parts(s):
     for part in COMPONENT_RE.split(s):
@@ -89,23 +88,6 @@ def _parse_version(s):
             parts.append(part)
     return tuple(parts)
 
-def _is_latest(local, remote):
-    local = _parse_version(local)
-    remote = _parse_version(remote)
-    if len(local) != len(remote):
-        return False
-    for i in range(len(local)):
-        if (isinstance(local[i], int) and
-                isinstance(remote[i], int)):
-            if local[i] < remote[i]:
-                return False
-            elif local[i] > remote[i]:
-                return True
-        else:
-            if local[i] != remote[i]:
-                return False
-    return True
-
 def _extract_download_url(release):
     if ('assets' not in release or
             len(release['assets']) != 1 or
@@ -118,11 +100,11 @@ def _get_latest_release(release_list):
         raise RuntimeError('No release found')
     return release_list[0]
 
-def _update_available(github_slug, current_version):
+def main(github_slug, current_version):
     release_list = get(_get_api_url(github_slug)).json()
     latest_release = _get_latest_release(release_list)
     latest_version = _extract_version(latest_release)
-    if _is_latest(current_version, latest_version):
+    if current_version >= latest_version:
         wf.cache_data('__workflow_update_available', {
             'available': False
         })
@@ -134,16 +116,10 @@ def _update_available(github_slug, current_version):
     })
     return True
 
-def main(github_slug, version, frequency):
-    if not wf.cached_data_fresh('__workflow_update_available', frequency * 86400):
-        _update_available(github_slug, version)
-
 if __name__ == '__main__':  # pragma: nocover
     parser = argparse.ArgumentParser()
     parser.add_argument("github_slug", help="")
     parser.add_argument("version", help="")
-    parser.add_argument("-f", "--frequency", type=int, help="")
     args = parser.parse_args()
-    frequency = args.frequency if args.frequency else DEFAULT_FREQUENCY
-    main(args.github_slug, args.version, frequency)
+    main(args.github_slug, _parse_version(args.version))
     

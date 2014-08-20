@@ -83,46 +83,40 @@ except ImportError:  # pragma: no cover
 
 
 ####################################################################
-# Some standard system icons
+# Standard system icons
 ####################################################################
 
-# Shown when a workflow throws an error
-ICON_ACCOUNT = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/Accounts.icns')
-ICON_BURN = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/BurningIcon.icns')
-ICON_COLOR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/ProfileBackgroundColor.icns')
+# These icons are default OS X icons. They are super-high quality, and
+# will be familiar to users.
+# This library uses `ICON_ERROR` when a workflow dies in flames, so
+# in my own workflows, I use `ICON_WARNING` for less fatal errors
+# (e.g. bad user input, no results etc.)
+
+# The system icons are all in this directory. There are many more than
+# are listed here
+
+ICON_ROOT = '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
+
+ICON_ACCOUNT = os.path.join(ICON_ROOT, 'Accounts.icns')
+ICON_BURN = os.path.join(ICON_ROOT, 'BurningIcon.icns')
+ICON_COLOR = os.path.join(ICON_ROOT, 'ProfileBackgroundColor.icns')
 ICON_COLOUR = ICON_COLOR  # Queen's English, if you please
-ICON_ERROR = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/AlertStopIcon.icns')
-ICON_FAVORITE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                 '/Resources/ToolbarFavoritesIcon.icns')
+# Shown when a workflow throws an error
+ICON_ERROR = os.path.join(ICON_ROOT, 'AlertStopIcon.icns')
+ICON_FAVORITE = os.path.join(ICON_ROOT, 'ToolbarFavoritesIcon.icns')
 ICON_FAVOURITE = ICON_FAVORITE
-ICON_GROUP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/GroupIcon.icns')
-ICON_HELP = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/HelpIcon.icns')
-ICON_INFO = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/ToolbarInfo.icns')
-ICON_MUSIC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/ToolbarMusicFolderIcon.icns')
-ICON_NETWORK = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/GenericNetworkIcon.icns')
-ICON_NOTE = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/AlertNoteIcon.icns')
-ICON_SETTINGS = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                 '/Resources/ToolbarAdvanced.icns')
-ICON_SYNC = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/Sync.icns')
-ICON_TRASH = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-              '/Resources/TrashIcon.icns')
-ICON_USER = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-             '/Resources/UserIcon.icns')
-ICON_WARNING = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-                '/Resources/AlertCautionIcon.icns')
-ICON_WEB = ('/System/Library/CoreServices/CoreTypes.bundle/Contents'
-            '/Resources/BookmarkIcon.icns')
+ICON_GROUP = os.path.join(ICON_ROOT, 'GroupIcon.icns')
+ICON_HELP = os.path.join(ICON_ROOT, 'HelpIcon.icns')
+ICON_INFO = os.path.join(ICON_ROOT, 'ToolbarInfo.icns')
+ICON_MUSIC = os.path.join(ICON_ROOT, 'ToolbarMusicFolderIcon.icns')
+ICON_NETWORK = os.path.join(ICON_ROOT, 'GenericNetworkIcon.icns')
+ICON_NOTE = os.path.join(ICON_ROOT, 'AlertNoteIcon.icns')
+ICON_SETTINGS = os.path.join(ICON_ROOT, 'ToolbarAdvanced.icns')
+ICON_SYNC = os.path.join(ICON_ROOT, 'Sync.icns')
+ICON_TRASH = os.path.join(ICON_ROOT, 'TrashIcon.icns')
+ICON_USER = os.path.join(ICON_ROOT, 'UserIcon.icns')
+ICON_WARNING = os.path.join(ICON_ROOT, 'AlertCautionIcon.icns')
+ICON_WEB = os.path.join(ICON_ROOT, 'BookmarkIcon.icns')
 
 ####################################################################
 # non-ASCII to ASCII diacritic folding.

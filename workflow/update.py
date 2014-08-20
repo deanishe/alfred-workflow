@@ -34,9 +34,7 @@ if wf.update_available:
 
 from __future__ import print_function, unicode_literals
 
-import urllib
 import tempfile
-import re
 import argparse
 
 import workflow
@@ -48,17 +46,16 @@ wf = workflow.Workflow()
 log = wf.logger
 
 RELEASES_BASE = 'https://api.github.com/repos/%s/releases'
-COMPONENT_RE = re.compile(r'(\d+ | [a-z]+ | \.| -)', re.VERBOSE)
 
 def _download_workflow(github_url):
     filename = github_url.split("/")[-1]
     if (not github_url.endswith('.alfredworkflow') or
             not filename.endswith('.alfredworkflow')):
-        raise RuntimeError('Attachment %s not a workflow' % filename)
-    download_url = get(github_url).url # resolve redirect
-    file_downloader = urllib.URLopener()
+        raise ValueError('Attachment %s not a workflow' % filename)
     local_file = '%s/%s' % (tempfile.gettempdir(), filename)
-    file_downloader.retrieve(download_url, local_file)
+    response = get(github_url)
+    with open(local_file, 'wb') as output:
+        output.write(response.content)
     return local_file
 
 def _get_api_url(slug):
@@ -66,27 +63,14 @@ def _get_api_url(slug):
         raise ValueError('Invalid GitHub slug : %s' % slug)
     return RELEASES_BASE % slug
 
-def _extract_version(release):
-    if 'tag_name' not in release:
+def _extract_info(releases):
+    if len(releases) < 1:
+        raise IndexError('No release found')
+    latest_release = releases[0]
+    if 'tag_name' not in latest_release:
         raise KeyError('No version found')
-    return _parse_version(release['tag_name'])
-
-def _parse_version_parts(s):
-    for part in COMPONENT_RE.split(s):
-        if not part or part=='.':
-            continue
-        if part[:1] in '0123456789':
-            yield int(part)
-        else:
-            yield part
-    yield ''
-
-def _parse_version(s):
-    parts = []
-    for part in _parse_version_parts(s.lower()):
-        if part is not '':
-            parts.append(part)
-    return tuple(parts)
+    download_url = _extract_download_url(latest_release)
+    return (latest_release['tag_name'], download_url)
 
 def _extract_download_url(release):
     if ('assets' not in release or
@@ -95,20 +79,17 @@ def _extract_download_url(release):
         raise KeyError('No attachment found')
     return release['assets'][0]['browser_download_url']
 
-def main(github_slug, current_version):
-    release_list = get(_get_api_url(github_slug)).json()
-    if len(release_list) < 1:
-        raise IndexError('No release found')
-    latest_release = release_list[0]
-    latest_version = _extract_version(latest_release)
-    if current_version >= latest_version:
+def _check_update(github_slug, current_version):
+    releases = get(_get_api_url(github_slug)).json()
+    (latest_version, download_url) = _extract_info(releases)
+    if current_version == latest_version:
         wf.cache_data('__workflow_update_available', {
             'available': False
         })
         return False
     wf.cache_data('__workflow_update_available', {
         'version': latest_version,
-        'download_url': _extract_download_url(latest_release),
+        'download_url': download_url,
         'available': True
     })
     return True
@@ -118,5 +99,5 @@ if __name__ == '__main__':  # pragma: nocover
     parser.add_argument("github_slug", help="")
     parser.add_argument("version", help="")
     args = parser.parse_args()
-    main(args.github_slug, _parse_version(args.version))
+    _check_update(args.github_slug, args.version)
     

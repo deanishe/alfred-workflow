@@ -1936,7 +1936,7 @@ class Workflow(object):
     def check_update(self, force=False):
         frequency = self._update_info.get('frequency', DEFAULT_FREQUENCY)
         if (force or
-                not wf.cached_data_fresh(
+                not self.cached_data_fresh(
                     '__workflow_update_available', frequency * 86400)):
             github_slug = self._update_info['github_slug']
             version = self._update_info['version']
@@ -1949,7 +1949,7 @@ class Workflow(object):
         import update
         github_slug = self._update_info['github_slug']
         version = self._update_info['version']
-        if not update._update_available(github_slug, version):
+        if not update._check_update(github_slug, version):
             return False
         update_data = self.cached_data('__workflow_update_available')
         if (update_data is None or

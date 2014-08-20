@@ -1954,7 +1954,7 @@ class Workflow(object):
         update_data = self.cached_data('__workflow_update_available')
         if (update_data is None or
             'download_url' not in update_data):
-            return False
+            return False   # pragma: no cover
         local_file = update._download_workflow(update_data['download_url'])
         subprocess.call(['open', local_file])
         self.logger.debug('Update initiated')

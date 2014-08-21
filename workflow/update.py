@@ -34,6 +34,7 @@ if wf.update_available:
 
 from __future__ import print_function, unicode_literals
 
+import os
 import tempfile
 import argparse
 
@@ -52,7 +53,7 @@ def _download_workflow(github_url):
     if (not github_url.endswith('.alfredworkflow') or
             not filename.endswith('.alfredworkflow')):
         raise ValueError('Attachment %s not a workflow' % filename)
-    local_file = '%s/%s' % (tempfile.gettempdir(), filename)
+    local_file = os.path.join(tempfile.gettempdir(), filename)
     response = get(github_url)
     with open(local_file, 'wb') as output:
         output.write(response.content)

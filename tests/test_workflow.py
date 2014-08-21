@@ -44,7 +44,6 @@ DEFAULT_SETTINGS = {'key1': 'value1',
                     'key2': 'hübner'}
 
 
-
 def setUp():
     pass
 
@@ -778,7 +777,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_filter_folding_force_on(self):
         """Filter: diacritic folding forced on"""
-        self.wf.settings['__workflows_diacritic_folding'] = True
+        self.wf.settings['__workflow_diacritic_folding'] = True
         for key, query in self.search_items_diacritics:
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True,
@@ -787,7 +786,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_filter_folding_force_off(self):
         """Filter: diacritic folding forced off"""
-        self.wf.settings['__workflows_diacritic_folding'] = False
+        self.wf.settings['__workflow_diacritic_folding'] = False
         for key, query in self.search_items_diacritics:
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True)

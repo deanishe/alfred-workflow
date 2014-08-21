@@ -38,7 +38,7 @@ Your workflow should start out like this. This enables :class:`Workflow`
 to capture any errors thrown by your scripts:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     #!/usr/bin/python
     # encoding: utf-8
@@ -90,7 +90,7 @@ Simply create a ``lib`` subdirectory under your Workflow's root directory
 (or call it whatever you want), install your dependencies there with
 
 .. code-block:: bash
-   :linenos:
+    :linenos:
 
     pip install --target=my-workflow-root-dir/lib python-lib-name
 
@@ -98,7 +98,7 @@ and instantiate :class:`Workflow <workflow.workflow.Workflow>`
 with the ``libraries`` argument:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow
 
@@ -169,7 +169,7 @@ the data if they aren't in the cache (or are too old), and a maximum age in seco
 for the cached data:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import web, Workflow
 
@@ -183,7 +183,7 @@ To retrieve data only if they are in the cache, call with ``None`` as the
 data-retrieval function (which is the default):
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     data = wf.cached_data('stuff', max_age=600)
 
@@ -212,14 +212,14 @@ These data are stored in your workflow's data directory
 (see :attr:`~workflow.workflow.Workflow.datadir`).
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-   from workflow import Workflow
+    from workflow import Workflow
 
-   wf = Workflow()
-   wf.store_data('name', data)
-   # data will be `None` if there is nothing stored under `name`
-   data = wf.stored_data('name')
+    wf = Workflow()
+    wf.store_data('name', data)
+    # data will be `None` if there is nothing stored under `name`
+    data = wf.stored_data('name')
 
 These methods do not support the data expiry features of the cached data methods,
 but you can specify your own serializer for each datastore, making it simple
@@ -232,7 +232,7 @@ If you want to specify your own file format/serializer, please see
 :ref:`Serialization <serialization>` for details.
 
 
-.. _settings:
+.. _howto-settings:
 
 Settings
 --------
@@ -248,11 +248,11 @@ with the caveat that all keys and values must be serializable to JSON.
 recognise when you directly alter the values of its own keys:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
-   wf = Workflow()
-   wf.settings['key'] = {'key2': 'value'}  # will be automatically saved
-   wf.settings['key']['key2'] = 'value2'  # will *not* be automatically saved
+    wf = Workflow()
+    wf.settings['key'] = {'key2': 'value'}  # will be automatically saved
+    wf.settings['key']['key2'] = 'value2'  # will *not* be automatically saved
 
 If you've altered a data structure stored within your workflow's
 :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`, you need to
@@ -285,7 +285,7 @@ methods.
 Example usage:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow
 
@@ -330,7 +330,7 @@ other than strings, a ``key`` function that generates a string search key for
 each item:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow
 
@@ -350,8 +350,8 @@ Which returns::
 If your data are not strings:
 
 .. code-block:: python
-   :emphasize-lines: 11-12,16
-   :linenos:
+    :emphasize-lines: 11-12,16
+    :linenos:
 
     from workflow import Workflow
 
@@ -385,7 +385,7 @@ Chances are, you would not want ``bot`` to match ``Bob Smith A damn fine afterno
 at all, or indeed any of the other books. Indeed, they have very low scores:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     hits = wf.filter('bot', books, key_for_book, include_score=True)
 
@@ -417,14 +417,14 @@ So in all likelihood, you'll want to pass a ``min_score`` argument to
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     hits = wf.filter('bot', books, key_for_book, min_score=20)
 
 and/or exclude some of the matching rules:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow, MATCH_ALL, MATCH_ALLCHARS
 
@@ -436,7 +436,7 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 ``^`` to remove them from ``MATCH_ALL``:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     # match only CamelCase and initials
     match_on=MATCH_CAPITALS | MATCH_INITIALS
@@ -575,7 +575,7 @@ If you need the ability to customise caching, you can change the default
 cache serialization format to :mod:`pickle` thus:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     wf = Workflow()
     wf.cache_serializer = 'pickle'
@@ -584,7 +584,7 @@ In the case of stored data, you are free to specify either a global default
 serializer of one for each individual datastore:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     wf = Workflow()
     # Use `pickle` as the global default serializer
@@ -605,7 +605,7 @@ To register a new serializer, call the ``register`` method of the ``workflow.man
 object:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow, manager
 
@@ -617,7 +617,7 @@ object:
 A serializer *must* conform to this interface (like :mod:`json` and :mod:`pickle`):
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     serializer.load(file_obj)
     serializer.dump(obj, file_obj)
@@ -638,7 +638,7 @@ The :mod:`~workflow.workflow` module provides access to a number of default
 OS X icons via ``ICON_*`` constants for use when generating Alfred feedback:
 
 .. code-block:: python
-   :linenos:
+    :linenos:
 
     from workflow import Workflow, ICON_INFO
 

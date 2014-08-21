@@ -7,5 +7,8 @@ before_install:
   - brew install duti
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 install:
-  - sudo pip install nose coverage yanc
+  - sudo pip install nose coverage coveralls yanc
 script: bash run-tests.sh
+after_success:
+  - cd tests
+  - coveralls

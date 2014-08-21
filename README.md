@@ -4,7 +4,7 @@
 A helper library in Python for authors of workflows for [Alfred 2](http://www.alfredapp.com/).
 
 [![Build Status](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master)](https://travis-ci.org/deanishe/alfred-workflow)
-[![Coverage Status](https://coveralls.io/repos/deanishe/alfred-workflow/badge.png)](https://coveralls.io/r/deanishe/alfred-workflow)
+[![Coverage Status](https://img.shields.io/coveralls/deanishe/alfred-workflow.svg)](https://coveralls.io/r/deanishe/alfred-workflow?branch=master)
 [![Latest Version](https://pypip.in/version/Alfred-Workflow/badge.svg?text=version)](https://pypi.python.org/pypi/Alfred-Workflow/)
 [![Supported Python versions](https://pypip.in/py_versions/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
 [![License](https://pypip.in/license/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
@@ -180,11 +180,26 @@ The code and the documentation are released under the MIT and [Creative Commons 
 
 The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx Bootstrap Theme](http://ryan-roemer.github.io/sphinx-bootstrap-theme/), [Bootstrap](http://getbootstrap.com/) and the [Readable Bootswatch theme](http://bootswatch.com/readable/).
 
+## Contributing ##
 
-## Contributors ##
+Bug reports, feature suggestions and pull requests are very welcome. Head over to the [issues](https://github.com/deanishe/alfred-workflow/issues) if you have a feature request or a bug report.
+
+If you want to make a pull request, do that [here](https://github.com/deanishe/alfred-workflow/pulls), but please bear the following in mind:
+
+- **Alfred-Workflow** has very close to 100% test coverage. The only code that isn't covered by unit/functional tests is the code that opens external applications. "Proof-of-concept" pull requests without tests are more than welcome. However, please be prepared to add the appropriate tests if you want your pull request to be ultimately accepted.
+- Complete coverage is *only a proxy* for decent tests. Tests should also cover a decent variety of valid/invalid input. For example, if the code *could potentially* be handed non-ASCII input, it should be tested with non-ASCII input.
+- Code should be [PEP8](http://legacy.python.org/dev/peps/pep-0008/)-compliant as far as is reasonable. Any decent code editor has a PEP8 plugin that will warn you of potential transgressions.
+- Please choose your function, method and argument names carefully, with an eye to the existing names. Obviousness is more important than brevity.
+- Document your code using the [Sphinx ReST format](http://sphinx-doc.org/). Even if your function/method isn't user-facing, some other developer will be looking at it. Even if it's only a one-liner, the developer may be looking at [the docs](http://www.deanishe.net/alfred-workflow/#api-docs) in a browser, not at the source code.
+- Performance counts. Alfred will try to run a workflow anew on every keypress. As a rule, 0.3 seconds execution time is decent, 0.2 seconds or less is smooth. **Alfred-Workflow** should do its utmost to consume as little of that time as possible.
+
+Currently, there is Travis-CI integration, but also a `run-tests.sh` script in the root directory of the repo which will fail *if code coverage is less than 100%* (Travis-CI also uses this script). Add `# pragma: no cover` with care.
+
+### Contributors ###
 
 - [Dean Jackson](https://github.com/deanishe)
 - [Stephen Margheim](https://github.com/smargh)
+- [Fabio Niephaus](https://github.com/fniephaus)
 
 ## Workflows using Alfred-Workflow ##
 

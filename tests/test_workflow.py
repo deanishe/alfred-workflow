@@ -643,6 +643,28 @@ class WorkflowTests(unittest.TestCase):
         for p in paths:
             self.assertFalse(os.path.exists(p))
 
+    def test_update(self):
+        """Workflow updating methods"""
+        self.assertFalse(self.wf.update_available)
+        self.wf = Workflow(update_info={
+            'github_slug': 'fniephaus/alfred-pocket',
+            'version': 'v0.0',
+            'frequency': 1,
+        })
+        # wait for background update check
+        time.sleep(2)
+        self.assertTrue(self.wf.update_available)
+        self.assertTrue(self.wf.start_update())
+        update_info = self.wf.cached_data('__workflow_update_available')
+        self.wf = Workflow(update_info={
+            'github_slug': 'fniephaus/alfred-pocket',
+            'version': update_info['version'],
+        })
+        # wait for background update check
+        time.sleep(2)
+        self.assertFalse(self.wf.update_available)
+        self.assertFalse(self.wf.start_update())
+
     def test_keychain(self):
         """Save/get/delete password"""
         self.assertRaises(PasswordNotFound,

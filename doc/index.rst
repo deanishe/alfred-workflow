@@ -70,6 +70,7 @@ Documentation automatically generated from the source code.
    workflow
    web
    background
+   update
 
 Script filter results/XML format
 ================================

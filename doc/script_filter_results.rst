@@ -144,14 +144,14 @@ required argument and must be :class:`unicode`:
 .. code-block:: python
     :linenos:
 
-    wf.add_item(u'My title'[, …])
+    wf.add_item(u'My title'[, ...])
 
 or
 
 .. code-block:: python
     :linenos:
 
-    wf.add_item(title=u'My title'[, …])
+    wf.add_item(title=u'My title'[, ...])
 
 .. _param-subtitle:
 
@@ -231,10 +231,10 @@ have the value of either ``YES`` or ``NO``:
     :linenos:
 
     <item valid="YES">
-        …
+        ...
     </item>
     <item valid="NO">
-        …
+        ...
     </item>
 
 ``valid`` determines whether a user can hit ``ENTER`` on a result in Alfred's

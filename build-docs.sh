@@ -14,6 +14,9 @@ if [[ ! -f "info.plist" ]]; then
 fi
 
 cd "${docdir}"
+if [[ -d _build/html ]]; then
+	rm -rf _build/html
+fi
 make html
 cd "${curdir}"
 

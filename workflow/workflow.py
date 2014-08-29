@@ -970,9 +970,9 @@ class Workflow(object):
 
         if not self._name:
             if self.alfred_env.get('workflow_name'):
-                self._name = self.alfred_env.get('workflow_name')
+                self._name = self.decode(self.alfred_env.get('workflow_name'))
             else:
-                self._name = unicode(self.info['name'], 'utf-8')
+                self._name = self.decode(self.info['name'])
 
         return self._name
 

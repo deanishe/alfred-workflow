@@ -332,6 +332,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_info_plist(self):
         """info.plist"""
+        self._teardown_env()
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
 

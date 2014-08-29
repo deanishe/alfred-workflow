@@ -94,6 +94,9 @@
 <li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">workflow.background</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter results and XML format</a></li>
+</ul>
 </ul>
 </li>
               
@@ -487,7 +490,7 @@ libraries. These paths will be prepended to <tt class="docutils literal"><span c
 <li><strong>modifier_subtitles</strong> (<tt class="docutils literal"><span class="pre">dict</span></tt>) &#8211; Subtitles shown when modifier
 (CMD, OPT etc.) is pressed. Use a <tt class="docutils literal"><span class="pre">dict</span></tt> with the lowercase
 keys <tt class="docutils literal"><span class="pre">cmd</span></tt>, <tt class="docutils literal"><span class="pre">ctrl</span></tt>, <tt class="docutils literal"><span class="pre">shift</span></tt>, <tt class="docutils literal"><span class="pre">alt</span></tt> and <tt class="docutils literal"><span class="pre">fn</span></tt></li>
-<li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <cite>{query}</cite> when item is
+<li><strong>arg</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Argument passed by Alfred as <tt class="docutils literal"><span class="pre">{query}</span></tt> when item is
 actioned</li>
 <li><strong>autocomplete</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Text expanded in Alfred when item is TABbed</li>
 <li><strong>valid</strong> (<cite>Boolean</cite>) &#8211; Whether or not item can be actioned</li>
@@ -495,7 +498,7 @@ actioned</li>
 <li><strong>icon</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Filename of icon to use</li>
 <li><strong>icontype</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Type of icon. Must be one of <tt class="docutils literal"><span class="pre">None</span></tt> , <tt class="docutils literal"><span class="pre">'filetype'</span></tt>
 or <tt class="docutils literal"><span class="pre">'fileicon'</span></tt>. Use <tt class="docutils literal"><span class="pre">'filetype'</span></tt> when <tt class="docutils literal"><span class="pre">icon</span></tt> is a filetype
-such as``public.folder``. Use <tt class="docutils literal"><span class="pre">'fileicon'</span></tt> when you wish to
+such as <tt class="docutils literal"><span class="pre">'public.folder'</span></tt>. Use <tt class="docutils literal"><span class="pre">'fileicon'</span></tt> when you wish to
 use the icon of the file specified as <tt class="docutils literal"><span class="pre">icon</span></tt>, e.g.
 <tt class="docutils literal"><span class="pre">icon='/Applications/Safari.app',</span> <span class="pre">icontype='fileicon'</span></tt>.
 Leave as <cite>None</cite> if <tt class="docutils literal"><span class="pre">icon</span></tt> points to an actual
@@ -515,6 +518,8 @@ CMD+C on item.</li>
 </tr>
 </tbody>
 </table>
+<p>See the <a class="reference internal" href="script_filter_results.html#script-filter-results"><em>Script Filter results and XML format</em></a> section of the documentation
+for more information.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -913,7 +918,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10edc4b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x104e62b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>

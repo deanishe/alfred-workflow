@@ -71,6 +71,13 @@ Documentation automatically generated from the source code.
    web
    background
 
+Script filter results/XML format
+================================
+
+.. toctree::
+   :maxdepth: 2
+
+   script_filter_results
 
 Indices and tables
 ==================

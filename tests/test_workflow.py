@@ -134,8 +134,7 @@ class SerializerTests(unittest.TestCase):
 class WorkflowTests(unittest.TestCase):
 
     def setUp(self):
-        self.libs = [os.path.join(os.path.dirname(__file__), 'lib')]
-        self.wf = Workflow(libraries=self.libs)
+        self.libs = [os.path.join(os.path.dirname(__file__), b'lib')]
         self.account = 'this-is-my-test-account'
         self.password = 'this-is-my-safe-password'
         self.password2 = 'this-is-my-other-safe-password'
@@ -173,19 +172,21 @@ class WorkflowTests(unittest.TestCase):
             'alfred_theme_subtext': b'3',
             'alfred_version': b'2.4',
             'alfred_version_build': b'277',
-            'alfred_workflow_bundleid': b'com.alfredapp.david.googlesuggest',
+            'alfred_workflow_bundleid': str(BUNDLE_ID),
             'alfred_workflow_cache':
             os.path.expanduser('~/Library/Caches/com.runningwithcrayons.'
-                               'Alfred-2/Workflow Data/com.alfredapp.david'
-                               '.googlesuggest'),
+                               'Alfred-2/Workflow Data/{}'.format(BUNDLE_ID)),
             'alfred_workflow_data':
             os.path.expanduser('~/Library/Application Support/Alfred 2/'
-                               'Workflow Data/com.alfredapp.david.'
-                               'googlesuggest'),
-            'alfred_workflow_name': b'Google Suggest',
+                               'Workflow Data/{}'.format(BUNDLE_ID)),
+            'alfred_workflow_name': b'Alfred-Workflow Test',
             'alfred_workflow_uid':
             b'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
         }
+
+        self._setup_env()
+
+        self.wf = Workflow(libraries=self.libs)
 
     def tearDown(self):
         self.wf.reset()
@@ -198,9 +199,7 @@ class WorkflowTests(unittest.TestCase):
             if os.path.exists(dirpath):
                 shutil.rmtree(dirpath)
 
-        for key in self.env_data:
-            if key in os.environ:
-                del os.environ[key]
+        self._teardown_env()
 
     def test_item_creation(self):
         """XML generation"""
@@ -333,12 +332,14 @@ class WorkflowTests(unittest.TestCase):
 
     def test_info_plist(self):
         """info.plist"""
+        self._teardown_env()
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
 
     def test_info_plist_missing(self):
         """Info.plist missing"""
         delete_info_plist()
+        self._teardown_env()
         try:
             with self.assertRaises(IOError):
                 Workflow()
@@ -348,8 +349,7 @@ class WorkflowTests(unittest.TestCase):
     def test_alfred_env_vars(self):
         """Alfred environmental variables"""
 
-        for key in self.env_data:
-            os.environ[key] = self.env_data[key]
+        self._setup_env()
 
         for key in self.env_data:
             value = self.env_data[key]
@@ -363,6 +363,8 @@ class WorkflowTests(unittest.TestCase):
                          self.env_data['alfred_workflow_bundleid'])
         self.assertEqual(self.wf.name,
                          self.env_data['alfred_workflow_name'])
+
+        self._teardown_env()
 
     def test_args(self):
         """ARGV"""
@@ -801,6 +803,53 @@ class WorkflowTests(unittest.TestCase):
                 print(name, path)
                 self.assert_(os.path.exists(path))
 
+    def test_datadir_is_unicode(self):
+        """Workflow.datadir returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.datadir, unicode))
+        self._teardown_env()
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.datadir, unicode))
+
+    def test_datafile_is_unicode(self):
+        """Workflow.datafile returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
+        self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
+        self._teardown_env()
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
+        self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
+
+    def test_cachedir_is_unicode(self):
+        """Workflow.cachedir returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.cachedir, unicode))
+        self._teardown_env()
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.cachedir, unicode))
+
+    def test_cachefile_is_unicode(self):
+        """Workflow.cachefile returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.cachefile(b'test.txt'), unicode))
+        self.assertTrue(isinstance(wf.cachefile('über.txt'), unicode))
+        self._teardown_env()
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.cachefile(b'test.txt'), unicode))
+        self.assertTrue(isinstance(wf.cachefile('über.txt'), unicode))
+
+    def test_workflowdir_is_unicode(self):
+        """Workflow.workflowdir returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.workflowdir, unicode))
+
+    def test_workflowfile_is_unicode(self):
+        """Workflow.workflowfile returns Unicode"""
+        wf = Workflow()
+        self.assertTrue(isinstance(wf.workflowfile(b'test.txt'), unicode))
+        self.assertTrue(isinstance(wf.workflowfile('über.txt'), unicode))
+
     def _print_results(self, results):
         """Print results of Workflow.filter"""
         for item, score, rule in results:
@@ -811,6 +860,19 @@ class WorkflowTests(unittest.TestCase):
         metadata = self.wf.datafile('.{}.alfred-workflow'.format(name))
         datapath = self.wf.datafile('{}.{}'.format(name, serializer))
         return [metadata, datapath]
+
+    def _setup_env(self):
+        """Add Alfred env variables to environment"""
+
+        for key in self.env_data:
+            os.environ[key] = self.env_data[key]
+
+    def _teardown_env(self):
+        """Remove Alfred env variables from environment"""
+
+        for key in self.env_data:
+            if key in os.environ:
+                del os.environ[key]
 
 
 class SettingsTests(unittest.TestCase):

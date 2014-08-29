@@ -42,7 +42,7 @@ class WebTests(unittest.TestCase):
         self.data = {'name': 'My name is Jürgen!',
                      'address': 'Hürterstr. 42\nEssen'}
         self.test_file = os.path.join(os.path.dirname(__file__),
-                                      'cönfüsed.gif')
+                                      b'cönfüsed.gif')
         self.fubar_url = 'http://deanishe.net/fubar.txt'
         self.fubar_bytes = b'fübar'
         self.fubar_unicode = 'fübar'

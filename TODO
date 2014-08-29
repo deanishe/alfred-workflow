@@ -1,3 +1,7 @@
+Docs:
+	- Improve description of how to use `Workflow(libraries=)`
+		Make paths to specify to `pip` clearer.
+		See https://github.com/deanishe/alfred-workflow/issues/28
 Possible Features:
 	- `handlers.py` module to provide system-default apps for protocols like `http`, `mailto` etc.
 	- Enable `background.py` to be run from within a ZIP file

@@ -216,6 +216,7 @@ These are some of the Alfred workflows that use this library.
 - [AppScripts](http://www.packal.org/workflow/appscripts) by [deanishe](http://www.packal.org/users/deanishe). List, search and run/open AppleScripts for the active application.
 - [BibQuery](http://www.packal.org/workflow/bibquery) by [hackademic](http://www.packal.org/users/hackademic). Search BibDesk from the comfort of your keyboard.
 - [Blur](http://www.packal.org/workflow/blur) by [Tyler Eich](http://www.packal.org/users/tyler-eich). Set Alfred's background blur radius.
+- [Code Case](http://www.packal.org/workflow/code-case) by [dfay](http://www.packal.org/users/dfay). Case Converter for Code.
 - [Convert](http://www.packal.org/workflow/convert) by [deanishe](http://www.packal.org/users/deanishe). Convert between different units. No Internet connection required.
 - [Date Calculator](http://www.packal.org/workflow/date-calculator) by [MuppetGate](http://www.packal.org/users/muppetgate). A basic date calculator.
 - [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by [frankspin](http://www.packal.org/users/frankspin). Check the status of your Digital Ocean droplets.
@@ -234,6 +235,7 @@ These are some of the Alfred workflows that use this library.
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search) by [deanishe](http://www.packal.org/users/deanishe). Search Packal.org from the comfort of Alfred.
 - [Pandoctor](http://www.packal.org/workflow/pandoctor) by [hackademic](http://www.packal.org/users/hackademic). An Alfred GUI for Pandoc.
 - [Parsers](http://www.packal.org/workflow/parsers) by [hackademic](http://www.packal.org/users/hackademic). Greek and Latin parsers.
+- [Percent Change](http://www.packal.org/workflow/percent-change) by [bkmontgomery](http://www.packal.org/users/bkmontgomery). Easily do percentage calculations.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Manage your Pocket list with Alfred.
 - [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by [paperElectron](http://www.packal.org/users/paperelectron). Add some stock symbols for Alfred to check for you.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Manage your Readability list with Alfred.
@@ -246,6 +248,8 @@ These are some of the Alfred workflows that use this library.
 - [Sublime Text Projects](http://www.packal.org/workflow/sublime-text-projects) by [deanishe](http://www.packal.org/users/deanishe). View, filter and open your Sublime Text (2 and 3) project files.
 - [Torrent](http://www.packal.org/workflow/torrent) by [bfw](http://www.packal.org/users/bfw). Search for torrents, choose among the results in Alfred and start the download in uTorrent.
 - [Travis CI for Alfred](http://www.packal.org/workflow/travis-ci-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Quickly check build statuses on travis-ci.org.
+- [UberTime](http://www.packal.org/workflow/ubertime) by [frankspin](http://www.packal.org/users/frankspin). Check estimated pick up time for Uber based on inputted address.
 - [VM Control](http://www.packal.org/workflow/vm-control) by [fniephaus](http://www.packal.org/users/fniephaus). Control your Parallels and Virtual Box virtual machines.
+- [VagrantUP](http://www.packal.org/workflow/vagrantup) by [m1keil](http://www.packal.org/users/m1keil). List and control Vagrant environments with Alfred2.
 - [Wikify](http://www.packal.org/workflow/wikify) by [hackademic](http://www.packal.org/users/hackademic). Your little Evernote Wiki-Helper.
 - [ZotQuery](http://www.packal.org/workflow/zotquery) by [hackademic](http://www.packal.org/users/hackademic). Search Zotero. From the Comfort of Your Keyboard.

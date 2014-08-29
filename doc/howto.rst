@@ -87,14 +87,40 @@ in the OS X system Python. **Alfred-Workflow** makes it easy to include them in
 your Workflow.
 
 Simply create a ``lib`` subdirectory under your Workflow's root directory
-(or call it whatever you want), install your dependencies there with
+and install your dependencies there. You can call the directory whatever you
+want, but in the following explanation, I'll assume you used ``lib``.
+
+To install libraries in your dependencies directory, use:
 
 .. code-block:: bash
     :linenos:
 
-    pip install --target=my-workflow-root-dir/lib python-lib-name
+    pip install --target=path/to/my/workflow/lib python-lib-name
 
-and instantiate :class:`Workflow <workflow.workflow.Workflow>`
+The path you pass as the ``--target`` argument should be the path to
+the directory under your Workflow's root directory in which you want to install
+your libraries. ``python-lib-name`` should be the "pip name" (i.e. the name the
+library has on `PyPI <https://pypi.python.org/pypi>`_) of the library you want
+to install, e.g. ``requests`` or ``feedparser``.
+
+This name is usually, but not always, the same as the name you use with ``import``.
+
+For example, to install **Alfred-Workflow**, you would run
+``pip install Alfred-Workflow`` but use ``import workflow`` to import it.
+
+**An example:** You're in a shell in Terminal.app in the Workflow's root directory
+and you're using ``lib`` as the directory for your Python libraries. You want to
+install `requests <http://docs.python-requests.org/en/latest/>`_. You would run:
+
+.. code-block:: bash
+    :linenos:
+
+    pip install --target=lib requests
+
+This will install the ``requests`` library into the ``lib`` subdirectory of the
+current working directory.
+
+Then you instantiate :class:`Workflow <workflow.workflow.Workflow>`
 with the ``libraries`` argument:
 
 .. code-block:: python
@@ -103,11 +129,33 @@ with the ``libraries`` argument:
     from workflow import Workflow
 
     def main(wf):
-        import module_from_lib_subdirectory_here
+        import requests  # Imported from ./lib
 
     if __name__ == '__main__':
         wf = Workflow(libraries=['./lib'])
         sys.exit(wf.run(main))
+
+When using this feature you **do not** need to create an ``__init__.py`` file in
+the ``lib`` subdirectory. ``Workflow(…, libraries=['./lib'])`` and creating
+``./lib/__init__.py`` are effectively equal alternatives.
+
+Instead of using ``Workflow(…, libraries=['./lib'])``, you can add an empty
+``__init__.py`` file to your ``lib`` subdirectory and import the libraries
+installed therein using:
+
+.. code-block:: python
+    :linenos:
+
+    from lib import requests
+
+instead of simply:
+
+
+.. code-block:: python
+    :linenos:
+
+    import requests
+
 
 
 .. _persistent-data:
@@ -151,7 +199,7 @@ may help you with development/debugging.
 In addition, :class:`Workflow <workflow.workflow.Workflow>` also provides a
 convenient interface for storing persistent settings with
 :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`.
-See :ref:`Settings <settings>` and :ref:`Keychain access <keychain>` for more
+See :ref:`Settings <howto-settings>` and :ref:`Keychain access <keychain>` for more
 information on storing settings and sensitive data.
 
 .. _caching-data:
@@ -261,8 +309,8 @@ explicitly call :meth:`Workflow.settings.save() <workflow.workflow.Settings.save
 If you need to store arbitrary data, you can use the :ref:`cached data API <caching-data>`.
 
 If you need to store data securely (such as passwords and API keys),
-:class:`Workflow <workflow.workflow.Workflow>` also provides simple access to
-the OS X Keychain.
+:class:`Workflow <workflow.workflow.Workflow>` also provides :ref:`simple access to
+the OS X Keychain <keychain>`.
 
 
 .. _keychain:
@@ -274,13 +322,12 @@ Methods :meth:`Workflow.save_password(account, password) <workflow.workflow.Work
 :meth:`Workflow.get_password(account) <workflow.workflow.Workflow.get_password>`
 and :meth:`Workflow.delete_password(account) <workflow.workflow.Workflow.delete_password>`
 allow access to the Keychain. They may raise
-:class:`PasswordNotFound <workflow.workflow.Workflow.PasswordNotFound>` if
-no password is set for the given ``account`` or
-:class:`KeychainError <workflow.workflow.Workflow.KeychainError>` if there is
-a problem accessing the Keychain. Passwords are stored in the user's default
-Keychain. By default, the Workflow's Bundle ID will be used as the service name,
-but this can be overridden by setting the ``service`` argument to the above
-methods.
+:class:`~workflow.workflow.Workflow.PasswordNotFound` if no password is set for
+the given ``account`` or :class:`~workflow.workflow.Workflow.KeychainError` if
+there is a problem accessing the Keychain. Passwords are stored in the user's
+default Keychain. By default, the Workflow's Bundle ID will be used as the
+service name, but this can be overridden by passing the ``service`` argument
+to the above methods.
 
 Example usage:
 
@@ -563,12 +610,13 @@ which is a bit smarter about showing the user update information.
 Serialization
 =============
 
-By default, both cache and data files are cached using :mod:`cPickle`. This
-provides a great compromise in terms of speed and ability to store arbitrary
-objects.
+By default, both cache and data files (created using the
+:ref:`APIs described above <caching-data>`) are cached using :mod:`cPickle`.
+This provides a great compromise in terms of speed and the ability to store
+arbitrary objects.
 
-When it comes to cache data, it is strongly recommended to stick with
-the default. :mod:`cPickle` is very fast and fully supports standard Python
+When it comes to cache data, it is *strongly recommended* to stick with
+the default. :mod:`cPickle` is *very* fast and fully supports standard Python
 data structures (``dict``, ``list``, ``tuple``, ``set`` etc.).
 
 If you need the ability to customise caching, you can change the default
@@ -581,7 +629,7 @@ cache serialization format to :mod:`pickle` thus:
     wf.cache_serializer = 'pickle'
 
 In the case of stored data, you are free to specify either a global default
-serializer of one for each individual datastore:
+serializer or one for each individual datastore:
 
 .. code-block:: python
     :linenos:
@@ -628,7 +676,7 @@ of the stored file.
 
 The :meth:`stored_data() <workflow.workflow.Workflow.stored_data>` method can
 automatically determine the serialization of the stored data, provided the
-corresponding serializer is registered. If it isn't, an exception will be raised.
+corresponding serializer is registered. If it isn't, a ``ValueError`` will be raised.
 
 
 Built-in icons
@@ -725,7 +773,7 @@ for debugging.
 use the :attr:`~workflow.workflow.Workflow.args` property (where magic arguments
 are parsed).
 
-:class:`~workflow.workflow.Workflow` supports the following magic args:
+:class:`~workflow.workflow.Workflow` supports the following magic arguments:
 
 - ``workflow:openlog`` — Open the Workflow's log file in the default app.
 - ``workflow:opencache`` — Open the Workflow's cache directory.
@@ -747,6 +795,15 @@ does not correspond with a user's usage pattern.
 
 You can turn off magic arguments by passing ``capture_args=False`` to
 :class:`~workflow.workflow.Workflow` on instantiation, or call the corresponding
-:meth:`~workflow.workflow.Workflow.open_log`, :meth:`~workflow.workflow.Workflow.clear_cache`
-and :meth:`~workflow.workflow.Workflow.clear_settings` methods directly, perhaps
-assigning them to your own Keywords.
+methods of :class:`~workflow.workflow.Workflow` directly, perhaps assigning your
+own keywords within your Workflow:
+
+- :meth:`~workflow.workflow.Workflow.open_log`
+- :meth:`~workflow.workflow.Workflow.open_cachedir`
+- :meth:`~workflow.workflow.Workflow.open_datadir`
+- :meth:`~workflow.workflow.Workflow.open_workflowdir`
+- :meth:`~workflow.workflow.Workflow.open_terminal`
+- :meth:`~workflow.workflow.Workflow.clear_cache`
+- :meth:`~workflow.workflow.Workflow.clear_data`
+- :meth:`~workflow.workflow.Workflow.clear_settings`
+- :meth:`~workflow.workflow.Workflow.reset` (a shortcut to call the three previous ``clear_*`` methods)

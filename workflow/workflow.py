@@ -988,9 +988,9 @@ class Workflow(object):
 
         if not self._name:
             if self.alfred_env.get('workflow_name'):
-                self._name = self.alfred_env.get('workflow_name')
+                self._name = self.decode(self.alfred_env.get('workflow_name'))
             else:
-                self._name = unicode(self.info['name'], 'utf-8')
+                self._name = self.decode(self.info['name'])
 
         return self._name
 
@@ -1096,6 +1096,7 @@ class Workflow(object):
 
         if self.alfred_env.get('workflow_cache'):
             dirpath = self.alfred_env.get('workflow_cache')
+
         else:
             dirpath = os.path.join(
                 os.path.expanduser(
@@ -1121,6 +1122,7 @@ class Workflow(object):
 
         if self.alfred_env.get('workflow_data'):
             dirpath = self.alfred_env.get('workflow_data')
+
         else:
             dirpath = os.path.join(os.path.expanduser(
                 '~/Library/Application Support/Alfred 2/Workflow Data/'),
@@ -1142,19 +1144,25 @@ class Workflow(object):
             # the library is in. CWD will be the workflow root if
             # a workflow is being run in Alfred
             candidates = [
-                os.path.abspath(os.getcwd()),
+                os.path.abspath(os.getcwdu()),
                 os.path.dirname(os.path.abspath(os.path.dirname(__file__)))]
 
             # climb the directory tree until we find `info.plist`
             for dirpath in candidates:
 
+                # Ensure directory path is Unicode
+                dirpath = self.decode(dirpath)
+
                 while True:
                     if os.path.exists(os.path.join(dirpath, 'info.plist')):
                         self._workflowdir = dirpath
                         break
+
                     elif dirpath == '/':
                         # no `info.plist` found
                         break
+
+                    # Check the parent directory
                     dirpath = os.path.dirname(dirpath)
 
                 # No need to check other candidates

@@ -199,7 +199,12 @@ Currently, there is Travis-CI integration, but also a `run-tests.sh` script in t
 
 - [Dean Jackson](https://github.com/deanishe)
 - [Stephen Margheim](https://github.com/smargh)
-- [Fabio Niephaus](https://github.com/fniephaus)
+
+## Tests ##
+
+**Alfred-Workflow** includes a full suite of unit tests. Please use the `run-tests.sh` script in the root directory of the repo to run the unit tests: it creates the necessary test environment to run the unit tests. `test_workflow.py` *will* fail if not run via `run-scripts.sh`, but the test suites for the other modules may also be run directly.
+
+Moreover, `run-tests.sh` checks the coverage of the unit tests and will fail if it is below 100%.
 
 ## Workflows using Alfred-Workflow ##
 

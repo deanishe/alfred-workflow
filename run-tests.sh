@@ -4,28 +4,40 @@
 
 # OUTPUT_PATH=$(pwd)/tests_output
 
-mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-LOGPATH="${mydir}/test.log"
+rootdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+workflow="${rootdir}/workflow"
+logpath="${rootdir}/test.log"
+testroot="/tmp/alfred-wörkflöw-$$"
+testdir="${testroot}/tests"
+curdir=$(pwd)
 
 function log() {
-    echo "$@" | tee -a $LOGPATH
+    echo "$@" | tee -a $logpath
 }
 
-rm -rf $LOGPATH
-
-curdir=$(pwd)
-wdir="${mydir}/tests"
-info_linked=0
-
-
-if [[ ! -f "info.plist" ]]; then
-	# link info.plist to parent directory so `background.py` can find it
-	ln -s "${wdir}/info.plist.test" "${mydir}/info.plist"
-	info_linked=1
+# Delete old log file if it exists
+if [[ -f "${logpath}" ]]; then
+    rm -rf "${logpath}"
 fi
 
-cd "$wdir"
+###############################################################################
+# Set up test environment
+###############################################################################
+if [[ -d "${testroot}" ]]; then
+    rm -rf "${testroot}"
+fi
+
+mkdir -p "${testroot}"
+cp -R "${rootdir}/tests" "${testdir}"
+ln -s "${rootdir}/workflow" "${testdir}/workflow"
+ln -s "${rootdir}/tests/info.plist.test" "${testroot}/info.plist"
+
+cd "${testdir}"
+
+
+###############################################################################
+# Set test options and run tests
+###############################################################################
 
 NOSETEST_OPTIONS="-d"
 
@@ -49,7 +61,7 @@ fi
 
 log "Running tests..."
 
-nosetests $NOSETEST_OPTIONS 2>&1 | tee -a $LOGPATH
+nosetests $NOSETEST_OPTIONS 2>&1 | tee -a $logpath
 ret=${PIPESTATUS[0]}
 
 echo
@@ -59,10 +71,14 @@ case "$ret" in
     *) log -e "FAILURE" ;;
 esac
 
+###############################################################################
+# Delete test environment
+###############################################################################
+
 cd "$curdir"
 
-if [[ $info_linked -eq 1 ]]; then
-	rm -f "${mydir}/info.plist"
+if [[ -d "${testroot}" ]]; then
+    rm -rf "${testroot}"
 fi
 
 exit $ret

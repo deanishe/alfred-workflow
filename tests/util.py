@@ -15,11 +15,11 @@ from __future__ import print_function, unicode_literals
 
 import os
 
-INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+INFO_PLIST_TEST = os.path.join(os.path.abspath(os.getcwdu()),
                                'info.plist.test')
 
 
-INFO_PLIST_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+INFO_PLIST_PATH = os.path.join(os.path.dirname(os.path.abspath(os.getcwdu())),
                                'info.plist')
 
 

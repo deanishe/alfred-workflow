@@ -200,6 +200,7 @@ Currently, there is Travis-CI integration, but also a `run-tests.sh` script in t
 
 - [Dean Jackson](https://github.com/deanishe)
 - [Stephen Margheim](https://github.com/smargh)
+- [Fabio Niephaus](https://github.com/fniephaus)
 
 ## Tests ##
 

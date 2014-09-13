@@ -15,10 +15,13 @@ from setuptools.command.test import test as TestCommand
 
 
 def read(fname):
+    """Return contents of file `fname` in this directory"""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 class NoseTestCommand(TestCommand):
+    """Enable running tests with `python setup.py test`"""
+
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
@@ -26,7 +29,7 @@ class NoseTestCommand(TestCommand):
 
     def run_tests(self):
         subprocess.call(['/bin/bash', os.path.join(os.path.dirname(__file__),
-                        'run-tests.sh')])
+                                                   'run-tests.sh')])
 
 
 version = read('workflow/version')

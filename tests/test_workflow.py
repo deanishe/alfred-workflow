@@ -27,7 +27,7 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
-from util import create_info_plist, delete_info_plist
+from .util import create_info_plist, delete_info_plist
 
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError, MATCH_ALL, MATCH_ALLCHARS,
@@ -53,6 +53,7 @@ def tearDown():
 
 
 class SerializerTests(unittest.TestCase):
+    """Test workflow.manager serialisation API"""
 
     def setUp(self):
         self.serializers = ['json', 'cpickle', 'pickle']
@@ -63,6 +64,7 @@ class SerializerTests(unittest.TestCase):
             shutil.rmtree(self.tempdir)
 
     def _is_serializer(self, obj):
+        """Does `obj` implement the serializer API?"""
         self.assertTrue(hasattr(obj, 'load'))
         self.assertTrue(hasattr(obj, 'dump'))
 
@@ -120,6 +122,7 @@ class SerializerTests(unittest.TestCase):
     def test_register_invalid(self):
         """Register invalid serializer"""
         class Thing(object):
+            """Bad serializer"""
             pass
         invalid1 = Thing()
         invalid2 = Thing()
@@ -132,6 +135,7 @@ class SerializerTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
+    """Test suite for workflow.workflow.Workflow"""
 
     def setUp(self):
         self.libs = [os.path.join(os.path.dirname(__file__), b'lib')]
@@ -329,6 +333,7 @@ class WorkflowTests(unittest.TestCase):
             self.assert_(path in sys.path)
         self.assertEqual(sys.path[0:len(self.libs)], self.libs)
         import youcanimportme
+        youcanimportme.noop()
 
     def test_info_plist(self):
         """info.plist"""
@@ -380,10 +385,13 @@ class WorkflowTests(unittest.TestCase):
     def test_arg_normalisation(self):
         """ARGV normalisation"""
         def nfdme(s):
+            """NFD-normalise string"""
             return normalize('NFD', s)
-        args = map(nfdme, ['arg1', 'arg2', 'füntíme'])
+
+        args = [nfdme(s) for s in ['arg1', 'arg2', 'füntíme']]
         oargs = sys.argv[:]
         sys.argv = [oargs[0]] + [s.encode('utf-8') for s in args]
+
         wf = Workflow(normalization='NFD')
         try:
             self.assertEqual(wf.args, args)
@@ -541,6 +549,7 @@ class WorkflowTests(unittest.TestCase):
         data = {'key1': 'value1'}
 
         class MySerializer(object):
+            """Simple serializer"""
             @classmethod
             def load(self, file_obj):
                 return json.load(file_obj)
@@ -816,6 +825,14 @@ class WorkflowTests(unittest.TestCase):
         results = self.wf.filter('bob', data)
         self.assertEquals(len(results), len(data))
 
+    def test_filter_reversed_results(self):
+        """Filter: results reversed"""
+        data = ['bob', 'bobby', 'bobby smith']
+        results = self.wf.filter('bob', data)
+        self.assertEquals(results, data)
+        results = self.wf.filter('bob', data, ascending=True)
+        self.assertEquals(results, data[::-1])
+
     def test_icons(self):
         """Icons"""
         import workflow
@@ -898,12 +915,13 @@ class WorkflowTests(unittest.TestCase):
 
 
 class SettingsTests(unittest.TestCase):
+    """Test suite for `workflow.workflow.Settings`"""
 
     def setUp(self):
         self.tempdir = tempfile.mkdtemp()
         self.settings_file = os.path.join(self.tempdir, 'settings.json')
-        with open(self.settings_file, 'wb') as file:
-            json.dump(DEFAULT_SETTINGS, file)
+        with open(self.settings_file, 'wb') as file_obj:
+            json.dump(DEFAULT_SETTINGS, file_obj)
 
     def tearDown(self):
         if os.path.exists(self.tempdir):

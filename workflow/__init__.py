@@ -127,7 +127,9 @@ Or like this::
 
 """
 
-__version__ = '1.8.5'
+import os
+
+__version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
 
 
 from .workflow import Workflow, PasswordNotFound, KeychainError

@@ -7,5 +7,6 @@ posts.json
 /temp_*.py
 /info.plist
 /publish-docs.sh
+/publish-cheeseshop.sh
 /MANIFEST
 /dist

@@ -1,6 +1,6 @@
 
 ===============
-Quick reference
+Quick Reference
 ===============
 
 This document serves as a quick reference on using the features of

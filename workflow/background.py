@@ -54,7 +54,7 @@ relevant webservice, and call it from your main workflow script:
         wf.run(main)
 
 
-For a working example, see :ref:`Part 2 of the tutorial <tutorial2>`.
+For a working example, see :ref:`tutorial_2`.
 
 """
 

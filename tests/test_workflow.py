@@ -178,11 +178,11 @@ class WorkflowTests(unittest.TestCase):
             'alfred_version_build': b'277',
             'alfred_workflow_bundleid': str(BUNDLE_ID),
             'alfred_workflow_cache':
-            os.path.expanduser('~/Library/Caches/com.runningwithcrayons.'
-                               'Alfred-2/Workflow Data/{}'.format(BUNDLE_ID)),
+            os.path.expanduser(b'~/Library/Caches/com.runningwithcrayons.'
+                               b'Alfred-2/Workflow Data/{}'.format(BUNDLE_ID)),
             'alfred_workflow_data':
-            os.path.expanduser('~/Library/Application Support/Alfred 2/'
-                               'Workflow Data/{}'.format(BUNDLE_ID)),
+            os.path.expanduser(b'~/Library/Application Support/Alfred 2/'
+                               b'Workflow Data/{}'.format(BUNDLE_ID)),
             'alfred_workflow_name': b'Alfred-Workflow Test',
             'alfred_workflow_uid':
             b'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
@@ -359,7 +359,11 @@ class WorkflowTests(unittest.TestCase):
         for key in self.env_data:
             value = self.env_data[key]
             key = key.replace('alfred_', '')
-            self.assertEqual(value, self.wf.alfred_env[key])
+            if key in ('version_build', 'theme_subtext'):
+                self.assertEqual(int(value), self.wf.alfred_env[key])
+            else:
+                self.assertEqual(unicode(value), self.wf.alfred_env[key])
+                self.assertTrue(isinstance(self.wf.alfred_env[key], unicode))
 
         self.assertEqual(self.wf.datadir, self.env_data['alfred_workflow_data'])
         self.assertEqual(self.wf.cachedir,
@@ -808,16 +812,20 @@ class WorkflowTests(unittest.TestCase):
         data = ['bob', 'sue', 'henry']
 
         def key(s):
+            """Return empty key"""
             return ''
 
         results = self.wf.filter('lager', data, key)
         self.assertEquals(len(results), 0)
 
     def test_filter_empty_query_words(self):
-        """Filter: empty query words are ignored"""
+        """Filter: empty query raises error"""
         data = ['bob', 'sue', 'henry']
-        results = self.wf.filter('   ', data)
-        self.assertEquals(len(results), 0)
+        with self.assertRaises(ValueError):
+            self.wf.filter('   ', data)
+
+        with self.assertRaises(ValueError):
+            self.wf.filter('', data)
 
     def test_filter_identical_items(self):
         """Filter: identical items are not discarded"""

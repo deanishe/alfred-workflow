@@ -10,7 +10,8 @@
 """
 Helper library for Alfred 2 workflow authors.
 
-You probably only want to use the :class:`Workflow` class directly.
+You probably only want to use the :class:`Workflow` class and the module-level
+``manager`` object (an instance of :class:`SerializerManager`) directly.
 
 The :class:`Item` and :class:`Settings` classes are supporting classes,
 which are meant to be accessed via :class:`Workflow` instances.
@@ -40,9 +41,10 @@ To register a new serializer, do:
 
     manager.register('myformat', MySerializer())
 
+.. note::
 
-The name under which you register your serializer will be used as the
-file extension of any saved files.
+    The name under which you register your serializer will be used as
+    the file extension of any saved files.
 
 To set the default serializer for cached data,
 set :attr:`Workflow.cache_serializer`, and to set the default
@@ -416,20 +418,31 @@ ASCII_REPLACEMENTS = {
 ####################################################################
 
 # Anchor characters in a name
+#: Characters that indicate the beginning of a "word" in CamelCase
 INITIALS = string.ascii_uppercase + string.digits
 
-# Split on non-letters, numbers
+#: Split on non-letters, numbers
 split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
 
 # Match filter flags
+#: Match items that start with ``query``
 MATCH_STARTSWITH = 1
+#: Match items whose capital letters start with ``query``
 MATCH_CAPITALS = 2
+#: Match items with a component "word" that matches ``query``
 MATCH_ATOM = 4
+#: Match items whose initials (based on atoms) start with ``query``
 MATCH_INITIALS_STARTSWITH = 8
+#: Match items whose initials (based on atoms) contain ``query``
 MATCH_INITIALS_CONTAIN = 16
+#: Combination of :const:`MATCH_INITIALS_STARTSWITH` and
+#: :const:`MATCH_INITIALS_CONTAIN`
 MATCH_INITIALS = 24
+#: Match items if ``query`` is a substring
 MATCH_SUBSTRING = 32
+#: Match items if all characters in ``query`` appear in the item in order
 MATCH_ALLCHARS = 64
+#: Combination of all other ``MATCH_*`` constants
 MATCH_ALL = 127
 
 
@@ -606,10 +619,32 @@ class JSONSerializer(object):
 
     @classmethod
     def load(cls, file_obj):
+        """Load serialized object from open JSON file.
+
+        .. versionadded:: 1.8
+
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+        :returns: object loaded from JSON file
+        :rtype: object
+
+        """
+
         return json.load(file_obj)
 
     @classmethod
     def dump(cls, obj, file_obj):
+        """Serialize object ``obj`` to open JSON file.
+
+        .. versionadded:: 1.8
+
+        :param obj: Python object to serialize
+        :type obj: JSON-serializable data structure
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+
+        """
+
         return json.dump(obj, file_obj, indent=2, encoding='utf-8')
 
 
@@ -625,10 +660,32 @@ class CPickleSerializer(object):
 
     @classmethod
     def load(cls, file_obj):
+        """Load serialized object from open pickle file.
+
+        .. versionadded:: 1.8
+
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+        :returns: object loaded from pickle file
+        :rtype: object
+
+        """
+
         return cPickle.load(file_obj)
 
     @classmethod
     def dump(cls, obj, file_obj):
+        """Serialize object ``obj`` to open pickle file.
+
+        .. versionadded:: 1.8
+
+        :param obj: Python object to serialize
+        :type obj: Python object
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+
+        """
+
         return cPickle.dump(obj, file_obj, protocol=-1)
 
 
@@ -643,10 +700,32 @@ class PickleSerializer(object):
 
     @classmethod
     def load(cls, file_obj):
+        """Load serialized object from open pickle file.
+
+        .. versionadded:: 1.8
+
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+        :returns: object loaded from pickle file
+        :rtype: object
+
+        """
+
         return pickle.load(file_obj)
 
     @classmethod
     def dump(cls, obj, file_obj):
+        """Serialize object ``obj`` to open pickle file.
+
+        .. versionadded:: 1.8
+
+        :param obj: Python object to serialize
+        :type obj: Python object
+        :param file_obj: file handle
+        :type file_obj: ``file`` object
+
+        """
+
         return pickle.dump(obj, file_obj, protocol=-1)
 
 
@@ -772,8 +851,8 @@ class Settings(dict):
         """Load cached settings from JSON file `self._filepath`"""
 
         self._nosave = True
-        with open(self._filepath, 'rb') as file:
-            for key, value in json.load(file, encoding='utf-8').items():
+        with open(self._filepath, 'rb') as file_obj:
+            for key, value in json.load(file_obj, encoding='utf-8').items():
                 self[key] = value
         self._nosave = False
 
@@ -789,8 +868,9 @@ class Settings(dict):
         data = {}
         for key, value in self.items():
             data[key] = value
-        with open(self._filepath, 'wb') as file:
-            json.dump(data, file, sort_keys=True, indent=2, encoding='utf-8')
+        with open(self._filepath, 'wb') as file_obj:
+            json.dump(data, file_obj, sort_keys=True, indent=2,
+                      encoding='utf-8')
 
     # dict methods
     def __setitem__(self, key, value):
@@ -901,7 +981,7 @@ class Workflow(object):
                                       ``1`` = Alternative actions only,
                                       ``2`` = Selected result only,
                                       ``3`` = Never
-        alfred_version                Alfred version number, e.g. ``2.4``
+        alfred_version                Alfred version number, e.g. ``'2.4'``
         alfred_version_build          Alfred build number, e.g. ``277``
         alfred_workflow_bundleid      Bundle ID, e.g.
                                       ``net.deanishe.alfred-mailto``
@@ -911,7 +991,8 @@ class Workflow(object):
         alfred_workflow_uid           UID of workflow
         ============================  =========================================
 
-        **Note:** all values are Unicode strings
+        **Note:** all values are Unicode strings except ``version_build`` and
+        ``theme_subtext``, which are integers.
 
         :returns: ``dict`` of Alfred's environmental variables without the
             ``alfred_`` prefix, e.g. ``preferences``, ``workflow_data``.
@@ -940,7 +1021,10 @@ class Workflow(object):
             value = os.getenv(key)
 
             if isinstance(value, str):
-                value = self.decode(value)
+                if key in ('alfred_version_build', 'alfred_theme_subtext'):
+                    value = int(value)
+                else:
+                    value = self.decode(value)
 
             data[key[7:]] = value
 
@@ -950,11 +1034,7 @@ class Workflow(object):
 
     @property
     def info(self):
-        """`dict` of ``info.plist`` contents.
-
-        :returns: ``dict``
-
-        """
+        """:class:`dict` of ``info.plist`` contents."""
 
         if not self._info_loaded:
             self._load_info_plist()
@@ -962,7 +1042,7 @@ class Workflow(object):
 
     @property
     def bundleid(self):
-        """Workflow bundle ID from ``info.plist``.
+        """Workflow bundle ID from Alfred's environmental vars or ``info.plist``.
 
         :returns: bundle ID
         :rtype: ``unicode``
@@ -979,7 +1059,7 @@ class Workflow(object):
 
     @property
     def name(self):
-        """Workflow name from ``info.plist``.
+        """Workflow name from Alfred's environmental vars or ``info.plist``.
 
         :returns: workflow name
         :rtype: ``unicode``
@@ -1422,10 +1502,10 @@ class Workflow(object):
             raise ValueError(
                 'Unknown serializer `{}`. Register a corresponding serializer '
                 'with `manager.register()` to load this data.'.format(
-                serializer_name))
+                    serializer_name))
 
         self.logger.debug('Data `{}` stored in `{}` format'.format(
-                          name, serializer_name))
+            name, serializer_name))
 
         filename = '{}.{}'.format(name, serializer_name)
         data_path = self.datafile(filename)
@@ -1509,9 +1589,9 @@ class Workflow(object):
         :param name: name of datastore
         :type name: ``unicode``
         :param data_func: function to (re-)generate data.
-        :type data_func: `callable`
+        :type data_func: ``callable``
         :param max_age: maximum age of cached data in seconds
-        :type max_age: `int`
+        :type max_age: ``int``
         :returns: cached data, return value of ``data_func`` or ``None``
             if ``data_func`` is not set
         :rtype: whatever ``data_func`` returns or ``None``
@@ -1525,10 +1605,10 @@ class Workflow(object):
 
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
 
-            with open(cache_path, 'rb') as file:
+            with open(cache_path, 'rb') as file_obj:
                 self.logger.debug('Loading cached data from : %s',
                                   cache_path)
-                return serializer.load(file)
+                return serializer.load(file_obj)
 
         if not data_func:
             return None
@@ -1560,8 +1640,8 @@ class Workflow(object):
                 self.logger.debug('Deleted cache file : %s', cache_path)
             return
 
-        with open(cache_path, 'wb') as file:
-            serializer.dump(data, file)
+        with open(cache_path, 'wb') as file_obj:
+            serializer.dump(data, file_obj)
 
         self.logger.debug('Cached data saved at : %s', cache_path)
 
@@ -1571,9 +1651,9 @@ class Workflow(object):
         :param name: name of datastore
         :type name: ``unicode``
         :param max_age: maximum age of data in seconds
-        :type max_age: `int`
-        :returns: ``True`` if data is less than `max_age` old, else ``False``
-        :rtype: `Boolean`
+        :type max_age: ``int``
+        :returns: ``True`` if data is less than ``max_age`` old, else ``False``
+        :rtype: ``Boolean``
 
         """
 
@@ -1591,7 +1671,7 @@ class Workflow(object):
         :param name: name of datastore
         :type name: ``unicode``
         :returns: age of datastore in seconds
-        :rtype: `int`
+        :rtype: ``int``
 
         """
 
@@ -1609,6 +1689,11 @@ class Workflow(object):
 
         ``query`` is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected.
+
+        .. warning::
+
+            If ``query`` is an empty string or contains only whitespace,
+            a :class:`ValueError` will be raised.
 
         :param query: query to test items against
         :type query: ``unicode``
@@ -1636,7 +1721,7 @@ class Workflow(object):
         :type fold_diacritics: ``Boolean``
         :returns: list of ``items`` matching ``query`` or list of
             ``(item, score, rule)`` `tuples` if ``include_score`` is ``True``.
-            ``rule`` is the ``MATCH_`` rule that matched the item.
+            ``rule`` is the ``MATCH_*`` rule that matched the item.
         :rtype: ``list``
 
         **Matching rules**
@@ -1655,13 +1740,14 @@ class Workflow(object):
         9. :const:`MATCH_ALL` : Combination of all the above.
 
 
-        ``MATCH_ALLCHARS`` is considerably slower than the other tests and
+        :const:`MATCH_ALLCHARS` is considerably slower than the other tests and
         provides much less accurate results.
 
         **Examples:**
 
-        To ignore ``MATCH_ALLCHARS`` (tends to provide the worst matches and
-        is expensive to run), use ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
+        To ignore :const:`MATCH_ALLCHARS` (tends to provide the worst
+        matches and is expensive to run), use
+        ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
 
         To match only on capitals, use ``match_on=MATCH_CAPITALS``.
 
@@ -1674,8 +1760,8 @@ class Workflow(object):
 
         If ``fold_diacritics`` is ``True`` (the default), and ``query``
         contains only ASCII characters, non-ASCII characters in search keys
-        will be converted to ASCII equivalents (e.g. *ü* -> *u*, *ß* -> *ss*,
-        *é* -> *e*).
+        will be converted to ASCII equivalents (e.g. **ü** -> **u**,
+        **ß** -> **ss**, **é** -> **e**).
 
         See :const:`ASCII_REPLACEMENTS` for all replacements.
 
@@ -1684,8 +1770,15 @@ class Workflow(object):
 
         """
 
+
+        if not query:
+            raise ValueError('Empty `query`')
+
         # Remove preceding/trailing spaces
         query = query.strip()
+
+        if not query:
+            raise ValueError('`query` contains only whitespace')
 
         # Use user override if there is one
         fold_diacritics = self.settings.get('__workflow_diacritic_folding',
@@ -1693,7 +1786,7 @@ class Workflow(object):
 
         results = []
 
-        for i, item in enumerate(items):
+        for item in items:
             skip = False
             score = 0
             words = [s.strip() for s in query.split(' ')]
@@ -1847,15 +1940,16 @@ class Workflow(object):
         return search
 
     def run(self, func):
-        """Call `func` to run your workflow
+        """Call ``func`` to run your workflow
 
-        `func` will be called with `Workflow` instance as first argument.
-        `func` should be the main entry point to your workflow.
+        :param func: Callable to call with ``self`` (i.e. the :class:`Workflow`
+            instance) as first argument.
+
+        ``func`` will be called with :class:`Workflow` instance as first argument.
+        ``func`` should be the main entry point to your workflow.
 
         Any exceptions raised will be logged and an error message will be
         output to Alfred.
-
-        :param func: Callable to call with `self` as first argument.
 
         """
 
@@ -1924,7 +2018,18 @@ class Workflow(object):
         :returns: :class:`Item` instance
 
         See the :ref:`script-filter-results` section of the documentation
-        for more information.
+        for a detailed description of what the various parameters do and how
+        they interact with one another.
+
+        .. note::
+
+            Although this method returns an :class:`Item` instance, you don't
+            need to hold onto it or worry about it. All generated :class:`Item`
+            instances are also collected internally and sent to Alfred when
+            :meth:`send_feedback` is called.
+
+            The generated :class:`Item` is only returned in case you want to
+            edit it or do something with it other than send it to Alfred.
 
         """
 
@@ -2143,10 +2248,11 @@ class Workflow(object):
         return unicodedata.normalize(normalization, text)
 
     def fold_to_ascii(self, text):
-        """
+        """Convert non-ASCII characters to closest ASCII equivalent.
+
         .. versionadded:: 1.3
 
-        Convert non-ASCII characters to closest ASCII equivalent.
+        .. note:: This only works for a subset of European languages.
 
         :param text: text to convert
         :type text: ``unicode``

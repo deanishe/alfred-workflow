@@ -1,9 +1,9 @@
 
 .. _script-filter-results:
 
-====================================
-Script Filter results and XML format
-====================================
+========================================
+Script Filter Results and the XML Format
+========================================
 
 .. note::
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
@@ -31,11 +31,13 @@ arguments work.
 The XML format
 ==============
 
-**Note:** If you're not using **Alfred-Workflow** to generate your XML, you
-should use a  real XML library to do so. XML is a lot more finicky that it
-looks, and it's fairly easy to create invalid XML. Unless your XML is hard-
-coded (i.e. never changes), it's much safer and more reliable to use a proper
-XML-generation library than to try and cobble it together yourself.
+.. warning::
+
+    If you're not using **Alfred-Workflow** to generate your XML, you
+    should use a  real XML library to do so. XML is a lot more finicky that it
+    looks, and it's fairly easy to create invalid XML. Unless your XML is hard-
+    coded (i.e. never changes), it's much safer and more reliable to use a proper
+    XML-generation library than to try and cobble it together yourself.
 
 This is a valid and complete list of results containing just one result with
 all possible options.
@@ -106,7 +108,7 @@ To generate the above XML with **Alfred-Workflow** you would do:
     wf.send_feedback()
 
 Result items
-------------
+============
 
 A minimal, valid result looks like this:
 
@@ -134,7 +136,7 @@ sense on their own. Let's have a look.
 .. _param-title:
 
 title
-^^^^^
+-----
 
 This is the large text shown for each result in Alfred's results list.
 
@@ -158,7 +160,7 @@ or
 .. _param-subtitle:
 
 subtitle
-^^^^^^^^
+--------
 
 This is the smaller text shown under each result in Alfred's results list.
 Remember that users can turn off subtitles in Alfred's settings.
@@ -186,7 +188,7 @@ subtitles to be shown when the modifiers are pressed (see lines 7–13 of the
 .. _param-autocomplete:
 
 autocomplete
-^^^^^^^^^^^^
+------------
 
 If the user presses ``TAB`` on a result, the query currently shown in Alfred's
 query box will be expanded to the ``autocomplete`` value of the selected result.
@@ -200,7 +202,7 @@ Filter again with the new query.
 .. _param-arg:
 
 arg
-^^^
+---
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``arg`` argument. Must be :class:`unicode`.
@@ -215,14 +217,16 @@ item).
 Other than being copyable, setting ``arg`` doesn't make great deal of sense unless
 the item is also :ref:`valid <param-valid>`.
 
-**Note:** ``arg`` may also be specified as an attribute of the ``<item>``
-element, but specifying it as a child element of ``<item>`` is more flexible:
-you can include newlines within an element, but not within an attribute.
+.. note::
+
+    ``arg`` may also be specified as an attribute of the ``<item>``
+    element, but specifying it as a child element of ``<item>`` is more flexible:
+    you can include newlines within an element, but not within an attribute.
 
 .. _param-valid:
 
 valid
-^^^^^
+-----
 
 Passed to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``valid`` argument. Must be ``True`` or ``False`` (the default).
@@ -249,7 +253,7 @@ isn't set.
 .. _param-uid:
 
 uid
-^^^
+---
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``uid`` argument. Must be :class:`unicode`.
@@ -270,7 +274,7 @@ appear in the XML file (the order in which you add them with
 .. _param-type:
 
 type
-^^^^
+----
 
 The type of the result. Currently, only ``"file"`` is supported.
 
@@ -290,7 +294,7 @@ but it is not necessary for the item to be :ref:`valid <param-valid>`.
 .. _param-copytext:
 
 copy text
-^^^^^^^^^
+---------
 
 Text that will be copied to the pasteboard if a user presses ``⌘+C`` on a
 result.
@@ -309,7 +313,7 @@ the pasteboard and Alfred's window will close.
 .. _param-largetext:
 
 large text
-^^^^^^^^^^
+----------
 
 Text that will be displayed in Alfred's Large Type pop-up if a user presses
 ``⌘+L`` on a result.
@@ -325,14 +329,14 @@ will display the current query in its Large Type pop-up.
 .. _param-icon:
 
 icon
-^^^^
+----
 
 There are three different kinds of icon you can tell Alfred to use. Use the
 ``type`` attribute of the ``<icon>`` XML element or the ``icontype`` argument
 to ``Alfred.add_item()`` to define which type of icon you want.
 
 Image files
-+++++++++++
+^^^^^^^^^^^
 
 This is the default. Simply pass the filename or filepath of an image file:
 
@@ -359,8 +363,8 @@ should try to make them square and ideally 256 px wide/high. Anything bigger
 and Alfred will have to resize the icon; smaller and it won't look so good on a
 Retina screen.
 
-Icons of files
-++++++++++++++
+File icons
+^^^^^^^^^^
 
 Alternatively, you can tell Alfred to use the icon of a file:
 
@@ -388,7 +392,7 @@ files, movies, ebooks, comics etc., any cover art will not be shown, but rather
 the standard icon for the appropriate filetype.
 
 Filetype icons
-++++++++++++++
+^^^^^^^^^^^^^^
 
 Finally, you can tell Alfred to use the icon for a specific filetype by
 specifying a `UTI <http://www.escape.gr/manuals/qdrop/UTI.html>`_ as the value
@@ -412,13 +416,16 @@ on which browser you have set as the default.
 ``filetype`` icons are useful if your Script Filter deals with files and
 filetypes but you don't have a specific filepath to use as a ``fileicon``.
 
-If you need to fine the UTI for a filetype, Alfred can help you: Add a File Filter
-to a workflow, and drag a file of the type you're interested in into the
-File Types list in the Basic Setup tab. Alfred will show the corresponding
-UTI in the list (in this screenshot, I dragged a ``.py`` file into the list):
+.. tip::
 
-.. image:: _static/screen30_UTI.png
+    If you need to fine the UTI for a filetype, Alfred can help you: Add a File
+    Filter to a workflow, and drag a file of the type you're interested in into
+    the File Types list in the Basic Setup tab. Alfred will show the
+    corresponding UTI in the list (in this screenshot, I dragged a ``.py`` file
+    into the list):
 
-You can also find the UTI of a file (along with much of its other metadata) by
-running ``mdls /path/to/the/file`` in Terminal.
+    .. image:: _static/screen30_UTI.png
+
+    You can also find the UTI of a file (along with much of its other metadata)
+    by running ``mdls /path/to/the/file`` in Terminal.
 

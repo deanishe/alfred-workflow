@@ -8,10 +8,14 @@
 #
 
 """
-Basic, ``requests``-like API for retrieving data from the Web.
+Basic, `requests <http://docs.python-requests.org/en/latest/>`_-like API
+for retrieving data from the Web.
 
-Intended to replace basic functionality of ``requests``, but at
-1/200th of the size.
+Covers trivial cases at just 0.5% of the size of
+`requests <http://docs.python-requests.org/en/latest/>`_.
+
+The main API consists of the :func:`get` and :func:`post` functions and
+the :class:`Response` instances they return.
 
 Features:
 
@@ -20,15 +24,21 @@ Features:
 - File uploads
 - Redirection support
 
-**WARNING**: As ``web.py`` is based on Python 2's standard HTTP libraries, it
-**does not** verify SSL certificates when establishing HTTPS connections.
+.. warning::
 
-As a result, you *must not* use this module for sensitive connections.
+    As ``web.py`` is based on Python 2's standard HTTP libraries, it
+    **does not** verify SSL certificates when establishing HTTPS
+    connections.
 
-If you require certificate verification (which you really should), you should
-use the `requests <http://docs.python-requests.org/en/latest/>`_
-Python library (upon which the `web.py` API is based) or the
-command-line tool `cURL <http://curl.haxx.se/>`_ instead.
+    As a result, you **must not** use this module for sensitive
+    connections.
+
+If you require certificate verification for HTTPS connections (which you
+really should), you should use the
+`requests <http://docs.python-requests.org/en/latest/>`_ Python library
+(upon which the ``web.py`` API is based) or the command-line tool
+`cURL <http://curl.haxx.se/>`_ (which is installed by default on OS X)
+instead.
 
 """
 
@@ -51,8 +61,7 @@ USER_AGENT = u'alfred-workflow-0.1'
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
 
-# Table mapping response codes to messages; entries have the
-# form {code: message}.
+# HTTP response codes
 RESPONSES = {
     100: 'Continue',
     101: 'Switching Protocols',
@@ -185,8 +194,8 @@ class Response(object):
     def json(self):
         """Decode response contents as JSON.
 
-        :returns: decoded JSON
-        :rtype: ``list`` / ``dict``
+        :returns: object decoded from JSON
+        :rtype: :class:`list` / :class:`dict`
 
         """
 
@@ -194,9 +203,9 @@ class Response(object):
 
     @property
     def encoding(self):
-        """Return text encoding of document or ``None``
+        """Text encoding of document or ``None``
 
-        :returns: ``str``
+        :returns: :class:`str` or ``None``
 
         """
 
@@ -207,9 +216,10 @@ class Response(object):
 
     @property
     def content(self):
-        """Return raw content of response (i.e. bytes)
+        """Raw content of response (i.e. bytes)
 
-        :returns: ``str``
+        :returns: Body of HTTP response
+        :rtype: :class:`str`
 
         """
 
@@ -220,9 +230,13 @@ class Response(object):
 
     @property
     def text(self):
-        """Return unicode-decoded content of response.
+        """Unicode-decoded content of response body.
 
-        :returns: ``unicode``
+        If no encoding can be determined from HTTP headers or the content
+        itself, the encoded response body will be returned instead.
+
+        :returns: Body of HTTP response
+        :rtype: :class:`unicode` or :class:`str`
 
         """
 
@@ -339,15 +353,17 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     :param url: URL to open
     :type url: ``unicode``
     :param params: mapping of URL parameters
-    :type params: ``dict``
-    :param data: mapping of form data ``{'field_name': 'value'}`` or ``str``
-    :type data: ``dict`` or ``str``
+    :type params: :class:`dict`
+    :param data: mapping of form data ``{'field_name': 'value'}`` or
+        :class:`str`
+    :type data: :class:`dict` or :class:`str`
     :param headers: HTTP headers
-    :type headers: ``dict``
+    :type headers: :class:`dict`
     :param cookies: cookies to send to server
-    :type cookies: ``dict``
-    :param files: files to upload
-    :type files:
+    :type cookies: :class:`dict`
+    :param files: files to upload. See :func:`encode_multipart_formdata`
+        for details of the required format.
+    :type files: :class:`dict`
     :param auth: username, password
     :type auth: ``tuple``
     :param timeout: connection timeout limit in seconds
@@ -405,7 +421,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
 def get(url, params=None, headers=None, cookies=None, auth=None,
         timeout=60, allow_redirects=True):
-    """Initiate a GET request. Arguments as for :func:`request` function.
+    """Initiate a GET request. Arguments as for :func:`request`.
 
     :returns: :class:`Response` instance
 
@@ -417,7 +433,7 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
 
 def post(url, params=None, data=None, headers=None, cookies=None, files=None,
          auth=None, timeout=60, allow_redirects=False):
-    """Initiate a POST request. Arguments as for :func:`request` function.
+    """Initiate a POST request. Arguments as for :func:`request`.
 
     :returns: :class:`Response` instance
 
@@ -455,7 +471,7 @@ def encode_multipart_formdata(fields, files):
         :param filename: filename of file
         :type filename: unicode/string
         :returns: mime-type, e.g. ``text/html``
-        :rtype: :class:``str``
+        :rtype: :class::class:`str`
 
         """
 

@@ -1,7 +1,7 @@
 
-=====
-Howto
-=====
+===============
+Quick reference
+===============
 
 This document serves as a quick reference on using the features of
 **Alfred-Python**.
@@ -235,8 +235,7 @@ data-retrieval function (which is the default):
 
     data = wf.cached_data('stuff', max_age=600)
 
-**Note**: This will return ``None`` if there are no corresponding data in the
-cache.
+.. note:: This will return ``None`` if there are no corresponding data in the cache.
 
 This is useful if you want to update your cache in the background, so it doesn't
 impact your Workflow's responsiveness in Alfred. (See
@@ -292,8 +291,10 @@ file in your Workflow's data directory when it is changed.
 :class:`~workflow.workflow.Settings` can be used just like a normal :class:`dict`
 with the caveat that all keys and values must be serializable to JSON.
 
-**Note:** A :class:`~workflow.workflow.Settings` instance can only automatically
-recognise when you directly alter the values of its own keys:
+.. warning::
+
+    A :class:`~workflow.workflow.Settings` instance can only automatically
+    recognise when you directly alter the values of its own keys:
 
 .. code-block:: python
     :linenos:
@@ -364,12 +365,20 @@ different weightings to the various kind of matches (see
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` for a detailed
 description of the algorithm and match flags).
 
-**Note:** By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-will match and return anything that contains all the characters in ``query``
-in the same order, regardless of case. Not only can this lead to unacceptable
-performance when working with thousands of results, but it's also very likely
-that you'll want to set the standard a little higher.
-See :ref:`restricting-results` for info on how to do that.
+.. warning::
+
+    ``query`` may not be empty or contain only whitespace. This will raise a
+    :class:`ValueError`.
+
+.. note::
+
+    By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
+    will match and return anything that contains all the characters in ``query``
+    in the same order, regardless of case. Not only can this lead to unacceptable
+    performance when working with thousands of results, but it's also very likely
+    that you'll want to set the standard a little higher.
+
+    See :ref:`restricting-results` for info on how to do that.
 
 To use :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`, pass it
 a query, a list of items to filter and sort, and if your list contains items
@@ -446,9 +455,15 @@ produces::
       64),
      ({'author': 'Sam Butterkeks', 'title': 'The horrors of Tuesdays'}, 3.125, 64)]
 
-(``64`` is the rule that matched, ``MATCH_ALLCHARS``, which matches
-if all the characters in ``query`` appear in order in the search key, regardless
-of case).
+(``64`` is the rule that matched, :const:`~workflow.workflow.MATCH_ALLCHARS`,
+which matches if all the characters in ``query`` appear in order in the search
+key, regardless of case).
+
+.. tip::
+
+    ``rules`` in :meth:`~workflow.workflow.Workflow.filter` results are
+    returned as integers. To see the name of the corresponding rule, see
+    :const:`the MATCH_* constants <workflow.workflow.MATCH_STARTSWITH>`.
 
 If we filter ``{'author': 'Brienne of Tarth', 'title': 'How to beat up men'}`` and
 ``{'author': 'Zoltar', 'title': 'Battle of the Planets'}``, which we probably
@@ -491,10 +506,12 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
     # match everything but all-characters-in-item and substring
     match_on=MATCH_ALL ^ MATCH_ALLCHARS ^ MATCH_SUBSTRING
 
-**Note:** ``MATCH_ALLCHARS`` is particularly slow and provides the
-worst matches. You should consider excluding it, especially if you're calling
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with more than a
-few hundred items or expect multi-word queries.
+.. warning::
+
+    ``MATCH_ALLCHARS`` is particularly slow and provides the
+    worst matches. You should consider excluding it, especially if you're calling
+    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with more than a
+    few hundred items or expect multi-word queries.
 
 Diacritic folding
 -----------------
@@ -505,9 +522,11 @@ if the ``query`` contains only ASCII characters. This behaviour can be turned
 off by passing ``fold_diacritics=False`` to
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
 
-**Note:** To keep the library small, only a subset of European languages are
-supported. The `Unidecode <https://pypi.python.org/pypi/Unidecode>`_ library
-should be used for comprehensive support of non-European alphabets.
+.. note::
+
+    To keep the library small, only a subset of European languages are
+    supported. The `Unidecode <https://pypi.python.org/pypi/Unidecode>`_ library
+    should be used for comprehensive support of non-European alphabets.
 
 Users may override a Workflow's default settings via ``workflow:folding…``
 :ref:`magic arguments <magic-arguments>`.
@@ -671,8 +690,9 @@ A serializer *must* conform to this interface (like :mod:`json` and :mod:`pickle
     serializer.dump(obj, file_obj)
 
 
-**Note:** The name you use for your serializer will be the file extension
-of the stored file.
+.. note::
+
+    The name you use for your serializer will be the file extension of the stored file.
 
 The :meth:`stored_data() <workflow.workflow.Workflow.stored_data>` method can
 automatically determine the serialization of the stored data, provided the
@@ -769,9 +789,11 @@ This makes it easy for you to get at the log file and data and cache directories
 (hidden away in ``~/Library``), and for your users to send you their logs
 for debugging.
 
-**Note:** Magic arguments will only work with scripts that accept arguments *and*
-use the :attr:`~workflow.workflow.Workflow.args` property (where magic arguments
-are parsed).
+.. note::
+
+    Magic arguments will only work with scripts that accept arguments *and* use
+    the :attr:`~workflow.workflow.Workflow.args` property (where magic
+    arguments are parsed).
 
 :class:`~workflow.workflow.Workflow` supports the following magic arguments:
 

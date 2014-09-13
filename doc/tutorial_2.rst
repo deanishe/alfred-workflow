@@ -1,8 +1,8 @@
-.. _tutorial2:
+.. _tutorial_2:
 
-===================================
-Writing A Pinboard Workflow, Part 2
-===================================
+======================================
+A Distribution-Ready Pinboard Workflow
+======================================
 
 In which we create a `Pinboard.in <https://pinboard.in/>`_ Workflow ready for
 mass consumption.

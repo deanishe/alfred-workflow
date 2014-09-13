@@ -13,66 +13,47 @@ Alfred-Workflow
     :undoc-members:
     :show-inheritance:
 
-Tutorial
-========
+The Alfred-Workflow Tutorial
+============================
 
-How to write an Alfred Workflow with **Alfred-Python**, taking you through the
-basics to a full-featured Workflow.
+There is a :ref:`two-part tutorial <tutorial>` on writing an Alfred Workflow
+with **Alfred-Python**, taking you through the basics to a full-featured
+Workflow.
 
-Writing A Pinboard Workflow, Part 1
------------------------------------
-
-In which we build an Alfred Workflow to view recent posts to
-`Pinboard <https://pinboard.in/>`_.
-
-If you're new to Alfred and/or coding in general, start here.
-
-.. toctree::
-   :maxdepth: 3
-
-   tutorial
-
-Writing A Pinboard Workflow, Part 2
------------------------------------
-
-In which we make our `Pinboard <https://pinboard.in/>`_ Workflow ready for
-the masses.
-
-Demonstrates more advanced usage of **Alfred-Workflow** and a few Workflow
-tricks that might also be of interest to intermediate Pythonistas.
-
-.. toctree::
-   :maxdepth: 3
-
-   tutorial2
-
-
-Howto
-=====
+Quick Reference
+===============
 
 If you know your way around Python and Alfred, here's an overview of what
-**Alfred-Workflow** does and how to do it.
-
-.. toctree::
-   :maxdepth: 3
-
-   howto
-
-
-API docs
-========
-
-Documentation automatically generated from the source code.
+**Alfred-Workflow** can do and how to do it.
 
 .. toctree::
    :maxdepth: 2
 
-   workflow
-   web
-   background
+   quickref
 
-Script filter results/XML format
-================================
+
+Full Reference
+==============
+
+API docs
+--------
+
+Documentation automatically generated from the source code.
+
+.. toctree::
+  :maxdepth: 2
+
+  apidocs
+
+Script Filter results/XML format
+--------------------------------
+
+A detailed look at the many parameters accepted by
+:meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+and how they interact with one another.
+
+This should also serve as a decent reference to Alfred's XML format for folks
+who aren't using **Alfred-Workflow**.
 
 .. toctree::
    :maxdepth: 2

@@ -12,7 +12,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sphinx_bootstrap_theme
+# import sphinx_bootstrap_theme
+# import sphinx_rtd_theme
 import sys
 import os
 
@@ -108,34 +109,43 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'jdoctest'
-html_theme = 'bootstrap'
+
+# html_theme = 'bootstrap'
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+if not on_rtd:
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 # html_theme_options = {'github_fork': 'deanishe/alfred-workflow'}
 
+# html_theme_options = {
+#     'navbar_site_name': 'Documentation',
+#     'navbar_pagenav': True,  # Current page TOC in navbar
+#     'globaltoc_depth': -1,
+#     'navbar_sidebarrel': False,  # next/previous links in navbar
+#     'source_link_position': 'footer',
+#     'bootstrap_version': '3',
+#     # 'bootswatch_theme': 'readable',
+#     'bootswatch_theme': 'simplex',
 
-html_theme_options = {
-    'navbar_site_name': 'Documentation',
-    'navbar_pagenav': True,  # Current page TOC in navbar
-    'navbar_sidebarrel': False,  # next/previous links in navbar
-    'source_link_position': 'footer',
-    'bootstrap_version': '3',
-    'bootswatch_theme': 'readable'
+# }
 
-}
-
-html_sidebars = {
-    'howto': ['localtoc.html'],
-    'index': ['localtoc.html'],
-    'tutorial': ['localtoc.html'],
-    'tutorial2': ['localtoc.html'],
-}
+# html_sidebars = {
+#     'howto': ['localtoc.html'],
+#     'index': ['localtoc.html'],
+#     'tutorial': ['localtoc.html'],
+#     'tutorial2': ['localtoc.html'],
+# }
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = ['_themes']
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 
 # The name for this set of Sphinx documents.  If None, it defaults to

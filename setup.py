@@ -29,7 +29,7 @@ class NoseTestCommand(TestCommand):
                         'run-tests.sh')])
 
 
-version = '1.8.5'
+version = read('workflow/version')
 name = 'Alfred-Workflow'
 author = 'Dean Jackson'
 author_email = 'deanishe@deanishe.net'

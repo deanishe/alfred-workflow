@@ -9,15 +9,14 @@
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<link rel="stylesheet" href="_static/custom.css">
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
 {% endblock %}
 
-{% if not READTHEDOCS %}
-	{% block body %}
-	<div class="github-fork-ribbon-wrapper right">
-	    <div class="github-fork-ribbon">
-	        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-	    </div>
-	</div>
-	{% endblock %}
-{% endif %}
+
+{% block body %}
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+{% endblock %}

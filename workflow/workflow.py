@@ -1686,7 +1686,7 @@ class Workflow(object):
                                 (item, score, r)))
 
         # sort on keys, then discard the keys
-        results.sort(reverse=True)
+        results.sort(reverse=ascending)
         results = [t[1] for t in results]
 
         if max_results and len(results) > max_results:

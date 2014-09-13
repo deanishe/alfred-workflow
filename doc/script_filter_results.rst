@@ -6,7 +6,7 @@ Script Filter results and XML format
 ====================================
 
 .. note::
-    This document is valid as of version 2.4 of Alfred and 1.8.5 of
+    This document is valid as of version 2.5 of Alfred and 1.8.5 of
     **Alfred-Workflow**.
 
 Alfred's Script Filters are its most powerful workflow API and a main focus
@@ -26,20 +26,22 @@ arguments work.
    as XML, you **must not** :func:`print` or log any output to ``STDOUT`` or it
    will break the XML, and Alfred will show no results.
 
-.. _xmlformat:
+.. _xml-format:
 
 The XML format
 ==============
 
-**Note:** If you're not using **Alfred-Workflow** to generate your XML, you should use a
-real XML library to do so. It looks simple, but there are a lot of characters that
-XML doesn't like, so it's much safer and more reliable to use a proper XML-generation
-library than to try and cobble it together yourself.
+**Note:** If you're not using **Alfred-Workflow** to generate your XML, you
+should use a  real XML library to do so. XML is a lot more finicky that it
+looks, and it's fairly easy to create invalid XML. Unless your XML is hard-
+coded (i.e. never changes), it's much safer and more reliable to use a proper
+XML-generation library than to try and cobble it together yourself.
 
-This is a valid and complete list of results containing just one result with all
-possible options. :meth:`Workflow.send_feedback() <workflow.workflow.Workflow.send_feedback>`
-will print something much like this to ``STDOUT`` when called (though it won't be as pretty
-as it will all be on one line).
+This is a valid and complete list of results containing just one result with
+all possible options.
+:meth:`Workflow.send_feedback() <workflow.workflow.Workflow.send_feedback>`
+will print something much like this to ``STDOUT`` when called (though it won't
+be as pretty as it will all be on one line).
 
 .. _xml-example:
 
@@ -122,12 +124,11 @@ Generated with:
 
     wf.add_item(u'My super title')
 
-This will show a result in Alfred with Alfred's blank workflow icon and 'My super title'
-as its text.
+This will show a result in Alfred with Alfred's blank workflow icon and 'My
+super title' as its text.
 
-Everything else is optional, but some attributes/child tags don't make much sense on their
-own. We'll ignore the difference between whether a parameter is an attribute on the
-``<item>`` tag or a child tag and look at what they do.
+Everything else is optional, but some attributes/child tags don't make much
+sense on their own. Let's have a look.
 
 
 .. _param-title:
@@ -153,6 +154,7 @@ or
 
     wf.add_item(title=u'My title'[, …])
 
+
 .. _param-subtitle:
 
 subtitle
@@ -163,7 +165,7 @@ Remember that users can turn off subtitles in Alfred's settings.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``subtitle`` argument or the second unnamed argument (the first, ``title``,
-is required, and must therefore be present.
+is required and must therefore be present.
 
 It's also possible to specify custom subtitles to be shown when a result is
 selected and the user presses one of the modifier keys (⌘,⌥, ^, ⇧, fn).
@@ -180,6 +182,7 @@ be a dictionary with some or all of the keys ``alt``, ``cmd``, ``ctrl``,
 subtitles to be shown when the modifiers are pressed (see lines 7–13 of the
 :ref:`example code <code-example>`).
 
+
 .. _param-autocomplete:
 
 autocomplete
@@ -191,8 +194,8 @@ query box will be expanded to the ``autocomplete`` value of the selected result.
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``autocomplete`` argument. Must be :class:`unicode`.
 
-When a user autocompletes a result with ``TAB``, Alfred will run the workflow
-again with the new query.
+When a user autocompletes a result with ``TAB``, Alfred will run the Script
+Filter again with the new query.
 
 .. _param-arg:
 
@@ -202,7 +205,7 @@ arg
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``arg`` argument. Must be :class:`unicode`.
 
-This is the "value" of the result which will be passed by Alfred as ``{query}``
+This is the "value" of the result that will be passed by Alfred as ``{query}``
 to the Action(s) or Output(s) your Script Filter is connected to.
 
 Additionally, if you press ⌘+C on a result in Alfred, ``arg`` will be copied to
@@ -258,9 +261,9 @@ current query and prioritise that result for the same query in the future.
 
 As a result, in most situations you should ensure that a particular item always
 has the same ``uid``. In practice, setting ``uid`` to the same value as ``arg``
-is a good choice.
+is often a good choice.
 
-If you omit ``uid``'s, Alfred will show results in the order in which they
+If you omit the ``uid``, Alfred will show results in the order in which they
 appear in the XML file (the order in which you add them with
 :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`).
 
@@ -272,7 +275,7 @@ type
 The type of the result. Currently, only ``"file"`` is supported.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
-the ``type`` argument. Must be :class:`unicode`. Currently, the only allowed
+the ``type`` argument. Should be :class:`unicode`. Currently, the only allowed
 value is ``"file"``.
 
 If the ``type`` of a result is set to ``"file"`` (the only value currently
@@ -323,3 +326,99 @@ will display the current query in its Large Type pop-up.
 
 icon
 ^^^^
+
+There are three different kinds of icon you can tell Alfred to use. Use the
+``type`` attribute of the ``<icon>`` XML element or the ``icontype`` argument
+to ``Alfred.add_item()`` to define which type of icon you want.
+
+Image files
++++++++++++
+
+This is the default. Simply pass the filename or filepath of an image file:
+
+.. code-block:: xml
+    :linenos:
+
+    <icon>icon.png</icon>
+
+or:
+
+.. code-block:: python
+    :linenos:
+
+    Workflow.add_item(..., icon=u'icon.png')
+
+
+Relative paths will be interpreted by Alfred as relative to the root of your
+workflow directory, so ``icon.png`` will be your workflow's own icon,
+``icons/github.png`` is the file ``github.png`` in the ``icons`` subdirectory
+of your workflow etc.
+
+You can pass paths to ``PNG`` or ``ICNS`` files. If you're using ``PNG``, you
+should try to make them square and ideally 256 px wide/high. Anything bigger
+and Alfred will have to resize the icon; smaller and it won't look so good on a
+Retina screen.
+
+Icons of files
+++++++++++++++
+
+Alternatively, you can tell Alfred to use the icon of a file:
+
+.. code-block:: xml
+    :linenos:
+
+    <icon type="fileicon">/path/to/some/file.pdf</icon>
+
+or:
+
+.. code-block:: python
+    :linenos:
+
+    Workflow.add_item(..., icon=u'/path/to/some/file.pdf',
+                      icontype=u'fileicon')
+
+This is great if your workflow lists the user's own files, and makes your
+Script Filter work like Alfred's File Browser or File Filters in that by
+passing the file's path as the icon, Alfred will show the appropriate icon
+for that file.
+
+If you have set a custom icon for, e.g., your Downloads folder, this custom
+icon will be shown. In the case of media files that have cover art, e.g. audio
+files, movies, ebooks, comics etc., any cover art will not be shown, but rather
+the standard icon for the appropriate filetype.
+
+Filetype icons
+++++++++++++++
+
+Finally, you can tell Alfred to use the icon for a specific filetype by
+specifying a `UTI <http://www.escape.gr/manuals/qdrop/UTI.html>`_ as the value
+to ``icon`` and ``filetype`` as the type:
+
+.. code-block:: xml
+    :linenos:
+
+    <icon type="filetype">public.html</icon>
+
+or:
+
+.. code-block:: python
+    :linenos:
+
+    Workflow.add_item(..., icon=u'public.html', icontype=u'filetype')
+
+This will show the icon for ``HTML`` pages, which will be different depending
+on which browser you have set as the default.
+
+``filetype`` icons are useful if your Script Filter deals with files and
+filetypes but you don't have a specific filepath to use as a ``fileicon``.
+
+If you need to fine the UTI for a filetype, Alfred can help you: Add a File Filter
+to a workflow, and drag a file of the type you're interested in into the
+File Types list in the Basic Setup tab. Alfred will show the corresponding
+UTI in the list (in this screenshot, I dragged a ``.py`` file into the list):
+
+.. image:: _static/screen30_UTI.png
+
+You can also find the UTI of a file (along with much of its other metadata) by
+running ``mdls /path/to/the/file`` in Terminal.
+

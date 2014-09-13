@@ -805,6 +805,12 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.wf.filter('', data)
 
+    def test_filter_empty_query_words_ignored(self):
+        """Filter: empty query words ignored"""
+        data = ['bob jones', 'sue smith', 'henry rogers']
+        results = self.wf.filter('bob       jones', data)
+        self.assertEquals(len(results), 1)
+
     def test_filter_identical_items(self):
         """Filter: identical items are not discarded"""
         data = ['bob', 'bob', 'bob']

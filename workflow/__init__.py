@@ -31,7 +31,7 @@ There are convenience methods for:
 - Running background processes to keep your workflow responsive.
 - Capturing errors, so the workflow doesn't fail silently.
 
-Quick Example
+Quick example
 =============
 
 Here's how to show recent `Pinboard.in <https://pinboard.in/>`_ posts in Alfred.
@@ -41,7 +41,7 @@ Language ``/usr/bin/python`` and paste the following into the **Script** field
 (changing ``API_KEY``):
 
 .. code-block:: python
-   :emphasize-lines: 4
+    :emphasize-lines: 4
 
     import sys
     from workflow import Workflow, ICON_WEB, web
@@ -79,10 +79,12 @@ You can install **Alfred-Workflow** directly into your workflow with::
     pip install --target=/path/to/my/workflow Alfred-Workflow
 
 
-**Note**: If you intend to distribute your workflow to other users, you should
-include **Alfred-Workflow** (and other Python libraries your workflow requires)
-within your workflow as described. Do not ask users to install anything into
-their system Python.
+.. important::
+
+    If you intend to distribute your workflow to other users, you should
+    include **Alfred-Workflow** (and other Python libraries your
+    workflow requires) within your workflow as described. **Do not** ask
+    users to install anything into their system Python.
 
 From source
 -----------
@@ -93,6 +95,14 @@ and either extract the ZIP to the root directory of your workflow (where
 ``info.plist`` is) or place the ZIP in the root directory and add
 ``sys.path.insert(0, 'alfred-workflow-X.X.zip')`` to the top of your
 Python scripts.
+
+.. important::
+
+    :mod:`~workflow.background` will not work if you are
+    :importing **Alfred-Workflow** from a zip file.
+
+    If you need to use :mod:`~workflow.background`, you must
+    extract the zip archive.
 
 Alternatively, you can download
 `the source code <https://github.com/deanishe/alfred-workflow/archive/master.zip>`_

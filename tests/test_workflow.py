@@ -794,6 +794,14 @@ class WorkflowTests(unittest.TestCase):
         results = self.wf.filter('bob', data)
         self.assertEquals(len(results), len(data))
 
+    def test_filter_reversed_results(self):
+        """Filter: results reversed"""
+        data = ['bob', 'bobby', 'bobby smith']
+        results = self.wf.filter('bob', data)
+        self.assertEquals(results, data)
+        results = self.wf.filter('bob', data, ascending=True)
+        self.assertEquals(results, data[::-1])
+
     def test_icons(self):
         """Icons"""
         import workflow

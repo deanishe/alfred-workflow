@@ -661,13 +661,14 @@ class WorkflowTests(unittest.TestCase):
             self.assertFalse(os.path.exists(p))
 
     def test_update(self):
-        """Workflow updating methods"""
-        self.assertFalse(self.wf.update_available)
+        """Workflow update methods"""
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': 'v2.0',
             'frequency': 1,
         })
+
+        self.assertFalse(wf.update_available)
 
         # wait for background update check
         while is_running('__workflow_update'):

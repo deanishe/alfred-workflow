@@ -92,6 +92,51 @@ class UpdateTests(unittest.TestCase):
         # Correct latest release
         self.assertEquals(releases[0]['version'], RELEASE_LATEST)
 
+    def test_version_formats(self):
+        """Update: version formats"""
+
+        # Up-to-date versions
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, '6.0'))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v6.0'))
+
+        # Old versions
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, 'v5.0'))
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, '5.0'))
+
+        # Unknown versions
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, 'v8.0'))
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, '8.0'))
+
+    def test_equal_versions(self):
+        """Update: equal versions"""
+        # Equal versions
+        for l, r in [
+                ('1.0', 'v1.0'),
+                ('v1.0', '1.0'),
+                ('v1.0', 'v1.0'),
+                ('1.1.1', 'v1.1.1'),
+                ('v1.1.1', '1.1.1'),
+                ('v1.1.1', 'v1.1.1'),
+                ('dave', 'dave'),
+                ('bob', 'bob'),
+                ('vernon', 'vernon'),
+                ]:
+            self.assertFalse(update.is_newer_version(l, r))
+
+        # Unequal versions
+        for l, r in [
+                ('1.0', 'v1.1'),
+                ('v1.0', '1.1'),
+                ('v1.0', 'v1.1'),
+                ('1.1.1', 'v1.2.1'),
+                ('v1.1.1', '1.2.1'),
+                ('v1.1.1', 'v1.2.1'),
+                ('dave', 'bob'),
+                ('bob', 'dave'),
+                ('vernon', 'vvernon'),
+                ]:
+            self.assertTrue(update.is_newer_version(l, r))
+
     def test_check_update(self):
         """Update: Check update"""
 

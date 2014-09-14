@@ -102,7 +102,13 @@ def get_valid_releases(github_slug):
 
     log.debug('Retrieving releases list from `{}` ...'.format(api_url))
 
-    for release in web.get(api_url).json():
+    def retrieve_releases():
+        log.info('Retriving releases for `{}` ...'.format(github_slug))
+        return web.get(api_url).json()
+
+    slug = github_slug.replace('/', '-')
+    for release in wf.cached_data('gh-releases-{}'.format(slug),
+                                  retrieve_releases):
         version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):
@@ -131,6 +137,32 @@ def get_valid_releases(github_slug):
     return releases
 
 
+def is_newer_version(local, remote):
+    """Return ``True`` if ``remote`` version is newer than ``local``
+
+    :param local: version of installed workflow
+    :param remote: version of remote workflow
+    :returns: ``True`` or ``False``
+
+    """
+
+    local = local.lower()
+    remote = remote.lower()
+
+    if prefixed_version(local):
+        local = local[1:]
+
+    if prefixed_version(remote):
+        remote = remote[1:]
+
+    is_newer = remote != local
+
+    log.debug('remote `{}` newer that local `{}` : {}'.format(
+              remote, local, is_newer))
+
+    return is_newer
+
+
 def check_update(github_slug, current_version):
     """Check whether a newer release is available on GitHub
 
@@ -148,6 +180,8 @@ def check_update(github_slug, current_version):
 
     releases = get_valid_releases(github_slug)
 
+    log.info('{} releases for {}'.format(len(releases), github_slug))
+
     if not len(releases):
         raise ValueError('No valid releases for {}'.format(github_slug))
 
@@ -155,24 +189,25 @@ def check_update(github_slug, current_version):
     latest_release = releases[0]
 
     # (latest_version, download_url) = get_latest_release(releases)
-    if current_version == latest_release['version']:
+    if is_newer_version(current_version, latest_release['version']):
+
         wf.cache_data('__workflow_update_status', {
-            'available': False
+            'version': latest_release['version'],
+            'download_url': latest_release['download_url'],
+            'available': True
         })
-        return False
+
+        return True
 
     wf.cache_data('__workflow_update_status', {
-        'version': latest_release['version'],
-        'download_url': latest_release['download_url'],
-        'available': True
+        'available': False
     })
+    return False
 
-    return True
 
 if __name__ == '__main__':  # pragma: nocover
     parser = argparse.ArgumentParser()
     parser.add_argument("github_slug", help="")
     parser.add_argument("version", help="")
     args = parser.parse_args()
-
     check_update(args.github_slug, args.version)

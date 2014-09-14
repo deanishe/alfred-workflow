@@ -1237,7 +1237,7 @@ class Workflow(object):
         # Initialise new logger and optionally handlers
         logger = logging.getLogger('workflow')
 
-        if not logger.handlers:  # Only add one set of handlers
+        if not len(logger.handlers):  # Only add one set of handlers
             logfile = logging.handlers.RotatingFileHandler(
                 self.logfile,
                 maxBytes=1024*1024,
@@ -2010,7 +2010,12 @@ class Workflow(object):
 
             cmd = ['/usr/bin/python', update_script, github_slug, version]
 
+            self.logger.info('Checking for update ...')
+
             run_in_background('__workflow_update', cmd)
+
+        else:
+            self.logger.debug('Update not due')
 
     def start_update(self):
         """Check for update and download and install new workflow file

@@ -177,6 +177,7 @@ def run_in_background(name, args, **kwargs):
     # Cache arguments
     with open(argcache, 'wb') as file:
         pickle.dump({'args': args, 'kwargs': kwargs}, file)
+        log.debug('Command arguments cached to `{}`'.format(argcache))
 
     # Call this script
     cmd = ['/usr/bin/python', __file__, name]

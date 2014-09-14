@@ -24,7 +24,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Pre-configured logging
 - Painlessly add directories to `sys.path`
 - Easily launch background tasks (daemons) to keep your workflow responsive
-- Check for new versions of and update workflows hosted on GitHub.
+- Check for new versions and update workflows hosted on GitHub.
 
 ## Installation ##
 

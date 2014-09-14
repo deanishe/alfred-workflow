@@ -16,8 +16,28 @@ from __future__ import print_function
 import unittest
 import os
 
-from workflow import Workflow
-import workflow.update as u
+from workflow import Workflow, update
+
+RELEASE_LATEST = '6.0'
+RELEASE_OLDEST = '1.0'
+# Use this as current version
+RELEASE_CURRENT = '2.0'
+# v3.0 contains a .zip file, not an .alfredworkflow file
+RELEASES_INVALID = (
+    '3.0',  # No .alfredworkflow file
+    '4.0',  # 2 .alfredworkflow files
+    '5.0',  # No files
+    '7.0',  # No files
+)
+
+TEST_REPO_SLUG = 'deanishe/alfred-workflow-dummy'
+EMPTY_REPO_SLUG = 'deanishe/alfred-workflow-empty-dummy'
+GH_ROOT = 'https://github.com/' + TEST_REPO_SLUG
+GH_API_ROOT = 'https://api.github.com/repos/' + TEST_REPO_SLUG
+RELEASES_URL = GH_API_ROOT + '/releases'
+URL_DL = GH_ROOT + '/releases/download/v4.0/Dummy-4.0.alfredworkflow'
+URL_BAD = 'http://github.com/file.zip'
+# INVALID_RELEASE_URL = GH_ROOT + '/releases/download/v3.0/Dummy-3.0.zip'
 
 
 class UpdateTests(unittest.TestCase):
@@ -27,40 +47,60 @@ class UpdateTests(unittest.TestCase):
 
     def test_download_workflow(self):
         """Update: Download workflow update"""
-        self.assertRaises(ValueError, u._download_workflow, 'http://github.com/file.zip')
-        local_file = u._download_workflow('https://github.com/fniephaus/alfred-pocket/releases/download/v2.1/Pocket-for-Alfred.alfredworkflow')
+
+        with self.assertRaises(ValueError):
+            update.download_workflow(URL_BAD)
+
+        local_file = update.download_workflow(URL_DL)
+
         self.assertTrue(local_file.endswith('.alfredworkflow'))
         self.assertTrue(os.path.isfile(local_file))
 
-    def test_get_api_url(self):
-        """Update: Get API URL"""
-        url = u._get_api_url('fniephaus/alfred-workflow')
-        expected = 'https://api.github.com/repos/fniephaus/alfred-workflow/releases'
-        self.assertEquals(url, expected)
-        self.assertRaises(ValueError, u._get_api_url, 'fniephausalfred-workflow')
+    def test_valid_api_url(self):
+        """Update: API URL for valid slug"""
 
-    def test_extract_info(self):
-        """Update: Extract release info"""
-        releases = [{
-            'tag_name': 'v1.2',
-            'assets': [{
-                'browser_download_url': 'https://github.com/'
-            }]
-        }]
-        (version, url) = u._extract_info(releases)
-        self.assertEquals(version, 'v1.2')
-        self.assertEquals(url, 'https://github.com/')
-        self.assertRaises(IndexError, u._extract_info, [])
-        del releases[0]['assets']
-        self.assertRaises(KeyError, u._extract_info, releases)
-        del releases[0]['tag_name']
-        self.assertRaises(KeyError, u._extract_info, releases)
+        url = update.build_api_url(TEST_REPO_SLUG)
+        self.assertEquals(url, RELEASES_URL)
+
+    def test_invalid_api_url(self):
+        """Update: API URL for invalid slug"""
+
+        with self.assertRaises(ValueError):
+            update.build_api_url('fniephausalfred-workflow')
+
+    def test_empty_repo(self):
+        """Update: no releases"""
+
+        with self.assertRaises(ValueError):
+            update.check_update(EMPTY_REPO_SLUG, '1.0')
+
+        self.assertEquals(len(update.get_valid_releases(EMPTY_REPO_SLUG)), 0)
+
+    def test_valid_releases(self):
+        """Update: valid releases"""
+
+        releases = update.get_valid_releases(TEST_REPO_SLUG)
+
+        # Right number of valid releases
+        self.assertEquals(len(releases), 3)
+
+        # Invalid releases are not in list
+        versions = [d['version'] for d in releases]
+        for v in RELEASES_INVALID:
+            self.assertFalse(v in versions)
+
+        # Correct latest release
+        self.assertEquals(releases[0]['version'], RELEASE_LATEST)
 
     def test_check_update(self):
         """Update: Check update"""
-        self.assertTrue(u._check_update('fniephaus/alfred-pocket', 'v0.0'))
-        update_info = self.wf.cached_data('__workflow_update_available')
-        self.assertFalse(u._check_update('fniephaus/alfred-pocket', update_info['version']))
+
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT))
+
+        update_info = self.wf.cached_data('__workflow_update_status')
+        self.assertFalse(update.check_update(TEST_REPO_SLUG,
+                                             update_info['version']))
+
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

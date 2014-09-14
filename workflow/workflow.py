@@ -829,7 +829,7 @@ class Workflow(object):
             This must be a :class:`dict` that contains ``github_slug`` and
             ``version`` keys. ``github_slug`` is of the form ``username/repo``
             and ``version`` **must** correspond to the tag of a release.
-            See :ref:`update.py <updates>` for more information.
+            See :ref:`updates` for more information.
         :type update_settings: :class:`dict`
         :param input_encoding: encoding of command line arguments
         :type input_encoding: :class:`unicode`
@@ -873,8 +873,10 @@ class Workflow(object):
         self._items = []
         self._alfred_env = None
         self._search_pattern_cache = {}
+
         if libraries:
             sys.path = libraries + sys.path
+
         if update_settings:
             self.check_update()
 
@@ -1002,20 +1004,6 @@ class Workflow(object):
                 self._name = self.decode(self.info['name'])
 
         return self._name
-
-    @property
-    def update_available(self):
-        """Is an update available?
-
-        :returns: ``True`` if an update is available, else ``False``
-        :rtype: ``Boolean``
-
-        """
-
-        update_data = self.cached_data('__workflow_update_available')
-        if update_data is None or 'available' not in update_data:
-            return False
-        return update_data['available']
 
     # Workflow utility methods -----------------------------------------
 
@@ -1983,33 +1971,75 @@ class Workflow(object):
     # Updating methods
     ####################################################################
 
+    @property
+    def update_available(self):
+        """Is an update available?
+
+        :returns: ``True`` if an update is available, else ``False``
+
+        """
+
+        update_data = self.cached_data('__workflow_update_status')
+
+        if not update_data or not update_data.get('available'):
+            return False
+
+        return update_data['available']
+
     def check_update(self, force=False):
-        frequency = self._update_settings.get('frequency', DEFAULT_UPDATE_FREQUENCY)
-        if (force or
-                not self.cached_data_fresh(
-                    '__workflow_update_available', frequency * 86400)):
+        """Check if it's time to update and call update script if it is.
+
+        :param force: Force update check
+        :type force: ``Boolean``
+
+        """
+
+        frequency = self._update_settings.get('frequency',
+                                              DEFAULT_UPDATE_FREQUENCY)
+
+        if (force or not self.cached_data_fresh(
+                '__workflow_update_status', frequency * 86400)):
             github_slug = self._update_settings['github_slug']
             version = self._update_settings['version']
+
             from background import run_in_background
-            cmd = ['/usr/bin/python', self.workflowfile('workflow/update.py'),
-                    github_slug, version]
-            run_in_background('__update', cmd)
+
+            # update.py is adjacent to this file
+            update_script = os.path.join(os.path.dirname(__file__),
+                                         b'update.py')
+
+            cmd = ['/usr/bin/python', update_script, github_slug, version]
+
+            run_in_background('__workflow_update', cmd)
 
     def start_update(self):
+        """Check for update and download and install new workflow file
+
+        :returns: ``True`` if an update is available, else ``False``
+
+        """
+
         import update
+
         github_slug = self._update_settings['github_slug']
         version = self._update_settings['version']
-        if not update._check_update(github_slug, version):
+
+        if not update.check_update(github_slug, version):
             return False
-        update_data = self.cached_data('__workflow_update_available')
-        if (update_data is None or
-            'download_url' not in update_data):
-            return False   # pragma: no cover
-        local_file = update._download_workflow(update_data['download_url'])
+
+        update_data = self.cached_data('__workflow_update_status')
+
+        if (update_data is None or not update_data.get('available')):
+            return False  # pragma: no cover
+
+        local_file = update.download_workflow(update_data['download_url'])
+
+        self.logger.debug('Installing updated workflow ...')
         subprocess.call(['open', local_file])
-        self.logger.debug('Update initiated')
+
         update_data['available'] = False
-        self.cache_data('__workflow_update_available', update_data)
+        self.cache_data('__workflow_update_status', update_data)
+
         return True
 
     ####################################################################

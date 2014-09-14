@@ -21,6 +21,7 @@ If you're new to writing Workflows or coding in general, start with the
    filtering
    web
    background
+   update
    serialization
    icons
    magicargs

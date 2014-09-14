@@ -229,7 +229,7 @@ latex_elements = {
     #'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
-    'preamble': r'\userpackage[utf8]{inputenc}',
+    # 'preamble': r'\userpackage[utf8]{inputenc}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -281,7 +281,9 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
-     u'Dean Jackson <deanishe@deanishe.net>', 'Alfred-Workflow', 'One line description of project.',
+     u'Dean Jackson <deanishe@deanishe.net>',
+     'Alfred-Workflow',
+     'Python helper library for Alfred Workflows',
      'Miscellaneous'),
 ]
 

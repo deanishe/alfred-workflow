@@ -1,9 +1,9 @@
 
 .. _tutorial_1:
 
-=========================
-A Basic Pinboard Workflow
-=========================
+=================================
+Part 1: A Basic Pinboard Workflow
+=================================
 
 In which we build an Alfred Workflow to view recent posts to
 `Pinboard.in <https://pinboard.in/>`_.
@@ -102,6 +102,9 @@ directory:
 .. image:: _static/screen8_finder_with_workflow.png
 
 Now we can start coding.
+
+
+.. _writing-script:
 
 Writing your Python script
 ==========================

@@ -116,5 +116,5 @@ Or like this::
 Documentation
 =============
 
-Detailed documentation, including a tutorial and auto-generated API docs, is
-available at `the Alfred-Workflow website <http://www.deanishe.net/alfred-workflow/>`_.
+Detailed documentation, including a tutorial and API docs, is
+available at `Read the Docs <http://alfredworkflow.readthedocs.org/en/latest/>`_.

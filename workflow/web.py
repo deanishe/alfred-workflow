@@ -8,38 +8,7 @@
 #
 
 """
-Basic, `requests <http://docs.python-requests.org/en/latest/>`_-like API
-for retrieving data from the Web.
-
-Covers trivial cases at just 0.5% of the size of
-`requests <http://docs.python-requests.org/en/latest/>`_.
-
-The main API consists of the :func:`get` and :func:`post` functions and
-the :class:`Response` instances they return.
-
-Features:
-
-- JSON requests and responses
-- Form data submission
-- File uploads
-- Redirection support
-
-.. warning::
-
-    As ``web.py`` is based on Python 2's standard HTTP libraries, it
-    **does not** verify SSL certificates when establishing HTTPS
-    connections.
-
-    As a result, you **must not** use this module for sensitive
-    connections.
-
-If you require certificate verification for HTTPS connections (which you
-really should), you should use the
-`requests <http://docs.python-requests.org/en/latest/>`_ Python library
-(upon which the ``web.py`` API is based) or the command-line tool
-`cURL <http://curl.haxx.se/>`_ (which is installed by default on OS X)
-instead.
-
+A lightweight HTTP library with a requests-like interface.
 """
 
 from __future__ import print_function
@@ -361,8 +330,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     :type headers: :class:`dict`
     :param cookies: cookies to send to server
     :type cookies: :class:`dict`
-    :param files: files to upload. See :func:`encode_multipart_formdata`
-        for details of the required format.
+    :param files: files to upload (see below).
     :type files: :class:`dict`
     :param auth: username, password
     :type auth: ``tuple``
@@ -371,6 +339,19 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     :param allow_redirects: follow redirections
     :type allow_redirects: ``Boolean``
     :returns: :class:`Response` object
+
+
+    The ``files`` argument is a dictionary::
+
+        {'fieldname' : { 'filename': 'blah.txt',
+                         'content': '<binary data>',
+                         'mimetype': 'text/plain'}
+        }
+
+    * ``fieldname`` is the name of the field in the HTML form.
+    * ``mimetype`` is optional. If not provided, :mod:`mimetypes` will
+      be used to guess the mimetype, or ``application/octet-stream``
+      will be used.
 
     """
 

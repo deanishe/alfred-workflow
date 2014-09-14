@@ -39,7 +39,7 @@ for name in dir(workflow):
         # print('{} : {}'.format(name, const))
         filename = '{}.png'.format(name)
         make_thumbnail(const, os.path.join(outdir, filename))
-        image = '.. image:: _static/{}'.format(filename)
+        image = '.. image:: ../_static/{}'.format(filename)
         entries.append((name, image))
         if len(name) > col1:
             col1 = len(name)

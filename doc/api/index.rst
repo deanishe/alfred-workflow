@@ -15,3 +15,4 @@ See :ref:`quickref` for documentation focussed on performing specific tasks.
    workflow
    web
    background
+   update

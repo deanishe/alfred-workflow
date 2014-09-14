@@ -1,5 +1,5 @@
-A Python helper library for `Alfred 2 <http://www.alfredapp.com/>`_ Workflow
-authors.
+
+A Python helper library for writing `Alfred 2`_ Workflows.
 
 Alfred Workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. **Alfred-Workflow**
@@ -7,18 +7,19 @@ helps you do these things.
 
 There are convenience methods for:
 
-* Parsing script arguments.
-* Text decoding/normalisation.
-* Storing data and settings.
-* Caching data from, e.g., web services with a simple API for updating expired
-  data.
-* Securely storing (and syncing) passwords using OS X Keychain.
-* Generating XML output for Alfred.
-* Including external libraries (adding directories to ``sys.path``).
-* Filtering results using an Alfred-like, fuzzy search algorithm.
-* Generating log output for debugging.
-* Running background processes to keep your workflow responsive.
-* Capturing errors, so the workflow doesn't fail silently.
+* Catches and logs workflow errors for easier development and support
+* "Magic" arguments to help development/debugging
+* Auto-saves settings
+* Super-simple data caching
+* Fuzzy, Alfred-like search/filtering with diacritic folding
+* Keychain support for secure storage of passwords, API keys etc.
+* Simple generation of Alfred feedback (XML output)
+* Input/output decoding for handling non-ASCII text
+* Lightweight web API with modelled on `requests`_
+* Pre-configured logging
+* Painlessly add directories to ``sys.path``
+* Easily launch background tasks (daemons) to keep your workflow responsive
+* Check for new versions and update workflows hosted on GitHub.
 
 Quick Example
 =============
@@ -118,3 +119,6 @@ Documentation
 
 Detailed documentation, including a tutorial and API docs, is
 available at `Read the Docs <http://alfredworkflow.readthedocs.org/en/latest/>`_.
+
+.. _requests: http://docs.python-requests.org/en/latest/
+.. _Alfred 2: http://www.alfredapp.com/

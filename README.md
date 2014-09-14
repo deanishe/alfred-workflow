@@ -24,6 +24,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 - Pre-configured logging
 - Painlessly add directories to `sys.path`
 - Easily launch background tasks (daemons) to keep your workflow responsive
+- Check for new versions and update workflows hosted on GitHub.
 
 ## Installation ##
 
@@ -200,6 +201,7 @@ Currently, there is Travis-CI integration, but also a `run-tests.sh` script in t
 
 - [Dean Jackson](https://github.com/deanishe)
 - [Stephen Margheim](https://github.com/smargh)
+- [Fabio Niephaus](https://github.com/fniephaus)
 
 ## Tests ##
 

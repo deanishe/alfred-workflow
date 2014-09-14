@@ -36,6 +36,8 @@ from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                MATCH_INITIALS_STARTSWITH,
                                manager)
 
+from workflow.background import is_running
+
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
 WORKFLOW_NAME = 'Alfred-Workflow Test'
@@ -657,6 +659,36 @@ class WorkflowTests(unittest.TestCase):
 
         for p in paths:
             self.assertFalse(os.path.exists(p))
+
+    def test_update(self):
+        """Workflow update methods"""
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        })
+
+        self.assertFalse(wf.update_available)
+
+        # wait for background update check
+        while is_running('__workflow_update'):
+            time.sleep(0.05)
+
+        self.assertTrue(wf.update_available)
+        self.assertTrue(wf.start_update())
+
+        update_info = wf.cached_data('__workflow_update_status')
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': update_info['version'],
+        })
+
+        # wait for background update check
+        while is_running('__workflow_update'):
+            time.sleep(0.05)
+
+        self.assertFalse(wf.update_available)
+        self.assertFalse(wf.start_update())
 
     def test_keychain(self):
         """Save/get/delete password"""

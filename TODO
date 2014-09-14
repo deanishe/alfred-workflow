@@ -3,22 +3,25 @@ Features to Add:
 
 
 	background.py:
-		- Add `stop_process()` function.
+		- Add `kill_process()` function.
 			Allow `killing` of running processes. Can be used for stopping servers.
+		- Add file-locking to prevent `Workflow` from reading half-written files @priority(3) @v2
 
 
 	update.py:
-		- Integrate Fabio's update feature
-		- Generalise update functionality
+		- Integrate Fabio's update feature @done(14-09-14 19:50)
+		- Generalise update functionality @v2
 			Use subclass-based plugin feature to automatically register updaters?
+		- Allow omission of `v` in version specified in `update_settings` @done(14-09-14 22:14)
+		- Perform download & installation in the background, so Workflow can inform user that an update is being performed @priority(1)
 
 
 	web.py:
 
 
 	workflow.py:
-		- `filter()` should warn when comparing Unicode and `str` objects @priority(2)
-		- move "magic" args to class-level dictionary, so authors can add their own. @priority(1)
+		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
+		- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2
 
 
 	Docs:
@@ -47,7 +50,7 @@ Features to Consider:
 
 
 	handlers.py:
-		Module to provide system-default apps for protocols like `http`, `mailto` etc.
+	Module to provide system-default apps for protocols like `http`, `mailto` etc.
 
 
 	ui.py:

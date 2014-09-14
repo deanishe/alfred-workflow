@@ -73,7 +73,7 @@ ICON_WEB = os.path.join(ICON_ROOT, 'BookmarkIcon.icns')
 
 ####################################################################
 # non-ASCII to ASCII diacritic folding.
-# Used by ``fold_to_ascii`` method
+# Used by `fold_to_ascii` method
 ####################################################################
 
 ASCII_REPLACEMENTS = {
@@ -395,6 +395,14 @@ MATCH_SUBSTRING = 32
 MATCH_ALLCHARS = 64
 #: Combination of all other ``MATCH_*`` constants
 MATCH_ALL = 127
+
+
+####################################################################
+# Used by `Workflow.check_update`
+####################################################################
+
+# Number of days to wait between checking for updates to the workflow
+DEFAULT_UPDATE_FREQUENCY = 1
 
 
 ####################################################################
@@ -817,6 +825,12 @@ class Workflow(object):
             exists, :class:`Workflow.settings` will be pre-populated with
             ``default_settings``.
         :type default_settings: :class:`dict`
+        :param update_settings: settings for updating your workflow from GitHub.
+            This must be a :class:`dict` that contains ``github_slug`` and
+            ``version`` keys. ``github_slug`` is of the form ``username/repo``
+            and ``version`` **must** correspond to the tag of a release.
+            See :ref:`updates` for more information.
+        :type update_settings: :class:`dict`
         :param input_encoding: encoding of command line arguments
         :type input_encoding: :class:`unicode`
         :param normalization: normalisation to apply to CLI args.
@@ -835,10 +849,12 @@ class Workflow(object):
     # won't want to change this
     item_class = Item
 
-    def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+    def __init__(self, default_settings=None, update_settings=None,
+                 input_encoding='utf-8', normalization='NFC',
+                 capture_args=True, libraries=None):
 
         self._default_settings = default_settings or {}
+        self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
@@ -857,8 +873,12 @@ class Workflow(object):
         self._items = []
         self._alfred_env = None
         self._search_pattern_cache = {}
+
         if libraries:
             sys.path = libraries + sys.path
+
+        if update_settings:
+            self.check_update()
 
     ####################################################################
     # API methods
@@ -1045,6 +1065,9 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflow_diacritic_folding' in self.settings:
                     del self.settings['__workflow_diacritic_folding']
+            elif 'workflow:update' in args:
+                msg = 'Updating workflow'
+                self.start_update()
 
             if msg:
                 self.logger.debug(msg)
@@ -1214,7 +1237,7 @@ class Workflow(object):
         # Initialise new logger and optionally handlers
         logger = logging.getLogger('workflow')
 
-        if not logger.handlers:  # Only add one set of handlers
+        if not len(logger.handlers):  # Only add one set of handlers
             logfile = logging.handlers.RotatingFileHandler(
                 self.logfile,
                 maxBytes=1024*1024,
@@ -1943,6 +1966,86 @@ class Workflow(object):
         sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
         sys.stdout.write(ET.tostring(root).encode('utf-8'))
         sys.stdout.flush()
+
+    ####################################################################
+    # Updating methods
+    ####################################################################
+
+    @property
+    def update_available(self):
+        """Is an update available?
+
+        :returns: ``True`` if an update is available, else ``False``
+
+        """
+
+        update_data = self.cached_data('__workflow_update_status')
+
+        if not update_data or not update_data.get('available'):
+            return False
+
+        return update_data['available']
+
+    def check_update(self, force=False):
+        """Check if it's time to update and call update script if it is.
+
+        :param force: Force update check
+        :type force: ``Boolean``
+
+        """
+
+        frequency = self._update_settings.get('frequency',
+                                              DEFAULT_UPDATE_FREQUENCY)
+
+        if (force or not self.cached_data_fresh(
+                '__workflow_update_status', frequency * 86400)):
+            github_slug = self._update_settings['github_slug']
+            version = self._update_settings['version']
+
+            from background import run_in_background
+
+            # update.py is adjacent to this file
+            update_script = os.path.join(os.path.dirname(__file__),
+                                         b'update.py')
+
+            cmd = ['/usr/bin/python', update_script, github_slug, version]
+
+            self.logger.info('Checking for update ...')
+
+            run_in_background('__workflow_update', cmd)
+
+        else:
+            self.logger.debug('Update not due')
+
+    def start_update(self):
+        """Check for update and download and install new workflow file
+
+        :returns: ``True`` if an update is available, else ``False``
+
+        """
+
+        import update
+
+        github_slug = self._update_settings['github_slug']
+        version = self._update_settings['version']
+
+        if not update.check_update(github_slug, version):
+            return False
+
+        update_data = self.cached_data('__workflow_update_status')
+
+        if (update_data is None or not update_data.get('available')):
+            return False  # pragma: no cover
+
+        local_file = update.download_workflow(update_data['download_url'])
+
+        self.logger.debug('Installing updated workflow ...')
+        subprocess.call(['open', local_file])
+
+        update_data['available'] = False
+        self.cache_data('__workflow_update_status', update_data)
+
+        return True
 
     ####################################################################
     # Keychain password storage methods

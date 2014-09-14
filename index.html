@@ -1,188 +1,147 @@
 
+
+
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Alfred-Workflow &mdash; Alfred-Workflow 1.8.8 documentation</title>
+  
 
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
     
-    <title>Alfred-Workflow &mdash; Alfred-Workflow 1.8.7 documentation</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootswatch-3.1.0/readable/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.8.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Alfred-Workflow 1.8.7 documentation" href="#" />
-    <link rel="next" title="Writing A Pinboard Workflow, Part 1" href="tutorial.html" />
 
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
+  
 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.8.8 documentation" href="#"/>
+        <link rel="next" title="Quick Reference" href="quickref/index.html"/>
+ 
 <link rel="stylesheet" href="_static/gh-fork-ribbon.css">
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<link rel="stylesheet" href="_static/custom.css">
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
 
-  </head>
-  <body>
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-    </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="#" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-
-
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          Alfred-Workflow</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.8.7</b></span>
       </div>
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Documentation <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Writing A Pinboard Workflow, Part 1</a></li>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="quickref/index.html">Quick Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickref/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/text-encoding.html">A note on text encoding/decoding</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Writing A Pinboard Workflow, Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="howto.html">Howto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="workflow.html">workflow.workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
-<li class="toctree-l1"><a class="reference internal" href="background.html">workflow.background</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter results and XML format</a></li>
-</ul>
-</ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Alfred-Workflow</a><ul>
-<li><a class="reference internal" href="#quick-example">Quick Example</a></li>
-<li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#with-pip">With pip</a></li>
-<li><a class="reference internal" href="#from-source">From source</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
-<li><a class="reference internal" href="#writing-a-pinboard-workflow-part-1">Writing A Pinboard Workflow, Part 1</a></li>
-<li><a class="reference internal" href="#writing-a-pinboard-workflow-part-2">Writing A Pinboard Workflow, Part 2</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#howto">Howto</a></li>
-<li><a class="reference internal" href="#api-docs">API docs</a></li>
-<li><a class="reference internal" href="#script-filter-results-xml-format">Script filter results/XML format</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-            
-            
-            
-          </ul>
-
-          
-            
-<form class="navbar-form navbar-right" action="search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
-  </div>
-
-<div class="container">
-  <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Alfred-Workflow</a><ul>
-<li><a class="reference internal" href="#quick-example">Quick Example</a></li>
-<li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#with-pip">With pip</a></li>
-<li><a class="reference internal" href="#from-source">From source</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
-<li><a class="reference internal" href="#writing-a-pinboard-workflow-part-1">Writing A Pinboard Workflow, Part 1</a></li>
-<li><a class="reference internal" href="#writing-a-pinboard-workflow-part-2">Writing A Pinboard Workflow, Part 2</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#howto">Howto</a></li>
-<li><a class="reference internal" href="#api-docs">API docs</a></li>
-<li><a class="reference internal" href="#script-filter-results-xml-format">Script filter results/XML format</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#xml-format">XML format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#item-parameters">Item parameters</a></li>
 </ul>
 </li>
 </ul>
 
-        </div>
+        
       </div>
-    <div class="col-md-9">
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
-  <div class="section" id="module-workflow">
-<span id="alfred-workflow"></span><h1>Alfred-Workflow<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Alfred-Workflow</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="alfred-workflow">
+<h1>Alfred-Workflow<a class="headerlink" href="#alfred-workflow" title="Permalink to this headline">¶</a></h1>
 <p>A Python helper library for <a class="reference external" href="http://www.alfredapp.com/">Alfred 2</a> Workflow
-authors.</p>
+authors, developed and hosted on <a class="reference external" href="https://github.com/deanishe/alfred-workflow">GitHub</a>.</p>
 <p>Alfred Workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. <strong>Alfred-Workflow</strong>
 helps you do these things.</p>
@@ -202,32 +161,50 @@ data.</li>
 <li>Capturing errors, so the workflow doesn&#8217;t fail silently.</li>
 </ul>
 <div class="section" id="quick-example">
-<h2>Quick Example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s how to show recent <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> posts in Alfred.</p>
 <p>Create a new Workflow in Alfred&#8217;s preferences. Add a <strong>Script Filter</strong> with
 Language <tt class="docutils literal"><span class="pre">/usr/bin/python</span></tt> and paste the following into the <strong>Script</strong> field
 (changing <tt class="docutils literal"><span class="pre">API_KEY</span></tt>):</p>
-<div class="highlight-python"><div class="highlight"><pre> <span class="kn">import</span> <span class="nn">sys</span>
- <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
-<span class="hll"> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+<span class="hll"><span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
 </span>
- <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
-     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-     <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;posts&#39;</span><span class="p">]:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span> <span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span> <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">uid</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;hash&#39;</span><span class="p">],</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
-     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;posts&#39;</span><span class="p">]:</span>
+        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span> <span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span> <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+                    <span class="n">uid</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;hash&#39;</span><span class="p">],</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
-     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Add an <strong>Open URL</strong> action to your Workflow with <tt class="docutils literal"><span class="pre">{query}</span></tt> as the <strong>URL</strong>,
 connect your <strong>Script Filter</strong> to it, and you can now hit <strong>ENTER</strong> on a
 Pinboard item in Alfred to open it in your browser.</p>
@@ -240,10 +217,13 @@ Pinboard item in Alfred to open it in your browser.</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install --target=/path/to/my/workflow Alfred-Workflow
 </pre></div>
 </div>
-<p><strong>Note</strong>: If you intend to distribute your workflow to other users, you should
-include <strong>Alfred-Workflow</strong> (and other Python libraries your workflow requires)
-within your workflow as described. Do not ask users to install anything into
-their system Python.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">If you intend to distribute your workflow to other users, you should
+include <strong>Alfred-Workflow</strong> (and other Python libraries your
+workflow requires) within your workflow as described. <strong>Do not</strong> ask
+users to install anything into their system Python.</p>
+</div>
 </div>
 <div class="section" id="from-source">
 <h3>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
@@ -253,6 +233,13 @@ and either extract the ZIP to the root directory of your workflow (where
 <tt class="docutils literal"><span class="pre">info.plist</span></tt> is) or place the ZIP in the root directory and add
 <tt class="docutils literal"><span class="pre">sys.path.insert(0,</span> <span class="pre">'alfred-workflow-X.X.zip')</span></tt> to the top of your
 Python scripts.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will not work if you are
+:importing <strong>Alfred-Workflow</strong> from a zip file.</p>
+<p class="last">If you need to use <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>, you must
+extract the zip archive.</p>
+</div>
 <p>Alternatively, you can download
 <a class="reference external" href="https://github.com/deanishe/alfred-workflow/archive/master.zip">the source code</a>
 from the <a class="reference external" href="https://github.com/deanishe/alfred-workflow">GitHub repository</a> and
@@ -283,124 +270,89 @@ the Workflow information file generated by Alfred):</p>
 </div>
 </div>
 </div>
-<div class="section" id="tutorial">
-<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-<p>How to write an Alfred Workflow with <strong>Alfred-Python</strong>, taking you through the
-basics to a full-featured Workflow.</p>
-<div class="section" id="writing-a-pinboard-workflow-part-1">
-<h3>Writing A Pinboard Workflow, Part 1<a class="headerlink" href="#writing-a-pinboard-workflow-part-1" title="Permalink to this headline">¶</a></h3>
-<p>In which we build an Alfred Workflow to view recent posts to
-<a class="reference external" href="https://pinboard.in/">Pinboard</a>.</p>
-<p>If you&#8217;re new to Alfred and/or coding in general, start here.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Writing A Pinboard Workflow, Part 1</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-a-new-workflow">Creating a new Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#describing-your-workflow">Describing your Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-a-script-filter">Adding a Script Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#writing-your-python-script">Writing your Python script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-workflow-actions">Adding Workflow actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#improving-performance-and-not-getting-banned">Improving performance and not getting banned</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#making-the-posts-searchable">Making the posts searchable</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#improving-the-search-results">Improving the search results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#what-now">What now?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial.html#further-reading">Further reading</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="writing-a-pinboard-workflow-part-2">
-<h3>Writing A Pinboard Workflow, Part 2<a class="headerlink" href="#writing-a-pinboard-workflow-part-2" title="Permalink to this headline">¶</a></h3>
-<p>In which we make our <a class="reference external" href="https://pinboard.in/">Pinboard</a> Workflow ready for
-the masses.</p>
-<p>Demonstrates more advanced usage of <strong>Alfred-Workflow</strong> and a few Workflow
-tricks that might also be of interest to intermediate Pythonistas.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial2.html">Writing A Pinboard Workflow, Part 2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#multi-step-actions">Multi-step actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#saving-settings">Saving settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#saving-settings-securely">Saving settings securely</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#logging">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#spit-and-polish">Spit and polish</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#two-actions-one-keyword">Two actions, one keyword</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#notifying-the-user-if-there-are-no-results">Notifying the user if there are no results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#greased-lightning-background-updates">Greased lightning: background updates</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial2.html#the-fruits-of-your-labour">The fruits of your labour</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial2.html#sharing-your-workflow">Sharing your Workflow</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="section" id="howto">
-<h2>Howto<a class="headerlink" href="#howto" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Permalink to this headline">¶</a></h2>
 <p>If you know your way around Python and Alfred, here&#8217;s an overview of what
-<strong>Alfred-Workflow</strong> does and how to do it.</p>
+<strong>Alfred-Workflow</strong> can do and how to do it.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="howto.html">Howto</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#workflow-setup-and-skeleton">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#including-3rd-party-libraries">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#persistent-data">Persistent data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#caching-data">Caching data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#storing-data">Storing data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#settings">Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#keychain-access">Keychain access</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#searching-filtering-data">Searching/filtering data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#restricting-results">Restricting results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#diacritic-folding">Diacritic folding</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#text-encoding-decoding">Text encoding/decoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#background-processes">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#serialization">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#built-in-icons">Built-in icons</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="howto.html#list-of-icons">List of icons</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="howto.html#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickref/index.html">Quick Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickref/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref/text-encoding.html">A note on text encoding/decoding</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="section" id="api-docs">
-<h2>API docs<a class="headerlink" href="#api-docs" title="Permalink to this headline">¶</a></h2>
-<p>Documentation automatically generated from the source code.</p>
+<div class="section" id="the-alfred-workflow-tutorial">
+<h2>The Alfred-Workflow Tutorial<a class="headerlink" href="#the-alfred-workflow-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>There is a <a class="reference internal" href="tutorial.html#tutorial"><em>two-part tutorial</em></a> on writing an Alfred Workflow
+with <strong>Alfred-Python</strong>, taking you through the basics to a full-featured
+Workflow.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="workflow.html">workflow.workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web.html">workflow.web</a></li>
-<li class="toctree-l1"><a class="reference internal" href="background.html">workflow.background</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="script-filter-results-xml-format">
-<h2>Script filter results/XML format<a class="headerlink" href="#script-filter-results-xml-format" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter results and XML format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#the-xml-format">The XML format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
 </ul>
 </li>
 </ul>
+</div>
+</div>
+<div class="section" id="detailed-reference">
+<h2>Detailed Reference<a class="headerlink" href="#detailed-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="api-documentation">
+<h3>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
+<p>Detailed documetation of the <strong>Alfred-Workflow</strong> APIs.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="script-filter-results-and-the-xml-format">
+<h3>Script Filter results and the XML format<a class="headerlink" href="#script-filter-results-and-the-xml-format" title="Permalink to this headline">¶</a></h3>
+<p>A detailed look at the many parameters accepted by
+<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a>
+and how they interact with one another.</p>
+<p>This should also serve as a decent reference to Alfred&#8217;s XML format for folks
+who aren&#8217;t using <strong>Alfred-Workflow</strong>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#xml-format">XML format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#item-parameters">Item parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#title">title</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#subtitle">subtitle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#autocomplete">autocomplete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#arg">arg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#valid">valid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#uid">uid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#type">type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#copy-text">copy text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#large-text">large text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script_filter_results.html#icon">icon</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -413,29 +365,66 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 </div>
 
 
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickref/index.html" class="btn btn-neutral float-right" title="Quick Reference"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
     </div>
-      
-  </div>
-</div>
+  
 
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
-        
-<div id="sourcelink">
-  <a href="_sources/index.txt"
-     rel="nofollow">Source</a>
-</div>
-      
-    </p>
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Dean Jackson.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+        &copy; Copyright 2014, Dean Jackson.
     </p>
   </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
-  </body>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.8.8',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

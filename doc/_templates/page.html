@@ -1,7 +1,6 @@
 {# Import the theme's layout. #}
 {%- set favicon = 'favicon.ico' %}
-{%- set display_github = 'yes!' %}
-{% extends "!layout.html" %}
+{% extends "!page.html" %}
 
 {% block extrahead %}
 {{ super() }}
@@ -10,14 +9,15 @@
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
 <!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
 {% endblock %}
 
 
-{% block body %}
-{{ super() }}
+{% block footer %}
 <div class="github-fork-ribbon-wrapper right">
     <div class="github-fork-ribbon">
         <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
     </div>
 </div>
+{{ super() }}
 {% endblock %}

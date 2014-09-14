@@ -27,10 +27,6 @@ Features to Add:
 			- Improve description of how to use `Workflow(libraries=)`
 				Make paths to specify to `pip` clearer.
 				See https://github.com/deanishe/alfred-workflow/issues/28
-		- Move documentation out of module docstrings into ReST files under /doc @priority(1)
-			A lot of the documentation isn't super-suitable for Python's `help()`
-			function. The published HTML documentation could be much better arranged
-			by putting more of the documentation in ReST files.
 
 
 
@@ -82,6 +78,10 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	- Move documentation out of module docstrings into ReST files under /doc @priority(1) @done(14-09-14 14:23) @project(Features to Add / Docs)
+		A lot of the documentation isn't super-suitable for Python's `help()`
+		function. The published HTML documentation could be much better arranged
+		by putting more of the documentation in ReST files.
 	- Move workflow into top-level directory to allow use as a Git submodule. @nope @done(14-09-14 01:20) @project(General)
 		Is this necessary? I have to copy stuff hither and thither all the time, but
 		I'm the one developing the workflow package. Will this be such a problem for
@@ -91,27 +91,27 @@ Archive:
 	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13) @project(workflow.py)
 - add `openterminal` magic arg. @done(14-03-08 00:05)
  @project(workflow.py)
-- Add unit tests @done(14-03-02 01:23)
- @project(web.py)
+- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
+ @project(Docs)
 - Normalise Unicode @done(14-03-06 20:34)
  @project(web.py)
-- Add unit tests @done(14-03-03 03:20)
- @project(workflow.py)
-- Give log file more unique name @done(14-02-27 23:01)
- @project(workflow.py)
-bundleid.log?
 - Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
  @project(workflow.py)
 - Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
  @project(workflow.py)
+- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
+ @project(workflow.py / Unit Tests)
 - Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
  @project(workflow.py / Unit Tests)
 - Tests for `Workflow.run` method @done(14-03-03 03:21)
  @project(workflow.py / Unit Tests)
-- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
- @project(workflow.py / Unit Tests)
-- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
- @project(Docs)
+- Add unit tests @done(14-03-03 03:20)
+ @project(workflow.py)
+- Add unit tests @done(14-03-02 01:23)
+ @project(web.py)
+- Give log file more unique name @done(14-02-27 23:01)
+ @project(workflow.py)
+bundleid.log?
 - Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
  @project(Other)
 https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
@@ -120,3 +120,4 @@ Created own version
  @project(Other)
 https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
 Created own version
+

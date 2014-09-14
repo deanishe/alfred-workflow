@@ -186,7 +186,8 @@ the ``subtitle`` argument or the second unnamed argument (the first, ``title``,
 is required and must therefore be present.
 
 It's also possible to specify custom subtitles to be shown when a result is
-selected and the user presses one of the modifier keys (⌘,⌥, ^, ⇧, fn).
+selected and the user presses one of the modifier keys (``cmd``, ``opt``,
+``ctrl``, ``shift``, ``fn``).
 
 These are specified in the XML file as additional ``<subtitle>`` elements with
 ``mod="<key>"`` attributes (see lines 6–10 in the
@@ -226,7 +227,7 @@ the ``arg`` argument. Must be :class:`unicode`.
 This is the "value" of the result that will be passed by Alfred as ``{query}``
 to the Action(s) or Output(s) your Script Filter is connected to.
 
-Additionally, if you press ⌘+C on a result in Alfred, ``arg`` will be copied to
+Additionally, if you press CMD+C on a result in Alfred, ``arg`` will be copied to
 the pasteboard (unless you have set :ref:`copy text <param-copytext>` for the
 item).
 
@@ -312,7 +313,7 @@ but it is not necessary for the item to be :ref:`valid <param-valid>`.
 copy text
 ---------
 
-Text that will be copied to the pasteboard if a user presses ``⌘+C`` on a
+Text that will be copied to the pasteboard if a user presses ``CMD+C`` on a
 result.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
@@ -320,7 +321,7 @@ the ``copytext`` argument. Must be :class:`unicode`.
 
 Set using ``<text type="copy">Copy text goes here</text>`` in XML.
 
-If ``copytext`` is set, when the user presses ``⌘+C``, this will be copied to
+If ``copytext`` is set, when the user presses ``CMD+C``, this will be copied to
 the pasteboard and Alfred's window will close. If ``copytext`` is not set, the
 selected result's :ref:`arg <param-arg>` value will be copied to the pasteboard
 and Alfred's window will close. If neither is set, nothing will be copied to
@@ -332,14 +333,14 @@ large text
 ----------
 
 Text that will be displayed in Alfred's Large Type pop-up if a user presses
-``⌘+L`` on a result.
+``CMD+L`` on a result.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``largetext`` argument. Must be :class:`unicode`.
 
 Set using ``<text type="largetype">Large text goes here</text>`` in XML.
 
-If ``largetext`` is not set, when the user presses ``⌘+L`` on a result, Alfred
+If ``largetext`` is not set, when the user presses ``CMD+L`` on a result, Alfred
 will display the current query in its Large Type pop-up.
 
 .. _param-icon:

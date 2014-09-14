@@ -39,6 +39,7 @@
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
 <!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
 
 
   
@@ -323,7 +324,8 @@ Remember that users can turn off subtitles in Alfred&#8217;s settings.</p>
 the <tt class="docutils literal"><span class="pre">subtitle</span></tt> argument or the second unnamed argument (the first, <tt class="docutils literal"><span class="pre">title</span></tt>,
 is required and must therefore be present.</p>
 <p>It&#8217;s also possible to specify custom subtitles to be shown when a result is
-selected and the user presses one of the modifier keys (⌘,⌥, ^, ⇧, fn).</p>
+selected and the user presses one of the modifier keys (<tt class="docutils literal"><span class="pre">cmd</span></tt>, <tt class="docutils literal"><span class="pre">opt</span></tt>,
+<tt class="docutils literal"><span class="pre">ctrl</span></tt>, <tt class="docutils literal"><span class="pre">shift</span></tt>, <tt class="docutils literal"><span class="pre">fn</span></tt>).</p>
 <p>These are specified in the XML file as additional <tt class="docutils literal"><span class="pre">&lt;subtitle&gt;</span></tt> elements with
 <tt class="docutils literal"><span class="pre">mod=&quot;&lt;key&gt;&quot;</span></tt> attributes (see lines 6–10 in the
 <a class="reference internal" href="#xml-example"><em>example XML</em></a>).</p>
@@ -350,7 +352,7 @@ Filter again with the new query.</p>
 the <tt class="docutils literal"><span class="pre">arg</span></tt> argument. Must be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>.</p>
 <p>This is the &#8220;value&#8221; of the result that will be passed by Alfred as <tt class="docutils literal"><span class="pre">{query}</span></tt>
 to the Action(s) or Output(s) your Script Filter is connected to.</p>
-<p>Additionally, if you press ⌘+C on a result in Alfred, <tt class="docutils literal"><span class="pre">arg</span></tt> will be copied to
+<p>Additionally, if you press CMD+C on a result in Alfred, <tt class="docutils literal"><span class="pre">arg</span></tt> will be copied to
 the pasteboard (unless you have set <a class="reference internal" href="#param-copytext"><em>copy text</em></a> for the
 item).</p>
 <p>Other than being copyable, setting <tt class="docutils literal"><span class="pre">arg</span></tt> doesn&#8217;t make great deal of sense unless
@@ -417,12 +419,12 @@ but it is not necessary for the item to be <a class="reference internal" href="#
 </div>
 <div class="section" id="copy-text">
 <span id="param-copytext"></span><h3>copy text<a class="headerlink" href="#copy-text" title="Permalink to this headline">¶</a></h3>
-<p>Text that will be copied to the pasteboard if a user presses <tt class="docutils literal"><span class="pre">⌘+C</span></tt> on a
+<p>Text that will be copied to the pasteboard if a user presses <tt class="docutils literal"><span class="pre">CMD+C</span></tt> on a
 result.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a> as
 the <tt class="docutils literal"><span class="pre">copytext</span></tt> argument. Must be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>.</p>
 <p>Set using <tt class="docutils literal"><span class="pre">&lt;text</span> <span class="pre">type=&quot;copy&quot;&gt;Copy</span> <span class="pre">text</span> <span class="pre">goes</span> <span class="pre">here&lt;/text&gt;</span></tt> in XML.</p>
-<p>If <tt class="docutils literal"><span class="pre">copytext</span></tt> is set, when the user presses <tt class="docutils literal"><span class="pre">⌘+C</span></tt>, this will be copied to
+<p>If <tt class="docutils literal"><span class="pre">copytext</span></tt> is set, when the user presses <tt class="docutils literal"><span class="pre">CMD+C</span></tt>, this will be copied to
 the pasteboard and Alfred&#8217;s window will close. If <tt class="docutils literal"><span class="pre">copytext</span></tt> is not set, the
 selected result&#8217;s <a class="reference internal" href="#param-arg"><em>arg</em></a> value will be copied to the pasteboard
 and Alfred&#8217;s window will close. If neither is set, nothing will be copied to
@@ -431,11 +433,11 @@ the pasteboard and Alfred&#8217;s window will close.</p>
 <div class="section" id="large-text">
 <span id="param-largetext"></span><h3>large text<a class="headerlink" href="#large-text" title="Permalink to this headline">¶</a></h3>
 <p>Text that will be displayed in Alfred&#8217;s Large Type pop-up if a user presses
-<tt class="docutils literal"><span class="pre">⌘+L</span></tt> on a result.</p>
+<tt class="docutils literal"><span class="pre">CMD+L</span></tt> on a result.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a> as
 the <tt class="docutils literal"><span class="pre">largetext</span></tt> argument. Must be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>.</p>
 <p>Set using <tt class="docutils literal"><span class="pre">&lt;text</span> <span class="pre">type=&quot;largetype&quot;&gt;Large</span> <span class="pre">text</span> <span class="pre">goes</span> <span class="pre">here&lt;/text&gt;</span></tt> in XML.</p>
-<p>If <tt class="docutils literal"><span class="pre">largetext</span></tt> is not set, when the user presses <tt class="docutils literal"><span class="pre">⌘+L</span></tt> on a result, Alfred
+<p>If <tt class="docutils literal"><span class="pre">largetext</span></tt> is not set, when the user presses <tt class="docutils literal"><span class="pre">CMD+L</span></tt> on a result, Alfred
 will display the current query in its Large Type pop-up.</p>
 </div>
 <div class="section" id="icon">
@@ -574,7 +576,14 @@ by running <tt class="docutils literal"><span class="pre">mdls</span> <span clas
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-   
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
 
 </body>
 </html>

@@ -240,7 +240,7 @@ Then enter ``{query}`` as the URL:
 When you hover your mouse over the Script Filter, you'll notice a small "nub"
 appears on the right-hand side:
 
-.. image:: _static/screen12.5_nub.png
+.. image:: _static/screen12_5_nub.png
 
 Click and hold on this, and drag a connection to the **Open URL** action:
 

@@ -1,85 +1,117 @@
-Docs:
-	- Improve description of how to use `Workflow(libraries=)`
-		Make paths to specify to `pip` clearer.
-		See https://github.com/deanishe/alfred-workflow/issues/28
-Possible Features:
-	- `handlers.py` module to provide system-default apps for protocols like `http`, `mailto` etc.
-	- Enable `background.py` to be run from within a ZIP file
-	- Add `first_run()` to determine if the workflow has been run on this computer before.
-		Save a "flag" in the data directory upon first run.
-		Should the file only be created the first time `first_run()` is called instead?
-		How about being able to pass a version argument to `first_run()`?
+
+Features to Add:
+
+
+	background.py:
+		- Add `stop_process()` function.
+			Allow `killing` of running processes. Can be used for stopping servers.
+
+
+	update.py:
+		- Integrate Fabio's update feature
+		- Generalise update functionality
+			Use subclass-based plugin feature to automatically register updaters?
+
+
+	web.py:
+
+
+	workflow.py:
+		- `filter()` should warn when comparing Unicode and `str` objects @priority(2)
+		- move "magic" args to class-level dictionary, so authors can add their own. @priority(1)
+
+
+	Docs:
+		- Add tutorial using `workflow.web`
+		- Add tutorial using filesystem/Unicode
+			- Improve description of how to use `Workflow(libraries=)`
+				Make paths to specify to `pip` clearer.
+				See https://github.com/deanishe/alfred-workflow/issues/28
+
+
+
+Features to Consider:
+
+
+	background.py:
+		- Enable `background.py` to be run from within a ZIP file
+
+
+	bundler.py:
+	Integrate Shawn's bundler
+	- Include Bundler's Python bundlet
+
+
+	filesearch.py:
+	Interface to `mdfind`
+
+
+	handlers.py:
+		Module to provide system-default apps for protocols like `http`, `mailto` etc.
+
 
 	ui.py:
 	Possibly provide access to dialog boxes, notifications w/out having to use AppleScript
 	NOTE: The bundler would obviate the need for this
 	- Yes/no dialog
+		Would it be possible to implement this via Alfred's UI?
 	- Text input
+		Would it be possible to implement this via Alfred's UI?
 	- Select list
+		Would it be possible to implement this via Alfred's UI?
 	- Notification center notifications
 
-	filesearch.py:
-	Interface to `mdfind`
 
-	bundler.py:
-	Integrate Shawn's bundler
+	workflow.py:
+		- Add `first_run()` to determine if the workflow has been run on this computer before.
+		Save a "flag" in the data directory upon first run.
+		Should the file only be created the first time `first_run()` is called instead?
+		How about being able to pass a version argument to `first_run()`?
+		- automatically add `lib` and/or `packages` subdirectory to `sys.path`
+		- Add `TechnicolorLogger` formatter
+
 
 
 General:
-	- Move workflow into top-level directory to allow use as a Git submodule.
-		Is this necessary? I have to copy stuff hither and thither all the time, but
-		I'm the one developing the workflow package. Will this be such a problem for
-		other developers?
-
-		In this case, where would the docs go? They don't exist yet, but should, and
-		including them in the workflow package would be antithetical to what I'm
-		trying to achieve. They would just be a duplication of the comments in the
-		source code in any case.
-	- Add `setup.py` so `Alfred-Workflow` can be added to PyPi and installed with `pip`
-	- Add explicit `save()` method to `Settings` @done(14-08-17 00:08)
-
-background.py:
-	- Add `stop_process()` function.
-		Allow `killing` of running processes. Can be used for stopping servers.
-
-web.py:
 
 
-workflow.py:
-	- automatically add `lib` and/or `packages` subdirectory to `sys.path`?
-	- move "magic" args to class-level dictionary, so authors can add their own.
-	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13)
-
-
-Docs:
-	- Add tutorial using `workflow.web`
-	- Add tutorial using filesystem/Unicode
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	- Move documentation out of module docstrings into ReST files under /doc @priority(1) @done(14-09-14 14:23) @project(Features to Add / Docs)
+		A lot of the documentation isn't super-suitable for Python's `help()`
+		function. The published HTML documentation could be much better arranged
+		by putting more of the documentation in ReST files.
+	- Move workflow into top-level directory to allow use as a Git submodule. @nope @done(14-09-14 01:20) @project(General)
+		Is this necessary? I have to copy stuff hither and thither all the time, but
+		I'm the one developing the workflow package. Will this be such a problem for
+		other developers? In this case, where would the docs go? Including them in the workflow package would be antithetical to what I'm trying to achieve.
+	- Add `setup.py` so `Alfred-Workflow` can be added to PyPi and installed with `pip` @done(14-09-14 01:19) @project(General)
+	- Add explicit `save()` method to `Settings` @done(14-08-17 00:08) @project(General)
+	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13) @project(workflow.py)
 - add `openterminal` magic arg. @done(14-03-08 00:05)
  @project(workflow.py)
-- Add unit tests @done(14-03-02 01:23)
- @project(web.py)
+- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
+ @project(Docs)
 - Normalise Unicode @done(14-03-06 20:34)
  @project(web.py)
-- Add unit tests @done(14-03-03 03:20)
- @project(workflow.py)
-- Give log file more unique name @done(14-02-27 23:01)
- @project(workflow.py)
-bundleid.log?
 - Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
  @project(workflow.py)
 - Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
  @project(workflow.py)
+- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
+ @project(workflow.py / Unit Tests)
 - Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
  @project(workflow.py / Unit Tests)
 - Tests for `Workflow.run` method @done(14-03-03 03:21)
  @project(workflow.py / Unit Tests)
-- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
- @project(workflow.py / Unit Tests)
-- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
- @project(Docs)
+- Add unit tests @done(14-03-03 03:20)
+ @project(workflow.py)
+- Add unit tests @done(14-03-02 01:23)
+ @project(web.py)
+- Give log file more unique name @done(14-02-27 23:01)
+ @project(workflow.py)
+bundleid.log?
 - Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
  @project(Other)
 https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
@@ -88,3 +120,4 @@ Created own version
  @project(Other)
 https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
 Created own version
+

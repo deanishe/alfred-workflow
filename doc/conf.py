@@ -223,13 +223,13 @@ htmlhelp_basename = 'Alfred-Workflowdoc'
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    # 'papersize': 'a4paper',
+    'papersize': 'a4paper',
 
     # The font size ('10pt', '11pt' or '12pt').
     #'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+    # 'preamble': r'\userpackage[utf8]{inputenc}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -281,7 +281,9 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
-     u'Dean Jackson <deanishe@deanishe.net>', 'Alfred-Workflow', 'One line description of project.',
+     u'Dean Jackson <deanishe@deanishe.net>',
+     'Alfred-Workflow',
+     'Python helper library for Alfred Workflows',
      'Miscellaneous'),
 ]
 

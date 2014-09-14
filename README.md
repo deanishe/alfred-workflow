@@ -5,6 +5,7 @@ A helper library in Python for authors of workflows for [Alfred 2](http://www.al
 
 [![Build Status](https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master)](https://travis-ci.org/deanishe/alfred-workflow)
 [![Coverage Status](https://img.shields.io/coveralls/deanishe/alfred-workflow.svg)](https://coveralls.io/r/deanishe/alfred-workflow?branch=master)
+[![Documentation Status](https://readthedocs.org/projects/alfredworkflow/badge/?version=latest)](https://readthedocs.org/projects/alfredworkflow/?badge=latest)
 [![Latest Version](https://pypip.in/version/Alfred-Workflow/badge.svg?text=version)](https://pypi.python.org/pypi/Alfred-Workflow/)
 [![Supported Python versions](https://pypip.in/py_versions/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
 [![License](https://pypip.in/license/Alfred-Workflow/badge.svg)](https://pypi.python.org/pypi/Alfred-Workflow/)
@@ -173,13 +174,13 @@ wf.get_password('name of account')
 
 ## Documentation ##
 
-The full documentation, including auto-generated API docs and a tutorial, can be found [here](http://www.deanishe.net/alfred-workflow/).
+The full documentation, including API docs and a tutorial, can be found [here](http://alfredworkflow.readthedocs.org/en/latest/).
 
 ## Licensing, thanks ##
 
 The code and the documentation are released under the MIT and [Creative Commons Attribution-NonCommercial](https://creativecommons.org/licenses/by-nc/4.0/legalcode) licences respectively. See LICENSE for details.
 
-The documentation was generated using [Sphinx](http://sphinx-doc.org/), [Sphinx Bootstrap Theme](http://ryan-roemer.github.io/sphinx-bootstrap-theme/), [Bootstrap](http://getbootstrap.com/) and the [Readable Bootswatch theme](http://bootswatch.com/readable/).
+The documentation was generated using [Sphinx](http://sphinx-doc.org/) and is hosted by the lovely folks at [Read the Docs](https://readthedocs.org/).
 
 ## Contributing ##
 
@@ -220,7 +221,7 @@ These are some of the Alfred workflows that use this library.
 - [Code Case](http://www.packal.org/workflow/code-case) by [dfay](http://www.packal.org/users/dfay). Case Converter for Code.
 - [Convert](http://www.packal.org/workflow/convert) by [deanishe](http://www.packal.org/users/deanishe). Convert between different units. No Internet connection required.
 - [Date Calculator](http://www.packal.org/workflow/date-calculator) by [MuppetGate](http://www.packal.org/users/muppetgate). A basic date calculator.
-- [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by [frankspin](http://www.packal.org/users/frankspin). Check the status of your Digital Ocean droplets.
+- [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) by [frankspin](http://www.packal.org/users/frankspin). Control your Digital Ocean droplets.
 - [Display Brightness](http://www.packal.org/workflow/display-brightness) by [fniephaus](http://www.packal.org/users/fniephaus). Adjust your display's brightness with Alfred.
 - [Dropbox Client for Alfred](http://www.packal.org/workflow/dropbox-client-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Access multiple Dropbox accounts with Alfred.
 - [Duden Search](http://www.packal.org/workflow/duden-search) by [deanishe](http://www.packal.org/users/deanishe). Search duden.de German dictionary (with auto-suggest).
@@ -230,6 +231,7 @@ These are some of the Alfred workflows that use this library.
 - [Glosbe Translation](http://www.packal.org/workflow/glosbe-translation) by [deanishe](http://www.packal.org/users/deanishe). Translate text using Glosbe.com.
 - [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Easily control Homebrew with Alfred.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks) by [nkeim](http://www.packal.org/users/nkeim). Search notebook titles on your IPython notebook server.
+- [Jenkins](http://www.packal.org/workflow/jenkins) by [Amwam](http://www.packal.org/users/amwam). Show and search through jobs on Jenkins.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperelectron). Choose SSH connection from filterable list.
 - [LibGen](http://www.packal.org/workflow/libgen) by [hackademic](http://www.packal.org/users/hackademic). Search and Download pdfs and ebooks from Library Genesis.
 - [Network Location](http://www.packal.org/workflow/network-location) by [deanishe](http://www.packal.org/users/deanishe). List, filter and activate network locations from within Alfred.
@@ -241,6 +243,7 @@ These are some of the Alfred workflows that use this library.
 - [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by [paperElectron](http://www.packal.org/users/paperelectron). Add some stock symbols for Alfred to check for you.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred) by [fniephaus](http://www.packal.org/users/fniephaus). Manage your Readability list with Alfred.
 - [Relative Dates](http://www.packal.org/workflow/relative-dates) by [deanishe](http://www.packal.org/users/deanishe). Generate relative dates based on a simple input format.
+- [Resolve URL](http://www.packal.org/workflow/resolve-url) by [deanishe](http://www.packal.org/users/deanishe). Follows any HTTP redirects and returns the canonical URL. Also displays information about the primary host (hostname, IP address(es), aliases).
 - [SEND](http://www.packal.org/workflow/send) by [hackademic](http://www.packal.org/users/hackademic). Send documents to the cloud.
 - [Searchio!](http://www.packal.org/workflow/searchio) by [deanishe](http://www.packal.org/users/deanishe). Auto-suggest search results from multiple search engines and languages.
 - [Skimmer](http://www.packal.org/workflow/skimmer) by [hackademic](http://www.packal.org/users/hackademic). Actions for PDF viewer Skim.

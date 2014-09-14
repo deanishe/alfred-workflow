@@ -8,57 +8,8 @@
 #
 
 """
-Helper library for Alfred 2 workflow authors.
+The :class:`Workflow` object is the main interface to this library.
 
-You probably only want to use the :class:`Workflow` class and the module-level
-``manager`` object (an instance of :class:`SerializerManager`) directly.
-
-The :class:`Item` and :class:`Settings` classes are supporting classes,
-which are meant to be accessed via :class:`Workflow` instances.
-
-Classes :class:`SerializerManager`, :class:`JSONSerializer`,
-:class:`CPickleSerializer` and :class:`PickleSerializer` are part of
-the data/cache serialization features of :class:`Workflow`, accessible
-by the module-level ``manager`` object.
-
-To register a new serializer, do:
-
-.. code-block:: python
-   :linenos:
-
-    from workflow import Workflow, manager
-
-
-    class MySerializer(object):
-
-        @classmethod
-        def load(cls, file_obj):
-            # load data from file_obj
-
-        @classmethod
-        def dump(cls, data, file_obj):
-            # write data to file_obj
-
-    manager.register('myformat', MySerializer())
-
-.. note::
-
-    The name under which you register your serializer will be used as
-    the file extension of any saved files.
-
-To set the default serializer for cached data,
-set :attr:`Workflow.cache_serializer`, and to set the default
-serializer for stored data, set :attr:`Workflow.data_serializer`.
-
-Cached data is stored in the Workflow's cache directory, which is intended
-for temporary and easily regenerated data.
-
-Stored data is stored in the Workflow's data directory, which is intended
-for data that is user-generated or not easily recreated.
-
-The default serializer for both cached and stored data is ``cpickle``.
-
-For more information, please see :ref:`Persistent data <persistent-data>`.
 
 """
 
@@ -517,30 +468,7 @@ class SerializerManager(object):
     existing) serializers, which you can specify by name when calling
     :class:`Workflow` data storage methods.
 
-    A ``serializer`` object must have ``load()`` and ``dump()`` methods
-    that work the same way as in the built-in :mod:`json` and
-    :mod:`pickle` libraries, i.e.:
-
-    .. code-block:: python
-        :linenos:
-
-        # Reading
-        data = serializer.load(open('filename', 'rb'))
-        # Writing
-        serializer.dump(data, open('filename', 'wb'))
-
-    There are 3 pre-configured serializers: ``json``, ``pickle``
-    and ``cpickle``. The default is ``cpickle``, as it is very fast and
-    can handle most Python objects.
-
-    If you need custom pickling, use the ``pickle`` serializer instead.
-
-    Be careful using ``json``: JSON only supports a subset of Python's
-    native data types (e.g., no ``tuple`` or :class:`set`) and
-    doesn't, for example, support ``dict`` keys that aren't strings.
-
-    See the built-in :mod:`cPickle`, :mod:`pickle` and :mod:`json`
-    libraries for more information on the serialization formats.
+    See `serialization` and `persistent-data` for further information.
 
     """
 
@@ -552,8 +480,9 @@ class SerializerManager(object):
 
         Raises :class:`AttributeError` if ``serializer`` in invalid.
 
-        **Note:** ``name`` will be used as the file extension of the
-        saved files.
+        .. note::
+
+            ``name`` will be used as the file extension of the saved files.
 
         :param name: Name to register ``serializer`` under
         :type name: ``unicode`` or ``str``
@@ -1992,7 +1921,7 @@ class Workflow(object):
         :param autocomplete: Text expanded in Alfred when item is TABbed
         :type autocomplete: ``unicode``
         :param valid: Whether or not item can be actioned
-        :type valid: `Boolean`
+        :type valid: ``Boolean``
         :param uid: Used by Alfred to remember/sort items
         :type uid: ``unicode``
         :param icon: Filename of icon to use
@@ -2020,6 +1949,8 @@ class Workflow(object):
         See the :ref:`script-filter-results` section of the documentation
         for a detailed description of what the various parameters do and how
         they interact with one another.
+
+        See :ref:`icons` for a list of the supported system icons.
 
         .. note::
 

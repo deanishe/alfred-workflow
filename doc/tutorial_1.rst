@@ -1,9 +1,9 @@
 
 .. _tutorial_1:
 
-=========================
-A Basic Pinboard Workflow
-=========================
+=================================
+Part 1: A Basic Pinboard Workflow
+=================================
 
 In which we build an Alfred Workflow to view recent posts to
 `Pinboard.in <https://pinboard.in/>`_.
@@ -102,6 +102,9 @@ directory:
 .. image:: _static/screen8_finder_with_workflow.png
 
 Now we can start coding.
+
+
+.. _writing-script:
 
 Writing your Python script
 ==========================
@@ -237,7 +240,7 @@ Then enter ``{query}`` as the URL:
 When you hover your mouse over the Script Filter, you'll notice a small "nub"
 appears on the right-hand side:
 
-.. image:: _static/screen12.5_nub.png
+.. image:: _static/screen12_5_nub.png
 
 Click and hold on this, and drag a connection to the **Open URL** action:
 

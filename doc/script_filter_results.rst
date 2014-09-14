@@ -1,9 +1,9 @@
 
 .. _script-filter-results:
 
-========================================
-Script Filter Results and the XML Format
-========================================
+=====================
+Script Filter Results
+=====================
 
 .. note::
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
@@ -11,10 +11,12 @@ Script Filter Results and the XML Format
 
 Alfred's Script Filters are its most powerful workflow API and a main focus
 of **Alfred-Workflow**. Script Filters work by receiving a ``{query}`` from
-Alfred and returning a list of results as an XML file.
+Alfred and returning a list of results as XML.
 
-To build this list of results use the :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
-method, and then :meth:`Workflow.send_feedback() <workflow.workflow.Workflow.send_feedback>`
+To build this list of results use the
+:meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+method, and then
+:meth:`Workflow.send_feedback() <workflow.workflow.Workflow.send_feedback>`
 to send the results back to Alfred.
 
 This document is an attempt to explain how the many options available in the
@@ -28,18 +30,18 @@ arguments work.
 
 .. _xml-format:
 
-The XML format
-==============
+XML format
+==========
 
 .. warning::
 
-    If you're not using **Alfred-Workflow** to generate your XML, you
-    should use a  real XML library to do so. XML is a lot more finicky that it
-    looks, and it's fairly easy to create invalid XML. Unless your XML is hard-
-    coded (i.e. never changes), it's much safer and more reliable to use a proper
-    XML-generation library than to try and cobble it together yourself.
+    If you're not using **Alfred-Workflow** to generate your Script Filter's
+    output, you should use a real XML library to do so. XML is a lot more
+    finicky that it looks, and it's fairly easy to create invalid XML. Unless
+    your XML is hard-coded (i.e. never changes), it's much safer and more
+    reliable to use a proper XML library than to generate your own XML.
 
-This is a valid and complete list of results containing just one result with
+This is a valid and complete XML result list containing just one result with
 all possible options.
 :meth:`Workflow.send_feedback() <workflow.workflow.Workflow.send_feedback>`
 will print something much like this to ``STDOUT`` when called (though it won't
@@ -67,14 +69,17 @@ be as pretty as it will all be on one line).
         </item>
     </items>
 
-The first line is the standard XML declaration. You should probably stick with
-one exactly as shown here and ensure your XML is encoded as UTF-8 text.
+The first line is the standard XML declaration. If you're generating your own
+XML, you should probably stick use a declaration exactly as shown here and
+ensure your XML is encoded as UTF-8 text. If you're using **Alfred-Workflow**,
+the XML declaration will be generated for you and it will ensure that the
+XML output is UTF-8-encoded.
 
 The root element **must** be ``<items>`` (lines 2 and 16).
 
-The ``<items>`` element should contain one or more ``<item>`` elements.
+The ``<items>`` element contains one or more ``<item>`` elements.
 
-To generate the above XML with **Alfred-Workflow** you would do:
+To generate the above XML with **Alfred-Workflow** you would use:
 
 .. _code-example:
 
@@ -107,13 +112,12 @@ To generate the above XML with **Alfred-Workflow** you would do:
     # Print XML to STDOUT
     wf.send_feedback()
 
-Result items
-============
+Basic example
+=============
 
 A minimal, valid result looks like this:
 
 .. code-block:: xml
-    :linenos:
 
     <item>
         <title>My super title</title>
@@ -122,15 +126,29 @@ A minimal, valid result looks like this:
 Generated with:
 
 .. code-block:: python
-    :linenos:
 
     wf.add_item(u'My super title')
 
-This will show a result in Alfred with Alfred's blank workflow icon and 'My
-super title' as its text.
+This will show a result in Alfred with Alfred's blank workflow icon and "My
+super title" as its text.
 
-Everything else is optional, but some attributes/child tags don't make much
-sense on their own. Let's have a look.
+Everything else is optional, but some parameters don't make much sense on their
+own. Let's have a look.
+
+
+Item parameters
+===============
+
+* :ref:`param-title`
+* :ref:`param-subtitle`
+* :ref:`param-autocomplete`
+* :ref:`param-arg`
+* :ref:`param-valid`
+* :ref:`param-uid`
+* :ref:`param-type`
+* :ref:`param-copytext`
+* :ref:`param-largetext`
+* :ref:`param-icon`
 
 
 .. _param-title:
@@ -145,14 +163,12 @@ the ``title`` argument or the first unnamed argument. This is the only
 required argument and must be :class:`unicode`:
 
 .. code-block:: python
-    :linenos:
 
     wf.add_item(u'My title'[, ...])
 
 or
 
 .. code-block:: python
-    :linenos:
 
     wf.add_item(title=u'My title'[, ...])
 
@@ -170,7 +186,8 @@ the ``subtitle`` argument or the second unnamed argument (the first, ``title``,
 is required and must therefore be present.
 
 It's also possible to specify custom subtitles to be shown when a result is
-selected and the user presses one of the modifier keys (⌘,⌥, ^, ⇧, fn).
+selected and the user presses one of the modifier keys (``cmd``, ``opt``,
+``ctrl``, ``shift``, ``fn``).
 
 These are specified in the XML file as additional ``<subtitle>`` elements with
 ``mod="<key>"`` attributes (see lines 6–10 in the
@@ -210,7 +227,7 @@ the ``arg`` argument. Must be :class:`unicode`.
 This is the "value" of the result that will be passed by Alfred as ``{query}``
 to the Action(s) or Output(s) your Script Filter is connected to.
 
-Additionally, if you press ⌘+C on a result in Alfred, ``arg`` will be copied to
+Additionally, if you press CMD+C on a result in Alfred, ``arg`` will be copied to
 the pasteboard (unless you have set :ref:`copy text <param-copytext>` for the
 item).
 
@@ -296,7 +313,7 @@ but it is not necessary for the item to be :ref:`valid <param-valid>`.
 copy text
 ---------
 
-Text that will be copied to the pasteboard if a user presses ``⌘+C`` on a
+Text that will be copied to the pasteboard if a user presses ``CMD+C`` on a
 result.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
@@ -304,7 +321,7 @@ the ``copytext`` argument. Must be :class:`unicode`.
 
 Set using ``<text type="copy">Copy text goes here</text>`` in XML.
 
-If ``copytext`` is set, when the user presses ``⌘+C``, this will be copied to
+If ``copytext`` is set, when the user presses ``CMD+C``, this will be copied to
 the pasteboard and Alfred's window will close. If ``copytext`` is not set, the
 selected result's :ref:`arg <param-arg>` value will be copied to the pasteboard
 and Alfred's window will close. If neither is set, nothing will be copied to
@@ -316,14 +333,14 @@ large text
 ----------
 
 Text that will be displayed in Alfred's Large Type pop-up if a user presses
-``⌘+L`` on a result.
+``CMD+L`` on a result.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``largetext`` argument. Must be :class:`unicode`.
 
 Set using ``<text type="largetype">Large text goes here</text>`` in XML.
 
-If ``largetext`` is not set, when the user presses ``⌘+L`` on a result, Alfred
+If ``largetext`` is not set, when the user presses ``CMD+L`` on a result, Alfred
 will display the current query in its Large Type pop-up.
 
 .. _param-icon:
@@ -341,14 +358,12 @@ Image files
 This is the default. Simply pass the filename or filepath of an image file:
 
 .. code-block:: xml
-    :linenos:
 
     <icon>icon.png</icon>
 
 or:
 
 .. code-block:: python
-    :linenos:
 
     Workflow.add_item(..., icon=u'icon.png')
 
@@ -369,14 +384,12 @@ File icons
 Alternatively, you can tell Alfred to use the icon of a file:
 
 .. code-block:: xml
-    :linenos:
 
     <icon type="fileicon">/path/to/some/file.pdf</icon>
 
 or:
 
 .. code-block:: python
-    :linenos:
 
     Workflow.add_item(..., icon=u'/path/to/some/file.pdf',
                       icontype=u'fileicon')
@@ -399,14 +412,12 @@ specifying a `UTI <http://www.escape.gr/manuals/qdrop/UTI.html>`_ as the value
 to ``icon`` and ``filetype`` as the type:
 
 .. code-block:: xml
-    :linenos:
 
     <icon type="filetype">public.html</icon>
 
 or:
 
 .. code-block:: python
-    :linenos:
 
     Workflow.add_item(..., icon=u'public.html', icontype=u'filetype')
 
@@ -418,11 +429,12 @@ filetypes but you don't have a specific filepath to use as a ``fileicon``.
 
 .. tip::
 
-    If you need to fine the UTI for a filetype, Alfred can help you: Add a File
-    Filter to a workflow, and drag a file of the type you're interested in into
-    the File Types list in the Basic Setup tab. Alfred will show the
-    corresponding UTI in the list (in this screenshot, I dragged a ``.py`` file
-    into the list):
+    If you need to fine the UTI for a filetype, Alfred can help you.
+
+    Add a File Filter to a workflow, and drag a file of the type you're
+    interested in into the File Types list in the Basic Setup tab. Alfred will
+    show the corresponding UTI in the list (in this screenshot, I dragged a
+    ``.py`` file into the list):
 
     .. image:: _static/screen30_UTI.png
 

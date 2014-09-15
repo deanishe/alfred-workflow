@@ -43,7 +43,7 @@ class WorkflowMock(object):
         :type argv: list
         :param exit: Override ``sys.exit`` with noop?
         :param call: Override :func:`subprocess.call` and capture its
-            arguments in :attr:`cmd`, :attr:`args` and :attr:`kwargs`
+            arguments in :attr:`cmd`, :attr:`args` and :attr:`kwargs`?
 
         """
 

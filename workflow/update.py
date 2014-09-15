@@ -12,6 +12,7 @@
 """
 Self-updating from GitHub
 
+.. versionadded:: 1.9
 
 .. note::
 

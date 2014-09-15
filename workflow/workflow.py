@@ -1021,9 +1021,10 @@ class Workflow(object):
         ``normalization`` arguments passed to :class:`Workflow` (``UTF-8``
         and ``NFC`` are the defaults).
 
-        If :class:`Workflow` is called with ``capture_args=True`` (the default),
-        :class:`Workflow` will look for certain ``workflow:*`` args and, if
-        found, perform the corresponding actions and exit the workflow.
+        If :class:`Workflow` is called with ``capture_args=True``
+        (the default), :class:`Workflow` will look for certain
+        ``workflow:*`` args and, if found, perform the corresponding
+        actions and exit the workflow.
 
         See :ref:`Magic arguments <magic-arguments>` for details.
 
@@ -1228,7 +1229,8 @@ class Workflow(object):
     @property
     def logger(self):
         """Create and return a logger that logs to both console and
-        a log file. Use `~Workflow.openlog` to open the log file in Console.
+        a log file. Use :meth:`~Workflow.openlog` to open the log file
+        in Console.
 
         :returns: an initialised logger
         :rtype: `~logging.Logger` instance

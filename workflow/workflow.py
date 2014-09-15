@@ -806,6 +806,10 @@ class Settings(dict):
         super(Settings, self).__setitem__(key, value)
         self.save()
 
+    def __delitem__(self, key):
+        super(Settings, self).__delitem__(key)
+        self.save()
+
     def update(self, *args, **kwargs):
         """Override :class:`dict` method to save on update."""
         super(Settings, self).update(*args, **kwargs)
@@ -1027,7 +1031,7 @@ class Workflow(object):
 
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
-        if len(args) and self._capture_args:  # pragma: no cover
+        if len(args) and self._capture_args:
             if 'workflow:openlog' in args:
                 msg = 'Opening workflow log file'
                 self.open_log()
@@ -1616,8 +1620,9 @@ class Workflow(object):
         :type query: ``unicode``
         :param items: iterable of items to test
         :type items: ``list`` or ``tuple``
-        :param key: function to get comparison key from ``items``. Must return a
-                    ``unicode`` string. The default simply returns the item.
+        :param key: function to get comparison key from ``items``.
+            Must return a ``unicode`` string. The default simply returns
+            the item.
         :type key: ``callable``
         :param ascending: set to ``True`` to get worst matches first
         :type ascending: ``Boolean``
@@ -2155,24 +2160,24 @@ class Workflow(object):
 
     def open_log(self):
         """Open log file in standard application (usually Console.app)."""
-        subprocess.call(['open', self.logfile])  # pragma: no cover
+        subprocess.call(['open', self.logfile])
 
     def open_cachedir(self):
         """Open the workflow cache directory in Finder."""
-        subprocess.call(['open', self.cachedir])  # pragma: no cover
+        subprocess.call(['open', self.cachedir])
 
     def open_datadir(self):
         """Open the workflow data directory in Finder."""
-        subprocess.call(['open', self.datadir])  # pragma: no cover
+        subprocess.call(['open', self.datadir])
 
     def open_workflowdir(self):
         """Open the workflow directory in Finder."""
-        subprocess.call(['open', self.workflowdir])  # pragma: no cover
+        subprocess.call(['open', self.workflowdir])
 
     def open_terminal(self):
         """Open a Terminal window at workflow directory."""
         subprocess.call(['open', '-a', 'Terminal',
-                        self.workflowdir])  # pragma: no cover
+                        self.workflowdir])
 
     ####################################################################
     # Helper methods

@@ -27,7 +27,7 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
-from .util import create_info_plist, delete_info_plist
+from .util import create_info_plist, delete_info_plist, WorkflowMock
 
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError, MATCH_ALL, MATCH_ALLCHARS,
@@ -367,7 +367,8 @@ class WorkflowTests(unittest.TestCase):
                 self.assertEqual(unicode(value), self.wf.alfred_env[key])
                 self.assertTrue(isinstance(self.wf.alfred_env[key], unicode))
 
-        self.assertEqual(self.wf.datadir, self.env_data['alfred_workflow_data'])
+        self.assertEqual(self.wf.datadir,
+                         self.env_data['alfred_workflow_data'])
         self.assertEqual(self.wf.cachedir,
                          self.env_data['alfred_workflow_cache'])
         self.assertEqual(self.wf.bundleid,
@@ -675,7 +676,12 @@ class WorkflowTests(unittest.TestCase):
             time.sleep(0.05)
 
         self.assertTrue(wf.update_available)
-        self.assertTrue(wf.start_update())
+        c = WorkflowMock()
+        with c:
+            self.assertTrue(wf.start_update())
+        wf.logger.debug('start_update : {}'.format(c.cmd))
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
 
         update_info = wf.cached_data('__workflow_update_status')
         wf = Workflow(update_settings={
@@ -936,6 +942,178 @@ class WorkflowTests(unittest.TestCase):
         for key in self.env_data:
             if key in os.environ:
                 del os.environ[key]
+
+
+class MagicArgsTests(unittest.TestCase):
+    """Test magic arguments"""
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_openlog(self):
+        """Magic: open logfile"""
+        c = WorkflowMock(['script', 'workflow:openlog'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], wf.logfile)
+
+    def test_cachedir(self):
+        """Magic: open cachedir"""
+        c = WorkflowMock(['script', 'workflow:opencache'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], wf.cachedir)
+
+    def test_datadir(self):
+        """Magic: open datadir"""
+        c = WorkflowMock(['script', 'workflow:opendata'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], wf.datadir)
+
+    def test_workflowdir(self):
+        """Magic: open workflowdir"""
+        c = WorkflowMock(['script', 'workflow:openworkflow'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], wf.workflowdir)
+
+    def test_open_term(self):
+        """Magic: open Terminal"""
+        c = WorkflowMock(['script', 'workflow:openterm'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd, ['open', '-a', 'Terminal', wf.workflowdir])
+
+    def test_delete_data(self):
+        """Magic: delete data"""
+        c = WorkflowMock(['script', 'workflow:deldata'])
+        wf = Workflow()
+        testpath = wf.datafile('file.test')
+        with open(testpath, 'wb') as file_obj:
+            file_obj.write('test!')
+        with c:
+            self.assertTrue(os.path.exists(testpath))
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(testpath))
+
+    def test_delete_cache(self):
+        """Magic: delete cache"""
+        c = WorkflowMock(['script', 'workflow:delcache'])
+        wf = Workflow()
+        testpath = wf.cachefile('file.test')
+        with open(testpath, 'wb') as file_obj:
+            file_obj.write('test!')
+        with c:
+            self.assertTrue(os.path.exists(testpath))
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(testpath))
+
+    def test_reset(self):
+        """Magic: reset"""
+        wf = Workflow()
+        wf.settings['key'] = 'value'
+        datatest = wf.datafile('data.test')
+        cachetest = wf.cachefile('cache.test')
+        settings_path = wf.datafile('settings.json')
+
+        for p in (datatest, cachetest):
+            with open(p, 'wb') as file_obj:
+                file_obj.write('test!')
+
+        for p in (datatest, cachetest, settings_path):
+            self.assertTrue(os.path.exists(p))
+
+        c = WorkflowMock(['script', 'workflow:reset'])
+        with c:
+            wf.args
+
+        for p in (datatest, cachetest, settings_path):
+            self.assertFalse(os.path.exists(p))
+
+    def test_delete_settings(self):
+        """Magic: delete settings"""
+        c = WorkflowMock(['script', 'workflow:delsettings'])
+        wf = Workflow()
+        wf.settings['key'] = 'value'
+        filepath = wf.datafile('settings.json')
+        with c:
+            self.assertTrue(os.path.exists(filepath))
+            wf2 = Workflow()
+            self.assertEquals(wf2.settings.get('key'), 'value')
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(filepath))
+            wf3 = Workflow()
+            self.assertFalse('key' in wf3.settings)
+
+    def test_folding(self):
+        """Magic: folding"""
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:foldingdefault'])
+        with c:
+            wf.args
+        self.assertIsNone(wf.settings.get('__workflow_diacritic_folding'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:foldingon'])
+        with c:
+            wf.args
+        self.assertTrue(wf.settings.get('__workflow_diacritic_folding'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:foldingdefault'])
+        with c:
+            wf.args
+        self.assertIsNone(wf.settings.get('__workflow_diacritic_folding'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:foldingoff'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
+
+    def test_update(self):
+        """Magic: update"""
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        })
+
+        self.assertFalse(wf.update_available)
+
+        c = WorkflowMock(['script', 'workflow:update'])
+        with c:
+            wf.args
+
+        # wait for background update check
+        while is_running('__workflow_update'):
+            time.sleep(0.05)
+
+        wf.logger.debug('Magic update command : {}'.format(c.cmd))
+
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
 
 
 class SettingsTests(unittest.TestCase):

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 basedir=$(cd $(dirname $0); pwd)
-docdir="${basedir}/doc"
+docdir="${basedir}/docs"
 testdir="${basedir}/tests"
 curdir=$(pwd)
 

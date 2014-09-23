@@ -1,13 +1,13 @@
 
 .. _api:
 
-===
-API
-===
+========
+API Docs
+========
 
 This API documentation describes how **Alfred-Workflow** is put together.
 
-See :ref:`quickref` for documentation focussed on performing specific tasks.
+See :ref:`user-manual` for documentation focussed on performing specific tasks.
 
 .. toctree::
    :maxdepth: 3

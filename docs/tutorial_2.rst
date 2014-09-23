@@ -4,20 +4,20 @@
 Part 2: A Distribution-Ready Pinboard Workflow
 ==============================================
 
-In which we create a `Pinboard.in <https://pinboard.in/>`_ Workflow ready for
+In which we create a `Pinboard.in <https://pinboard.in/>`_ workflow ready for
 mass consumption.
 
-In the :ref:`first part <tutorial>` of the tutorial, we built a useable Workflow
-to view, search and open your recent Pinboard posts. The Workflow isn't quite
+In the :ref:`first part <tutorial>` of the tutorial, we built a useable workflow
+to view, search and open your recent Pinboard posts. The workflow isn't quite
 ready to be distributed to other users, however: we can't expect them to go
 grubbing around in the source code like an animal to set their own API keys.
 
-What's more, an update to the Workflow would overwrite their changes.
+What's more, an update to the workflow would overwrite their changes.
 
-So now we're going to edit the Workflow so users can add their API key from the
+So now we're going to edit the workflow so users can add their API key from the
 comfort of Alfred's friendly query box and use
 :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`
-to save it in the Workflow's data directory where it won't get overwritten.
+to save it in the workflow's data directory where it won't get overwritten.
 
 
 Performing multiple actions from one script
@@ -187,9 +187,9 @@ have an API key saved (lines 65–72). If not, we show the user a warning
 Finally, if we have an API key saved, we retrieve it and show/filter the Pinboard
 posts just as before (lines 78–107).
 
-Of course, we don't have an API key saved, and we haven't yet set up our Workflow
-in Alfred to save one, so the Workflow currently won't work. Try to run it,
-and you'll see the warning we just implemented:
+Of course, we don't have an API key saved, and we haven't yet set up our
+workflow in Alfred to save one, so the workflow currently won't work. Try to
+run it, and you'll see the warning we just implemented:
 
 .. image:: _static/screen15_no_api_key.png
 
@@ -208,7 +208,7 @@ Asking the user for input and saving it is best done in two steps:
 A Script Filter is designed to be called constantly by Alfred and return results.
 This time, we just want to get some data, so we'll use a **Keyword** input instead.
 
-Go back to your Workflow in Alfred's Preferences and add a **Keyword** input:
+Go back to your workflow in Alfred's Preferences and add a **Keyword** input:
 
 .. image:: _static/screen16_keyword.png
 
@@ -236,12 +236,12 @@ Finally, connect the ``pbsetkey`` **Keyword** to the new **Run Script** action:
 .. image:: _static/screen21_connection.png
 
 Now you can call ``pbsetkey`` in Alfred, paste in your Pinboard API key and hit
-**ENTER**. It will be saved by the Workflow and ``pbrecent`` will once again
+**ENTER**. It will be saved by the workflow and ``pbrecent`` will once again
 work as expected. Try it.
 
 It's a little confusing receiving no feedback on whether the key was saved or not,
 so go back into Alfred's Preferences, and add an **Output > Post Notification**
-action to your Workflow:
+action to your workflow:
 
 .. image:: _static/screen22_add_notification.png
 
@@ -265,7 +265,7 @@ Saving the API key was pretty easy (1 line of code). :class:`~workflow.workflow.
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
 values must be serializable to JSON as the settings are saved as a JSON file in
-the Workflow's data directory.
+the workflow's data directory.
 
 Very simple, yes, but secure? No. A better place to save the API key would be
 in the user's Keychain. Let's do that.
@@ -280,7 +280,7 @@ saved in OS X's Keychain: :meth:`~workflow.workflow.Workflow.get_password`,
 :meth:`~workflow.workflow.Workflow.save_password` and :meth:`~workflow.workflow.Workflow.delete_password`.
 
 They are all called with an ``account`` name and an optional ``service`` name
-(by default, this is your Workflow's ``bundle ID``).
+(by default, this is your workflow's ``bundle ID``).
 
 Change your ``pinboard.py`` script as follows to use Keychain instead of a JSON
 file to store your API key:
@@ -407,7 +407,7 @@ file to store your API key:
 password isn't in your Keychain, so we import :class:`~workflow.workflow.PasswordNotFound`
 and change ``if not api_key:`` to a ``try ... except`` clause (lines 65–72).
 
-Try running your Workflow again. It will complain that you haven't saved your
+Try running your workflow again. It will complain that you haven't saved your
 API key (it's looking in Keychain now, not the settings), so set your API key
 once again, and you should be able to browse your recent posts in Alfred once more.
 
@@ -418,13 +418,13 @@ in your Keychain:
 
 As a bonus, if you have multiple Macs and use iCloud Keychain, the API key will
 be seamlessly synced across machines, saving you the trouble of setting up the
-Workflow multiple times.
+workflow multiple times.
 
 "Magic" arguments
 =================
 
 Now that the API key is stored in Keychain, we don't need it saved in the
-Workflow's settings any more (and having it there that kind of defeats the
+workflow's settings any more (and having it there that kind of defeats the
 purpose of using Keychain). To get rid of it, we can use one of **Alfred-Workflow**'s
 "magic" arguments: ``workflow:delsettings``.
 
@@ -436,9 +436,9 @@ following message:
 
 **Alfred-Workflow** has recognised one of its "magic" arguments, performed
 the corresponding action, logged it to the log file, notified the user via
-Alfred and exited the Workflow.
+Alfred and exited the workflow.
 
-Magic arguments are designed to help coders develop and debug Workflows.
+Magic arguments are designed to help coders develop and debug workflows.
 
 See :ref:`magic-arguments` for more details.
 
@@ -447,8 +447,8 @@ Logging
 
 There's a log, you say? Yup. There's a :class:`logging.Logger`
 instance at :attr:`Workflow.logger <workflow.workflow.Workflow.logger>`
-configured to output to both the Terminal (in case you're running your Workflow
-script in Terminal) and your Workflow's log file. Normally, I use it like this:
+configured to output to both the Terminal (in case you're running your workflow
+script in Terminal) and your workflow's log file. Normally, I use it like this:
 
 .. code-block:: python
    :linenos:
@@ -474,12 +474,12 @@ without having to pass the :class:`~workflow.workflow.Workflow` or
 Spit and polish
 ===============
 
-So far, the Workflow's looking pretty good. But there are still a few of things
+So far, the workflow's looking pretty good. But there are still a few of things
 that could be better. For one, it's not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
 writing these tutorials). For another, it can be confusing if there are no results
-from a Workflow and Alfred shows its default Google/Amazon searches instead.
-Finally, the Workflow is unresponsive while updating
+from a workflow and Alfred shows its default Google/Amazon searches instead.
+Finally, the workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can't be helped if we don't have any
 posts cached, but apart from the very first run, we always will, so why don't
 we show what we have and update in the background?
@@ -495,7 +495,7 @@ action, but this one will just send the user to the Pinboard
 `password settings page <https://pinboard.in/settings/password>`_ where the API
 keys are kept.
 
-Go back to your Workflow in Alfred's Preferences and add a new **Keyword** with
+Go back to your workflow in Alfred's Preferences and add a new **Keyword** with
 the following settings:
 
 .. image:: _static/screen26_keyword2.png
@@ -528,8 +528,8 @@ Notifying the user if there are no results
 ------------------------------------------
 
 Alfred's default behaviour when a Script Filter returns no results is to show
-its fallback searches. This is also what it does if a Workflow crashes. So,
-the best thing to do when a user is explicitly using your Workflow is to
+its fallback searches. This is also what it does if a workflow crashes. So,
+the best thing to do when a user is explicitly using your workflow is to
 show a message indicating that no results were found.
 
 Change ``pinboard.py`` to the following:
@@ -666,7 +666,7 @@ going on.
 Greased lightning: background updates
 -------------------------------------
 
-All that remains is for our Workflow to provide the blazing fast results Alfred
+All that remains is for our workflow to provide the blazing fast results Alfred
 users have come to expect. No waiting around for glacial web services for the
 likes of us. As long as we have some posts saved in the cache, we can show those
 while grabbing an updated list in the background (and notifying the user of
@@ -675,14 +675,14 @@ the update, of course).
 Now, there are a few different ways to start a background process. We could ask the user
 to set up a ``cron`` job, but ``cron`` isn't the easiest software to use. We could
 add and load a `Launch Agent <http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd>`_,
-but that'd run indefinitely, whether or not the Workflow is being used, and
-even if the Workflow were uninstalled. So we'd best start our background process
-from within the Workflow itself.
+but that'd run indefinitely, whether or not the workflow is being used, and
+even if the workflow were uninstalled. So we'd best start our background process
+from within the workflow itself.
 
 Normally, you'd use :class:`subprocess.Popen` to start a background process, but
-that doesn't work quite as you might expect in Alfred: it treats your Workflow
+that doesn't work quite as you might expect in Alfred: it treats your workflow
 as still running till the background process has finished, too, so it won't call
-your Workflow with a new query till the update is done. Which is exactly what
+your workflow with a new query till the update is done. Which is exactly what
 happens now and the behaviour we want to avoid.
 
 Fortunately, **Alfred-Workflow** provides the :mod:`~workflow.background` module
@@ -690,18 +690,18 @@ to solve this problem.
 
 Using the :func:`background.run_in_background() <workflow.background.run_in_background>`
 and :func:`background.is_running() <workflow.background.is_running>` functions,
-we can easily run a script in the background while our Workflow remains
+we can easily run a script in the background while our workflow remains
 responsive to Alfred's queries.
 
 **Alfred-Workflow**'s :mod:`~workflow.background` module is based on, and uses
 the same API as :func:`subprocess.call`, but it runs the command as a background
 process (consequently, it won't return anything).
-So, our updater script will be called from our main Workflow script,
+So, our updater script will be called from our main workflow script,
 but :mod:`~workflow.background` will run it as a background process. This way,
-it will appear to exit immediately, so Alfred will keep on calling our Workflow
+it will appear to exit immediately, so Alfred will keep on calling our workflow
 every time the query changes.
 
-Meanwhile, our main Workflow script will check if the background updater is
+Meanwhile, our main workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.
 
 Let's have at it.
@@ -709,7 +709,7 @@ Let's have at it.
 Background updater script
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create a new file in the Workflow root directory called ``update.py`` with these
+Create a new file in the workflow root directory called ``update.py`` with these
 contents:
 
 .. code-block:: python
@@ -783,7 +783,7 @@ can quietly die if no API key has been set because ``pinboard.py`` takes care
 of notifying the user to set their API key.
 
 
-Let's try out ``update.py``. `Open a Terminal window at the Workflow root directory <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
+Let's try out ``update.py``. `Open a Terminal window at the workflow root directory <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the following::
 
    python update.py
@@ -936,7 +936,7 @@ is fresh with :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.ca
 and to run the ``update.py`` script via
 :func:`background.run_in_background() <workflow.background.run_in_background>`
 if not (:meth:`Workflow.workflowfile() <workflow.workflow.Workflow.workflowfile>`
-returns the full path to a file in the Workflow's root directory).
+returns the full path to a file in the workflow's root directory).
 
 Then we check if the update process is running via
 :func:`background.is_running() <workflow.background.is_running>` using the
@@ -970,8 +970,8 @@ Sharing your Workflow
 ---------------------
 
 Now you've produced a technical marvel, it's time to tell the world and enjoy
-the well-earned plaudits. To build your Workflow, open it up in Alfred's Preferences,
-right-click on the Workflow's name in the list on the left-hand side, and choose
+the well-earned plaudits. To build your workflow, open it up in Alfred's Preferences,
+right-click on the workflow's name in the list on the left-hand side, and choose
 **Export…**. This will save a ``.alfredworkflow`` file that you can share with
 other people. ``.alfredworkflow`` files are just ZIP files with a different extension.
 If you want to have a poke around inside one, just change the extension to ``.zip``
@@ -981,11 +981,11 @@ And how do you share your Workflow with the world?
 
 There's a `Share your Workflows thread <http://www.alfredforum.com/forum/3-share-your-workflows/>`_
 on `the official Alfred forum <http://www.alfredforum.com/>`_, but being a forum,
-it's less than ideal as a directory for Workflows. Also, you'd need to find your own
-place to host your Workflow file (for which GitHub and Dropbox are both good choices).
+it's less than ideal as a directory for workflows. Also, you'd need to find your own
+place to host your workflow file (for which GitHub and Dropbox are both good choices).
 
 It's a good idea to sign up for the Alfred forum and post a thread for your
-Workflow, but you might want to consider uploading it to `Packal.org <http://www.packal.org/>`_,
-a site specifically designed for hosting Alfred Workflows. Your Workflow will
+workflow, but you might want to consider uploading it to `Packal.org <http://www.packal.org/>`_,
+a site specifically designed for hosting Alfred workflows. Your workflow will
 be much easier to find on that site than in the forum, and they'll also host
-the Workflow download for you.
+the workflow download for you.

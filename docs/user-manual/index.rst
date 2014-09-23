@@ -1,12 +1,11 @@
 
-.. _quickref:
+.. _user-manual:
 
-===============
-Quick Reference
-===============
+===========
+User Manual
+===========
 
-This document serves as a quick reference on using the features of
-**Alfred-Python**.
+This section describes how to use the features of **Alfred-Python**.
 
 If you're new to writing Workflows or coding in general, start with the
 :ref:`Tutorial <tutorial>`.

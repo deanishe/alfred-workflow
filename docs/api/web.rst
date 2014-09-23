@@ -44,7 +44,7 @@ There are some examples of using :mod:`workflow.web` in other parts of the
 documentation:
 
 * :ref:`writing-script` in the :ref:`Tutorial <tutorial>`
-* :ref:`web-data` in the :ref:`quickref`
+* :ref:`web-data` in the :ref:`user-manual`
 
 The `unit tests`_ contain examples of pretty
 much everything :mod:`workflow.web` can do:

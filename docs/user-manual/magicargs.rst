@@ -31,18 +31,19 @@ for debugging.
 
 :class:`~workflow.workflow.Workflow` supports the following magic arguments:
 
-- ``workflow:openlog`` — Open the Workflow's log file in the default app.
-- ``workflow:opencache`` — Open the Workflow's cache directory.
-- ``workflow:opendata`` — Open the Workflow's data directory.
-- ``workflow:openworkflow`` — Open the Workflow's root directory (where ``info.plist`` is).
-- ``workflow:openterm`` — Open a Terminal window in the Workflow's root directory.
-- ``workflow:reset`` — Delete the Workflow's settings, cache and saved data.
 - ``workflow:delcache`` — Delete the Workflow's cache.
 - ``workflow:deldata`` — Delete the Workflow's saved data.
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).
-- ``workflow:foldingon`` — Force diacritic folding in search keys (e.g. convert *ü* to *ue*)
-- ``workflow:foldingoff`` — Never fold diacritics in search keys
 - ``workflow:foldingdefault`` — Reset diacritic folding to workflow default
+- ``workflow:foldingoff`` — Never fold diacritics in search keys
+- ``workflow:foldingon`` — Force diacritic folding in search keys (e.g. convert *ü* to *ue*)
+- ``workflow:opencache`` — Open the Workflow's cache directory.
+- ``workflow:opendata`` — Open the Workflow's data directory.
+- ``workflow:openlog`` — Open the Workflow's log file in the default app.
+- ``workflow:openterm`` — Open a Terminal window in the Workflow's root directory.
+- ``workflow:openworkflow`` — Open the Workflow's root directory (where ``info.plist`` is).
+- ``workflow:reset`` — Delete the Workflow's settings, cache and saved data.
+- ``workflow:update`` — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.
 
 The three ``workflow:folding…`` settings allow users to override the diacritic
 folding set by a workflow's author. This may be useful if the author's choice
@@ -62,3 +63,5 @@ own keywords within your Workflow:
 - :meth:`~workflow.workflow.Workflow.clear_data`
 - :meth:`~workflow.workflow.Workflow.clear_settings`
 - :meth:`~workflow.workflow.Workflow.reset` (a shortcut to call the three previous ``clear_*`` methods)
+- :meth:`~workflow.workflow.Workflow.check_update`
+- :meth:`~workflow.workflow.Workflow.start_update`

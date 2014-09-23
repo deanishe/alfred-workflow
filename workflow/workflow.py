@@ -1071,8 +1071,10 @@ class Workflow(object):
                 if '__workflow_diacritic_folding' in self.settings:
                     del self.settings['__workflow_diacritic_folding']
             elif 'workflow:update' in args:
-                msg = 'Updating workflow'
-                self.start_update()
+                if self.start_update():
+                    msg = 'Downloading and installing update ...'
+                else:
+                    msg = 'No update available'
 
             if msg:
                 self.logger.debug(msg)
@@ -2004,8 +2006,10 @@ class Workflow(object):
         frequency = self._update_settings.get('frequency',
                                               DEFAULT_UPDATE_FREQUENCY)
 
+        # Check for new version if it's time
         if (force or not self.cached_data_fresh(
                 '__workflow_update_status', frequency * 86400)):
+
             github_slug = self._update_settings['github_slug']
             version = self._update_settings['version']
 
@@ -2015,19 +2019,21 @@ class Workflow(object):
             update_script = os.path.join(os.path.dirname(__file__),
                                          b'update.py')
 
-            cmd = ['/usr/bin/python', update_script, github_slug, version]
+            cmd = ['/usr/bin/python', update_script, 'check', github_slug,
+                   version]
 
             self.logger.info('Checking for update ...')
 
-            run_in_background('__workflow_update', cmd)
+            run_in_background('__workflow_update_check', cmd)
 
         else:
-            self.logger.debug('Update not due')
+            self.logger.debug('Update check not due')
 
     def start_update(self):
         """Check for update and download and install new workflow file
 
-        :returns: ``True`` if an update is available, else ``False``
+        :returns: ``True`` if an update is available and will be
+            installed, else ``False``
 
         """
 
@@ -2039,18 +2045,17 @@ class Workflow(object):
         if not update.check_update(github_slug, version):
             return False
 
-        update_data = self.cached_data('__workflow_update_status')
+        from background import run_in_background
 
-        if (update_data is None or not update_data.get('available')):
-            return False  # pragma: no cover
+        # update.py is adjacent to this file
+        update_script = os.path.join(os.path.dirname(__file__),
+                                     b'update.py')
 
-        local_file = update.download_workflow(update_data['download_url'])
+        cmd = ['/usr/bin/python', update_script, 'install', github_slug,
+               version]
 
-        self.logger.debug('Installing updated workflow ...')
-        subprocess.call(['open', local_file])
-
-        update_data['available'] = False
-        self.cache_data('__workflow_update_status', update_data)
+        self.logger.debug('Downloading update ...')
+        run_in_background('__workflow_update_install', cmd)
 
         return True
 

@@ -22,6 +22,7 @@ Features to Add:
 	workflow.py:
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
 		- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2
+		-	Override `dict.set()` in `Settings` @priority(1)
 
 
 	Docs:

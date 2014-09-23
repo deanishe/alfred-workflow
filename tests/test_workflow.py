@@ -663,36 +663,50 @@ class WorkflowTests(unittest.TestCase):
 
     def test_update(self):
         """Workflow update methods"""
+
+        # Initialise with outdated version
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': 'v2.0',
             'frequency': 1,
         })
 
+        # Check won't have completed yet
         self.assertFalse(wf.update_available)
 
         # wait for background update check
-        while is_running('__workflow_update'):
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
             time.sleep(0.05)
 
+        # There *is* a newer version in the repo
         self.assertTrue(wf.update_available)
+
+        # Mock out subprocess and check the correct command is run
         c = WorkflowMock()
         with c:
             self.assertTrue(wf.start_update())
-        wf.logger.debug('start_update : {}'.format(c.cmd))
-        self.assertEquals(c.cmd[0], 'open')
-        self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
+        # wf.logger.debug('start_update : {}'.format(c.cmd))
+        self.assertEquals(c.cmd[0], '/usr/bin/python')
+        self.assertEquals(c.cmd[2], '__workflow_update_install')
 
+        # Grab the updated release data, then reset the cache
         update_info = wf.cached_data('__workflow_update_status')
+
+        wf.reset()
+
+        # Initialise with latest available release
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': update_info['version'],
         })
 
-        # wait for background update check
-        while is_running('__workflow_update'):
+        # Wait for background update check
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
             time.sleep(0.05)
 
+        # Remove version is same as the one we passed to Workflow
         self.assertFalse(wf.update_available)
         self.assertFalse(wf.start_update())
 
@@ -1094,26 +1108,25 @@ class MagicArgsTests(unittest.TestCase):
 
     def test_update(self):
         """Magic: update"""
-        wf = Workflow(update_settings={
+        update_settings = {
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': 'v2.0',
             'frequency': 1,
-        })
+        }
+        wf = Workflow(update_settings=update_settings)
 
         self.assertFalse(wf.update_available)
 
+        # Mock subprocess.call etc. so the script doesn't try to
+        # update the workflow in Alfred
         c = WorkflowMock(['script', 'workflow:update'])
         with c:
             wf.args
 
-        # wait for background update check
-        while is_running('__workflow_update'):
-            time.sleep(0.05)
-
         wf.logger.debug('Magic update command : {}'.format(c.cmd))
 
-        self.assertEquals(c.cmd[0], 'open')
-        self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
+        self.assertEquals(c.cmd[0], '/usr/bin/python')
+        self.assertEquals(c.cmd[2], '__workflow_update_install')
 
 
 class SettingsTests(unittest.TestCase):

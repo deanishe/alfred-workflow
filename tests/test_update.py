@@ -16,6 +16,7 @@ from __future__ import print_function
 import unittest
 import os
 
+from util import WorkflowMock
 from workflow import Workflow, update
 
 RELEASE_LATEST = '6.0'
@@ -30,6 +31,9 @@ RELEASES_INVALID = (
     '7.0',  # No files
 )
 
+# This repo was created especially to test Alfred-Workflow
+# It contains multiple releases, some valid, some invalid
+# The .alfredworkflow files in the releases are working demos
 TEST_REPO_SLUG = 'deanishe/alfred-workflow-dummy'
 EMPTY_REPO_SLUG = 'deanishe/alfred-workflow-empty-dummy'
 GH_ROOT = 'https://github.com/' + TEST_REPO_SLUG
@@ -145,6 +149,33 @@ class UpdateTests(unittest.TestCase):
         update_info = self.wf.cached_data('__workflow_update_status')
         self.assertFalse(update.check_update(TEST_REPO_SLUG,
                                              update_info['version']))
+
+    def test_install_update(self):
+        """Update: installs update"""
+
+        # Make sure there's no cached update data
+        wf = Workflow()
+        wf.reset()
+
+        # Verify that there's no update available
+        self.assertIsNone(wf.cached_data('__workflow_update_status'))
+
+        self.assertFalse(update.install_update(TEST_REPO_SLUG,
+                                               RELEASE_LATEST))
+
+        # Get new update data
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT))
+
+        # Verify new workflow is downloaded and installed
+        c = WorkflowMock()
+        with c:
+            self.assertTrue(update.install_update(TEST_REPO_SLUG,
+                                                  RELEASE_CURRENT))
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
+
+        self.assertFalse(wf.cached_data(
+                         '__workflow_update_status')['available'])
 
 
 if __name__ == '__main__':  # pragma: no cover

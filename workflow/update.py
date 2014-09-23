@@ -28,6 +28,7 @@ import os
 import tempfile
 import argparse
 import re
+import subprocess
 
 import workflow
 import web
@@ -206,9 +207,53 @@ def check_update(github_slug, current_version):
     return False
 
 
+def install_update(github_slug, current_version):
+    """If a newer release is available, download and install it
+
+    :param github_slug: ``username/repo`` for workflow's GitHub repo
+    :param current_version: the currently installed version of the
+        workflow. This should be a string.
+        `Semantic versioning <http://semver.org>`_ is *very strongly*
+        recommended.
+
+    If an update is available, it will be downloaded and installed.
+
+    :returns: ``True`` if an update is installed, else ``False``
+
+    """
+
+    update_data = wf.cached_data('__workflow_update_status')
+
+    if not update_data or not update_data.get('available'):
+        wf.logger.info('No update available')
+        return False
+
+    local_file = download_workflow(update_data['download_url'])
+
+    wf.logger.info('Installing updated workflow ...')
+    subprocess.call(['open', local_file])
+
+    update_data['available'] = False
+    wf.cache_data('__workflow_update_status', update_data)
+    return True
+
+
 if __name__ == '__main__':  # pragma: nocover
-    parser = argparse.ArgumentParser()
-    parser.add_argument("github_slug", help="")
-    parser.add_argument("version", help="")
+    parser = argparse.ArgumentParser(
+        description='Check for and install updates')
+    parser.add_argument(
+        'action',
+        choices=['check', 'install'],
+        help='Check for new version or install new version?')
+    parser.add_argument(
+        'github_slug',
+        help='GitHub repo name in format "username/repo"')
+    parser.add_argument(
+        'version',
+        help='The version of the installed workflow')
+
     args = parser.parse_args()
-    check_update(args.github_slug, args.version)
+    if args.action == 'check':
+        check_update(args.github_slug, args.version)
+    elif args.action == 'install':
+        install_update(args.github_slug, args.version)

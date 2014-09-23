@@ -15,24 +15,29 @@ elsewhere, filter them and display results to the user. **Alfred-Workflow**
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
-**Alfred-Workflow** is *the only library* (in any language) that supports all
-of Alfred 2's features (as of version 2.5).
+**Alfred-Workflow** is *the only library* that supports all of Alfred 2's
+features (as of version 2.5 of Alfred, version 1.8.5 of **Alfred-Workflow**).
 
-There are convenience methods for:
+Features
+========
 
-- Parsing script arguments.
-- Text decoding/normalisation.
-- Storing data and settings.
-- Caching data from, for example web services, with a simple API for updating
-  expired data.
-- Securely storing (and syncing) passwords using OS X Keychain.
-- Generating XML output for Alfred.
-- Including external libraries (adding directories to ``sys.path``).
-- Filtering results using an Alfred-like, fuzzy search algorithm.
-- Generating log output for debugging errors.
-- Capturing errors, so the workflow doesn't fail silently.
-- Running background processes to keep your workflow responsive.
-- Updating your workflow from GitHub releases.
+- Catches and logs workflow errors for easier development and support
+- :ref:`"Magic" arguments <magic-arguments>` to help development/debugging
+- :ref:`Auto-saves settings <manual-settings>`
+- Super-simple :ref:`data caching <caching-data>`
+- Fuzzy, :ref:`Alfred-like search/filtering <filtering>` with
+  :ref:`diacritic folding <folding>`
+- :ref:`Keychain support <keychain>` for secure storage of passwords, API
+  keys etc.
+- Simple generation of Alfred feedback (XML output)
+- :ref:`Input/output decoding <text-encoding>` for handling non-ASCII text
+- :ref:`Lightweight web <web>` API with `Requests`_-like interface
+- Pre-configured logging
+- Painlessly add directories to ``sys.path``
+- Easily launch :ref:`background tasks <background-processes>` (daemons) to
+  keep your workflow responsive
+- :ref:`Check for new versions <manual-updates>` and update workflows hosted on
+  GitHub.
 
 Quick example
 =============
@@ -210,4 +215,5 @@ Indices and tables
 * :ref:`search`
 
 
-.. _GitHub: https://github.com/deanishe/alfred-workflow
+.. _GitHub: https://github.com/deanishe/alfred-workflow/
+.. _Requests: http://docs.python-requests.org/en/latest/

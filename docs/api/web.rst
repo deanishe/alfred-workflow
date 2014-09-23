@@ -12,7 +12,8 @@ modelled on the excellent `requests`_ library.
 The purpose of :mod:`workflow.web` is to cover trivial cases at just 0.5% of
 the size of `requests`_.
 
-Features:
+Features
+--------
 
 - JSON requests and responses
 - Form data submission
@@ -36,6 +37,8 @@ really should), you should use the excellent `requests`_ library
 (upon which the :mod:`workflow.web` API is based) or the command-line tool
 `cURL`_, which is installed by default on OS X, instead.
 
+
+.. _web-examples:
 
 Examples
 --------

@@ -1,6 +1,6 @@
 
 
-.. _qr-updates:
+.. _manual-updates:
 
 Self-Updating
 =============

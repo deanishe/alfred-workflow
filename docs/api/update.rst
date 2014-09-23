@@ -17,7 +17,7 @@ Currently, only updates from
 `GitHub releases <https://help.github.com/categories/85/articles>`_ are
 supported.
 
-Please see :ref:`qr-updates` in the :ref:`user-manual` for information on how
+Please see :ref:`manual-updates` in the :ref:`user-manual` for information on how
 to enable automatic updates.
 
 API

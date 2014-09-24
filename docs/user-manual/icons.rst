@@ -66,3 +66,6 @@ be found in ``/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/`
 +-------------------+----------------------------------------+
 |``ICON_WEB``       |.. image:: ../_static/ICON_WEB.png      |
 +-------------------+----------------------------------------+
+
+If you'd like other standard OS X icons to be added, please
+`add an issue on GitHub <https://github.com/deanishe/alfred-workflow/issues>`_.

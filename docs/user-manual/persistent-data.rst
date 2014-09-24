@@ -40,7 +40,7 @@ may help you with development/debugging.
 In addition, :class:`Workflow <workflow.workflow.Workflow>` also provides a
 convenient interface for storing persistent settings with
 :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`.
-See :ref:`Settings <howto-settings>` and :ref:`Keychain access <keychain>` for more
+See :ref:`Settings <manual-settings>` and :ref:`Keychain access <keychain>` for more
 information on storing settings and sensitive data.
 
 .. _caching-data:
@@ -119,7 +119,7 @@ If you want to specify your own file format/serializer, please see
 :ref:`Serialization <serialization>` for details.
 
 
-.. _howto-settings:
+.. _manual-settings:
 
 Settings
 --------

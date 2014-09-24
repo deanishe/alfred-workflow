@@ -1,9 +1,9 @@
 
 .. _script-filter-results:
 
-=====================
-Script Filter Results
-=====================
+========================================
+Script Filter Results and the XML Format
+========================================
 
 .. note::
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
@@ -30,8 +30,8 @@ arguments work.
 
 .. _xml-format:
 
-XML format
-==========
+XML format / available parameters
+=================================
 
 .. warning::
 
@@ -302,13 +302,13 @@ appear in the XML file (the order in which you add them with
 type
 ----
 
-The type of the result. Currently, only ``"file"`` (or none) is supported.
+The type of the result. Currently, only ``file`` (or none) is supported.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``type`` argument. Should be :class:`unicode`. Currently, the only allowed
-value is ``"file"``.
+value is ``file``.
 
-If the ``type`` of a result is set to ``"file"`` (the only value currently
+If the ``type`` of a result is set to ``file`` (the only value currently
 supported by Alfred), it will enable users to "action" the item, as in Alfred's
 file browser, and show Alfred's File Actions (``Open``, ``Open with…``,
 ``Reveal in Finder`` etc.) using the default keyboard shortcut set in

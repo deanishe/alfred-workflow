@@ -1128,6 +1128,15 @@ class MagicArgsTests(unittest.TestCase):
         self.assertEquals(c.cmd[0], '/usr/bin/python')
         self.assertEquals(c.cmd[2], '__workflow_update_install')
 
+        update_settings['version'] = 'v6.0'
+        wf = Workflow(update_settings=update_settings)
+        c = WorkflowMock(['script', 'workflow:update'])
+        with c:
+            wf.args
+
+        # Update command wasn't called
+        self.assertEqual(c.cmd, ())
+
 
 class SettingsTests(unittest.TestCase):
     """Test suite for `workflow.workflow.Settings`"""

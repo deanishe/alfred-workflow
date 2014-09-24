@@ -3,16 +3,18 @@ A Python helper library for writing `Alfred 2`_ workflows.
 
 Alfred workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. **Alfred-Workflow**
-helps you do these things.
+takes care of a lot of the details for you, allowing you to concentrate your
+efforts on your workflow's functionality.
 
-There are convenience methods for:
+Features
+========
 
 * Catches and logs workflow errors for easier development and support
 * "Magic" arguments to help development/debugging
 * Auto-saves settings
 * Super-simple data caching
 * Fuzzy, Alfred-like search/filtering with diacritic folding
-* Keychain support for secure storage of passwords, API keys etc.
+* Keychain support for secure storage (and syncing) of passwords, API keys etc.
 * Simple generation of Alfred feedback (XML output)
 * Input/output decoding for handling non-ASCII text
 * Lightweight web API with modelled on `requests`_
@@ -77,17 +79,14 @@ their system Python.
 From source
 -----------
 
-Download the ``alfred-workflow-X.X.zip`` file from the
-`GitHub releases page <https://github.com/deanishe/alfred-workflow/releases>`_
+Download the ``alfred-workflow-X.X.zip`` file from the `GitHub releases`_ page
 and either extract the ZIP to the root directory of your workflow (where
 ``info.plist`` is) or place the ZIP in the root directory and add
 ``sys.path.insert(0, 'alfred-workflow-X.X.zip')`` to the top of your
 Python scripts.
 
-Alternatively, you can download
-`the source code <https://github.com/deanishe/alfred-workflow/archive/master.zip>`_
-from the `GitHub repository <https://github.com/deanishe/alfred-workflow>`_ and
-copy the ``workflow`` subfolder to the root directory of your workflow.
+Alternatively, you can download `the source code`_ from the `GitHub repository`_
+and copy the ``workflow`` subfolder to the root directory of your workflow.
 
 Your workflow directory should look something like this (where
 ``yourscript.py`` contains your workflow code and ``info.plist`` is
@@ -122,3 +121,6 @@ available at `Read the Docs <http://alfredworkflow.readthedocs.org/en/latest/>`_
 
 .. _requests: http://docs.python-requests.org/en/latest/
 .. _Alfred 2: http://www.alfredapp.com/
+.. _GitHub releases: https://github.com/deanishe/alfred-workflow/releases
+.. _the source code: https://github.com/deanishe/alfred-workflow/archive/master.zip
+.. _GitHub repository: https://github.com/deanishe/alfred-workflow

@@ -10,6 +10,8 @@
 """
 The :class:`Workflow` object is the main interface to this library.
 
+See :ref:`setup` in the :ref:`user-manual` for an example of how to set
+up your Python script to best utilise the :class:`Workflow` object.
 
 """
 
@@ -412,7 +414,7 @@ DEFAULT_UPDATE_FREQUENCY = 1
 class KeychainError(Exception):
     """Raised by methods :meth:`Workflow.save_password`,
     :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
-    when ``security`` CLI app returns an unknown code.
+    when ``security`` CLI app returns an unknown error code.
 
     """
 
@@ -427,8 +429,9 @@ class PasswordNotFound(KeychainError):
 class PasswordExists(KeychainError):
     """Raised when trying to overwrite an existing account password.
 
-    The API user should never receive this error: it is used internally
-    by the :meth:`Workflow.save_password` method.
+    You should never receive this error: it is used internally
+    by the :meth:`Workflow.save_password` method to know if it needs
+    to delete the old password first (a Keychain implementation detail).
 
     """
 
@@ -1231,11 +1234,11 @@ class Workflow(object):
     @property
     def logger(self):
         """Create and return a logger that logs to both console and
-        a log file. Use :meth:`~Workflow.openlog` to open the log file
-        in Console.
+        a log file.
 
-        :returns: an initialised logger
-        :rtype: `~logging.Logger` instance
+        Use :meth:`open_log` to open the log file in Console.
+
+        :returns: an initialised :class:`~logging.Logger`
 
         """
 
@@ -1297,10 +1300,16 @@ class Workflow(object):
     def settings(self):
         """Return a dictionary subclass that saves itself when changed.
 
-        :returns: :class:`Settings` instance initialised from the data
-            in JSON file at :attr:`settings_path` or if that doesn't exist,
-            with the ``default_settings`` ``dict`` passed to :class:`Workflow`.
-        :rtype: :class:`Settings` instance
+        See :ref:`manual-settings` in the :ref:`user-manual` for more
+        information on how to use :attr:`settings` and **important
+        limitations** on what it can do.
+
+        :returns: :class:`~workflow.workflow.Settings` instance
+            initialised from the data in JSON file at
+            :attr:`settings_path` or if that doesn't exist, with the
+            ``default_settings`` :class:`dict` passed to
+            :class:`Workflow` on instantiation.
+        :rtype: :class:`~workflow.workflow.Settings` instance
 
         """
 
@@ -1984,6 +1993,11 @@ class Workflow(object):
     def update_available(self):
         """Is an update available?
 
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
+
         :returns: ``True`` if an update is available, else ``False``
 
         """
@@ -1997,6 +2011,11 @@ class Workflow(object):
 
     def check_update(self, force=False):
         """Check if it's time to update and call update script if it is.
+
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
 
         :param force: Force update check
         :type force: ``Boolean``
@@ -2032,6 +2051,11 @@ class Workflow(object):
     def start_update(self):
         """Check for update and download and install new workflow file
 
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
+
         :returns: ``True`` if an update is available and will be
             installed, else ``False``
 
@@ -2066,18 +2090,19 @@ class Workflow(object):
     def save_password(self, account, password, service=None):
         """Save account credentials.
 
-        If the account exists, the old password will first be deleted (Keychain
-        throws an error otherwise).
+        If the account exists, the old password will first be deleted
+        (Keychain throws an error otherwise).
 
-        If something goes wrong, a `KeychainError` exception will be raised.
+        If something goes wrong, a :class:`KeychainError` exception will
+        be raised.
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
         :type account: ``unicode``
         :param password: the password to secure
         :type password: ``unicode``
-        :param service: Name of the service. By default, this is the workflow's
-                        bundle ID
+        :param service: Name of the service. By default, this is the
+            workflow's bundle ID
         :type service: ``unicode``
 
         """
@@ -2146,43 +2171,51 @@ class Workflow(object):
     ####################################################################
 
     def clear_cache(self):
-        """Delete all files in workflow cache directory."""
+        """Delete all files in workflow's :attr:`cachedir`."""
         self._delete_directory_contents(self.cachedir)
 
     def clear_data(self):
-        """Delete all files in workflow data directory."""
+        """Delete all files in workflow's :attr:`datadir`."""
         self._delete_directory_contents(self.datadir)
 
     def clear_settings(self):
-        """Delete settings file."""
+        """Delete workflow's :attr:`settings_path`."""
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
             self.logger.debug('Deleted : %r', self.settings_path)
 
     def reset(self):
-        """Delete settings, cache and data"""
+        """Delete :attr:`settings <settings_path>`, :attr:`cache <cachedir>`
+        and :attr:`data <datadir>`
+
+        """
+
         self.clear_cache()
         self.clear_data()
         self.clear_settings()
 
     def open_log(self):
-        """Open log file in standard application (usually Console.app)."""
+        """Open workflows :attr:`logfile` in standard
+        application (usually Console.app).
+
+        """
+
         subprocess.call(['open', self.logfile])
 
     def open_cachedir(self):
-        """Open the workflow cache directory in Finder."""
+        """Open the workflow's :attr:`cachedir` in Finder."""
         subprocess.call(['open', self.cachedir])
 
     def open_datadir(self):
-        """Open the workflow data directory in Finder."""
+        """Open the workflow's :attr:`datadir` in Finder."""
         subprocess.call(['open', self.datadir])
 
     def open_workflowdir(self):
-        """Open the workflow directory in Finder."""
+        """Open the workflow's :attr:`directory <workflowdir` in Finder."""
         subprocess.call(['open', self.workflowdir])
 
     def open_terminal(self):
-        """Open a Terminal window at workflow directory."""
+        """Open a Terminal window at workflow's :attr:`directory <workflowdir`."""
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])
 

@@ -57,17 +57,9 @@
         
         
             <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickref/index.html">Quick Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickref/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/thirdparty.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/text-encoding.html">A note on text encoding/decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
 </ul>
 </li>
 </ul>
@@ -79,19 +71,36 @@
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Text encoding/decoding</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter Results</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#xml-format">XML format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#item-parameters">Item parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#item-parameters">Item parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -175,6 +184,12 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api/update.html#workflow.update.build_api_url">build_api_url() (in module workflow.update)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.bundleid">bundleid (workflow.workflow.Workflow attribute)</a>
   </dt>
 
@@ -208,12 +223,22 @@
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.cachedir">cachedir (workflow.workflow.Workflow attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.cachefile">cachefile() (workflow.workflow.Workflow method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.check_update">check_update() (in module workflow.update)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.check_update">(workflow.workflow.Workflow method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.clear_cache">clear_cache() (workflow.workflow.Workflow method)</a>
   </dt>
@@ -252,14 +277,18 @@
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.datafile">datafile() (workflow.workflow.Workflow method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.decode">decode() (workflow.workflow.Workflow method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.delete_password">delete_password() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.download_workflow">download_workflow() (in module workflow.update)</a>
   </dt>
 
       
@@ -312,10 +341,14 @@
   <dt><a href="api/web.html#workflow.web.get">get() (in module workflow.web)</a>
   </dt>
 
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.get_password">get_password() (workflow.workflow.Workflow method)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/workflow.html#workflow.workflow.Workflow.get_password">get_password() (workflow.workflow.Workflow method)</a>
+  <dt><a href="api/update.html#workflow.update.get_valid_releases">get_valid_releases() (in module workflow.update)</a>
   </dt>
 
   </dl></td>
@@ -329,11 +362,19 @@
   </dt>
 
       
-  <dt><a href="api/background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
+  <dt><a href="api/update.html#workflow.update.install_update">install_update() (in module workflow.update)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.is_newer_version">is_newer_version() (in module workflow.update)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
+  </dt>
+
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.item_class">item_class (workflow.workflow.Workflow attribute)</a>
   </dt>
@@ -450,14 +491,18 @@
   <dt><a href="api/workflow.html#workflow.workflow.PasswordNotFound">PasswordNotFound (class in workflow.workflow)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.PickleSerializer">PickleSerializer (class in workflow.workflow)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/web.html#workflow.web.post">post() (in module workflow.web)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.prefixed_version">prefixed_version() (in module workflow.update)</a>
   </dt>
 
   </dl></td>
@@ -533,6 +578,10 @@
   </dt>
 
       
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.start_update">start_update() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.store_data">store_data() (workflow.workflow.Workflow method)</a>
   </dt>
 
@@ -561,6 +610,12 @@
   </dt>
 
   </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.update_available">update_available (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
 </tr></table>
 
 <h2 id="W">W</h2>
@@ -579,11 +634,15 @@
   </dt>
 
       
-  <dt><a href="api/web.html#module-workflow.web">workflow.web (module)</a>
+  <dt><a href="api/update.html#module-workflow.update">workflow.update (module)</a>, <a href="api/update.html#module-workflow.update">[1]</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#module-workflow.web">workflow.web (module)</a>
+  </dt>
+
       
   <dt><a href="api/workflow.html#module-workflow.workflow">workflow.workflow (module)</a>
   </dt>

@@ -5,18 +5,18 @@
 Part 1: A Basic Pinboard Workflow
 =================================
 
-In which we build an Alfred Workflow to view recent posts to
+In which we build an Alfred workflow to view recent posts to
 `Pinboard.in <https://pinboard.in/>`_.
 
 .. note::
 
-    To use Workflows, you must own Alfred's
+    To use workflows, you must own Alfred's
     `Powerpack <https://buy.alfredapp.com/>`_.
 
 Creating a new Workflow
 =======================
 
-First, create a new, blank Workflow in Alfred 2's Preferences, under the
+First, create a new, blank workflow in Alfred 2's Preferences, under the
 **Workflows** tab:
 
 .. image:: _static/screen1_blank_workflow.png
@@ -24,14 +24,14 @@ First, create a new, blank Workflow in Alfred 2's Preferences, under the
 Describing your Workflow
 ========================
 
-When the info dialog pops up, give your Workflow a name, possibly a
+When the info dialog pops up, give your workflow a name, possibly a
 description, and a **Bundle Id**.
 
 The **Bundle Id** is important: it's the unique name used by Alfred and
 **Alfred-Workflow** internally to identify your workflow. The data caching
 features won't work without it. You can also drag an image to the icon field
-to the left to make your Workflow pretty (Alfred will use this icon to show
-your Workflow actions in its action list). I grabbed a free Pinboard icon from
+to the left to make your workflow pretty (Alfred will use this icon to show
+your workflow actions in its action list). I grabbed a free Pinboard icon from
 `here <http://www.iconarchive.com/show/simple-icons-by-danleech/pinboard-icon.html>`_.
 
 .. image:: _static/screen2_workflow_info1.png
@@ -52,14 +52,14 @@ the moment because our script currently doesn't accept a query):
 
 .. image:: _static/screen5_script_filter_details.png
 
-Choose a **Keyword**, which you will enter in Alfred to activate your Workflow.
+Choose a **Keyword**, which you will enter in Alfred to activate your workflow.
 At the moment, our Script Filter won't take any arguments, so choose
 **No Argument**. The **Placeholder Title** and **Subtext** are what Alfred
 will show when you type the **Keyword**:
 
 .. image:: _static/screen4_alfred_list.png
 
-The **"Please Wait" Subtext** is what is shown when your Workflow is working,
+The **"Please Wait" Subtext** is what is shown when your workflow is working,
 which in our case means fetching data from pinboard.in.
 
 Very importantly, set the **Language** to ``/bin/bash``.
@@ -83,8 +83,8 @@ argument.
     counting is involved.
 
 
-Now Alfred has created the Workflow, we can open it up and add our script.
-Right-click on your Workflow in the list on the left and choose
+Now Alfred has created the workflow, we can open it up and add our script.
+Right-click on your workflow in the list on the left and choose
 **Show in Finder**.
 
 .. image:: _static/screen6_show_in_finder.png
@@ -96,7 +96,7 @@ chose an icon):
 
 At this point, download
 `the archive <https://github.com/deanishe/alfred-workflow/archive/master.zip>`_
-from GitHub, extract it and copy the **workflow** subdirectory to your Workflow
+from GitHub, extract it and copy the **workflow** subdirectory to your workflow
 directory:
 
 .. image:: _static/screen8_finder_with_workflow.png
@@ -110,7 +110,7 @@ Writing your Python script
 ==========================
 
 Using your text editor of choice, create a new text file and save it in your
-Workflow directory as ``pinboard.py`` (the name we used when setting up the
+workflow directory as ``pinboard.py`` (the name we used when setting up the
 Script Filter).
 
 Add the following code to ``pinboard.py`` (be sure to change ``API_KEY`` to
@@ -157,7 +157,7 @@ your pinboard API key. You can find it on the
         sys.exit(wf.run(main))
 
 
-All being well, our Workflow should now work. Fire up Alfred, enter your
+All being well, our workflow should now work. Fire up Alfred, enter your
 keyword and hit **ENTER**. You should see something like this:
 
 .. image:: _static/screen9_workflow_results.png
@@ -168,12 +168,12 @@ you should see an error like this:
 .. image:: _static/screen10_workflow_error.png
 
 If Alfred shows nothing at all, it probably couldn't run your Python script at
-all. You'll have to `open the Workflow directory in Terminal <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
+all. You'll have to `open the workflow directory in Terminal <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the script by hand to see the error::
 
 	python pinboard.py
 
-Adding Workflow actions
+Adding workflow actions
 =======================
 
 So now we can see a list of recent posts in Alfred, but can't do anything with
@@ -246,7 +246,7 @@ Click and hold on this, and drag a connection to the **Open URL** action:
 
 .. image:: _static/screen13_connection.png
 
-Now run your Workflow again in Alfred, select one of the results and hit
+Now run your workflow again in Alfred, select one of the results and hit
 **ENTER**. The post's webpage should open in your default browser.
 
 
@@ -255,7 +255,7 @@ Improving performance and not getting banned
 
 The terms of use of the Pinboard API specifically limit calls to the recent
 posts method to `1 call/minute <https://pinboard.in/api#limits>`_. As it's
-likely you'll call your Workflow more often than that, we need to cache the
+likely you'll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 **Alfred-Workflow** makes this a doddle with its
 :meth:`~workflow.workflow.Workflow.cached_data` method.
@@ -325,7 +325,7 @@ parameter, cache the data returned by that function under the name ``posts``
 and return it.
 
 So now we won't get banned by Pinboard for hammering the API, and as a bonus,
-the Workflow is now *blazingly* fast when the data are in its cache. For this
+the workflow is now *blazingly* fast when the data are in its cache. For this
 reason, it's probably a good idea to increase ``max_age`` to 300 or 600 seconds
 (5 or 10 minutes) or even more—depending on how often you add new posts
 to Pinboard—to get super-fast results more often.
@@ -339,7 +339,7 @@ a list of 20 results? Let's make them searchable.
 
 First, update the Script Filter settings. Next to **Keyword**, change
 **No Argument** to **Argument Optional** and select **with space**.
-**with space** means that when you hit **ENTER** or **TAB** on your Workflow
+**with space** means that when you hit **ENTER** or **TAB** on your workflow
 action, Alfred will add a space after it, so you can start typing your query
 immediately. Then add ``"{query}"`` in the **Script** text field. ``{query}``
 will be replaced by Alfred with whatever you've typed after the keyword. Finally,
@@ -520,11 +520,11 @@ for each post, comprising its title, tags and description (in that order).
     ``u' '`` (a Unicode space), not ``' '`` (an ASCII space). The
     :meth:`web.Response.json() <workflow.web.Response.json>` method returns
     Unicode (as do most **Alfred-Workflow** methods and functions), and if you
-    used an ASCII space ``' '`` (or any ASCII string), your Workflow would
+    used an ASCII space ``' '`` (or any ASCII string), your workflow would
     throw an error if any of the posts from Pinboard contained non-ASCII
     characters. This (text encoding) is something you must be aware of when
-    developing Workflows in Python. Best practice is to use Unicode internally
-    and decode all text to Unicode when it arrives in your Workflow (from the
+    developing workflows in Python. Best practice is to use Unicode internally
+    and decode all text to Unicode when it arrives in your workflow (from the
     Web, filesystem etc.). **Alfred-Workflow** uses Unicode internally and
     provides the :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`
     method to help you properly decode encoded strings from other sources.
@@ -548,7 +548,7 @@ the ``normalization='NFD'`` argument.
 Improving the search results
 ----------------------------
 
-If you've been trying out the Workflow, you've probably noticed that your queries
+If you've been trying out the workflow, you've probably noticed that your queries
 match a lot of posts they really shouldn't. The reason for this is that,
 by default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` matches
 *anything* that contains all the characters of ``query`` in the same order,
@@ -566,24 +566,24 @@ to:
 
     posts = wf.filter(query, posts, key=search_key_for_post, min_score=20)
 
-and try the Workflow again. The junk results should be gone. You can adjust
+and try the workflow again. The junk results should be gone. You can adjust
 ``min_score`` up or down depending on how strict you want to be with the results.
 
 What now?
 =========
 
-So we've got a working Workflow, but it's not yet ready to be distributed to
+So we've got a working workflow, but it's not yet ready to be distributed to
 other users (we can't reasonably ask users to edit the code to enter their
-API key). We'll turn what we've got into a distribution-ready Workflow in the
+API key). We'll turn what we've got into a distribution-ready workflow in the
 :ref:`second part of the tutorial <tutorial_2>`.
 
 Further reading
 ---------------
 
-For more information about writing Alfred Workflows, try the following:
+For more information about writing Alfred workflows, try the following:
 
-- `A good tutorial on Alfred Workflows for beginners <http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446>`_  by `Richard Guay <http://customct.com/>`_
-- `The Alfred Forum <http://www.alfredforum.com/>`_. It's a good place to find Workflows and the `Workflow Help & Questions <http://www.alfredforum.com/forum/13-workflow-help-questions/>`_ forum is the best place to get help with writing Workflows.
+- `A good tutorial on Alfred workflows for beginners <http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446>`_  by `Richard Guay <http://customct.com/>`_
+- `The Alfred Forum <http://www.alfredforum.com/>`_. It's a good place to find workflows and the `Workflow Help & Questions <http://www.alfredforum.com/forum/13-workflow-help-questions/>`_ forum is the best place to get help with writing workflows.
 
 To learn more about coding in Python, try these resources:
 

@@ -1,9 +1,9 @@
-div.section img + p {
-	margin-top: 11px !important;
-}
-
 /* GitHub "fork me" ribbon */
 
 .github-fork-ribbon {
 	background-color: #333;
+}
+
+.versionmodified {
+	font-style: italic;
 }

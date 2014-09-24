@@ -33,10 +33,15 @@
   
     <link rel="top" title="Alfred-Workflow 1.8.9 documentation" href="index.html"/>
         <link rel="up" title="Tutorial" href="tutorial.html"/>
-        <link rel="next" title="API" href="api/index.html"/>
+        <link rel="next" title="User Manual" href="user-manual/index.html"/>
         <link rel="prev" title="Part 1: A Basic Pinboard Workflow" href="tutorial_1.html"/>
  
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
 <link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
@@ -70,17 +75,9 @@
         
         
             <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickref/index.html">Quick Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickref/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/thirdparty.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/text-encoding.html">A note on text encoding/decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
 </ul>
 </li>
 </ul>
@@ -92,19 +89,36 @@
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Text encoding/decoding</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter Results</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#xml-format">XML format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#item-parameters">Item parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#item-parameters">Item parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -145,17 +159,17 @@
             
   <div class="section" id="part-2-a-distribution-ready-pinboard-workflow">
 <span id="tutorial-2"></span><h1>Part 2: A Distribution-Ready Pinboard Workflow<a class="headerlink" href="#part-2-a-distribution-ready-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
-<p>In which we create a <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> Workflow ready for
+<p>In which we create a <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> workflow ready for
 mass consumption.</p>
-<p>In the <a class="reference internal" href="tutorial.html#tutorial"><em>first part</em></a> of the tutorial, we built a useable Workflow
-to view, search and open your recent Pinboard posts. The Workflow isn&#8217;t quite
+<p>In the <a class="reference internal" href="tutorial.html#tutorial"><em>first part</em></a> of the tutorial, we built a useable workflow
+to view, search and open your recent Pinboard posts. The workflow isn&#8217;t quite
 ready to be distributed to other users, however: we can&#8217;t expect them to go
 grubbing around in the source code like an animal to set their own API keys.</p>
-<p>What&#8217;s more, an update to the Workflow would overwrite their changes.</p>
-<p>So now we&#8217;re going to edit the Workflow so users can add their API key from the
+<p>What&#8217;s more, an update to the workflow would overwrite their changes.</p>
+<p>So now we&#8217;re going to edit the workflow so users can add their API key from the
 comfort of Alfred&#8217;s friendly query box and use
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>
-to save it in the Workflow&#8217;s data directory where it won&#8217;t get overwritten.</p>
+to save it in the workflow&#8217;s data directory where it won&#8217;t get overwritten.</p>
 <div class="section" id="performing-multiple-actions-from-one-script">
 <h2>Performing multiple actions from one script<a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
 <p>To set the user&#8217;s API key, we&#8217;re going to need a new action. We could write a
@@ -163,7 +177,7 @@ second script to do this, but we&#8217;re going to stick with one script and mak
 smart enough to do two things, instead. The advantage of using one script is
 that if you build a workflow with lots of actions, you don&#8217;t have a dozen or more
 scripts to manage.</p>
-<p>We&#8217;ll start by adding an argument parser (using <a class="reference external" href="http://docs.python.org/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a>) to <tt class="docutils literal"><span class="pre">main()</span></tt> and some
+<p>We&#8217;ll start by adding an argument parser (using <a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a>) to <tt class="docutils literal"><span class="pre">main()</span></tt> and some
 if-clauses to alter the script&#8217;s behaviour depending on the arguments
 passed to it by Alfred.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
@@ -392,7 +406,7 @@ passed to it by Alfred.</p>
 <p>Quite a lot has happened here: at the top in line 5, we&#8217;re importing a couple
 more icons that we use in <tt class="docutils literal"><span class="pre">main()</span></tt> to notify the user that their API key is
 missing and that they should set it (lines 65–72).</p>
-<p>(You can see a list of all supported icons <a class="reference internal" href="quickref/icons.html#icon-list"><em>here</em></a>.)</p>
+<p>(You can see a list of all supported icons <a class="reference internal" href="user-manual/icons.html#icon-list"><em>here</em></a>.)</p>
 <p>We&#8217;ve adapted <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt> to accept an <tt class="docutils literal"><span class="pre">api_key</span></tt> argument. We <em>could</em>
 continue to use the <tt class="docutils literal"><span class="pre">API_KEY</span></tt> global variable, but that&#8217;d be bad form.</p>
 <p>As a result of this, we&#8217;ve had to alter the way
@@ -404,7 +418,7 @@ we pass this <tt class="docutils literal"><span class="pre">wrapper()</span></tt
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a> instead
 (line 89).</p>
 <p>At the top of <tt class="docutils literal"><span class="pre">main()</span></tt> (lines 39–49), we&#8217;ve added an argument parser using
-<a class="reference external" href="http://docs.python.org/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> that can take an optional <tt class="docutils literal"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></tt> argument
+<a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> that can take an optional <tt class="docutils literal"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></tt> argument
 and an optional <tt class="docutils literal"><span class="pre">query</span></tt> argument (remember the script doesn&#8217;t require a query).</p>
 <p>Then, in lines 55–59, we check if an API key was passed using <tt class="docutils literal"><span class="pre">--apikey</span></tt>.
 If it was, we save it using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a>
@@ -416,9 +430,9 @@ have an API key saved (lines 65–72). If not, we show the user a warning
 (No API key set) and exit the script.</p>
 <p>Finally, if we have an API key saved, we retrieve it and show/filter the Pinboard
 posts just as before (lines 78–107).</p>
-<p>Of course, we don&#8217;t have an API key saved, and we haven&#8217;t yet set up our Workflow
-in Alfred to save one, so the Workflow currently won&#8217;t work. Try to run it,
-and you&#8217;ll see the warning we just implemented:</p>
+<p>Of course, we don&#8217;t have an API key saved, and we haven&#8217;t yet set up our
+workflow in Alfred to save one, so the workflow currently won&#8217;t work. Try to
+run it, and you&#8217;ll see the warning we just implemented:</p>
 <img alt="_images/screen15_no_api_key.png" src="_images/screen15_no_api_key.png" />
 <p>So let&#8217;s add that functionality now.</p>
 </div>
@@ -431,7 +445,7 @@ and you&#8217;ll see the warning we just implemented:</p>
 </ol>
 <p>A Script Filter is designed to be called constantly by Alfred and return results.
 This time, we just want to get some data, so we&#8217;ll use a <strong>Keyword</strong> input instead.</p>
-<p>Go back to your Workflow in Alfred&#8217;s Preferences and add a <strong>Keyword</strong> input:</p>
+<p>Go back to your workflow in Alfred&#8217;s Preferences and add a <strong>Keyword</strong> input:</p>
 <img alt="_images/screen16_keyword.png" src="_images/screen16_keyword.png" />
 <p>And set it up as follows (we&#8217;ll use the keyword <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> because that&#8217;s what we told the user to use
 in the above warning message):</p>
@@ -446,11 +460,11 @@ in the above warning message):</p>
 <p>Finally, connect the <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> <strong>Keyword</strong> to the new <strong>Run Script</strong> action:</p>
 <img alt="_images/screen21_connection.png" src="_images/screen21_connection.png" />
 <p>Now you can call <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> in Alfred, paste in your Pinboard API key and hit
-<strong>ENTER</strong>. It will be saved by the Workflow and <tt class="docutils literal"><span class="pre">pbrecent</span></tt> will once again
+<strong>ENTER</strong>. It will be saved by the workflow and <tt class="docutils literal"><span class="pre">pbrecent</span></tt> will once again
 work as expected. Try it.</p>
 <p>It&#8217;s a little confusing receiving no feedback on whether the key was saved or not,
 so go back into Alfred&#8217;s Preferences, and add an <strong>Output &gt; Post Notification</strong>
-action to your Workflow:</p>
+action to your workflow:</p>
 <img alt="_images/screen22_add_notification.png" src="_images/screen22_add_notification.png" />
 <p>In the resulting pop-up, enter a message to be shown in Notification Center:</p>
 <img alt="_images/screen22_notification_settings.png" src="_images/screen22_notification_settings.png" />
@@ -465,7 +479,7 @@ notification that it was saved.</p>
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
 values must be serializable to JSON as the settings are saved as a JSON file in
-the Workflow&#8217;s data directory.</p>
+the workflow&#8217;s data directory.</p>
 <p>Very simple, yes, but secure? No. A better place to save the API key would be
 in the user&#8217;s Keychain. Let&#8217;s do that.</p>
 <div class="section" id="saving-settings-securely">
@@ -474,7 +488,7 @@ in the user&#8217;s Keychain. Let&#8217;s do that.</p>
 saved in OS X&#8217;s Keychain: <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">get_password()</span></tt></a>,
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">save_password()</span></tt></a> and <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></tt></a>.</p>
 <p>They are all called with an <tt class="docutils literal"><span class="pre">account</span></tt> name and an optional <tt class="docutils literal"><span class="pre">service</span></tt> name
-(by default, this is your Workflow&#8217;s <tt class="docutils literal"><span class="pre">bundle</span> <span class="pre">ID</span></tt>).</p>
+(by default, this is your workflow&#8217;s <tt class="docutils literal"><span class="pre">bundle</span> <span class="pre">ID</span></tt>).</p>
 <p>Change your <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> script as follows to use Keychain instead of a JSON
 file to store your API key:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
@@ -706,7 +720,7 @@ file to store your API key:</p>
 <a class="reference internal" href="api/workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt></a> exception if the requested
 password isn&#8217;t in your Keychain, so we import <a class="reference internal" href="api/workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><tt class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></tt></a>
 and change <tt class="docutils literal"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">api_key:</span></tt> to a <tt class="docutils literal"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></tt> clause (lines 65–72).</p>
-<p>Try running your Workflow again. It will complain that you haven&#8217;t saved your
+<p>Try running your workflow again. It will complain that you haven&#8217;t saved your
 API key (it&#8217;s looking in Keychain now, not the settings), so set your API key
 once again, and you should be able to browse your recent posts in Alfred once more.</p>
 <p>And if you open <strong>Keychain Access</strong>, you&#8217;ll find the API key safely tucked away
@@ -714,13 +728,13 @@ in your Keychain:</p>
 <img alt="_images/screen24_keychain.png" src="_images/screen24_keychain.png" />
 <p>As a bonus, if you have multiple Macs and use iCloud Keychain, the API key will
 be seamlessly synced across machines, saving you the trouble of setting up the
-Workflow multiple times.</p>
+workflow multiple times.</p>
 </div>
 </div>
 <div class="section" id="magic-arguments">
 <h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>Now that the API key is stored in Keychain, we don&#8217;t need it saved in the
-Workflow&#8217;s settings any more (and having it there that kind of defeats the
+workflow&#8217;s settings any more (and having it there that kind of defeats the
 purpose of using Keychain). To get rid of it, we can use one of <strong>Alfred-Workflow</strong>&#8216;s
 &#8220;magic&#8221; arguments: <tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt>.</p>
 <p>Open up Alfred, and enter <tt class="docutils literal"><span class="pre">pbrecent</span> <span class="pre">workflow:delsettings</span></tt>. You should see the
@@ -728,16 +742,16 @@ following message:</p>
 <img alt="_images/screen25_magic.png" src="_images/screen25_magic.png" />
 <p><strong>Alfred-Workflow</strong> has recognised one of its &#8220;magic&#8221; arguments, performed
 the corresponding action, logged it to the log file, notified the user via
-Alfred and exited the Workflow.</p>
-<p>Magic arguments are designed to help coders develop and debug Workflows.</p>
-<p>See <a class="reference internal" href="quickref/magicargs.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> for more details.</p>
+Alfred and exited the workflow.</p>
+<p>Magic arguments are designed to help coders develop and debug workflows.</p>
+<p>See <a class="reference internal" href="user-manual/magicargs.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> for more details.</p>
 </div>
 <div class="section" id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
-<p>There&#8217;s a log, you say? Yup. There&#8217;s a <a class="reference external" href="http://docs.python.org/library/logging.html#logging.Logger" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></tt></a>
+<p>There&#8217;s a log, you say? Yup. There&#8217;s a <a class="reference external" href="http://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></tt></a>
 instance at <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></tt></a>
-configured to output to both the Terminal (in case you&#8217;re running your Workflow
-script in Terminal) and your Workflow&#8217;s log file. Normally, I use it like this:</p>
+configured to output to both the Terminal (in case you&#8217;re running your workflow
+script in Terminal) and your workflow&#8217;s log file. Normally, I use it like this:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -770,12 +784,12 @@ without having to pass the <a class="reference internal" href="api/workflow.html
 </div>
 <div class="section" id="spit-and-polish">
 <h2>Spit and polish<a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
-<p>So far, the Workflow&#8217;s looking pretty good. But there are still a few of things
+<p>So far, the workflow&#8217;s looking pretty good. But there are still a few of things
 that could be better. For one, it&#8217;s not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
 writing these tutorials). For another, it can be confusing if there are no results
-from a Workflow and Alfred shows its default Google/Amazon searches instead.
-Finally, the Workflow is unresponsive while updating
+from a workflow and Alfred shows its default Google/Amazon searches instead.
+Finally, the workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can&#8217;t be helped if we don&#8217;t have any
 posts cached, but apart from the very first run, we always will, so why don&#8217;t
 we show what we have and update in the background?</p>
@@ -787,7 +801,7 @@ we show what we have and update in the background?</p>
 action, but this one will just send the user to the Pinboard
 <a class="reference external" href="https://pinboard.in/settings/password">password settings page</a> where the API
 keys are kept.</p>
-<p>Go back to your Workflow in Alfred&#8217;s Preferences and add a new <strong>Keyword</strong> with
+<p>Go back to your workflow in Alfred&#8217;s Preferences and add a new <strong>Keyword</strong> with
 the following settings:</p>
 <img alt="_images/screen26_keyword2.png" src="_images/screen26_keyword2.png" />
 <p>Now when you type <tt class="docutils literal"><span class="pre">pbsetkey</span></tt> into Alfred, you should see two options:</p>
@@ -806,8 +820,8 @@ should open in your default browser.</p>
 <div class="section" id="notifying-the-user-if-there-are-no-results">
 <span id="no-results-warning"></span><h3>Notifying the user if there are no results<a class="headerlink" href="#notifying-the-user-if-there-are-no-results" title="Permalink to this headline">¶</a></h3>
 <p>Alfred&#8217;s default behaviour when a Script Filter returns no results is to show
-its fallback searches. This is also what it does if a Workflow crashes. So,
-the best thing to do when a user is explicitly using your Workflow is to
+its fallback searches. This is also what it does if a workflow crashes. So,
+the best thing to do when a user is explicitly using your workflow is to
 show a message indicating that no results were found.</p>
 <p>Change <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> to the following:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
@@ -1052,7 +1066,7 @@ going on.</p>
 </div>
 <div class="section" id="greased-lightning-background-updates">
 <span id="background-updates"></span><h3>Greased lightning: background updates<a class="headerlink" href="#greased-lightning-background-updates" title="Permalink to this headline">¶</a></h3>
-<p>All that remains is for our Workflow to provide the blazing fast results Alfred
+<p>All that remains is for our workflow to provide the blazing fast results Alfred
 users have come to expect. No waiting around for glacial web services for the
 likes of us. As long as we have some posts saved in the cache, we can show those
 while grabbing an updated list in the background (and notifying the user of
@@ -1060,33 +1074,33 @@ the update, of course).</p>
 <p>Now, there are a few different ways to start a background process. We could ask the user
 to set up a <tt class="docutils literal"><span class="pre">cron</span></tt> job, but <tt class="docutils literal"><span class="pre">cron</span></tt> isn&#8217;t the easiest software to use. We could
 add and load a <a class="reference external" href="http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd">Launch Agent</a>,
-but that&#8217;d run indefinitely, whether or not the Workflow is being used, and
-even if the Workflow were uninstalled. So we&#8217;d best start our background process
-from within the Workflow itself.</p>
-<p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process, but
-that doesn&#8217;t work quite as you might expect in Alfred: it treats your Workflow
+but that&#8217;d run indefinitely, whether or not the workflow is being used, and
+even if the workflow were uninstalled. So we&#8217;d best start our background process
+from within the workflow itself.</p>
+<p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process, but
+that doesn&#8217;t work quite as you might expect in Alfred: it treats your workflow
 as still running till the background process has finished, too, so it won&#8217;t call
-your Workflow with a new query till the update is done. Which is exactly what
+your workflow with a new query till the update is done. Which is exactly what
 happens now and the behaviour we want to avoid.</p>
 <p>Fortunately, <strong>Alfred-Workflow</strong> provides the <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module
 to solve this problem.</p>
 <p>Using the <a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
 and <a class="reference internal" href="api/background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> functions,
-we can easily run a script in the background while our Workflow remains
+we can easily run a script in the background while our workflow remains
 responsive to Alfred&#8217;s queries.</p>
 <p><strong>Alfred-Workflow</strong>&#8216;s <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module is based on, and uses
-the same API as <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but it runs the command as a background
+the same API as <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but it runs the command as a background
 process (consequently, it won&#8217;t return anything).
-So, our updater script will be called from our main Workflow script,
+So, our updater script will be called from our main workflow script,
 but <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will run it as a background process. This way,
-it will appear to exit immediately, so Alfred will keep on calling our Workflow
+it will appear to exit immediately, so Alfred will keep on calling our workflow
 every time the query changes.</p>
-<p>Meanwhile, our main Workflow script will check if the background updater is
+<p>Meanwhile, our main workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.</p>
 <p>Let&#8217;s have at it.</p>
 <div class="section" id="background-updater-script">
 <h4>Background updater script<a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
-<p>Create a new file in the Workflow root directory called <tt class="docutils literal"><span class="pre">update.py</span></tt> with these
+<p>Create a new file in the workflow root directory called <tt class="docutils literal"><span class="pre">update.py</span></tt> with these
 contents:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -1203,7 +1217,7 @@ error that <a class="reference internal" href="api/workflow.html#workflow.workfl
 will raise if the user hasn&#8217;t set their API key via Alfred yet. <tt class="docutils literal"><span class="pre">update.py</span></tt>
 can quietly die if no API key has been set because <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> takes care
 of notifying the user to set their API key.</p>
-<p>Let&#8217;s try out <tt class="docutils literal"><span class="pre">update.py</span></tt>. <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the Workflow root directory</a>
+<p>Let&#8217;s try out <tt class="docutils literal"><span class="pre">update.py</span></tt>. <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the workflow root directory</a>
 and run the following:</p>
 <div class="highlight-python"><div class="highlight"><pre>python update.py
 </pre></div>
@@ -1448,7 +1462,7 @@ is fresh with <a class="reference internal" href="api/workflow.html#workflow.wor
 and to run the <tt class="docutils literal"><span class="pre">update.py</span></tt> script via
 <a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
 if not (<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></tt></a>
-returns the full path to a file in the Workflow&#8217;s root directory).</p>
+returns the full path to a file in the workflow&#8217;s root directory).</p>
 <p>Then we check if the update process is running via
 <a class="reference internal" href="api/background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></tt></a> using the
 name we assigned to the process (<tt class="docutils literal"><span class="pre">update</span></tt>), and notify the user via Alfred&#8217;s
@@ -1478,8 +1492,8 @@ results. Cool, huh?</p>
 <div class="section" id="sharing-your-workflow">
 <h3>Sharing your Workflow<a class="headerlink" href="#sharing-your-workflow" title="Permalink to this headline">¶</a></h3>
 <p>Now you&#8217;ve produced a technical marvel, it&#8217;s time to tell the world and enjoy
-the well-earned plaudits. To build your Workflow, open it up in Alfred&#8217;s Preferences,
-right-click on the Workflow&#8217;s name in the list on the left-hand side, and choose
+the well-earned plaudits. To build your workflow, open it up in Alfred&#8217;s Preferences,
+right-click on the workflow&#8217;s name in the list on the left-hand side, and choose
 <strong>Export…</strong>. This will save a <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> file that you can share with
 other people. <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> files are just ZIP files with a different extension.
 If you want to have a poke around inside one, just change the extension to <tt class="docutils literal"><span class="pre">.zip</span></tt>
@@ -1487,13 +1501,13 @@ and extract it the normal way.</p>
 <p>And how do you share your Workflow with the world?</p>
 <p>There&#8217;s a <a class="reference external" href="http://www.alfredforum.com/forum/3-share-your-workflows/">Share your Workflows thread</a>
 on <a class="reference external" href="http://www.alfredforum.com/">the official Alfred forum</a>, but being a forum,
-it&#8217;s less than ideal as a directory for Workflows. Also, you&#8217;d need to find your own
-place to host your Workflow file (for which GitHub and Dropbox are both good choices).</p>
+it&#8217;s less than ideal as a directory for workflows. Also, you&#8217;d need to find your own
+place to host your workflow file (for which GitHub and Dropbox are both good choices).</p>
 <p>It&#8217;s a good idea to sign up for the Alfred forum and post a thread for your
-Workflow, but you might want to consider uploading it to <a class="reference external" href="http://www.packal.org/">Packal.org</a>,
-a site specifically designed for hosting Alfred Workflows. Your Workflow will
+workflow, but you might want to consider uploading it to <a class="reference external" href="http://www.packal.org/">Packal.org</a>,
+a site specifically designed for hosting Alfred workflows. Your workflow will
 be much easier to find on that site than in the forum, and they&#8217;ll also host
-the Workflow download for you.</p>
+the workflow download for you.</p>
 </div>
 </div>
 </div>
@@ -1504,7 +1518,7 @@ the Workflow download for you.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="user-manual/index.html" class="btn btn-neutral float-right" title="User Manual"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="tutorial_1.html" class="btn btn-neutral" title="Part 1: A Basic Pinboard Workflow"><span class="fa fa-arrow-circle-left"></span> Previous</a>

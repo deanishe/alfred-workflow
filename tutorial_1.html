@@ -36,7 +36,12 @@
         <link rel="next" title="Part 2: A Distribution-Ready Pinboard Workflow" href="tutorial_2.html"/>
         <link rel="prev" title="Tutorial" href="tutorial.html"/>
  
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
 <link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
@@ -70,17 +75,9 @@
         
         
             <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickref/index.html">Quick Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickref/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/thirdparty.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickref/text-encoding.html">A note on text encoding/decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
 </ul>
 </li>
 </ul>
@@ -92,19 +89,36 @@
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Text encoding/decoding</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="script_filter_results.html">Script Filter Results</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#xml-format">XML format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script_filter_results.html#item-parameters">Item parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#item-parameters">Item parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -145,28 +159,28 @@
             
   <div class="section" id="part-1-a-basic-pinboard-workflow">
 <span id="tutorial-1"></span><h1>Part 1: A Basic Pinboard Workflow<a class="headerlink" href="#part-1-a-basic-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
-<p>In which we build an Alfred Workflow to view recent posts to
+<p>In which we build an Alfred workflow to view recent posts to
 <a class="reference external" href="https://pinboard.in/">Pinboard.in</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To use Workflows, you must own Alfred&#8217;s
+<p class="last">To use workflows, you must own Alfred&#8217;s
 <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a>.</p>
 </div>
 <div class="section" id="creating-a-new-workflow">
 <h2>Creating a new Workflow<a class="headerlink" href="#creating-a-new-workflow" title="Permalink to this headline">¶</a></h2>
-<p>First, create a new, blank Workflow in Alfred 2&#8217;s Preferences, under the
+<p>First, create a new, blank workflow in Alfred 2&#8217;s Preferences, under the
 <strong>Workflows</strong> tab:</p>
 <img alt="_images/screen1_blank_workflow.png" src="_images/screen1_blank_workflow.png" />
 </div>
 <div class="section" id="describing-your-workflow">
 <h2>Describing your Workflow<a class="headerlink" href="#describing-your-workflow" title="Permalink to this headline">¶</a></h2>
-<p>When the info dialog pops up, give your Workflow a name, possibly a
+<p>When the info dialog pops up, give your workflow a name, possibly a
 description, and a <strong>Bundle Id</strong>.</p>
 <p>The <strong>Bundle Id</strong> is important: it&#8217;s the unique name used by Alfred and
 <strong>Alfred-Workflow</strong> internally to identify your workflow. The data caching
 features won&#8217;t work without it. You can also drag an image to the icon field
-to the left to make your Workflow pretty (Alfred will use this icon to show
-your Workflow actions in its action list). I grabbed a free Pinboard icon from
+to the left to make your workflow pretty (Alfred will use this icon to show
+your workflow actions in its action list). I grabbed a free Pinboard icon from
 <a class="reference external" href="http://www.iconarchive.com/show/simple-icons-by-danleech/pinboard-icon.html">here</a>.</p>
 <img alt="_images/screen2_workflow_info1.png" src="_images/screen2_workflow_info1.png" />
 </div>
@@ -180,12 +194,12 @@ every character typed into its query box:</p>
 <p>And enter the details for this action (the <strong>Escaping</strong> options don&#8217;t matter at
 the moment because our script currently doesn&#8217;t accept a query):</p>
 <img alt="_images/screen5_script_filter_details.png" src="_images/screen5_script_filter_details.png" />
-<p>Choose a <strong>Keyword</strong>, which you will enter in Alfred to activate your Workflow.
+<p>Choose a <strong>Keyword</strong>, which you will enter in Alfred to activate your workflow.
 At the moment, our Script Filter won&#8217;t take any arguments, so choose
 <strong>No Argument</strong>. The <strong>Placeholder Title</strong> and <strong>Subtext</strong> are what Alfred
 will show when you type the <strong>Keyword</strong>:</p>
 <img alt="_images/screen4_alfred_list.png" src="_images/screen4_alfred_list.png" />
-<p>The <strong>&#8220;Please Wait&#8221; Subtext</strong> is what is shown when your Workflow is working,
+<p>The <strong>&#8220;Please Wait&#8221; Subtext</strong> is what is shown when your workflow is working,
 which in our case means fetching data from pinboard.in.</p>
 <p>Very importantly, set the <strong>Language</strong> to <tt class="docutils literal"><span class="pre">/bin/bash</span></tt>.
 The <strong>Script</strong> field should contain:</p>
@@ -205,8 +219,8 @@ which makes debugging difficult: Python always tells you which line an error
 occurred on, but the <strong>Script</strong> field doesn&#8217;t show line numbers, so lots of
 counting is involved.</p>
 </div>
-<p>Now Alfred has created the Workflow, we can open it up and add our script.
-Right-click on your Workflow in the list on the left and choose
+<p>Now Alfred has created the workflow, we can open it up and add our script.
+Right-click on your workflow in the list on the left and choose
 <strong>Show in Finder</strong>.</p>
 <img alt="_images/screen6_show_in_finder.png" src="_images/screen6_show_in_finder.png" />
 <p>The directory will show one or two files (depending on whether or not you
@@ -214,7 +228,7 @@ chose an icon):</p>
 <img alt="_images/screen7_finder.png" src="_images/screen7_finder.png" />
 <p>At this point, download
 <a class="reference external" href="https://github.com/deanishe/alfred-workflow/archive/master.zip">the archive</a>
-from GitHub, extract it and copy the <strong>workflow</strong> subdirectory to your Workflow
+from GitHub, extract it and copy the <strong>workflow</strong> subdirectory to your workflow
 directory:</p>
 <img alt="_images/screen8_finder_with_workflow.png" src="_images/screen8_finder_with_workflow.png" />
 <p>Now we can start coding.</p>
@@ -222,7 +236,7 @@ directory:</p>
 <div class="section" id="writing-your-python-script">
 <span id="writing-script"></span><h2>Writing your Python script<a class="headerlink" href="#writing-your-python-script" title="Permalink to this headline">¶</a></h2>
 <p>Using your text editor of choice, create a new text file and save it in your
-Workflow directory as <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (the name we used when setting up the
+workflow directory as <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (the name we used when setting up the
 Script Filter).</p>
 <p>Add the following code to <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (be sure to change <tt class="docutils literal"><span class="pre">API_KEY</span></tt> to
 your pinboard API key. You can find it on the
@@ -298,21 +312,21 @@ your pinboard API key. You can find it on the
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p>All being well, our Workflow should now work. Fire up Alfred, enter your
+<p>All being well, our workflow should now work. Fire up Alfred, enter your
 keyword and hit <strong>ENTER</strong>. You should see something like this:</p>
 <img alt="_images/screen9_workflow_results.png" src="_images/screen9_workflow_results.png" />
 <p>If something went wrong (e.g. an incorrect API key, as in the screenshot),
 you should see an error like this:</p>
 <img alt="_images/screen10_workflow_error.png" src="_images/screen10_workflow_error.png" />
 <p>If Alfred shows nothing at all, it probably couldn&#8217;t run your Python script at
-all. You&#8217;ll have to <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">open the Workflow directory in Terminal</a>
+all. You&#8217;ll have to <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
 and run the script by hand to see the error:</p>
 <div class="highlight-python"><div class="highlight"><pre>python pinboard.py
 </pre></div>
 </div>
 </div>
 <div class="section" id="adding-workflow-actions">
-<h2>Adding Workflow actions<a class="headerlink" href="#adding-workflow-actions" title="Permalink to this headline">¶</a></h2>
+<h2>Adding workflow actions<a class="headerlink" href="#adding-workflow-actions" title="Permalink to this headline">¶</a></h2>
 <p>So now we can see a list of recent posts in Alfred, but can&#8217;t do anything with
 them. We&#8217;re going to change that and make the items &#8220;actionable&#8221; (i.e. you
 can hit <strong>ENTER</strong> on them and something happens, in this case, the page
@@ -404,14 +418,14 @@ appears on the right-hand side:</p>
 <img alt="_images/screen12_5_nub.png" src="_images/screen12_5_nub.png" />
 <p>Click and hold on this, and drag a connection to the <strong>Open URL</strong> action:</p>
 <img alt="_images/screen13_connection.png" src="_images/screen13_connection.png" />
-<p>Now run your Workflow again in Alfred, select one of the results and hit
+<p>Now run your workflow again in Alfred, select one of the results and hit
 <strong>ENTER</strong>. The post&#8217;s webpage should open in your default browser.</p>
 </div>
 <div class="section" id="improving-performance-and-not-getting-banned">
 <h2>Improving performance and not getting banned<a class="headerlink" href="#improving-performance-and-not-getting-banned" title="Permalink to this headline">¶</a></h2>
 <p>The terms of use of the Pinboard API specifically limit calls to the recent
 posts method to <a class="reference external" href="https://pinboard.in/api#limits">1 call/minute</a>. As it&#8217;s
-likely you&#8217;ll call your Workflow more often than that, we need to cache the
+likely you&#8217;ll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 <strong>Alfred-Workflow</strong> makes this a doddle with its
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> method.</p>
@@ -518,7 +532,7 @@ exist, it will call the <tt class="docutils literal"><span class="pre">get_recen
 parameter, cache the data returned by that function under the name <tt class="docutils literal"><span class="pre">posts</span></tt>
 and return it.</p>
 <p>So now we won&#8217;t get banned by Pinboard for hammering the API, and as a bonus,
-the Workflow is now <em>blazingly</em> fast when the data are in its cache. For this
+the workflow is now <em>blazingly</em> fast when the data are in its cache. For this
 reason, it&#8217;s probably a good idea to increase <tt class="docutils literal"><span class="pre">max_age</span></tt> to 300 or 600 seconds
 (5 or 10 minutes) or even more—depending on how often you add new posts
 to Pinboard—to get super-fast results more often.</p>
@@ -529,7 +543,7 @@ to Pinboard—to get super-fast results more often.</p>
 a list of 20 results? Let&#8217;s make them searchable.</p>
 <p>First, update the Script Filter settings. Next to <strong>Keyword</strong>, change
 <strong>No Argument</strong> to <strong>Argument Optional</strong> and select <strong>with space</strong>.
-<strong>with space</strong> means that when you hit <strong>ENTER</strong> or <strong>TAB</strong> on your Workflow
+<strong>with space</strong> means that when you hit <strong>ENTER</strong> or <strong>TAB</strong> on your workflow
 action, Alfred will add a space after it, so you can start typing your query
 immediately. Then add <tt class="docutils literal"><span class="pre">&quot;{query}&quot;</span></tt> in the <strong>Script</strong> text field. <tt class="docutils literal"><span class="pre">{query}</span></tt>
 will be replaced by Alfred with whatever you&#8217;ve typed after the keyword. Finally,
@@ -796,7 +810,7 @@ attribute of <a class="reference internal" href="api/workflow.html#workflow.work
 (this will be the contents of <tt class="docutils literal"><span class="pre">{query}</span></tt> from the Script Filter).</p>
 <p>Using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> is similar to accessing
 <tt class="docutils literal"><span class="pre">sys.argv[1:]</span></tt> directly, but additionally decodes the arguments to Unicode
-and normalises them. It also enables <a class="reference internal" href="quickref/magicargs.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>.</p>
+and normalises them. It also enables <a class="reference internal" href="user-manual/magicargs.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
 using the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> method
 if there is a <tt class="docutils literal"><span class="pre">query</span></tt> (lines 51–52).</p>
@@ -811,11 +825,11 @@ for each post, comprising its title, tags and description (in that order).</p>
 <tt class="docutils literal"><span class="pre">u'</span> <span class="pre">'</span></tt> (a Unicode space), not <tt class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></tt> (an ASCII space). The
 <a class="reference internal" href="api/web.html#workflow.web.Response.json" title="workflow.web.Response.json"><tt class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></tt></a> method returns
 Unicode (as do most <strong>Alfred-Workflow</strong> methods and functions), and if you
-used an ASCII space <tt class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></tt> (or any ASCII string), your Workflow would
+used an ASCII space <tt class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></tt> (or any ASCII string), your workflow would
 throw an error if any of the posts from Pinboard contained non-ASCII
 characters. This (text encoding) is something you must be aware of when
-developing Workflows in Python. Best practice is to use Unicode internally
-and decode all text to Unicode when it arrives in your Workflow (from the
+developing workflows in Python. Best practice is to use Unicode internally
+and decode all text to Unicode when it arrives in your workflow (from the
 Web, filesystem etc.). <strong>Alfred-Workflow</strong> uses Unicode internally and
 provides the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>
 method to help you properly decode encoded strings from other sources.</p>
@@ -835,7 +849,7 @@ create your <a class="reference internal" href="api/workflow.html#workflow.workf
 the <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt> argument.</p>
 <div class="section" id="improving-the-search-results">
 <h3>Improving the search results<a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
-<p>If you&#8217;ve been trying out the Workflow, you&#8217;ve probably noticed that your queries
+<p>If you&#8217;ve been trying out the workflow, you&#8217;ve probably noticed that your queries
 match a lot of posts they really shouldn&#8217;t. The reason for this is that,
 by default, <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> matches
 <em>anything</em> that contains all the characters of <tt class="docutils literal"><span class="pre">query</span></tt> in the same order,
@@ -848,22 +862,22 @@ regardless of case. To fix this, we&#8217;ll add a <tt class="docutils literal">
 <div class="highlight-python"><div class="highlight"><pre><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>and try the Workflow again. The junk results should be gone. You can adjust
+<p>and try the workflow again. The junk results should be gone. You can adjust
 <tt class="docutils literal"><span class="pre">min_score</span></tt> up or down depending on how strict you want to be with the results.</p>
 </div>
 </div>
 <div class="section" id="what-now">
 <h2>What now?<a class="headerlink" href="#what-now" title="Permalink to this headline">¶</a></h2>
-<p>So we&#8217;ve got a working Workflow, but it&#8217;s not yet ready to be distributed to
+<p>So we&#8217;ve got a working workflow, but it&#8217;s not yet ready to be distributed to
 other users (we can&#8217;t reasonably ask users to edit the code to enter their
-API key). We&#8217;ll turn what we&#8217;ve got into a distribution-ready Workflow in the
+API key). We&#8217;ll turn what we&#8217;ve got into a distribution-ready workflow in the
 <a class="reference internal" href="tutorial_2.html#tutorial-2"><em>second part of the tutorial</em></a>.</p>
 <div class="section" id="further-reading">
 <h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
-<p>For more information about writing Alfred Workflows, try the following:</p>
+<p>For more information about writing Alfred workflows, try the following:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446">A good tutorial on Alfred Workflows for beginners</a>  by <a class="reference external" href="http://customct.com/">Richard Guay</a></li>
-<li><a class="reference external" href="http://www.alfredforum.com/">The Alfred Forum</a>. It&#8217;s a good place to find Workflows and the <a class="reference external" href="http://www.alfredforum.com/forum/13-workflow-help-questions/">Workflow Help &amp; Questions</a> forum is the best place to get help with writing Workflows.</li>
+<li><a class="reference external" href="http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446">A good tutorial on Alfred workflows for beginners</a>  by <a class="reference external" href="http://customct.com/">Richard Guay</a></li>
+<li><a class="reference external" href="http://www.alfredforum.com/">The Alfred Forum</a>. It&#8217;s a good place to find workflows and the <a class="reference external" href="http://www.alfredforum.com/forum/13-workflow-help-questions/">Workflow Help &amp; Questions</a> forum is the best place to get help with writing workflows.</li>
 </ul>
 <p>To learn more about coding in Python, try these resources:</p>
 <ul class="simple">

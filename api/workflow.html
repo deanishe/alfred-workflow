@@ -32,11 +32,16 @@
 
   
     <link rel="top" title="Alfred-Workflow 1.8.9 documentation" href="../index.html"/>
-        <link rel="up" title="API" href="index.html"/>
+        <link rel="up" title="API Docs" href="index.html"/>
         <link rel="next" title="Fetching Data from the Web" href="web.html"/>
-        <link rel="prev" title="API" href="index.html"/>
+        <link rel="prev" title="API Docs" href="index.html"/>
  
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
 <link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
@@ -70,17 +75,9 @@
         
         
             <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickref/index.html">Quick Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/thirdparty.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickref/text-encoding.html">A note on text encoding/decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
 </ul>
 </li>
 </ul>
@@ -91,20 +88,37 @@
 </ul>
 </li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Text encoding/decoding</a></li>
+</ul>
+</li>
+</ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Docs</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">The Workflow Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../script_filter_results.html">Script Filter Results</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#xml-format">XML format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#item-parameters">Item parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
 </ul>
 </li>
 </ul>
@@ -130,7 +144,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">API</a> &raquo;</li>
+          <li><a href="index.html">API Docs</a> &raquo;</li>
       
     <li>The Workflow Object</li>
       <li class="wy-breadcrumbs-aside">
@@ -146,23 +160,30 @@
   <div class="section" id="module-workflow">
 <span id="the-workflow-object"></span><span id="workflow"></span><h1>The Workflow Object<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-workflow.workflow"></span><p>The <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> object is the main interface to this library.</p>
+<p>See <a class="reference internal" href="../user-manual/setup.html#setup"><em>Workflow setup and skeleton</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for an example of how to set
+up your Python script to best utilise the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> object.</p>
 <dl class="class">
 <dt id="workflow.workflow.Workflow">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Workflow</tt><big>(</big><em>default_settings=None</em>, <em>input_encoding=u'utf-8'</em>, <em>normalization=u'NFC'</em>, <em>capture_args=True</em>, <em>libraries=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">Workflow</tt><big>(</big><em>default_settings=None</em>, <em>update_settings=None</em>, <em>input_encoding=u'utf-8'</em>, <em>normalization=u'NFC'</em>, <em>capture_args=True</em>, <em>libraries=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create new <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>default_settings</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>) &#8211; default workflow settings. If no settings file
+<li><strong>default_settings</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>) &#8211; default workflow settings. If no settings file
 exists, <a class="reference internal" href="#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-class docutils literal"><span class="pre">Workflow.settings</span></tt></a> will be pre-populated with
 <tt class="docutils literal"><span class="pre">default_settings</span></tt>.</li>
+<li><strong>update_settings</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>) &#8211; settings for updating your workflow from GitHub.
+This must be a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that contains <tt class="docutils literal"><span class="pre">github_slug</span></tt> and
+<tt class="docutils literal"><span class="pre">version</span></tt> keys. <tt class="docutils literal"><span class="pre">github_slug</span></tt> is of the form <tt class="docutils literal"><span class="pre">username/repo</span></tt>
+and <tt class="docutils literal"><span class="pre">version</span></tt> <strong>must</strong> correspond to the tag of a release.
+See <a class="reference internal" href="update.html#updates"><em>Self-Updating</em></a> for more information.</li>
 <li><strong>input_encoding</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>) &#8211; encoding of command line arguments</li>
 <li><strong>normalization</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>) &#8211; normalisation to apply to CLI args.
 See <a class="reference internal" href="#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for more details.</li>
 <li><strong>capture_args</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Boolean</span></tt>) &#8211; capture and act on <tt class="docutils literal"><span class="pre">workflow:*</span></tt> arguments. See
-<a class="reference internal" href="../quickref/magicargs.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
+<a class="reference internal" href="../user-manual/magicargs.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
 <li><strong>libraries</strong> (<tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt>) &#8211; sequence of paths to directories containing
 libraries. These paths will be prepended to <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 </ul>
@@ -212,10 +233,10 @@ CMD+C on item.</li>
 </tr>
 </tbody>
 </table>
-<p>See the <a class="reference internal" href="../script_filter_results.html#script-filter-results"><em>Script Filter Results</em></a> section of the documentation
+<p>See the <a class="reference internal" href="../xml_format.html#script-filter-results"><em>Script Filter Results and the XML Format</em></a> section of the documentation
 for a detailed description of what the various parameters do and how
 they interact with one another.</p>
-<p>See <a class="reference internal" href="../quickref/icons.html#icons"><em>System icons</em></a> for a list of the supported system icons.</p>
+<p>See <a class="reference internal" href="../user-manual/icons.html#icons"><em>System icons</em></a> for a list of the supported system icons.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Although this method returns an <tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt> instance, you don&#8217;t
@@ -316,10 +337,11 @@ format <tt class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></tt><
 <p>The encoding and normalisation are the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> and
 <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments passed to <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (<tt class="docutils literal"><span class="pre">UTF-8</span></tt>
 and <tt class="docutils literal"><span class="pre">NFC</span></tt> are the defaults).</p>
-<p>If <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> is called with <tt class="docutils literal"><span class="pre">capture_args=True</span></tt> (the default),
-<a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will look for certain <tt class="docutils literal"><span class="pre">workflow:*</span></tt> args and, if
-found, perform the corresponding actions and exit the workflow.</p>
-<p>See <a class="reference internal" href="../quickref/magicargs.html#magic-arguments"><em>Magic arguments</em></a> for details.</p>
+<p>If <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> is called with <tt class="docutils literal"><span class="pre">capture_args=True</span></tt>
+(the default), <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will look for certain
+<tt class="docutils literal"><span class="pre">workflow:*</span></tt> args and, if found, perform the corresponding
+actions and exit the workflow.</p>
+<p>See <a class="reference internal" href="../user-manual/magicargs.html#magic-arguments"><em>Magic arguments</em></a> for details.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -349,7 +371,7 @@ found, perform the corresponding actions and exit the workflow.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of datastore</li>
-<li><strong>data</strong> (any object supported by <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>) &#8211; data to store</li>
+<li><strong>data</strong> (any object supported by <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>) &#8211; data to store</li>
 </ul>
 </td>
 </tr>
@@ -489,21 +511,40 @@ cache doesn&#8217;t exist</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="workflow.workflow.Workflow.check_update">
+<tt class="descname">check_update</tt><big>(</big><em>force=False</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.check_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if it&#8217;s time to update and call update script if it is.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.9.</span></p>
+</div>
+<p>See <a class="reference internal" href="../user-manual/update.html#manual-updates"><em>Self-Updating</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for detailed
+information on how to enable your workflow to update itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>force</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; Force update check</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="workflow.workflow.Workflow.clear_cache">
 <tt class="descname">clear_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all files in workflow cache directory.</p>
+<dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_data">
 <tt class="descname">clear_data</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all files in workflow data directory.</p>
+<dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_settings">
 <tt class="descname">clear_settings</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete settings file.</p>
+<dd><p>Delete workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings_path</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -593,10 +634,10 @@ Unicode.</li>
 </table>
 <p><a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> uses &#8220;NFC&#8221; normalisation by default. This is the
 standard for Python and will work well with data from the web (via
-<a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a> or <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>).</p>
+<a class="reference internal" href="web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a> or <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>).</p>
 <p>OS X, on the other hand, uses &#8220;NFD&#8221; normalisation (nearly), so data
-coming from the system (e.g. via <a class="reference external" href="http://docs.python.org/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> or
-<a class="reference external" href="http://docs.python.org/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a>/<a class="reference external" href="http://docs.python.org/library/os.path.html#module-os.path" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">os.path</span></tt></a>) may not match. You should either
+coming from the system (e.g. via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> or
+<a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a>/<a class="reference external" href="http://docs.python.org/2.7/library/os.path.html#module-os.path" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">os.path</span></tt></a>) may not match. You should either
 normalise this data, too, or change the default normalisation used by
 <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>.</p>
 </dd></dl>
@@ -624,7 +665,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10ec01398&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1053e5488&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -640,8 +681,9 @@ a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</sp
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>query</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; query to test items against</li>
 <li><strong>items</strong> (<tt class="docutils literal"><span class="pre">list</span></tt> or <tt class="docutils literal"><span class="pre">tuple</span></tt>) &#8211; iterable of items to test</li>
-<li><strong>key</strong> (<tt class="docutils literal"><span class="pre">callable</span></tt>) &#8211; function to get comparison key from <tt class="docutils literal"><span class="pre">items</span></tt>. Must return a
-<tt class="docutils literal"><span class="pre">unicode</span></tt> string. The default simply returns the item.</li>
+<li><strong>key</strong> (<tt class="docutils literal"><span class="pre">callable</span></tt>) &#8211; function to get comparison key from <tt class="docutils literal"><span class="pre">items</span></tt>.
+Must return a <tt class="docutils literal"><span class="pre">unicode</span></tt> string. The default simply returns
+the item.</li>
 <li><strong>ascending</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; set to <tt class="docutils literal"><span class="pre">True</span></tt> to get worst matches first</li>
 <li><strong>include_score</strong> (<tt class="docutils literal"><span class="pre">Boolean</span></tt>) &#8211; Useful for debugging the scoring algorithm.
 If <tt class="docutils literal"><span class="pre">True</span></tt>, results will be a list of tuples
@@ -757,7 +799,7 @@ bundle ID</li>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.info">
 <tt class="descname">info</tt><a class="headerlink" href="#workflow.workflow.Workflow.info" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> of <tt class="docutils literal"><span class="pre">info.plist</span></tt> contents.</p>
+<dd><p><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> of <tt class="docutils literal"><span class="pre">info.plist</span></tt> contents.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -786,14 +828,13 @@ bundle ID</li>
 <dt id="workflow.workflow.Workflow.logger">
 <tt class="descname">logger</tt><a class="headerlink" href="#workflow.workflow.Workflow.logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a logger that logs to both console and
-a log file. Use <cite>~Workflow.openlog</cite> to open the log file in Console.</p>
+a log file.</p>
+<p>Use <a class="reference internal" href="#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a> to open the log file in Console.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">an initialised logger</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><cite>~logging.Logger</cite> instance</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">an initialised <a class="reference external" href="http://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">Logger</span></tt></a></td>
 </tr>
 </tbody>
 </table>
@@ -818,37 +859,39 @@ a log file. Use <cite>~Workflow.openlog</cite> to open the log file in Console.<
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_cachedir">
 <tt class="descname">open_cachedir</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.open_cachedir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow cache directory in Finder.</p>
+<dd><p>Open the workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a> in Finder.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_datadir">
 <tt class="descname">open_datadir</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.open_datadir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow data directory in Finder.</p>
+<dd><p>Open the workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a> in Finder.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_log">
 <tt class="descname">open_log</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.open_log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open log file in standard application (usually Console.app).</p>
+<dd><p>Open workflows <a class="reference internal" href="#workflow.workflow.Workflow.logfile" title="workflow.workflow.Workflow.logfile"><tt class="xref py py-attr docutils literal"><span class="pre">logfile</span></tt></a> in standard
+application (usually Console.app).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_terminal">
 <tt class="descname">open_terminal</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.open_terminal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open a Terminal window at workflow directory.</p>
+<dd><p>Open a Terminal window at workflow&#8217;s <tt class="xref py py-attr docutils literal"><span class="pre">directory</span> <span class="pre">&lt;workflowdir</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_workflowdir">
 <tt class="descname">open_workflowdir</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.open_workflowdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow directory in Finder.</p>
+<dd><p>Open the workflow&#8217;s <tt class="xref py py-attr docutils literal"><span class="pre">directory</span> <span class="pre">&lt;workflowdir</span></tt> in Finder.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.reset">
 <tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete settings, cache and data</p>
+<dd><p>Delete <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a>, <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cache</span></tt></a>
+and <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">data</span></tt></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -874,9 +917,10 @@ output to Alfred.</p>
 <dt id="workflow.workflow.Workflow.save_password">
 <tt class="descname">save_password</tt><big>(</big><em>account</em>, <em>password</em>, <em>service=None</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.save_password" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save account credentials.</p>
-<p>If the account exists, the old password will first be deleted (Keychain
-throws an error otherwise).</p>
-<p>If something goes wrong, a <cite>KeychainError</cite> exception will be raised.</p>
+<p>If the account exists, the old password will first be deleted
+(Keychain throws an error otherwise).</p>
+<p>If something goes wrong, a <a class="reference internal" href="#workflow.workflow.KeychainError" title="workflow.workflow.KeychainError"><tt class="xref py py-class docutils literal"><span class="pre">KeychainError</span></tt></a> exception will
+be raised.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -885,8 +929,8 @@ throws an error otherwise).</p>
 <li><strong>account</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of the account the password is for, e.g.
 &#8220;Pinboard&#8221;</li>
 <li><strong>password</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; the password to secure</li>
-<li><strong>service</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Name of the service. By default, this is the workflow&#8217;s
-bundle ID</li>
+<li><strong>service</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; Name of the service. By default, this is the
+workflow&#8217;s bundle ID</li>
 </ul>
 </td>
 </tr>
@@ -904,13 +948,18 @@ bundle ID</li>
 <dt id="workflow.workflow.Workflow.settings">
 <tt class="descname">settings</tt><a class="headerlink" href="#workflow.workflow.Workflow.settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dictionary subclass that saves itself when changed.</p>
+<p>See <a class="reference internal" href="../user-manual/persistent-data.html#manual-settings"><em>Settings</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for more
+information on how to use <a class="reference internal" href="#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">settings</span></tt></a> and <strong>important
+limitations</strong> on what it can do.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt> instance initialised from the data
-in JSON file at <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings_path</span></tt></a> or if that doesn&#8217;t exist,
-with the <tt class="docutils literal"><span class="pre">default_settings</span></tt> <tt class="docutils literal"><span class="pre">dict</span></tt> passed to <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt> instance
+initialised from the data in JSON file at
+<a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><tt class="xref py py-attr docutils literal"><span class="pre">settings_path</span></tt></a> or if that doesn&#8217;t exist, with the
+<tt class="docutils literal"><span class="pre">default_settings</span></tt> <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> passed to
+<a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt> instance</td>
 </tr>
@@ -929,6 +978,26 @@ with the <tt class="docutils literal"><span class="pre">default_settings</span><
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">path to <tt class="docutils literal"><span class="pre">settings.json</span></tt> file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">unicode</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow.Workflow.start_update">
+<tt class="descname">start_update</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.start_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for update and download and install new workflow file</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.9.</span></p>
+</div>
+<p>See <a class="reference internal" href="../user-manual/update.html#manual-updates"><em>Self-Updating</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for detailed
+information on how to enable your workflow to update itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if an update is available and will be
+installed, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
 </tr>
 </tbody>
 </table>
@@ -981,6 +1050,25 @@ is no data stored.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="workflow.workflow.Workflow.update_available">
+<tt class="descname">update_available</tt><a class="headerlink" href="#workflow.workflow.Workflow.update_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is an update available?</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.9.</span></p>
+</div>
+<p>See <a class="reference internal" href="../user-manual/update.html#manual-updates"><em>Self-Updating</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for detailed
+information on how to enable your workflow to update itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if an update is available, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="workflow.workflow.Workflow.workflowdir">
 <tt class="descname">workflowdir</tt><a class="headerlink" href="#workflow.workflow.Workflow.workflowdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</p>
@@ -1022,7 +1110,7 @@ is no data stored.</p>
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">KeychainError</tt><a class="headerlink" href="#workflow.workflow.KeychainError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised by methods <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></tt></a>,
 <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></tt></a> and <a class="reference internal" href="#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.delete_password()</span></tt></a>
-when <tt class="docutils literal"><span class="pre">security</span></tt> CLI app returns an unknown code.</p>
+when <tt class="docutils literal"><span class="pre">security</span></tt> CLI app returns an unknown error code.</p>
 </dd></dl>
 
 <dl class="class">
@@ -1036,27 +1124,28 @@ is unknown to the Keychain.</p>
 <dt id="workflow.workflow.PasswordExists">
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PasswordExists</tt><a class="headerlink" href="#workflow.workflow.PasswordExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised when trying to overwrite an existing account password.</p>
-<p>The API user should never receive this error: it is used internally
-by the <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></tt></a> method.</p>
+<p>You should never receive this error: it is used internally
+by the <a class="reference internal" href="#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></tt></a> method to know if it needs
+to delete the old password first (a Keychain implementation detail).</p>
 </dd></dl>
 
 </div>
 <div class="section" id="serialization">
 <span id="serialization-api"></span><h1>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> has
-<a class="reference internal" href="../quickref/persistent-data.html#persistent-data"><em>several methods for storing persistent data</em></a> to your
+<a class="reference internal" href="../user-manual/persistent-data.html#persistent-data"><em>several methods for storing persistent data</em></a> to your
 workflow&#8217;s data and cache directories. By default these are stored as Python
-<a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> objects (using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a>)
-(with the file extension <tt class="docutils literal"><span class="pre">.pickle</span></tt>).</p>
+<a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> objects (using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a>)
+(with the file extension <tt class="docutils literal"><span class="pre">.cpickle</span></tt>).</p>
 <p>You may, however, want to serialize your data in a different format, e.g. JSON,
 to make it user-readable/-editable or to interface with other software.</p>
-<p>To set the default serializer for cached data,
-set <a class="reference internal" href="#workflow.workflow.Workflow.cache_serializer" title="workflow.workflow.Workflow.cache_serializer"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.cache_serializer</span></tt></a>, and to set the default
+<p>To set the default serializer for cached data, set
+<a class="reference internal" href="#workflow.workflow.Workflow.cache_serializer" title="workflow.workflow.Workflow.cache_serializer"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.cache_serializer</span></tt></a>, and to set the default
 serializer for stored data, set <a class="reference internal" href="#workflow.workflow.Workflow.data_serializer" title="workflow.workflow.Workflow.data_serializer"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.data_serializer</span></tt></a>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Be careful using <tt class="docutils literal"><span class="pre">json</span></tt>: JSON only supports a subset of Python&#8217;s
-native data types (e.g., no <tt class="docutils literal"><span class="pre">tuple</span></tt> or <a class="reference external" href="http://docs.python.org/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a>).</p>
+native data types (e.g., no <tt class="docutils literal"><span class="pre">tuple</span></tt> or <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a>).</p>
 </div>
 <p>There are 3 pre-configured serializers:
 <a class="reference internal" href="#workflow.workflow.JSONSerializer" title="workflow.workflow.JSONSerializer"><tt class="xref py py-class docutils literal"><span class="pre">json</span></tt></a>,
@@ -1066,7 +1155,7 @@ native data types (e.g., no <tt class="docutils literal"><span class="pre">tuple
 is very fast and can handle most Python objects.</p>
 <p>If you need custom pickling behaviour, use the
 <a class="reference internal" href="#workflow.workflow.PickleSerializer" title="workflow.workflow.PickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">pickle</span></tt></a> serializer instead.</p>
-<p>See the built-in <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>, <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>
+<p>See the built-in <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>, <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>
 libraries for more information on the serialization formats.</p>
 <div class="section" id="adding-your-own-serializer">
 <h2>Adding your own serializer<a class="headerlink" href="#adding-your-own-serializer" title="Permalink to this headline">¶</a></h2>
@@ -1074,7 +1163,7 @@ libraries for more information on the serialization formats.</p>
 configured instance of <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> at
 <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>, e.g. <tt class="docutils literal"><span class="pre">from</span> <span class="pre">workflow</span> <span class="pre">import</span> <span class="pre">manager</span></tt>.</p>
 <p>A <tt class="docutils literal"><span class="pre">serializer</span></tt> object must have <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt> methods that work
-the same way as in the built-in <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> libraries, i.e.:</p>
+the same way as in the built-in <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> libraries, i.e.:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -1124,7 +1213,7 @@ for temporary and easily regenerated data.</p>
 <p>Stored data is stored in the Workflow&#8217;s data directory, which is intended
 for data that is user-generated or not easily recreated.</p>
 <p>The default serializer for both cached and stored data is <tt class="docutils literal"><span class="pre">cpickle</span></tt>.</p>
-<p>For more information, see <a class="reference internal" href="../quickref/persistent-data.html#persistent-data"><em>Persistent data</em></a>.</p>
+<p>For more information, see <a class="reference internal" href="../user-manual/persistent-data.html#persistent-data"><em>Persistent data</em></a>.</p>
 </div>
 <div class="section" id="serialization-classes">
 <h2>Serialization classes<a class="headerlink" href="#serialization-classes" title="Permalink to this headline">¶</a></h2>
@@ -1210,7 +1299,7 @@ serializer.</p>
 <dl class="class">
 <dt id="workflow.workflow.JSONSerializer">
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">JSONSerializer</tt><a class="headerlink" href="#workflow.workflow.JSONSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">indent</span></tt> and <tt class="docutils literal"><span class="pre">encoding</span></tt>.</p>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">indent</span></tt> and <tt class="docutils literal"><span class="pre">encoding</span></tt>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -1264,7 +1353,7 @@ careful which data you try to serialize as JSON.</p>
 <dl class="class">
 <dt id="workflow.workflow.CPickleSerializer">
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">CPickleSerializer</tt><a class="headerlink" href="#workflow.workflow.CPickleSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -1317,7 +1406,7 @@ flexibility.</p>
 <dl class="class">
 <dt id="workflow.workflow.PickleSerializer">
 <em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PickleSerializer</tt><a class="headerlink" href="#workflow.workflow.PickleSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -1378,7 +1467,7 @@ flexibility.</p>
         <a href="web.html" class="btn btn-neutral float-right" title="Fetching Data from the Web"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="API"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="API Docs"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

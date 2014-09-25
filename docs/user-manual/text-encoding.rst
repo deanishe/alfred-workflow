@@ -22,7 +22,10 @@ will return normalised Unicode. You can specify the encoding and normalisation
 form with the ``input_encoding`` and ``normalization`` arguments to
 :class:`Workflow <workflow.workflow.Workflow>` or with the ``encoding`` and
 ``normalization`` arguments to
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`
+:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`. Generally,
+you shouldn't need to change the default encoding of UTF-8, which is what
+OS X uses, but you may need to alter the normalisation depending on where
+your workflow gets its data from.
 
 
 .. tip::

@@ -22,8 +22,9 @@ OS X icons via ``ICON_*`` constants for use when generating Alfred feedback:
 List of icons
 -------------
 
-These are all the icons accessible in :mod:`~workflow.workflow`. They (and more) can
-be found in ``/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/``.
+These are all the icons accessible in :mod:`~workflow.workflow`. They (and
+more) can be found in
+``/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/``.
 
 +-------------------+----------------------------------------+
 | Name              | Preview                                |
@@ -68,4 +69,6 @@ be found in ``/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/`
 +-------------------+----------------------------------------+
 
 If you'd like other standard OS X icons to be added, please
-`add an issue on GitHub <https://github.com/deanishe/alfred-workflow/issues>`_.
+`add an issue on GitHub`_.
+
+.. _add an issue on GitHub: https://github.com/deanishe/alfred-workflow/issues

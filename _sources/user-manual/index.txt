@@ -7,7 +7,7 @@ User Manual
 
 This section describes how to use the features of **Alfred-Python**.
 
-If you're new to writing Workflows or coding in general, start with the
+If you're new to writing workflows or coding in general, start with the
 :ref:`Tutorial <tutorial>`.
 
 
@@ -15,13 +15,13 @@ If you're new to writing Workflows or coding in general, start with the
    :maxdepth: 3
 
    setup
-   thirdparty
+   third-party
    persistent-data
    filtering
    web
    background
    update
-   serialization
    icons
-   magicargs
+   magic-args
+   serialization
    text-encoding

@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>System icons &mdash; Alfred-Workflow 1.9 documentation</title>
+  <title>Including 3rd party libraries &mdash; Alfred-Workflow 1.9 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
   
     <link rel="top" title="Alfred-Workflow 1.9 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="“Magic” arguments" href="magic-args.html"/>
-        <link rel="prev" title="Self-Updating" href="update.html"/>
+        <link rel="next" title="Persistent data" href="persistent-data.html"/>
+        <link rel="prev" title="Workflow setup and skeleton" href="setup.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
@@ -91,13 +91,13 @@ the _static path in each subdirectory -->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
@@ -147,10 +147,10 @@ the _static path in each subdirectory -->
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>System icons</li>
+    <li>Including 3rd party libraries</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/user-manual/icons.txt" rel="nofollow"> View page source</a>
+          <a href="../_sources/user-manual/third-party.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -158,117 +158,65 @@ the _static path in each subdirectory -->
 </div>
           <div role="main">
             
-  <div class="section" id="system-icons">
-<span id="icons"></span><h1>System icons<a class="headerlink" href="#system-icons" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="../api/workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a> module provides access to a number of default
-OS X icons via <tt class="docutils literal"><span class="pre">ICON_*</span></tt> constants for use when generating Alfred feedback:</p>
+  <div class="section" id="including-3rd-party-libraries">
+<span id="thirdparty"></span><h1>Including 3rd party libraries<a class="headerlink" href="#including-3rd-party-libraries" title="Permalink to this headline">¶</a></h1>
+<p>It&#8217;s a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
+in the OS X system Python. Alfred-Workflow makes it easy to include them in
+your Workflow.</p>
+<p>Simply create a <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory under your Workflow&#8217;s root directory
+and install your dependencies there. You can call the directory whatever you
+want, but in the following explanation, I&#8217;ll assume you used <tt class="docutils literal"><span class="pre">lib</span></tt>.</p>
+<p>To install libraries in your dependencies directory, use:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install --target<span class="o">=</span>path/to/my/workflow/lib python-lib-name
+</pre></div>
+</div>
+<p>The path you pass as the <tt class="docutils literal"><span class="pre">--target</span></tt> argument should be the path to
+the directory under your Workflow&#8217;s root directory in which you want to install
+your libraries. <tt class="docutils literal"><span class="pre">python-lib-name</span></tt> should be the &#8220;pip name&#8221; (i.e. the name the
+library has on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>) of the library you want
+to install, e.g. <tt class="docutils literal"><span class="pre">requests</span></tt> or <tt class="docutils literal"><span class="pre">feedparser</span></tt>.</p>
+<p>This name is usually, but not always, the same as the name you use with <tt class="docutils literal"><span class="pre">import</span></tt>.</p>
+<p>For example, to install Alfred-Workflow, you would run
+<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></tt> but use <tt class="docutils literal"><span class="pre">import</span> <span class="pre">workflow</span></tt> to import it.</p>
+<p><strong>An example:</strong> You&#8217;re in a shell in Terminal.app in the Workflow&#8217;s root directory
+and you&#8217;re using <tt class="docutils literal"><span class="pre">lib</span></tt> as the directory for your Python libraries. You want to
+install <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>. You would run:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install --target<span class="o">=</span>lib requests
+</pre></div>
+</div>
+<p>This will install the <tt class="docutils literal"><span class="pre">requests</span></tt> library into the <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory of the
+current working directory.</p>
+<p>Then you instantiate <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
+with the <tt class="docutils literal"><span class="pre">libraries</span></tt> argument:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;For your information&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">requests</span>  <span class="c"># Imported from ./lib</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;./lib&#39;</span><span class="p">])</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<div class="section" id="list-of-icons">
-<span id="icon-list"></span><h2>List of icons<a class="headerlink" href="#list-of-icons" title="Permalink to this headline">¶</a></h2>
-<p>These are all the icons accessible in <a class="reference internal" href="../api/workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a>. They (and
-more) can be found in
-<tt class="docutils literal"><span class="pre">/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/</span></tt>.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="32%" />
-<col width="68%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Preview</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ACCOUNT</span></tt></td>
-<td><img alt="../_images/ICON_ACCOUNT.png" class="first last" src="../_images/ICON_ACCOUNT.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_BURN</span></tt></td>
-<td><img alt="../_images/ICON_BURN.png" class="first last" src="../_images/ICON_BURN.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_COLOR</span></tt></td>
-<td><img alt="../_images/ICON_COLOR.png" class="first last" src="../_images/ICON_COLOR.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_COLOUR</span></tt></td>
-<td><img alt="../_images/ICON_COLOUR.png" class="first last" src="../_images/ICON_COLOUR.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ERROR</span></tt></td>
-<td><img alt="../_images/ICON_ERROR.png" class="first last" src="../_images/ICON_ERROR.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_FAVORITE</span></tt></td>
-<td><img alt="../_images/ICON_FAVORITE.png" class="first last" src="../_images/ICON_FAVORITE.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_FAVOURITE</span></tt></td>
-<td><img alt="../_images/ICON_FAVOURITE.png" class="first last" src="../_images/ICON_FAVOURITE.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_GROUP</span></tt></td>
-<td><img alt="../_images/ICON_GROUP.png" class="first last" src="../_images/ICON_GROUP.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_HELP</span></tt></td>
-<td><img alt="../_images/ICON_HELP.png" class="first last" src="../_images/ICON_HELP.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_INFO</span></tt></td>
-<td><img alt="../_images/ICON_INFO.png" class="first last" src="../_images/ICON_INFO.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_MUSIC</span></tt></td>
-<td><img alt="../_images/ICON_MUSIC.png" class="first last" src="../_images/ICON_MUSIC.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_NETWORK</span></tt></td>
-<td><img alt="../_images/ICON_NETWORK.png" class="first last" src="../_images/ICON_NETWORK.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_NOTE</span></tt></td>
-<td><img alt="../_images/ICON_NOTE.png" class="first last" src="../_images/ICON_NOTE.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_SETTINGS</span></tt></td>
-<td><img alt="../_images/ICON_SETTINGS.png" class="first last" src="../_images/ICON_SETTINGS.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_SYNC</span></tt></td>
-<td><img alt="../_images/ICON_SYNC.png" class="first last" src="../_images/ICON_SYNC.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_TRASH</span></tt></td>
-<td><img alt="../_images/ICON_TRASH.png" class="first last" src="../_images/ICON_TRASH.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_USER</span></tt></td>
-<td><img alt="../_images/ICON_USER.png" class="first last" src="../_images/ICON_USER.png" />
-</td>
-</tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_WARNING</span></tt></td>
-<td><img alt="../_images/ICON_WARNING.png" class="first last" src="../_images/ICON_WARNING.png" />
-</td>
-</tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_WEB</span></tt></td>
-<td><img alt="../_images/ICON_WEB.png" class="first last" src="../_images/ICON_WEB.png" />
-</td>
-</tr>
-</tbody>
-</table>
-<p>If you&#8217;d like other standard OS X icons to be added, please
-<a class="reference external" href="https://github.com/deanishe/alfred-workflow/issues">add an issue on GitHub</a>.</p>
+<p>When using this feature you <strong>do not</strong> need to create an <tt class="docutils literal"><span class="pre">__init__.py</span></tt> file in
+the <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory. <tt class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></tt> and creating
+<tt class="docutils literal"><span class="pre">./lib/__init__.py</span></tt> are effectively equal alternatives.</p>
+<p>Instead of using <tt class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></tt>, you can add an empty
+<tt class="docutils literal"><span class="pre">__init__.py</span></tt> file to your <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory and import the libraries
+installed therein using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lib</span> <span class="kn">import</span> <span class="n">requests</span>
+</pre></div>
+</div>
+<p>instead of simply:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
 </div>
 </div>
 
@@ -278,10 +226,10 @@ more) can be found in
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="magic-args.html" class="btn btn-neutral float-right" title="“Magic” arguments"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="persistent-data.html" class="btn btn-neutral float-right" title="Persistent data"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="update.html" class="btn btn-neutral" title="Self-Updating"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral" title="Workflow setup and skeleton"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -90,26 +90,27 @@ the _static path in each subdirectory -->
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -157,7 +158,7 @@ the _static path in each subdirectory -->
   <div class="section" id="tutorial">
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <p>This is a two-part tutorial on writing an Alfred 2 workflow with
-<strong>Alfred-Workflow</strong>, taking you through the basics to a full-featured workflow
+Alfred-Workflow, taking you through the basics to a full-featured workflow
 ready to share with the world.</p>
 <div class="section" id="part-1-a-basic-pinboard-workflow">
 <h2>Part 1: A Basic Pinboard Workflow<a class="headerlink" href="#part-1-a-basic-pinboard-workflow" title="Permalink to this headline">¶</a></h2>
@@ -173,8 +174,14 @@ ready to share with the world.</p>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#writing-your-python-script">Writing your Python script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#adding-workflow-actions">Adding workflow actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#improving-performance-and-not-getting-banned">Improving performance and not getting banned</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#making-the-posts-searchable">Making the posts searchable</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#what-now">What now?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#making-the-posts-searchable">Making the posts searchable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_1.html#improving-the-search-results">Improving the search results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#what-now">What now?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_1.html#further-reading">Further reading</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -184,18 +191,30 @@ ready to share with the world.</p>
 <h2>Part 2: A Distribution-Ready Pinboard Workflow<a class="headerlink" href="#part-2-a-distribution-ready-pinboard-workflow" title="Permalink to this headline">¶</a></h2>
 <p>In which we make our <a class="reference external" href="https://pinboard.in/">Pinboard</a> workflow ready for
 the masses.</p>
-<p>Demonstrates more advanced usage of <strong>Alfred-Workflow</strong> and a few workflow
+<p>Demonstrates more advanced usage of Alfred-Workflow and a few workflow
 tricks that might also be of interest to intermediate Pythonistas.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Part 2: A Distribution-Ready Pinboard Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#multi-step-actions">Multi-step actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#saving-settings">Saving settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#saving-settings">Saving settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#saving-settings-securely">Saving settings securely</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#logging">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#spit-and-polish">Spit and polish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#the-fruits-of-your-labour">The fruits of your labour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#spit-and-polish">Spit and polish</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#two-actions-one-keyword">Two actions, one keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#notifying-the-user-if-there-are-no-results">Notifying the user if there are no results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#greased-lightning-background-updates">Greased lightning: background updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#the-fruits-of-your-labour">The fruits of your labour</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#sharing-your-workflow">Sharing your workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial_2.html#updating-your-workflow">Updating your workflow</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -5,7 +5,7 @@
 Installation
 ============
 
-**Alfred-Workflow** can be installed from the `Python Package Index`_ with
+Alfred-Workflow can be installed from the `Python Package Index`_ with
 `pip`_ or from the source code on `GitHub`_.
 
 
@@ -14,7 +14,7 @@ Installation
 pip / PyPi
 ----------
 
-You can install **Alfred-Workflow** directly into your workflow with::
+You can install Alfred-Workflow directly into your workflow with::
 
     pip install --target=/path/to/my/workflow Alfred-Workflow
 
@@ -22,7 +22,7 @@ You can install **Alfred-Workflow** directly into your workflow with::
 .. important::
 
     If you intend to distribute your workflow to other users, you should
-    include **Alfred-Workflow** (and other non-standard Python libraries your
+    include Alfred-Workflow (and other non-standard Python libraries your
     workflow requires) within your workflow as described above. **Do not** ask
     users to install anything into their system Python. That way lies broken
     software.
@@ -41,7 +41,7 @@ scripts.
 .. important::
 
     :mod:`~workflow.background` and :mod:`~workflow.update` *will not work*
-    if you are importing **Alfred-Workflow** from a zip file.
+    if you are importing Alfred-Workflow from a zip file.
 
     If you need to use :mod:`~workflow.background` or the self-updating
     functionality, you *must* extract the zip archive.

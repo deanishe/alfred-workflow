@@ -89,26 +89,27 @@ the _static path in each subdirectory -->
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -155,18 +156,19 @@ the _static path in each subdirectory -->
             
   <div class="section" id="overview">
 <span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p><strong>Alfred-Workflow</strong> is a Python helper library for
+<p>Alfred-Workflow is a Python helper library for
 <a class="reference external" href="http://www.alfredapp.com/">Alfred 2</a> workflow authors, developed and hosted
 on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/">GitHub</a>.</p>
 <p>Alfred workflows typically take user input, fetch data from the Web or
-elsewhere, filter them and display results to the user. <strong>Alfred-Workflow</strong>
+elsewhere, filter them and display results to the user. Alfred-Workflow
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow&#8217;s functionality.</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Catches and logs workflow errors for easier development and support</li>
-<li><a class="reference internal" href="user-manual/magicargs.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> to help development/debugging</li>
+<li><a class="reference internal" href="user-manual/magic-args.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> to help development, debugging and
+management of the workflow</li>
 <li><a class="reference internal" href="user-manual/persistent-data.html#manual-settings"><em>Auto-saves settings</em></a></li>
 <li>Super-simple <a class="reference internal" href="user-manual/persistent-data.html#caching-data"><em>data caching</em></a></li>
 <li>Fuzzy, <a class="reference internal" href="user-manual/filtering.html#filtering"><em>Alfred-like search/filtering</em></a> with
@@ -180,8 +182,8 @@ passwords, API keys etc.</li>
 <li>Painlessly add directories to <tt class="docutils literal"><span class="pre">sys.path</span></tt></li>
 <li>Easily launch <a class="reference internal" href="user-manual/background.html#background-processes"><em>background tasks</em></a> (daemons) to
 keep your workflow responsive</li>
-<li><a class="reference internal" href="user-manual/update.html#manual-updates"><em>Check for new versions</em></a> and update workflows hosted on
-GitHub.</li>
+<li><a class="reference internal" href="user-manual/update.html#manual-updates"><em>Check for and install new workflow versions</em></a> using
+GitHub releases.</li>
 </ul>
 </div>
 <div class="section" id="quick-example">
@@ -241,7 +243,7 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p><strong>Alfred-Workflow</strong> can be installed from the <a class="reference external" href="https://pypi.python.org/pypi/Alfred-Workflow">Python Package Index</a> with
+<p>Alfred-Workflow can be installed from the <a class="reference external" href="https://pypi.python.org/pypi/Alfred-Workflow">Python Package Index</a> with
 <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> or from the source on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/">GitHub</a>.</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -255,11 +257,11 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 </div>
 <div class="section" id="the-alfred-workflow-tutorial">
 <h2>The Alfred-Workflow Tutorial<a class="headerlink" href="#the-alfred-workflow-tutorial" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference internal" href="tutorial.html#tutorial"><em>two-part tutorial</em></a> on writing an Alfred workflow
-with <strong>Alfred-Workflow</strong>, taking you through the basics to a full-featured
-workflow. This is the best starting point for workflow authors new to Python
-or programming in general. More experienced Python coders should skim this
-or skip straight ahead to the <a class="reference internal" href="user-manual/index.html#user-manual"><em>User Manual</em></a>.</p>
+<p>A <a class="reference internal" href="tutorial.html#tutorial"><em>two-part tutorial</em></a> on writing an Alfred workflow with
+Alfred-Workflow, taking you through the basics to a performant and release-
+ready workflow. This is the best starting point for workflow authors new to
+Python or programming in general. More experienced Python coders should skim
+this or skip straight ahead to the <a class="reference internal" href="user-manual/index.html#user-manual"><em>User Manual</em></a>.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
@@ -273,20 +275,20 @@ or skip straight ahead to the <a class="reference internal" href="user-manual/in
 <div class="section" id="user-manual">
 <h2>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h2>
 <p>If you know your way around Python and Alfred, here&#8217;s an overview of what
-<strong>Alfred-Workflow</strong> can do and how to do it.</p>
+Alfred-Workflow can do and how to do it.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
@@ -295,28 +297,34 @@ or skip straight ahead to the <a class="reference internal" href="user-manual/in
 </div>
 <div class="section" id="api-documentation">
 <h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
-<p>Documetation of the <strong>Alfred-Workflow</strong> APIs generated from the source code.
+<p>Documetation of the Alfred-Workflow APIs generated from the source code.
 A handy reference if (like me) you sometimes forget parameter names.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
 </div>
+</div>
 <div class="section" id="script-filter-results-and-the-xml-format">
-<h3>Script Filter results and the XML format<a class="headerlink" href="#script-filter-results-and-the-xml-format" title="Permalink to this headline">¶</a></h3>
-<p>An in-depth look at the many parameters accepted by
+<h2>Script Filter results and the XML format<a class="headerlink" href="#script-filter-results-and-the-xml-format" title="Permalink to this headline">¶</a></h2>
+<p>An in-depth look at Alfred&#8217;s XML format, the many parameters accepted by
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a>
 and how they interact with one another.</p>
-<p>This should also serve as a decent reference to Alfred&#8217;s XML format for folks
-who aren&#8217;t using <strong>Alfred-Workflow</strong>. The official Alfred 2 documentation is
-scattered, incomplete, out-of-date, and in places, simply incorrect.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This should also serve as a decent reference to Alfred&#8217;s XML format for
+folks who aren&#8217;t using Alfred-Workflow. Unfortunately, the official Alfred
+2 documentation is scattered, incomplete, out-of-date and, in places,
+simply incorrect.</p>
+</div>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
@@ -340,13 +348,15 @@ scattered, incomplete, out-of-date, and in places, simply incorrect.</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
+<div class="section" id="feedback-questions-bugs-feature-requests">
+<h2>Feedback, questions, bugs, feature requests<a class="headerlink" href="#feedback-questions-bugs-feature-requests" title="Permalink to this headline">¶</a></h2>
+<p>If you have feedback or a question regarding Alfred-Workflow, please post in
+them in the <a class="reference external" href="http://www.alfredforum.com/topic/4031-workflow-library-for-python/">Alfred forum thread</a>.</p>
+<p>If you have a bug report or a feature request, please create a new
+<a class="reference external" href="https://github.com/deanishe/alfred-workflow/issues">issue on GitHub</a>.</p>
+<p>You can also email me at <a class="reference external" href="mailto:deanishe&#37;&#52;&#48;deanishe&#46;net">deanishe<span>&#64;</span>deanishe<span>&#46;</span>net</a> with any questions/feedback/bug
+reports. However, it&#8217;s generally better to use the forum/GitHub so that other
+users can benefit from and contribute to the conversation.</p>
 </div>
 </div>
 

@@ -33,7 +33,7 @@
   
     <link rel="top" title="Alfred-Workflow 1.9 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Serialization" href="serialization.html"/>
+        <link rel="next" title="System icons" href="icons.html"/>
         <link rel="prev" title="Background processes" href="background.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
@@ -91,26 +91,27 @@ the _static path in each subdirectory -->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -173,14 +174,14 @@ the worklow you&#8217;re working on and lose all your changes!</p>
 <p>If you&#8217;re working on a workflow, it&#8217;s a good idea to make sure you increase
 the version number <em>before</em> you start making any changes.</p>
 <p class="last">See <a class="reference internal" href="#version-numbers"><em>Version numbers</em></a> for precise information on how
-<strong>Alfred-Workflow</strong> determines whether a workflow has been updated.</p>
+Alfred-Workflow determines whether a workflow has been updated.</p>
 </div>
 <p>Currently, only updates from <a class="reference external" href="https://help.github.com/categories/85/articles">GitHub releases</a> are supported.</p>
 <p>For your workflow to be able to recognise and download newer versions, the
 <tt class="docutils literal"><span class="pre">version</span></tt> value you pass to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> <strong>should</strong>
 be one of the versions (i.e. tags) in the corresponding GitHub repo&#8217;s
 releases list. See <a class="reference internal" href="#version-numbers"><em>Version numbers</em></a> for more information.</p>
-<p>There must also be one (and only one) <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> binary attached to a
+<p>There must be one (and only one) <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> binary attached to a
 release otherwise it will be ignored. This is the file that will be downloaded
 and installed via Alfred&#8217;s default installation mechanism.</p>
 <p>To use this feature, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> as the <tt class="docutils literal"><span class="pre">update_settings</span></tt>
@@ -189,7 +190,7 @@ keys/values <tt class="docutils literal"><span class="pre">github_slug</span></t
 workflow&#8217;s repo in the format <tt class="docutils literal"><span class="pre">username/reponame</span></tt>, and <tt class="docutils literal"><span class="pre">version</span></tt>, which
 is the release version (release tag) of the currently installed version
 of the workflow, e.g.:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python" id="update-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -230,17 +231,23 @@ of the workflow, e.g.:</p>
 </td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><strong>Alfred-Workflow</strong> will automatically check in the background if a newer
+<p class="last">Alfred-Workflow will automatically check in the background if a newer
 version of your workflow is available, but will <em>not</em> automatically inform
 the     user nor download and install the update.</p>
 </div>
 <p>To view update status/install a newer version, the user must either
 call one of your workflow&#8217;s Script Filters with the <tt class="docutils literal"><span class="pre">workflow:update</span></tt>
-<a class="reference internal" href="magicargs.html#magic-arguments"><em>magic argument</em></a>, in which case <strong>Alfred-Workflow</strong>
+<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic argument</em></a>, in which case Alfred-Workflow
 will handle the update automatically, or you must add your own update action
 using <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
 and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></tt></a>
 to check for and install newer versions respectively.</p>
+<p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><tt class="xref py py-meth docutils literal"><span class="pre">check_update()</span></tt></a> method is called
+automatically when you create a <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">workflow.workflow.Workflow</span></tt></a> object. If
+sufficient time has elapsed since the last check (1 day by default), it starts
+a background process that checks for new releases. You can alter the update
+interval with the optional <tt class="docutils literal"><span class="pre">frequency</span></tt> key in <tt class="docutils literal"><span class="pre">update_settings</span></tt>
+<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> (see the <a class="reference internal" href="#update-example"><em>example above</em></a>).</p>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
 is <tt class="docutils literal"><span class="pre">True</span></tt> if an update is available, and <tt class="docutils literal"><span class="pre">False</span></tt> otherwise.</p>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></tt></a>
@@ -253,7 +260,7 @@ It caches information on the latest available release under the cache key
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>.</p>
 <div class="section" id="version-numbers">
 <span id="id1"></span><h2>Version numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
-<p>Currently, <strong>Alfred-Workflow</strong> is not particularly smart when it comes to
+<p>Currently, Alfred-Workflow is not particularly smart when it comes to
 version numbers. This may change in the future but will require imposing a
 specific format for version numbers on workflow authors. If that does happen,
 it will be <a class="reference external" href="http://semver.org/">semantic versioning</a>, which you should probably be using anyway.</p>
@@ -261,11 +268,11 @@ it will be <a class="reference external" href="http://semver.org/">semantic vers
 preceded by <tt class="docutils literal"><span class="pre">v</span></tt>, e.g. <tt class="docutils literal"><span class="pre">v1.0</span></tt>, <tt class="docutils literal"><span class="pre">v2.3.1</span></tt> etc., whereas the <em>de-facto</em> way
 to version Python libraries is to do the same, but without the preceding <tt class="docutils literal"><span class="pre">v</span></tt>,
 e.g. <tt class="docutils literal"><span class="pre">1.0</span></tt>, <tt class="docutils literal"><span class="pre">2.3.1</span></tt> etc.</p>
-<p>As a result, <strong>Alfred-Workflow</strong> will strip a preceding <tt class="docutils literal"><span class="pre">v</span></tt> from both local
+<p>As a result, Alfred-Workflow will strip a preceding <tt class="docutils literal"><span class="pre">v</span></tt> from both local
 and remote versions (i.e. you can specify <tt class="docutils literal"><span class="pre">1.0</span></tt> or <tt class="docutils literal"><span class="pre">v1.0</span></tt> either or both
 in your Python code and GitHub releases).</p>
 <p>When this is done, if the latest GitHub version is not the same as the local
-version, <strong>Alfred-Workflow</strong> will consider the remote version to be an update.
+version, Alfred-Workflow will consider the remote version to be an update.
 <strong>No further comparison of versions takes place</strong>.</p>
 <p>Thus, calling <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with
 <tt class="docutils literal"><span class="pre">update_settings={'version':</span> <span class="pre">'1.2',</span> <span class="pre">...}</span></tt> or
@@ -285,7 +292,7 @@ with <tt class="docutils literal"><span class="pre">v</span></tt>, the GitHub ve
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="serialization.html" class="btn btn-neutral float-right" title="Serialization"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="icons.html" class="btn btn-neutral float-right" title="System icons"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="background.html" class="btn btn-neutral" title="Background processes"><span class="fa fa-arrow-circle-left"></span> Previous</a>

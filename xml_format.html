@@ -32,7 +32,7 @@
 
   
     <link rel="top" title="Alfred-Workflow 1.9 documentation" href="index.html"/>
-        <link rel="prev" title="Self-Updating" href="api/update.html"/>
+        <link rel="prev" title="Serialization" href="api/serialization.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
@@ -89,26 +89,27 @@ the _static path in each subdirectory -->
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -158,10 +159,10 @@ the _static path in each subdirectory -->
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This document is valid as of version 2.5 of Alfred and 1.8.5 of
-<strong>Alfred-Workflow</strong>.</p>
+Alfred-Workflow.</p>
 </div>
 <p>Alfred&#8217;s Script Filters are its most powerful workflow API and a main focus
-of <strong>Alfred-Workflow</strong>. Script Filters work by receiving a <tt class="docutils literal"><span class="pre">{query}</span></tt> from
+of Alfred-Workflow. Script Filters work by receiving a <tt class="docutils literal"><span class="pre">{query}</span></tt> from
 Alfred and returning a list of results as XML.</p>
 <p>To build this list of results use the
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a>
@@ -181,7 +182,7 @@ will break the XML, and Alfred will show no results.</p>
 <span id="xml-format"></span><h2>XML format / available parameters<a class="headerlink" href="#xml-format-available-parameters" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If you&#8217;re not using <strong>Alfred-Workflow</strong> to generate your Script Filter&#8217;s
+<p class="last">If you&#8217;re not using Alfred-Workflow to generate your Script Filter&#8217;s
 output, you should use a real XML library to do so. XML is a lot more
 finicky that it looks, and it&#8217;s fairly easy to create invalid XML. Unless
 your XML is hard-coded (i.e. never changes), it&#8217;s much safer and more
@@ -227,12 +228,12 @@ be as pretty as it will all be on one line).</p>
 </td></tr></table></div>
 <p>The first line is the standard XML declaration. If you&#8217;re generating your own
 XML, you should probably use a declaration exactly as shown here and
-ensure your XML is encoded as UTF-8 text. If you&#8217;re using <strong>Alfred-Workflow</strong>,
+ensure your XML is encoded as UTF-8 text. If you&#8217;re using Alfred-Workflow,
 the XML declaration will be generated for you and it will ensure that the
 XML output is UTF-8-encoded.</p>
 <p>The root element <strong>must</strong> be <tt class="docutils literal"><span class="pre">&lt;items&gt;</span></tt> (lines 2 and 16).</p>
 <p>The <tt class="docutils literal"><span class="pre">&lt;items&gt;</span></tt> element contains one or more <tt class="docutils literal"><span class="pre">&lt;item&gt;</span></tt> elements.</p>
-<p>To generate the above XML with <strong>Alfred-Workflow</strong> you would use:</p>
+<p>To generate the above XML with Alfred-Workflow you would use:</p>
 <div class="highlight-python" id="code-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -349,7 +350,7 @@ selected and the user presses one of the modifier keys (<tt class="docutils lite
 <p>These are specified in the XML file as additional <tt class="docutils literal"><span class="pre">&lt;subtitle&gt;</span></tt> elements with
 <tt class="docutils literal"><span class="pre">mod=&quot;&lt;key&gt;&quot;</span></tt> attributes (see lines 6–10 in the
 <a class="reference internal" href="#xml-example"><em>example XML</em></a>).</p>
-<p>In <strong>Alfred-Workflow</strong>, you can set modifier-specific subtitles with the
+<p>In Alfred-Workflow, you can set modifier-specific subtitles with the
 <tt class="docutils literal"><span class="pre">modifier_subtitles</span></tt> argument to
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a>, which must
 be a dictionary with some or all of the keys <tt class="docutils literal"><span class="pre">alt</span></tt>, <tt class="docutils literal"><span class="pre">cmd</span></tt>, <tt class="docutils literal"><span class="pre">ctrl</span></tt>,
@@ -545,7 +546,7 @@ by running <tt class="docutils literal"><span class="pre">mdls</span> <span clas
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="api/update.html" class="btn btn-neutral" title="Self-Updating"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="api/serialization.html" class="btn btn-neutral" title="Serialization"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

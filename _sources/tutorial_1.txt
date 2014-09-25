@@ -5,8 +5,7 @@
 Part 1: A Basic Pinboard Workflow
 =================================
 
-In which we build an Alfred workflow to view recent posts to
-`Pinboard.in <https://pinboard.in/>`_.
+In which we build an Alfred workflow to view recent posts to `Pinboard.in`_.
 
 .. note::
 
@@ -24,15 +23,18 @@ First, create a new, blank workflow in Alfred 2's Preferences, under the
 Describing your Workflow
 ========================
 
-When the info dialog pops up, give your workflow a name, possibly a
-description, and a **Bundle Id**.
+When the info dialog pops up, give your workflow a name, a **Bundle Id**,
+and possibly a description.
 
-The **Bundle Id** is important: it's the unique name used by Alfred and
-**Alfred-Workflow** internally to identify your workflow. The data caching
-features won't work without it. You can also drag an image to the icon field
-to the left to make your workflow pretty (Alfred will use this icon to show
-your workflow actions in its action list). I grabbed a free Pinboard icon from
-`here <http://www.iconarchive.com/show/simple-icons-by-danleech/pinboard-icon.html>`_.
+.. important::
+
+    The **Bundle Id** is essential: it's the unique name used by Alfred and
+    Alfred-Workflow internally to identify your workflow. Alfred-Workflow
+    won't work without it.
+
+You can also drag an image to the icon field to the left to make your workflow
+pretty (Alfred will use this icon to show your workflow actions in its action
+list). I grabbed a `free Pinboard icon`_.
 
 .. image:: _static/screen2_workflow_info1.png
 
@@ -76,11 +78,11 @@ argument.
     You *can* choose ``/usr/bin/python`` as the **Language** and paste
     your Python code into the **Script** box, but this isn't the best idea.
 
-    If you do this, you can't run the script from the Terminal (which can be helpful
-    when developing/debugging), and you can't as easily use a proper code editor,
-    which makes debugging difficult: Python always tells you which line an error
-    occurred on, but the **Script** field doesn't show line numbers, so lots of
-    counting is involved.
+    If you do this, you can't run the script from the Terminal (which can be
+    helpful when developing/debugging), and you can't as easily use a proper
+    code editor, which makes debugging difficult: Python always tells you which
+    line an error occurred on, but the **Script** field doesn't show line
+    numbers, so lots of counting is involved.
 
 
 Now Alfred has created the workflow, we can open it up and add our script.
@@ -94,10 +96,8 @@ chose an icon):
 
 .. image:: _static/screen7_finder.png
 
-At this point, download
-`the archive <https://github.com/deanishe/alfred-workflow/archive/master.zip>`_
-from GitHub, extract it and copy the **workflow** subdirectory to your workflow
-directory:
+At this point, download `the latest release of Alfred-Workflow`_ from GitHub,
+extract it and copy the ``workflow`` directory into your workflow's directory:
 
 .. image:: _static/screen8_finder_with_workflow.png
 
@@ -114,8 +114,7 @@ workflow directory as ``pinboard.py`` (the name we used when setting up the
 Script Filter).
 
 Add the following code to ``pinboard.py`` (be sure to change ``API_KEY`` to
-your pinboard API key. You can find it on the
-`settings/password page <https://pinboard.in/settings/password>`_):
+your pinboard API key. You can find it on the `settings/password page`_):
 
 .. code-block:: python
    :linenos:
@@ -257,7 +256,7 @@ The terms of use of the Pinboard API specifically limit calls to the recent
 posts method to `1 call/minute <https://pinboard.in/api#limits>`_. As it's
 likely you'll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
-**Alfred-Workflow** makes this a doddle with its
+Alfred-Workflow makes this a doddle with its
 :meth:`~workflow.workflow.Workflow.cached_data` method.
 
 Go back to ``pinboard.py`` and make the following changes:
@@ -502,7 +501,7 @@ attribute of :class:`~workflow.workflow.Workflow`, and grab the first one if the
 
 Using :attr:`~workflow.workflow.Workflow.args` is similar to accessing
 ``sys.argv[1:]`` directly, but additionally decodes the arguments to Unicode
-and normalises them. It also enables :ref:`magic-arguments`.
+and normalizes them. It also enables :ref:`magic-arguments`.
 
 After getting all the posts from the cache or Pinboard, we then filter them
 using the :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` method
@@ -514,35 +513,30 @@ as "I Am Legend"), but it needs a string to search. Therefore, we write the
 ``search_key_for_post()`` (line 29) function that will build a searchable string
 for each post, comprising its title, tags and description (in that order).
 
-.. note::
+.. important::
 
     In the last line of ``search_key_for_post()``, we join the elements with
-    ``u' '`` (a Unicode space), not ``' '`` (an ASCII space). The
+    ``u' '`` (a Unicode space), not ``' '`` (a byte-string space). The
     :meth:`web.Response.json() <workflow.web.Response.json>` method returns
-    Unicode (as do most **Alfred-Workflow** methods and functions), and if you
-    used an ASCII space ``' '`` (or any ASCII string), your workflow would
-    throw an error if any of the posts from Pinboard contained non-ASCII
-    characters. This (text encoding) is something you must be aware of when
-    developing workflows in Python. Best practice is to use Unicode internally
-    and decode all text to Unicode when it arrives in your workflow (from the
-    Web, filesystem etc.). **Alfred-Workflow** uses Unicode internally and
-    provides the :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`
-    method to help you properly decode encoded strings from other sources.
+    Unicode (as do most Alfred-Workflow methods and functions), and mixing
+    Unicode and byte-strings will cause a fatal error if the byte-string
+    contains non-ASCII characters. In this particular situation, using a
+    byte-string space wouldn't cause any problems (a space is ASCII), but
+    avoiding mixing byte-strings and Unicode is a very good habit to get into.
 
-In addition to decoding encoded strings to Unicode, 
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` also normalises
-the Unicode string. This can be important as Unicode text from OS X, e.g. the
-filesystem, is ``NFD``-normalised, while Unicode text from Python libraries or
-source files are ``NFC``-normalised. In practice, this means that "fübar" from
-a JSON file or in the source code won't match "fübar" from the filesystem unless
-you process data from the filesystem with
-:meth:`Workflow.decode() <workflow.workflow.Workflow.decode>`.
+    When coding in Python 2, you have to be aware of which strings are Unicode
+    and which are encoded  (byte) strings. Best practice is to use Unicode
+    internally and decode all text to Unicode when it arrives in your workflow
+    (from the Web, system etc.).
 
-By default, :class:`Workflow <workflow.workflow.Workflow>` uses ``NFC`` decoding,
-on the assumption that incoming data will be from the web via Python's ``json``
-library or similar. If your workflow works with data from the system, you should
-create your :class:`Workflow <workflow.workflow.Workflow>` object with
-the ``normalization='NFD'`` argument.
+    Alfred-Workflow's APIs use Unicode and works hard to hide as much of
+    the complexity of working with byte-strings and Unicode as possible, but
+    you still need to manually decode encoded byte-strings from other sources
+    with :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` to avoid
+    fatal encoding errors.
+
+    See :ref:`text-encoding` in the :ref:`user-manual` for more information on
+    dealing with encoded (byte) strings and Unicode in workflows.
 
 
 Improving the search results
@@ -573,20 +567,39 @@ What now?
 =========
 
 So we've got a working workflow, but it's not yet ready to be distributed to
-other users (we can't reasonably ask users to edit the code to enter their
-API key). We'll turn what we've got into a distribution-ready workflow in the
-:ref:`second part of the tutorial <tutorial_2>`.
+other users (we can't reasonably ask users to edit the code to enter their API
+key, especially as they'd have to do it again after updating the workflow to a
+new version). We'll turn what we've got into a distribution-ready workflow in
+the :ref:`second part of the tutorial <tutorial_2>`.
 
 Further reading
 ---------------
 
 For more information about writing Alfred workflows, try the following:
 
-- `A good tutorial on Alfred workflows for beginners <http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446>`_  by `Richard Guay <http://customct.com/>`_
-- `The Alfred Forum <http://www.alfredforum.com/>`_. It's a good place to find workflows and the `Workflow Help & Questions <http://www.alfredforum.com/forum/13-workflow-help-questions/>`_ forum is the best place to get help with writing workflows.
+- `A good tutorial on Alfred workflows for beginners`_ by `Richard Guay`_
+- `The Alfred Forum`_. It's a good place to find workflows and the
+  `Workflow Help & Questions forum`_ forum is the best place to get help with
+  writing workflows.
 
 To learn more about coding in Python, try these resources:
 
-- `The Python Tutorial <http://docs.python.org/2/tutorial/>`_ is a good place to start learning (more) about Python programming.
-- `Dive into Python <http://www.diveintopython.net/toc/index.html>`_ by the dearly departed (from the Web) Mark Pilgrim is a wonderful (and free) book.
-- `Learn Python the Hard Way <http://learnpythonthehardway.org/book/>`_ isn't as hard as it sounds. It's actually rather excellent, in fact.
+- `The Python Tutorial`_ is a good place to start learning (more) about Python
+  programming.
+- `Dive into Python`_ by the dearly departed (from the Web) Mark Pilgrim is
+  a wonderful (and free) book.
+- `Learn Python the Hard Way`_ isn't as hard as it sounds. It's actually
+  rather excellent, in fact.
+
+
+.. _Pinboard.in: https://pinboard.in/
+.. _free Pinboard icon: http://www.iconarchive.com/show/simple-icons-by-danleech/pinboard-icon.html
+.. _settings/password page: https://pinboard.in/settings/password
+.. _the latest release of Alfred-Workflow: https://github.com/deanishe/alfred-workflow/releases/latest
+.. _A good tutorial on Alfred workflows for beginners: http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446
+.. _Richard Guay: http://customct.com/
+.. _The Alfred Forum: http://www.alfredforum.com/
+.. _Workflow Help & Questions forum: http://www.alfredforum.com/forum/13-workflow-help-questions/
+.. _The Python Tutorial: http://docs.python.org/2/tutorial/
+.. _Dive into Python: http://www.diveintopython.net/toc/index.html
+.. _Learn Python the Hard Way: http://learnpythonthehardway.org/book/

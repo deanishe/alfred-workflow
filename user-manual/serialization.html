@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Serialization &mdash; Alfred-Workflow 1.9 documentation</title>
+  <title>Serialization of stored/cached data &mdash; Alfred-Workflow 1.9 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
   
     <link rel="top" title="Alfred-Workflow 1.9 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="System icons" href="icons.html"/>
-        <link rel="prev" title="Self-Updating" href="update.html"/>
+        <link rel="next" title="Encoded strings and Unicode" href="text-encoding.html"/>
+        <link rel="prev" title="“Magic” arguments" href="magic-args.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
@@ -91,26 +91,27 @@ the _static path in each subdirectory -->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +147,7 @@ the _static path in each subdirectory -->
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>Serialization</li>
+    <li>Serialization of stored/cached data</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="../_sources/user-manual/serialization.txt" rel="nofollow"> View page source</a>
@@ -157,21 +158,31 @@ the _static path in each subdirectory -->
 </div>
           <div role="main">
             
-  <div class="section" id="serialization">
-<span id="id1"></span><h1>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-workflow">
+<span id="serialization-of-stored-cached-data"></span><span id="manual-serialization"></span><h1>Serialization of stored/cached data<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <p>By default, both cache and data files (created using the APIs described in
-<a class="reference internal" href="persistent-data.html#caching-data"><em>Caching data</em></a>) are cached using <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This provides a great
+<em class="xref std std-ref">persistent-data</em>) are cached using <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This provides a great
 compromise in terms of speed and the ability to store arbitrary objects.</p>
-<p>When it comes to cache data, it is <em>strongly recommended</em> to stick with
-the default. <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is <em>very</em> fast and fully supports standard Python
+<p>When changing or specifying a serializer, use the name under which the
+serializer is registered with the <a class="reference internal" href="#managing-serializers"><em>workflow.manager</em></a>
+object.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>When it comes to cache data, it is <em>strongly recommended</em> to stick with the
+default. <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is <em>very</em> fast and fully supports standard Python
 data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>, <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">set</span></tt> etc.).</p>
-<p>If you need the ability to customise caching, you can change the default
-cache serialization format to <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
+<p>If you really must customise the cache data format, you can change the
+default cache serialization format to <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 <span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
 </pre></div>
 </td></tr></table></div>
+<p class="last">Unlike the stored data API, the cached data API can&#8217;t determine the format
+of the cached data. If you change the serializer without clearing the
+cache, errors will probably result as the serializer tries to load data
+in a foreign format.</p>
+</div>
 <p>In the case of stored data, you are free to specify either a global default
 serializer or one for each individual datastore:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -188,44 +199,94 @@ serializer or one for each individual datastore:</p>
 </pre></div>
 </td></tr></table></div>
 <p>This is primarily so you can create files that are human-readable or useable
-by non-Python programs. The generated JSON is formatted to make it readable.</p>
-<p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">cpickle</span></tt></a>,
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.PickleSerializer" title="workflow.workflow.PickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">pickle</span></tt></a> and
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.JSONSerializer" title="workflow.workflow.JSONSerializer"><tt class="xref py py-class docutils literal"><span class="pre">JSON</span></tt></a> serializers are available.</p>
-<p>You can also register your own custom serializers using the
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> interface.</p>
-<p>To register a new serializer, call the
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.SerializerManager.register" title="workflow.workflow.SerializerManager.register"><tt class="xref py py-meth docutils literal"><span class="pre">register()</span></tt></a> method of the
-<tt class="docutils literal"><span class="pre">workflow.manager</span></tt> object:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
-
-<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-<span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">object_with_load_and_dump_methods</span><span class="p">)</span>
-
-<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;myformat&#39;</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<p>A serializer <em>must</em> conform to this interface (like <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
-<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The name you use for your serializer will be the file extension of the
-stored file.</p>
-</div>
+by other software. The generated JSON is formatted to make it readable.</p>
 <p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
 automatically determine the serialization of the stored data (based on the file
 extension, which is the same as the name the serializer is registered under),
 provided the corresponding serializer is registered. If it isn&#8217;t, a
 <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> will be raised.</p>
+<div class="section" id="built-in-serializers">
+<h2>Built-in serializers<a class="headerlink" href="#built-in-serializers" title="Permalink to this headline">¶</a></h2>
+<p>There are 3 built-in, pre-configured serializers:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../api/serialization.html#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">cpickle</span></tt></a> — the default serializer
+for both cached and stored data, with very good support for native Python
+data types;</li>
+<li><a class="reference internal" href="../api/serialization.html#workflow.workflow.PickleSerializer" title="workflow.workflow.PickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">pickle</span></tt></a> — a more flexible, but
+much slower alternative to <tt class="docutils literal"><span class="pre">cpickle</span></tt>; and</li>
+<li><a class="reference internal" href="../api/serialization.html#workflow.workflow.JSONSerializer" title="workflow.workflow.JSONSerializer"><tt class="xref py py-class docutils literal"><span class="pre">json</span></tt></a> — a very common data format,
+but with limited support for native Python data types.</li>
+</ul>
+<p>See the built-in <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>, <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> libraries for
+more information on the serialization formats.</p>
+</div>
+<div class="section" id="managing-serializers">
+<span id="id1"></span><h2>Managing serializers<a class="headerlink" href="#managing-serializers" title="Permalink to this headline">¶</a></h2>
+<p>You can add your own serializer, or replace the built-in ones, using the
+configured instance of <a class="reference internal" href="../api/serialization.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> at
+<tt class="docutils literal"><span class="pre">workflow.manager</span></tt>, e.g. <tt class="docutils literal"><span class="pre">from</span> <span class="pre">workflow</span> <span class="pre">import</span> <span class="pre">manager</span></tt>.</p>
+<p>A <tt class="docutils literal"><span class="pre">serializer</span></tt> object must have <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt> methods that work
+the same way as in the built-in <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> libraries, i.e.:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Reading</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+<span class="c"># Writing</span>
+<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>To register a new serializer, call the
+<a class="reference internal" href="../api/serialization.html#workflow.workflow.SerializerManager.register" title="workflow.workflow.SerializerManager.register"><tt class="xref py py-meth docutils literal"><span class="pre">register()</span></tt></a> method of the
+<tt class="docutils literal"><span class="pre">workflow.manager</span></tt> object with the name of the serializer and the object
+that performs serialization:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
+
+
+ <span class="k">class</span> <span class="nc">MySerializer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+     <span class="nd">@classmethod</span>
+     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">):</span>
+         <span class="c"># load data from file_obj</span>
+
+     <span class="nd">@classmethod</span>
+     <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">):</span>
+         <span class="c"># serialize obj to file_obj</span>
+
+<span class="hll"> <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">MySerializer</span><span class="p">())</span>
+</span></pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The name you specify for your serializer will be the file extension of the
+stored files.</p>
+</div>
+</div>
+<div class="section" id="serializer-interface">
+<h2>Serializer interface<a class="headerlink" href="#serializer-interface" title="Permalink to this headline">¶</a></h2>
+<p>A serializer <strong>must</strong> conform to this interface (like <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and
+<a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
+<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>See the <a class="reference internal" href="../api/serialization.html#api-serialization"><em>Serialization</em></a> section of the API documentation for more
+information.</p>
+</div>
 </div>
 
 
@@ -234,10 +295,10 @@ provided the corresponding serializer is registered. If it isn&#8217;t, a
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="icons.html" class="btn btn-neutral float-right" title="System icons"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="text-encoding.html" class="btn btn-neutral float-right" title="Encoded strings and Unicode"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="update.html" class="btn btn-neutral" title="Self-Updating"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="magic-args.html" class="btn btn-neutral" title="“Magic” arguments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -5,22 +5,24 @@ Searching/filtering data
 ========================
 
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` provides an
-Alfred-like search algorithm for filtering your Workflow's data. By default,
+Alfred-like search algorithm for filtering your workflow's data. By default,
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will try to match
-your search query via CamelCase, substring, initials and all characters, applying
-different weightings to the various kind of matches (see
+your search query via CamelCase, substring, initials and all characters,
+applying different weightings to the various kind of matches (see
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` for a detailed
 description of the algorithm and match flags).
 
 .. warning::
 
-    ``query`` may not be empty or contain only whitespace. This will raise a
+    Check ``query`` before calling
+    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`. ``query``
+    may not be empty or contain only whitespace. This will raise a
     :class:`ValueError`.
 
     :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` is not a
     "little sister" of a Script Filter and won't return a list of all results
-    if ``query`` is empty. Unlike with some Script Filters, ``query`` is *not*
-    an optional argument.
+    if ``query`` is empty. ``query`` is *not* an optional argument and trying
+    to filter data against a meaningless query is treated as an error.
 
     :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` won't
     complain if ``items`` is an empty list, but it *will* raise a
@@ -66,10 +68,10 @@ dealing with unset/empty variables.
 .. note::
 
     By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-    will match and return anything that contains all the characters in ``query``
-    in the same order, regardless of case. Not only can this lead to unacceptable
-    performance when working with thousands of results, but it's also very likely
-    that you'll want to set the standard a little higher.
+    will match and return anything that contains all the characters in
+    ``query`` in the same order, regardless of case. Not only can this lead to
+    unacceptable performance when working with thousands of items, but it's
+    also very likely that you'll want to set the standard a little higher.
 
     See :ref:`restricting-results` for info on how to do that.
 
@@ -211,9 +213,9 @@ Diacritic folding
 -----------------
 
 By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
-will fold non-ASCII characters to ASCII equivalents (e.g. *é* -> *e*, *ü* -> *u*)
-if the ``query`` contains only ASCII characters. This behaviour can be turned
-off by passing ``fold_diacritics=False`` to
+will fold non-ASCII characters to approximate ASCII equivalents (e.g. *é* >
+*e*, *ü* > *u*) if ``query`` contains only ASCII characters. This behaviour
+can be turned off by passing ``fold_diacritics=False`` to
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
 
 .. note::

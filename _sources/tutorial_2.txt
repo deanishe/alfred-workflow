@@ -1,16 +1,17 @@
+
 .. _tutorial_2:
 
 ==============================================
 Part 2: A Distribution-Ready Pinboard Workflow
 ==============================================
 
-In which we create a `Pinboard.in <https://pinboard.in/>`_ workflow ready for
-mass consumption.
+In which we create a `Pinboard.in`_ workflow ready for mass consumption.
 
-In the :ref:`first part <tutorial>` of the tutorial, we built a useable workflow
-to view, search and open your recent Pinboard posts. The workflow isn't quite
-ready to be distributed to other users, however: we can't expect them to go
-grubbing around in the source code like an animal to set their own API keys.
+In the :ref:`first part <tutorial>` of the tutorial, we built a useable
+workflow to view, search and open your recent Pinboard posts. The workflow
+isn't quite ready to be distributed to other users, however: we can't expect
+them to go grubbing around in the source code like an animal to set their own
+API keys.
 
 What's more, an update to the workflow would overwrite their changes.
 
@@ -26,11 +27,11 @@ Performing multiple actions from one script
 To set the user's API key, we're going to need a new action. We could write a
 second script to do this, but we're going to stick with one script and make it
 smart enough to do two things, instead. The advantage of using one script is
-that if you build a workflow with lots of actions, you don't have a dozen or more
-scripts to manage.
+that if you build a workflow with lots of actions, you don't have a dozen or
+more scripts to manage.
 
-We'll start by adding an argument parser (using :mod:`argparse`) to ``main()`` and some
-if-clauses to alter the script's behaviour depending on the arguments
+We'll start by adding an argument parser (using :mod:`argparse`) to ``main()``
+and some if-clauses to alter the script's behaviour depending on the arguments
 passed to it by Alfred.
 
 .. code-block:: python
@@ -161,11 +162,11 @@ We've adapted ``get_recent_posts()`` to accept an ``api_key`` argument. We *coul
 continue to use the ``API_KEY`` global variable, but that'd be bad form.
 
 As a result of this, we've had to alter the way
-:meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>` is called.
-It can't call a function that requires any arguments, so we've added a
-``wrapper()`` function within ``main()`` (lines 82–87)
-that calls ``get_recent_posts()`` with the necessary ``api_key`` arguments, and
-we pass this ``wrapper()`` function (which needs no arguments) to
+:meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>` is
+called. It can't call a function that requires any arguments, so we've added a
+``wrapper()`` function within ``main()`` (lines 82–87) that calls
+``get_recent_posts()`` with the necessary ``api_key`` arguments, and we pass
+this ``wrapper()`` function (which needs no arguments) to
 :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>` instead
 (line 89).
 
@@ -175,7 +176,7 @@ and an optional ``query`` argument (remember the script doesn't require a query)
 
 Then, in lines 55–59, we check if an API key was passed using ``--apikey``.
 If it was, we save it using :attr:`~workflow.workflow.Workflow.settings`
-(see `below <settings>`).
+(see :ref:`below <settings>`).
 
 Once this is done, we exit the script.
 
@@ -256,6 +257,7 @@ and connect the **Run Script** we just added to it:
 Try setting your API key again with ``pbsetkey`` and this time you'll get a
 notification that it was saved.
 
+
 .. _settings:
 
 Saving settings
@@ -269,6 +271,7 @@ the workflow's data directory.
 
 Very simple, yes, but secure? No. A better place to save the API key would be
 in the user's Keychain. Let's do that.
+
 
 .. _secure-settings:
 
@@ -420,12 +423,13 @@ As a bonus, if you have multiple Macs and use iCloud Keychain, the API key will
 be seamlessly synced across machines, saving you the trouble of setting up the
 workflow multiple times.
 
+
 "Magic" arguments
 =================
 
 Now that the API key is stored in Keychain, we don't need it saved in the
 workflow's settings any more (and having it there that kind of defeats the
-purpose of using Keychain). To get rid of it, we can use one of **Alfred-Workflow**'s
+purpose of using Keychain). To get rid of it, we can use one of Alfred-Workflow's
 "magic" arguments: ``workflow:delsettings``.
 
 Open up Alfred, and enter ``pbrecent workflow:delsettings``. You should see the
@@ -434,13 +438,13 @@ following message:
 .. image:: _static/screen25_magic.png
 
 
-**Alfred-Workflow** has recognised one of its "magic" arguments, performed
+Alfred-Workflow has recognised one of its "magic" arguments, performed
 the corresponding action, logged it to the log file, notified the user via
 Alfred and exited the workflow.
 
-Magic arguments are designed to help coders develop and debug workflows.
+Magic arguments are designed to help coders develop and debug workflows. See
+:ref:`magic-arguments` for more details.
 
-See :ref:`magic-arguments` for more details.
 
 Logging
 =======
@@ -471,6 +475,10 @@ module-global ``log`` means it can be accessed from within any function
 without having to pass the :class:`~workflow.workflow.Workflow` or
 :attr:`Workflow.logger <workflow.workflow.Workflow.logger>` instance around.
 
+The ``wf`` object is also a module-level global, but it's only created if the
+script is run, not imported.
+
+
 Spit and polish
 ===============
 
@@ -486,14 +494,14 @@ we show what we have and update in the background?
 
 Let's fix those issues. The easy ones first.
 
+
 Two actions, one keyword
 ------------------------
 
-To solve the first issue (Pinboard API keys being hard to find), we'll add a second
-**Keyword** input that responds to the same ``pbsetkey`` keyword as our other
-action, but this one will just send the user to the Pinboard
-`password settings page <https://pinboard.in/settings/password>`_ where the API
-keys are kept.
+To solve the first issue (Pinboard API keys being hard to find), we'll add a
+second **Keyword** input that responds to the same ``pbsetkey`` keyword as our
+other action, but this one will just send the user to the Pinboard
+`password settings page`_ where the API keys are kept.
 
 Go back to your workflow in Alfred's Preferences and add a new **Keyword** with
 the following settings:
@@ -504,8 +512,9 @@ Now when you type ``pbsetkey`` into Alfred, you should see two options:
 
 .. image:: _static/screen27_1_keyword_2_actions.png
 
-The second action doesn't do anything yet, of course, because we haven't connected
-it to anything. So add an **Open URL** action in Alfred, enter this URL:
+The second action doesn't do anything yet, of course, because we haven't
+connected it to anything. So add an **Open URL** action in Alfred, enter this
+URL:
 
 https://pinboard.in/settings/password
 
@@ -521,6 +530,7 @@ Enter ``pbsetkey`` into Alfred once more and try out the new action. Pinboard
 should open in your default browser.
 
 Easy peasy.
+
 
 .. _no-results-warning:
 
@@ -661,6 +671,7 @@ the user a warning, send the results to Alfred and exit. This does away with
 Alfred's distracting default searches and lets the user know exactly what's
 going on.
 
+
 .. _background-updates:
 
 Greased lightning: background updates
@@ -668,24 +679,24 @@ Greased lightning: background updates
 
 All that remains is for our workflow to provide the blazing fast results Alfred
 users have come to expect. No waiting around for glacial web services for the
-likes of us. As long as we have some posts saved in the cache, we can show those
-while grabbing an updated list in the background (and notifying the user of
-the update, of course).
+likes of us. As long as we have some posts saved in the cache, we can show
+those while grabbing an updated list in the background (and notifying the user
+of the update, of course).
 
-Now, there are a few different ways to start a background process. We could ask the user
-to set up a ``cron`` job, but ``cron`` isn't the easiest software to use. We could
-add and load a `Launch Agent <http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd>`_,
-but that'd run indefinitely, whether or not the workflow is being used, and
-even if the workflow were uninstalled. So we'd best start our background process
-from within the workflow itself.
+Now, there are a few different ways to start a background process. We could ask
+the user to set up a ``cron`` job, but ``cron`` isn't the easiest software to
+use. We could add and load a `Launch Agent`_, but that'd run indefinitely,
+whether or not the workflow is being used, and even if the workflow were
+uninstalled. So we'd best start our background process from within the workflow
+itself.
 
-Normally, you'd use :class:`subprocess.Popen` to start a background process, but
-that doesn't work quite as you might expect in Alfred: it treats your workflow
-as still running till the background process has finished, too, so it won't call
-your workflow with a new query till the update is done. Which is exactly what
-happens now and the behaviour we want to avoid.
+Normally, you'd use :class:`subprocess.Popen` to start a background process,
+but that doesn't work quite as you might expect in Alfred: it treats your
+workflow as still running till the background process has finished, too, so it
+won't call your workflow with a new query till the update is done. Which is
+exactly what happens now and the behaviour we want to avoid.
 
-Fortunately, **Alfred-Workflow** provides the :mod:`~workflow.background` module
+Fortunately, Alfred-Workflow provides the :mod:`~workflow.background` module
 to solve this problem.
 
 Using the :func:`background.run_in_background() <workflow.background.run_in_background>`
@@ -693,21 +704,21 @@ and :func:`background.is_running() <workflow.background.is_running>` functions,
 we can easily run a script in the background while our workflow remains
 responsive to Alfred's queries.
 
-**Alfred-Workflow**'s :mod:`~workflow.background` module is based on, and uses
-the same API as :func:`subprocess.call`, but it runs the command as a background
-process (consequently, it won't return anything).
-So, our updater script will be called from our main workflow script,
-but :mod:`~workflow.background` will run it as a background process. This way,
-it will appear to exit immediately, so Alfred will keep on calling our workflow
-every time the query changes.
+Alfred-Workflow's :mod:`~workflow.background` module is based on, and uses the
+same API as :func:`subprocess.call`, but it runs the command as a background
+process (consequently, it won't return anything). So, our updater script will
+be called from our main workflow script, but :mod:`~workflow.background` will
+run it as a background process. This way, it will appear to exit immediately,
+so Alfred will keep on calling our workflow every time the query changes.
 
 Meanwhile, our main workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.
 
 Let's have at it.
 
+
 Background updater script
-~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Create a new file in the workflow root directory called ``update.py`` with these
 contents:
@@ -803,7 +814,7 @@ As you can see in the 3rd line, ``update.py`` did its job.
 
 
 Running ``update.py`` from ``pinboard.py``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 So now let's update ``pinboard.py`` to call ``update.py`` instead of doing the
 update itself:
@@ -918,21 +929,23 @@ update itself:
         sys.exit(wf.run(main))
 
 
-First of all, we've changed the imports a bit. We no longer need :mod:`workflow.web`,
-because we'll use the functions :func:`~workflow.background.run_in_background`
-from :mod:`workflow.background` to call ``update.py`` instead,
-and we've also imported another icon (``ICON_INFO``) to show our update message.
+First of all, we've changed the imports a bit. We no longer need
+:mod:`workflow.web`, because we'll use the functions
+:func:`~workflow.background.run_in_background` from :mod:`workflow.background`
+to call ``update.py`` instead, and we've also imported another icon
+(``ICON_INFO``) to show our update message.
 
 As noted before, ``get_recent_posts()`` has now moved to ``update.py``, as has
 the ``wrapper()`` function inside ``main()``.
 
-Also in ``main()``, we no longer need ``api_key``. However, we still want to know
-if it has been saved, so we can show a warning if not, so we still call
-:meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password>`,
-but without saving the result.
+Also in ``main()``, we no longer need ``api_key``. However, we still want to
+know if it has been saved, so we can show a warning if not, so we still call
+:meth:`Workflow.get_password() <workflow.workflow.Workflow.get_password>`, but
+without saving the result.
 
-Most importantly, we've now expanded the update code to check if our cached data
-is fresh with :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
+Most importantly, we've now expanded the update code to check if our cached
+data is fresh with
+:meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
 and to run the ``update.py`` script via
 :func:`background.run_in_background() <workflow.background.run_in_background>`
 if not (:meth:`Workflow.workflowfile() <workflow.workflow.Workflow.workflowfile>`
@@ -944,18 +957,21 @@ name we assigned to the process (``update``), and notify the user via Alfred's
 results if it is.
 
 Finally, we call :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
-with ``None`` as the data-retrieval function (line 66) because we don't want to run an
-update from this script, blocking Alfred. As a consequence, it's possible that
-we'll get back ``None`` instead of a list of posts if there are no cached data,
-so we check for this before trying to filter ``None`` in line 80.
+with ``None`` as the data-retrieval function (line 66) because we don't want to
+run an update from this script, blocking Alfred. As a consequence, it's
+possible that we'll get back ``None`` instead of a list of posts if there are
+no cached data, so we check for this before trying to filter ``None`` in line
+80.
+
 
 The fruits of your labour
 =========================
 
-Now let's give it a spin. Open up Alfred and enter ``pbrecent workflow:delcache`` to
-clear the cached data. Then enter ``pbrecent`` and start typing a query. You should see
-the "Getting new posts from Pinboard" message appear. Unfortunately, we won't
-see any results at the moment because we just deleted the cached data.
+Now let's give it a spin. Open up Alfred and enter ``pbrecent
+workflow:delcache`` to clear the cached data. Then enter ``pbrecent`` and start
+typing a query. You should see the "Getting new posts from Pinboard" message
+appear. Unfortunately, we won't see any results at the moment because we just
+deleted the cached data.
 
 To see our background updater weave its magic, we can change the ``max_age`` parameter
 passed to :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`
@@ -966,26 +982,81 @@ a couple of letters, then twiddle your thumbs for ~55 seconds. Type another lett
 or two and you should see the "Getting new posts…" message *and* search
 results. Cool, huh?
 
-Sharing your Workflow
+
+Sharing your workflow
 ---------------------
 
 Now you've produced a technical marvel, it's time to tell the world and enjoy
-the well-earned plaudits. To build your workflow, open it up in Alfred's Preferences,
-right-click on the workflow's name in the list on the left-hand side, and choose
-**Export…**. This will save a ``.alfredworkflow`` file that you can share with
-other people. ``.alfredworkflow`` files are just ZIP files with a different extension.
-If you want to have a poke around inside one, just change the extension to ``.zip``
-and extract it the normal way.
+the well-earned plaudits. To build your workflow, open it up in Alfred's
+Preferences, right-click on the workflow's name in the list on the left-hand
+side, and choose **Export…**. This will save a ``.alfredworkflow`` file that
+you can share with other people. ``.alfredworkflow`` files are just ZIP files
+with a different extension. If you want to have a poke around inside one, just
+change the extension to ``.zip`` and extract it in the normal way.
 
 And how do you share your Workflow with the world?
 
-There's a `Share your Workflows thread <http://www.alfredforum.com/forum/3-share-your-workflows/>`_
-on `the official Alfred forum <http://www.alfredforum.com/>`_, but being a forum,
-it's less than ideal as a directory for workflows. Also, you'd need to find your own
-place to host your workflow file (for which GitHub and Dropbox are both good choices).
+There's a `Share your Workflows thread`_ on `the official Alfred forum`_, but
+being a forum, it's less than ideal as a directory for workflows. Also, you'd
+need to find your own place to host your workflow file (for which GitHub and
+Dropbox are both good choices).
 
 It's a good idea to sign up for the Alfred forum and post a thread for your
-workflow, but you might want to consider uploading it to `Packal.org <http://www.packal.org/>`_,
+workflow, but you might want to consider uploading it to `Packal.org`_,
 a site specifically designed for hosting Alfred workflows. Your workflow will
 be much easier to find on that site than in the forum, and they'll also host
 the workflow download for you.
+
+
+Updating your workflow
+----------------------
+
+Software, like plans, never survives contact with the enemy, err, user.
+
+It's likely that a bug or two will be found and some sweet improvements will be
+suggested, and so you'll probably want to release a new and improved version of
+your workflow somewhere down the line.
+
+Instead of requiring your users to regularly visit a forum thread or a website
+to check for an update, there are a couple of ways you can have your workflow
+(semi-)automatically updated.
+
+
+The Packal Updater
+^^^^^^^^^^^^^^^^^^
+
+The simplest way in terms of implementation is to upload your workflow to
+`Packal.org`_. If you release a new version, any user who also uses the
+`Packal Updater workflow`_ will then be notified of the updated version. The
+disadvantage of this method is it only works if a user installs and uses the
+`Packal Updater workflow`_.
+
+
+GitHub releases
+^^^^^^^^^^^^^^^
+
+A *slightly* more complex to implement method is to use Alfred-Workflow's
+built-in support for updates via `GitHub releases`_. If you tell your
+:class:`~workflow.workflow.Workflow` object the name of your GitHub repo and
+the installed workflow's version number, Alfred-Workflow will automatically
+check for a new version every day.
+
+By default, Alfred-Workflow won't inform the user of the new version or
+update the workflow unless the user explicitly uses the ``workflow:update``
+:ref:`"magic" argument <magic-arguments>`, but you can check the
+:attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
+attribute and inform the user of the availability of an update if it's
+``True``.
+
+See :ref:`manual-updates` in the :ref:`user-manual` for information on how to
+enable your workflow to update itself from GitHub.
+
+
+.. _Pinboard.in: https://pinboard.in/
+.. _password settings page: https://pinboard.in/settings/password
+.. _Launch Agent: http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd
+.. _Share your Workflows thread: http://www.alfredforum.com/forum/3-share-your-workflows/
+.. _the official Alfred forum: http://www.alfredforum.com/
+.. _Packal.org: http://www.packal.org/
+.. _Packal Updater workflow: http://www.packal.org/workflow/packal-updater
+.. _GitHub releases: https://help.github.com/articles/about-releases

@@ -91,26 +91,27 @@ the _static path in each subdirectory -->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -163,21 +164,21 @@ the _static path in each subdirectory -->
 <p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
 updating this cache typically takes a few seconds, making your workflow
 unresponsive while an update is occurring, which is very un-Alfred-like.</p>
-<p>To avoid such delays, <strong>Alfred-Workflow</strong> provides the <a class="reference internal" href="../api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
+<p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="../api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
 module to allow you to easily run scripts in the background.</p>
 <p>There are two functions, <a class="reference internal" href="../api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a> and
 <a class="reference internal" href="../api/background.html#workflow.background.is_running" title="workflow.background.is_running"><tt class="xref py py-func docutils literal"><span class="pre">is_running()</span></tt></a>, that provide the interface. The
-processes started are proper background daemon processes, so you can start
-proper servers as easily as simple scripts.</p>
+processes started are full daemon processes, so you can start real servers
+as easily as simple scripts.</p>
 <p>Here&#8217;s an example of a common usage pattern (updating cached data in the
 background). What we&#8217;re doing is:</p>
 <ol class="arabic simple">
-<li>Check the age of the cached data and run the update script via
+<li>Checking the age of the cached data and running the update script via
 <a class="reference internal" href="../api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></tt></a> if the cached data are
 too old or don&#8217;t exist.</li>
-<li>(Optionally) inform the user that data are being updated.</li>
-<li>Load the cached data regardless of age.</li>
-<li>Display the cached data (if any).</li>
+<li>(Optionally) informing the user that data are being updated.</li>
+<li>Loading the cached data regardless of age.</li>
+<li>Displaying the cached data (if any).</li>
 </ol>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -205,29 +206,31 @@ too old or don&#8217;t exist.</li>
 24
 25
 26
-27</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
 <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-   <span class="c"># Is cache over 6 hours old or non-existent?</span>
-   <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
-       <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span>
-                         <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
-                          <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
+    <span class="c"># Is cache over 6 hours old or non-existent?</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
+        <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span>
+                          <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
+                           <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
 
-   <span class="c"># Add a notification if the script is running</span>
-   <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
-       <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+    <span class="c"># Add a notification if the script is running</span>
+    <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
+        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
 
-   <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;exchage-rates&#39;</span><span class="p">)</span>
+    <span class="c"># max_age=0 will load any cached data regardless of age</span>
+    <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;exchage-rates&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-   <span class="c"># Display (possibly stale) cache data</span>
-   <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
-       <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
-           <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+    <span class="c"># Display (possibly stale) cache data</span>
+    <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
+            <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
 
-   <span class="c"># Send results to Alfred</span>
-   <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+    <span class="c"># Send results to Alfred</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>

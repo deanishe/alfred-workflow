@@ -8,7 +8,7 @@ Workflow setup and skeleton
 **Script Filters**. These are activated by a keyword in Alfred, receive
 user input and return results to Alfred.
 
-To write a Script Filter with **Alfred-Workflow**, make sure your Script Filter
+To write a Script Filter with Alfred-Workflow, make sure your Script Filter
 is set to use ``/bin/bash`` as the **Language**, and select the
 following (and only the following) **Escaping** options:
 
@@ -48,7 +48,7 @@ to capture any errors thrown by your scripts:
         import somemodule
         import anothermodule
 
-        # Get args from Workflow as normalised Unicode
+        # Get args from Workflow as normalized Unicode
         args = wf.args
 
         # Do stuff here ...

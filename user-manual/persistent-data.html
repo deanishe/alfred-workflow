@@ -34,7 +34,7 @@
     <link rel="top" title="Alfred-Workflow 1.9 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Searching/filtering data" href="filtering.html"/>
-        <link rel="prev" title="Including 3rd party libraries" href="thirdparty.html"/>
+        <link rel="prev" title="Including 3rd party libraries" href="third-party.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
@@ -91,26 +91,27 @@ the _static path in each subdirectory -->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -158,7 +159,7 @@ the _static path in each subdirectory -->
           <div role="main">
             
   <div class="section" id="persistent-data">
-<span id="id1"></span><h1>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h1>
+<span id="manual-persistent-data"></span><h1>Persistent data<a class="headerlink" href="#persistent-data" title="Permalink to this headline">¶</a></h1>
 <p>Alfred provides special data and cache directories for each Workflow (in
 <tt class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></tt> and <tt class="docutils literal"><span class="pre">~/Library/Caches</span></tt> respectively).
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides the following
@@ -173,28 +174,33 @@ attributes/methods to make it easier to access these directories:</p>
 suitable for temporary data or data that is easily recreated.
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>&#8216;s cache methods reflect this,
 and make it easy to replace cached data that are too old.
-See <a class="reference internal" href="#caching-data"><em>Caching data</em></a> for more details.</p>
+See <a class="reference internal" href="#caching-data"><em>Caching data</em></a> for details of the data caching API.</p>
 <p>The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See <a class="reference internal" href="#storing-data"><em>Storing data</em></a>
-for details.</p>
+for details of the data storage API.</p>
 <p>It is easy to specify a custom file format for your stored data
 via the <tt class="docutils literal"><span class="pre">serializer</span></tt> argument if you want your data to be readable by the user
-or by other software. See <a class="reference internal" href="serialization.html#serialization"><em>Serialization</em></a> for more details.</p>
-<p>There are also simliar methods related to the root directory of your Workflow
-(where <tt class="docutils literal"><span class="pre">info.plist</span></tt> and your code are):</p>
+or by other software. See <em class="xref std std-ref">Serialization</em> for more details.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>There are also simliar methods related to the root directory of your
+Workflow (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> and your code are):</p>
 <ul class="simple">
-<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.workflowdir" title="workflow.workflow.Workflow.workflowdir"><tt class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></tt></a> — The full path to your Workflow&#8217;s root directory.</li>
-<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">workflowfile(filename)</span></tt></a> — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under your Workflow&#8217;s root directory.</li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.workflowdir" title="workflow.workflow.Workflow.workflowdir"><tt class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></tt></a> — The full path to your
+Workflow&#8217;s root directory.</li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">workflowfile(filename)</span></tt></a>
+— The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under your Workflow&#8217;s root directory.</li>
 </ul>
-<p>These are used internally to implement <a class="reference internal" href="magicargs.html#magic-arguments"><em>magic arguments</em></a>, which
-may help you with development/debugging.</p>
+<p class="last">These are used internally to implement <a class="reference internal" href="magic-args.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>, which
+provide assistance with debugging, updating and managing your workflow.</p>
+</div>
 <p>In addition, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
 convenient interface for storing persistent settings with
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>.
 See <a class="reference internal" href="#manual-settings"><em>Settings</em></a> and <a class="reference internal" href="#keychain"><em>Keychain access</em></a> for more
 information on storing settings and sensitive data.</p>
 <div class="section" id="caching-data">
-<span id="id2"></span><h2>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Caching data<a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides a few methods to simplify
 caching data that is slow to retrieve or expensive to generate (e.g. downloaded
 from a web API). These data are cached in your workflow&#8217;s cache directory (see
@@ -231,10 +237,13 @@ data-retrieval function (which is the default):</p>
 impact your Workflow&#8217;s responsiveness in Alfred. (See
 <a class="reference internal" href="../tutorial_2.html#background-updates"><em>the tutorial</em></a> for an example of how to run an update
 script in the background.)</p>
-<p>Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
+</div>
 </div>
 <div class="section" id="storing-data">
-<span id="id3"></span><h2>Storing data<a class="headerlink" href="#storing-data" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Storing data<a class="headerlink" href="#storing-data" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides two methods to store
 and retrieve permanent data:
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.store_data" title="workflow.workflow.Workflow.store_data"><tt class="xref py py-meth docutils literal"><span class="pre">store_data()</span></tt></a> and
@@ -260,7 +269,7 @@ to store data in, e.g., JSON or YAML format.</p>
 <p>You should use these methods (and not the data caching ones) if the data you
 are saving should not be deleted as part of system maintenance.</p>
 <p>If you want to specify your own file format/serializer, please see
-<a class="reference internal" href="serialization.html#serialization"><em>Serialization</em></a> for details.</p>
+<em class="xref std std-ref">Serialization</em> for details.</p>
 </div>
 <div class="section" id="settings">
 <span id="manual-settings"></span><h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
@@ -340,7 +349,7 @@ to the above methods.</p>
         <a href="filtering.html" class="btn btn-neutral float-right" title="Searching/filtering data"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="thirdparty.html" class="btn btn-neutral" title="Including 3rd party libraries"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="third-party.html" class="btn btn-neutral" title="Including 3rd party libraries"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

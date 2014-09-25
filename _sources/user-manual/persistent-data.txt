@@ -1,5 +1,5 @@
 
-.. _persistent-data:
+.. _manual-persistent-data:
 
 Persistent data
 ===============
@@ -18,24 +18,28 @@ The cache directory may be deleted during system maintenance, and is thus only
 suitable for temporary data or data that is easily recreated.
 :class:`Workflow <workflow.workflow.Workflow>`'s cache methods reflect this,
 and make it easy to replace cached data that are too old.
-See :ref:`Caching data <caching-data>` for more details.
+See :ref:`Caching data <caching-data>` for details of the data caching API.
 
 The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See :ref:`Storing data <storing-data>`
-for details.
+for details of the data storage API.
 
 It is easy to specify a custom file format for your stored data
 via the ``serializer`` argument if you want your data to be readable by the user
 or by other software. See :ref:`Serialization <serialization>` for more details.
 
-There are also simliar methods related to the root directory of your Workflow
-(where ``info.plist`` and your code are):
+.. tip::
 
-- :attr:`~workflow.workflow.Workflow.workflowdir` — The full path to your Workflow's root directory.
-- :meth:`workflowfile(filename) <workflow.workflow.Workflow.workflowfile>` — The full path to ``filename`` under your Workflow's root directory.
+    There are also simliar methods related to the root directory of your
+    Workflow (where ``info.plist`` and your code are):
 
-These are used internally to implement :ref:`magic arguments <magic-arguments>`, which
-may help you with development/debugging.
+    - :attr:`~workflow.workflow.Workflow.workflowdir` — The full path to your
+      Workflow's root directory.
+    - :meth:`workflowfile(filename) <workflow.workflow.Workflow.workflowfile>`
+      — The full path to ``filename`` under your Workflow's root directory.
+
+    These are used internally to implement :ref:`magic-arguments`, which
+    provide assistance with debugging, updating and managing your workflow.
 
 In addition, :class:`Workflow <workflow.workflow.Workflow>` also provides a
 convenient interface for storing persistent settings with
@@ -82,7 +86,7 @@ impact your Workflow's responsiveness in Alfred. (See
 :ref:`the tutorial <background-updates>` for an example of how to run an update
 script in the background.)
 
-Passing ``max_age=0`` will return the cached data regardless of age.
+.. tip:: Passing ``max_age=0`` will return the cached data regardless of age.
 
 
 .. _storing-data:

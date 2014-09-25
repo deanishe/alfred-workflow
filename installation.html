@@ -90,26 +90,27 @@ the _static path in each subdirectory -->
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html#serialization">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
@@ -156,18 +157,18 @@ the _static path in each subdirectory -->
             
   <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p><strong>Alfred-Workflow</strong> can be installed from the <a class="reference external" href="https://pypi.python.org/pypi/Alfred-Workflow">Python Package Index</a> with
+<p>Alfred-Workflow can be installed from the <a class="reference external" href="https://pypi.python.org/pypi/Alfred-Workflow">Python Package Index</a> with
 <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> or from the source code on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/releases">GitHub</a>.</p>
 <div class="section" id="pip-pypi">
 <span id="installation-pip"></span><h2>pip / PyPi<a class="headerlink" href="#pip-pypi" title="Permalink to this headline">¶</a></h2>
-<p>You can install <strong>Alfred-Workflow</strong> directly into your workflow with:</p>
+<p>You can install Alfred-Workflow directly into your workflow with:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install --target=/path/to/my/workflow Alfred-Workflow
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">If you intend to distribute your workflow to other users, you should
-include <strong>Alfred-Workflow</strong> (and other non-standard Python libraries your
+include Alfred-Workflow (and other non-standard Python libraries your
 workflow requires) within your workflow as described above. <strong>Do not</strong> ask
 users to install anything into their system Python. That way lies broken
 software.</p>
@@ -183,7 +184,7 @@ scripts.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p><a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> and <a class="reference internal" href="api/update.html#module-workflow.update" title="workflow.update"><tt class="xref py py-mod docutils literal"><span class="pre">update</span></tt></a> <em>will not work</em>
-if you are importing <strong>Alfred-Workflow</strong> from a zip file.</p>
+if you are importing Alfred-Workflow from a zip file.</p>
 <p class="last">If you need to use <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> or the self-updating
 functionality, you <em>must</em> extract the zip archive.</p>
 </div>

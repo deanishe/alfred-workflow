@@ -4,10 +4,9 @@
 Serialization
 =============
 
-By default, both cache and data files (created using the
-:ref:`APIs described above <caching-data>`) are cached using :mod:`cPickle`.
-This provides a great compromise in terms of speed and the ability to store
-arbitrary objects.
+By default, both cache and data files (created using the APIs described in
+:ref:`caching-data`) are cached using :mod:`cPickle`. This provides a great
+compromise in terms of speed and the ability to store arbitrary objects.
 
 When it comes to cache data, it is *strongly recommended* to stick with
 the default. :mod:`cPickle` is *very* fast and fully supports standard Python
@@ -36,15 +35,18 @@ serializer or one for each individual datastore:
     wf.store_data('name', data, serializer='json')
 
 This is primarily so you can create files that are human-readable or useable
-by non-Python programs.
+by non-Python programs. The generated JSON is formatted to make it readable.
 
-By default, ``cpickle``, ``pickle`` and ``json`` serializers are available.
+By default, :class:`cpickle <workflow.workflow.CPickleSerializer>`,
+:class:`pickle <workflow.workflow.PickleSerializer>` and
+:class:`JSON <workflow.workflow.JSONSerializer>` serializers are available.
 
 You can also register your own custom serializers using the
 :class:`~workflow.workflow.SerializerManager` interface.
 
-To register a new serializer, call the ``register`` method of the ``workflow.manager``
-object:
+To register a new serializer, call the
+:meth:`~workflow.workflow.SerializerManager.register` method of the
+``workflow.manager`` object:
 
 .. code-block:: python
     :linenos:
@@ -67,8 +69,11 @@ A serializer *must* conform to this interface (like :mod:`json` and :mod:`pickle
 
 .. note::
 
-    The name you use for your serializer will be the file extension of the stored file.
+    The name you use for your serializer will be the file extension of the
+    stored file.
 
 The :meth:`stored_data() <workflow.workflow.Workflow.stored_data>` method can
-automatically determine the serialization of the stored data, provided the
-corresponding serializer is registered. If it isn't, a ``ValueError`` will be raised.
+automatically determine the serialization of the stored data (based on the file
+extension, which is the same as the name the serializer is registered under),
+provided the corresponding serializer is registered. If it isn't, a
+:class:`ValueError` will be raised.

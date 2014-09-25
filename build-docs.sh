@@ -1,7 +1,7 @@
 #!/bin/bash
 
 basedir=$(cd $(dirname $0); pwd)
-docdir="${basedir}/doc"
+docdir="${basedir}/docs"
 testdir="${basedir}/tests"
 curdir=$(pwd)
 
@@ -14,6 +14,9 @@ curdir=$(pwd)
 # fi
 
 cd "${docdir}"
+if [[ -d _build/html ]]; then
+	rm -rf _build/html
+fi
 make html
 cd "${curdir}"
 

@@ -1,9 +1,9 @@
 
 .. _script-filter-results:
 
-=====================
-Script Filter Results
-=====================
+========================================
+Script Filter Results and the XML Format
+========================================
 
 .. note::
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
@@ -30,8 +30,8 @@ arguments work.
 
 .. _xml-format:
 
-XML format
-==========
+XML format / available parameters
+=================================
 
 .. warning::
 
@@ -70,7 +70,7 @@ be as pretty as it will all be on one line).
     </items>
 
 The first line is the standard XML declaration. If you're generating your own
-XML, you should probably stick use a declaration exactly as shown here and
+XML, you should probably use a declaration exactly as shown here and
 ensure your XML is encoded as UTF-8 text. If you're using **Alfred-Workflow**,
 the XML declaration will be generated for you and it will ensure that the
 XML output is UTF-8-encoded.
@@ -132,8 +132,8 @@ Generated with:
 This will show a result in Alfred with Alfred's blank workflow icon and "My
 super title" as its text.
 
-Everything else is optional, but some parameters don't make much sense on their
-own. Let's have a look.
+Everything else is optional, but some parameters don't make much sense without
+other complementary parameters. Let's have a look.
 
 
 Item parameters
@@ -179,7 +179,13 @@ subtitle
 --------
 
 This is the smaller text shown under each result in Alfred's results list.
-Remember that users can turn off subtitles in Alfred's settings.
+
+.. important::
+
+    Remember that users can turn off subtitles in Alfred's settings. If you
+    don't want to confuse minimalists, don't relegate essential information to
+    the ``subtitle``. On the other hand, you could argue that users who think
+    turning off subtitles is okay deserve what they get…
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``subtitle`` argument or the second unnamed argument (the first, ``title``,
@@ -215,6 +221,9 @@ the ``autocomplete`` argument. Must be :class:`unicode`.
 
 When a user autocompletes a result with ``TAB``, Alfred will run the Script
 Filter again with the new query.
+
+If no ``autocomplete`` parameter is specified, using ``TAB`` on a result will
+have no effect.
 
 .. _param-arg:
 
@@ -255,10 +264,10 @@ have the value of either ``YES`` or ``NO``:
     :linenos:
 
     <item valid="YES">
-        …
+        ...
     </item>
     <item valid="NO">
-        …
+        ...
     </item>
 
 ``valid`` determines whether a user can hit ``ENTER`` on a result in Alfred's
@@ -293,13 +302,13 @@ appear in the XML file (the order in which you add them with
 type
 ----
 
-The type of the result. Currently, only ``"file"`` is supported.
+The type of the result. Currently, only ``file`` (or none) is supported.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``type`` argument. Should be :class:`unicode`. Currently, the only allowed
-value is ``"file"``.
+value is ``file``.
 
-If the ``type`` of a result is set to ``"file"`` (the only value currently
+If the ``type`` of a result is set to ``file`` (the only value currently
 supported by Alfred), it will enable users to "action" the item, as in Alfred's
 file browser, and show Alfred's File Actions (``Open``, ``Open with…``,
 ``Reveal in Finder`` etc.) using the default keyboard shortcut set in
@@ -429,7 +438,7 @@ filetypes but you don't have a specific filepath to use as a ``fileicon``.
 
 .. tip::
 
-    If you need to fine the UTI for a filetype, Alfred can help you.
+    If you need to find the UTI for a filetype, Alfred can help you.
 
     Add a File Filter to a workflow, and drag a file of the type you're
     interested in into the File Types list in the Basic Setup tab. Alfred will

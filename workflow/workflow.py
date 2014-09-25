@@ -10,6 +10,8 @@
 """
 The :class:`Workflow` object is the main interface to this library.
 
+See :ref:`setup` in the :ref:`user-manual` for an example of how to set
+up your Python script to best utilise the :class:`Workflow` object.
 
 """
 
@@ -73,7 +75,7 @@ ICON_WEB = os.path.join(ICON_ROOT, 'BookmarkIcon.icns')
 
 ####################################################################
 # non-ASCII to ASCII diacritic folding.
-# Used by ``fold_to_ascii`` method
+# Used by `fold_to_ascii` method
 ####################################################################
 
 ASCII_REPLACEMENTS = {
@@ -398,13 +400,21 @@ MATCH_ALL = 127
 
 
 ####################################################################
+# Used by `Workflow.check_update`
+####################################################################
+
+# Number of days to wait between checking for updates to the workflow
+DEFAULT_UPDATE_FREQUENCY = 1
+
+
+####################################################################
 # Keychain access errors
 ####################################################################
 
 class KeychainError(Exception):
     """Raised by methods :meth:`Workflow.save_password`,
     :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
-    when ``security`` CLI app returns an unknown code.
+    when ``security`` CLI app returns an unknown error code.
 
     """
 
@@ -419,8 +429,9 @@ class PasswordNotFound(KeychainError):
 class PasswordExists(KeychainError):
     """Raised when trying to overwrite an existing account password.
 
-    The API user should never receive this error: it is used internally
-    by the :meth:`Workflow.save_password` method.
+    You should never receive this error: it is used internally
+    by the :meth:`Workflow.save_password` method to know if it needs
+    to delete the old password first (a Keychain implementation detail).
 
     """
 
@@ -798,6 +809,10 @@ class Settings(dict):
         super(Settings, self).__setitem__(key, value)
         self.save()
 
+    def __delitem__(self, key):
+        super(Settings, self).__delitem__(key)
+        self.save()
+
     def update(self, *args, **kwargs):
         """Override :class:`dict` method to save on update."""
         super(Settings, self).update(*args, **kwargs)
@@ -817,6 +832,12 @@ class Workflow(object):
             exists, :class:`Workflow.settings` will be pre-populated with
             ``default_settings``.
         :type default_settings: :class:`dict`
+        :param update_settings: settings for updating your workflow from GitHub.
+            This must be a :class:`dict` that contains ``github_slug`` and
+            ``version`` keys. ``github_slug`` is of the form ``username/repo``
+            and ``version`` **must** correspond to the tag of a release.
+            See :ref:`updates` for more information.
+        :type update_settings: :class:`dict`
         :param input_encoding: encoding of command line arguments
         :type input_encoding: :class:`unicode`
         :param normalization: normalisation to apply to CLI args.
@@ -835,10 +856,12 @@ class Workflow(object):
     # won't want to change this
     item_class = Item
 
-    def __init__(self, default_settings=None, input_encoding='utf-8',
-                 normalization='NFC', capture_args=True, libraries=None):
+    def __init__(self, default_settings=None, update_settings=None,
+                 input_encoding='utf-8', normalization='NFC',
+                 capture_args=True, libraries=None):
 
         self._default_settings = default_settings or {}
+        self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
@@ -857,8 +880,12 @@ class Workflow(object):
         self._items = []
         self._alfred_env = None
         self._search_pattern_cache = {}
+
         if libraries:
             sys.path = libraries + sys.path
+
+        if update_settings:
+            self.check_update()
 
     ####################################################################
     # API methods
@@ -997,9 +1024,10 @@ class Workflow(object):
         ``normalization`` arguments passed to :class:`Workflow` (``UTF-8``
         and ``NFC`` are the defaults).
 
-        If :class:`Workflow` is called with ``capture_args=True`` (the default),
-        :class:`Workflow` will look for certain ``workflow:*`` args and, if
-        found, perform the corresponding actions and exit the workflow.
+        If :class:`Workflow` is called with ``capture_args=True``
+        (the default), :class:`Workflow` will look for certain
+        ``workflow:*`` args and, if found, perform the corresponding
+        actions and exit the workflow.
 
         See :ref:`Magic arguments <magic-arguments>` for details.
 
@@ -1007,7 +1035,7 @@ class Workflow(object):
 
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
-        if len(args) and self._capture_args:  # pragma: no cover
+        if len(args) and self._capture_args:
             if 'workflow:openlog' in args:
                 msg = 'Opening workflow log file'
                 self.open_log()
@@ -1045,6 +1073,11 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflow_diacritic_folding' in self.settings:
                     del self.settings['__workflow_diacritic_folding']
+            elif 'workflow:update' in args:
+                if self.start_update():
+                    msg = 'Downloading and installing update ...'
+                else:
+                    msg = 'No update available'
 
             if msg:
                 self.logger.debug(msg)
@@ -1201,10 +1234,11 @@ class Workflow(object):
     @property
     def logger(self):
         """Create and return a logger that logs to both console and
-        a log file. Use `~Workflow.openlog` to open the log file in Console.
+        a log file.
 
-        :returns: an initialised logger
-        :rtype: `~logging.Logger` instance
+        Use :meth:`open_log` to open the log file in Console.
+
+        :returns: an initialised :class:`~logging.Logger`
 
         """
 
@@ -1214,7 +1248,7 @@ class Workflow(object):
         # Initialise new logger and optionally handlers
         logger = logging.getLogger('workflow')
 
-        if not logger.handlers:  # Only add one set of handlers
+        if not len(logger.handlers):  # Only add one set of handlers
             logfile = logging.handlers.RotatingFileHandler(
                 self.logfile,
                 maxBytes=1024*1024,
@@ -1266,10 +1300,16 @@ class Workflow(object):
     def settings(self):
         """Return a dictionary subclass that saves itself when changed.
 
-        :returns: :class:`Settings` instance initialised from the data
-            in JSON file at :attr:`settings_path` or if that doesn't exist,
-            with the ``default_settings`` ``dict`` passed to :class:`Workflow`.
-        :rtype: :class:`Settings` instance
+        See :ref:`manual-settings` in the :ref:`user-manual` for more
+        information on how to use :attr:`settings` and **important
+        limitations** on what it can do.
+
+        :returns: :class:`~workflow.workflow.Settings` instance
+            initialised from the data in JSON file at
+            :attr:`settings_path` or if that doesn't exist, with the
+            ``default_settings`` :class:`dict` passed to
+            :class:`Workflow` on instantiation.
+        :rtype: :class:`~workflow.workflow.Settings` instance
 
         """
 
@@ -1593,8 +1633,9 @@ class Workflow(object):
         :type query: ``unicode``
         :param items: iterable of items to test
         :type items: ``list`` or ``tuple``
-        :param key: function to get comparison key from ``items``. Must return a
-                    ``unicode`` string. The default simply returns the item.
+        :param key: function to get comparison key from ``items``.
+            Must return a ``unicode`` string. The default simply returns
+            the item.
         :type key: ``callable``
         :param ascending: set to ``True`` to get worst matches first
         :type ascending: ``Boolean``
@@ -1945,24 +1986,123 @@ class Workflow(object):
         sys.stdout.flush()
 
     ####################################################################
+    # Updating methods
+    ####################################################################
+
+    @property
+    def update_available(self):
+        """Is an update available?
+
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
+
+        :returns: ``True`` if an update is available, else ``False``
+
+        """
+
+        update_data = self.cached_data('__workflow_update_status')
+
+        if not update_data or not update_data.get('available'):
+            return False
+
+        return update_data['available']
+
+    def check_update(self, force=False):
+        """Check if it's time to update and call update script if it is.
+
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
+
+        :param force: Force update check
+        :type force: ``Boolean``
+
+        """
+
+        frequency = self._update_settings.get('frequency',
+                                              DEFAULT_UPDATE_FREQUENCY)
+
+        # Check for new version if it's time
+        if (force or not self.cached_data_fresh(
+                '__workflow_update_status', frequency * 86400)):
+
+            github_slug = self._update_settings['github_slug']
+            version = self._update_settings['version']
+
+            from background import run_in_background
+
+            # update.py is adjacent to this file
+            update_script = os.path.join(os.path.dirname(__file__),
+                                         b'update.py')
+
+            cmd = ['/usr/bin/python', update_script, 'check', github_slug,
+                   version]
+
+            self.logger.info('Checking for update ...')
+
+            run_in_background('__workflow_update_check', cmd)
+
+        else:
+            self.logger.debug('Update check not due')
+
+    def start_update(self):
+        """Check for update and download and install new workflow file
+
+        .. versionadded:: 1.9
+
+        See :ref:`manual-updates` in the :ref:`user-manual` for detailed
+        information on how to enable your workflow to update itself.
+
+        :returns: ``True`` if an update is available and will be
+            installed, else ``False``
+
+        """
+
+        import update
+
+        github_slug = self._update_settings['github_slug']
+        version = self._update_settings['version']
+
+        if not update.check_update(github_slug, version):
+            return False
+
+        from background import run_in_background
+
+        # update.py is adjacent to this file
+        update_script = os.path.join(os.path.dirname(__file__),
+                                     b'update.py')
+
+        cmd = ['/usr/bin/python', update_script, 'install', github_slug,
+               version]
+
+        self.logger.debug('Downloading update ...')
+        run_in_background('__workflow_update_install', cmd)
+
+        return True
+
+    ####################################################################
     # Keychain password storage methods
     ####################################################################
 
     def save_password(self, account, password, service=None):
         """Save account credentials.
 
-        If the account exists, the old password will first be deleted (Keychain
-        throws an error otherwise).
+        If the account exists, the old password will first be deleted
+        (Keychain throws an error otherwise).
 
-        If something goes wrong, a `KeychainError` exception will be raised.
+        If something goes wrong, a :class:`KeychainError` exception will
+        be raised.
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
         :type account: ``unicode``
         :param password: the password to secure
         :type password: ``unicode``
-        :param service: Name of the service. By default, this is the workflow's
-                        bundle ID
+        :param service: Name of the service. By default, this is the
+            workflow's bundle ID
         :type service: ``unicode``
 
         """
@@ -2031,45 +2171,53 @@ class Workflow(object):
     ####################################################################
 
     def clear_cache(self):
-        """Delete all files in workflow cache directory."""
+        """Delete all files in workflow's :attr:`cachedir`."""
         self._delete_directory_contents(self.cachedir)
 
     def clear_data(self):
-        """Delete all files in workflow data directory."""
+        """Delete all files in workflow's :attr:`datadir`."""
         self._delete_directory_contents(self.datadir)
 
     def clear_settings(self):
-        """Delete settings file."""
+        """Delete workflow's :attr:`settings_path`."""
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
             self.logger.debug('Deleted : %r', self.settings_path)
 
     def reset(self):
-        """Delete settings, cache and data"""
+        """Delete :attr:`settings <settings_path>`, :attr:`cache <cachedir>`
+        and :attr:`data <datadir>`
+
+        """
+
         self.clear_cache()
         self.clear_data()
         self.clear_settings()
 
     def open_log(self):
-        """Open log file in standard application (usually Console.app)."""
-        subprocess.call(['open', self.logfile])  # pragma: no cover
+        """Open workflows :attr:`logfile` in standard
+        application (usually Console.app).
+
+        """
+
+        subprocess.call(['open', self.logfile])
 
     def open_cachedir(self):
-        """Open the workflow cache directory in Finder."""
-        subprocess.call(['open', self.cachedir])  # pragma: no cover
+        """Open the workflow's :attr:`cachedir` in Finder."""
+        subprocess.call(['open', self.cachedir])
 
     def open_datadir(self):
-        """Open the workflow data directory in Finder."""
-        subprocess.call(['open', self.datadir])  # pragma: no cover
+        """Open the workflow's :attr:`datadir` in Finder."""
+        subprocess.call(['open', self.datadir])
 
     def open_workflowdir(self):
-        """Open the workflow directory in Finder."""
-        subprocess.call(['open', self.workflowdir])  # pragma: no cover
+        """Open the workflow's :attr:`directory <workflowdir` in Finder."""
+        subprocess.call(['open', self.workflowdir])
 
     def open_terminal(self):
-        """Open a Terminal window at workflow directory."""
+        """Open a Terminal window at workflow's :attr:`directory <workflowdir`."""
         subprocess.call(['open', '-a', 'Terminal',
-                        self.workflowdir])  # pragma: no cover
+                        self.workflowdir])
 
     ####################################################################
     # Helper methods

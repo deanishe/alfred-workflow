@@ -204,6 +204,9 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
     :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with more than a
     few hundred items or expect multi-word queries.
 
+
+.. _folding:
+
 Diacritic folding
 -----------------
 

@@ -6,7 +6,12 @@
 
 {% block extrahead %}
 {{ super() }}
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
 <link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->

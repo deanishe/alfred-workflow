@@ -21,7 +21,7 @@ is available.
     the version number *before* you start making any changes.
 
     See :ref:`version-numbers` for precise information on how
-    **Alfred-Workflow** determines whether a workflow has been updated.
+    Alfred-Workflow determines whether a workflow has been updated.
 
 
 Currently, only updates from `GitHub releases`_ are supported.
@@ -31,7 +31,7 @@ For your workflow to be able to recognise and download newer versions, the
 be one of the versions (i.e. tags) in the corresponding GitHub repo's
 releases list. See :ref:`version-numbers` for more information.
 
-There must also be one (and only one) ``.alfredworkflow`` binary attached to a
+There must be one (and only one) ``.alfredworkflow`` binary attached to a
 release otherwise it will be ignored. This is the file that will be downloaded
 and installed via Alfred's default installation mechanism.
 
@@ -41,6 +41,8 @@ keys/values ``github_slug``, which is your username and the name of the
 workflow's repo in the format ``username/reponame``, and ``version``, which
 is the release version (release tag) of the currently installed version
 of the workflow, e.g.:
+
+.. _update-example:
 
 .. code-block:: python
     :linenos:
@@ -67,17 +69,24 @@ of the workflow, e.g.:
 
 .. note::
 
-	**Alfred-Workflow** will automatically check in the background if a newer
+	Alfred-Workflow will automatically check in the background if a newer
 	version of your workflow is available, but will *not* automatically inform
 	the	user nor download and install the update.
 
 To view update status/install a newer version, the user must either
 call one of your workflow's Script Filters with the ``workflow:update``
-:ref:`magic argument <magic-arguments>`, in which case **Alfred-Workflow**
+:ref:`magic argument <magic-arguments>`, in which case Alfred-Workflow
 will handle the update automatically, or you must add your own update action
 using :attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
 and :meth:`Workflow.start_update() <workflow.workflow.Workflow.start_update>`
 to check for and install newer versions respectively.
+
+The :meth:`~workflow.workflow.Workflow.check_update` method is called
+automatically when you create a :class:`workflow.workflow.Workflow` object. If
+sufficient time has elapsed since the last check (1 day by default), it starts
+a background process that checks for new releases. You can alter the update
+interval with the optional ``frequency`` key in ``update_settings``
+:class:`dict` (see the :ref:`example above <update-example>`).
 
 :attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
 is ``True`` if an update is available, and ``False`` otherwise.
@@ -99,7 +108,7 @@ It caches information on the latest available release under the cache key
 Version numbers
 ---------------
 
-Currently, **Alfred-Workflow** is not particularly smart when it comes to
+Currently, Alfred-Workflow is not particularly smart when it comes to
 version numbers. This may change in the future but will require imposing a
 specific format for version numbers on workflow authors. If that does happen,
 it will be `semantic versioning`_, which you should probably be using anyway.
@@ -109,12 +118,12 @@ preceded by ``v``, e.g. ``v1.0``, ``v2.3.1`` etc., whereas the *de-facto* way
 to version Python libraries is to do the same, but without the preceding ``v``,
 e.g. ``1.0``, ``2.3.1`` etc.
 
-As a result, **Alfred-Workflow** will strip a preceding ``v`` from both local
+As a result, Alfred-Workflow will strip a preceding ``v`` from both local
 and remote versions (i.e. you can specify ``1.0`` or ``v1.0`` either or both
 in your Python code and GitHub releases).
 
 When this is done, if the latest GitHub version is not the same as the local
-version, **Alfred-Workflow** will consider the remote version to be an update.
+version, Alfred-Workflow will consider the remote version to be an update.
 **No further comparison of versions takes place**.
 
 Thus, calling :class:`~workflow.workflow.Workflow` with

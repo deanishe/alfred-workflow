@@ -7,10 +7,10 @@ Script Filter Results and the XML Format
 
 .. note::
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
-    **Alfred-Workflow**.
+    Alfred-Workflow.
 
 Alfred's Script Filters are its most powerful workflow API and a main focus
-of **Alfred-Workflow**. Script Filters work by receiving a ``{query}`` from
+of Alfred-Workflow. Script Filters work by receiving a ``{query}`` from
 Alfred and returning a list of results as XML.
 
 To build this list of results use the
@@ -35,7 +35,7 @@ XML format / available parameters
 
 .. warning::
 
-    If you're not using **Alfred-Workflow** to generate your Script Filter's
+    If you're not using Alfred-Workflow to generate your Script Filter's
     output, you should use a real XML library to do so. XML is a lot more
     finicky that it looks, and it's fairly easy to create invalid XML. Unless
     your XML is hard-coded (i.e. never changes), it's much safer and more
@@ -71,7 +71,7 @@ be as pretty as it will all be on one line).
 
 The first line is the standard XML declaration. If you're generating your own
 XML, you should probably use a declaration exactly as shown here and
-ensure your XML is encoded as UTF-8 text. If you're using **Alfred-Workflow**,
+ensure your XML is encoded as UTF-8 text. If you're using Alfred-Workflow,
 the XML declaration will be generated for you and it will ensure that the
 XML output is UTF-8-encoded.
 
@@ -79,7 +79,7 @@ The root element **must** be ``<items>`` (lines 2 and 16).
 
 The ``<items>`` element contains one or more ``<item>`` elements.
 
-To generate the above XML with **Alfred-Workflow** you would use:
+To generate the above XML with Alfred-Workflow you would use:
 
 .. _code-example:
 
@@ -199,7 +199,7 @@ These are specified in the XML file as additional ``<subtitle>`` elements with
 ``mod="<key>"`` attributes (see lines 6–10 in the
 :ref:`example XML <xml-example>`).
 
-In **Alfred-Workflow**, you can set modifier-specific subtitles with the
+In Alfred-Workflow, you can set modifier-specific subtitles with the
 ``modifier_subtitles`` argument to
 :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`, which must
 be a dictionary with some or all of the keys ``alt``, ``cmd``, ``ctrl``,

@@ -2,7 +2,7 @@
 A Python helper library for writing `Alfred 2`_ workflows.
 
 Alfred workflows typically take user input, fetch data from the Web or
-elsewhere, filter them and display results to the user. **Alfred-Workflow**
+elsewhere, filter them and display results to the user. Alfred-Workflow
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
@@ -66,13 +66,13 @@ Installation
 With pip
 --------
 
-You can install **Alfred-Workflow** directly into your workflow with::
+You can install Alfred-Workflow directly into your workflow with::
 
     pip install --target=/path/to/my/workflow Alfred-Workflow
 
 
 **Note**: If you intend to distribute your workflow to other users, you should
-include **Alfred-Workflow** (and other Python libraries your workflow requires)
+include Alfred-Workflow (and other Python libraries your workflow requires)
 within your workflow as described. Do not ask users to install anything into
 their system Python.
 

@@ -1395,8 +1395,7 @@ class Workflow(object):
         :class:`SerializerManager` at `~workflow.workflow.manager`,
         otherwise a :class:`ValueError` will be raised.
 
-        :param serializer_name: Name of default serializer to use.
-        :type serializer_name:
+        :param serializer_name: Name of serializer to use by default.
 
         """
 
@@ -1412,12 +1411,11 @@ class Workflow(object):
 
     def stored_data(self, name):
         """Retrieve data from data directory. Returns ``None`` if there
-        is no data stored.
+        are no data stored.
 
         .. versionadded:: 1.8
 
         :param name: name of datastore
-        :type name: ``unicode``
 
         """
 
@@ -1466,13 +1464,11 @@ class Workflow(object):
         If ``data`` is ``None``, the datastore will be deleted.
 
         :param name: name of datastore
-        :type name: ``unicode``
-        :param data: object(s) to store
-        :type data: artibrary Python objects. **Note:** some serializers
+        :param data: object(s) to store. **Note:** some serializers
             can only handled certain types of data.
-        :param serializer: name of serializer to use.
-            See :class:`SerializerManager` for more information.
-        :type serializer: ``unicode``
+        :param serializer: name of serializer to use. If no serializer
+            is specified, the default will be used. See
+            :class:`SerializerManager` for more information.
         :returns: data in datastore or ``None``
 
         """
@@ -1521,14 +1517,12 @@ class Workflow(object):
         matter how old.
 
         :param name: name of datastore
-        :type name: ``unicode``
         :param data_func: function to (re-)generate data.
         :type data_func: ``callable``
         :param max_age: maximum age of cached data in seconds
         :type max_age: ``int``
         :returns: cached data, return value of ``data_func`` or ``None``
             if ``data_func`` is not set
-        :rtype: whatever ``data_func`` returns or ``None``
 
         """
 
@@ -1555,12 +1549,12 @@ class Workflow(object):
     def cache_data(self, name, data):
         """Save ``data`` to cache under ``name``.
 
-        If ``data`` is ``None``, the corresponding cache file will be deleted.
+        If ``data`` is ``None``, the corresponding cache file will be
+        deleted.
 
         :param name: name of datastore
-        :type name: ``unicode``
-        :param data: data to store
-        :type data: any object supported by :mod:`pickle`
+        :param data: data to store. This may be any object supported by
+                the cache serializer
 
         """
 
@@ -1583,11 +1577,10 @@ class Workflow(object):
         """Is data cached at `name` less than `max_age` old?
 
         :param name: name of datastore
-        :type name: ``unicode``
         :param max_age: maximum age of data in seconds
         :type max_age: ``int``
-        :returns: ``True`` if data is less than ``max_age`` old, else ``False``
-        :rtype: ``Boolean``
+        :returns: ``True`` if data is less than ``max_age`` old, else
+            ``False``
 
         """
 
@@ -2010,9 +2003,12 @@ class Workflow(object):
         return update_data['available']
 
     def check_update(self, force=False):
-        """Check if it's time to update and call update script if it is.
+        """Call update script if it's time to check for a new release
 
         .. versionadded:: 1.9
+
+        The update script will be run in the background, so it won't
+        interfere in the execution of your workflow.
 
         See :ref:`manual-updates` in the :ref:`user-manual` for detailed
         information on how to enable your workflow to update itself.

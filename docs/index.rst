@@ -9,12 +9,12 @@
 Overview
 ========
 
-**Alfred-Workflow** is a Python helper library for
+Alfred-Workflow is a Python helper library for
 `Alfred 2`_ workflow authors, developed and hosted
 on `GitHub`_.
 
 Alfred workflows typically take user input, fetch data from the Web or
-elsewhere, filter them and display results to the user. **Alfred-Workflow**
+elsewhere, filter them and display results to the user. Alfred-Workflow
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
@@ -23,7 +23,8 @@ Features
 ========
 
 - Catches and logs workflow errors for easier development and support
-- :ref:`"Magic" arguments <magic-arguments>` to help development/debugging
+- :ref:`"Magic" arguments <magic-arguments>` to help development, debugging and
+  management of the workflow
 - :ref:`Auto-saves settings <manual-settings>`
 - Super-simple :ref:`data caching <caching-data>`
 - Fuzzy, :ref:`Alfred-like search/filtering <filtering>` with
@@ -37,8 +38,8 @@ Features
 - Painlessly add directories to ``sys.path``
 - Easily launch :ref:`background tasks <background-processes>` (daemons) to
   keep your workflow responsive
-- :ref:`Check for new versions <manual-updates>` and update workflows hosted on
-  GitHub.
+- :ref:`Check for and install new workflow versions <manual-updates>` using
+  GitHub releases.
 
 
 
@@ -91,7 +92,7 @@ Pinboard item in Alfred to open it in your browser.
 Installation
 ============
 
-**Alfred-Workflow** can be installed from the `Python Package Index`_ with
+Alfred-Workflow can be installed from the `Python Package Index`_ with
 `pip`_ or from the source on `GitHub`_.
 
 .. toctree::
@@ -104,11 +105,11 @@ Installation
 The Alfred-Workflow Tutorial
 ============================
 
-A :ref:`two-part tutorial <tutorial>` on writing an Alfred workflow
-with **Alfred-Workflow**, taking you through the basics to a full-featured
-workflow. This is the best starting point for workflow authors new to Python
-or programming in general. More experienced Python coders should skim this
-or skip straight ahead to the :ref:`user-manual`.
+A :ref:`two-part tutorial <tutorial>` on writing an Alfred workflow with
+Alfred-Workflow, taking you through the basics to a performant and release-
+ready workflow. This is the best starting point for workflow authors new to
+Python or programming in general. More experienced Python coders should skim
+this or skip straight ahead to the :ref:`user-manual`.
 
 .. toctree::
     :maxdepth: 2
@@ -121,7 +122,7 @@ User Manual
 ===========
 
 If you know your way around Python and Alfred, here's an overview of what
-**Alfred-Workflow** can do and how to do it.
+Alfred-Workflow can do and how to do it.
 
 .. toctree::
    :maxdepth: 2
@@ -132,7 +133,7 @@ If you know your way around Python and Alfred, here's an overview of what
 API documentation
 =================
 
-Documetation of the **Alfred-Workflow** APIs generated from the source code.
+Documetation of the Alfred-Workflow APIs generated from the source code.
 A handy reference if (like me) you sometimes forget parameter names.
 
 .. toctree::
@@ -143,15 +144,18 @@ A handy reference if (like me) you sometimes forget parameter names.
 
 
 Script Filter results and the XML format
-----------------------------------------
+========================================
 
-An in-depth look at the many parameters accepted by
+An in-depth look at Alfred's XML format, the many parameters accepted by
 :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
 and how they interact with one another.
 
-This should also serve as a decent reference to Alfred's XML format for folks
-who aren't using **Alfred-Workflow**. The official Alfred 2 documentation is
-scattered, incomplete, out-of-date, and in places, simply incorrect.
+.. note::
+
+    This should also serve as a decent reference to Alfred's XML format for
+    folks who aren't using Alfred-Workflow. Unfortunately, the official Alfred
+    2 documentation is scattered, incomplete, out-of-date and, in places,
+    simply incorrect.
 
 
 .. toctree::
@@ -160,12 +164,18 @@ scattered, incomplete, out-of-date, and in places, simply incorrect.
    xml_format
 
 
+Feedback, questions, bugs, feature requests
+===========================================
 
-Indices and tables
-==================
+If you have feedback or a question regarding Alfred-Workflow, please post in
+them in the `Alfred forum thread`_.
 
-* :ref:`genindex`
-* :ref:`search`
+If you have a bug report or a feature request, please create a new
+`issue on GitHub`_.
+
+You can also email me at deanishe@deanishe.net with any questions/feedback/bug
+reports. However, it's generally better to use the forum/GitHub so that other
+users can benefit from and contribute to the conversation.
 
 
 .. _GitHub: https://github.com/deanishe/alfred-workflow/
@@ -173,3 +183,5 @@ Indices and tables
 .. _Alfred 2: http://www.alfredapp.com/
 .. _pip: https://pypi.python.org/pypi/pip
 .. _Python Package Index: https://pypi.python.org/pypi/Alfred-Workflow
+.. _Alfred forum thread: http://www.alfredforum.com/topic/4031-workflow-library-for-python/
+.. _issue on GitHub: https://github.com/deanishe/alfred-workflow/issues

@@ -5,7 +5,7 @@ Including 3rd party libraries
 =============================
 
 It's a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
-in the OS X system Python. **Alfred-Workflow** makes it easy to include them in
+in the OS X system Python. Alfred-Workflow makes it easy to include them in
 your Workflow.
 
 Simply create a ``lib`` subdirectory under your Workflow's root directory
@@ -26,7 +26,7 @@ to install, e.g. ``requests`` or ``feedparser``.
 
 This name is usually, but not always, the same as the name you use with ``import``.
 
-For example, to install **Alfred-Workflow**, you would run
+For example, to install Alfred-Workflow, you would run
 ``pip install Alfred-Workflow`` but use ``import workflow`` to import it.
 
 **An example:** You're in a shell in Terminal.app in the Workflow's root directory

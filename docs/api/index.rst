@@ -1,11 +1,11 @@
 
 .. _api:
 
-========
-API Docs
-========
+===================
+Alfred-Workflow API
+===================
 
-This API documentation describes how **Alfred-Workflow** is put together.
+This API documentation describes how Alfred-Workflow is put together.
 
 See :ref:`user-manual` for documentation focussed on performing specific tasks.
 
@@ -16,3 +16,9 @@ See :ref:`user-manual` for documentation focussed on performing specific tasks.
    web
    background
    update
+   serialization
+
+Index
+=====
+
+:ref:`All documented, public Alfred-Workflow classes and methods <genindex>`.

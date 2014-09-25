@@ -175,7 +175,10 @@ will return normalised Unicode. You can specify the encoding and normalisation
 form with the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> and <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or with the <tt class="docutils literal"><span class="pre">encoding</span></tt> and
 <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a></p>
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>. Generally,
+you shouldn&#8217;t need to change the default encoding of UTF-8, which is what
+OS X uses, but you may need to alter the normalisation depending on where
+your workflow gets its data from.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>To save yourself from having to prefix every string in your source code

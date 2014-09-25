@@ -235,6 +235,7 @@ These are some of the Alfred workflows that use this library.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperelectron). Choose SSH connection from filterable list.
 - [LibGen](http://www.packal.org/workflow/libgen) by [hackademic](http://www.packal.org/users/hackademic). Search and Download pdfs and ebooks from Library Genesis.
 - [Network Location](http://www.packal.org/workflow/network-location) by [deanishe](http://www.packal.org/users/deanishe). List, filter and activate network locations from within Alfred.
+- [PWS History](http://www.packal.org/workflow/pws-history) by [hrbrmstr](http://www.packal.org/users/hrbrmstr). Retrieve personal weather station history from Weather Underground.
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search) by [deanishe](http://www.packal.org/users/deanishe). Search Packal.org from the comfort of Alfred.
 - [Pandoctor](http://www.packal.org/workflow/pandoctor) by [hackademic](http://www.packal.org/users/hackademic). An Alfred GUI for Pandoc.
 - [Parsers](http://www.packal.org/workflow/parsers) by [hackademic](http://www.packal.org/users/hackademic). Greek and Latin parsers.

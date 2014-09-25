@@ -7,10 +7,10 @@ Serialization
 .. module:: workflow
 
 :class:`Workflow` has
-:ref:`several methods for storing persistent data <persistent-data>` to your
-workflow's data and cache directories. By default these are stored as Python
-:mod:`pickle` objects using :class:`~workflow.CPickleSerializer`
-(with the file extension ``.cpickle``).
+:ref:`several methods for storing persistent data <manual-persistent-data>`
+to your workflow's data and cache directories. By default these are stored as
+Python :mod:`pickle` objects using :class:`~workflow.CPickleSerializer` (with
+the file extension ``.cpickle``).
 
 You may, however, want to serialize your data in a different format, e.g. JSON,
 to make it user-readable/-editable or to interface with other software, and

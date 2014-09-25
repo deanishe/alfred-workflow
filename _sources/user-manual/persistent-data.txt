@@ -26,7 +26,7 @@ for details of the data storage API.
 
 It is easy to specify a custom file format for your stored data
 via the ``serializer`` argument if you want your data to be readable by the user
-or by other software. See :ref:`Serialization <serialization>` for more details.
+or by other software. See :ref:`manual-serialization` for more details.
 
 .. tip::
 
@@ -120,7 +120,7 @@ You should use these methods (and not the data caching ones) if the data you
 are saving should not be deleted as part of system maintenance.
 
 If you want to specify your own file format/serializer, please see
-:ref:`Serialization <serialization>` for details.
+:ref:`manual-serialization` for details.
 
 
 .. _manual-settings:

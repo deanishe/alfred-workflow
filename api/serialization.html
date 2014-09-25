@@ -161,10 +161,10 @@ the _static path in each subdirectory -->
   <div class="section" id="module-workflow">
 <span id="serialization"></span><span id="api-serialization"></span><h1>Serialization<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <p><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt> has
-<em class="xref std std-ref">several methods for storing persistent data</em> to your
-workflow&#8217;s data and cache directories. By default these are stored as Python
-<a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> objects using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a>
-(with the file extension <tt class="docutils literal"><span class="pre">.cpickle</span></tt>).</p>
+<a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><em>several methods for storing persistent data</em></a>
+to your workflow&#8217;s data and cache directories. By default these are stored as
+Python <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> objects using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a> (with
+the file extension <tt class="docutils literal"><span class="pre">.cpickle</span></tt>).</p>
 <p>You may, however, want to serialize your data in a different format, e.g. JSON,
 to make it user-readable/-editable or to interface with other software, and
 the <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> and data storage/caching APIs enable

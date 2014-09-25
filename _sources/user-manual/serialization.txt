@@ -7,8 +7,8 @@ Serialization of stored/cached data
 .. module:: workflow
 
 By default, both cache and data files (created using the APIs described in
-:ref:`persistent-data`) are cached using :mod:`cPickle`. This provides a great
-compromise in terms of speed and the ability to store arbitrary objects.
+:ref:`manual-persistent-data`) are cached using :mod:`cPickle`. This provides
+a great compromise in terms of speed and the ability to store arbitrary objects.
 
 When changing or specifying a serializer, use the name under which the
 serializer is registered with the :ref:`workflow.manager <managing-serializers>`

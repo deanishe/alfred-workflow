@@ -18,12 +18,6 @@ elsewhere, filter them and display results to the user. **Alfred-Workflow**
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
-.. note::
-
-    **Alfred-Workflow** is *the only library* that supports all of Alfred 2's
-    features (as of version 2.5 of Alfred, version 1.8.5 of **Alfred-Workflow**).
-
-
 
 Features
 ========
@@ -138,7 +132,8 @@ If you know your way around Python and Alfred, here's an overview of what
 API documentation
 =================
 
-Detailed documetation of the **Alfred-Workflow** APIs, detailing the full API.
+Documetation of the **Alfred-Workflow** APIs generated from the source code.
+A handy reference if (like me) you sometimes forget parameter names.
 
 .. toctree::
   :maxdepth: 2
@@ -158,9 +153,6 @@ This should also serve as a decent reference to Alfred's XML format for folks
 who aren't using **Alfred-Workflow**. The official Alfred 2 documentation is
 scattered, incomplete, out-of-date, and in places, simply incorrect.
 
-I make no guarantees for the correctness or completeness of this documentation,
-but it's currently (as of Alfred version 2.5) more accurate and complete than
-the official documentation. Additions and corrections welcome.
 
 .. toctree::
    :maxdepth: 3

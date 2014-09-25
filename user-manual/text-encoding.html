@@ -163,6 +163,8 @@ the _static path in each subdirectory -->
 do when working with text in Python. If your code naïvely mixes Unicode and
 encoded strings, it will fail if an encoded string contains non-ASCII
 characters.</p>
+<p>Python 3 has much improved this situation, but is currently not installed on
+OS X by default, so isn&#8217;t supported by Alfred or Alfred-Workflow.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Always test your workflow with non-ASCII input to flush out any accidental
@@ -199,8 +201,8 @@ your Python scripts. This makes all unprefixed strings Unicode by default
 </div>
 <div class="section" id="normalisation">
 <h2>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h2>
-<p>Normalisation is the process of ensuring that all instances of accented
-Unicode characters are represented in the same way.</p>
+<p>Normalisation is the process of ensuring that all instances of a given
+Unicode character are represented in the same way.</p>
 <p>In Unicode, an accented character like <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as
 <tt class="docutils literal"><span class="pre">u+¨</span></tt>. By normalising Unicode strings, you ensure that all instances of <tt class="docutils literal"><span class="pre">ü</span></tt>
 are represented in the same way.</p>
@@ -210,7 +212,10 @@ are represented in the same way.</p>
 filesystem, you should call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with
 <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt>. If your workflow uses data from the Web (via native
 Python libraries, including <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>), you probably don&#8217;t need to
-do anything (everything will be NFC-normalised).</p>
+do anything (everything will be NFC-normalised). If you&#8217;re mixing both kinds
+of data, the simplest solution is probably to run all data from the filesystem
+through <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to
+ensure it is normalised in the same way as data from the Web.</p>
 </div>
 <div class="section" id="why-does-normalisation-matter">
 <h3>Why does normalisation matter?<a class="headerlink" href="#why-does-normalisation-matter" title="Permalink to this headline">¶</a></h3>
@@ -252,8 +257,8 @@ recognise them as being the same:</p>
 <span class="go">False</span>
 </pre></div>
 </td></tr></table></div>
-<p>As a result of this Python quirk (Python 3 is no better in this regard), it&#8217;s
-important to ensure that all input is normalised in the same way or, for
+<p>As a result of this Python quirk (Python 3 is alas no better in this regard),
+it&#8217;s important to ensure that all input is normalised in the same way or, for
 example, a user-provided query may not match a filename that it should.</p>
 </div>
 <div class="section" id="normalisation-with-alfred-workflow">

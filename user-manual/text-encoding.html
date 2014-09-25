@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Text encoding/decoding &mdash; Alfred-Workflow 1.9 documentation</title>
+  <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.9 documentation</title>
   
 
   
@@ -100,7 +100,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Text encoding/decoding</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +146,7 @@ the _static path in each subdirectory -->
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>Text encoding/decoding</li>
+    <li>Encoded strings and Unicode</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="../_sources/user-manual/text-encoding.txt" rel="nofollow"> View page source</a>
@@ -157,71 +157,132 @@ the _static path in each subdirectory -->
 </div>
           <div role="main">
             
-  <div class="section" id="text-encoding-decoding">
-<span id="text-encoding"></span><h1>Text encoding/decoding<a class="headerlink" href="#text-encoding-decoding" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="encoded-strings-and-unicode">
+<span id="text-encoding"></span><h1>Encoded strings and Unicode<a class="headerlink" href="#encoded-strings-and-unicode" title="Permalink to this headline">¶</a></h1>
+<p>Alfred-Workflow uses Unicode throughout, which is something you should aim to
+do when working with text in Python. If your code naïvely mixes Unicode and
+encoded strings, it will fail if an encoded string contains non-ASCII
+characters.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Always test your workflow with non-ASCII input to flush out any accidental
+mixing of Unicode and encoded strings.</p>
+</div>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides the convenience method
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for working with
+Unicode and encoded strings. You can pass it Unicode or encoded strings and it
+will return normalised Unicode. You can specify the encoding and normalisation
+form with the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> and <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or with the <tt class="docutils literal"><span class="pre">encoding</span></tt> and
+<tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>To save yourself from having to prefix every string in your source code
+with <tt class="docutils literal"><span class="pre">u</span></tt>, add <tt class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></tt> at the top of
+your Python scripts. This makes all unprefixed strings Unicode by default
+(use <tt class="docutils literal"><span class="pre">b''</span></tt> to create an encoded string):</p>
+<div class="last highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># encoding: utf-8</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">ustr</span> <span class="o">=</span> <span class="s">&#39;This is a Unicode string&#39;</span>
+<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;This is an encoded string&#39;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="normalisation">
+<h2>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h2>
+<p>Normalisation is the process of ensuring that all instances of accented
+Unicode characters are represented in the same way.</p>
+<p>In Unicode, an accented character like <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as
+<tt class="docutils literal"><span class="pre">u+¨</span></tt>. By normalising Unicode strings, you ensure that all instances of <tt class="docutils literal"><span class="pre">ü</span></tt>
+are represented in the same way.</p>
+<div class="section" id="the-bottom-line">
+<h3>The bottom line<a class="headerlink" href="#the-bottom-line" title="Permalink to this headline">¶</a></h3>
+<p>If your workflow is based around comparing a user <tt class="docutils literal"><span class="pre">query</span></tt> to data from the
+filesystem, you should call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with
+<tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt>. If your workflow uses data from the Web (via native
+Python libraries, including <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>), you probably don&#8217;t need to
+do anything (everything will be NFC-normalised).</p>
+</div>
+<div class="section" id="why-does-normalisation-matter">
+<h3>Why does normalisation matter?<a class="headerlink" href="#why-does-normalisation-matter" title="Permalink to this headline">¶</a></h3>
+<p>As noted above, in Unicode a character like <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt>
+or <tt class="docutils literal"><span class="pre">u+¨</span></tt>.</p>
+<p>Python isn&#8217;t smart enough to ensure that all Unicode strings are normalised to
+use the same representations when comparing them.</p>
+<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
+in Alfred&#8217;s query box or in the source code (which will be NFC-normalised by
+default when using Alfred-Workflow) with an ostensibly identical string
+that came from OS X&#8217;s filesystem (which is NFD-normalised), Python won&#8217;t
+recognise them as being the same:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="s">u&#39;München&#39;</span>  <span class="c"># German for Munich. NFC-normalised as it&#39;s Python source code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="go">u&#39;M\xfcnchen&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fsdata</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFD&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c"># The normalisation used by OS X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">fsdata</span><span class="p">))</span>
+<span class="go">u&#39;Mu\u0308nchen&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">München</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">fsdata</span><span class="p">)</span>
+<span class="go">München</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">==</span> <span class="n">fsdata</span>
+<span class="go">False</span>
+</pre></div>
+</td></tr></table></div>
+<p>As a result of this Python quirk (Python 3 is no better in this regard), it&#8217;s
+important to ensure that all input is normalised in the same way or, for
+example, a user-provided query may not match a filename that it should.</p>
+</div>
+<div class="section" id="normalisation-with-alfred-workflow">
+<h3>Normalisation with Alfred-Workflow<a class="headerlink" href="#normalisation-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>
 <p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and
-<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a> return command line arguments from Alfred and decoded JSON
-data respectively as NFC-normalised Unicode strings.</p>
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a> return command line arguments from Alfred and text/decoded
+JSON data respectively as NFC-normalised Unicode strings.</p>
 <p>This is the default for Python. You can change this via the <tt class="docutils literal"><span class="pre">input_encoding</span></tt>
 and <tt class="docutils literal"><span class="pre">normalization</span></tt> keywords to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
-(this will, however, not affect <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>, which will <em>always</em> return
-NFC-encoded Unicode).</p>
-<p>If your Workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
+(this will, however, not affect <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>, which <em>always</em> returns
+NFC-encoded Unicode strings).</p>
+<p>If your workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
 <a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should almost certainly NFC-normalising those
 strings or changing the default normalisation to <strong>NFD</strong>, which is (more or
 less) what OS X uses.
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> can help with
 this.</p>
 <p>If you pass a Unicode string to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>,
-it will just be normalised using the form passed in the <tt class="docutils literal"><span class="pre">normalization</span></tt> argument
-to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
+it will just be normalised using the form passed in the <tt class="docutils literal"><span class="pre">normalization</span></tt>
+argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
 or to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation.</p>
 <p>If you pass an encoded string, it will be decoded to Unicode with the encoding
 passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
-or to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation and then
-normalised.</p>
-<div class="section" id="why-does-normalisation-matter">
-<h2>Why does normalisation matter?<a class="headerlink" href="#why-does-normalisation-matter" title="Permalink to this headline">¶</a></h2>
-<p>In Unicode, there isn&#8217;t a canonical definition of many accented characters.
-That is to say, <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or <tt class="docutils literal"><span class="pre">u+¨</span></tt>, depending on the
-normalisation form.</p>
-<p>Python isn&#8217;t smart enough to ensure that all Unicode strings are normalised in
-the same way.</p>
-<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
-in Alfred&#8217;s query box or in the source code (which will be NFC-normalised by
-default when using <strong>Alfred-Workflow</strong>) with an ostensibly identical string
-that came from OS X&#8217;s filesystem (which is NFD-normalised), Python won&#8217;t
-recognise them as being the same:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="s">u&#39;München&#39;</span>  <span class="c"># German for Munich. NFC-normalised as it&#39;s Python source code</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-<span class="go">u&#39;M\xfcnchen&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fsdata</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFD&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c"># The normalisation used by OS X</span>
-<span class="go">u&#39;Mu\u0308nchen&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">==</span> <span class="n">fsdata</span>
-<span class="go">False</span>
-</pre></div>
-</td></tr></table></div>
-<p>As a result of this misbehaviour of Python (Python 3 is no better in this
-regard), it&#8217;s critical that you ensure that all input is normalised in the same
-way.</p>
+or the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> argument to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation and then
+normalised as above.</p>
 </div>
-<div class="section" id="the-bottom-line">
-<h2>The bottom line<a class="headerlink" href="#the-bottom-line" title="Permalink to this headline">¶</a></h2>
-<p>If your workflow is based around comparing a user <tt class="docutils literal"><span class="pre">query</span></tt> to data from the
-filesystem, you should call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with
-<tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt>. If your workflow uses data from the Web (via native
-Python libraries, including <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>), you don&#8217;t need to do anything
-(everything will be NFC-normalised).</p>
+</div>
+<div class="section" id="further-information">
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re unfamiliar with using Unicode in Python, have a look at the official
+Python <a class="reference external" href="https://docs.python.org/2/howto/unicode.html">Unicode HOWTO</a>.</p>
 </div>
 </div>
 

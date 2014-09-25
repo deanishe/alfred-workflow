@@ -55,13 +55,13 @@ recognise them as being the same:
     >>> print(repr(data))
     u'M\xfcnchen'
     >>> fsdata = normalize('NFD', data)  # The normalisation used by OS X
+    >>> print(repr(fsdata))
     u'Mu\u0308nchen'
     >>> data == fsdata
     False
 
-As a result of this misbehaviour of Python (Python 3 is no better in this
-regard), it's critical that you ensure that all input is normalised in the same
-way.
+As a result of this Python quirk (Python 3 is no better in this regard), it's
+critical that you ensure that all input is normalised in the same way.
 
 The bottom line
 ---------------

@@ -9,11 +9,8 @@ Features to Add:
 
 
 	update.py:
-		- Integrate Fabio's update feature @done(14-09-14 19:50)
 		- Generalise update functionality @v2
 			Use subclass-based plugin feature to automatically register updaters?
-		- Allow omission of `v` in version specified in `update_settings` @done(14-09-14 22:14)
-		- Perform download & installation in the background, so Workflow can inform user that an update is being performed @priority(1)
 
 
 	web.py:
@@ -22,14 +19,12 @@ Features to Add:
 	workflow.py:
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
 		- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2
+		- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1)
 
 
 	Docs:
 		- Add tutorial using `workflow.web`
 		- Add tutorial using filesystem/Unicode
-			- Improve description of how to use `Workflow(libraries=)`
-				Make paths to specify to `pip` clearer.
-				See https://github.com/deanishe/alfred-workflow/issues/28
 
 
 
@@ -81,6 +76,12 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	- Integrate Fabio's update feature @done(14-09-14 19:50) @project(Features to Add / update.py)
+	- Allow omission of `v` in version specified in `update_settings` @done(14-09-14 22:14) @project(Features to Add / update.py)
+	- Perform download & installation in the background, so Workflow can inform user that an update is being performed @priority(1) @done(14-09-25 11:57) @project(Features to Add / update.py)
+	- Improve description of how to use `Workflow(libraries=)` @done(14-09-25 11:59) @project(Features to Add / Docs)
+		Make paths to specify to `pip` clearer.
+		See https://github.com/deanishe/alfred-workflow/issues/28
 	- Move documentation out of module docstrings into ReST files under /doc @priority(1) @done(14-09-14 14:23) @project(Features to Add / Docs)
 		A lot of the documentation isn't super-suitable for Python's `help()`
 		function. The published HTML documentation could be much better arranged

@@ -121,7 +121,7 @@ and ``normalization`` keywords to :class:`Workflow <workflow.workflow.Workflow>`
 NFC-encoded Unicode strings).
 
 If your workflow works with data from the system (via :mod:`subprocess`,
-:func:`os.listdir` etc.), you should almost certainly NFC-normalising those
+:func:`os.listdir` etc.), you should almost certainly be NFC-normalising those
 strings or changing the default normalisation to **NFD**, which is (more or
 less) what OS X uses.
 :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` can help with

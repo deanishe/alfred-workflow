@@ -9,6 +9,9 @@ do when working with text in Python. If your code naïvely mixes Unicode and
 encoded strings, it will fail if an encoded string contains non-ASCII
 characters.
 
+Python 3 has much improved this situation, but is currently not installed on
+OS X by default, so isn't supported by Alfred or Alfred-Workflow.
+
 .. tip::
 
     Always test your workflow with non-ASCII input to flush out any accidental
@@ -48,8 +51,8 @@ your workflow gets its data from.
 Normalisation
 -------------
 
-Normalisation is the process of ensuring that all instances of accented
-Unicode characters are represented in the same way.
+Normalisation is the process of ensuring that all instances of a given
+Unicode character are represented in the same way.
 
 In Unicode, an accented character like ``ü`` can be represented as ``ü`` or as
 ``u+¨``. By normalising Unicode strings, you ensure that all instances of ``ü``
@@ -62,7 +65,10 @@ If your workflow is based around comparing a user ``query`` to data from the
 filesystem, you should call :class:`~workflow.workflow.Workflow` with
 ``normalization='NFD'``. If your workflow uses data from the Web (via native
 Python libraries, including :mod:`workflow.web`), you probably don't need to
-do anything (everything will be NFC-normalised).
+do anything (everything will be NFC-normalised). If you're mixing both kinds
+of data, the simplest solution is probably to run all data from the filesystem
+through :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` to
+ensure it is normalised in the same way as data from the Web.
 
 Why does normalisation matter?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -97,8 +103,8 @@ recognise them as being the same:
     >>> data == fsdata
     False
 
-As a result of this Python quirk (Python 3 is no better in this regard), it's
-important to ensure that all input is normalised in the same way or, for
+As a result of this Python quirk (Python 3 is alas no better in this regard),
+it's important to ensure that all input is normalised in the same way or, for
 example, a user-provided query may not match a filename that it should.
 
 

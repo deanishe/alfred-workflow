@@ -465,13 +465,15 @@ class SerializerManager(object):
 
     .. versionadded:: 1.8
 
-    A configured instance of this class is available at ``workflow.manager``.
+    A configured instance of this class is available at
+    ``workflow.manager``.
 
     Use :meth:`register()` to register new (or replace
     existing) serializers, which you can specify by name when calling
     :class:`Workflow` data storage methods.
 
-    See `serialization` and `persistent-data` for further information.
+    See :ref:`manual-serialization` and :ref:`manual-persistent-data`
+    for further information.
 
     """
 

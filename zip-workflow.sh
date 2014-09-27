@@ -39,9 +39,11 @@ fi
 
 if [[ $show -eq 1 ]]; then
 	zip -sf -r ${zipfile} ${sourcedir} -i '*.py'
+	zip -sf -r ${zipfile} ${sourcedir} -i '*version'
 	status=$?
 else
-	zip -r ${zipfile} ${sourcedir} -i '*.py'
+	zip -r ${zipfile} ${sourcedir} -i '*.py' 'version'
+	zip -r ${zipfile} ${sourcedir} -i '*version'
 	status=$?
 fi
 

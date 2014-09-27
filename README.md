@@ -55,8 +55,10 @@ Your workflow should look something like this:
         workflow/
             __init__.py
             background.py
-            workflow.py
+            update.py
+            version
             web.py
+            workflow.py
         yourscript.py
         etc.
 

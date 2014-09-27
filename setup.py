@@ -40,6 +40,7 @@ url = 'http://www.deanishe.net/alfred-workflow/'
 description = 'Full-featured helper library for writing Alfred 2 workflows'
 keywords = 'alfred workflow'
 packages = ['workflow']
+package_data = {'workflow': ['version']}
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: MIT License',
@@ -61,6 +62,7 @@ setup(name=name,
       author_email=author_email,
       url=url,
       packages=packages,
+      package_data=package_data,
       classifiers=classifiers,
       tests_require=tests_require,
       cmdclass={'test': NoseTestCommand})

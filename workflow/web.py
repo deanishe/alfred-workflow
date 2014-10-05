@@ -95,7 +95,7 @@ def str_dict(dic):
 class NoRedirectHandler(urllib2.HTTPRedirectHandler):
     """Prevent redirections"""
 
-    def redirect_request(self, req, fp, code, msg, hdrs, newurl):
+    def redirect_request(self, *args):
         return None
 
 
@@ -259,7 +259,7 @@ class Response(object):
         error will be instance of :class:`urllib2.HTTPError`
         """
 
-        if self.error:
+        if self.error is not None:
             raise self.error
         return
 
@@ -363,7 +363,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     if not allow_redirects:
         openers.append(NoRedirectHandler())
 
-    if auth:  # Add authorisation handler
+    if auth is not None:  # Add authorisation handler
         username, password = auth
         password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
         password_manager.add_password(None, url, username, password)

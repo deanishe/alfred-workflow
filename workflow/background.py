@@ -83,8 +83,8 @@ def is_running(name):
     if not os.path.exists(pidfile):
         return False
 
-    with open(pidfile, 'rb') as file:
-        pid = int(file.read().strip())
+    with open(pidfile, 'rb') as file_obj:
+        pid = int(file_obj.read().strip())
 
     if _process_exists(pid):
         return True
@@ -175,8 +175,8 @@ def run_in_background(name, args, **kwargs):
     argcache = _arg_cache(name)
 
     # Cache arguments
-    with open(argcache, 'wb') as file:
-        pickle.dump({'args': args, 'kwargs': kwargs}, file)
+    with open(argcache, 'wb') as file_obj:
+        pickle.dump({'args': args, 'kwargs': kwargs}, file_obj)
         log.debug('Command arguments cached to `{}`'.format(argcache))
 
     # Call this script
@@ -204,8 +204,8 @@ def main(wf):  # pragma: no cover
         return 1
 
     # Load cached arguments
-    with open(argcache, 'rb') as file:
-        data = pickle.load(file)
+    with open(argcache, 'rb') as file_obj:
+        data = pickle.load(file_obj)
 
     # Cached arguments
     args = data['args']

@@ -46,23 +46,29 @@ classifiers = [
     'License :: OSI Approved :: MIT License',
     'Operating System :: MacOS :: MacOS X',
     'Intended Audience :: Developers',
+    'Natural Language :: English',
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
 tests_require = ['nose', 'coverage', 'yanc']
+zip_safe = False
 
-setup(name=name,
-      version=version,
-      description=description,
-      long_description=read('README.rst'),
-      keywords=keywords,
-      author=author,
-      author_email=author_email,
-      url=url,
-      packages=packages,
-      package_data=package_data,
-      classifiers=classifiers,
-      tests_require=tests_require,
-      cmdclass={'test': NoseTestCommand})
+setup(
+    name=name,
+    version=version,
+    description=description,
+    long_description=read('README.rst'),
+    keywords=keywords,
+    author=author,
+    author_email=author_email,
+    url=url,
+    packages=packages,
+    package_data=package_data,
+    include_package_data=True,
+    classifiers=classifiers,
+    tests_require=tests_require,
+    cmdclass={'test': NoseTestCommand},
+    zip_safe=zip_safe,
+)

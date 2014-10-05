@@ -1,8 +1,8 @@
 #!/bin/bash
 
-rootdir=$(dirname "$0")
-zipfile="${rootdir}/alfred-workflow.zip"
-sourcedir="${rootdir}/workflow"
+rootdir=$(cd $(dirname $0)/../; pwd)
+zipfile="alfred-workflow.zip"
+sourcedir="workflow"
 
 function help() {
 cat << EOF
@@ -31,6 +31,8 @@ esac
 # echo "\$rootdir : ${rootdir}	\$zipfile : ${zipfile}	\$sourcedir : ${sourcedir}"
 # exit 0
 
+cd "${rootdir}"
+
 if [[ -f "${zipfile}" ]] && [[ $show -eq 0 ]]; then
 	echo "Deleting existing zip archive"
 	rm -f "${zipfile}"
@@ -55,3 +57,5 @@ else
 		echo "Created ${zipfile}"
 	fi
 fi
+
+cd -

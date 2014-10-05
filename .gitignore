@@ -5,7 +5,5 @@ posts.json
 *.pyc
 /benchmark_*.py
 /temp_*.py
-/publish-docs.sh
-/publish-cheeseshop.sh
 /MANIFEST
 /dist

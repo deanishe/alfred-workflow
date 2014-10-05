@@ -1,9 +1,7 @@
 #!/bin/bash
 
-basedir=$(cd $(dirname $0); pwd)
+basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
-testdir="${basedir}/tests"
-curdir=$(pwd)
 
 # info_linked=0
 
@@ -18,7 +16,7 @@ if [[ -d _build/html ]]; then
 	rm -rf _build/html
 fi
 make html
-cd "${curdir}"
+cd -
 
 
 # if [[ $info_linked -eq 1 ]]; then

@@ -8,10 +8,10 @@ if test -z "$1"
         exit 1
 fi
 
-basedir=$(cd $(dirname $0); pwd)
+basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
 testdir="${basedir}/tests"
-pubdir=$(cd $(dirname $0)/../; pwd)/alfred-workflow-docs
+pubdir=$(cd $(dirname $0)/../../; pwd)/alfred-workflow-docs
 
 echo "basedir : ${basedir}"
 echo "docdir : ${docdir}"

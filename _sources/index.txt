@@ -181,6 +181,19 @@ and how they interact with one another.
    xml_format
 
 
+
+Workflows using Alfred-Workflow
+===============================
+
+This is a list of some of the workflows based on Alfred-Workflow.
+
+.. toctree::
+   :maxdepth: 2
+
+   aw-workflows
+
+
+
 Feedback, questions, bugs, feature requests
 ===========================================
 
@@ -193,6 +206,7 @@ If you have a bug report or a feature request, please create a new
 You can also email me at deanishe@deanishe.net with any questions/feedback/bug
 reports. However, it's generally better to use the forum/GitHub so that other
 users can benefit from and contribute to the conversation.
+
 
 
 .. _GitHub: https://github.com/deanishe/alfred-workflow/

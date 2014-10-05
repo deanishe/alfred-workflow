@@ -30,6 +30,8 @@ Features to Add:
 
 Features to Consider:
 
+	icons.py:
+		- `IconSet` — Manage equivalent sets of light/dark icons and return whichever is appropriate to the current theme.
 
 	background.py:
 		- Enable `background.py` to be run from within a ZIP file

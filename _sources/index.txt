@@ -9,9 +9,26 @@
 Overview
 ========
 
-Alfred-Workflow is a Python helper library for
-`Alfred 2`_ workflow authors, developed and hosted
-on `GitHub`_.
+.. image:: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master
+    :target: https://pypi.python.org/pypi/Alfred-Workflow/
+    :alt: Latest Version
+.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg
+    :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
+    :alt: Code Coverage
+.. image:: https://pypip.in/version/Alfred-Workflow/badge.svg
+    :target: https://pypi.python.org/pypi/Alfred-Workflow/
+    :alt: Latest Version
+.. image:: https://pypip.in/license/Alfred-Workflow/badge.svg
+    :target: https://pypi.python.org/pypi/Alfred-Workflow/
+    :alt: License
+.. image:: https://pypip.in/download/Alfred-Workflow/badge.svg
+    :target: https://pypi.python.org/pypi//Alfred-Workflow/
+    :alt: Downloads
+
+|
+
+Alfred-Workflow is a Python helper library for `Alfred 2`_ workflow authors,
+developed and hosted on `GitHub`_.
 
 Alfred workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. Alfred-Workflow

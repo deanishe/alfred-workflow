@@ -1883,6 +1883,8 @@ class Workflow(object):
 
         """
 
+        start = time.time()
+
         try:
             func(self)
         except Exception as err:
@@ -1899,6 +1901,9 @@ class Workflow(object):
                               icon=ICON_ERROR)
                 self.send_feedback()
             return 1
+        finally:
+            self.logger.debug('Workflow finished in {:0.3f} seconds.'.format(
+                              time.time() - start))
         return 0
 
     # Alfred feedback methods ------------------------------------------

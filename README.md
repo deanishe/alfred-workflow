@@ -5,10 +5,12 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 [![Build Status][shield-travis]][travis]
 [![Coverage Status][shield-coveralls]][coveralls]
-[![Documentation Status][shield-docs]][docs]
+[![Code Health][shield-health]][landscape]
 [![Latest Version][shield-version]][pypi]
+[![Documentation Status][shield-docs]][docs]
 [![License][shield-licence]][pypi]
 [![Downloads][shield-download]][pypi]
+
 
 ## Features ##
 
@@ -493,8 +495,6 @@ These are some of the Alfred workflows that use this library.
 
 
 
-
-
 [alfred]: http://www.alfredapp.com/
 [cc]: https://creativecommons.org/licenses/by-nc/4.0/legalcode
 [coveralls]: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
@@ -504,6 +504,7 @@ These are some of the Alfred workflows that use this library.
 [docs]: http://www.deanishe.net/alfred-workflow/
 [fniephaus]: https://github.com/fniephaus
 [issues]: https://github.com/deanishe/alfred-workflow/issues
+[landscape]: https://landscape.io/github/deanishe/alfred-workflow/master
 [packal]: http://www.packal.org/
 [pep8]: http://legacy.python.org/dev/peps/pep-0008/
 [pulls]: https://github.com/deanishe/alfred-workflow/pulls
@@ -515,6 +516,7 @@ These are some of the Alfred workflows that use this library.
 [shield-coveralls]: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg
 [shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest
 [shield-download]: https://pypip.in/download/Alfred-Workflow/badge.svg
+[shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png
 [shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg
 [shield-travis]: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master
 [shield-version]: https://pypip.in/version/Alfred-Workflow/badge.svg?text=version

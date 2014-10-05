@@ -15,7 +15,11 @@ authors.
 
 import os
 
+__title__ = 'Alfred-Workflow'
 __version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
+__author__ = 'Dean Jackson'
+__licence__ = 'MIT'
+__copyright__ = 'Copyright 2014 Dean Jackson'
 
 
 # Workflow objects

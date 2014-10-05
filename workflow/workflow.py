@@ -1833,9 +1833,9 @@ class Workflow(object):
 
         # `query` is a substring of item
         if match_on & MATCH_SUBSTRING and query in value.lower():
-                score = 90.0 - (len(value) / len(query))
+            score = 90.0 - (len(value) / len(query))
 
-                return (score, MATCH_SUBSTRING)
+            return (score, MATCH_SUBSTRING)
 
         # finally, assign a score based on how close together the
         # characters in `query` are in item.

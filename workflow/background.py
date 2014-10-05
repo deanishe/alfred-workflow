@@ -220,8 +220,8 @@ def main(wf):  # pragma: no cover
     _background()
 
     # Write PID to file
-    with open(pidfile, 'wb') as file:
-        file.write('{}'.format(os.getpid()))
+    with open(pidfile, 'wb') as file_obj:
+        file_obj.write('{}'.format(os.getpid()))
 
     # Run the command
     try:

@@ -11,10 +11,13 @@ Overview
 
 .. image:: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master
     :target: https://pypi.python.org/pypi/Alfred-Workflow/
-    :alt: Latest Version
+    :alt: Build Status
 .. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg
     :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
     :alt: Code Coverage
+.. image:: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png
+    :target: https://landscape.io/github/deanishe/alfred-workflow/master
+    :alt: Code Health
 .. image:: https://pypip.in/version/Alfred-Workflow/badge.svg
     :target: https://pypi.python.org/pypi/Alfred-Workflow/
     :alt: Latest Version

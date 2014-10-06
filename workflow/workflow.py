@@ -1999,7 +1999,7 @@ class Workflow(object):
 
         """
 
-        update_data = self.cached_data('__workflow_update_status')
+        update_data = self.cached_data('__workflow_update_status', max_age=0)
 
         if not update_data or not update_data.get('available'):
             return False

@@ -222,7 +222,7 @@ def install_update(github_slug, current_version):
 
     """
 
-    update_data = wf.cached_data('__workflow_update_status')
+    update_data = wf.cached_data('__workflow_update_status', max_age=0)
 
     if not update_data or not update_data.get('available'):
         wf.logger.info('No update available')

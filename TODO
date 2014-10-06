@@ -20,6 +20,7 @@ Features to Add:
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
 		- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2
 		- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1)
+		- `max_age` argument of `cached_data()` should default to 0 (always return cached data) @v2 @priority(1)
 
 
 	Docs:

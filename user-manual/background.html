@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Background processes &mdash; Alfred-Workflow 1.9.2 documentation</title>
+  <title>Background processes &mdash; Alfred-Workflow 1.9.3 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.2 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.3 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Self-Updating" href="update.html"/>
         <link rel="prev" title="Retrieving data from the web" href="web.html"/>
@@ -217,7 +217,7 @@ too old or don&#8217;t exist.</li>
 <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-    <span class="c"># Is cache over 6 hours old or non-existent?</span>
+    <span class="c"># Is cache over 1 hour old or non-existent?</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
         <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span>
                           <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
@@ -287,7 +287,7 @@ which is a bit smarter about showing the user update information.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.2',
+            VERSION:'1.9.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -356,6 +356,11 @@ These are some of the Alfred workflows that use this library.
 - [Gmail for Alfred](https://github.com/fniephaus/alfred-gmail)
   by [fniephaus](https://github.com/fniephaus/).
   Manage your Gmail inbox with Alfred.
+- [HackerNews for Alfred](http://www.packal.org/workflow/hackernews-alfred)
+  ([GitHub repo](https://github.com/fniephaus/alfred-hackernews))
+  by [fniephaus](http://www.packal.org/users/fniephaus)
+  ([on GitHub](https://github.com/fniephaus/)).
+  Read Hacker News with Alfred.
 - [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-homebrew))
   by [fniephaus](http://www.packal.org/users/fniephaus)

@@ -1,43 +1,41 @@
 #!/bin/bash
 
-# Publish documentation to alfred-workflow-docs "sister" repo
+# Publish documentation to gh-pages branch using ghp-import
 
-if test -z "$1"
-    then
-        echo "You must specify a commit message."
-        exit 1
+if [[ -z "$1" ]]; then
+    echo "You must specify a commit message."
+    exit 1
 fi
+
+# Test that ghp-import is installed
+command -v ghp-import > /dev/null 2>&1 || {
+	echo "ghp-import not found."
+	echo "'pip install ghp-import' to install"
+	exit 1
+}
 
 basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
-testdir="${basedir}/tests"
-pubdir=$(cd $(dirname $0)/../../; pwd)/alfred-workflow-docs
+builddir="${docdir}/_build/html"
+buildscript="${basedir}/extras/build-docs.sh"
 
-echo "basedir : ${basedir}"
-echo "docdir : ${docdir}"
-echo "pubdir : ${pubdir}"
+echo "\$basedir  : ${basedir}"
+echo "\$docdir   : ${docdir}"
+echo "\$builddir : ${builddir}"
 
-# info_linked=0
-
-# if [[ ! -f "info.plist" ]]; then
-# 	# link info.plist to parent directory so `background.py` can find it
-# 	ln -s "${testdir}/info.plist.test" "${basedir}/info.plist"
-# 	info_linked=1
+# cd "${docdir}"
+# if [[ -d _build/html ]]; then
+# 	rm -rf _build/html
 # fi
+# make html
+# cd -
 
+/bin/bash "${buildscript}"
 
-cd "${docdir}"
-if [[ -d _build/html ]]; then
-	rm -rf _build/html
-fi
-make html
-cp -R _build/html/* "${pubdir}/"
-cd "${pubdir}"
-git add .
-git commit -m "$1"
-git push origin gh-pages
-cd "${basedir}"
+echo "######################################################################"
+echo "Publishing docs to gh-pages branch"
+echo "######################################################################"
 
-# if [[ $info_linked -eq 1 ]]; then
-# 	rm -f "${basedir}/info.plist"
-# fi
+# Publish $builddir to gh-pages branch
+ghp-import -n -m "$1" "${builddir}"
+

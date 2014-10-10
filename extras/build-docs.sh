@@ -11,6 +11,10 @@ docdir="${basedir}/docs"
 # 	info_linked=1
 # fi
 
+echo "######################################################################"
+echo "Building docs"
+echo "######################################################################"
+
 cd "${docdir}"
 if [[ -d _build/html ]]; then
 	rm -rf _build/html

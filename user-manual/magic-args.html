@@ -1,0 +1,300 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>“Magic” arguments &mdash; Alfred-Workflow 1.9.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.9.4 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Serialization of stored/cached data" href="serialization.html"/>
+        <link rel="prev" title="System icons" href="icons.html"/>
+ 
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>&#8220;Magic&#8221; arguments</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/user-manual/magic-args.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="magic-arguments">
+<span id="id1"></span><h1>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h1>
+<p>If your Script Filter (or script) accepts a query (or command line arguments),
+you can pass it so-called magic arguments that instruct
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> to perform certain actions, such as
+opening the log file or clearing the cache/settings.</p>
+<p>These can be a big help while developing and debugging and especially when
+debugging problems your Workflow&#8217;s users may be having.</p>
+<p>The <tt class="xref py py-meth docutils literal"><span class="pre">Workflow.run()</span></tt> method
+(which you should &#8220;wrap&#8221; your Workflow&#8217;s entry functions in) will catch any
+raised exceptions, log them and display them in Alfred. You can call your
+Workflow with <tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> as an Alfred query/command line argument
+and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will open the Workflow&#8217;s log file
+in the default app (usually <strong>Console.app</strong>).</p>
+<p>This makes it easy for you to get at the log file and data and cache directories
+(hidden away in <tt class="docutils literal"><span class="pre">~/Library</span></tt>), and for your users to send you their logs
+for debugging.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Magic arguments will only work with scripts that accept arguments <em>and</em> use
+the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> property (where magic
+arguments are parsed).</p>
+</div>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following magic arguments:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete the Workflow&#8217;s cache.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> — Delete the Workflow&#8217;s saved data.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — Delete the Workflow&#8217;s settings file (which contains the data stored using <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>).</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingdefault</span></tt> — Reset diacritic folding to workflow default</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingoff</span></tt> — Never fold diacritics in search keys</li>
+<li><tt class="docutils literal"><span class="pre">workflow:foldingon</span></tt> — Force diacritic folding in search keys (e.g. convert <em>ü</em> to <em>ue</em>)</li>
+<li><tt class="docutils literal"><span class="pre">workflow:opencache</span></tt> — Open the Workflow&#8217;s cache directory.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:opendata</span></tt> — Open the Workflow&#8217;s data directory.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openlog</span></tt> — Open the Workflow&#8217;s log file in the default app.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openterm</span></tt> — Open a Terminal window in the Workflow&#8217;s root directory.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:openworkflow</span></tt> — Open the Workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</li>
+<li><tt class="docutils literal"><span class="pre">workflow:reset</span></tt> — Delete the Workflow&#8217;s settings, cache and saved data.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:update</span></tt> — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.</li>
+</ul>
+<p>The three <tt class="docutils literal"><span class="pre">workflow:folding…</span></tt> settings allow users to override the diacritic
+folding set by a workflow&#8217;s author. This may be useful if the author&#8217;s choice
+does not correspond with a user&#8217;s usage pattern.</p>
+<p>You can turn off magic arguments by passing <tt class="docutils literal"><span class="pre">capture_args=False</span></tt> to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding
+methods of <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> directly, perhaps assigning your
+own keywords within your Workflow:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_cachedir" title="workflow.workflow.Workflow.open_cachedir"><tt class="xref py py-meth docutils literal"><span class="pre">open_cachedir()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_datadir" title="workflow.workflow.Workflow.open_datadir"><tt class="xref py py-meth docutils literal"><span class="pre">open_datadir()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_workflowdir" title="workflow.workflow.Workflow.open_workflowdir"><tt class="xref py py-meth docutils literal"><span class="pre">open_workflowdir()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_terminal" title="workflow.workflow.Workflow.open_terminal"><tt class="xref py py-meth docutils literal"><span class="pre">open_terminal()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_data" title="workflow.workflow.Workflow.clear_data"><tt class="xref py py-meth docutils literal"><span class="pre">clear_data()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_settings" title="workflow.workflow.Workflow.clear_settings"><tt class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.reset" title="workflow.workflow.Workflow.reset"><tt class="xref py py-meth docutils literal"><span class="pre">reset()</span></tt></a> (a shortcut to call the three previous <tt class="docutils literal"><span class="pre">clear_*</span></tt> methods)</li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><tt class="xref py py-meth docutils literal"><span class="pre">check_update()</span></tt></a></li>
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">start_update()</span></tt></a></li>
+</ul>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="serialization.html" class="btn btn-neutral float-right" title="Serialization of stored/cached data"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="icons.html" class="btn btn-neutral" title="System icons"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.9.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.9.4 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Alfred-Workflow API" href="../api/index.html"/>
+        <link rel="prev" title="Serialization of stored/cached data" href="serialization.html"/>
+ 
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>Encoded strings and Unicode</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/user-manual/text-encoding.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="encoded-strings-and-unicode">
+<span id="text-encoding"></span><h1>Encoded strings and Unicode<a class="headerlink" href="#encoded-strings-and-unicode" title="Permalink to this headline">¶</a></h1>
+<p>Alfred-Workflow uses Unicode throughout, which is something you should aim to
+do when working with text in Python. If your code naïvely mixes Unicode and
+encoded strings, it <em>will</em> die in flames if an encoded string contains
+non-ASCII characters.</p>
+<p>Python 3 has much improved this situation, but is currently not installed on
+OS X by default, so isn&#8217;t supported by Alfred or Alfred-Workflow.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Always test your workflow with non-ASCII input to flush out any accidental
+mixing of Unicode and encoded strings.</p>
+</div>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> provides the convenience method
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for working with
+Unicode and encoded strings. You can pass it Unicode or encoded strings and it
+will return normalized Unicode. You can specify the encoding and normalization
+form with the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> and <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or with the <tt class="docutils literal"><span class="pre">encoding</span></tt> and
+<tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>. Generally,
+you shouldn&#8217;t need to change the default encoding of UTF-8, which is what
+OS X uses, but you may need to alter the normalization depending on where
+your workflow gets its data from.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>To save yourself from having to prefix every string in your source code
+with <tt class="docutils literal"><span class="pre">u</span></tt> to mark it as a Unicode string, add
+<tt class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></tt> at the top of your Python
+scripts. This makes all unprefixed strings Unicode by default (use <tt class="docutils literal"><span class="pre">b''</span></tt>
+to create an encoded string):</p>
+<div class="last highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># encoding: utf-8</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">ustr</span> <span class="o">=</span> <span class="s">&#39;This is a Unicode string&#39;</span>
+<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;This is an encoded string&#39;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="normalization">
+<h2>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h2>
+<p>Unicode provides multiple ways to represent the same character. Normalization
+is the process of ensuring that all instances of a given Unicode character are
+represented in the same way.</p>
+<div class="section" id="tl-dr">
+<h3>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this headline">¶</a></h3>
+<p>If your workflow is based around comparing a user <tt class="docutils literal"><span class="pre">query</span></tt> to data from the
+system (filepaths, output of command-line programs), you should instantiate
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with the <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt> argument.</p>
+<p>If your workflow uses data from the Web (via native Python libraries, including
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>), you probably don&#8217;t need to do anything (everything will
+be NFC-normalized).</p>
+<p>If you&#8217;re mixing both kinds of data, the simplest solution is probably to run
+all data from the system through
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to ensure it is
+normalized in the same way as data from the Web.</p>
+</div>
+<div class="section" id="why-does-normalization-matter">
+<h3>Why does normalization matter?<a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h3>
+<p>In Unicode, an accented character like <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as
+<tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python isn&#8217;t smart enough to ensure that all Unicode
+strings are normalized to use the same representations when comparing them.</p>
+<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
+in Alfred&#8217;s query box or in the source code (which will be NFC-normalized by
+default when using Alfred-Workflow) with an ostensibly identical string
+that came from OS X&#8217;s filesystem (which is NFD-normalized), Python won&#8217;t
+recognise them as being the same:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="s">u&#39;München&#39;</span>  <span class="c"># German for Munich. NFC-normalized as it&#39;s Python source code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="go">u&#39;M\xfcnchen&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fsdata</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFD&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c"># The normalization used by OS X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">fsdata</span><span class="p">))</span>
+<span class="go">u&#39;Mu\u0308nchen&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">München</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">fsdata</span><span class="p">)</span>
+<span class="go">München</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">==</span> <span class="n">fsdata</span>
+<span class="go">False</span>
+</pre></div>
+</td></tr></table></div>
+<p>As a result of this Python quirk (Python 3 is alas no better in this regard),
+it&#8217;s important to ensure that all input is normalized in the same way or, for
+example, a user-provided query (NFC-normalized by default) may not match the
+output of a shell command run via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> (NFD-normalized) even
+though they are ostensibly the same.</p>
+</div>
+<div class="section" id="normalization-with-alfred-workflow">
+<h3>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>
+<p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a> return command line arguments from Alfred and text/decoded
+JSON data respectively as NFC-normalized Unicode strings.</p>
+<p>This is the default for Python. You can change this via the <tt class="docutils literal"><span class="pre">normalization</span></tt>
+keyword to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (this will, however,
+not affect <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a>, which <em>always</em> returns NFC-encoded Unicode
+strings).</p>
+<p>If your workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
+<a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should almost certainly be NFC-normalizing those
+strings or changing the default normalization to <strong>NFD</strong>, which is (more or
+less) what OS X uses.
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> can help with
+this.</p>
+<p>If you pass a Unicode string to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>,
+it will be normalized using the form passed in the <tt class="docutils literal"><span class="pre">normalization</span></tt> argument
+to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a> or to
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation.</p>
+<p>If you pass an encoded string, it will be decoded to Unicode with the encoding
+passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
+or the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on
+instantiation and then normalized as above.</p>
+</div>
+</div>
+<div class="section" id="further-information">
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re unfamiliar with using Unicode in Python, have a look at the official
+Python <a class="reference external" href="https://docs.python.org/2/howto/unicode.html">Unicode HOWTO</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="Alfred-Workflow API"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="serialization.html" class="btn btn-neutral" title="Serialization of stored/cached data"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
+
+</body>
+</html>

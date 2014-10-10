@@ -1,0 +1,725 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Index &mdash; Alfred-Workflow 1.9.4 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.9.4 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xml_format.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li></li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.add_item">add_item() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.alfred_env">alfred_env (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.args">args (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.build_api_url">build_api_url() (in module workflow.update)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.bundleid">bundleid (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cache_data">cache_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cache_serializer">cache_serializer (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cached_data">cached_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cached_data_age">cached_data_age() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cached_data_fresh">cached_data_fresh() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cachedir">cachedir (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.cachefile">cachefile() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.check_update">check_update() (in module workflow.update)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.check_update">(workflow.workflow.Workflow method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.clear_cache">clear_cache() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.clear_data">clear_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.clear_settings">clear_settings() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/web.html#workflow.web.Response.content">content (workflow.web.Response attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.CPickleSerializer">CPickleSerializer (class in workflow.workflow)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.data_serializer">data_serializer (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.datadir">datadir (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.datafile">datafile() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.decode">decode() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.delete_password">delete_password() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.download_workflow">download_workflow() (in module workflow.update)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.CPickleSerializer.dump">dump() (workflow.workflow.CPickleSerializer class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/serialization.html#workflow.workflow.JSONSerializer.dump">(workflow.workflow.JSONSerializer class method)</a>
+  </dt>
+
+        
+  <dt><a href="api/serialization.html#workflow.workflow.PickleSerializer.dump">(workflow.workflow.PickleSerializer class method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.Response.encoding">encoding (workflow.web.Response attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.filter">filter() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.fold_to_ascii">fold_to_ascii() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.get">get() (in module workflow.web)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.get_password">get_password() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.get_valid_releases">get_valid_releases() (in module workflow.update)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.info">info (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.install_update">install_update() (in module workflow.update)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.is_newer_version">is_newer_version() (in module workflow.update)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.item_class">item_class (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/web.html#workflow.web.Response.iter_content">iter_content() (workflow.web.Response method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.Response.json">json() (workflow.web.Response method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/serialization.html#workflow.workflow.JSONSerializer">JSONSerializer (class in workflow.workflow)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.KeychainError">KeychainError (class in workflow.workflow)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/serialization.html#workflow.workflow.CPickleSerializer.load">load() (workflow.workflow.CPickleSerializer class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api/serialization.html#workflow.workflow.JSONSerializer.load">(workflow.workflow.JSONSerializer class method)</a>
+  </dt>
+
+        
+  <dt><a href="api/serialization.html#workflow.workflow.PickleSerializer.load">(workflow.workflow.PickleSerializer class method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.logfile">logfile (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.logger">logger (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.name">name (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_cachedir">open_cachedir() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_datadir">open_datadir() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_log">open_log() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_terminal">open_terminal() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_workflowdir">open_workflowdir() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.PasswordExists">PasswordExists (class in workflow.workflow)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.PasswordNotFound">PasswordNotFound (class in workflow.workflow)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.PickleSerializer">PickleSerializer (class in workflow.workflow)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.post">post() (in module workflow.web)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#workflow.update.prefixed_version">prefixed_version() (in module workflow.update)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.Response.raise_for_status">raise_for_status() (workflow.web.Response method)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.SerializerManager.register">register() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+      
+  <dt><a href="api/web.html#workflow.web.request">request() (in module workflow.web)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.reset">reset() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.Response">Response (class in workflow.web)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.run">run() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/background.html#workflow.background.run_in_background">run_in_background() (in module workflow.background)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.save_password">save_password() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.send_feedback">send_feedback() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.SerializerManager.serializer">serializer() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.SerializerManager">SerializerManager (class in workflow.workflow)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#workflow.workflow.SerializerManager.serializers">serializers (workflow.workflow.SerializerManager attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.settings">settings (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.settings_path">settings_path (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.start_update">start_update() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.store_data">store_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.stored_data">stored_data() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#workflow.web.Response.text">text (workflow.web.Response attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/serialization.html#workflow.workflow.SerializerManager.unregister">unregister() (workflow.workflow.SerializerManager method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.update_available">update_available (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow">Workflow (class in workflow.workflow)</a>
+  </dt>
+
+      
+  <dt><a href="api/serialization.html#module-workflow">workflow (module)</a>, <a href="api/workflow.html#module-workflow">[1]</a>, <a href="user-manual/serialization.html#module-workflow">[2]</a>
+  </dt>
+
+      
+  <dt><a href="api/background.html#module-workflow.background">workflow.background (module)</a>
+  </dt>
+
+      
+  <dt><a href="api/update.html#module-workflow.update">workflow.update (module)</a>, <a href="api/update.html#module-workflow.update">[1]</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/web.html#module-workflow.web">workflow.web (module)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#module-workflow.workflow">workflow.workflow (module)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.workflowdir">workflowdir (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.workflowfile">workflowfile() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.9.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

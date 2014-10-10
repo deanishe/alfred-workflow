@@ -120,6 +120,10 @@ def get_valid_releases(github_slug):
             download_urls.append(url)
 
         # Validate release
+        if release['prerelease']:
+            log.warning(
+                'Invalid release {} : pre-release detected'.format(version))
+            continue
         if not download_urls:
             log.warning(
                 'Invalid release {} : No workflow file'.format(version))

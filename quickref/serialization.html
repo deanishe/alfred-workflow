@@ -1,0 +1,284 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Serialization &mdash; Alfred-Workflow 1.8.9 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.8.9 documentation" href="../index.html"/>
+        <link rel="up" title="Quick Reference" href="index.html"/>
+        <link rel="next" title="System icons" href="icons.html"/>
+        <link rel="prev" title="Background processes" href="background.html"/>
+ 
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quick Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">A note on text encoding/decoding</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../script_filter_results.html">Script Filter Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#xml-format">XML format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Quick Reference</a> &raquo;</li>
+      
+    <li>Serialization</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/quickref/serialization.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="serialization">
+<span id="id1"></span><h1>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h1>
+<p>By default, both cache and data files (created using the
+<a class="reference internal" href="persistent-data.html#caching-data"><em>APIs described above</em></a>) are cached using <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>.
+This provides a great compromise in terms of speed and the ability to store
+arbitrary objects.</p>
+<p>When it comes to cache data, it is <em>strongly recommended</em> to stick with
+the default. <a class="reference external" href="http://docs.python.org/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a> is <em>very</em> fast and fully supports standard Python
+data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>, <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">set</span></tt> etc.).</p>
+<p>If you need the ability to customise caching, you can change the default
+cache serialization format to <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the case of stored data, you are free to specify either a global default
+serializer or one for each individual datastore:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="c"># Use `pickle` as the global default serializer</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+
+<span class="c"># Use the JSON serializer only for these data</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>This is primarily so you can create files that are human-readable or useable
+by non-Python programs.</p>
+<p>By default, <tt class="docutils literal"><span class="pre">cpickle</span></tt>, <tt class="docutils literal"><span class="pre">pickle</span></tt> and <tt class="docutils literal"><span class="pre">json</span></tt> serializers are available.</p>
+<p>You can also register your own custom serializers using the
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> interface.</p>
+<p>To register a new serializer, call the <tt class="docutils literal"><span class="pre">register</span></tt> method of the <tt class="docutils literal"><span class="pre">workflow.manager</span></tt>
+object:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">manager</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">object_with_load_and_dump_methods</span><span class="p">)</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;myformat&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>A serializer <em>must</em> conform to this interface (like <a class="reference external" href="http://docs.python.org/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a> and <a class="reference external" href="http://docs.python.org/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>):</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_obj</span><span class="p">)</span>
+<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The name you use for your serializer will be the file extension of the stored file.</p>
+</div>
+<p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
+automatically determine the serialization of the stored data, provided the
+corresponding serializer is registered. If it isn&#8217;t, a <tt class="docutils literal"><span class="pre">ValueError</span></tt> will be raised.</p>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="icons.html" class="btn btn-neutral float-right" title="System icons"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="background.html" class="btn btn-neutral" title="Background processes"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.8.9',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
+
+</body>
+</html>

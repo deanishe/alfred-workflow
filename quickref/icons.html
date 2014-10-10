@@ -1,0 +1,329 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>System icons &mdash; Alfred-Workflow 1.8.9 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.8.9 documentation" href="../index.html"/>
+        <link rel="up" title="Quick Reference" href="index.html"/>
+        <link rel="next" title="“Magic” arguments" href="magicargs.html"/>
+        <link rel="prev" title="Serialization" href="serialization.html"/>
+ 
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quick Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thirdparty.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magicargs.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">A note on text encoding/decoding</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../script_filter_results.html">Script Filter Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#xml-format">XML format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../script_filter_results.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Quick Reference</a> &raquo;</li>
+      
+    <li>System icons</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/quickref/icons.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="system-icons">
+<span id="icons"></span><h1>System icons<a class="headerlink" href="#system-icons" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="../api/workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a> module provides access to a number of default
+OS X icons via <tt class="docutils literal"><span class="pre">ICON_*</span></tt> constants for use when generating Alfred feedback:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;For your information&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="list-of-icons">
+<span id="icon-list"></span><h2>List of icons<a class="headerlink" href="#list-of-icons" title="Permalink to this headline">¶</a></h2>
+<p>These are all the icons accessible in <a class="reference internal" href="../api/workflow.html#module-workflow.workflow" title="workflow.workflow"><tt class="xref py py-mod docutils literal"><span class="pre">workflow</span></tt></a>. They (and more) can
+be found in <tt class="docutils literal"><span class="pre">/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/</span></tt>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Preview</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ACCOUNT</span></tt></td>
+<td><img alt="../_images/ICON_ACCOUNT.png" class="first last" src="../_images/ICON_ACCOUNT.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_BURN</span></tt></td>
+<td><img alt="../_images/ICON_BURN.png" class="first last" src="../_images/ICON_BURN.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_COLOR</span></tt></td>
+<td><img alt="../_images/ICON_COLOR.png" class="first last" src="../_images/ICON_COLOR.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_COLOUR</span></tt></td>
+<td><img alt="../_images/ICON_COLOUR.png" class="first last" src="../_images/ICON_COLOUR.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_ERROR</span></tt></td>
+<td><img alt="../_images/ICON_ERROR.png" class="first last" src="../_images/ICON_ERROR.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_FAVORITE</span></tt></td>
+<td><img alt="../_images/ICON_FAVORITE.png" class="first last" src="../_images/ICON_FAVORITE.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_FAVOURITE</span></tt></td>
+<td><img alt="../_images/ICON_FAVOURITE.png" class="first last" src="../_images/ICON_FAVOURITE.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_GROUP</span></tt></td>
+<td><img alt="../_images/ICON_GROUP.png" class="first last" src="../_images/ICON_GROUP.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_HELP</span></tt></td>
+<td><img alt="../_images/ICON_HELP.png" class="first last" src="../_images/ICON_HELP.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_INFO</span></tt></td>
+<td><img alt="../_images/ICON_INFO.png" class="first last" src="../_images/ICON_INFO.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_MUSIC</span></tt></td>
+<td><img alt="../_images/ICON_MUSIC.png" class="first last" src="../_images/ICON_MUSIC.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_NETWORK</span></tt></td>
+<td><img alt="../_images/ICON_NETWORK.png" class="first last" src="../_images/ICON_NETWORK.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_NOTE</span></tt></td>
+<td><img alt="../_images/ICON_NOTE.png" class="first last" src="../_images/ICON_NOTE.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_SETTINGS</span></tt></td>
+<td><img alt="../_images/ICON_SETTINGS.png" class="first last" src="../_images/ICON_SETTINGS.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_SYNC</span></tt></td>
+<td><img alt="../_images/ICON_SYNC.png" class="first last" src="../_images/ICON_SYNC.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_TRASH</span></tt></td>
+<td><img alt="../_images/ICON_TRASH.png" class="first last" src="../_images/ICON_TRASH.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_USER</span></tt></td>
+<td><img alt="../_images/ICON_USER.png" class="first last" src="../_images/ICON_USER.png" />
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ICON_WARNING</span></tt></td>
+<td><img alt="../_images/ICON_WARNING.png" class="first last" src="../_images/ICON_WARNING.png" />
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ICON_WEB</span></tt></td>
+<td><img alt="../_images/ICON_WEB.png" class="first last" src="../_images/ICON_WEB.png" />
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="magicargs.html" class="btn btn-neutral float-right" title="“Magic” arguments"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="serialization.html" class="btn btn-neutral" title="Serialization"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.8.9',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
+
+</body>
+</html>

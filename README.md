@@ -41,6 +41,8 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 - [Documentation](#documentation)
 - [Licensing, thanks](#licensing-thanks)
 - [Contributing](#contributing)
+    - [Adding a workflow to the list](#adding-a-workflow-to-the-list)
+    - [Bug reports, pull requests](#bug-reports-pull-requests)
     - [Contributors](#contributors)
 - [Tests](#tests)
 - [Workflows using Alfred-Workflow](#workflows-using-alfred-workflow)
@@ -50,14 +52,14 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 ### With pip ###
 
-You can install **Alfred-Workflow** directly into your workflow with:
+You can install Alfred-Workflow directly into your workflow with:
 
 ```bash
 pip install --target=/path/to/my/workflow Alfred-Workflow
 ```
 
 **Note**: If you intend to distribute your workflow to other users, you should
-include **Alfred-Workflow** (and other Python libraries your workflow requires)
+include Alfred-Workflow (and other Python libraries your workflow requires)
 within your workflow as described. Do not ask users to install anything into
 their system Python.
 
@@ -103,7 +105,7 @@ Alternatively, you can clone/download the Alfred-Workflow
 
 ## Usage ##
 
-A few examples of how to use **Alfred-Workflow**.
+A few examples of how to use Alfred-Workflow.
 
 ### Workflow script skeleton ###
 
@@ -222,12 +224,18 @@ the [Read the Docs][rtd] theme.
 
 ## Contributing ##
 
-If you want to add your own workflow to the [list of workflows using Alfred-Workflow](#workflows-using-alfred-workflow), **don't add it to the list!**
-It's automatically generated from [Packal.org][packal] and the
-[library_workflows.tsv](extras/library_workflows.tsv) file. If your workflow
+### Adding a workflow to the list ###
+
+If you want to add a workflow to the
+[list of workflows using Alfred-Workflow](#workflows-using-alfred-workflow),
+**don't add it to this README!** The list is automatically generated from
+[Packal.org][packal] and the
+[`library_workflows.tsv`](extras/library_workflows.tsv) file. If your workflow
 is available on [Packal][packal], it should be added automatically. If not,
-please add it to [library_workflows.tsv](extras/library_workflows.tsv) and
-submit a corresponding pull request.
+please add it to [`library_workflows.tsv`](extras/library_workflows.tsv),
+instead of `README.md`, and submit a corresponding pull request.
+
+### Bug reports, pull requests ###
 
 Bug reports, feature suggestions and pull requests are very welcome. Head over
 to the [issues][issues] if you have a feature request or a bug report.
@@ -235,7 +243,7 @@ to the [issues][issues] if you have a feature request or a bug report.
 If you want to make a pull request, do that [here][pulls], but please bear
 the following in mind:
 
-- **Alfred-Workflow** has very close to 100% test coverage. "Proof-of-concept"
+- Alfred-Workflow has very close to 100% test coverage. "Proof-of-concept"
   pull requests without tests are more than welcome. However, please be
   prepared to add the appropriate tests if you want your pull request to be
   ultimately accepted.
@@ -253,7 +261,7 @@ the following in mind:
   at [the docs][docs-api] in a browser, not at the source code.
 - Performance counts. Alfred will try to run a workflow anew on every
   keypress. As a rule, 0.3 seconds execution time is decent, 0.2 seconds or
-  less is smooth. **Alfred-Workflow** should do its utmost to consume as
+  less is smooth. Alfred-Workflow should do its utmost to consume as
   little of that time as possible.
 
 Currently, there is Travis-CI integration, but also a `run-tests.sh` script in
@@ -268,7 +276,7 @@ the root directory of the repo which will fail *if code coverage is less than
 
 ## Tests ##
 
-**Alfred-Workflow** includes a full suite of unit tests. Please use the
+Alfred-Workflow includes a full suite of unit tests. Please use the
 `run-tests.sh` script in the root directory of the repo to run the unit tests:
 it creates the necessary test environment to run the unit tests.
 `test_workflow.py` *will* fail if not run via `run-scripts.sh`, but the test

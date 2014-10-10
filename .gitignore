@@ -1,9 +1,7 @@
 *.log
 .coverage
 _build/
-posts.json
 *.pyc
-/benchmark_*.py
-/temp_*.py
+temp_*.py
 /MANIFEST
 /dist

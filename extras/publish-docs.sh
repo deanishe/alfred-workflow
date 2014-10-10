@@ -37,5 +37,5 @@ echo "Publishing docs to gh-pages branch"
 echo "######################################################################"
 
 # Publish $builddir to gh-pages branch
-ghp-import -n -m "$1" "${builddir}"
+ghp-import -n -p -m "$1" "${builddir}"
 

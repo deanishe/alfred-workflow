@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The Workflow Object &mdash; Alfred-Workflow 1.9.3 documentation</title>
+  <title>The Workflow Object &mdash; Alfred-Workflow 1.9.4 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.3 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.4 documentation" href="../index.html"/>
         <link rel="up" title="Alfred-Workflow API" href="index.html"/>
         <link rel="next" title="Fetching Data from the Web" href="web.html"/>
         <link rel="prev" title="Alfred-Workflow API" href="index.html"/>
@@ -191,7 +191,7 @@ See <a class="reference internal" href="update.html#updates"><em>Self-Updating</
 See <a class="reference internal" href="#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for more details.</li>
 <li><strong>capture_args</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Boolean</span></tt>) &#8211; capture and act on <tt class="docutils literal"><span class="pre">workflow:*</span></tt> arguments. See
 <a class="reference internal" href="../user-manual/magic-args.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
-<li><strong>libraries</strong> (<tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt>) &#8211; sequence of paths to directories containing
+<li><strong>libraries</strong> (<tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt> or <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#list" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></a>) &#8211; sequence of paths to directories containing
 libraries. These paths will be prepended to <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 </ul>
 </td>
@@ -671,7 +671,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x102ea3cf8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x104a96b18&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -1176,7 +1176,7 @@ to delete the old password first (a Keychain implementation detail).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.3',
+            VERSION:'1.9.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

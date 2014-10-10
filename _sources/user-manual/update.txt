@@ -35,6 +35,8 @@ There must be one (and only one) ``.alfredworkflow`` binary attached to a
 release otherwise it will be ignored. This is the file that will be downloaded
 and installed via Alfred's default installation mechanism.
 
+Releases marked as ``pre-release`` will also be ignored.
+
 To use this feature, you must pass a :class:`dict` as the ``update_settings``
 argument to :class:`~workflow.workflow.Workflow`. It **must** have the two
 keys/values ``github_slug``, which is your username and the name of the

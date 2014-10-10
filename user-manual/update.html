@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Self-Updating &mdash; Alfred-Workflow 1.9.3 documentation</title>
+  <title>Self-Updating &mdash; Alfred-Workflow 1.9.4 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.3 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="System icons" href="icons.html"/>
         <link rel="prev" title="Background processes" href="background.html"/>
@@ -190,6 +190,7 @@ releases list. See <a class="reference internal" href="#version-numbers"><em>Ver
 <p>There must be one (and only one) <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> binary attached to a
 release otherwise it will be ignored. This is the file that will be downloaded
 and installed via Alfred&#8217;s default installation mechanism.</p>
+<p>Releases marked as <tt class="docutils literal"><span class="pre">pre-release</span></tt> will also be ignored.</p>
 <p>To use this feature, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> as the <tt class="docutils literal"><span class="pre">update_settings</span></tt>
 argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>. It <strong>must</strong> have the two
 keys/values <tt class="docutils literal"><span class="pre">github_slug</span></tt>, which is your username and the name of the
@@ -330,7 +331,7 @@ with <tt class="docutils literal"><span class="pre">v</span></tt>, the GitHub ve
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.3',
+            VERSION:'1.9.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -1,0 +1,57 @@
+# Alfred-Workflow 2.0
+
+## New features
+
+- `sqlite FTS`-based filtering (search)
+- Last-version-run. Workflow can ask for the last version of itself to run. Should enable the migration of old data/settings to the newer version.
+- Turn automatic update checks on/off
+- Add `kill_process()` to `background.py`
+- Add locking around data and cache files
+- Generalise update functionality via plugin system
+- `filter()` should warn when comparing Unicode to non-Unicode
+- `filter()` should replace "smart" puncutation with "dumb" punctuation
+- `max_age` arg of `cached_data()` should default to `0` This is currently the only API-breaking feature @api_breaking
+
+## Refactoring of existing code
+Move code from `workflow.py` to other modules.
+
+### Aims
+- Make `Workflow` a composed class, whereby core functionality can be overriden fairly easily (as with serialisation)
+- Make `workflow.py` easier to read and reason about
+- Make writing unit tests easier. Currently, it's a horror show, as so much depends on creating a `Workflow` instance and therefore on `info.plist` file being present.
+
+### Requirements to meet refactoring aims.todo
+- Allow most individual test modules to be run without the test environment
+- Put tests requiring special conditions (presence of `info.plist`, non-ASCII characters in path to `workflow/`) in separate modules
+               
+### Modules
+The following modules are envisaged after the refactoring.
+
+#### constants.py
+All constants from other modules to make them more readable (`ASCII_REPLACEMENTS` in particular is distractingly long)
+
+#### core.py
+Move functionality required by multiple modules to this module, so it's not necessary for `update.py`/`background.py` to instantiate `Workflow`. This includes:
+
+- Alfred environmental variables
+- `info.plist` parsing
+- logging
+
+Should have functions for the most commonly-required functionality (getting a bundle identifier, data/cache paths, values from `info.plist`). These functions should be memoised for performance (in most cases, the info *should* come from environmental variables, but that isn't ensured).
+
+#### index.py
+The home of the suggested `sqlite`-based search module. Possibly combine with `search.py`?
+
+#### search.py
+The `filter()` and `_filter_item()` methods of `Workflow` are excessively long. Put 'em in here for cleanliness. Possibly combine with `index.py`?
+
+#### update.py
+Mostly as before (some default values may be moved to `constants.py`. (This doesn't take into account the proposed generalisation of the update mechanism.)
+
+#### web.py
+As before
+
+### Other possibilities
+- Move caching API to its own module?
+- Move data API to its own module?
+

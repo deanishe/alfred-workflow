@@ -304,6 +304,9 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   List, search and run/open AppleScripts for the active application.
+- [Better IMDB search](http://www.packal.org/workflow/better-imdb-search)
+  by [frankspin](http://www.packal.org/users/frankspin).
+  Search IMDB for movies and see results inside of Alfred.
 - [BibQuery](http://www.packal.org/workflow/bibquery)
   ([GitHub repo](https://github.com/smargh/alfred_bibquery))
   by [hackademic](http://www.packal.org/users/hackademic)

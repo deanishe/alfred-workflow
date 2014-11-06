@@ -63,7 +63,6 @@ ICON_FAVOURITE = ICON_FAVORITE
 ICON_GROUP = os.path.join(ICON_ROOT, 'GroupIcon.icns')
 ICON_HELP = os.path.join(ICON_ROOT, 'HelpIcon.icns')
 ICON_INFO = os.path.join(ICON_ROOT, 'ToolbarInfo.icns')
-ICON_MUSIC = os.path.join(ICON_ROOT, 'ToolbarMusicFolderIcon.icns')
 ICON_NETWORK = os.path.join(ICON_ROOT, 'GenericNetworkIcon.icns')
 ICON_NOTE = os.path.join(ICON_ROOT, 'AlertNoteIcon.icns')
 ICON_SETTINGS = os.path.join(ICON_ROOT, 'ToolbarAdvanced.icns')

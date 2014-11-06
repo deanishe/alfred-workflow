@@ -29,14 +29,41 @@ from .workflow import Workflow, manager
 from .workflow import PasswordNotFound, KeychainError
 
 # Icons
-from .workflow import (ICON_ERROR, ICON_WARNING, ICON_NOTE, ICON_INFO,
-                       ICON_FAVORITE, ICON_FAVOURITE, ICON_USER, ICON_GROUP,
-                       ICON_HELP, ICON_NETWORK, ICON_WEB, ICON_COLOR,
-                       ICON_COLOUR, ICON_SYNC, ICON_SETTINGS, ICON_TRASH,
-                       ICON_BURN, ICON_ACCOUNT)
+from .workflow import (
+    ICON_ACCOUNT,
+    ICON_BURN,
+    ICON_CLOCK,
+    ICON_COLOR,
+    ICON_COLOUR,
+    ICON_EJECT,
+    ICON_ERROR,
+    ICON_FAVORITE,
+    ICON_FAVOURITE,
+    ICON_GROUP,
+    ICON_HELP,
+    ICON_HOME,
+    ICON_INFO,
+    ICON_NETWORK,
+    ICON_NOTE,
+    ICON_SETTINGS,
+    ICON_SWIRL,
+    ICON_SWITCH,
+    ICON_SYNC,
+    ICON_TRASH,
+    ICON_USER,
+    ICON_WARNING,
+    ICON_WEB,
+)
 
 # Filter matching rules
-from .workflow import (MATCH_ALL, MATCH_ALLCHARS, MATCH_ATOM,
-                       MATCH_CAPITALS, MATCH_INITIALS,
-                       MATCH_INITIALS_CONTAIN, MATCH_INITIALS_STARTSWITH,
-                       MATCH_STARTSWITH, MATCH_SUBSTRING)
+from .workflow import (
+    MATCH_ALL,
+    MATCH_ALLCHARS,
+    MATCH_ATOM,
+    MATCH_CAPITALS,
+    MATCH_INITIALS,
+    MATCH_INITIALS_CONTAIN,
+    MATCH_INITIALS_STARTSWITH,
+    MATCH_STARTSWITH,
+    MATCH_SUBSTRING,
+)

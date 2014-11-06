@@ -20,7 +20,8 @@ import os
 import subprocess
 import workflow
 
-outdir = os.path.join(os.path.dirname(__file__), 'doc', '_static')
+outdir = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                      'docs', '_static')
 
 
 def make_thumbnail(infile, outfile):
@@ -53,6 +54,7 @@ print('+' + ('-' * col1) + '+' + ('-' * col2) + '+')
 print('| Name'.ljust(col1 + 1) + '| Preview'.ljust(col2 + 1) + '|')
 print('+' + ('=' * col1) + '+' + ('=' * col2) + '+')
 for name, image in entries:
-    print('|``{}``'.format(name).ljust(col1 + 1) + '|' + image.ljust(col2) + '|')
+    print('|``{}``'.format(name).ljust(col1 + 1) + '|' +
+          image.ljust(col2) + '|')
     print('+' + ('-' * col1) + '+' + ('-' * col2) + '+')
 

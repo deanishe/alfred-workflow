@@ -1,7 +1,6 @@
 # Alfred-Workflow 2.0
 
 ## New features
-
 - `sqlite FTS`-based filtering (search)
 - Last-version-run. Workflow can ask for the last version of itself to run. Should enable the migration of old data/settings to the newer version.
 - Turn automatic update checks on/off
@@ -11,6 +10,13 @@
 - `filter()` should warn when comparing Unicode to non-Unicode
 - `filter()` should replace "smart" puncutation with "dumb" punctuation
 - `max_age` arg of `cached_data()` should default to `0` This is currently the only API-breaking feature @api_breaking
+- Add logging to `web.py`
+
+### Utility features
+- `run_alfred(query)` — Call Alfred via AppleScript
+- `applescriptify(text)` — Escape `text` for inclusion in AppleScript.
+- `get_clipboard()` — Return clipboard text as `Unicode`
+- `set_clipboard(text)` — Set clipboard text
 
 ## Refactoring of existing code
 Move code from `workflow.py` to other modules.
@@ -27,10 +33,13 @@ Move code from `workflow.py` to other modules.
 ### Modules
 The following modules are envisaged after the refactoring.
 
-#### constants.py
+#### `__init__.py`
+`Workflow` class and imports to form the main API.
+
+#### `constants.py`
 All constants from other modules to make them more readable (`ASCII_REPLACEMENTS` in particular is distractingly long)
 
-#### core.py
+#### `core.py`
 Move functionality required by multiple modules to this module, so it's not necessary for `update.py`/`background.py` to instantiate `Workflow`. This includes:
 
 - Alfred environmental variables
@@ -39,19 +48,26 @@ Move functionality required by multiple modules to this module, so it's not nece
 
 Should have functions for the most commonly-required functionality (getting a bundle identifier, data/cache paths, values from `info.plist`). These functions should be memoised for performance (in most cases, the info *should* come from environmental variables, but that isn't ensured).
 
-#### index.py
+#### `index.py`
 The home of the suggested `sqlite`-based search module. Possibly combine with `search.py`?
 
-#### search.py
+#### `persistence.py`
+Data storage/caching API and Keychain access. `Settings` should probably go in here, too.
+
+#### `search.py`
 The `filter()` and `_filter_item()` methods of `Workflow` are excessively long. Put 'em in here for cleanliness. Possibly combine with `index.py`?
 
-#### update.py
+#### `util.py`
+- `run_alfred()`
+- `applescriptify()`
+- `get_clipboard()`
+- `set_clipboard()`
+
+
+#### `update.py`
 Mostly as before (some default values may be moved to `constants.py`. (This doesn't take into account the proposed generalisation of the update mechanism.)
 
-#### web.py
+#### `web.py`
 As before
 
-### Other possibilities
-- Move caching API to its own module?
-- Move data API to its own module?
 

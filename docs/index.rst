@@ -9,22 +9,25 @@
 Overview
 ========
 
-.. image:: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master
-    :target: https://pypi.python.org/pypi/Alfred-Workflow/
+.. image:: https://img.shields.io/travis/deanishe/alfred-workflow.svg?style=flat
+    :target: https://travis-ci.org/deanishe/alfred-workflow
     :alt: Build Status
-.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg
+.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg?style=flat
     :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
     :alt: Code Coverage
-.. image:: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png
+.. image:: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
     :target: https://landscape.io/github/deanishe/alfred-workflow/master
     :alt: Code Health
-.. image:: https://pypip.in/version/Alfred-Workflow/badge.svg
+.. image:: https://pypip.in/version/Alfred-Workflow/badge.svg?style=flat
     :target: https://pypi.python.org/pypi/Alfred-Workflow/
     :alt: Latest Version
-.. image:: https://pypip.in/license/Alfred-Workflow/badge.svg
+.. image:: https://pypip.in/status/Alfred-Workflow/badge.svg?style=flat
+    :target: https://pypi.python.org/pypi/Alfred-Workflow/
+    :alt: Development Status
+.. image:: https://pypip.in/license/Alfred-Workflow/badge.svg?style=flat
     :target: https://pypi.python.org/pypi/Alfred-Workflow/
     :alt: License
-.. image:: https://pypip.in/download/Alfred-Workflow/badge.svg
+.. image:: https://pypip.in/download/Alfred-Workflow/badge.svg?style=flat
     :target: https://pypi.python.org/pypi//Alfred-Workflow/
     :alt: Downloads
 

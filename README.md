@@ -295,6 +295,10 @@ These are some of the Alfred workflows that use this library.
   by [XedMada](http://www.packal.org/users/xedmada)
   ([on GitHub](https://github.com/XedMada/)).
   Pause and Start Backblaze online backups.
+- [alfred-ime](http://www.packal.org/workflow/alfred-ime)
+  ([GitHub repo](https://github.com/owenwater/alfred-ime))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python)
   ([GitHub repo](https://github.com/deanishe/alfred-bundler-python-demo))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -373,11 +377,11 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Read Hacker News with Alfred.
-- [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred)
+- [Homebrew and Cask for Alfred](http://www.packal.org/workflow/homebrew-and-cask-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-homebrew))
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
-  Easily control Homebrew with Alfred.
+  Easily control Homebrew and Cask with Alfred.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks)
   ([GitHub repo](https://github.com/nkeim/alfred-ipython-notebook))
   by [nkeim](http://www.packal.org/users/nkeim)
@@ -460,6 +464,11 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Actions for PDF viewer Skim.
+- [slackfred](http://www.packal.org/workflow/slackfred)
+  ([GitHub repo](https://github.com/fspinillo/slackfred))
+  by [frankspin](http://www.packal.org/users/frankspin)
+  ([on GitHub](https://github.com/fspinillo/)).
+  Interact with the chat service Slack via Alfred.
 - [Snippets](http://www.packal.org/workflow/snippets)
   ([GitHub repo](https://github.com/smargh/alfred_snippets))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -508,7 +517,7 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
-
+  A Input method workflow based on Google Input Tools.
 
 
 

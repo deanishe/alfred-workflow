@@ -66,12 +66,12 @@ their system Python.
 
 ### From source ###
 
-1. Download the `alfred-workflow-X.X.zip` from the
+1. Download the `alfred-workflow-X.X.X.zip` from the
    [releases page][releases].
 2. Either extract the ZIP archive and place the `workflow` directory in the
    root folder of your workflow (where `info.plist` is) **or**
 3. Place the ZIP archive in the root folder of your workflow and add
-   `sys.path.insert(0, 'alfred-workflow-X.X.zip')` at the top of your Python
+   `sys.path.insert(0, 'alfred-workflow-X.X.X.zip')` at the top of your Python
    script(s).
 
 Your workflow should look something like this:

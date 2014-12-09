@@ -63,6 +63,14 @@ Pinboard item in Alfred to open it in your browser.
 Installation
 ============
 
+**Note**: If you intend to distribute your workflow to other users, you should
+include Alfred-Workflow (and other Python libraries your workflow requires)
+within your workflow's directory as described below. **Do not** ask users to
+install anything into their system Python. Python installations cannot support
+multiple versions of the same library, so if you rely on globally-installed
+libraries, the chances are very good that your workflow will sooner or later
+break—or be broken by—some other software doing the same naughty thing.
+
 With pip
 --------
 
@@ -70,11 +78,8 @@ You can install Alfred-Workflow directly into your workflow with::
 
     pip install --target=/path/to/my/workflow Alfred-Workflow
 
-
-**Note**: If you intend to distribute your workflow to other users, you should
-include Alfred-Workflow (and other Python libraries your workflow requires)
-within your workflow as described. Do not ask users to install anything into
-their system Python.
+You can install any other library available on the `Cheese Shop`_ the
+same way. See the `pip documentation`_ for more information.
 
 From source
 -----------
@@ -126,3 +131,5 @@ available at `Read the Docs <http://alfredworkflow.readthedocs.org/en/latest/>`_
 .. _GitHub releases: https://github.com/deanishe/alfred-workflow/releases
 .. _the source code: https://github.com/deanishe/alfred-workflow/archive/master.zip
 .. _GitHub repository: https://github.com/deanishe/alfred-workflow
+.. _Cheese Shop: https://pypi.python.org/pypi
+.. _pip documentation: https://pip.pypa.io/en/latest/

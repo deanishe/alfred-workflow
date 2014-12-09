@@ -32,10 +32,10 @@ You can install Alfred-Workflow directly into your workflow with::
 GitHub
 ------
 
-Download the ``alfred-workflow-X.X.zip`` file from the `GitHub releases`_ page
+Download the ``alfred-workflow-X.X.X.zip`` file from the `GitHub releases`_ page
 and either extract the ZIP to the root directory of your workflow (where
 ``info.plist`` is) or place the ZIP in the root directory and add
-``sys.path.insert(0, 'alfred-workflow-X.X.zip')`` to the top of your Python
+``sys.path.insert(0, 'alfred-workflow-X.X.X.zip')`` to the top of your Python
 scripts.
 
 .. important::

@@ -51,6 +51,14 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 ## Installation ##
 
+**Note**: If you intend to distribute your workflow to other users, you should
+include Alfred-Workflow (and other Python libraries your workflow requires)
+within your workflow's directory as described below. **Do not** ask users to
+install anything into their system Python. Python installations cannot support
+multiple versions of the same library, so if you rely on globally-installed
+libraries, the chances are very good that your workflow will sooner or later
+break—or be broken by—some other software doing the same naughty thing.
+
 ### With pip ###
 
 You can install Alfred-Workflow directly into your workflow with:
@@ -59,10 +67,7 @@ You can install Alfred-Workflow directly into your workflow with:
 pip install --target=/path/to/my/workflow Alfred-Workflow
 ```
 
-**Note**: If you intend to distribute your workflow to other users, you should
-include Alfred-Workflow (and other Python libraries your workflow requires)
-within your workflow as described. Do not ask users to install anything into
-their system Python.
+You can install any other library available on the [Cheese Shop][cheeseshop] the same way. See the [pip documentation][pip-docs] for more information.
 
 ### From source ###
 
@@ -550,3 +555,5 @@ These are some of the Alfred workflows that use this library.
 [smargh]: https://github.com/smargh
 [sphinx]: http://sphinx-doc.org/
 [travis]: https://travis-ci.org/deanishe/alfred-workflow
+[cheeseshop]: https://pypi.python.org/pypi
+[pip-docs]: https://pip.pypa.io/en/latest/

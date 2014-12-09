@@ -525,7 +525,7 @@ These are some of the Alfred workflows that use this library.
 [cc]: https://creativecommons.org/licenses/by-nc/4.0/legalcode
 [coveralls]: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
 [deanishe]: https://github.com/deanishe
-[docs-api]: http://www.deanishe.net/alfred-workflow/#api-docs
+[docs-api]: http://www.deanishe.net/alfred-workflow/#api-documentation
 [docs-rtd]: https://alfredworkflow.readthedocs.org/
 [docs]: http://www.deanishe.net/alfred-workflow/
 [fniephaus]: https://github.com/fniephaus

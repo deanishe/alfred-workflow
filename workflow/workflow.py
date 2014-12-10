@@ -2179,13 +2179,23 @@ class Workflow(object):
     # Methods for workflow:* magic args
     ####################################################################
 
-    def clear_cache(self):
-        """Delete all files in workflow's :attr:`cachedir`."""
-        self._delete_directory_contents(self.cachedir)
+    def clear_cache(self, filter_func=lambda f: True):
+        """Delete all files in workflow's :attr:`cachedir`.
 
-    def clear_data(self):
-        """Delete all files in workflow's :attr:`datadir`."""
-        self._delete_directory_contents(self.datadir)
+        :param filter_func function to determine whether a file shall be
+            deleted or not. It always return True by default.
+        :type filter_func ``callable``
+        """
+        self._delete_directory_contents(self.cachedir, filter_func)
+
+    def clear_data(self, filter_func=lambda f: True):
+        """Delete all files in workflow's :attr:`datadir`.
+
+        :param filter_func function to determine whether a file shall be
+            deleted or not. It always return True by default.
+        :type filter_func ``callable``
+        """
+        self._delete_directory_contents(self.datadir, filter_func)
 
     def clear_settings(self):
         """Delete workflow's :attr:`settings_path`."""
@@ -2286,16 +2296,20 @@ class Workflow(object):
         return unicode(unicodedata.normalize('NFKD',
                        text).encode('ascii', 'ignore'))
 
-    def _delete_directory_contents(self, dirpath):
+    def _delete_directory_contents(self, dirpath, filter_func):
         """Delete all files in a directory
 
         :param dirpath: path to directory to clear
         :type dirpath: ``unicode`` or ``str``
-
+        :param filter_func function to determine whether a file shall be
+            deleted or not.
+        :type filter_func ``callable``
         """
 
         if os.path.exists(dirpath):
             for filename in os.listdir(dirpath):
+                if not filter_func(filename):
+                    continue
                 path = os.path.join(dirpath, filename)
                 if os.path.isdir(path):
                     shutil.rmtree(path)

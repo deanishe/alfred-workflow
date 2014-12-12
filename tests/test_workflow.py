@@ -464,6 +464,42 @@ class WorkflowTests(unittest.TestCase):
         # Test alternate code path for non-existent file
         self.assertEqual(self.wf.cache_data('test', None), None)
 
+    def test_delete_all_cache_file(self):
+        """Cached data are all deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        self.wf.cached_data('test1', lambda: data, max_age=10)
+        self.wf.cached_data('test2', lambda: data, max_age=10)
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache()
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file2)))
+
+    def test_delete_all_cache_file_with_filter_func(self):
+        """Only part of cached data are deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        def filter_func(file):
+            if file == test_file1:
+                return True
+            else:
+                return False
+
+        self.wf.cached_data('test1', lambda: data, max_age=10)
+        self.wf.cached_data('test2', lambda: data, max_age=10)
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache(filter_func)
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache()
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file2)))
+
     def test_cached_data_callback(self):
         """Cached data callback"""
         called = {'called': False}
@@ -660,6 +696,43 @@ class WorkflowTests(unittest.TestCase):
 
         for p in paths:
             self.assertFalse(os.path.exists(p))
+
+    def test_delete_all_stored_data_file(self):
+        """Stored data are all deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        self.wf.store_data('test1', data)
+        self.wf.store_data('test2', data)
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data()
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file2)))
+
+    def test_delete_all_data_file_with_filter_func(self):
+        """Only part of stored data are deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        def filter_func(file):
+            if file == test_file1:
+                return True
+            else:
+                return False
+
+        self.wf.store_data('test1', data)
+        self.wf.store_data('test2', data)
+
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data(filter_func)
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data()
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file2)))
 
     def test_update(self):
         """Workflow update methods"""

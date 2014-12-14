@@ -249,6 +249,11 @@ to the [issues][issues] if you have a feature request or a bug report.
 If you want to make a pull request, do that [here][pulls], but please bear
 the following in mind:
 
+- Please open pull requests against the `develop` branch. I try to keep
+  `master` in sync with the latest release (at least regarding any files
+  included in releases). `master` and `develop` are *usually* in sync, but
+  if I'm working on new features, they'll be in `develop` and won't be pushed
+  to `master` until they're ready for release.
 - Alfred-Workflow has very close to 100% test coverage. "Proof-of-concept"
   pull requests without tests are more than welcome. However, please be
   prepared to add the appropriate tests if you want your pull request to be
@@ -279,6 +284,7 @@ the root directory of the repo which will fail *if code coverage is less than
 - [Dean Jackson][deanishe]
 - [Stephen Margheim][smargh]
 - [Fabio Niephaus][fniephaus]
+- [Owen Min][owenwater]
 
 ## Tests ##
 
@@ -534,6 +540,7 @@ These are some of the Alfred workflows that use this library.
 [docs-rtd]: https://alfredworkflow.readthedocs.org/
 [docs]: http://www.deanishe.net/alfred-workflow/
 [fniephaus]: https://github.com/fniephaus
+[owenwater]: https://github.com/owenwater
 [issues]: https://github.com/deanishe/alfred-workflow/issues
 [landscape]: https://landscape.io/github/deanishe/alfred-workflow/master
 [packal]: http://www.packal.org/

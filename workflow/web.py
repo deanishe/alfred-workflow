@@ -16,6 +16,7 @@ from __future__ import print_function
 import codecs
 import json
 import mimetypes
+import os
 import random
 import re
 import socket
@@ -299,7 +300,7 @@ class Response(object):
                                                         self.encoding))
         return self.content
 
-    def iter_content(self, chunk_size=1, decode_unicode=False):
+    def iter_content(self, chunk_size=4096, decode_unicode=False):
         """Iterate over response data.
 
         .. versionadded:: 1.6
@@ -317,12 +318,13 @@ class Response(object):
             decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
 
             for chunk in iterator:
-                rv = decoder.decode(chunk)
-                if rv:
-                    yield rv
-            rv = decoder.decode(b'', final=True)
-            if rv:
-                yield rv  # pragma: nocover
+                data = decoder.decode(chunk)
+                if data:
+                    yield data
+
+            data = decoder.decode(b'', final=True)
+            if data:
+                yield data  # pragma: nocover
 
         def generate():
 
@@ -345,6 +347,24 @@ class Response(object):
             chunks = decode_stream(chunks, self)
 
         return chunks
+
+    def save_to_path(self, filepath):
+        """Save retrieved data to file at ``filepath``
+
+        .. versionadded: 1.9.6
+
+        :param filepath: Path to save retrieved data.
+
+        """
+
+        filepath = os.path.abspath(filepath)
+        dirname = os.path.dirname(filepath)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        with open(filepath, 'wb') as fileobj:
+            for data in self.iter_content():
+                fileobj.write(data)
 
     def raise_for_status(self):
         """Raise stored error if one occurred.

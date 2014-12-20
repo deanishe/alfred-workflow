@@ -19,7 +19,9 @@ import os
 import unittest
 import urllib2
 import json
+import shutil
 import socket
+import tempfile
 from base64 import b64decode
 from pprint import pprint
 from workflow import web
@@ -126,9 +128,12 @@ class WebTests(unittest.TestCase):
         self.fubar_url = 'http://deanishe.net/fubar.txt'
         self.fubar_bytes = b'fübar'
         self.fubar_unicode = 'fübar'
+        self.tempdir = os.path.join(tempfile.gettempdir(),
+                                    'web_py.{:d}.tmp'.format(os.getpid()))
 
     def tearDown(self):
-        pass
+        if os.path.exists(self.tempdir):
+            shutil.rmtree(self.tempdir)
 
     def test_404(self):
         """Non-existant URL raises HTTPError w/ 404"""
@@ -330,6 +335,24 @@ class WebTests(unittest.TestCase):
             data += b
         data = json.loads(data)
         self.assertTrue(data.get('gzipped'))
+
+    def test_save_to_path(self):
+        """Save data to disk"""
+        filepath = os.path.join(self.tempdir, 'fubar.txt')
+        self.assertFalse(os.path.exists(self.tempdir))
+        self.assertFalse(os.path.exists(filepath))
+
+        r = web.get(self.fubar_url)
+        self.assertEqual(r.status_code, 200)
+
+        r.save_to_path(filepath)
+
+        self.assertTrue(os.path.exists(filepath))
+
+        with open(filepath, 'rb') as fileobj:
+            data = fileobj.read()
+
+        self.assertEqual(data, self.fubar_bytes)
 
 
 if __name__ == '__main__':  # pragma: no cover

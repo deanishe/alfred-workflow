@@ -12,6 +12,9 @@ by default) fetches the latest releases from the specified GitHub repository
 and then asks the user if they want to replace the workflow if a newer version
 is available.
 
+Users may turn off automatic checks for updates using the
+``workflow:noautoupdate`` :ref:`magic argument <magic-arguments>`.
+
 .. danger::
 
     If you are not careful, you might accidentally overwrite a local version of
@@ -35,7 +38,9 @@ There must be one (and only one) ``.alfredworkflow`` binary attached to a
 release otherwise it will be ignored. This is the file that will be downloaded
 and installed via Alfred's default installation mechanism.
 
-Releases marked as ``pre-release`` will also be ignored.
+.. important::
+
+    Releases marked as ``pre-release`` on GitHub will also be ignored.
 
 To use this feature, you must pass a :class:`dict` as the ``update_settings``
 argument to :class:`~workflow.workflow.Workflow`. It **must** have the two
@@ -112,10 +117,12 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 Version numbers
 ---------------
 
-Currently, Alfred-Workflow is not particularly smart when it comes to
-version numbers. This may change in the future but will require imposing a
-specific format for version numbers on workflow authors. If that does happen,
-it will be `semantic versioning`_, which you should probably be using anyway.
+In version 1.10 and above, Alfred-Workflow requires :ref:`semver`,
+which is the format GitHub also expects. Alfred-Workflow deviates from the
+semantic versioning standard slightly, most notably in that you don't have to
+specify a minor or patch version, i.e. ``1.0`` is fine, as is simply ``1``
+(the standard requires these to both be written ``1.0.0``). See
+:ref:`semver` for more details on version formatting.
 
 The *de-facto* way to tag releases on GitHub is use a semantic version number
 preceded by ``v``, e.g. ``v1.0``, ``v2.3.1`` etc., whereas the *de-facto* way
@@ -123,22 +130,42 @@ to version Python libraries is to do the same, but without the preceding ``v``,
 e.g. ``1.0``, ``2.3.1`` etc.
 
 As a result, Alfred-Workflow will strip a preceding ``v`` from both local
-and remote versions (i.e. you can specify ``1.0`` or ``v1.0`` either or both
-in your Python code and GitHub releases).
+and remote versions (i.e. you can specify ``1.0`` or ``v1.0`` in either or both
+of your Python code and GitHub releases).
 
-When this is done, if the latest GitHub version is not the same as the local
+When this is done, if the latest GitHub version is higher than the local
 version, Alfred-Workflow will consider the remote version to be an update.
-**No further comparison of versions takes place**.
 
 Thus, calling :class:`~workflow.workflow.Workflow` with
 ``update_settings={'version': '1.2', ...}`` or
 ``update_settings={'version': 'v1.2', ...}`` will be considered the same
 version as the GitHub release tag ``v1.2`` or ``1.2``.
 
-.. danger::
 
-    If the local and GitHub version differ *in any other way* than starting
-    with ``v``, the GitHub version will be considered an update.
+.. _semver:
+
+Semantic versioning
+^^^^^^^^^^^^^^^^^^^
+
+Semantic versioning is a standard for formatting software version numbers.
+
+Essentially, a version number must consist of a major version number, a minor
+version number and a patch version number separated by dots, e.g. ``1.0.1``,
+``2.10.3`` etc. You should increase the patch version when you fix bugs, the
+minor version when you add new features and the major version if you change
+the API.
+
+You may also add additional pre-release version info to the end of the version
+number, preceded by a hyphen (``-``), e.g. ``2.0.0-rc.1`` or ``2.0.0-beta``.
+
+Alfred-Workflow differs from the standard in that you aren't required to
+specify a minor or patch version, i.e. ``1.0`` is fine, as is ``1`` (and both
+are considered equal and also equal to ``1.0.0``).
+
+This change was made as relatively few workflow authors use patch versions.
+
+See the `semantic versioning`_ website for full details of the standard and
+the rationale behind it.
 
 
 .. _GitHub releases: https://help.github.com/categories/85/articles

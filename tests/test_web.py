@@ -36,6 +36,86 @@ def tearDown():
     pass
 
 
+class CaseInsensitiveDictTests(unittest.TestCase):
+
+    def setUp(self):
+        self.data_list = [('Aardvark', 'a'), ('Booty', 'b'), ('Clown', 'c')]
+        self.data_dict = dict(self.data_list)
+
+    def tearDown(self):
+        pass
+
+    def test_init_dict(self):
+        """Initialise CaseInsensitiveDict"""
+        d1 = web.CaseInsensitiveDictionary(self.data_list)
+        d2 = web.CaseInsensitiveDictionary(self.data_dict)
+        self.assertEqual(d1, d2)
+
+    def test_retrieve(self):
+        """CaseInsensitiveDict retrieve values"""
+        d = web.CaseInsensitiveDictionary(self.data_list)
+        for k, v in self.data_list:
+            self.assertEqual(v, d[k])
+            self.assertEqual(v, d[k.lower()])
+            self.assertEqual(v, d[k.upper()])
+            self.assertEqual(v, d[k.title()])
+            self.assertEqual(v, d.get(k))
+            self.assertEqual(v, d.get(k.lower()))
+            self.assertEqual(v, d.get(k.upper()))
+            self.assertEqual(v, d.get(k.title()))
+            self.assertTrue(k in d)
+            self.assertTrue(k.lower() in d)
+            self.assertTrue(k.upper() in d)
+            self.assertTrue(k.title() in d)
+
+        self.assertIsNone(d.get('This is not a key'))
+        self.assertFalse('This is not a key' in d)
+
+    def test_set(self):
+        """CaseInsensitiveDict set values"""
+        d = web.CaseInsensitiveDictionary()
+        for k, v in self.data_list:
+            self.assertFalse(k in d)
+
+        for k, v in self.data_list:
+            d[k.upper()] = v
+
+        for k, v in self.data_list:
+            self.assertTrue(k in d)
+            self.assertEqual(d[k], v)
+            self.assertEqual(d[k.lower()], v)
+
+        d2 = {'Dogs': 'd', 'Elephants': 'e'}
+        for k, v in d2.items():
+            self.assertFalse(k in d)
+            self.assertIsNone(d.get(k))
+
+        d.update(d2)
+
+        for k, v in d2.items():
+            self.assertTrue(k in d)
+            self.assertTrue(k.upper() in d)
+            self.assertEqual(d.get(k), v)
+
+    def test_iterators(self):
+        """CaseInsensitiveDict iterators"""
+        d = web.CaseInsensitiveDictionary(self.data_dict)
+
+        self.assertEqual(sorted(d.keys()), sorted(self.data_dict.keys()))
+        self.assertEqual(sorted(d.values()), sorted(self.data_dict.values()))
+
+        for k in d.iterkeys():
+            self.assertTrue(k in self.data_dict)
+
+        values = self.data_dict.values()
+
+        for v in d.itervalues():
+            self.assertTrue(v in values)
+
+        for t in d.iteritems():
+            self.assertTrue(t in self.data_list)
+
+
 class WebTests(unittest.TestCase):
 
     def setUp(self):
@@ -231,6 +311,25 @@ class WebTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content, self.fubar_bytes)
         self.assertEqual(r.text, self.fubar_unicode)
+
+    def test_gzipped_content(self):
+        """Gzipped content decoded"""
+        url = BASE_URL + 'gzip'
+        r = web.get(url)
+        self.assertEqual(r.status_code, 200)
+        data = r.json()
+        self.assertTrue(data.get('gzipped'))
+
+    def test_gzipped_iter_content(self):
+        """Gzipped iter_content decoded"""
+        url = BASE_URL + 'gzip'
+        r = web.get(url)
+        self.assertEqual(r.status_code, 200)
+        data = b''
+        for b in r.iter_content():
+            data += b
+        data = json.loads(data)
+        self.assertTrue(data.get('gzipped'))
 
 
 if __name__ == '__main__':  # pragma: no cover

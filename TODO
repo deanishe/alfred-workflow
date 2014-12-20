@@ -15,11 +15,12 @@ Features to Add:
 
 	web.py:
 
-
 	workflow.py:
+		- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1)
+		Save a "flag" in the data directory upon first run.
+		Should the file only be created the first time `first_run()` is called instead?
+		How about being able to pass a version argument to `first_run()`?
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
-		- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2
-		- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1)
 		- `max_age` argument of `cached_data()` should default to 0 (always return cached data) @v2 @priority(1)
 
 
@@ -64,10 +65,6 @@ Features to Consider:
 
 
 	workflow.py:
-		- Add `first_run()` to determine if the workflow has been run on this computer before.
-		Save a "flag" in the data directory upon first run.
-		Should the file only be created the first time `first_run()` is called instead?
-		How about being able to pass a version argument to `first_run()`?
 		- automatically add `lib` and/or `packages` subdirectory to `sys.path`
 		- Add `TechnicolorLogger` formatter
 
@@ -79,12 +76,18 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
-	- Integrate Fabio's update feature @done(14-09-14 19:50) @project(Features to Add / update.py)
-	- Allow omission of `v` in version specified in `update_settings` @done(14-09-14 22:14) @project(Features to Add / update.py)
-	- Perform download & installation in the background, so Workflow can inform user that an update is being performed @priority(1) @done(14-09-25 11:57) @project(Features to Add / update.py)
+	- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1) @done(14-12-20 14:17) @project(Features to Add / workflow.py)
+	- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2 @done(14-12-20 14:17) @project(Features to Add / workflow.py)
+	- Allow users to turn off automatic update checks @done(14-12-20 11:20) @project(Features to Add / update.py)
+	- Add `help_url`. Will be shown in log when an error occurs and can be opened via `workflow:help` magic arg. @done(14-12-20 10:39) @project(Features to Add / workflow.py)
+	- Handle gzip-encoded HTTP data @done(14-12-20 10:34) @project(Features to Add / web.py)
+	- Add `save_to_path()` method to save HTTP data directly to disk @done(14-12-20 10:34) @project(Features to Add / web.py)
 	- Improve description of how to use `Workflow(libraries=)` @done(14-09-25 11:59) @project(Features to Add / Docs)
 		Make paths to specify to `pip` clearer.
 		See https://github.com/deanishe/alfred-workflow/issues/28
+	- Perform download & installation in the background, so Workflow can inform user that an update is being performed @priority(1) @done(14-09-25 11:57) @project(Features to Add / update.py)
+	- Allow omission of `v` in version specified in `update_settings` @done(14-09-14 22:14) @project(Features to Add / update.py)
+	- Integrate Fabio's update feature @done(14-09-14 19:50) @project(Features to Add / update.py)
 	- Move documentation out of module docstrings into ReST files under /doc @priority(1) @done(14-09-14 14:23) @project(Features to Add / Docs)
 		A lot of the documentation isn't super-suitable for Python's `help()`
 		function. The published HTML documentation could be much better arranged

@@ -7,6 +7,7 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 [![Coverage Status][shield-coveralls]][coveralls]
 [![Code Health][shield-health]][landscape]
 [![Latest Version][shield-version]][pypi]
+[![Development Status][shield-status]][pypi]
 [![Documentation Status][shield-docs]][docs]
 [![License][shield-licence]][pypi]
 [![Downloads][shield-download]][pypi]
@@ -50,6 +51,14 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 ## Installation ##
 
+**Note**: If you intend to distribute your workflow to other users, you should
+include Alfred-Workflow (and other Python libraries your workflow requires)
+within your workflow's directory as described below. **Do not** ask users to
+install anything into their system Python. Python installations cannot support
+multiple versions of the same library, so if you rely on globally-installed
+libraries, the chances are very good that your workflow will sooner or later
+break—or be broken by—some other software doing the same naughty thing.
+
 ### With pip ###
 
 You can install Alfred-Workflow directly into your workflow with:
@@ -58,19 +67,16 @@ You can install Alfred-Workflow directly into your workflow with:
 pip install --target=/path/to/my/workflow Alfred-Workflow
 ```
 
-**Note**: If you intend to distribute your workflow to other users, you should
-include Alfred-Workflow (and other Python libraries your workflow requires)
-within your workflow as described. Do not ask users to install anything into
-their system Python.
+You can install any other library available on the [Cheese Shop][cheeseshop] the same way. See the [pip documentation][pip-docs] for more information.
 
 ### From source ###
 
-1. Download the `alfred-workflow-X.X.zip` from the
+1. Download the `alfred-workflow-X.X.X.zip` from the
    [releases page][releases].
 2. Either extract the ZIP archive and place the `workflow` directory in the
    root folder of your workflow (where `info.plist` is) **or**
 3. Place the ZIP archive in the root folder of your workflow and add
-   `sys.path.insert(0, 'alfred-workflow-X.X.zip')` at the top of your Python
+   `sys.path.insert(0, 'alfred-workflow-X.X.X.zip')` at the top of your Python
    script(s).
 
 Your workflow should look something like this:
@@ -243,6 +249,11 @@ to the [issues][issues] if you have a feature request or a bug report.
 If you want to make a pull request, do that [here][pulls], but please bear
 the following in mind:
 
+- Please open pull requests against the `develop` branch. I try to keep
+  `master` in sync with the latest release (at least regarding any files
+  included in releases). `master` and `develop` are *usually* in sync, but
+  if I'm working on new features, they'll be in `develop` and won't be pushed
+  to `master` until they're ready for release.
 - Alfred-Workflow has very close to 100% test coverage. "Proof-of-concept"
   pull requests without tests are more than welcome. However, please be
   prepared to add the appropriate tests if you want your pull request to be
@@ -273,6 +284,7 @@ the root directory of the repo which will fail *if code coverage is less than
 - [Dean Jackson][deanishe]
 - [Stephen Margheim][smargh]
 - [Fabio Niephaus][fniephaus]
+- [Owen Min][owenwater]
 
 ## Tests ##
 
@@ -294,6 +306,10 @@ These are some of the Alfred workflows that use this library.
   by [XedMada](http://www.packal.org/users/xedmada)
   ([on GitHub](https://github.com/XedMada/)).
   Pause and Start Backblaze online backups.
+- [alfred-ime](http://www.packal.org/workflow/alfred-ime)
+  ([GitHub repo](https://github.com/owenwater/alfred-ime))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python)
   ([GitHub repo](https://github.com/deanishe/alfred-bundler-python-demo))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -372,11 +388,11 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Read Hacker News with Alfred.
-- [Homebrew for Alfred](http://www.packal.org/workflow/homebrew-alfred)
+- [Homebrew and Cask for Alfred](http://www.packal.org/workflow/homebrew-and-cask-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-homebrew))
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
-  Easily control Homebrew with Alfred.
+  Easily control Homebrew and Cask with Alfred.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks)
   ([GitHub repo](https://github.com/nkeim/alfred-ipython-notebook))
   by [nkeim](http://www.packal.org/users/nkeim)
@@ -459,6 +475,11 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Actions for PDF viewer Skim.
+- [slackfred](http://www.packal.org/workflow/slackfred)
+  ([GitHub repo](https://github.com/fspinillo/slackfred))
+  by [frankspin](http://www.packal.org/users/frankspin)
+  ([on GitHub](https://github.com/fspinillo/)).
+  Interact with the chat service Slack via Alfred.
 - [Snippets](http://www.packal.org/workflow/snippets)
   ([GitHub repo](https://github.com/smargh/alfred_snippets))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -507,7 +528,7 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
-
+  A Input method workflow based on Google Input Tools.
 
 
 
@@ -515,10 +536,11 @@ These are some of the Alfred workflows that use this library.
 [cc]: https://creativecommons.org/licenses/by-nc/4.0/legalcode
 [coveralls]: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
 [deanishe]: https://github.com/deanishe
-[docs-api]: http://www.deanishe.net/alfred-workflow/#api-docs
+[docs-api]: http://www.deanishe.net/alfred-workflow/#api-documentation
 [docs-rtd]: https://alfredworkflow.readthedocs.org/
 [docs]: http://www.deanishe.net/alfred-workflow/
 [fniephaus]: https://github.com/fniephaus
+[owenwater]: https://github.com/owenwater
 [issues]: https://github.com/deanishe/alfred-workflow/issues
 [landscape]: https://landscape.io/github/deanishe/alfred-workflow/master
 [packal]: http://www.packal.org/
@@ -529,13 +551,16 @@ These are some of the Alfred workflows that use this library.
 [repo]: https://github.com/deanishe/alfred-workflow
 [requests]: http://docs.python-requests.org/en/latest/
 [rtd]: https://readthedocs.org/
-[shield-coveralls]: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg
-[shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest
-[shield-download]: https://pypip.in/download/Alfred-Workflow/badge.svg
-[shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png
-[shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg
-[shield-travis]: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master
-[shield-version]: https://pypip.in/version/Alfred-Workflow/badge.svg?text=version
+[shield-coveralls]: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg?style=flat
+[shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest&style=flat
+[shield-download]: https://pypip.in/download/Alfred-Workflow/badge.svg?style=flat
+[shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
+[shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg?style=flat
+[shield-status]: https://pypip.in/status/Alfred-Workflow/badge.svg?style=flat
+[shield-travis]: https://img.shields.io/travis/deanishe/alfred-workflow.svg?style=flat
+[shield-version]: https://pypip.in/version/Alfred-Workflow/badge.svg?text=version&style=flat
 [smargh]: https://github.com/smargh
 [sphinx]: http://sphinx-doc.org/
 [travis]: https://travis-ci.org/deanishe/alfred-workflow
+[cheeseshop]: https://pypi.python.org/pypi
+[pip-docs]: https://pip.pypa.io/en/latest/

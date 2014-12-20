@@ -31,9 +31,9 @@ class WebEncodingTests(unittest.TestCase):
     def setUp(self):
         self.urls = [
             # URL, encoding
-            ('http://www.baidu.com/s?wd=lager', 'utf-8'),
-            ('http://httpbin.org/xml', 'us-ascii'),
-            ('http://httpbin.org/get', 'utf-8'),
+            ('http://www.baidu.com/', 'utf-8'),
+            ('http://eu.httpbin.org/xml', 'us-ascii'),
+            ('http://eu.httpbin.org/get', 'utf-8'),
             ('https://deanishe.net/no-encoding.xml', 'utf-8')
         ]
 

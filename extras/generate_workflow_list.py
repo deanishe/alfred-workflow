@@ -224,7 +224,7 @@ def update_repo():
     else:  # Update repo
         cwd = os.getcwd()
         os.chdir(PACKAL_REPO_DIR)
-        cmd = ['git', 'pull', '--quiet']
+        cmd = ['git', 'pull']
         subprocess.call(cmd)
         os.chdir(cwd)
 

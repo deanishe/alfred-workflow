@@ -168,6 +168,16 @@ class WorkflowTests(unittest.TestCase):
             ('salé', 'sale')
         ]
 
+        self.punctuation_data = [
+            ('"test"', '"test"'),
+            ('„wat denn?“', '"wat denn?"'),
+            ('‚wie dat denn?‘', "'wie dat denn?'"),
+            ('“test”', '"test"'),
+            ('and—why—not', 'and-why-not'),
+            ('10–20', '10-20'),
+            ('Shady’s back', "Shady's back"),
+        ]
+
         self.env_data = {
             'alfred_preferences':
             os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
@@ -464,6 +474,42 @@ class WorkflowTests(unittest.TestCase):
         # Test alternate code path for non-existent file
         self.assertEqual(self.wf.cache_data('test', None), None)
 
+    def test_delete_all_cache_file(self):
+        """Cached data are all deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        self.wf.cached_data('test1', lambda: data, max_age=10)
+        self.wf.cached_data('test2', lambda: data, max_age=10)
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache()
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file2)))
+
+    def test_delete_all_cache_file_with_filter_func(self):
+        """Only part of cached data are deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        def filter_func(file):
+            if file == test_file1:
+                return True
+            else:
+                return False
+
+        self.wf.cached_data('test1', lambda: data, max_age=10)
+        self.wf.cached_data('test2', lambda: data, max_age=10)
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache(filter_func)
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.cachefile(test_file2)))
+        self.wf.clear_cache()
+        self.assertFalse(os.path.exists(self.wf.cachefile(test_file2)))
+
     def test_cached_data_callback(self):
         """Cached data callback"""
         called = {'called': False}
@@ -661,6 +707,43 @@ class WorkflowTests(unittest.TestCase):
         for p in paths:
             self.assertFalse(os.path.exists(p))
 
+    def test_delete_all_stored_data_file(self):
+        """Stored data are all deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        self.wf.store_data('test1', data)
+        self.wf.store_data('test2', data)
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data()
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file2)))
+
+    def test_delete_all_data_file_with_filter_func(self):
+        """Only part of stored data are deleted"""
+        data = {'key1': 'value1'}
+        test_file1 = 'test1.cpickle'
+        test_file2 = 'test2.cpickle'
+
+        def filter_func(file):
+            if file == test_file1:
+                return True
+            else:
+                return False
+
+        self.wf.store_data('test1', data)
+        self.wf.store_data('test2', data)
+
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data(filter_func)
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file1)))
+        self.assertTrue(os.path.exists(self.wf.datafile(test_file2)))
+        self.wf.clear_data()
+        self.assertFalse(os.path.exists(self.wf.datafile(test_file2)))
+
     def test_update(self):
         """Workflow update methods"""
 
@@ -735,6 +818,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(wf, self.wf)
             raise ValueError('Have an error')
         self.wf.name  # cause info.plist to be parsed
+        self.wf.help_url = 'http://www.deanishe.net/alfred-workflow/'
         ret = self.wf.run(cb)
         self.assertEqual(ret, 1)
         # named after bundleid
@@ -877,6 +961,11 @@ class WorkflowTests(unittest.TestCase):
         results = self.wf.filter('bob', data, ascending=True)
         self.assertEquals(results, data[::-1])
 
+    def test_punctuation(self):
+        """Punctuation: dumbified"""
+        for input, output in self.punctuation_data:
+            self.assertEqual(self.wf.dumbify_punctuation(input), output)
+
     def test_icons(self):
         """Icons"""
         import workflow
@@ -966,6 +1055,35 @@ class MagicArgsTests(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def test_list_magic(self):
+        """Magic: list magic"""
+        c = WorkflowMock(['script', 'workflow:magic'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
+
+    def test_openhelp(self):
+        """Magic: open help URL"""
+        url = 'http://www.deanishe.net/alfred-workflow/'
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow(help_url=url)
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], url)
+
+    def test_openhelp_no_url(self):
+        """Magic: no help URL"""
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
 
     def test_openlog(self):
         """Magic: open logfile"""
@@ -1105,6 +1223,22 @@ class MagicArgsTests(unittest.TestCase):
         with c:
             wf.args
         self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
+
+    def test_auto_update(self):
+        """Magic: auto-update"""
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:autoupdate'])
+        with c:
+            wf.args
+        self.assertTrue(wf.settings.get('__workflow_autoupdate'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:noautoupdate'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+
+        del wf.settings['__workflow_autoupdate']
 
     def test_update(self):
         """Magic: update"""

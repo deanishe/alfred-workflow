@@ -371,6 +371,22 @@ ASCII_REPLACEMENTS = {
 }
 
 ####################################################################
+# Smart-to-dumb punctuation mapping
+####################################################################
+
+DUMB_PUNCTUATION = {
+    '‘': "'",
+    '’': "'",
+    '‚': "'",
+    '“': '"',
+    '”': '"',
+    '„': '"',
+    '–': '-',
+    '—': '-'
+}
+
+
+####################################################################
 # Used by `Workflow.filter`
 ####################################################################
 
@@ -855,6 +871,13 @@ class Workflow(object):
         :param libraries: sequence of paths to directories containing
             libraries. These paths will be prepended to ``sys.path``.
         :type libraries: :class:`tuple` or :class:`list`
+        :param help_url: URL to webpage where a user can ask for help with
+            the workflow, report bugs, etc. This could be the GitHub repo
+            or a page on AlfredForum.com. If your workflow throws an error,
+            this URL will be displayed in the log and Alfred's debugger. It can
+            also be opened directly in a web browser with the ``workflow:help``
+            :ref:`magic argument <magic-arguments>`.
+        :type help_url: :class:`unicode` or :class:`str`
 
     """
 
@@ -864,13 +887,15 @@ class Workflow(object):
 
     def __init__(self, default_settings=None, update_settings=None,
                  input_encoding='utf-8', normalization='NFC',
-                 capture_args=True, libraries=None):
+                 capture_args=True, libraries=None,
+                 help_url=None):
 
         self._default_settings = default_settings or {}
         self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self.help_url = help_url
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -886,6 +911,22 @@ class Workflow(object):
         self._items = []
         self._alfred_env = None
         self._search_pattern_cache = {}
+        # Magic arguments
+        #: The prefix for all magic arguments. Default is ``workflow:``
+        self.magic_prefix = 'workflow:'
+        #: Mapping of available magic arguments. The built-in magic
+        #: arguments are registered by default. To add your own magic arguments
+        #: (or override built-ins), add a key:value pair where the key is
+        #: what the user should enter (prefixed with :attr:`magic_prefix`)
+        #: and the value is a callable that will be called when the argument
+        #: is entered. If you would like to display a message in Alfred, the
+        #: function should return a ``unicode`` string.
+        #:
+        #: By default, the magic arguments documented
+        #: :ref:`here <magic-arguments>` are registered.
+        self.magic_arguments = {}
+
+        self._register_default_magic()
 
         if libraries:
             sys.path = libraries + sys.path
@@ -1041,49 +1082,13 @@ class Workflow(object):
 
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
+
+        # Handle magic args
         if len(args) and self._capture_args:
-            if 'workflow:openlog' in args:
-                msg = 'Opening workflow log file'
-                self.open_log()
-            elif 'workflow:reset' in args:
-                self.reset()
-                msg = 'Reset workflow'
-            elif 'workflow:delcache' in args:
-                self.clear_cache()
-                msg = 'Deleted workflow cache'
-            elif 'workflow:deldata' in args:
-                self.clear_data()
-                msg = 'Deleted workflow data'
-            elif 'workflow:delsettings' in args:
-                self.clear_settings()
-                msg = 'Deleted workflow settings'
-            elif 'workflow:openworkflow' in args:
-                msg = 'Opening workflow directory'
-                self.open_workflowdir()
-            elif 'workflow:opendata' in args:
-                msg = 'Opening workflow data directory'
-                self.open_datadir()
-            elif 'workflow:opencache' in args:
-                msg = 'Opening workflow cache directory'
-                self.open_cachedir()
-            elif 'workflow:openterm' in args:
-                msg = 'Opening workflow root directory in Terminal'
-                self.open_terminal()
-            elif 'workflow:foldingon' in args:
-                msg = 'Diacritics will always be folded'
-                self.settings['__workflow_diacritic_folding'] = True
-            elif 'workflow:foldingoff' in args:
-                msg = 'Diacritics will never be folded'
-                self.settings['__workflow_diacritic_folding'] = False
-            elif 'workflow:foldingdefault' in args:
-                msg = 'Diacritics folding reset'
-                if '__workflow_diacritic_folding' in self.settings:
-                    del self.settings['__workflow_diacritic_folding']
-            elif 'workflow:update' in args:
-                if self.start_update():
-                    msg = 'Downloading and installing update ...'
-                else:
-                    msg = 'No update available'
+            for name in self.magic_arguments:
+                key = '{}{}'.format(self.magic_prefix, name)
+                if key in args:
+                    msg = self.magic_arguments[name]()
 
             if msg:
                 self.logger.debug(msg)
@@ -1890,6 +1895,9 @@ class Workflow(object):
             func(self)
         except Exception as err:
             self.logger.exception(err)
+            if self.help_url:
+                self.logger.info(
+                    'For assistance, see: {}'.format(self.help_url))
             if not sys.stdout.isatty():  # Show error in Alfred
                 self._items = []
                 if self._name:
@@ -2028,6 +2036,10 @@ class Workflow(object):
 
         frequency = self._update_settings.get('frequency',
                                               DEFAULT_UPDATE_FREQUENCY)
+
+        if not force and not self.settings.get('__workflow_autoupdate', True):
+            self.logger.debug('Auto update turned off by user')
+            return
 
         # Check for new version if it's time
         if (force or not self.cached_data_fresh(
@@ -2179,13 +2191,122 @@ class Workflow(object):
     # Methods for workflow:* magic args
     ####################################################################
 
-    def clear_cache(self):
-        """Delete all files in workflow's :attr:`cachedir`."""
-        self._delete_directory_contents(self.cachedir)
+    def _register_default_magic(self):
+        """Register the built-in magic arguments"""
 
-    def clear_data(self):
-        """Delete all files in workflow's :attr:`datadir`."""
-        self._delete_directory_contents(self.datadir)
+        # Wrap callback and message with callable
+        def callback(func, msg):
+            def wrapper():
+                func()
+                return msg
+
+            return wrapper
+
+        self.magic_arguments['delcache'] = callback(self.clear_cache,
+                                                    'Deleted workflow cache')
+        self.magic_arguments['deldata'] = callback(self.clear_data,
+                                                   'Deleted workflow data')
+        self.magic_arguments['delsettings'] = callback(
+            self.clear_settings, 'Deleted workflow settings')
+        self.magic_arguments['reset'] = callback(self.reset,
+                                                 'Reset workflow')
+        self.magic_arguments['openlog'] = callback(self.open_log,
+                                                   'Opening workflow log file')
+        self.magic_arguments['opencache'] = callback(
+            self.open_cachedir, 'Opening workflow cache directory')
+        self.magic_arguments['opendata'] = callback(
+            self.open_datadir, 'Opening workflow data directory')
+        self.magic_arguments['openworkflow'] = callback(
+            self.open_workflowdir, 'Opening workflow directory')
+        self.magic_arguments['openterm'] = callback(
+            self.open_terminal, 'Opening workflow root directory in Terminal')
+
+        # Diacritic folding
+        def fold_on():
+            self.settings['__workflow_diacritic_folding'] = True
+            return 'Diacritics will always be folded'
+
+        def fold_off():
+            self.settings['__workflow_diacritic_folding'] = False
+            return 'Diacritics will never be folded'
+
+        def fold_default():
+            if '__workflow_diacritic_folding' in self.settings:
+                del self.settings['__workflow_diacritic_folding']
+            return 'Diacritics folding reset'
+
+        self.magic_arguments['foldingon'] = fold_on
+        self.magic_arguments['foldingoff'] = fold_off
+        self.magic_arguments['foldingdefault'] = fold_default
+
+        # Updates
+        def update_on():
+            self.settings['__workflow_autoupdate'] = True
+            return 'Auto update turned on'
+
+        def update_off():
+            self.settings['__workflow_autoupdate'] = False
+            return 'Auto update turned off'
+
+        def do_update():
+            if self.start_update():
+                return 'Downloading and installing update ...'
+            else:
+                return 'No update available'
+
+        self.magic_arguments['autoupdate'] = update_on
+        self.magic_arguments['noautoupdate'] = update_off
+        self.magic_arguments['update'] = do_update
+
+        # Help
+        def do_help():
+            if self.help_url:
+                self.open_help()
+                return 'Opening workflow help URL in browser'
+            else:
+                return 'Workflow has no help URL'
+
+        def list_magic():
+            """Display all available magic args in Alfred"""
+            isatty = sys.stderr.isatty()
+            for name in sorted(self.magic_arguments.keys()):
+                if name == 'magic':
+                    continue
+                arg = '{}{}'.format(self.magic_prefix, name)
+                self.logger.debug(arg)
+
+                if not isatty:
+                    self.add_item(arg, icon=ICON_INFO)
+
+            if not isatty:
+                self.send_feedback()
+
+        self.magic_arguments['help'] = do_help
+        self.magic_arguments['magic'] = list_magic
+
+    def clear_cache(self, filter_func=lambda f: True):
+        """Delete all files in workflow's :attr:`cachedir`.
+
+        :param filter_func: Callable to determine whether a file should be
+            deleted or not. ``filter_func`` is called with the filename
+            of each file in the data directory. If it returns ``True``,
+            the file will be deleted.
+            By default, *all* files will be deleted.
+        :type filter_func: ``callable``
+        """
+        self._delete_directory_contents(self.cachedir, filter_func)
+
+    def clear_data(self, filter_func=lambda f: True):
+        """Delete all files in workflow's :attr:`datadir`.
+
+        :param filter_func: Callable to determine whether a file should be
+            deleted or not. ``filter_func`` is called with the filename
+            of each file in the data directory. If it returns ``True``,
+            the file will be deleted.
+            By default, *all* files will be deleted.
+        :type filter_func: ``callable``
+        """
+        self._delete_directory_contents(self.datadir, filter_func)
 
     def clear_settings(self):
         """Delete workflow's :attr:`settings_path`."""
@@ -2220,13 +2341,20 @@ class Workflow(object):
         subprocess.call(['open', self.datadir])
 
     def open_workflowdir(self):
-        """Open the workflow's :attr:`directory <workflowdir` in Finder."""
+        """Open the workflow's :attr:`workflowdir` in Finder."""
         subprocess.call(['open', self.workflowdir])
 
     def open_terminal(self):
-        """Open a Terminal window at workflow's :attr:`directory <workflowdir`."""
+        """Open a Terminal window at workflow's :attr:`workflowdir`."""
+
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])
+
+    def open_help(self):
+        """Open :attr:`help_url` in default browser"""
+        subprocess.call(['open', self.help_url])
+
+        return 'Opening workflow help URL in browser'
 
     ####################################################################
     # Helper methods
@@ -2286,16 +2414,41 @@ class Workflow(object):
         return unicode(unicodedata.normalize('NFKD',
                        text).encode('ascii', 'ignore'))
 
-    def _delete_directory_contents(self, dirpath):
+    def dumbify_punctuation(self, text):
+        """Convert non-ASCII punctuation to closest ASCII equivalent.
+
+        This method replaces "smart" quotes and n- or m-dashes with their
+        workaday ASCII equivalents. This method is currently not used
+        internally, but exists as a helper method for workflow authors.
+
+        .. versionadded: 1.9.7
+
+        :param text: text to convert
+        :type text: ``unicode``
+        :returns: text with only ASCII punctuation
+        :rtype: ``unicode``
+
+        """
+        if isascii(text):
+            return text
+
+        text = ''.join([DUMB_PUNCTUATION.get(c, c) for c in text])
+        return text
+
+    def _delete_directory_contents(self, dirpath, filter_func):
         """Delete all files in a directory
 
         :param dirpath: path to directory to clear
         :type dirpath: ``unicode`` or ``str``
-
+        :param filter_func function to determine whether a file shall be
+            deleted or not.
+        :type filter_func ``callable``
         """
 
         if os.path.exists(dirpath):
             for filename in os.listdir(dirpath):
+                if not filter_func(filename):
+                    continue
                 path = os.path.join(dirpath, filename)
                 if os.path.isdir(path):
                     shutil.rmtree(path)

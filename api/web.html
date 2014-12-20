@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.9.5 documentation</title>
+  <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.9.6 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.5 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="../index.html"/>
         <link rel="up" title="Alfred-Workflow API" href="index.html"/>
         <link rel="next" title="Background Tasks" href="background.html"/>
         <link rel="prev" title="The Workflow Object" href="workflow.html"/>
@@ -328,7 +328,7 @@ will be used.</li>
 
 <dl class="method">
 <dt id="workflow.web.Response.iter_content">
-<tt class="descname">iter_content</tt><big>(</big><em>chunk_size=1</em>, <em>decode_unicode=False</em><big>)</big><a class="headerlink" href="#workflow.web.Response.iter_content" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">iter_content</tt><big>(</big><em>chunk_size=4096</em>, <em>decode_unicode=False</em><big>)</big><a class="headerlink" href="#workflow.web.Response.iter_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterate over response data.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.6.</span></p>
@@ -371,6 +371,20 @@ will be used.</li>
 <tt class="descname">raise_for_status</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.web.Response.raise_for_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raise stored error if one occurred.</p>
 <p>error will be instance of <a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2.HTTPError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">urllib2.HTTPError</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.web.Response.save_to_path">
+<tt class="descname">save_to_path</tt><big>(</big><em>filepath</em><big>)</big><a class="headerlink" href="#workflow.web.Response.save_to_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save retrieved data to file at <tt class="docutils literal"><span class="pre">filepath</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> &#8211; Path to save retrieved data.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -435,7 +449,7 @@ itself, the encoded response body will be returned instead.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.5',
+            VERSION:'1.9.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

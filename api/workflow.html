@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The Workflow Object &mdash; Alfred-Workflow 1.9.5 documentation</title>
+  <title>The Workflow Object &mdash; Alfred-Workflow 1.9.6 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.5 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="../index.html"/>
         <link rel="up" title="Alfred-Workflow API" href="index.html"/>
         <link rel="next" title="Fetching Data from the Web" href="web.html"/>
         <link rel="prev" title="Alfred-Workflow API" href="index.html"/>
@@ -537,14 +537,38 @@ information on how to enable your workflow to update itself.</p>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_cache">
-<tt class="descname">clear_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_cache</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x10229d500&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<tt class="docutils literal"><span class="pre">callable</span></tt>) &#8211; Callable to determine whether a file should be
+deleted or not. <tt class="docutils literal"><span class="pre">filter_func</span></tt> is called with the filename
+of each file in the data directory. If it returns <tt class="docutils literal"><span class="pre">True</span></tt>,
+the file will be deleted.
+By default, <em>all</em> files will be deleted.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_data">
-<tt class="descname">clear_data</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_data</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x10229d5f0&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<tt class="docutils literal"><span class="pre">callable</span></tt>) &#8211; Callable to determine whether a file should be
+deleted or not. <tt class="docutils literal"><span class="pre">filter_func</span></tt> is called with the filename
+of each file in the data directory. If it returns <tt class="docutils literal"><span class="pre">True</span></tt>,
+the file will be deleted.
+By default, <em>all</em> files will be deleted.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -671,7 +695,7 @@ bundle ID</li>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1049d6e60&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10229ce60&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -1176,7 +1200,7 @@ to delete the old password first (a Keychain implementation detail).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.5',
+            VERSION:'1.9.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

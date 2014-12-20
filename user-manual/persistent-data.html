@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Persistent data &mdash; Alfred-Workflow 1.9.5 documentation</title>
+  <title>Persistent data &mdash; Alfred-Workflow 1.9.6 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.5 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Searching/filtering data" href="filtering.html"/>
         <link rel="prev" title="Including 3rd party libraries" href="third-party.html"/>
@@ -247,6 +247,34 @@ script in the background.)</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">Passing <tt class="docutils literal"><span class="pre">max_age=0</span></tt> will return the cached data regardless of age.</p>
 </div>
+<div class="section" id="clearing-cached-data">
+<span id="clearing-cache"></span><h3>Clearing cached data<a class="headerlink" href="#clearing-cached-data" title="Permalink to this headline">¶</a></h3>
+<p>There is a convenience method for clearing a workflow&#8217;s cache directory.</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a> will by default delete all
+the files contained in <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>. This is
+the method called if you use the <tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> or <tt class="docutils literal"><span class="pre">workflow:reset</span></tt>
+<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic arguments</em></a>.</p>
+<p>You can selectively delete files from the cache by passing the optional
+<tt class="docutils literal"><span class="pre">filter_func</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>.
+This callable will be called with the filename (not path) of each file in the
+workflow&#8217;s cache directory.</p>
+<p>If <tt class="docutils literal"><span class="pre">filter_func</span></tt> returns <tt class="docutils literal"><span class="pre">True</span></tt>, the file will be deleted, otherwise it
+will be left in the cache. For example, to delete all <tt class="docutils literal"><span class="pre">.zip</span></tt> files in the
+cache, use:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">myfilter</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.zip&#39;</span><span class="p">)</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">(</span><span class="n">myfilter</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>or more simply:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.zip&#39;</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 </div>
 <div class="section" id="storing-data">
 <span id="id2"></span><h2>Storing data<a class="headerlink" href="#storing-data" title="Permalink to this headline">¶</a></h2>
@@ -276,6 +304,17 @@ to store data in, e.g., JSON or YAML format.</p>
 are saving should not be deleted as part of system maintenance.</p>
 <p>If you want to specify your own file format/serializer, please see
 <a class="reference internal" href="serialization.html#manual-serialization"><em>Serialization of stored/cached data</em></a> for details.</p>
+<div class="section" id="clearing-stored-data">
+<span id="clearing-data"></span><h3>Clearing stored data<a class="headerlink" href="#clearing-stored-data" title="Permalink to this headline">¶</a></h3>
+<p>As with cached data, there is a convenience method for deleting all the files
+stored in your workflow&#8217;s <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
+<p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_data" title="workflow.workflow.Workflow.clear_data"><tt class="xref py py-meth docutils literal"><span class="pre">clear_data()</span></tt></a> will delete all the
+files stored in <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>. It is used by the
+<tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> and <tt class="docutils literal"><span class="pre">workflow:reset</span></tt> <a class="reference internal" href="magic-args.html#magic-arguments"><em>magic arguments</em></a>.</p>
+<p>It is possible to selectively delete files contained in the data directory by
+supplying the optional <tt class="docutils literal"><span class="pre">filter_func</span></tt> callable. Please see <a class="reference internal" href="#clearing-cache"><em>Clearing cached data</em></a>
+for details on how <tt class="docutils literal"><span class="pre">filter_func</span></tt> works.</p>
+</div>
 </div>
 <div class="section" id="settings">
 <span id="manual-settings"></span><h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
@@ -384,7 +423,7 @@ to the above methods.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.5',
+            VERSION:'1.9.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

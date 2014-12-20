@@ -29,8 +29,9 @@ for debugging.
     the :attr:`~workflow.workflow.Workflow.args` property (where magic
     arguments are parsed).
 
-:class:`~workflow.workflow.Workflow` supports the following magic arguments:
+:class:`~workflow.workflow.Workflow` supports the following magic arguments by default:
 
+- ``workflow:magic`` — List available magic arguments.
 - ``workflow:help`` — Open workflow's help URL in default web browser. This URL is specified in the ``help_url`` argument to :class:`~workflow.workflow.Workflow`.
 - ``workflow:delcache`` — Delete the Workflow's cache.
 - ``workflow:deldata`` — Delete the Workflow's saved data.
@@ -53,9 +54,8 @@ folding set by a workflow's author. This may be useful if the author's choice
 does not correspond with a user's usage pattern.
 
 You can turn off magic arguments by passing ``capture_args=False`` to
-:class:`~workflow.workflow.Workflow` on instantiation, or call the corresponding
-methods of :class:`~workflow.workflow.Workflow` directly, perhaps assigning your
-own keywords within your Workflow:
+:class:`~workflow.workflow.Workflow` on instantiation, or call the corresponding methods of :class:`~workflow.workflow.Workflow` directly,
+perhaps assigning your own keywords within your Workflow:
 
 - :meth:`~workflow.workflow.Workflow.open_help`
 - :meth:`~workflow.workflow.Workflow.open_log`
@@ -69,3 +69,40 @@ own keywords within your Workflow:
 - :meth:`~workflow.workflow.Workflow.reset` (a shortcut to call the three previous ``clear_*`` methods)
 - :meth:`~workflow.workflow.Workflow.check_update`
 - :meth:`~workflow.workflow.Workflow.start_update`
+
+.. _custom-magic:
+
+Customising magic arguments
+---------------------------
+
+The default prefix for magic arguments (``workflow:``) is contained in the
+:attr:`~workflow.workflow.Workflow.magic_prefix` attribute of
+:class:`~workflow.workflow.Workflow`. If you want to change it to, say,
+``wf:`` (which will become the default in v2 of Alfred-Workflow), simply
+reassign it::
+
+	wf.magic_prefix = 'wf:'
+
+The magic arguments are defined in the :attr:`Workflow.magic_arguments <workflow.workflow.Workflow.magic_arguments>` dictionary.
+The dictionary keys are the keywords for the arguments (without the
+prefix) and the values are functions that should be called when the magic
+argument is entered. You can show a message in Alfred by returning a
+``unicode`` string from the function.
+
+To add a new magic argument that opens the workflow's settings file, you
+could do:
+
+.. code-block:: python
+	:linenos:
+
+	wf = Workflow()
+	wf.magic_prefix = 'wf:'  # Change prefix to `wf:`
+
+	def opensettings():
+		subprocess.call(['open', wf.settings_path])
+		return 'Opening workflow settings...'
+
+	wf.magic_arguments['settings'] = opensettings
+
+Now entering ``wf:settings`` as your workflow's query in Alfred will
+open ``settings.json`` in the default application.

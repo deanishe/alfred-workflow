@@ -1056,6 +1056,15 @@ class MagicArgsTests(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_list_magic(self):
+        """Magic: list magic"""
+        c = WorkflowMock(['script', 'workflow:magic'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
+
     def test_openhelp(self):
         """Magic: open help URL"""
         url = 'http://www.deanishe.net/alfred-workflow/'

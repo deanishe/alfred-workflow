@@ -168,6 +168,16 @@ class WorkflowTests(unittest.TestCase):
             ('salé', 'sale')
         ]
 
+        self.punctuation_data = [
+            ('"test"', '"test"'),
+            ('„wat denn?“', '"wat denn?"'),
+            ('‚wie dat denn?‘', "'wie dat denn?'"),
+            ('“test”', '"test"'),
+            ('and—why—not', 'and-why-not'),
+            ('10–20', '10-20'),
+            ('Shady’s back', "Shady's back"),
+        ]
+
         self.env_data = {
             'alfred_preferences':
             os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
@@ -950,6 +960,11 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(results, data)
         results = self.wf.filter('bob', data, ascending=True)
         self.assertEquals(results, data[::-1])
+
+    def test_punctuation(self):
+        """Punctuation: dumbified"""
+        for input, output in self.punctuation_data:
+            self.assertEqual(self.wf.dumbify_punctuation(input), output)
 
     def test_icons(self):
         """Icons"""

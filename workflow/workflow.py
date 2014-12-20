@@ -371,6 +371,22 @@ ASCII_REPLACEMENTS = {
 }
 
 ####################################################################
+# Smart-to-dumb punctuation mapping
+####################################################################
+
+DUMB_PUNCTUATION = {
+    '‘': "'",
+    '’': "'",
+    '‚': "'",
+    '“': '"',
+    '”': '"',
+    '„': '"',
+    '–': '-',
+    '—': '-'
+}
+
+
+####################################################################
 # Used by `Workflow.filter`
 ####################################################################
 
@@ -2333,6 +2349,27 @@ class Workflow(object):
         text = ''.join([ASCII_REPLACEMENTS.get(c, c) for c in text])
         return unicode(unicodedata.normalize('NFKD',
                        text).encode('ascii', 'ignore'))
+
+    def dumbify_punctuation(self, text):
+        """Convert non-ASCII punctuation to closest ASCII equivalent.
+
+        This method replaces "smart" quotes and n- or m-dashes with their
+        workaday ASCII equivalents. This method is currently not used
+        internally, but exists as a helper method for workflow authors.
+
+        .. versionadded: 1.9.7
+
+        :param text: text to convert
+        :type text: ``unicode``
+        :returns: text with only ASCII punctuation
+        :rtype: ``unicode``
+
+        """
+        if isascii(text):
+            return text
+
+        text = ''.join([DUMB_PUNCTUATION.get(c, c) for c in text])
+        return text
 
     def _delete_directory_contents(self, dirpath, filter_func):
         """Delete all files in a directory

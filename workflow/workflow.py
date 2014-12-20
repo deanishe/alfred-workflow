@@ -855,6 +855,13 @@ class Workflow(object):
         :param libraries: sequence of paths to directories containing
             libraries. These paths will be prepended to ``sys.path``.
         :type libraries: :class:`tuple` or :class:`list`
+        :param help_url: URL to webpage where a user can ask for help with
+            the workflow, report bugs, etc. This could be the GitHub repo
+            or a page on AlfredForum.com. If your workflow throws an error,
+            this URL will be displayed in the log and Alfred's debugger. It can
+            also be opened directly in a web browser with the ``workflow:help``
+            :ref:`magic argument <magic-arguments>`.
+        :type help_url: :class:`unicode` or :class:`str`
 
     """
 
@@ -864,13 +871,15 @@ class Workflow(object):
 
     def __init__(self, default_settings=None, update_settings=None,
                  input_encoding='utf-8', normalization='NFC',
-                 capture_args=True, libraries=None):
+                 capture_args=True, libraries=None,
+                 help_url=None):
 
         self._default_settings = default_settings or {}
         self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
         self._normalizsation = normalization
         self._capture_args = capture_args
+        self.help_url = help_url
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -1042,6 +1051,12 @@ class Workflow(object):
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
         if len(args) and self._capture_args:
+            if 'workflow:help' in args:
+                if self.help_url:
+                    msg = 'Opening workflow help URL in browser'
+                    self.open_help()
+                else:
+                    msg = 'Workflow has no help URL'
             if 'workflow:openlog' in args:
                 msg = 'Opening workflow log file'
                 self.open_log()
@@ -1079,6 +1094,12 @@ class Workflow(object):
                 msg = 'Diacritics folding reset'
                 if '__workflow_diacritic_folding' in self.settings:
                     del self.settings['__workflow_diacritic_folding']
+            elif 'workflow:noautoupdate' in args:
+                msg = 'Auto update turned off'
+                self.settings['__workflow_autoupdate'] = False
+            elif 'workflow:autoupdate' in args:
+                msg = 'Auto update turned on'
+                self.settings['__workflow_autoupdate'] = True
             elif 'workflow:update' in args:
                 if self.start_update():
                     msg = 'Downloading and installing update ...'
@@ -1890,6 +1911,9 @@ class Workflow(object):
             func(self)
         except Exception as err:
             self.logger.exception(err)
+            if self.help_url:
+                self.logger.info(
+                    'For assistance, see: {}'.format(self.help_url))
             if not sys.stdout.isatty():  # Show error in Alfred
                 self._items = []
                 if self._name:
@@ -2028,6 +2052,10 @@ class Workflow(object):
 
         frequency = self._update_settings.get('frequency',
                                               DEFAULT_UPDATE_FREQUENCY)
+
+        if not force and not self.settings.get('__workflow_autoupdate', True):
+            self.logger.debug('Auto update turned off by user')
+            return
 
         # Check for new version if it's time
         if (force or not self.cached_data_fresh(
@@ -2243,6 +2271,10 @@ class Workflow(object):
         """Open a Terminal window at workflow's :attr:`directory <workflowdir`."""
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])
+
+    def open_help(self):
+        """Open :attr:`help_url` in default browser"""
+        subprocess.call(['open', self.help_url])
 
     ####################################################################
     # Helper methods

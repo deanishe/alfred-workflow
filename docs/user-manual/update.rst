@@ -103,6 +103,8 @@ It caches information on the latest available release under the cache key
 ``__workflow_update_status``, which you can access via
 :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`.
 
+Users can turn off automatic checks for updates with the ``workflow:noautoupdate``
+:ref:`magic argument <magic-arguments>` and back on again with ``workflow:autoupdate``.
 
 
 .. _version-numbers:

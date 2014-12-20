@@ -808,6 +808,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(wf, self.wf)
             raise ValueError('Have an error')
         self.wf.name  # cause info.plist to be parsed
+        self.wf.help_url = 'http://www.deanishe.net/alfred-workflow/'
         ret = self.wf.run(cb)
         self.assertEqual(ret, 1)
         # named after bundleid
@@ -1040,6 +1041,26 @@ class MagicArgsTests(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_openhelp(self):
+        """Magic: open help URL"""
+        url = 'http://www.deanishe.net/alfred-workflow/'
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow(help_url=url)
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], url)
+
+    def test_openhelp_no_url(self):
+        """Magic: no help URL"""
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
+
     def test_openlog(self):
         """Magic: open logfile"""
         c = WorkflowMock(['script', 'workflow:openlog'])
@@ -1178,6 +1199,22 @@ class MagicArgsTests(unittest.TestCase):
         with c:
             wf.args
         self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
+
+    def test_auto_update(self):
+        """Magic: auto-update"""
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:autoupdate'])
+        with c:
+            wf.args
+        self.assertTrue(wf.settings.get('__workflow_autoupdate'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:noautoupdate'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+
+        del wf.settings['__workflow_autoupdate']
 
     def test_update(self):
         """Magic: update"""

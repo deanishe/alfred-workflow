@@ -123,8 +123,7 @@ class UpdateTests(unittest.TestCase):
                 ('v1.1.1', 'v1.1.1'),
                 ('dave', 'dave'),
                 ('bob', 'bob'),
-                ('vernon', 'vernon'),
-                ]:
+                ('vernon', 'vernon')]:
             self.assertFalse(update.is_newer_version(l, r))
 
         # Unequal versions
@@ -137,8 +136,7 @@ class UpdateTests(unittest.TestCase):
                 ('v1.1.1', 'v1.2.1'),
                 ('dave', 'bob'),
                 ('bob', 'dave'),
-                ('vernon', 'vvernon'),
-                ]:
+                ('vernon', 'vvernon')]:
             self.assertTrue(update.is_newer_version(l, r))
 
     def test_check_update(self):
@@ -176,6 +174,30 @@ class UpdateTests(unittest.TestCase):
 
         self.assertFalse(wf.cached_data(
                          '__workflow_update_status')['available'])
+
+    def test_no_auto_update(self):
+        """Update: no update check"""
+
+        # Make sure there's no cached update data
+        wf = Workflow()
+        wf.reset()
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:noautoupdate'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+
+        c = WorkflowMock()
+        with c:
+            wf = Workflow(update_settings={'github_slug': TEST_REPO_SLUG,
+                          'version': RELEASE_CURRENT})
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
 
 
 if __name__ == '__main__':  # pragma: no cover

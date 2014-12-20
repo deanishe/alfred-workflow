@@ -31,6 +31,7 @@ for debugging.
 
 :class:`~workflow.workflow.Workflow` supports the following magic arguments:
 
+- ``workflow:help`` — Open workflow's help URL in default web browser. This URL is specified in the ``help_url`` argument to :class:`~workflow.workflow.Workflow`.
 - ``workflow:delcache`` — Delete the Workflow's cache.
 - ``workflow:deldata`` — Delete the Workflow's saved data.
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).
@@ -44,6 +45,8 @@ for debugging.
 - ``workflow:openworkflow`` — Open the Workflow's root directory (where ``info.plist`` is).
 - ``workflow:reset`` — Delete the Workflow's settings, cache and saved data.
 - ``workflow:update`` — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.
+- ``workflow:noautoupdate`` — Turn off automatic checks for updates.
+- ``workflow:autoupdate`` — Turn automatic checks for updates on.
 
 The three ``workflow:folding…`` settings allow users to override the diacritic
 folding set by a workflow's author. This may be useful if the author's choice
@@ -54,6 +57,7 @@ You can turn off magic arguments by passing ``capture_args=False`` to
 methods of :class:`~workflow.workflow.Workflow` directly, perhaps assigning your
 own keywords within your Workflow:
 
+- :meth:`~workflow.workflow.Workflow.open_help`
 - :meth:`~workflow.workflow.Workflow.open_log`
 - :meth:`~workflow.workflow.Workflow.open_cachedir`
 - :meth:`~workflow.workflow.Workflow.open_datadir`

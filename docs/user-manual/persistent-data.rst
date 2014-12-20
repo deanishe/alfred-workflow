@@ -89,6 +89,43 @@ script in the background.)
 .. tip:: Passing ``max_age=0`` will return the cached data regardless of age.
 
 
+.. _clearing-cache:
+
+Clearing cached data
+^^^^^^^^^^^^^^^^^^^^
+
+There is a convenience method for clearing a workflow's cache directory.
+
+:meth:`~workflow.workflow.Workflow.clear_cache` will by default delete all
+the files contained in :attr:`~workflow.workflow.Workflow.cachedir`. This is
+the method called if you use the ``workflow:delcache`` or ``workflow:reset``
+:ref:`magic arguments <magic-arguments>`.
+
+You can selectively delete files from the cache by passing the optional
+``filter_func`` argument to :meth:`~workflow.workflow.Workflow.clear_cache`.
+This callable will be called with the filename (not path) of each file in the
+workflow's cache directory.
+
+If ``filter_func`` returns ``True``, the file will be deleted, otherwise it
+will be left in the cache. For example, to delete all ``.zip`` files in the
+cache, use:
+
+.. code-block:: python
+    :linenos:
+
+    def myfilter(filename):
+        return filename.endswith('.zip')
+
+    wf.clear_cache(myfilter)
+
+or more simply:
+
+.. code-block:: python
+    :linenos:
+
+    wf.clear_cache(lambda f: f.endswith('.zip'))
+
+
 .. _storing-data:
 
 Storing data
@@ -121,6 +158,23 @@ are saving should not be deleted as part of system maintenance.
 
 If you want to specify your own file format/serializer, please see
 :ref:`manual-serialization` for details.
+
+
+.. _clearing-data:
+
+Clearing stored data
+^^^^^^^^^^^^^^^^^^^^
+
+As with cached data, there is a convenience method for deleting all the files
+stored in your workflow's :attr:`~workflow.workflow.Workflow.datadir`.
+
+By default, :meth:`~workflow.workflow.Workflow.clear_data` will delete all the
+files stored in :attr:`~workflow.workflow.Workflow.datadir`. It is used by the
+``workflow:deldata`` and ``workflow:reset`` :ref:`magic arguments <magic-arguments>`.
+
+It is possible to selectively delete files contained in the data directory by
+supplying the optional ``filter_func`` callable. Please see :ref:`clearing-cache`
+for details on how ``filter_func`` works.
 
 
 .. _manual-settings:

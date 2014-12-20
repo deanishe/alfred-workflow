@@ -2182,18 +2182,24 @@ class Workflow(object):
     def clear_cache(self, filter_func=lambda f: True):
         """Delete all files in workflow's :attr:`cachedir`.
 
-        :param filter_func function to determine whether a file shall be
-            deleted or not. It always return True by default.
-        :type filter_func ``callable``
+        :param filter_func: Callable to determine whether a file should be
+            deleted or not. ``filter_func`` is called with the filename
+            of each file in the data directory. If it returns ``True``,
+            the file will be deleted.
+            By default, *all* files will be deleted.
+        :type filter_func: ``callable``
         """
         self._delete_directory_contents(self.cachedir, filter_func)
 
     def clear_data(self, filter_func=lambda f: True):
         """Delete all files in workflow's :attr:`datadir`.
 
-        :param filter_func function to determine whether a file shall be
-            deleted or not. It always return True by default.
-        :type filter_func ``callable``
+        :param filter_func: Callable to determine whether a file should be
+            deleted or not. ``filter_func`` is called with the filename
+            of each file in the data directory. If it returns ``True``,
+            the file will be deleted.
+            By default, *all* files will be deleted.
+        :type filter_func: ``callable``
         """
         self._delete_directory_contents(self.datadir, filter_func)
 

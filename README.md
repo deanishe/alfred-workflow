@@ -306,15 +306,16 @@ These are some of the Alfred workflows that use this library.
   by [XedMada](http://www.packal.org/users/xedmada)
   ([on GitHub](https://github.com/XedMada/)).
   Pause and Start Backblaze online backups.
-- [alfred-ime](http://www.packal.org/workflow/alfred-ime)
-  ([GitHub repo](https://github.com/owenwater/alfred-ime))
-  by [owenwater](http://www.packal.org/users/owenwater)
-  ([on GitHub](https://github.com/owenwater/)).
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python)
   ([GitHub repo](https://github.com/deanishe/alfred-bundler-python-demo))
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Demonstration on how to use the Alfred Bundler in Python.
+- [alfred-ime](http://www.packal.org/workflow/ime)
+  ([GitHub repo](https://github.com/owenwater/alfred-ime))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
+  A Input method workflow based on Google Input Tools.
 - [AppScripts](http://www.packal.org/workflow/appscripts)
   ([GitHub repo](https://github.com/deanishe/alfred-appscripts))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -334,6 +335,9 @@ These are some of the Alfred workflows that use this library.
 - [Code Case](http://www.packal.org/workflow/code-case)
   by [dfay](http://www.packal.org/users/dfay).
   Case Converter for Code.
+- [Continuity Support](http://www.packal.org/workflow/continuity-support)
+  by [dmarshall](http://www.packal.org/users/dmarshall).
+  Enables calling and messaging via contacts or number input.
 - [Convert](http://www.packal.org/workflow/convert)
   ([GitHub repo](https://github.com/deanishe/alfred-convert))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -380,8 +384,10 @@ These are some of the Alfred workflows that use this library.
 - [Glosbe Translation](http://www.packal.org/workflow/glosbe-translation)
   by [deanishe](http://www.packal.org/users/deanishe).
   Translate text using Glosbe.com.
-- [Gmail for Alfred](https://github.com/fniephaus/alfred-gmail)
-  by [fniephaus](https://github.com/fniephaus/).
+- [Gmail Client for Alfred](http://www.packal.org/workflow/gmail-client-alfred)
+  ([GitHub repo](https://github.com/fniephaus/alfred-gmail))
+  by [fniephaus](http://www.packal.org/users/fniephaus)
+  ([on GitHub](https://github.com/fniephaus/)).
   Manage your Gmail inbox with Alfred.
 - [HackerNews for Alfred](http://www.packal.org/workflow/hackernews-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-hackernews))
@@ -403,6 +409,9 @@ These are some of the Alfred workflows that use this library.
   by [Amwam](http://www.packal.org/users/amwam)
   ([on GitHub](https://github.com/Amwam/)).
   Show and search through jobs on Jenkins.
+- [KA Torrents](http://www.packal.org/workflow/ka-torrents)
+  by [hackademic](http://www.packal.org/users/hackademic).
+  Search and download torrents from kickass.so.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh)
   by [paperElectron](http://www.packal.org/users/paperelectron).
   Choose SSH connection from filterable list.
@@ -416,11 +425,6 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   List, filter and activate network locations from within Alfred.
-- [PWS History](http://www.packal.org/workflow/pws-history)
-  ([GitHub repo](https://github.com/hrbrmstr/alfred-pws))
-  by [hrbrmstr](http://www.packal.org/users/hrbrmstr)
-  ([on GitHub](https://github.com/hrbrmstr/)).
-  Retrieve personal weather station history from Weather Underground.
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search)
   ([GitHub repo](https://github.com/deanishe/alfred-packal-search))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -446,6 +450,11 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Manage your Pocket list with Alfred.
+- [PWS History](http://www.packal.org/workflow/pws-history)
+  ([GitHub repo](https://github.com/hrbrmstr/alfred-pws))
+  by [hrbrmstr](http://www.packal.org/users/hrbrmstr)
+  ([on GitHub](https://github.com/hrbrmstr/)).
+  Retrieve personal weather station history from Weather Underground.
 - [Quick Stocks](http://www.packal.org/workflow/quick-stocks)
   by [paperElectron](http://www.packal.org/users/paperelectron).
   Add some stock symbols for Alfred to check for you.
@@ -462,14 +471,14 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Follows any HTTP redirects and returns the canonical URL. Also displays information about the primary host (hostname, IP address(es), aliases).
-- [SEND](http://www.packal.org/workflow/send)
-  by [hackademic](http://www.packal.org/users/hackademic).
-  Send documents to the cloud.
 - [Searchio!](http://www.packal.org/workflow/searchio)
   ([GitHub repo](https://github.com/deanishe/alfred-searchio))
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Auto-suggest search results from multiple search engines and languages.
+- [SEND](http://www.packal.org/workflow/send)
+  by [hackademic](http://www.packal.org/users/hackademic).
+  Send documents to the cloud.
 - [Skimmer](http://www.packal.org/workflow/skimmer)
   ([GitHub repo](https://github.com/smargh/alfred-Skimmer))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -508,16 +517,16 @@ These are some of the Alfred workflows that use this library.
   by [frankspin](http://www.packal.org/users/frankspin)
   ([on GitHub](https://github.com/fspinillo/)).
   Check estimated pick up time for Uber based on inputted address.
-- [VM Control](http://www.packal.org/workflow/vm-control)
-  ([GitHub repo](https://github.com/fniephaus/alfred-vmcontrol))
-  by [fniephaus](http://www.packal.org/users/fniephaus)
-  ([on GitHub](https://github.com/fniephaus/)).
-  Control your Parallels and Virtual Box virtual machines.
 - [VagrantUP](http://www.packal.org/workflow/vagrantup)
   ([GitHub repo](https://github.com/m1keil/alfred-vagrant-workflow))
   by [m1keil](http://www.packal.org/users/m1keil)
   ([on GitHub](https://github.com/m1keil/)).
   List and control Vagrant environments with Alfred2.
+- [VM Control](http://www.packal.org/workflow/vm-control)
+  ([GitHub repo](https://github.com/fniephaus/alfred-vmcontrol))
+  by [fniephaus](http://www.packal.org/users/fniephaus)
+  ([on GitHub](https://github.com/fniephaus/)).
+  Control your Parallels and Virtual Box virtual machines.
 - [Wikify](http://www.packal.org/workflow/wikify)
   ([GitHub repo](https://github.com/smargh/alfred_EN-Wikify))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -528,8 +537,6 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
-  A Input method workflow based on Google Input Tools.
-
 
 
 [alfred]: http://www.alfredapp.com/

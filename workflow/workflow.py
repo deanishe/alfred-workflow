@@ -37,6 +37,10 @@ except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
 
+#: Sentinel for properties that haven't been set yet (that might
+#: correctly have the value ``None``)
+UNSET = object()
+
 ####################################################################
 # Standard system icons
 ####################################################################
@@ -910,6 +914,11 @@ class Workflow(object):
         self._logger = None
         self._items = []
         self._alfred_env = None
+        # Version number of the workflow
+        self._version = UNSET
+        # Version from last workflow run
+        self._last_version_run = UNSET
+        # Cache for regex patterns created for filter keys
         self._search_pattern_cache = {}
         # Magic arguments
         #: The prefix for all magic arguments. Default is ``workflow:``
@@ -1058,6 +1067,46 @@ class Workflow(object):
                 self._name = self.decode(self.info['name'])
 
         return self._name
+
+    @property
+    def version(self):
+        """Return the version of the workflow
+
+        .. versionadded:: 1.9.10
+
+        Get the version from the ``update_settings`` dict passed on
+        instantiation or the ``version`` file located in the workflow's
+        root directory. Return ``None`` if neither exist or
+        :class:`ValueError` if the version number is invalid (i.e. not
+        semantic).
+
+        :returns: Version of the workflow (not Alfred-Workflow)
+        :rtype: :class:`~workflow.update.Version` object
+
+        """
+
+        if self._version is UNSET:
+
+            version = None
+            # First check `update_settings`
+            if self._update_settings:
+                version = self._update_settings.get('version')
+
+            # Fallback to `version` file
+            if not version:
+                filepath = self.workflowfile('version')
+
+                if os.path.exists(filepath):
+                    with open(filepath, 'rb') as fileobj:
+                        version = fileobj.read()
+
+            if version:
+                from .update import Version
+                version = Version(version)
+
+            self._version = version
+
+        return self._version
 
     # Workflow utility methods -----------------------------------------
 
@@ -1892,7 +1941,12 @@ class Workflow(object):
         start = time.time()
 
         try:
+            if self.version:
+                self.logger.debug('Workflow version : {}'.format(self.version))
             func(self)
+            # Set last version run to current version after a successful
+            # run
+            self.set_last_version()
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:
@@ -1999,6 +2053,79 @@ class Workflow(object):
     ####################################################################
 
     @property
+    def first_run(self):
+        """Return ``True`` if it's the first time this version has run.
+
+        .. versionadded:: 1.9.10
+
+        Raises a :class:`ValueError` if :attr:`version` isn't set.
+
+        """
+
+        if not self.version:
+            raise ValueError('No workflow version set')
+
+        if not self.last_version_run:
+            return True
+
+        return self.version != self.last_version_run
+
+    @property
+    def last_version_run(self):
+        """Return version of last version to run (or ``None``)
+
+        .. versionadded:: 1.9.10
+
+        :returns: :class:`~workflow.update.Version` instance
+            or ``None``
+
+        """
+
+        if self._last_version_run is UNSET:
+
+            version = self.settings.get('__workflow_last_version')
+            if version:
+                from update import Version
+                version = Version(version)
+
+            self._last_version_run = version
+
+        self.logger.debug('Last run version : {}'.format(
+                          self._last_version_run))
+
+        return self._last_version_run
+
+    def set_last_version(self, version=None):
+        """Set :attr:`last_version_run` to current version
+
+        .. versionadded:: 1.9.10
+
+        :param version: version to store (default is current version)
+        :type version: :class:`~workflow.update.Version` instance
+            or ``unicode``
+        :returns: ``True`` if version is saved, else ``False``
+
+        """
+
+        if not version:
+            if not self.version:
+                self.logger.warning(
+                    "Can't save last version: workflow has no version")
+                return False
+
+            version = self.version
+
+        if isinstance(version, basestring):
+            from update import Version
+            version = Version(version)
+
+        self.settings['__workflow_last_version'] = str(version)
+
+        self.logger.debug('Set last run version : {}'.format(version))
+
+        return True
+
+    @property
     def update_available(self):
         """Is an update available?
 
@@ -2012,6 +2139,7 @@ class Workflow(object):
         """
 
         update_data = self.cached_data('__workflow_update_status', max_age=0)
+        self.logger.debug('update_data : {}'.format(update_data))
 
         if not update_data or not update_data.get('available'):
             return False
@@ -2046,7 +2174,8 @@ class Workflow(object):
                 '__workflow_update_status', frequency * 86400)):
 
             github_slug = self._update_settings['github_slug']
-            version = self._update_settings['version']
+            # version = self._update_settings['version']
+            version = str(self.version)
 
             from background import run_in_background
 
@@ -2080,7 +2209,8 @@ class Workflow(object):
         import update
 
         github_slug = self._update_settings['github_slug']
-        version = self._update_settings['version']
+        # version = self._update_settings['version']
+        version = str(self.version)
 
         if not update.check_update(github_slug, version):
             return False
@@ -2266,6 +2396,12 @@ class Workflow(object):
             else:
                 return 'Workflow has no help URL'
 
+        def show_version():
+            if self.version:
+                return 'Version: {}'.format(self.version)
+            else:
+                return 'This workflow has no version number'
+
         def list_magic():
             """Display all available magic args in Alfred"""
             isatty = sys.stderr.isatty()
@@ -2283,6 +2419,7 @@ class Workflow(object):
 
         self.magic_arguments['help'] = do_help
         self.magic_arguments['magic'] = list_magic
+        self.magic_arguments['version'] = show_version
 
     def clear_cache(self, filter_func=lambda f: True):
         """Delete all files in workflow's :attr:`cachedir`.

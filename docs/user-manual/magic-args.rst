@@ -33,6 +33,7 @@ for debugging.
 
 - ``workflow:magic`` — List available magic arguments.
 - ``workflow:help`` — Open workflow's help URL in default web browser. This URL is specified in the ``help_url`` argument to :class:`~workflow.workflow.Workflow`.
+- ``workflow:version`` — Display the installed version of the workflow (if one is set).
 - ``workflow:delcache`` — Delete the Workflow's cache.
 - ``workflow:deldata`` — Delete the Workflow's saved data.
 - ``workflow:delsettings`` — Delete the Workflow's settings file (which contains the data stored using :attr:`Workflow.settings <workflow.workflow.Workflow.settings>`).

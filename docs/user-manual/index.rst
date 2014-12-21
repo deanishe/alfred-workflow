@@ -5,7 +5,7 @@
 User Manual
 ===========
 
-This section describes how to use the features of **Alfred-Python**.
+This section describes how to use the features of Alfred-Workflow.
 
 If you're new to writing workflows or coding in general, start with the
 :ref:`Tutorial <tutorial>`.
@@ -21,6 +21,7 @@ If you're new to writing workflows or coding in general, start with the
    web
    background
    update
+   versioning
    icons
    magic-args
    serialization

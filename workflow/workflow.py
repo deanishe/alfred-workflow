@@ -1101,7 +1101,7 @@ class Workflow(object):
                         version = fileobj.read()
 
             if version:
-                from .update import Version
+                from update import Version
                 version = Version(version)
 
             self._version = version

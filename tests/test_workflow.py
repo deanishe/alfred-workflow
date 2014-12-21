@@ -350,8 +350,9 @@ class WorkflowTests(unittest.TestCase):
     def test_info_plist(self):
         """info.plist"""
         self._teardown_env()
-        self.assertEqual(self.wf.name, WORKFLOW_NAME)
-        self.assertEqual(self.wf.bundleid, BUNDLE_ID)
+        wf = Workflow()
+        self.assertEqual(wf.name, WORKFLOW_NAME)
+        self.assertEqual(wf.bundleid, BUNDLE_ID)
 
     def test_info_plist_missing(self):
         """Info.plist missing"""
@@ -811,6 +812,67 @@ class WorkflowTests(unittest.TestCase):
         # bad call to _call_security
         with self.assertRaises(KeychainError):
             self.wf._call_security('pants', BUNDLE_ID, self.account)
+
+    def test_first_run(self):
+        """test first_run property is True
+        """
+        self.assertTrue(self.wf.first_run)
+        self.assertIsNone(self.wf.last_run_version)
+        
+    def test_not_first_run(self):
+        """test first_run property is False
+        """
+        def fake(wf):
+            pass
+
+        self.wf.run(fake)
+
+        self.assertFalse(self.wf.first_run)
+        self.assertEqual(self.wf.last_run_version, "1.0")
+    
+    def test_version_update_from_none(self):
+        """test workflow version update from none
+        """
+        def fake(wf):
+            pass
+        wf = Workflow(workflow_version="1.4")
+
+        self.assertTrue(wf.first_run)
+        self.assertIsNone(wf.last_run_version)
+
+        wf.run(fake)
+
+        self.assertFalse(wf.first_run)
+        self.assertEqual(wf.last_run_version, "1.4")
+
+    def test_version_update_from_not_none(self):
+        """test workflow version update
+        """
+        def fake(wf):
+            pass
+
+        wf = Workflow(workflow_version="1.1")
+        wf.run(fake)
+        self.assertEqual(wf.last_run_version, "1.1")
+
+        wf = Workflow(workflow_version="1.4")
+        wf.run(fake)
+        self.assertEqual(wf.last_run_version, "1.4")
+
+    def test_not_overwrite_version_in_settings(self):
+        """version in settings.json shall not be overwrite
+           even user doesn't provide version number when initialize Workflow instance.
+        """
+        def fake(wf):
+            pass
+
+        wf = Workflow(workflow_version="1.4")
+        wf.run(fake)
+        self.assertEqual(wf.last_run_version, "1.4")
+
+        wf = Workflow()
+        wf.run(fake)
+        self.assertEqual(wf.last_run_version, "1.4")
 
     def test_run_fails(self):
         """Run fails"""

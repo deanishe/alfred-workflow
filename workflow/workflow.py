@@ -888,7 +888,7 @@ class Workflow(object):
     def __init__(self, default_settings=None, update_settings=None,
                  input_encoding='utf-8', normalization='NFC',
                  capture_args=True, libraries=None,
-                 help_url=None):
+                 help_url=None, workflow_version=None):
 
         self._default_settings = default_settings or {}
         self._update_settings = update_settings or {}
@@ -911,6 +911,12 @@ class Workflow(object):
         self._items = []
         self._alfred_env = None
         self._search_pattern_cache = {}
+        self._last_run_version_flag = '__last_run_version'
+        if workflow_version:
+            self._workflow_version = workflow_version
+        else:
+            self._workflow_version = self.settings.get(self._last_run_version_flag, "1.0")
+
         # Magic arguments
         #: The prefix for all magic arguments. Default is ``workflow:``
         self.magic_prefix = 'workflow:'
@@ -1486,11 +1492,6 @@ class Workflow(object):
 
         serializer_name = serializer or self.data_serializer
 
-        if serializer_name == 'json' and name == 'settings':
-            raise ValueError(
-                'Cannot save data to `settings` with format `json`. '
-                "This would overwrite Alfred-Workflow's settings file.")
-
         serializer = manager.serializer(serializer_name)
 
         if serializer is None:
@@ -1504,6 +1505,11 @@ class Workflow(object):
         metadata_path = self.datafile('.{}.alfred-workflow'.format(name))
         filename = '{}.{}'.format(name, serializer_name)
         data_path = self.datafile(filename)
+
+        if data_path == self.settings_path:
+            raise ValueError(
+                'Cannot save data to `settings` with format `json`. '
+                "This would overwrite Alfred-Workflow's settings file.")
 
         if data is None:  # Delete cached data
             for path in (metadata_path, data_path):
@@ -1875,6 +1881,31 @@ class Workflow(object):
         self._search_pattern_cache[query] = search
         return search
 
+    @property
+    def first_run(self):
+        """Has the workflow been executed before.
+
+        :returns ``True`` if it's the first time, else ``False``
+        """
+        return self._last_run_version_flag not in self.settings
+
+    @property
+    def last_run_version(self):
+        """The version of workflow that was executed last time
+
+        :returns Previous workflow version
+        """
+        return self.settings.get(self._last_run_version_flag, None)
+
+    @last_run_version.setter
+    def last_run_version(self, version):
+        """Record the version of worklflow that is being executed now.
+
+        :param version: workflow version
+        :type version: string
+        """
+        self.settings[self._last_run_version_flag] = version
+
     def run(self, func):
         """Call ``func`` to run your workflow
 
@@ -1893,6 +1924,7 @@ class Workflow(object):
 
         try:
             func(self)
+            self.last_run_version = self._workflow_version
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:

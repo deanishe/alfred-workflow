@@ -2,7 +2,7 @@
 
 .. _manual-updates:
 
-Self-Updating
+Self-updating
 =============
 
 .. versionadded:: 1.9
@@ -43,11 +43,12 @@ and installed via Alfred's default installation mechanism.
     Releases marked as ``pre-release`` on GitHub will also be ignored.
 
 To use this feature, you must pass a :class:`dict` as the ``update_settings``
-argument to :class:`~workflow.workflow.Workflow`. It **must** have the two
-keys/values ``github_slug``, which is your username and the name of the
-workflow's repo in the format ``username/reponame``, and ``version``, which
-is the release version (release tag) of the currently installed version
-of the workflow, e.g.:
+argument to :class:`~workflow.workflow.Workflow`. It **must** have the key/value
+pair ``github_slug``, which is your username and the name of the
+workflow's repo in the format ``username/reponame``. The version of the currently
+installed workflow must also be specified. You can do this in the
+``update_settings`` dict or in a ``version`` file in the root of your workflow
+(next to ``info.plist``), e.g.:
 
 .. _update-example:
 
@@ -64,6 +65,8 @@ of the workflow, e.g.:
         # Your username and the workflow's repo's name
         'github_slug': 'username/reponame',
         # The version (i.e. release/tag) of the installed workflow
+        # If a `version` file exists in the root of your workflow,
+        # this key may be omitted
         'version': __version__,
         # Optional number of days between checks for updates
         'frequency': 7
@@ -73,6 +76,49 @@ of the workflow, e.g.:
 
     if wf.update_available:
         wf.start_update()
+
+Or alternatively, create a ``version`` file in the root directory or your
+workflow alongside ``info.plist``::
+
+    Your Workflow/
+        icon.png
+        info.plist
+        yourscript.py
+        version
+        workflow/
+            ...
+            ...
+
+
+The ``version`` file should be plain text with no file extension and contain
+nothing but the version string, e.g.::
+
+    1.2.5
+
+
+Using a ``version`` file:
+
+.. code-block:: python
+    :linenos:
+
+    from workflow import Workflow
+
+    ...
+
+    wf = Workflow(..., update_settings={
+        # Your username and the workflow's repo's name
+        'github_slug': 'username/reponame',
+        # Optional number of days between checks for updates
+        'frequency': 7
+    }, ...)
+
+    ...
+
+    if wf.update_available:
+        wf.start_update()
+
+Please see :ref:`manual-versioning` for detailed information on the required
+version number format and associated features.
 
 .. note::
 
@@ -112,61 +158,11 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 :ref:`magic argument <magic-arguments>` and back on again with ``workflow:autoupdate``.
 
 
-.. _version-numbers:
-
 Version numbers
 ---------------
 
-In version 1.10 and above, Alfred-Workflow requires :ref:`semver`,
-which is the format GitHub also expects. Alfred-Workflow deviates from the
-semantic versioning standard slightly, most notably in that you don't have to
-specify a minor or patch version, i.e. ``1.0`` is fine, as is simply ``1``
-(the standard requires these to both be written ``1.0.0``). See
-:ref:`semver` for more details on version formatting.
-
-The *de-facto* way to tag releases on GitHub is use a semantic version number
-preceded by ``v``, e.g. ``v1.0``, ``v2.3.1`` etc., whereas the *de-facto* way
-to version Python libraries is to do the same, but without the preceding ``v``,
-e.g. ``1.0``, ``2.3.1`` etc.
-
-As a result, Alfred-Workflow will strip a preceding ``v`` from both local
-and remote versions (i.e. you can specify ``1.0`` or ``v1.0`` in either or both
-of your Python code and GitHub releases).
-
-When this is done, if the latest GitHub version is higher than the local
-version, Alfred-Workflow will consider the remote version to be an update.
-
-Thus, calling :class:`~workflow.workflow.Workflow` with
-``update_settings={'version': '1.2', ...}`` or
-``update_settings={'version': 'v1.2', ...}`` will be considered the same
-version as the GitHub release tag ``v1.2`` or ``1.2``.
-
-
-.. _semver:
-
-Semantic versioning
-^^^^^^^^^^^^^^^^^^^
-
-Semantic versioning is a standard for formatting software version numbers.
-
-Essentially, a version number must consist of a major version number, a minor
-version number and a patch version number separated by dots, e.g. ``1.0.1``,
-``2.10.3`` etc. You should increase the patch version when you fix bugs, the
-minor version when you add new features and the major version if you change
-the API.
-
-You may also add additional pre-release version info to the end of the version
-number, preceded by a hyphen (``-``), e.g. ``2.0.0-rc.1`` or ``2.0.0-beta``.
-
-Alfred-Workflow differs from the standard in that you aren't required to
-specify a minor or patch version, i.e. ``1.0`` is fine, as is ``1`` (and both
-are considered equal and also equal to ``1.0.0``).
-
-This change was made as relatively few workflow authors use patch versions.
-
-See the `semantic versioning`_ website for full details of the standard and
-the rationale behind it.
+Please see :ref:`manual-versioning` for detailed information on the required
+version number format and associated features.
 
 
 .. _GitHub releases: https://help.github.com/categories/85/articles
-.. _semantic versioning: http://semver.org/

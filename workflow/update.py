@@ -91,7 +91,7 @@ class Version(object):
                             suffix))
                 self.suffix = suffix[1:]
 
-        log.debug('version str `{}` -> {}'.format(vstr, repr(self)))
+        # log.debug('version str `{}` -> {}'.format(vstr, repr(self)))
 
     def _parse_dotted_string(self, s):
         """Parse string ``s`` into list of ints and strings"""
@@ -228,7 +228,7 @@ def get_valid_releases(github_slug):
     slug = github_slug.replace('/', '-')
     for release in wf.cached_data('gh-releases-{}'.format(slug),
                                   retrieve_releases):
-        version = str(Version(release['tag_name']))
+        version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):
             url = asset.get('browser_download_url')
@@ -281,7 +281,10 @@ def check_update(github_slug, current_version):
     latest_release = releases[0]
 
     # (latest_version, download_url) = get_latest_release(releases)
-    if Version(latest_release['version']) > Version(current_version):
+    vr = Version(latest_release['version'])
+    vl = Version(current_version)
+    log.debug('Latest : {!r} Installed : {!r}'.format(vr, vl))
+    if vr > vl:
 
         wf.cache_data('__workflow_update_status', {
             'version': latest_release['version'],
@@ -319,7 +322,7 @@ def install_update(github_slug, current_version):
 
     local_file = download_workflow(update_data['download_url'])
 
-    wf.logger.info('Installing updated workflow ...')
+    log.info('Installing updated workflow ...')
     subprocess.call(['open', local_file])
 
     update_data['available'] = False

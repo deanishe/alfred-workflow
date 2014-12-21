@@ -228,6 +228,18 @@ Users may override a Workflow's default settings via ``workflow:folding…``
 :ref:`magic arguments <magic-arguments>`.
 
 
+.. _smart-punctuation:
+
+"Smart" punctuation
+^^^^^^^^^^^^^^^^^^^
+
+The default diacritic folding only alters letters, not punctuation. If your
+workflow also works with text that contains so-called "smart" (i.e. curly)
+quotes or n- and m-dashes, you can use the :meth:`Workflow.dumbify_punctuation() <workflow.workflow.Workflow.dumbify_punctuation>`
+method to replace smart quotes and dashes with normal quotes and hyphens
+respectively.
+
+
 .. _matching-rules:
 
 Matching rules

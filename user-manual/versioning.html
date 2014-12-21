@@ -1,0 +1,354 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Versioning and migration &mdash; Alfred-Workflow 1.10.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Alfred-Workflow 1.10.0 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="System icons" href="icons.html"/>
+        <link rel="prev" title="Self-updating" href="update.html"/>
+ 
+<!-- Only one of these will work. Seems a better solution than symlinking
+the _static path in each subdirectory -->
+<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
+<link rel="stylesheet" href="_static/custom.css">
+<link rel="stylesheet" href="../_static/custom.css">
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<!-- <link rel="stylesheet" href="_static/custom.css"> -->
+<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-run-migration">First run/migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Alfred-Workflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>Versioning and migration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/user-manual/versioning.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="versioning-and-migration">
+<span id="manual-versioning"></span><h1>Versioning and migration<a class="headerlink" href="#versioning-and-migration" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.10.</span></p>
+</div>
+<p>If you intend to distribute your workflow, it&#8217;s a good idea to use version
+numbers. It allows users to see if they&#8217;re using an out-of-date version, and
+more importantly, it allows you to know which version a user has when they
+ask you for support or to fix a bug (that you may already have fixed).</p>
+<p>If your workflow has a version number set (see <a class="reference internal" href="#set-version"><em>Setting a version number</em></a>), the version
+will be logged every time the workflow is run to help with debugging, and can
+also be displayed using the <tt class="docutils literal"><span class="pre">workflow:version</span></tt>
+<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic argument</em></a>.</p>
+<p>If you wish to use the <a class="reference internal" href="update.html#manual-updates"><em>self-updating feature</em></a>, your
+workflow must have a version number.</p>
+<p>Having a version number also enables the first run/migration functionality.
+See <a class="reference internal" href="#first-run"><em>First run/migration</em></a> below for details.</p>
+<div class="section" id="setting-a-version-number">
+<span id="set-version"></span><h2>Setting a version number<a class="headerlink" href="#setting-a-version-number" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to set a version number. The simplest and best is to
+create a <tt class="docutils literal"><span class="pre">version</span></tt> file in the root directory of your workflow (next to
+<tt class="docutils literal"><span class="pre">info.plist</span></tt>) that contains the version number:</p>
+<div class="highlight-python"><div class="highlight"><pre>Your Workflow/
+        icon.png
+        info.plist
+        yourscript.py
+        version
+        workflow/
+                ...
+</pre></div>
+</div>
+<p>You may also specify the version number using the <tt class="docutils literal"><span class="pre">version</span></tt> key in the
+<tt class="docutils literal"><span class="pre">update_settings</span></tt> dictionary passed to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>,
+though you can only use this method if your workflow supports self-updates
+from GitHub.</p>
+<p>Using a <tt class="docutils literal"><span class="pre">version</span></tt> file is preferable as then you only need to maintain the
+version number in one place.</p>
+</div>
+<div class="section" id="version-numbers">
+<span id="id1"></span><h2>Version numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
+<p>In version 1.10 and above, Alfred-Workflow requires <a class="reference internal" href="#semver"><em>Semantic versioning</em></a>,
+which is the format GitHub also expects. Alfred-Workflow deviates from the
+semantic versioning standard slightly, most notably in that you don&#8217;t have to
+specify a minor or patch version, i.e. <tt class="docutils literal"><span class="pre">1.0</span></tt> is fine, as is simply <tt class="docutils literal"><span class="pre">1</span></tt>
+(the standard requires these to both be written <tt class="docutils literal"><span class="pre">1.0.0</span></tt>). See
+<a class="reference internal" href="#semver"><em>Semantic versioning</em></a> for more details on version formatting.</p>
+<p>The <em>de-facto</em> way to tag releases on GitHub is use a semantic version number
+preceded by <tt class="docutils literal"><span class="pre">v</span></tt>, e.g. <tt class="docutils literal"><span class="pre">v1.0</span></tt>, <tt class="docutils literal"><span class="pre">v2.3.1</span></tt> etc., whereas the <em>de-facto</em> way
+to version Python libraries is to do the same, but without the preceding <tt class="docutils literal"><span class="pre">v</span></tt>,
+e.g. <tt class="docutils literal"><span class="pre">1.0</span></tt>, <tt class="docutils literal"><span class="pre">2.3.1</span></tt> etc.</p>
+<p>As a result, Alfred-Workflow will strip a preceding <tt class="docutils literal"><span class="pre">v</span></tt> from both local
+and remote versions (i.e. you can specify <tt class="docutils literal"><span class="pre">1.0</span></tt> or <tt class="docutils literal"><span class="pre">v1.0</span></tt> in either or both
+of your Python code and GitHub releases).</p>
+<p>When this is done, if the latest GitHub version is higher than the local
+version, Alfred-Workflow will consider the remote version to be an update.</p>
+<p>Thus, calling <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with
+<tt class="docutils literal"><span class="pre">update_settings={'version':</span> <span class="pre">'1.2',</span> <span class="pre">...}</span></tt> or
+<tt class="docutils literal"><span class="pre">update_settings={'version':</span> <span class="pre">'v1.2',</span> <span class="pre">...}</span></tt> will be considered the same
+version as the GitHub release tag <tt class="docutils literal"><span class="pre">v1.2</span></tt> or <tt class="docutils literal"><span class="pre">1.2</span></tt> (or indeed <tt class="docutils literal"><span class="pre">1.2.0</span></tt>).</p>
+<div class="section" id="semantic-versioning">
+<span id="semver"></span><h3>Semantic versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
+<p>Semantic versioning is a standard for formatting software version numbers.</p>
+<p>Essentially, a version number must consist of a major version number, a minor
+version number and a patch version number separated by dots, e.g. <tt class="docutils literal"><span class="pre">1.0.1</span></tt>,
+<tt class="docutils literal"><span class="pre">2.10.3</span></tt> etc. You should increase the patch version when you fix bugs, the
+minor version when you add new features and the major version if you change
+the API.</p>
+<p>You may also add additional pre-release version info to the end of the version
+number, preceded by a hyphen (<tt class="docutils literal"><span class="pre">-</span></tt>), e.g. <tt class="docutils literal"><span class="pre">2.0.0-rc.1</span></tt> or <tt class="docutils literal"><span class="pre">2.0.0-beta</span></tt>.</p>
+<p>Alfred-Workflow differs from the standard in that you aren&#8217;t required to
+specify a minor or patch version, i.e. <tt class="docutils literal"><span class="pre">1.0</span></tt> is fine, as is <tt class="docutils literal"><span class="pre">1</span></tt> (and both
+are considered equal and also equal to <tt class="docutils literal"><span class="pre">1.0.0</span></tt>).</p>
+<p>This change was made as relatively few workflow authors use patch versions.</p>
+<p>See the <a class="reference external" href="http://semver.org/">semantic versioning</a> website for full details of the standard and
+the rationale behind it.</p>
+</div>
+</div>
+</div>
+<div class="section" id="first-run-migration">
+<span id="first-run"></span><h1>First run/migration<a class="headerlink" href="#first-run-migration" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.10.</span></p>
+</div>
+<p>If your workflow uses <a class="reference internal" href="#manual-versioning"><em>version numbers</em></a>, you can
+use the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.first_run" title="workflow.workflow.Workflow.first_run"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.first_run</span></tt></a>
+and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.last_version_run</span></tt></a>
+attributes to bootstrap newly-installed workflows or to migrate data from
+an older version.</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.first_run" title="workflow.workflow.Workflow.first_run"><tt class="xref py py-attr docutils literal"><span class="pre">first_run</span></tt></a> will be <tt class="docutils literal"><span class="pre">True</span></tt> if this version
+of the workflow has never run before. If an older version has previously run,
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></tt></a> will contain the version
+of that workflow.</p>
+<p>Both <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></tt></a> and
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.version" title="workflow.workflow.Workflow.version"><tt class="xref py py-attr docutils literal"><span class="pre">version</span></tt></a> are <a class="reference internal" href="../api/update.html#workflow.update.Version" title="workflow.update.Version"><tt class="xref py py-class docutils literal"><span class="pre">Version</span></tt></a>
+instances (or <tt class="docutils literal"><span class="pre">None</span></tt>) to make comparison easy. Be sure to check for <tt class="docutils literal"><span class="pre">None</span></tt>
+before comparing them: comparing <a class="reference internal" href="../api/update.html#workflow.update.Version" title="workflow.update.Version"><tt class="xref py py-class docutils literal"><span class="pre">Version</span></tt></a> and <tt class="docutils literal"><span class="pre">None</span></tt>
+will raise a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt>.</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></tt></a> is set to the value of
+the currently running workflow if it runs successfully without raising an
+exception.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></tt></a> will only be set
+automatically if you run your workflow via
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.run()</span></tt></a>. This is because
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> is often used as a utility class by
+other workflow scripts, and you don&#8217;t want your background update script
+to confuse things by setting the wrong version.</p>
+<p class="last">If you want to set <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><tt class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></tt></a>
+yourself, use <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.set_last_version" title="workflow.workflow.Workflow.set_last_version"><tt class="xref py py-meth docutils literal"><span class="pre">set_last_version()</span></tt></a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="icons.html" class="btn btn-neutral float-right" title="System icons"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="update.html" class="btn btn-neutral" title="Self-updating"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Dean Jackson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.10.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+    </div>
+</div>
+ 
+
+
+</body>
+</html>

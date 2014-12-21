@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>“Magic” arguments &mdash; Alfred-Workflow 1.9.6 documentation</title>
+  <title>“Magic” arguments &mdash; Alfred-Workflow 1.10.0 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.10.0 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Serialization of stored/cached data" href="serialization.html"/>
         <link rel="prev" title="System icons" href="icons.html"/>
@@ -96,7 +96,9 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#first-run-migration">First run/migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
@@ -187,8 +189,11 @@ for debugging.</p>
 the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> property (where magic
 arguments are parsed).</p>
 </div>
-<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following magic arguments:</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> supports the following magic arguments by default:</p>
 <ul class="simple">
+<li><tt class="docutils literal"><span class="pre">workflow:magic</span></tt> — List available magic arguments.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:help</span></tt> — Open workflow&#8217;s help URL in default web browser. This URL is specified in the <tt class="docutils literal"><span class="pre">help_url</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:version</span></tt> — Display the installed version of the workflow (if one is set).</li>
 <li><tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> — Delete the Workflow&#8217;s cache.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> — Delete the Workflow&#8217;s saved data.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:delsettings</span></tt> — Delete the Workflow&#8217;s settings file (which contains the data stored using <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></tt></a>).</li>
@@ -202,15 +207,17 @@ arguments are parsed).</p>
 <li><tt class="docutils literal"><span class="pre">workflow:openworkflow</span></tt> — Open the Workflow&#8217;s root directory (where <tt class="docutils literal"><span class="pre">info.plist</span></tt> is).</li>
 <li><tt class="docutils literal"><span class="pre">workflow:reset</span></tt> — Delete the Workflow&#8217;s settings, cache and saved data.</li>
 <li><tt class="docutils literal"><span class="pre">workflow:update</span></tt> — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:noautoupdate</span></tt> — Turn off automatic checks for updates.</li>
+<li><tt class="docutils literal"><span class="pre">workflow:autoupdate</span></tt> — Turn automatic checks for updates on.</li>
 </ul>
 <p>The three <tt class="docutils literal"><span class="pre">workflow:folding…</span></tt> settings allow users to override the diacritic
 folding set by a workflow&#8217;s author. This may be useful if the author&#8217;s choice
 does not correspond with a user&#8217;s usage pattern.</p>
 <p>You can turn off magic arguments by passing <tt class="docutils literal"><span class="pre">capture_args=False</span></tt> to
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding
-methods of <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> directly, perhaps assigning your
-own keywords within your Workflow:</p>
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation, or call the corresponding methods of <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> directly,
+perhaps assigning your own keywords within your Workflow:</p>
 <ul class="simple">
+<li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_help" title="workflow.workflow.Workflow.open_help"><tt class="xref py py-meth docutils literal"><span class="pre">open_help()</span></tt></a></li>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><tt class="xref py py-meth docutils literal"><span class="pre">open_log()</span></tt></a></li>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_cachedir" title="workflow.workflow.Workflow.open_cachedir"><tt class="xref py py-meth docutils literal"><span class="pre">open_cachedir()</span></tt></a></li>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.open_datadir" title="workflow.workflow.Workflow.open_datadir"><tt class="xref py py-meth docutils literal"><span class="pre">open_datadir()</span></tt></a></li>
@@ -223,6 +230,43 @@ own keywords within your Workflow:</p>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><tt class="xref py py-meth docutils literal"><span class="pre">check_update()</span></tt></a></li>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">start_update()</span></tt></a></li>
 </ul>
+<div class="section" id="customising-magic-arguments">
+<span id="custom-magic"></span><h2>Customising magic arguments<a class="headerlink" href="#customising-magic-arguments" title="Permalink to this headline">¶</a></h2>
+<p>The default prefix for magic arguments (<tt class="docutils literal"><span class="pre">workflow:</span></tt>) is contained in the
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.magic_prefix" title="workflow.workflow.Workflow.magic_prefix"><tt class="xref py py-attr docutils literal"><span class="pre">magic_prefix</span></tt></a> attribute of
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>. If you want to change it to, say,
+<tt class="docutils literal"><span class="pre">wf:</span></tt> (which will become the default in v2 of Alfred-Workflow), simply
+reassign it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">wf</span><span class="o">.</span><span class="n">magic_prefix</span> <span class="o">=</span> <span class="s">&#39;wf:&#39;</span>
+</pre></div>
+</div>
+<p>The magic arguments are defined in the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.magic_arguments" title="workflow.workflow.Workflow.magic_arguments"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.magic_arguments</span></tt></a> dictionary.
+The dictionary keys are the keywords for the arguments (without the
+prefix) and the values are functions that should be called when the magic
+argument is entered. You can show a message in Alfred by returning a
+<tt class="docutils literal"><span class="pre">unicode</span></tt> string from the function.</p>
+<p>To add a new magic argument that opens the workflow&#8217;s settings file, you
+could do:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">magic_prefix</span> <span class="o">=</span> <span class="s">&#39;wf:&#39;</span>  <span class="c"># Change prefix to `wf:`</span>
+
+<span class="k">def</span> <span class="nf">opensettings</span><span class="p">():</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">settings_path</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s">&#39;Opening workflow settings...&#39;</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">magic_arguments</span><span class="p">[</span><span class="s">&#39;settings&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opensettings</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now entering <tt class="docutils literal"><span class="pre">wf:settings</span></tt> as your workflow&#8217;s query in Alfred will
+open <tt class="docutils literal"><span class="pre">settings.json</span></tt> in the default application.</p>
+</div>
 </div>
 
 
@@ -263,7 +307,7 @@ own keywords within your Workflow:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.6',
+            VERSION:'1.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

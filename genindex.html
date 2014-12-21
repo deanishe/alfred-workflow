@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Alfred-Workflow 1.9.6 documentation</title>
+  <title>Index &mdash; Alfred-Workflow 1.10.0 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="index.html"/> 
+    <link rel="top" title="Alfred-Workflow 1.10.0 documentation" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -78,7 +78,9 @@
 <li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html#first-run-migration">First run/migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
@@ -157,6 +159,7 @@
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
@@ -164,6 +167,7 @@
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
@@ -299,6 +303,10 @@
   </dt>
 
       
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.dumbify_punctuation">dumbify_punctuation() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="api/serialization.html#workflow.workflow.CPickleSerializer.dump">dump() (workflow.workflow.CPickleSerializer class method)</a>
   </dt>
 
@@ -330,6 +338,10 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.filter">filter() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.first_run">first_run (workflow.workflow.Workflow attribute)</a>
   </dt>
 
   </dl></td>
@@ -373,15 +385,11 @@
   </dt>
 
       
-  <dt><a href="api/update.html#workflow.update.is_newer_version">is_newer_version() (in module workflow.update)</a>
+  <dt><a href="api/background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="api/background.html#workflow.background.is_running">is_running() (in module workflow.background)</a>
-  </dt>
-
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.item_class">item_class (workflow.workflow.Workflow attribute)</a>
   </dt>
@@ -423,6 +431,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.last_version_run">last_version_run (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
   <dt><a href="api/serialization.html#workflow.workflow.CPickleSerializer.load">load() (workflow.workflow.CPickleSerializer class method)</a>
   </dt>
 
@@ -436,14 +448,34 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.logfile">logfile (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.logger">logger (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.magic_arguments">magic_arguments (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.magic_prefix">magic_prefix (workflow.workflow.Workflow attribute)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="api/workflow.html#workflow.workflow.Workflow.logger">logger (workflow.workflow.Workflow attribute)</a>
+  <dt><a href="api/update.html#workflow.update.Version.match_version">match_version() (workflow.update.Version static method)</a>
   </dt>
 
   </dl></td>
@@ -471,11 +503,15 @@
   </dt>
 
       
-  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_log">open_log() (workflow.workflow.Workflow method)</a>
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_help">open_help() (workflow.workflow.Workflow method)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_log">open_log() (workflow.workflow.Workflow method)</a>
+  </dt>
+
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.open_terminal">open_terminal() (workflow.workflow.Workflow method)</a>
   </dt>
@@ -498,18 +534,14 @@
   <dt><a href="api/workflow.html#workflow.workflow.PasswordNotFound">PasswordNotFound (class in workflow.workflow)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/serialization.html#workflow.workflow.PickleSerializer">PickleSerializer (class in workflow.workflow)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/web.html#workflow.web.post">post() (in module workflow.web)</a>
-  </dt>
-
-      
-  <dt><a href="api/update.html#workflow.update.prefixed_version">prefixed_version() (in module workflow.update)</a>
   </dt>
 
   </dl></td>
@@ -581,6 +613,10 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.set_last_version">set_last_version() (workflow.workflow.Workflow method)</a>
+  </dt>
+
+      
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.settings">settings (workflow.workflow.Workflow attribute)</a>
   </dt>
 
@@ -611,6 +647,12 @@
   </dt>
 
   </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.Version.tuple">tuple (workflow.update.Version attribute)</a>
+  </dt>
+
+  </dl></td>
 </tr></table>
 
 <h2 id="U">U</h2>
@@ -624,6 +666,22 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api/workflow.html#workflow.workflow.Workflow.update_available">update_available (workflow.workflow.Workflow attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/update.html#workflow.update.Version">Version (class in workflow.update)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api/workflow.html#workflow.workflow.Workflow.version">version (workflow.workflow.Workflow attribute)</a>
   </dt>
 
   </dl></td>
@@ -699,7 +757,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.9.6',
+            VERSION:'1.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

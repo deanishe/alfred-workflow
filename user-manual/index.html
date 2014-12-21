@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User Manual &mdash; Alfred-Workflow 1.9.6 documentation</title>
+  <title>User Manual &mdash; Alfred-Workflow 1.10.0 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.9.6 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.10.0 documentation" href="../index.html"/>
         <link rel="next" title="Workflow setup and skeleton" href="setup.html"/>
         <link rel="prev" title="Part 2: A Distribution-Ready Pinboard Workflow" href="../tutorial_2.html"/>
  
@@ -95,7 +95,9 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#first-run-migration">First run/migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
@@ -163,7 +165,7 @@ the _static path in each subdirectory -->
             
   <div class="section" id="user-manual">
 <span id="id1"></span><h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
-<p>This section describes how to use the features of <strong>Alfred-Python</strong>.</p>
+<p>This section describes how to use the features of Alfred-Workflow.</p>
 <p>If you&#8217;re new to writing workflows or coding in general, start with the
 <a class="reference internal" href="../tutorial.html#tutorial"><em>Tutorial</em></a>.</p>
 <div class="toctree-wrapper compound">
@@ -185,21 +187,36 @@ the _static path in each subdirectory -->
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filtering.html">Searching/filtering data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html#restricting-results">Restricting results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filtering.html#diacritic-folding">Diacritic folding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html#diacritic-folding">Diacritic folding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="filtering.html#smart-punctuation">&#8220;Smart&#8221; punctuation</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html#matching-rules">Matching rules</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="update.html">Self-Updating</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="update.html">Self-updating</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="update.html#version-numbers">Version numbers</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning and migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#setting-a-version-number">Setting a version number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#version-numbers">Version numbers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="versioning.html#semantic-versioning">Semantic versioning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html#first-run-migration">First run/migration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="icons.html">System icons</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="icons.html#list-of-icons">List of icons</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="magic-args.html#customising-magic-arguments">Customising magic arguments</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html#built-in-serializers">Built-in serializers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html#managing-serializers">Managing serializers</a></li>
@@ -258,7 +275,7 @@ the _static path in each subdirectory -->
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.6',
+            VERSION:'1.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

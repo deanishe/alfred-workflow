@@ -1,6 +1,7 @@
 
 .. _manual-persistent-data:
 
+===============
 Persistent data
 ===============
 
@@ -50,7 +51,7 @@ information on storing settings and sensitive data.
 .. _caching-data:
 
 Caching data
-------------
+============
 
 :class:`Workflow <workflow.workflow.Workflow>` provides a few methods to simplify
 caching data that is slow to retrieve or expensive to generate (e.g. downloaded
@@ -92,7 +93,7 @@ script in the background.)
 .. _clearing-cache:
 
 Clearing cached data
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 There is a convenience method for clearing a workflow's cache directory.
 
@@ -129,7 +130,7 @@ or more simply:
 .. _storing-data:
 
 Storing data
-------------
+============
 
 :class:`Workflow <workflow.workflow.Workflow>` provides two methods to store
 and retrieve permanent data:
@@ -163,7 +164,7 @@ If you want to specify your own file format/serializer, please see
 .. _clearing-data:
 
 Clearing stored data
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 As with cached data, there is a convenience method for deleting all the files
 stored in your workflow's :attr:`~workflow.workflow.Workflow.datadir`.
@@ -180,7 +181,7 @@ for details on how ``filter_func`` works.
 .. _manual-settings:
 
 Settings
---------
+========
 
 :attr:`Workflow.settings <workflow.workflow.Workflow.settings>` is a subclass
 of :class:`dict` that automatically saves its contents to the ``settings.json``
@@ -215,7 +216,7 @@ the OS X Keychain <keychain>`.
 .. _keychain:
 
 Keychain access
----------------
+===============
 
 Methods :meth:`Workflow.save_password(account, password) <workflow.workflow.Workflow.save_password>`,
 :meth:`Workflow.get_password(account) <workflow.workflow.Workflow.get_password>`

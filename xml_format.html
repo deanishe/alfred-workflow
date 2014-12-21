@@ -98,7 +98,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -370,6 +370,8 @@ subtitles to be shown when the modifiers are pressed (see lines 7–13 of the
 <span id="param-autocomplete"></span><h3>autocomplete<a class="headerlink" href="#autocomplete" title="Permalink to this headline">¶</a></h3>
 <p>If the user presses <tt class="docutils literal"><span class="pre">TAB</span></tt> on a result, the query currently shown in Alfred&#8217;s
 query box will be expanded to the <tt class="docutils literal"><span class="pre">autocomplete</span></tt> value of the selected result.</p>
+<p>If the user presses <tt class="docutils literal"><span class="pre">ENTER</span></tt> on a result with <a class="reference internal" href="#param-valid"><em>valid</em></a> set to <tt class="docutils literal"><span class="pre">no</span></tt>,
+Alfred will expand the query as if the user had pressed <tt class="docutils literal"><span class="pre">TAB</span></tt>.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a> as
 the <tt class="docutils literal"><span class="pre">autocomplete</span></tt> argument. Must be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>.</p>
 <p>When a user autocompletes a result with <tt class="docutils literal"><span class="pre">TAB</span></tt>, Alfred will run the Script
@@ -382,12 +384,16 @@ have no effect.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a> as
 the <tt class="docutils literal"><span class="pre">arg</span></tt> argument. Must be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>.</p>
 <p>This is the &#8220;value&#8221; of the result that will be passed by Alfred as <tt class="docutils literal"><span class="pre">{query}</span></tt>
-to the Action(s) or Output(s) your Script Filter is connected to.</p>
+to the Action(s) or Output(s) your Script Filter is connected to when the
+result is &#8220;actioned&#8221; (i.e. by selecting it and hitting <tt class="docutils literal"><span class="pre">ENTER</span></tt> or using
+<tt class="docutils literal"><span class="pre">CMD+NUM</span></tt>).</p>
 <p>Additionally, if you press CMD+C on a result in Alfred, <tt class="docutils literal"><span class="pre">arg</span></tt> will be copied to
 the pasteboard (unless you have set <a class="reference internal" href="#param-copytext"><em>copy text</em></a> for the
 item).</p>
 <p>Other than being copyable, setting <tt class="docutils literal"><span class="pre">arg</span></tt> doesn&#8217;t make great deal of sense unless
-the item is also <a class="reference internal" href="#param-valid"><em>valid</em></a>.</p>
+the item is also <a class="reference internal" href="#param-valid"><em>valid</em></a>. An exception isif the item&#8217;s
+<a class="reference internal" href="#param-type"><em>type</em></a> is <tt class="docutils literal"><span class="pre">file</span></tt>. In this case, a user can still use File Actions
+on an item, even if it is not <a class="reference internal" href="#param-valid"><em>valid</em></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><tt class="docutils literal"><span class="pre">arg</span></tt> may also be specified as an attribute of the <tt class="docutils literal"><span class="pre">&lt;item&gt;</span></tt>
@@ -414,8 +420,11 @@ have the value of either <tt class="docutils literal"><span class="pre">YES</spa
 <span class="nt">&lt;/item&gt;</span>
 </pre></div>
 </td></tr></table></div>
-<p><tt class="docutils literal"><span class="pre">valid</span></tt> determines whether a user can hit <tt class="docutils literal"><span class="pre">ENTER</span></tt> on a result in Alfred&#8217;s
-results list or not (<tt class="docutils literal"><span class="pre">&quot;YES&quot;</span></tt>/<tt class="docutils literal"><span class="pre">True</span></tt> meaning they can).</p>
+<p><tt class="docutils literal"><span class="pre">valid</span></tt> determines whether a user can action a result (i.e with <tt class="docutils literal"><span class="pre">ENTER</span></tt>
+or <tt class="docutils literal"><span class="pre">CMD+NUM</span></tt>) in Alfred&#8217;s results list or not (<tt class="docutils literal"><span class="pre">&quot;YES&quot;</span></tt>/<tt class="docutils literal"><span class="pre">True</span></tt>
+meaning they can). If a result has the <a class="reference internal" href="#param-type"><em>type</em></a> <tt class="docutils literal"><span class="pre">file</span></tt>, users
+can still perform File Actions on it (if <a class="reference internal" href="#param-arg"><em>arg</em></a> is set to a valid
+filepath).</p>
 <p>Specifying <tt class="docutils literal"><span class="pre">valid=True</span></tt>/<tt class="docutils literal"><span class="pre">valid=&quot;YES&quot;</span></tt> has no effect if <a class="reference internal" href="#param-arg"><em>arg</em></a>
 isn&#8217;t set.</p>
 </div>
@@ -436,7 +445,8 @@ appear in the XML file (the order in which you add them with
 </div>
 <div class="section" id="type">
 <span id="param-type"></span><h3>type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<p>The type of the result. Currently, only <tt class="docutils literal"><span class="pre">file</span></tt> (or none) is supported.</p>
+<p>The type of the result. Currently, only <tt class="docutils literal"><span class="pre">file</span></tt> and <tt class="docutils literal"><span class="pre">file:skipcheck</span></tt> are
+supported.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></tt></a> as
 the <tt class="docutils literal"><span class="pre">type</span></tt> argument. Should be <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>. Currently, the only allowed
 value is <tt class="docutils literal"><span class="pre">file</span></tt>.</p>
@@ -445,6 +455,9 @@ supported by Alfred), it will enable users to &#8220;action&#8221; the item, as 
 file browser, and show Alfred&#8217;s File Actions (<tt class="docutils literal"><span class="pre">Open</span></tt>, <tt class="docutils literal"><span class="pre">Open</span> <span class="pre">with…</span></tt>,
 <tt class="docutils literal"><span class="pre">Reveal</span> <span class="pre">in</span> <span class="pre">Finder</span></tt> etc.) using the default keyboard shortcut set in
 <tt class="docutils literal"><span class="pre">Alfred</span> <span class="pre">Preferences</span> <span class="pre">&gt;</span> <span class="pre">File</span> <span class="pre">Search</span> <span class="pre">&gt;</span> <span class="pre">Actions</span> <span class="pre">&gt;</span> <span class="pre">Show</span> <span class="pre">Actions</span></tt>.</p>
+<p>If <tt class="docutils literal"><span class="pre">type</span></tt> is set to <tt class="docutils literal"><span class="pre">file:skipcheck</span></tt>, Alfred won&#8217;t test to see if the file
+specified as <a class="reference internal" href="#param-arg"><em>arg</em></a> actually exists. This will save a tiny bit of
+time if you&#8217;re sure the file exists.</p>
 <p>For File Actions to work, <a class="reference internal" href="#param-arg"><em>arg</em></a> must be set to a valid filepath,
 but it is not necessary for the item to be <a class="reference internal" href="#param-valid"><em>valid</em></a>.</p>
 </div>

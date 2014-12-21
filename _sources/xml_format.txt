@@ -216,6 +216,9 @@ autocomplete
 If the user presses ``TAB`` on a result, the query currently shown in Alfred's
 query box will be expanded to the ``autocomplete`` value of the selected result.
 
+If the user presses ``ENTER`` on a result with :ref:`param-valid` set to ``no``,
+Alfred will expand the query as if the user had pressed ``TAB``.
+
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``autocomplete`` argument. Must be :class:`unicode`.
 
@@ -234,14 +237,18 @@ Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``arg`` argument. Must be :class:`unicode`.
 
 This is the "value" of the result that will be passed by Alfred as ``{query}``
-to the Action(s) or Output(s) your Script Filter is connected to.
+to the Action(s) or Output(s) your Script Filter is connected to when the
+result is "actioned" (i.e. by selecting it and hitting ``ENTER`` or using
+``CMD+NUM``).
 
 Additionally, if you press CMD+C on a result in Alfred, ``arg`` will be copied to
 the pasteboard (unless you have set :ref:`copy text <param-copytext>` for the
 item).
 
 Other than being copyable, setting ``arg`` doesn't make great deal of sense unless
-the item is also :ref:`valid <param-valid>`.
+the item is also :ref:`valid <param-valid>`. An exception isif the item's
+:ref:`param-type` is ``file``. In this case, a user can still use File Actions
+on an item, even if it is not :ref:`valid <param-valid>`.
 
 .. note::
 
@@ -270,8 +277,11 @@ have the value of either ``YES`` or ``NO``:
         ...
     </item>
 
-``valid`` determines whether a user can hit ``ENTER`` on a result in Alfred's
-results list or not (``"YES"``/``True`` meaning they can).
+``valid`` determines whether a user can action a result (i.e with ``ENTER``
+or ``CMD+NUM``) in Alfred's results list or not (``"YES"``/``True``
+meaning they can). If a result has the :ref:`param-type` ``file``, users
+can still perform File Actions on it (if :ref:`param-arg` is set to a valid
+filepath).
 
 Specifying ``valid=True``/``valid="YES"`` has no effect if :ref:`arg <param-arg>`
 isn't set.
@@ -302,7 +312,8 @@ appear in the XML file (the order in which you add them with
 type
 ----
 
-The type of the result. Currently, only ``file`` (or none) is supported.
+The type of the result. Currently, only ``file`` and ``file:skipcheck`` are
+supported.
 
 Pass to :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>` as
 the ``type`` argument. Should be :class:`unicode`. Currently, the only allowed
@@ -313,6 +324,10 @@ supported by Alfred), it will enable users to "action" the item, as in Alfred's
 file browser, and show Alfred's File Actions (``Open``, ``Open with…``,
 ``Reveal in Finder`` etc.) using the default keyboard shortcut set in
 ``Alfred Preferences > File Search > Actions > Show Actions``.
+
+If ``type`` is set to ``file:skipcheck``, Alfred won't test to see if the file
+specified as :ref:`param-arg` actually exists. This will save a tiny bit of
+time if you're sure the file exists.
 
 For File Actions to work, :ref:`arg <param-arg>` must be set to a valid filepath,
 but it is not necessary for the item to be :ref:`valid <param-valid>`.

@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -752,7 +752,7 @@ following message:</p>
 the corresponding action, logged it to the log file, notified the user via
 Alfred and exited the workflow.</p>
 <p>Magic arguments are designed to help coders develop and debug workflows. See
-<a class="reference internal" href="user-manual/magic-args.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> for more details.</p>
+<a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a> for more details.</p>
 </div>
 <div class="section" id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
@@ -1515,12 +1515,12 @@ change the extension to <tt class="docutils literal"><span class="pre">.zip</spa
 <p>There&#8217;s a <a class="reference external" href="http://www.alfredforum.com/forum/3-share-your-workflows/">Share your Workflows thread</a> on <a class="reference external" href="http://www.alfredforum.com/">the official Alfred forum</a>, but
 being a forum, it&#8217;s less than ideal as a directory for workflows. Also, you&#8217;d
 need to find your own place to host your workflow file (for which GitHub and
-Dropbox are both good choices).</p>
+Dropbox are both good, free choices).</p>
 <p>It&#8217;s a good idea to sign up for the Alfred forum and post a thread for your
-workflow, but you might want to consider uploading it to <a class="reference external" href="http://www.packal.org/">Packal.org</a>,
-a site specifically designed for hosting Alfred workflows. Your workflow will
-be much easier to find on that site than in the forum, and they&#8217;ll also host
-the workflow download for you.</p>
+workflow, so users can get in touch with you, but you might want to consider
+uploading it to <a class="reference external" href="http://www.packal.org/">Packal.org</a>, a site specifically designed for hosting Alfred
+workflows. Your workflow will be much easier to find on that site than in the
+forum, and they&#8217;ll also host the workflow download for you.</p>
 </div>
 <div class="section" id="updating-your-workflow">
 <h3>Updating your workflow<a class="headerlink" href="#updating-your-workflow" title="Permalink to this headline">¶</a></h3>
@@ -1548,7 +1548,7 @@ the installed workflow&#8217;s version number, Alfred-Workflow will automaticall
 check for a new version every day.</p>
 <p>By default, Alfred-Workflow won&#8217;t inform the user of the new version or
 update the workflow unless the user explicitly uses the <tt class="docutils literal"><span class="pre">workflow:update</span></tt>
-<a class="reference internal" href="user-manual/magic-args.html#magic-arguments"><em>&#8220;magic&#8221; argument</em></a>, but you can check the
+<a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><em>&#8220;magic&#8221; argument</em></a>, but you can check the
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
 attribute and inform the user of the availability of an update if it&#8217;s
 <tt class="docutils literal"><span class="pre">True</span></tt>.</p>

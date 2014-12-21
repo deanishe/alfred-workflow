@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2 current"><a class="current reference internal" href="">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -175,7 +175,7 @@ by default) fetches the latest releases from the specified GitHub repository
 and then asks the user if they want to replace the workflow if a newer version
 is available.</p>
 <p>Users may turn off automatic checks for updates using the
-<tt class="docutils literal"><span class="pre">workflow:noautoupdate</span></tt> <a class="reference internal" href="magic-args.html#magic-arguments"><em>magic argument</em></a>.</p>
+<tt class="docutils literal"><span class="pre">workflow:noautoupdate</span></tt> <a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a>.</p>
 <div class="admonition danger">
 <p class="first admonition-title">Danger</p>
 <p>If you are not careful, you might accidentally overwrite a local version of
@@ -306,7 +306,7 @@ the     user nor download and install the update.</p>
 </div>
 <p>To view update status/install a newer version, the user must either
 call one of your workflow&#8217;s Script Filters with the <tt class="docutils literal"><span class="pre">workflow:update</span></tt>
-<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic argument</em></a>, in which case Alfred-Workflow
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a>, in which case Alfred-Workflow
 will handle the update automatically, or you must add your own update action
 using <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
 and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></tt></a>
@@ -328,7 +328,7 @@ It caches information on the latest available release under the cache key
 <tt class="docutils literal"><span class="pre">__workflow_update_status</span></tt>, which you can access via
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>.</p>
 <p>Users can turn off automatic checks for updates with the <tt class="docutils literal"><span class="pre">workflow:noautoupdate</span></tt>
-<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic argument</em></a> and back on again with <tt class="docutils literal"><span class="pre">workflow:autoupdate</span></tt>.</p>
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a> and back on again with <tt class="docutils literal"><span class="pre">workflow:autoupdate</span></tt>.</p>
 <div class="section" id="version-numbers">
 <h2>Version numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
 <p>Please see <a class="reference internal" href="versioning.html#manual-versioning"><em>Versioning and migration</em></a> for detailed information on the required

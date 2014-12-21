@@ -2,6 +2,7 @@
 
 .. _manual-updates:
 
+=============
 Self-updating
 =============
 
@@ -159,7 +160,7 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 
 
 Version numbers
----------------
+===============
 
 Please see :ref:`manual-versioning` for detailed information on the required
 version number format and associated features.

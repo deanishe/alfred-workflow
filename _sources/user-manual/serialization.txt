@@ -1,6 +1,7 @@
 
 .. _manual-serialization:
 
+===================================
 Serialization of stored/cached data
 ===================================
 
@@ -58,7 +59,7 @@ provided the corresponding serializer is registered. If it isn't, a
 
 
 Built-in serializers
---------------------
+====================
 
 There are 3 built-in, pre-configured serializers:
 
@@ -77,7 +78,7 @@ more information on the serialization formats.
 .. _managing-serializers:
 
 Managing serializers
---------------------
+====================
 
 You can add your own serializer, or replace the built-in ones, using the
 configured instance of :class:`~workflow.SerializerManager` at
@@ -125,7 +126,7 @@ that performs serialization:
 
 
 Serializer interface
---------------------
+====================
 
 A serializer **must** conform to this interface (like :mod:`json` and
 :mod:`pickle`):

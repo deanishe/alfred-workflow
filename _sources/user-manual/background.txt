@@ -1,6 +1,7 @@
 
 .. _background-processes:
 
+====================
 Background processes
 ====================
 

@@ -12,7 +12,7 @@ Alfred-Workflow can be installed from the `Python Package Index`_ with
 .. _installation-pip:
 
 pip / PyPi
-----------
+==========
 
 You can install Alfred-Workflow directly into your workflow with::
 
@@ -30,7 +30,7 @@ You can install Alfred-Workflow directly into your workflow with::
 .. _installation-github:
 
 GitHub
-------
+======
 
 Download the ``alfred-workflow-X.X.X.zip`` file from the `GitHub releases`_ page
 and either extract the ZIP to the root directory of your workflow (where

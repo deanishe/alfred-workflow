@@ -1,6 +1,7 @@
 
 .. _text-encoding:
 
+===========================
 Encoded strings and Unicode
 ===========================
 
@@ -50,7 +51,7 @@ your workflow gets its data from.
 
 
 Normalization
--------------
+=============
 
 Unicode provides multiple ways to represent the same character. Normalization
 is the process of ensuring that all instances of a given Unicode character are
@@ -75,7 +76,7 @@ normalized in the same way as data from the Web.
 
 
 Why does normalization matter?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 In Unicode, an accented character like ``ü`` can be represented as ``ü`` or as
 ``u+¨``. Unfortunately, Python isn't smart enough to ensure that all Unicode
@@ -113,7 +114,7 @@ though they are ostensibly the same.
 
 
 Normalization with Alfred-Workflow
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 By default, :class:`Workflow <workflow.workflow.Workflow>` and
 :mod:`workflow.web` return command line arguments from Alfred and text/decoded
@@ -143,7 +144,7 @@ instantiation and then normalized as above.
 
 
 Further information
--------------------
+===================
 
 If you're unfamiliar with using Unicode in Python, have a look at the official
 Python `Unicode HOWTO`_.

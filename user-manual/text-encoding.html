@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Encoded strings and Unicode</a></li>
 </ul>
@@ -225,9 +225,8 @@ be NFC-normalized).</p>
 all data from the system through
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to ensure it is
 normalized in the same way as data from the Web.</p>
-</div>
 <div class="section" id="why-does-normalization-matter">
-<h3>Why does normalization matter?<a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h3>
+<h4>Why does normalization matter?<a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h4>
 <p>In Unicode, an accented character like <tt class="docutils literal"><span class="pre">ü</span></tt> can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as
 <tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python isn&#8217;t smart enough to ensure that all Unicode
 strings are normalized to use the same representations when comparing them.</p>
@@ -272,7 +271,7 @@ output of a shell command run via <a class="reference external" href="http://doc
 though they are ostensibly the same.</p>
 </div>
 <div class="section" id="normalization-with-alfred-workflow">
-<h3>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>
+<h4>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h4>
 <p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and
 <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></tt></a> return command line arguments from Alfred and text/decoded
 JSON data respectively as NFC-normalized Unicode strings.</p>
@@ -294,6 +293,7 @@ to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Wo
 passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">decode()</span></tt></a>
 or the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on
 instantiation and then normalized as above.</p>
+</div>
 </div>
 </div>
 <div class="section" id="further-information">

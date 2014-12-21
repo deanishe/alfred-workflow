@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-manual/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -191,7 +191,7 @@ See <a class="reference internal" href="update.html#updates"><em>Self-Updating</
 <li><strong>normalization</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt>) &#8211; normalisation to apply to CLI args.
 See <a class="reference internal" href="#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> for more details.</li>
 <li><strong>capture_args</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Boolean</span></tt>) &#8211; capture and act on <tt class="docutils literal"><span class="pre">workflow:*</span></tt> arguments. See
-<a class="reference internal" href="../user-manual/magic-args.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
+<a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><em>Magic arguments</em></a> for details.</li>
 <li><strong>libraries</strong> (<tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt> or <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#list" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></a>) &#8211; sequence of paths to directories containing
 libraries. These paths will be prepended to <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 <li><strong>help_url</strong> (<tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt> or <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></a>) &#8211; URL to webpage where a user can ask for help with
@@ -199,7 +199,7 @@ the workflow, report bugs, etc. This could be the GitHub repo
 or a page on AlfredForum.com. If your workflow throws an error,
 this URL will be displayed in the log and Alfred&#8217;s debugger. It can
 also be opened directly in a web browser with the <tt class="docutils literal"><span class="pre">workflow:help</span></tt>
-<a class="reference internal" href="../user-manual/magic-args.html#magic-arguments"><em>magic argument</em></a>.</li>
+<a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><em>magic argument</em></a>.</li>
 </ul>
 </td>
 </tr>
@@ -355,7 +355,7 @@ and <tt class="docutils literal"><span class="pre">NFC</span></tt> are the defau
 (the default), <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> will look for certain
 <tt class="docutils literal"><span class="pre">workflow:*</span></tt> args and, if found, perform the corresponding
 actions and exit the workflow.</p>
-<p>See <a class="reference internal" href="../user-manual/magic-args.html#magic-arguments"><em>Magic arguments</em></a> for details.</p>
+<p>See <a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><em>Magic arguments</em></a> for details.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -544,7 +544,7 @@ information on how to enable your workflow to update itself.</p>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_cache">
-<tt class="descname">clear_cache</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x1029798c0&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_cache</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x108e246e0&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -562,7 +562,7 @@ By default, <em>all</em> files will be deleted.</td>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_data">
-<tt class="descname">clear_data</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x1029799b0&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_data</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x108e247d0&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -723,7 +723,7 @@ internally, but exists as a helper method for workflow authors.</p>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter">
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1029790c8&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x108e23e60&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -937,7 +937,7 @@ and the value is a callable that will be called when the argument
 is entered. If you would like to display a message in Alfred, the
 function should return a <tt class="docutils literal"><span class="pre">unicode</span></tt> string.</p>
 <p>By default, the magic arguments documented
-<a class="reference internal" href="../user-manual/magic-args.html#magic-arguments"><em>here</em></a> are registered.</p>
+<a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><em>here</em></a> are registered.</p>
 </dd></dl>
 
 <dl class="attribute">

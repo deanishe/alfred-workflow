@@ -176,9 +176,9 @@ and how they interact with one another.
 .. note::
 
     This should also serve as a decent reference to Alfred's XML format for
-    folks who aren't using Alfred-Workflow. Unfortunately, the official Alfred
-    2 documentation is scattered, incomplete, out-of-date and, in places,
-    simply incorrect.
+    folks who aren't using Alfred-Workflow. The official `Alfred 2 XML docs`_
+    have recently seen a massive update, but historically haven't been very
+    up-to-date.
 
 
 .. toctree::
@@ -222,3 +222,4 @@ users can benefit from and contribute to the conversation.
 .. _Python Package Index: https://pypi.python.org/pypi/Alfred-Workflow
 .. _Alfred forum thread: http://www.alfredforum.com/topic/4031-workflow-library-for-python/
 .. _issue on GitHub: https://github.com/deanishe/alfred-workflow/issues
+.. _Alfred 2 XML docs: http://support.alfredapp.com/workflows:config:inputs-script-filter#xmloutput

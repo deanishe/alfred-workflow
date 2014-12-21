@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -817,7 +817,7 @@ attribute of <a class="reference internal" href="api/workflow.html#workflow.work
 (this will be the contents of <tt class="docutils literal"><span class="pre">{query}</span></tt> from the Script Filter).</p>
 <p>Using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> is similar to accessing
 <tt class="docutils literal"><span class="pre">sys.argv[1:]</span></tt> directly, but additionally decodes the arguments to Unicode
-and normalizes them. It also enables <a class="reference internal" href="user-manual/magic-args.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>.</p>
+and normalizes them. It also enables <a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
 using the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> method
 if there is a <tt class="docutils literal"><span class="pre">query</span></tt> (lines 51–52).</p>
@@ -840,7 +840,7 @@ avoiding mixing byte-strings and Unicode is a very good habit to get into.</p>
 and which are encoded  (byte) strings. Best practice is to use Unicode
 internally and decode all text to Unicode when it arrives in your workflow
 (from the Web, system etc.).</p>
-<p>Alfred-Workflow&#8217;s APIs use Unicode and works hard to hide as much of
+<p>Alfred-Workflow&#8217;s APIs use Unicode and it works hard to hide as much of
 the complexity of working with byte-strings and Unicode as possible, but
 you still need to manually decode encoded byte-strings from other sources
 with <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to avoid

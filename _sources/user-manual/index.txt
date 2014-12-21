@@ -23,6 +23,6 @@ If you're new to writing workflows or coding in general, start with the
    update
    versioning
    icons
-   magic-args
+   magic-arguments
    serialization
    text-encoding

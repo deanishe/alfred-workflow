@@ -1,6 +1,7 @@
 
 .. _magic-arguments:
 
+=================
 "Magic" arguments
 =================
 
@@ -74,7 +75,7 @@ perhaps assigning your own keywords within your Workflow:
 .. _custom-magic:
 
 Customising magic arguments
----------------------------
+===========================
 
 The default prefix for magic arguments (``workflow:``) is contained in the
 :attr:`~workflow.workflow.Workflow.magic_prefix` attribute of

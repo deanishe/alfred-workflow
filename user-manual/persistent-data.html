@@ -99,7 +99,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-args.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -198,7 +198,7 @@ Workflow&#8217;s root directory.</li>
 <li><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><tt class="xref py py-meth docutils literal"><span class="pre">workflowfile(filename)</span></tt></a>
 — The full path to <tt class="docutils literal"><span class="pre">filename</span></tt> under your Workflow&#8217;s root directory.</li>
 </ul>
-<p class="last">These are used internally to implement <a class="reference internal" href="magic-args.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>, which
+<p class="last">These are used internally to implement <a class="reference internal" href="magic-arguments.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>, which
 provide assistance with debugging, updating and managing your workflow.</p>
 </div>
 <p>In addition, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> also provides a
@@ -254,7 +254,7 @@ script in the background.)</p>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a> will by default delete all
 the files contained in <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>. This is
 the method called if you use the <tt class="docutils literal"><span class="pre">workflow:delcache</span></tt> or <tt class="docutils literal"><span class="pre">workflow:reset</span></tt>
-<a class="reference internal" href="magic-args.html#magic-arguments"><em>magic arguments</em></a>.</p>
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic arguments</em></a>.</p>
 <p>You can selectively delete files from the cache by passing the optional
 <tt class="docutils literal"><span class="pre">filter_func</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_cache" title="workflow.workflow.Workflow.clear_cache"><tt class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></tt></a>.
 This callable will be called with the filename (not path) of each file in the
@@ -311,7 +311,7 @@ are saving should not be deleted as part of system maintenance.</p>
 stored in your workflow&#8217;s <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
 <p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.clear_data" title="workflow.workflow.Workflow.clear_data"><tt class="xref py py-meth docutils literal"><span class="pre">clear_data()</span></tt></a> will delete all the
 files stored in <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>. It is used by the
-<tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> and <tt class="docutils literal"><span class="pre">workflow:reset</span></tt> <a class="reference internal" href="magic-args.html#magic-arguments"><em>magic arguments</em></a>.</p>
+<tt class="docutils literal"><span class="pre">workflow:deldata</span></tt> and <tt class="docutils literal"><span class="pre">workflow:reset</span></tt> <a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic arguments</em></a>.</p>
 <p>It is possible to selectively delete files contained in the data directory by
 supplying the optional <tt class="docutils literal"><span class="pre">filter_func</span></tt> callable. Please see <a class="reference internal" href="#clearing-cache"><em>Clearing cached data</em></a>
 for details on how <tt class="docutils literal"><span class="pre">filter_func</span></tt> works.</p>

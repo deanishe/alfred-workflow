@@ -1,6 +1,7 @@
 
 .. _icons:
 
+============
 System icons
 ============
 
@@ -20,7 +21,7 @@ OS X icons via ``ICON_*`` constants for use when generating Alfred feedback:
 .. _icon-list:
 
 List of icons
--------------
+=============
 
 These are all the icons accessible in :mod:`~workflow.workflow`. They (and
 more) can be found in

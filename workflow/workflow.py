@@ -1486,11 +1486,6 @@ class Workflow(object):
 
         serializer_name = serializer or self.data_serializer
 
-        if serializer_name == 'json' and name == 'settings':
-            raise ValueError(
-                'Cannot save data to `settings` with format `json`. '
-                "This would overwrite Alfred-Workflow's settings file.")
-
         serializer = manager.serializer(serializer_name)
 
         if serializer is None:
@@ -1504,6 +1499,11 @@ class Workflow(object):
         metadata_path = self.datafile('.{}.alfred-workflow'.format(name))
         filename = '{}.{}'.format(name, serializer_name)
         data_path = self.datafile(filename)
+
+        if data_path == self.settings_path:
+            raise ValueError(
+                'Cannot save data to `settings` with format `json`. '
+                "This would overwrite Alfred-Workflow's settings file.")
 
         if data is None:  # Delete cached data
             for path in (metadata_path, data_path):

@@ -1,6 +1,7 @@
 
 .. _filtering:
 
+========================
 Searching/filtering data
 ========================
 
@@ -130,7 +131,7 @@ Which returns::
 .. _restricting-results:
 
 Restricting results
--------------------
+===================
 
 Chances are, you would not want ``bot`` to match ``Bob Smith A damn fine afternoon``
 at all, or indeed any of the other books. Indeed, they have very low scores:
@@ -210,7 +211,7 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 .. _folding:
 
 Diacritic folding
------------------
+=================
 
 By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
 will fold non-ASCII characters to approximate ASCII equivalents (e.g. *é* >
@@ -231,7 +232,7 @@ Users may override a Workflow's default settings via ``workflow:folding…``
 .. _smart-punctuation:
 
 "Smart" punctuation
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 The default diacritic folding only alters letters, not punctuation. If your
 workflow also works with text that contains so-called "smart" (i.e. curly)
@@ -243,7 +244,7 @@ respectively.
 .. _matching-rules:
 
 Matching rules
---------------
+==============
 
 Here are the ``MATCH_*`` constants from :mod:`workflow` and their numeric values.
 

@@ -1,6 +1,7 @@
 
 .. _thirdparty:
 
+=============================
 Including 3rd party libraries
 =============================
 

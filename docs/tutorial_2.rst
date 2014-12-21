@@ -999,13 +999,13 @@ And how do you share your Workflow with the world?
 There's a `Share your Workflows thread`_ on `the official Alfred forum`_, but
 being a forum, it's less than ideal as a directory for workflows. Also, you'd
 need to find your own place to host your workflow file (for which GitHub and
-Dropbox are both good choices).
+Dropbox are both good, free choices).
 
 It's a good idea to sign up for the Alfred forum and post a thread for your
-workflow, but you might want to consider uploading it to `Packal.org`_,
-a site specifically designed for hosting Alfred workflows. Your workflow will
-be much easier to find on that site than in the forum, and they'll also host
-the workflow download for you.
+workflow, so users can get in touch with you, but you might want to consider
+uploading it to `Packal.org`_, a site specifically designed for hosting Alfred
+workflows. Your workflow will be much easier to find on that site than in the
+forum, and they'll also host the workflow download for you.
 
 
 Updating your workflow

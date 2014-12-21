@@ -529,7 +529,7 @@ for each post, comprising its title, tags and description (in that order).
     internally and decode all text to Unicode when it arrives in your workflow
     (from the Web, system etc.).
 
-    Alfred-Workflow's APIs use Unicode and works hard to hide as much of
+    Alfred-Workflow's APIs use Unicode and it works hard to hide as much of
     the complexity of working with byte-strings and Unicode as possible, but
     you still need to manually decode encoded byte-strings from other sources
     with :meth:`Workflow.decode() <workflow.workflow.Workflow.decode>` to avoid

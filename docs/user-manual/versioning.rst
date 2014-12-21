@@ -1,6 +1,7 @@
 
 .. _manual-versioning:
 
+========================
 Versioning and migration
 ========================
 
@@ -25,7 +26,7 @@ See :ref:`first-run` below for details.
 .. _set-version:
 
 Setting a version number
-------------------------
+========================
 
 There are two ways to set a version number. The simplest and best is to
 create a ``version`` file in the root directory of your workflow (next to
@@ -51,7 +52,7 @@ version number in one place.
 .. _version-numbers:
 
 Version numbers
----------------
+===============
 
 In version 1.10 and above, Alfred-Workflow requires :ref:`semver`,
 which is the format GitHub also expects. Alfred-Workflow deviates from the
@@ -81,7 +82,7 @@ version as the GitHub release tag ``v1.2`` or ``1.2`` (or indeed ``1.2.0``).
 .. _semver:
 
 Semantic versioning
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Semantic versioning is a standard for formatting software version numbers.
 
@@ -107,7 +108,7 @@ the rationale behind it.
 .. _first-run:
 
 First run/migration
--------------------
+===================
 
 .. versionadded:: 1.10
 

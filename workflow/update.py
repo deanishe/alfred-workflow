@@ -33,14 +33,131 @@ import subprocess
 import workflow
 import web
 
-prefixed_version = re.compile(r'^v\d+.*', re.IGNORECASE).match
-
 # __all__ = []
 
 wf = workflow.Workflow()
 log = wf.logger
 
 RELEASES_BASE = 'https://api.github.com/repos/{}/releases'
+
+
+class Version(object):
+    """Mostly semantic versioning
+
+    The main difference to proper :ref:`semantic versioning <semver>`
+    is that this implementation doesn't require a minor or patch version.
+    """
+
+    #: Match version and pre-release/build information in version strings
+    match_version = re.compile(r'([0-9\.]+)(.+)?').match
+
+    def __init__(self, vstr):
+        self.vstr = vstr
+        self.major = 0
+        self.minor = 0
+        self.patch = 0
+        self.suffix = ''
+        self.build = ''
+        self._parse(vstr)
+
+    def _parse(self, vstr):
+        if vstr.startswith('v'):
+            m = self.match_version(vstr[1:])
+        else:
+            m = self.match_version(vstr)
+        if not m:
+            raise ValueError('Invalid version number: {}'.format(vstr))
+
+        version, suffix = m.groups()
+        parts = self._parse_dotted_string(version)
+        self.major = parts.pop(0)
+        if len(parts):
+            self.minor = parts.pop(0)
+        if len(parts):
+            self.patch = parts.pop(0)
+        if not len(parts) == 0:
+            raise ValueError('Invalid version (too long) : {}'.format(vstr))
+
+        if suffix:
+            # Build info
+            idx = suffix.find('+')
+            if idx > -1:
+                self.build = suffix[idx+1:]
+                suffix = suffix[:idx]
+            if suffix:
+                if not suffix.startswith('-'):
+                    raise ValueError(
+                        'Invalid suffix : `{}`. Must start with `-`'.format(
+                            suffix))
+                self.suffix = suffix[1:]
+
+        # log.debug('version str `{}` -> {}'.format(vstr, repr(self)))
+
+    def _parse_dotted_string(self, s):
+        """Parse string ``s`` into list of ints and strings"""
+        parsed = []
+        parts = s.split('.')
+        for p in parts:
+            if p.isdigit():
+                p = int(p)
+            parsed.append(p)
+        return parsed
+
+    @property
+    def tuple(self):
+        """Return version number as a tuple of major, minor, patch, pre-release
+        """
+
+        return (self.major, self.minor, self.patch, self.suffix)
+
+    def __lt__(self, other):
+        if not isinstance(other, Version):
+            raise ValueError('Not a Version instance: {!r}'.format(other))
+        t = self.tuple[:3]
+        o = other.tuple[:3]
+        if t < o:
+            return True
+        if t == o:  # We need to compare suffixes
+            if self.suffix and not other.suffix:
+                return True
+            if other.suffix and not self.suffix:
+                return False
+            return (self._parse_dotted_string(self.suffix) <
+                    self._parse_dotted_string(other.suffix))
+        # t > o
+        return False
+
+    def __eq__(self, other):
+        if not isinstance(other, Version):
+            raise ValueError('Not a Version instance: {!r}'.format(other))
+        return self.tuple == other.tuple
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __gt__(self, other):
+        if not isinstance(other, Version):
+            raise ValueError('Not a Version instance: {!r}'.format(other))
+        return other.__lt__(self)
+
+    def __le__(self, other):
+        if not isinstance(other, Version):
+            raise ValueError('Not a Version instance: {!r}'.format(other))
+        return not other.__lt__(self)
+
+    def __ge__(self, other):
+        return not self.__lt__(other)
+
+    def __str__(self):
+        vstr = '{}.{}.{}'.format(self.major, self.minor, self.patch)
+        if self.suffix:
+            vstr += '-{}'.format(self.suffix)
+        if self.build:
+            vstr += '+{}'.format(self.build)
+        return vstr
+
+    def __repr__(self):
+        return "Version('{}')".format(str(self))
 
 
 def download_workflow(url):
@@ -89,7 +206,7 @@ def get_valid_releases(github_slug):
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :returns: list of dicts. Each :class:`dict` has the form
-        ``{'version': '1.1', 'download_url': 'http://github...'}
+        ``{'version': '1.1', 'download_url': 'http://github.com/...'}``
 
 
     A valid release is one that contains one ``.alfredworkflow`` file.
@@ -133,40 +250,10 @@ def get_valid_releases(github_slug):
                 'Invalid release {} : multiple workflow files'.format(version))
             continue
 
-        # Normalise version
-        if prefixed_version(version):
-            version = version[1:]
-
         log.debug('Release `{}` : {}'.format(version, url))
         releases.append({'version': version, 'download_url': download_urls[0]})
 
     return releases
-
-
-def is_newer_version(local, remote):
-    """Return ``True`` if ``remote`` version is newer than ``local``
-
-    :param local: version of installed workflow
-    :param remote: version of remote workflow
-    :returns: ``True`` or ``False``
-
-    """
-
-    local = local.lower()
-    remote = remote.lower()
-
-    if prefixed_version(local):
-        local = local[1:]
-
-    if prefixed_version(remote):
-        remote = remote[1:]
-
-    is_newer = remote != local
-
-    log.debug('remote `{}` newer that local `{}` : {}'.format(
-              remote, local, is_newer))
-
-    return is_newer
 
 
 def check_update(github_slug, current_version):
@@ -174,9 +261,8 @@ def check_update(github_slug, current_version):
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param current_version: the currently installed version of the
-        workflow. This should be a string.
-        `Semantic versioning <http://semver.org>`_ is *very strongly*
-        recommended.
+        workflow. :ref:`Semantic versioning <semver>` is required.
+    :type current_version: ``unicode``
     :returns: ``True`` if an update is available, else ``False``
 
     If an update is available, its version number and download URL will
@@ -195,7 +281,10 @@ def check_update(github_slug, current_version):
     latest_release = releases[0]
 
     # (latest_version, download_url) = get_latest_release(releases)
-    if is_newer_version(current_version, latest_release['version']):
+    vr = Version(latest_release['version'])
+    vl = Version(current_version)
+    log.debug('Latest : {!r} Installed : {!r}'.format(vr, vl))
+    if vr > vl:
 
         wf.cache_data('__workflow_update_status', {
             'version': latest_release['version'],
@@ -216,9 +305,8 @@ def install_update(github_slug, current_version):
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param current_version: the currently installed version of the
-        workflow. This should be a string.
-        `Semantic versioning <http://semver.org>`_ is *very strongly*
-        recommended.
+        workflow. :ref:`Semantic versioning <semver>` is required.
+    :type current_version: ``unicode``
 
     If an update is available, it will be downloaded and installed.
 
@@ -234,7 +322,7 @@ def install_update(github_slug, current_version):
 
     local_file = download_workflow(update_data['download_url'])
 
-    wf.logger.info('Installing updated workflow ...')
+    log.info('Installing updated workflow ...')
     subprocess.call(['open', local_file])
 
     update_data['available'] = False

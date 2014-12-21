@@ -27,7 +27,8 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
-from .util import create_info_plist, delete_info_plist, WorkflowMock
+from .util import (create_info_plist, delete_info_plist, WorkflowMock,
+                   VersionFile)
 
 from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                KeychainError, MATCH_ALL, MATCH_ALLCHARS,
@@ -37,6 +38,7 @@ from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                manager)
 
 from workflow.background import is_running
+from workflow.update import Version
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
@@ -168,6 +170,16 @@ class WorkflowTests(unittest.TestCase):
             ('salé', 'sale')
         ]
 
+        self.punctuation_data = [
+            ('"test"', '"test"'),
+            ('„wat denn?“', '"wat denn?"'),
+            ('‚wie dat denn?‘', "'wie dat denn?'"),
+            ('“test”', '"test"'),
+            ('and—why—not', 'and-why-not'),
+            ('10–20', '10-20'),
+            ('Shady’s back', "Shady's back"),
+        ]
+
         self.env_data = {
             'alfred_preferences':
             os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
@@ -206,6 +218,10 @@ class WorkflowTests(unittest.TestCase):
                 shutil.rmtree(dirpath)
 
         self._teardown_env()
+
+    ####################################################################
+    # Result item generation
+    ####################################################################
 
     def test_item_creation(self):
         """XML generation"""
@@ -329,6 +345,10 @@ class WorkflowTests(unittest.TestCase):
         for tag in ['icon', 'arg']:
             self.assert_(tag not in tags)
 
+    ####################################################################
+    # Environment
+    ####################################################################
+
     def test_additional_libs(self):
         """Additional libraries"""
         for path in self.libs:
@@ -377,6 +397,10 @@ class WorkflowTests(unittest.TestCase):
                          self.env_data['alfred_workflow_name'])
 
         self._teardown_env()
+
+    ####################################################################
+    # ARGV
+    ####################################################################
 
     def test_args(self):
         """ARGV"""
@@ -446,6 +470,10 @@ class WorkflowTests(unittest.TestCase):
         logger = logging.Logger('')
         self.wf.logger = logger
         self.assertEqual(self.wf.logger, logger)
+
+    ####################################################################
+    # Cached data
+    ####################################################################
 
     def test_cached_data(self):
         """Cached data stored"""
@@ -557,6 +585,10 @@ class WorkflowTests(unittest.TestCase):
         """Non-existent cache data is not fresh"""
         self.assertEqual(self.wf.cached_data_fresh('popsicle', max_age=10000),
                          False)
+
+    ####################################################################
+    # Serialisation
+    ####################################################################
 
     def test_cache_serializer(self):
         """Cache serializer"""
@@ -683,6 +715,10 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.wf.store_data('test', data, 'spong')
 
+    ####################################################################
+    # Data deletion
+    ####################################################################
+
     def test_delete_stored_data(self):
         """Delete stored data"""
         data = {'key7': 'value7'}
@@ -734,9 +770,14 @@ class WorkflowTests(unittest.TestCase):
         self.wf.clear_data()
         self.assertFalse(os.path.exists(self.wf.datafile(test_file2)))
 
+    ####################################################################
+    # Updates
+    ####################################################################
+
     def test_update(self):
         """Workflow update methods"""
 
+        Workflow().reset()
         # Initialise with outdated version
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
@@ -751,6 +792,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertTrue(is_running('__workflow_update_check'))
         while is_running('__workflow_update_check'):
             time.sleep(0.05)
+        time.sleep(1)
 
         # There *is* a newer version in the repo
         self.assertTrue(wf.update_available)
@@ -779,9 +821,13 @@ class WorkflowTests(unittest.TestCase):
         while is_running('__workflow_update_check'):
             time.sleep(0.05)
 
-        # Remove version is same as the one we passed to Workflow
+        # Remote version is same as the one we passed to Workflow
         self.assertFalse(wf.update_available)
         self.assertFalse(wf.start_update())
+
+    ####################################################################
+    # Keychain
+    ####################################################################
 
     def test_keychain(self):
         """Save/get/delete password"""
@@ -802,12 +848,17 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaises(KeychainError):
             self.wf._call_security('pants', BUNDLE_ID, self.account)
 
+    ####################################################################
+    # Running workflow
+    ####################################################################
+
     def test_run_fails(self):
         """Run fails"""
         def cb(wf):
             self.assertEqual(wf, self.wf)
             raise ValueError('Have an error')
         self.wf.name  # cause info.plist to be parsed
+        self.wf.help_url = 'http://www.deanishe.net/alfred-workflow/'
         ret = self.wf.run(cb)
         self.assertEqual(ret, 1)
         # named after bundleid
@@ -822,6 +873,10 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(wf, self.wf)
         ret = self.wf.run(cb)
         self.assertEqual(ret, 0)
+
+    ####################################################################
+    # Filtering
+    ####################################################################
 
     def test_filter_all_rules(self):
         """Filter: all rules"""
@@ -950,6 +1005,11 @@ class WorkflowTests(unittest.TestCase):
         results = self.wf.filter('bob', data, ascending=True)
         self.assertEquals(results, data[::-1])
 
+    def test_punctuation(self):
+        """Punctuation: dumbified"""
+        for input, output in self.punctuation_data:
+            self.assertEqual(self.wf.dumbify_punctuation(input), output)
+
     def test_icons(self):
         """Icons"""
         import workflow
@@ -958,6 +1018,10 @@ class WorkflowTests(unittest.TestCase):
                 path = getattr(workflow, name)
                 print(name, path)
                 self.assert_(os.path.exists(path))
+
+    ####################################################################
+    # Unicode properties
+    ####################################################################
 
     def test_datadir_is_unicode(self):
         """Workflow.datadir returns Unicode"""
@@ -1006,6 +1070,123 @@ class WorkflowTests(unittest.TestCase):
         self.assertTrue(isinstance(wf.workflowfile(b'test.txt'), unicode))
         self.assertTrue(isinstance(wf.workflowfile('über.txt'), unicode))
 
+    ####################################################################
+    # Versions
+    ####################################################################
+
+    def test_versions_from_settings(self):
+        """Workflow: version from `update_settings`"""
+        vstr = '1.9.7'
+        d = {'github_slug': 'deanishe/alfred-workflow', 'version': vstr}
+        wf = Workflow(update_settings=d)
+        self.assertEqual(str(wf.version), vstr)
+        self.assertTrue(isinstance(wf.version, Version))
+        self.assertEqual(wf.version, Version(vstr))
+
+    def test_versions_from_version_file(self):
+        """Workflow: version from `version`"""
+        vstr = '1.9.7'
+        with VersionFile(vstr):
+            wf = Workflow()
+            self.assertEqual(str(wf.version), vstr)
+            self.assertTrue(isinstance(wf.version, Version))
+            self.assertEqual(wf.version, Version(vstr))
+
+    def test_first_run_no_version(self):
+        """Workflow: first_run fails on no version"""
+        wf = Workflow()
+        with self.assertRaises(ValueError):
+            wf.first_run
+
+    def test_first_run_with_version(self):
+        """Workflow: first_run"""
+        vstr = '1.9.7'
+        with VersionFile(vstr):
+            wf = Workflow()
+            self.assertTrue(wf.first_run)
+            wf.reset()
+
+    def test_first_run_with_previous_run(self):
+        """Workflow: first_run with previous run"""
+        vstr = '1.9.7'
+        last_vstr = '1.9.6'
+        with VersionFile(vstr):
+            wf = Workflow()
+            wf.set_last_version(last_vstr)
+            self.assertTrue(wf.first_run)
+            self.assertEqual(wf.last_version_run, Version(last_vstr))
+            wf.reset()
+
+    def test_last_version_empty(self):
+        """Workflow: last_version_run empty"""
+        wf = Workflow()
+        self.assertIsNone(wf.last_version_run)
+
+    def test_last_version_on(self):
+        """Workflow: last_version_run not empty"""
+        vstr = '1.9.7'
+
+        with VersionFile(vstr):
+            wf = Workflow()
+            wf.set_last_version(vstr)
+            self.assertEqual(Version(vstr), wf.last_version_run)
+            wf.reset()
+        # Set automatically
+        with VersionFile(vstr):
+            wf = Workflow()
+            wf.set_last_version()
+            self.assertEqual(Version(vstr), wf.last_version_run)
+            wf.reset()
+
+    def test_versions_no_version(self):
+        """Workflow: version is `None`"""
+        wf = Workflow()
+        self.assertIsNone(wf.version)
+        wf.reset()
+
+    def test_last_version_no_version(self):
+        """Workflow: last_version no version"""
+        wf = Workflow()
+        self.assertFalse(wf.set_last_version())
+        wf.reset()
+
+    def test_last_version_explicit_version(self):
+        """Workflow: last_version explicit version"""
+        vstr = '1.9.6'
+        wf = Workflow()
+        self.assertTrue(wf.set_last_version(vstr))
+        self.assertEqual(wf.last_version_run, Version(vstr))
+        wf.reset()
+
+    def test_last_version_auto_version(self):
+        """Workflow: last_version auto version"""
+        vstr = '1.9.7'
+        with VersionFile(vstr):
+            wf = Workflow()
+            self.assertTrue(wf.set_last_version())
+            self.assertEqual(wf.last_version_run, Version(vstr))
+            wf.reset()
+
+    def test_last_version_set_after_run(self):
+        """Workflow: last_version set after `run()`"""
+        vstr = '1.9.7'
+
+        def cb(wf):
+            return
+
+        with VersionFile(vstr):
+            wf = Workflow()
+            self.assertIsNone(wf.last_version_run)
+            wf.run(cb)
+
+            wf = Workflow()
+            self.assertEqual(wf.last_version_run, Version(vstr))
+            wf.reset()
+
+    ####################################################################
+    # Helpers
+    ####################################################################
+
     def _print_results(self, results):
         """Print results of Workflow.filter"""
         for item, score, rule in results:
@@ -1039,6 +1220,61 @@ class MagicArgsTests(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def test_list_magic(self):
+        """Magic: list magic"""
+        # TODO: Verify output somehow
+        c = WorkflowMock(['script', 'workflow:magic'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
+        wf.logger.debug('STDERR : {}'.format(c.stderr))
+
+    def test_version_magic(self):
+        """Magic: version magic"""
+        # TODO: Verify output somehow
+
+        vstr = '1.9.7'
+
+        # Versioned
+        c = WorkflowMock(['script', 'workflow:version'])
+        with c:
+            with VersionFile(vstr):
+                wf = Workflow()
+                # Process magic arguments
+                wf.args
+        self.assertEquals(len(c.cmd), 0)
+        wf.logger.debug('STDERR : {}'.format(c.stderr))
+
+        # Unversioned
+        c = WorkflowMock(['script', 'workflow:version'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
+
+    def test_openhelp(self):
+        """Magic: open help URL"""
+        url = 'http://www.deanishe.net/alfred-workflow/'
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow(help_url=url)
+            # Process magic arguments
+            wf.args
+        self.assertEquals(c.cmd[0], 'open')
+        self.assertEquals(c.cmd[1], url)
+
+    def test_openhelp_no_url(self):
+        """Magic: no help URL"""
+        c = WorkflowMock(['script', 'workflow:help'])
+        with c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+        self.assertEquals(len(c.cmd), 0)
 
     def test_openlog(self):
         """Magic: open logfile"""
@@ -1178,6 +1414,22 @@ class MagicArgsTests(unittest.TestCase):
         with c:
             wf.args
         self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
+
+    def test_auto_update(self):
+        """Magic: auto-update"""
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:autoupdate'])
+        with c:
+            wf.args
+        self.assertTrue(wf.settings.get('__workflow_autoupdate'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:noautoupdate'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+
+        del wf.settings['__workflow_autoupdate']
 
     def test_update(self):
         """Magic: update"""

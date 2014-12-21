@@ -170,51 +170,6 @@ def workflow_link(workflow, rest=False, github_links=True):
         return '\n  '.join(output).format(**workflow)
 
 
-def old_workflow_link(workflow, rest=False, link_title=True):
-    """Return a link for ``workflow`` in Markdown or ReST"""
-    output = []
-
-    if rest:
-        if 'github_user' in workflow:  # GitHub + Packal
-            if link_title:  # Link workflow title/authorname to GitHub
-                output.append('`{name} <{github_repo_url}>`__')
-                output.append('(`Packal page <{url}>`__)')
-                output.append('by `{author} <{github_user_url}>`__')
-                output.append('(`Packal page <{author_url}>`__).')
-            else:
-                output.append('**{name}** (`GitHub <{github_repo_url}>`__, '
-                              '`Packal <{url}>`__)')
-                output.append('by **{author}** (`GitHub <{github_user_url}>`__, '
-                              '`Packal <{author_url}>`__).')
-
-        else:  # Packal only
-            output.append('`{name} <{url}>`__')
-            output.append('by `{author} <{author_url}>`__.')
-
-        output.append('{short}')
-        return ' '.join(output).format(**workflow)
-
-    else:
-        if 'github_user' in workflow:  # GitHub + Packal
-            if link_title:  # Link workflow title/authorname to GitHub
-                output.append('[{name}]({github_repo_url})')
-                output.append('([Packal page]({url}))')
-                output.append('by [{author}]({github_user_url})')
-                output.append('([Packal page]({author_url})).')
-            else:
-                output.append('**{name}** ([GitHub]({github_repo_url}), '
-                              '[Packal]({url}))')
-                output.append('by **{author}** ([GitHub]({github_user_url}), '
-                              '[Packal]({author_url})).')
-
-        else:  # Packal only
-            output.append('[{name}]({url})')
-            output.append('by [{author}]({author_url}).')
-
-        output.append('{description}')
-        return '\n  '.join(output).format(**workflow)
-
-
 def update_repo():
     """Ensure Packal repo is present and up-to-date"""
     if not os.path.exists(PACKAL_REPO_DIR):  # Clone repo
@@ -346,7 +301,7 @@ def main():
         if not msg.endswith('.'):
             msg += '.'
         output.append((workflow['name'], msg))
-    output.sort()
+    output.sort(key=lambda s: s[0].lower())
     output = [t[1] for t in output]
 
     for i, line in enumerate(output):

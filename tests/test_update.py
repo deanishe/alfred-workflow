@@ -94,7 +94,8 @@ class UpdateTests(unittest.TestCase):
             self.assertFalse(v in versions)
 
         # Correct latest release
-        self.assertEquals(releases[0]['version'], RELEASE_LATEST)
+        self.assertEquals(update.Version(releases[0]['version']),
+                          update.Version(RELEASE_LATEST))
 
     def test_version_formats(self):
         """Update: version formats"""
@@ -108,38 +109,8 @@ class UpdateTests(unittest.TestCase):
         self.assertTrue(update.check_update(TEST_REPO_SLUG, '5.0'))
 
         # Unknown versions
-        self.assertTrue(update.check_update(TEST_REPO_SLUG, 'v8.0'))
-        self.assertTrue(update.check_update(TEST_REPO_SLUG, '8.0'))
-
-    def test_equal_versions(self):
-        """Update: equal versions"""
-        # Equal versions
-        for l, r in [
-                ('1.0', 'v1.0'),
-                ('v1.0', '1.0'),
-                ('v1.0', 'v1.0'),
-                ('1.1.1', 'v1.1.1'),
-                ('v1.1.1', '1.1.1'),
-                ('v1.1.1', 'v1.1.1'),
-                ('dave', 'dave'),
-                ('bob', 'bob'),
-                ('vernon', 'vernon'),
-                ]:
-            self.assertFalse(update.is_newer_version(l, r))
-
-        # Unequal versions
-        for l, r in [
-                ('1.0', 'v1.1'),
-                ('v1.0', '1.1'),
-                ('v1.0', 'v1.1'),
-                ('1.1.1', 'v1.2.1'),
-                ('v1.1.1', '1.2.1'),
-                ('v1.1.1', 'v1.2.1'),
-                ('dave', 'bob'),
-                ('bob', 'dave'),
-                ('vernon', 'vvernon'),
-                ]:
-            self.assertTrue(update.is_newer_version(l, r))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v8.0'))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, '8.0'))
 
     def test_check_update(self):
         """Update: Check update"""
@@ -176,6 +147,30 @@ class UpdateTests(unittest.TestCase):
 
         self.assertFalse(wf.cached_data(
                          '__workflow_update_status')['available'])
+
+    def test_no_auto_update(self):
+        """Update: no update check"""
+
+        # Make sure there's no cached update data
+        wf = Workflow()
+        wf.reset()
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+
+        wf = Workflow()
+        c = WorkflowMock(['script', 'workflow:noautoupdate'])
+        with c:
+            wf.args
+        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+
+        c = WorkflowMock()
+        with c:
+            wf = Workflow(update_settings={'github_slug': TEST_REPO_SLUG,
+                          'version': RELEASE_CURRENT})
+
+        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
 
 
 if __name__ == '__main__':  # pragma: no cover

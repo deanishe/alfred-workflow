@@ -814,10 +814,14 @@ class WorkflowTests(unittest.TestCase):
             self.wf._call_security('pants', BUNDLE_ID, self.account)
 
     def test_first_run(self):
+        """test first_run property is True
+        """
         self.assertTrue(self.wf.first_run)
         self.assertIsNone(self.wf.last_run_version)
         
     def test_not_first_run(self):
+        """test first_run property is False
+        """
         def fake(wf):
             pass
 
@@ -827,6 +831,8 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.wf.last_run_version, "1.0")
     
     def test_version_update_from_none(self):
+        """test workflow version update from none
+        """
         def fake(wf):
             pass
         wf = Workflow(workflow_version="1.4")
@@ -840,6 +846,8 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(wf.last_run_version, "1.4")
 
     def test_version_update_from_not_none(self):
+        """test workflow version update
+        """
         def fake(wf):
             pass
 
@@ -852,10 +860,12 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(wf.last_run_version, "1.4")
 
     def test_not_overwrite_version_in_settings(self):
-        """version in settings.json shall not be overwrite even user doesn't provide version number when initialize Workflow instance.
+        """version in settings.json shall not be overwrite
+           even user doesn't provide version number when initialize Workflow instance.
         """
         def fake(wf):
-             pass
+            pass
+
         wf = Workflow(workflow_version="1.4")
         wf.run(fake)
         self.assertEqual(wf.last_run_version, "1.4")

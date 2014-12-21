@@ -107,7 +107,7 @@ the rationale behind it.
 .. _first-run:
 
 First run/migration
-===================
+-------------------
 
 .. versionadded:: 1.10
 

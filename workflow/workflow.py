@@ -734,13 +734,20 @@ class Item(object):
 
         """
 
+        # Attributes on <item> element
         attr = {}
         if self.valid:
             attr['valid'] = 'yes'
         else:
             attr['valid'] = 'no'
+        # Allow empty string for autocomplete. This is a useful value,
+        # as TABing the result will revert the query back to just the
+        # keyword
+        if self.autocomplete is not None:
+            attr['autocomplete'] = self.autocomplete
+
         # Optional attributes
-        for name in ('uid', 'type', 'autocomplete'):
+        for name in ('uid', 'type'):
             value = getattr(self, name, None)
             if value:
                 attr[name] = value
@@ -748,14 +755,18 @@ class Item(object):
         root = ET.Element('item', attr)
         ET.SubElement(root, 'title').text = self.title
         ET.SubElement(root, 'subtitle').text = self.subtitle
+
         # Add modifier subtitles
         for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
             if mod in self.modifier_subtitles:
                 ET.SubElement(root, 'subtitle',
                               {'mod': mod}).text = self.modifier_subtitles[mod]
 
+        # Add arg as element instead of attribute on <item>, as it's more
+        # flexible (newlines aren't allowed in attributes)
         if self.arg:
             ET.SubElement(root, 'arg').text = self.arg
+
         # Add icon if there is one
         if self.icon:
             if self.icontype:

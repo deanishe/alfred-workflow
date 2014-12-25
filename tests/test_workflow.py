@@ -777,6 +777,9 @@ class WorkflowTests(unittest.TestCase):
     def test_update(self):
         """Workflow update methods"""
 
+        def fake(wf):
+            return
+
         Workflow().reset()
         # Initialise with outdated version
         wf = Workflow(update_settings={
@@ -784,6 +787,8 @@ class WorkflowTests(unittest.TestCase):
             'version': 'v2.0',
             'frequency': 1,
         })
+
+        wf.run(fake)
 
         # Check won't have completed yet
         self.assertFalse(wf.update_available)
@@ -815,6 +820,8 @@ class WorkflowTests(unittest.TestCase):
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': update_info['version'],
         })
+
+        wf.run(fake)
 
         # Wait for background update check
         self.assertTrue(is_running('__workflow_update_check'))
@@ -865,6 +872,19 @@ class WorkflowTests(unittest.TestCase):
         self.wf = Workflow()
         self.wf.bundleid
         ret = self.wf.run(cb)
+        self.assertEqual(ret, 1)
+
+    def test_run_fails_borked_settings(self):
+        """Run fails with borked settings.json"""
+
+        def fake(wf):
+            wf.settings
+
+        # Create invalid settings.json file
+        with open(self.wf.settings_path, 'wb') as fp:
+            fp.write('')
+
+        ret = self.wf.run(fake)
         self.assertEqual(ret, 1)
 
     def test_run_okay(self):
@@ -1417,28 +1437,47 @@ class MagicArgsTests(unittest.TestCase):
 
     def test_auto_update(self):
         """Magic: auto-update"""
-        wf = Workflow()
+
+        update_settings = {
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        }
+
+        def fake(wf):
+            return
+
+        wf = Workflow(update_settings=update_settings)
         c = WorkflowMock(['script', 'workflow:autoupdate'])
         with c:
             wf.args
+            wf.run(fake)
         self.assertTrue(wf.settings.get('__workflow_autoupdate'))
 
         wf = Workflow()
+        wf.reset()
         c = WorkflowMock(['script', 'workflow:noautoupdate'])
         with c:
             wf.args
+            wf.run(fake)
         self.assertFalse(wf.settings.get('__workflow_autoupdate'))
 
-        del wf.settings['__workflow_autoupdate']
+        # del wf.settings['__workflow_autoupdate']
+        wf.reset()
 
     def test_update(self):
         """Magic: update"""
+
+        def fake(wf):
+            return
+
         update_settings = {
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': 'v2.0',
             'frequency': 1,
         }
         wf = Workflow(update_settings=update_settings)
+        wf.run(fake)
 
         self.assertFalse(wf.update_available)
 
@@ -1446,6 +1485,7 @@ class MagicArgsTests(unittest.TestCase):
         # update the workflow in Alfred
         c = WorkflowMock(['script', 'workflow:update'])
         with c:
+            wf.run(fake)
             wf.args
 
         wf.logger.debug('Magic update command : {}'.format(c.cmd))
@@ -1457,10 +1497,29 @@ class MagicArgsTests(unittest.TestCase):
         wf = Workflow(update_settings=update_settings)
         c = WorkflowMock(['script', 'workflow:update'])
         with c:
+            wf.run(fake)
             wf.args
 
         # Update command wasn't called
         self.assertEqual(c.cmd, ())
+
+    def test_update_turned_off(self):
+        """Magic: updates turned off"""
+
+        # Check update isn't performed if user has turned off
+        # auto-update
+
+        def fake(wf):
+            return
+
+        update_settings = {
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        }
+        wf = Workflow(update_settings=update_settings)
+        wf.settings['__workflow_autoupdate'] = False
+        self.assertIsNone(wf.check_update())
 
 
 class SettingsTests(unittest.TestCase):

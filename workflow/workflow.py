@@ -951,9 +951,6 @@ class Workflow(object):
         if libraries:
             sys.path = libraries + sys.path
 
-        if update_settings:
-            self.check_update()
-
     ####################################################################
     # API methods
     ####################################################################
@@ -1385,6 +1382,8 @@ class Workflow(object):
         """
 
         if not self._settings:
+            self.logger.debug('Reading settings from `{}` ...'.format(
+                              self.settings_path))
             self._settings = Settings(self.settings_path,
                                       self._default_settings)
         return self._settings
@@ -1942,7 +1941,9 @@ class Workflow(object):
         :param func: Callable to call with ``self`` (i.e. the :class:`Workflow`
             instance) as first argument.
 
-        ``func`` will be called with :class:`Workflow` instance as first argument.
+        ``func`` will be called with :class:`Workflow` instance as first
+        argument.
+
         ``func`` should be the main entry point to your workflow.
 
         Any exceptions raised will be logged and an error message will be
@@ -1952,13 +1953,27 @@ class Workflow(object):
 
         start = time.time()
 
+        # Call workflow's entry function/method within a try-except block
+        # to catch any errors and display an error message in Alfred
         try:
             if self.version:
                 self.logger.debug('Workflow version : {}'.format(self.version))
+
+            # Run update check if configured for self-updates.
+            # This call has to go in the `run` try-except block, as it will
+            # initialise `self.settings`, which will raise an exception
+            # if `settings.json` isn't valid.
+
+            if self._update_settings:
+                self.check_update()
+
+            # Run workflow's entry function/method
             func(self)
+
             # Set last version run to current version after a successful
             # run
             self.set_last_version()
+
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:

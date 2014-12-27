@@ -1815,11 +1815,11 @@ class Workflow(object):
         results.sort(reverse=ascending)
         results = [t[1] for t in results]
 
-        if max_results and len(results) > max_results:
-            results = results[:max_results]
-
         if min_score:
             results = [r for r in results if r[1] > min_score]
+
+        if max_results and len(results) > max_results:
+            results = results[:max_results]
 
         # return list of ``(item, score, rule)``
         if include_score:

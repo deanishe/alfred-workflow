@@ -468,6 +468,8 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     """
 
+    # TODO: cookies
+    # TODO: any way to force GET or POST?
     socket.setdefaulttimeout(timeout)
 
     # Default handlers

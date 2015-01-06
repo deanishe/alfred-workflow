@@ -313,6 +313,7 @@ def install_update(github_slug, current_version):
     :returns: ``True`` if an update is installed, else ``False``
 
     """
+    # TODO: `github_slug` and `current_version` are both unusued.
 
     update_data = wf.cached_data('__workflow_update_status', max_age=0)
 

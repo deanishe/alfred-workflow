@@ -1044,7 +1044,7 @@ class Workflow(object):
 
     @property
     def bundleid(self):
-        """Workflow bundle ID from Alfred's environmental vars or ``info.plist``.
+        """Workflow bundle ID from environmental vars or ``info.plist``.
 
         :returns: bundle ID
         :rtype: ``unicode``
@@ -1728,19 +1728,30 @@ class Workflow(object):
         By default, :meth:`filter` uses all of the following flags (i.e.
         :const:`MATCH_ALL`). The tests are always run in the given order:
 
-        1. :const:`MATCH_STARTSWITH` : Item search key startswith ``query`` (case-insensitive).
-        2. :const:`MATCH_CAPITALS` : The list of capital letters in item search key starts with ``query`` (``query`` may be lower-case). E.g., ``of`` would match ``OmniFocus``, ``gc`` would match ``Google Chrome``
-        3. :const:`MATCH_ATOM` : Search key is split into "atoms" on non-word characters (.,-,' etc.). Matches if ``query`` is one of these atoms (case-insensitive).
-        4. :const:`MATCH_INITIALS_STARTSWITH` : Initials are the first characters of the above-described "atoms" (case-insensitive).
-        5. :const:`MATCH_INITIALS_CONTAIN` : ``query`` is a substring of the above-described initials.
+        1. :const:`MATCH_STARTSWITH` : Item search key startswith
+            ``query``(case-insensitive).
+        2. :const:`MATCH_CAPITALS` : The list of capital letters in item
+            search key starts with ``query`` (``query`` may be
+            lower-case). E.g., ``of`` would match ``OmniFocus``,
+            ``gc`` would match ``Google Chrome``
+        3. :const:`MATCH_ATOM` : Search key is split into "atoms" on
+            non-word characters (.,-,' etc.). Matches if ``query`` is
+            one of these atoms (case-insensitive).
+        4. :const:`MATCH_INITIALS_STARTSWITH` : Initials are the first
+            characters of the above-described "atoms" (case-insensitive).
+        5. :const:`MATCH_INITIALS_CONTAIN` : ``query`` is a substring of
+            the above-described initials.
         6. :const:`MATCH_INITIALS` : Combination of (4) and (5).
-        7. :const:`MATCH_SUBSTRING` : Match if ``query`` is a substring of item search key (case-insensitive).
-        8. :const:`MATCH_ALLCHARS` : Matches if all characters in ``query`` appear in item search key in the same order (case-insensitive).
+        7. :const:`MATCH_SUBSTRING` : Match if ``query`` is a substring
+            of item search key (case-insensitive).
+        8. :const:`MATCH_ALLCHARS` : Matches if all characters in
+            ``query`` appear in item search key in the same order
+            (case-insensitive).
         9. :const:`MATCH_ALL` : Combination of all the above.
 
 
-        :const:`MATCH_ALLCHARS` is considerably slower than the other tests and
-        provides much less accurate results.
+        :const:`MATCH_ALLCHARS` is considerably slower than the other
+        tests and provides much less accurate results.
 
         **Examples:**
 
@@ -2350,6 +2361,7 @@ class Workflow(object):
 
     def _register_default_magic(self):
         """Register the built-in magic arguments"""
+        # TODO: refactor & simplify
 
         # Wrap callback and message with callable
         def callback(func, msg):

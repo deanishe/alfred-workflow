@@ -230,7 +230,7 @@ def read_manifest(path):
 
 
 def workflows_using_aw(dirpath):
-    for root, dirnames, filenames in os.walk(dirpath):
+    for root, _, filenames in os.walk(dirpath):
         for filename in filenames:
             if not filename.endswith('.alfredworkflow'):
                 continue
@@ -304,7 +304,7 @@ def main():
     output.sort(key=lambda s: s[0].lower())
     output = [t[1] for t in output]
 
-    for i, line in enumerate(output):
+    for line in output:
         print('- {}'.format(line))
 
 

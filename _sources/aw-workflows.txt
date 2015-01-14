@@ -17,7 +17,6 @@ Adding your own workflow to the list
 If you'd like your own workflow added to the list, please see the corresponding
 section in the `GitHub README`_.
 
-Already up-to-date.
 - `Alfred Backblaze <http://www.packal.org/workflow/alfred-backblaze>`__ (`GitHub repo <https://github.com/XedMada/alfred-backblaze>`__)  by `XedMada <http://www.packal.org/users/xedmada>`__ (`on GitHub <https://github.com/XedMada/>`__). Pause and Start Backblaze online backups.
 - `Alfred Dependency Bundler Demo (Python) <http://www.packal.org/workflow/alfred-dependency-bundler-demo-python>`__ (`GitHub repo <https://github.com/deanishe/alfred-bundler-python-demo>`__)  by `deanishe <http://www.packal.org/users/deanishe>`__ (`on GitHub <https://github.com/deanishe/>`__). Demonstration on how to use the Alfred Bundler in Python.
 - `alfred-ime <http://www.packal.org/workflow/ime>`__ (`GitHub repo <https://github.com/owenwater/alfred-ime>`__)  by `owenwater <http://www.packal.org/users/owenwater>`__ (`on GitHub <https://github.com/owenwater/>`__). A Input method workflow based on Google Input Tools.

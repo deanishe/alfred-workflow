@@ -5,3 +5,5 @@ _build/
 temp_*.py
 /MANIFEST
 /dist
+/dbfilter.py
+/pinboard.json

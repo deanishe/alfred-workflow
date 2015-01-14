@@ -301,6 +301,120 @@ it is below 100%.
 
 These are some of the Alfred workflows that use this library.
 
+Updating edc1d2a..7e87144
+Fast-forward
+ .../appcast.xml                                    |   9 +
+ .../hostelworld-search.alfredworkflow              | Bin 0 -> 229024 bytes
+ com.bachya.lpvm/appcast.xml                        |   9 +
+ .../lastpass_vault_manager.alfredworkflow          | Bin 0 -> 159345 bytes
+ com.calebevans.playsong/appcast.xml                |   6 +-
+ com.calebevans.playsong/play_song.alfredworkflow   | Bin 105358 -> 105235 bytes
+ .../alfrededitor.alfredworkflow                    | Bin 0 -> 1278573 bytes
+ com.customct.AlfredEditor/appcast.xml              |   9 +
+ com.customct.CopyMoveWorkflow/appcast.xml          |   6 +-
+ .../copy-moveto.alfredworkflow                     | Bin 16369 -> 17347 bytes
+ com.customct.FoldingTextWorkflow/appcast.xml       |   6 +-
+ .../foldingtextworkflow.alfredworkflow             | Bin 111523 -> 120948 bytes
+ com.customct.Mjolnir/appcast.xml                   |   6 +-
+ .../mjolnirworkflow.alfredworkflow                 | Bin 32240 -> 37255 bytes
+ com.customct.TextWell/appcast.xml                  |   9 +
+ .../textwellworkflow.alfredworkflow                | Bin 0 -> 35414 bytes
+ com.customct.hammerspoon/appcast.xml               |   9 +
+ .../hammerspoonworkflow.alfredworkflow             | Bin 0 -> 43487 bytes
+ com.davidberube.trello-alfred/appcast.xml          |   9 +
+ .../trello.alfredworkflow                          | Bin 0 -> 124123 bytes
+ com.fniephaus.pocket/appcast.xml                   |   6 +-
+ .../pocket-for-alfred.alfredworkflow               | Bin 49281 -> 54753 bytes
+ com.jason0x43.alfred-hue/alfred-hue.alfredworkflow | Bin 2027963 -> 2078530 bytes
+ com.jason0x43.alfred-hue/appcast.xml               |   6 +-
+ .../alfred-toggl.alfredworkflow                    | Bin 1618956 -> 1688819 bytes
+ com.jason0x43.alfred-toggl/appcast.xml             |   6 +-
+ com.kejadlen.forecast/appcast.xml                  |   6 +-
+ com.kejadlen.forecast/forecast.alfredworkflow      | Bin 103900 -> 103962 bytes
+ .../appcast.xml                                    |   9 +
+ .../markdown_note_of_github_repo.alfredworkflow    | Bin 0 -> 11234 bytes
+ com.mcknight.movies/appcast.xml                    |   9 +
+ com.mcknight.movies/movies.alfredworkflow          | Bin 0 -> 1112398 bytes
+ com.robertwdempsey.flux/appcast.xml                |   9 +
+ com.robertwdempsey.flux/f.lux_.alfredworkflow      | Bin 0 -> 7680 bytes
+ com.satyavolu.alfred.hunterdouglas/appcast.xml     |   9 +
+ .../hunter_douglas_platinum_control.alfredworkflow | Bin 0 -> 65542 bytes
+ com.vitorgalvao.alfred.runcommand/appcast.xml      |   6 +-
+ .../runcommand.alfredworkflow                      | Bin 7274 -> 7470 bytes
+ fspinillo.alfredv2.digitalocean/appcast.xml        |   4 +-
+ .../digital_ocean_status.alfredworkflow            | Bin 928817 -> 927582 bytes
+ fspinillo.alfredv2.slackfred/appcast.xml           |   4 +-
+ .../slackfred.alfredworkflow                       | Bin 296426 -> 296595 bytes
+ info.oddgeek.bard/appcast.xml                      |   9 +
+ .../shakespearean_insult_generator.alfredworkflow  | Bin 0 -> 860456 bytes
+ manifest.xml                                       | 338 ++++++++++++++++++---
+ muppet.gate.net.DateCalculator/appcast.xml         |   8 +-
+ ...fredworkflow => date_calculator.alfredworkflow} | Bin 410105 -> 492565 bytes
+ net.deanishe.alfred-convert/appcast.xml            |   6 +-
+ net.deanishe.alfred-convert/convert.alfredworkflow | Bin 233086 -> 237717 bytes
+ net.deanishe.alfred-fakeum/appcast.xml             |   9 +
+ .../fakeum-1.1.alfredworkflow                      | Bin 0 -> 420557 bytes
+ net.deanishe.alfred-git-repos/appcast.xml          |   6 +-
+ .../git_repos.alfredworkflow                       | Bin 222351 -> 248697 bytes
+ net.deanishe.alfred-reddit/appcast.xml             |   9 +
+ .../reddit-1.2.alfredworkflow                      | Bin 0 -> 73125 bytes
+ net.deanishe.alfred-searchio/appcast.xml           |   8 +-
+ ....alfredworkflow => searchio-1.5.alfredworkflow} | Bin 598758 -> 622169 bytes
+ net.deanishe.alfred-stackoverflow/appcast.xml      |   9 +
+ .../stackoverflow-1.1.alfredworkflow               | Bin 0 -> 86964 bytes
+ net.exit4web.hash/appcast.xml                      |   9 +
+ net.exit4web.hash/hash.alfredworkflow              | Bin 0 -> 25689 bytes
+ net.guiguan.Uni-Call/appcast.xml                   |   8 +-
+ net.guiguan.Uni-Call/uni-call.alfredworkflow       | Bin 800576 -> 0 bytes
+ net.guiguan.Uni-Call/uni_call.alfredworkflow       | Bin 0 -> 4479853 bytes
+ so.muk.wishket/appcast.xml                         |   8 +-
+ so.muk.wishket/wishket_search-1.1.alfredworkflow   | Bin 161398 -> 0 bytes
+ so.muk.wishket/wishket_search-1.2.alfredworkflow   | Bin 0 -> 946624 bytes
+ zmin.calendar/appcast.xml                          |   9 +
+ zmin.calendar/calendar.alfredworkflow              | Bin 0 -> 44526 bytes
+ zmin.forvo/appcast.xml                             |   9 +
+ zmin.forvo/forvo.alfredworkflow                    | Bin 0 -> 50440 bytes
+ 71 files changed, 495 insertions(+), 102 deletions(-)
+ create mode 100644 cat.claudi.alfredworkflow.hostelworld.search/appcast.xml
+ create mode 100644 cat.claudi.alfredworkflow.hostelworld.search/hostelworld-search.alfredworkflow
+ create mode 100644 com.bachya.lpvm/appcast.xml
+ create mode 100644 com.bachya.lpvm/lastpass_vault_manager.alfredworkflow
+ create mode 100644 com.customct.AlfredEditor/alfrededitor.alfredworkflow
+ create mode 100644 com.customct.AlfredEditor/appcast.xml
+ create mode 100644 com.customct.TextWell/appcast.xml
+ create mode 100644 com.customct.TextWell/textwellworkflow.alfredworkflow
+ create mode 100644 com.customct.hammerspoon/appcast.xml
+ create mode 100644 com.customct.hammerspoon/hammerspoonworkflow.alfredworkflow
+ create mode 100644 com.davidberube.trello-alfred/appcast.xml
+ create mode 100644 com.davidberube.trello-alfred/trello.alfredworkflow
+ create mode 100644 com.lastobelus.alfred.markdown-note-of-github-repo/appcast.xml
+ create mode 100644 com.lastobelus.alfred.markdown-note-of-github-repo/markdown_note_of_github_repo.alfredworkflow
+ create mode 100644 com.mcknight.movies/appcast.xml
+ create mode 100644 com.mcknight.movies/movies.alfredworkflow
+ create mode 100644 com.robertwdempsey.flux/appcast.xml
+ create mode 100644 com.robertwdempsey.flux/f.lux_.alfredworkflow
+ create mode 100644 com.satyavolu.alfred.hunterdouglas/appcast.xml
+ create mode 100644 com.satyavolu.alfred.hunterdouglas/hunter_douglas_platinum_control.alfredworkflow
+ create mode 100644 info.oddgeek.bard/appcast.xml
+ create mode 100644 info.oddgeek.bard/shakespearean_insult_generator.alfredworkflow
+ rename muppet.gate.net.DateCalculator/{datecalculator.alfredworkflow => date_calculator.alfredworkflow} (70%)
+ create mode 100644 net.deanishe.alfred-fakeum/appcast.xml
+ create mode 100644 net.deanishe.alfred-fakeum/fakeum-1.1.alfredworkflow
+ create mode 100644 net.deanishe.alfred-reddit/appcast.xml
+ create mode 100644 net.deanishe.alfred-reddit/reddit-1.2.alfredworkflow
+ rename net.deanishe.alfred-searchio/{searchio.alfredworkflow => searchio-1.5.alfredworkflow} (90%)
+ create mode 100644 net.deanishe.alfred-stackoverflow/appcast.xml
+ create mode 100644 net.deanishe.alfred-stackoverflow/stackoverflow-1.1.alfredworkflow
+ create mode 100644 net.exit4web.hash/appcast.xml
+ create mode 100644 net.exit4web.hash/hash.alfredworkflow
+ delete mode 100644 net.guiguan.Uni-Call/uni-call.alfredworkflow
+ create mode 100644 net.guiguan.Uni-Call/uni_call.alfredworkflow
+ delete mode 100644 so.muk.wishket/wishket_search-1.1.alfredworkflow
+ create mode 100644 so.muk.wishket/wishket_search-1.2.alfredworkflow
+ create mode 100644 zmin.calendar/appcast.xml
+ create mode 100644 zmin.calendar/calendar.alfredworkflow
+ create mode 100644 zmin.forvo/appcast.xml
+ create mode 100644 zmin.forvo/forvo.alfredworkflow
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze)
   ([GitHub repo](https://github.com/XedMada/alfred-backblaze))
   by [XedMada](http://www.packal.org/users/xedmada)
@@ -332,6 +446,11 @@ These are some of the Alfred workflows that use this library.
 - [Blur](http://www.packal.org/workflow/blur)
   by [Tyler Eich](http://www.packal.org/users/tyler-eich).
   Set Alfred's background blur radius.
+- [Calendar](http://www.packal.org/workflow/calendar)
+  ([GitHub repo](https://github.com/owenwater/alfred-cal))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
+  Displays a monthly calendar with Alfred Workflow.
 - [Code Case](http://www.packal.org/workflow/code-case)
   by [dfay](http://www.packal.org/users/dfay).
   Case Converter for Code.
@@ -371,6 +490,16 @@ These are some of the Alfred workflows that use this library.
 - [Fabric for Alfred](http://www.packal.org/workflow/fabric-alfred)
   by [fniephaus](http://www.packal.org/users/fniephaus).
   Quickly execute Fabric tasks.
+- [Fakeum](http://www.packal.org/workflow/fakeum)
+  ([GitHub repo](https://github.com/deanishe/alfred-fakeum/releases))
+  by [deanishe](http://www.packal.org/users/deanishe)
+  ([on GitHub](https://github.com/deanishe/)).
+  Generate fake test data in Alfred.
+- [Forvo](http://www.packal.org/workflow/forvo)
+  ([GitHub repo](https://github.com/owenwater/alfred-forvo))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
+  A pronunciation workflow based on Forvo.com.
 - [Fuzzy Folders](http://www.packal.org/workflow/fuzzy-folders)
   ([GitHub repo](https://github.com/deanishe/alfred-fuzzyfolders))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -415,11 +544,21 @@ These are some of the Alfred workflows that use this library.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh)
   by [paperElectron](http://www.packal.org/users/paperelectron).
   Choose SSH connection from filterable list.
+- [LastPass Vault Manager](http://www.packal.org/workflow/lastpass-vault-manager)
+  ([GitHub repo](https://github.com/bachya/lp-vault-manager))
+  by [bachya](http://www.packal.org/users/bachya)
+  ([on GitHub](https://github.com/bachya/)).
+  A workflow to interact with a LastPass vault.
 - [LibGen](http://www.packal.org/workflow/libgen)
   ([GitHub repo](https://github.com/smargh/alfred_libgen))
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search and Download pdfs and ebooks from Library Genesis.
+- [Movies](http://www.packal.org/workflow/movies)
+  ([GitHub repo](https://github.com/tmcknight/Movies-Alfred-Workflow))
+  by [tone](http://www.packal.org/users/tone)
+  ([on GitHub](https://github.com/tmcknight/)).
+  Search for movies to find ratings from a few sites.
 - [Network Location](http://www.packal.org/workflow/network-location)
   ([GitHub repo](https://github.com/deanishe/alfred-network-location))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -463,8 +602,15 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Manage your Readability list with Alfred.
+- [Reddit](http://www.packal.org/workflow/reddit)
+  ([GitHub repo](https://github.com/deanishe/alfred-reddit))
+  by [deanishe](http://www.packal.org/users/deanishe)
+  ([on GitHub](https://github.com/deanishe/)).
+  Browse Reddit from Alfred.
 - [Relative Dates](http://www.packal.org/workflow/relative-dates)
-  by [deanishe](http://www.packal.org/users/deanishe).
+  ([GitHub repo](https://github.com/deanishe/alfred-relative-dates))
+  by [deanishe](http://www.packal.org/users/deanishe)
+  ([on GitHub](https://github.com/deanishe/)).
   Generate relative dates based on a simple input format.
 - [Resolve URL](http://www.packal.org/workflow/resolve-url)
   ([GitHub repo](https://github.com/deanishe/alfred-resolve-url))
@@ -499,6 +645,11 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   An Alfred Speed-Reader.
+- [StackOverflow Search](http://www.packal.org/workflow/stackoverflow-search)
+  ([GitHub repo](https://github.com/deanishe/alfred-stackoverflow))
+  by [deanishe](http://www.packal.org/users/deanishe)
+  ([on GitHub](https://github.com/deanishe/)).
+  Search StackOverflow.com from Alfred.
 - [Sublime Text Projects](http://www.packal.org/workflow/sublime-text-projects)
   ([GitHub repo](https://github.com/deanishe/alfred-sublime-text))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -537,6 +688,7 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
+
 
 
 [alfred]: http://www.alfredapp.com/

@@ -19,14 +19,13 @@ import sys
 import os
 import subprocess
 
-INFO_PLIST_TEST = os.path.join(os.path.abspath(os.getcwdu()),
+INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                'info.plist.test')
 
-
-INFO_PLIST_PATH = os.path.join(os.path.dirname(os.path.abspath(os.getcwdu())),
+INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                                'info.plist')
 
-VERSION_PATH = os.path.join(os.path.dirname(os.path.abspath(os.getcwdu())),
+VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                             'version')
 
 
@@ -106,7 +105,7 @@ class WorkflowMock(object):
 
 
 class VersionFile(object):
-    """Context manager to create and delete version file"""
+    """Context manager to create and delete `version` file"""
 
     def __init__(self, version, path=None):
 
@@ -116,17 +115,40 @@ class VersionFile(object):
     def __enter__(self):
         with open(self.path, 'wb') as fp:
             fp.write(self.version)
+        print('version {0} in {1}'.format(self.version, self.path),
+              file=sys.stderr)
 
     def __exit__(self, *args):
         if os.path.exists(self.path):
             os.unlink(self.path)
 
 
-def create_info_plist():
-    if not os.path.exists(INFO_PLIST_PATH):
-        os.symlink(INFO_PLIST_TEST, INFO_PLIST_PATH)
+class InfoPlist(object):
+    """Context manager to create and delete `info.plist` out of the way"""
+
+    def __init__(self, path=None, dest_path=None, present=True):
+
+        self.path = path or INFO_PLIST_TEST
+        self.dest_path = dest_path or INFO_PLIST_PATH
+        # Whether or not Info.plist should be created or deleted
+        self.present = present
+
+    def __enter__(self):
+        if self.present:
+            create_info_plist(self.path, self.dest_path)
+        else:
+            delete_info_plist(self.dest_path)
+
+    def __exit__(self, *args):
+        if self.present:
+            delete_info_plist(self.dest_path)
 
 
-def delete_info_plist():
-    if os.path.exists(INFO_PLIST_PATH):
-        os.unlink(INFO_PLIST_PATH)
+def create_info_plist(source=INFO_PLIST_TEST, dest=INFO_PLIST_PATH):
+    if os.path.exists(source) and not os.path.exists(dest):
+        os.symlink(source, dest)
+
+
+def delete_info_plist(path=INFO_PLIST_PATH):
+    if os.path.exists(path) and os.path.islink(path):
+        os.unlink(path)

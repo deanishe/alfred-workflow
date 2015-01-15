@@ -16,9 +16,11 @@ from __future__ import print_function
 
 import unittest
 import os
+import time
 
-from util import WorkflowMock
+from util import WorkflowMock, create_info_plist, delete_info_plist
 from workflow import Workflow, update
+from workflow.background import is_running
 
 RELEASE_LATEST = '6.0'
 RELEASE_OLDEST = '1.0'
@@ -48,7 +50,11 @@ URL_BAD = 'http://github.com/file.zip'
 class UpdateTests(unittest.TestCase):
 
     def setUp(self):
+        create_info_plist()
         self.wf = Workflow()
+
+    def tearDown(self):
+        delete_info_plist()
 
     def test_download_workflow(self):
         """Update: Download workflow update"""
@@ -174,6 +180,64 @@ class UpdateTests(unittest.TestCase):
 
         self.assertTrue(self.wf.cached_data('__workflow_update_status') is
                         None)
+
+    def test_workflow_update_methods(self):
+        """Workflow update methods"""
+
+        def fake(wf):
+            return
+
+        Workflow().reset()
+        # Initialise with outdated version
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        })
+
+        wf.run(fake)
+
+        # Check won't have completed yet
+        self.assertFalse(wf.update_available)
+
+        # wait for background update check
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
+            time.sleep(0.05)
+        time.sleep(1)
+
+        # There *is* a newer version in the repo
+        self.assertTrue(wf.update_available)
+
+        # Mock out subprocess and check the correct command is run
+        c = WorkflowMock()
+        with c:
+            self.assertTrue(wf.start_update())
+        # wf.logger.debug('start_update : {}'.format(c.cmd))
+        self.assertEquals(c.cmd[0], '/usr/bin/python')
+        self.assertEquals(c.cmd[2], '__workflow_update_install')
+
+        # Grab the updated release data, then reset the cache
+        update_info = wf.cached_data('__workflow_update_status')
+
+        wf.reset()
+
+        # Initialise with latest available release
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': update_info['version'],
+        })
+
+        wf.run(fake)
+
+        # Wait for background update check
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
+            time.sleep(0.05)
+
+        # Remote version is same as the one we passed to Workflow
+        self.assertFalse(wf.update_available)
+        self.assertFalse(wf.start_update())
 
 
 if __name__ == '__main__':  # pragma: no cover

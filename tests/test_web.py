@@ -23,7 +23,6 @@ import shutil
 import socket
 import sys
 import tempfile
-import urllib2
 from base64 import b64decode
 from pprint import pprint
 from workflow import web

@@ -16,6 +16,8 @@ import os
 import unittest
 from time import sleep
 
+from util import create_info_plist, delete_info_plist
+
 from workflow import Workflow
 from workflow.background import is_running, run_in_background
 
@@ -23,10 +25,13 @@ from workflow.background import is_running, run_in_background
 class BackgroundTests(unittest.TestCase):
 
     def setUp(self):
-        self.wf = Workflow()
+        create_info_plist()
+
+    def tearDown(self):
+        delete_info_plist()
 
     def _pidfile(self, name):
-        return self.wf.cachefile('{0}.pid'.format(name))
+        return Workflow().cachefile('{0}.pid'.format(name))
 
     def _write_pidfile(self, name, pid):
         pidfile = self._pidfile(name)
@@ -57,6 +62,7 @@ class BackgroundTests(unittest.TestCase):
 
     def test_run_in_background(self):
         """Run in background"""
+        self.assertTrue(os.path.exists('info.plist'))
         cmd = ['sleep', '1']
         run_in_background('test', cmd)
         sleep(0.5)

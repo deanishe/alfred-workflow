@@ -34,10 +34,18 @@ import web
 
 # __all__ = []
 
-wf = workflow.Workflow()
-log = wf.logger
 
 RELEASES_BASE = 'https://api.github.com/repos/{0}/releases'
+
+
+_wf = None
+
+
+def wf():
+    global _wf
+    if _wf is None:
+        _wf = workflow.Workflow()
+    return _wf
 
 
 class Version(object):
@@ -90,7 +98,7 @@ class Version(object):
                             suffix))
                 self.suffix = suffix[1:]
 
-        # log.debug('version str `{}` -> {}'.format(vstr, repr(self)))
+        # wf().logger.debug('version str `{}` -> {}'.format(vstr, repr(self)))
 
     def _parse_dotted_string(self, s):
         """Parse string ``s`` into list of ints and strings"""
@@ -175,8 +183,9 @@ def download_workflow(url):
 
     local_path = os.path.join(tempfile.gettempdir(), filename)
 
-    log.debug('Downloading updated workflow from `{0}` to `{1}` ...'.format(
-              url, local_path))
+    wf().logger.debug(
+        'Downloading updated workflow from `{0}` to `{1}` ...'.format(
+            url, local_path))
 
     response = web.get(url)
 
@@ -218,15 +227,17 @@ def get_valid_releases(github_slug):
     api_url = build_api_url(github_slug)
     releases = []
 
-    log.debug('Retrieving releases list from `{0}` ...'.format(api_url))
+    wf().logger.debug('Retrieving releases list from `{0}` ...'.format(
+                       api_url))
 
     def retrieve_releases():
-        log.info('Retriving releases for `{0}` ...'.format(github_slug))
+        wf().logger.info(
+            'Retrieving releases for `{0}` ...'.format(github_slug))
         return web.get(api_url).json()
 
     slug = github_slug.replace('/', '-')
-    for release in wf.cached_data('gh-releases-{0}'.format(slug),
-                                  retrieve_releases):
+    for release in wf().cached_data('gh-releases-{0}'.format(slug),
+                                     retrieve_releases):
         version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):
@@ -237,19 +248,19 @@ def get_valid_releases(github_slug):
 
         # Validate release
         if release['prerelease']:
-            log.warning(
+            wf().logger.warning(
                 'Invalid release {0} : pre-release detected'.format(version))
             continue
         if not download_urls:
-            log.warning(
+            wf().logger.warning(
                 'Invalid release {0} : No workflow file'.format(version))
             continue
         if len(download_urls) > 1:
-            log.warning(
+            wf().logger.warning(
                 'Invalid release {0} : multiple workflow files'.format(version))
             continue
 
-        log.debug('Release `{0}` : {1}'.format(version, url))
+        wf().logger.debug('Release `{0}` : {1}'.format(version, url))
         releases.append({'version': version, 'download_url': download_urls[0]})
 
     return releases
@@ -271,7 +282,8 @@ def check_update(github_slug, current_version):
 
     releases = get_valid_releases(github_slug)
 
-    log.info('{0} releases for {1}'.format(len(releases), github_slug))
+    wf().logger.info('{0} releases for {1}'.format(len(releases),
+                                                    github_slug))
 
     if not len(releases):
         raise ValueError('No valid releases for {0}'.format(github_slug))
@@ -282,10 +294,10 @@ def check_update(github_slug, current_version):
     # (latest_version, download_url) = get_latest_release(releases)
     vr = Version(latest_release['version'])
     vl = Version(current_version)
-    log.debug('Latest : {0!r} Installed : {1!r}'.format(vr, vl))
+    wf().logger.debug('Latest : {0!r} Installed : {1!r}'.format(vr, vl))
     if vr > vl:
 
-        wf.cache_data('__workflow_update_status', {
+        wf().cache_data('__workflow_update_status', {
             'version': latest_release['version'],
             'download_url': latest_release['download_url'],
             'available': True
@@ -293,7 +305,7 @@ def check_update(github_slug, current_version):
 
         return True
 
-    wf.cache_data('__workflow_update_status', {
+    wf().cache_data('__workflow_update_status', {
         'available': False
     })
     return False
@@ -314,19 +326,19 @@ def install_update(github_slug, current_version):
     """
     # TODO: `github_slug` and `current_version` are both unusued.
 
-    update_data = wf.cached_data('__workflow_update_status', max_age=0)
+    update_data = wf().cached_data('__workflow_update_status', max_age=0)
 
     if not update_data or not update_data.get('available'):
-        wf.logger.info('No update available')
+        wf().logger.info('No update available')
         return False
 
     local_file = download_workflow(update_data['download_url'])
 
-    log.info('Installing updated workflow ...')
+    wf().logger.info('Installing updated workflow ...')
     subprocess.call(['open', local_file])
 
     update_data['available'] = False
-    wf.cache_data('__workflow_update_status', update_data)
+    wf().cache_data('__workflow_update_status', update_data)
     return True
 
 

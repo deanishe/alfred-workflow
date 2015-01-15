@@ -27,7 +27,7 @@ import urllib2
 import zlib
 
 
-USER_AGENT = u'alfred-workflow-0.1'
+USER_AGENT = u'Alfred-Workflow/1.10.3 (http://www.deanishe.net)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -215,7 +215,9 @@ class Response(object):
                 self.url = err.geturl()
             # sometimes (e.g. when authentication fails)
             # urllib can't get a URL from an HTTPError
-            except AttributeError:
+            # This behaviour changes across Python versions,
+            # so no test cover (it isn't important).
+            except AttributeError:  # pragma: no cover
                 pass
             self.status_code = err.code
         else:

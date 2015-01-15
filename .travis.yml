@@ -7,7 +7,7 @@ before_install:
   - brew install duti
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 install:
-  - sudo pip install tox
+  - sudo pip install tox coveralls
 script:
   - tox -e $TOX_ENV
 after_success:

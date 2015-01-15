@@ -794,12 +794,10 @@ class WorkflowTests(unittest.TestCase):
         # wait for background update check
         self.assertTrue(is_running('__workflow_update_check'))
         while is_running('__workflow_update_check'):
-            print('__workflow_update_check running ...', file=sys.stderr)
             time.sleep(0.05)
         time.sleep(1)
 
         # There *is* a newer version in the repo
-        print(wf.settings, file=sys.stderr)
         self.assertTrue(wf.update_available)
 
         # Mock out subprocess and check the correct command is run

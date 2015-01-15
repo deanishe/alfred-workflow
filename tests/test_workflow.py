@@ -143,6 +143,7 @@ class WorkflowTests(unittest.TestCase):
         self.account = 'this-is-my-test-account'
         self.password = 'this-is-my-safe-password'
         self.password2 = 'this-is-my-other-safe-password'
+        self.password3 = 'this-pässwörd-is\\"non-ASCII"'
         self.search_items = [
             ('Test Item One', MATCH_STARTSWITH),
             ('test item two', MATCH_STARTSWITH),
@@ -849,6 +850,9 @@ class WorkflowTests(unittest.TestCase):
         # try to set different password
         self.wf.save_password(self.account, self.password2)
         self.assertEqual(self.wf.get_password(self.account), self.password2)
+        # try to set non-ASCII password
+        self.wf.save_password(self.account, self.password3)
+        self.assertEqual(self.wf.get_password(self.account), self.password3)
         # bad call to _call_security
         self.assertRaises(KeychainError, self.wf._call_security,
                           'pants', BUNDLE_ID, self.account)

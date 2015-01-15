@@ -17,6 +17,7 @@ up your Python script to best utilise the :class:`Workflow` object.
 
 from __future__ import print_function, unicode_literals
 
+import binascii
 import os
 import sys
 import string
@@ -2329,8 +2330,23 @@ class Workflow(object):
         if not service:
             service = self.bundleid
 
-        password = self._call_security('find-generic-password', service,
-                                       account, '-w')
+        output = self._call_security('find-generic-password', service,
+                                     account, '-g')
+
+        # Parsing of `security` output is adapted from python-keyring
+        # by Jason R. Coombs
+        # https://pypi.python.org/pypi/keyring
+        m = re.search(
+            r'password:\s*(?:0x(?P<hex>[0-9A-F]+)\s*)?(?:"(?P<pw>.*)")?',
+            output)
+
+        if m:
+            groups = m.groupdict()
+            h = groups.get('hex')
+            password = groups.get('pw')
+            if h:
+                password = unicode(binascii.unhexlify(h), 'utf-8')
+
         self.logger.debug('Got password : %s:%s', service, account)
 
         return password

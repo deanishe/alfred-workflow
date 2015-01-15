@@ -123,8 +123,8 @@ Or like this::
 Documentation
 =============
 
-Detailed documentation, including a tutorial and API docs, is
-available at `Read the Docs <http://alfredworkflow.readthedocs.org/en/latest/>`_.
+Detailed documentation, including a tutorial, is available at
+http://www.deanishe.net/alfred-workflow/.
 
 .. _requests: http://docs.python-requests.org/en/latest/
 .. _Alfred 2: http://www.alfredapp.com/

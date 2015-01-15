@@ -12,6 +12,7 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 [![License][shield-licence]][pypi]
 [![Downloads][shield-download]][pypi]
 
+Supports OS X 10.6+ (Python 2.6 and 2.7).
 
 ## Features ##
 
@@ -105,9 +106,7 @@ Or this:
 
 **Note:** the `background.py` module will not work from within a zip archive.
 
-Alternatively, you can clone/download the Alfred-Workflow
-[repository][repo] and copy the
-`workflow` subdirectory to your workflow's root directory.
+Alternatively, you can clone/download the Alfred-Workflow [repository][repo] and copy the `workflow` subdirectory to your workflow's root directory.
 
 ## Usage ##
 
@@ -228,6 +227,12 @@ licences respectively. See [LICENCE.txt](LICENCE.txt) for details.
 The documentation was generated using [Sphinx][sphinx] using
 the [Read the Docs][rtd] theme.
 
+Many of the cooler ideas in Alfred-Workflow were inspired by
+[Alfred2-Ruby-Template][ruby-template] by Zhaocai.
+
+The Keychain parser was based on [Python-Keyring][python-keyring] by Jason R.
+Coombs.
+
 ## Contributing ##
 
 ### Adding a workflow to the list ###
@@ -279,12 +284,14 @@ Currently, there is Travis-CI integration, but also a `run-tests.sh` script in
 the root directory of the repo which will fail *if code coverage is less than
 100%* (Travis-CI also uses this script). Add `# pragma: no cover` with care.
 
+
 ### Contributors ###
 
 - [Dean Jackson][deanishe]
 - [Stephen Margheim][smargh]
 - [Fabio Niephaus][fniephaus]
 - [Owen Min][owenwater]
+
 
 ## Tests ##
 
@@ -296,6 +303,7 @@ suites for the other modules may also be run directly.
 
 Moreover, `run-tests.sh` checks the coverage of the unit tests and will fail if
 it is below 100%.
+
 
 ## Workflows using Alfred-Workflow ##
 
@@ -609,3 +617,5 @@ These are some of the Alfred workflows that use this library.
 [travis]: https://travis-ci.org/deanishe/alfred-workflow
 [cheeseshop]: https://pypi.python.org/pypi
 [pip-docs]: https://pip.pypa.io/en/latest/
+[ruby-template]: http://zhaocai.github.io/alfred2-ruby-template/
+[python-keyring]: https://pypi.python.org/pypi/keyring

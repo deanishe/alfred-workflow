@@ -21,7 +21,9 @@ import urllib2
 import json
 import shutil
 import socket
+import sys
 import tempfile
+import urllib2
 from base64 import b64decode
 from pprint import pprint
 from workflow import web
@@ -70,7 +72,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
             self.assertTrue(k.upper() in d)
             self.assertTrue(k.title() in d)
 
-        self.assertIsNone(d.get('This is not a key'))
+        self.assertTrue(d.get('This is not a key') is None)
         self.assertFalse('This is not a key' in d)
 
     def test_set(self):
@@ -90,7 +92,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
         d2 = {'Dogs': 'd', 'Elephants': 'e'}
         for k, v in d2.items():
             self.assertFalse(k in d)
-            self.assertIsNone(d.get(k))
+            self.assertTrue(d.get(k) is None)
 
         d.update(d2)
 
@@ -129,7 +131,7 @@ class WebTests(unittest.TestCase):
         self.fubar_bytes = b'fübar'
         self.fubar_unicode = 'fübar'
         self.tempdir = os.path.join(tempfile.gettempdir(),
-                                    'web_py.{:d}.tmp'.format(os.getpid()))
+                                    'web_py.{0:d}.tmp'.format(os.getpid()))
 
     def tearDown(self):
         if os.path.exists(self.tempdir):
@@ -178,7 +180,7 @@ class WebTests(unittest.TestCase):
         data = r.json()
         pprint(data)
         self.assertEqual(data['headers']['Content-Type'],
-                          'application/json')
+                         'application/json')
         for key in self.data:
             self.assert_(data['json'][key] == self.data[key])
         return
@@ -186,7 +188,10 @@ class WebTests(unittest.TestCase):
     def test_timeout(self):
         """Request times out"""
         url = BASE_URL + 'delay/10'
-        self.assertRaises(socket.timeout, web.get, url, timeout=5)
+        if sys.version_info < (2, 7):
+            self.assertRaises(urllib2.URLError, web.get, url, timeout=5)
+        else:
+            self.assertRaises(socket.timeout, web.get, url, timeout=5)
 
     def test_encoding(self):
         """HTML is decoded"""

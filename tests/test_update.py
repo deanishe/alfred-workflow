@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #
-# Copyright (c) 2014 Fabio Niephaus <fabio.niephaus@gmail.com>, Dean Jackson <deanishe@deanishe.net>
+# Copyright (c) 2014 Fabio Niephaus <fabio.niephaus@gmail.com>,
+# Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
@@ -52,8 +53,7 @@ class UpdateTests(unittest.TestCase):
     def test_download_workflow(self):
         """Update: Download workflow update"""
 
-        with self.assertRaises(ValueError):
-            update.download_workflow(URL_BAD)
+        self.assertRaises(ValueError, update.download_workflow, URL_BAD)
 
         local_file = update.download_workflow(URL_DL)
 
@@ -69,14 +69,14 @@ class UpdateTests(unittest.TestCase):
     def test_invalid_api_url(self):
         """Update: API URL for invalid slug"""
 
-        with self.assertRaises(ValueError):
-            update.build_api_url('fniephausalfred-workflow')
+        self.assertRaises(ValueError, update.build_api_url,
+                          'fniephausalfred-workflow')
 
     def test_empty_repo(self):
         """Update: no releases"""
 
-        with self.assertRaises(ValueError):
-            update.check_update(EMPTY_REPO_SLUG, '1.0')
+        self.assertRaises(ValueError, update.check_update,
+                          EMPTY_REPO_SLUG, '1.0')
 
         self.assertEquals(len(update.get_valid_releases(EMPTY_REPO_SLUG)), 0)
 
@@ -129,7 +129,7 @@ class UpdateTests(unittest.TestCase):
         wf.reset()
 
         # Verify that there's no update available
-        self.assertIsNone(wf.cached_data('__workflow_update_status'))
+        self.assertTrue(wf.cached_data('__workflow_update_status') is None)
 
         self.assertFalse(update.install_update(TEST_REPO_SLUG,
                                                RELEASE_LATEST))
@@ -155,7 +155,8 @@ class UpdateTests(unittest.TestCase):
         wf = Workflow()
         wf.reset()
 
-        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+                        None)
 
         wf = Workflow()
         c = WorkflowMock(['script', 'workflow:noautoupdate'])
@@ -163,14 +164,16 @@ class UpdateTests(unittest.TestCase):
             wf.args
         self.assertFalse(wf.settings.get('__workflow_autoupdate'))
 
-        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+                        None)
 
         c = WorkflowMock()
         with c:
             wf = Workflow(update_settings={'github_slug': TEST_REPO_SLUG,
                           'version': RELEASE_CURRENT})
 
-        self.assertIsNone(self.wf.cached_data('__workflow_update_status'))
+        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+                        None)
 
 
 if __name__ == '__main__':  # pragma: no cover

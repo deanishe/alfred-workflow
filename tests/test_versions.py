@@ -44,8 +44,7 @@ class VersionTests(unittest.TestCase):
     def test_invalid_versions(self):
         """Versions: invalid versions"""
         for v in self.invalid_versions:
-            with self.assertRaises(ValueError):
-                Version(v)
+            self.assertRaises(ValueError, Version, v)
 
     def test_valid_versions(self):
         """Versions: valid versions"""
@@ -55,22 +54,30 @@ class VersionTests(unittest.TestCase):
             else:
                 vin = vout = v
             self.assertEqual(str(Version(vin)), vout)
-            self.assertEqual(str(Version('v{}'.format(vin))), vout)
+            self.assertEqual(str(Version('v{0}'.format(vin))), vout)
 
     def test_compare_bad_objects(self):
         """Versions: invalid comparisons"""
-        with self.assertRaises(ValueError):
-            Version('1.0.0') == (1, 0, 0)
-        with self.assertRaises(ValueError):
-            Version('1.0.0') >= (1, 0, 0)
-        with self.assertRaises(ValueError):
-            Version('1.0.0') <= (1, 0, 0)
-        with self.assertRaises(ValueError):
-            Version('1.0.0') != (1, 0, 0)
-        with self.assertRaises(ValueError):
-            Version('1.0.0') > (1, 0, 0)
-        with self.assertRaises(ValueError):
-            Version('1.0.0') < (1, 0, 0)
+        v = Version('1.0.0')
+        t = (1, 0, 0)
+        self.assertRaises(ValueError, lambda v, t: v == t, v, t)
+        self.assertRaises(ValueError, lambda v, t: v >= t, v, t)
+        self.assertRaises(ValueError, lambda v, t: v <= t, v, t)
+        self.assertRaises(ValueError, lambda v, t: v != t, v, t)
+        self.assertRaises(ValueError, lambda v, t: v > t, v, t)
+        self.assertRaises(ValueError, lambda v, t: v < t, v, t)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') == (1, 0, 0)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') >= (1, 0, 0)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') <= (1, 0, 0)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') != (1, 0, 0)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') > (1, 0, 0)
+        # with self.assertRaises(ValueError):
+        #     Version('1.0.0') < (1, 0, 0)
 
     def test_compare_versions(self):
         """Versions: comparisons"""

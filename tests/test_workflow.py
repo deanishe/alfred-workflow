@@ -85,7 +85,7 @@ class SerializerTests(unittest.TestCase):
 
         for name in self.serializers:
             serializer = manager.serializer(name)
-            path = os.path.join(self.tempdir, 'test.{}'.format(name))
+            path = os.path.join(self.tempdir, 'test.{0}'.format(name))
             self.assertFalse(os.path.exists(path))
 
             with open(path, 'wb') as file_obj:
@@ -116,8 +116,7 @@ class SerializerTests(unittest.TestCase):
             self.assertEqual(manager.serializer(name), None)
 
         for name in self.serializers:
-            with self.assertRaises(ValueError):
-                manager.unregister(name)
+            self.assertRaises(ValueError, manager.unregister, name)
 
         for name in self.serializers:
             serializer = serializers[name]
@@ -132,10 +131,8 @@ class SerializerTests(unittest.TestCase):
         invalid2 = Thing()
         setattr(invalid2, 'load', lambda x: x)
 
-        with self.assertRaises(AttributeError):
-            manager.register('bork', invalid1)
-        with self.assertRaises(AttributeError):
-            manager.register('bork', invalid2)
+        self.assertRaises(AttributeError, manager.register, 'bork', invalid1)
+        self.assertRaises(AttributeError, manager.register, 'bork', invalid2)
 
 
 class WorkflowTests(unittest.TestCase):
@@ -193,10 +190,10 @@ class WorkflowTests(unittest.TestCase):
             'alfred_workflow_bundleid': str(BUNDLE_ID),
             'alfred_workflow_cache':
             os.path.expanduser(b'~/Library/Caches/com.runningwithcrayons.'
-                               b'Alfred-2/Workflow Data/{}'.format(BUNDLE_ID)),
+                               b'Alfred-2/Workflow Data/{0}'.format(BUNDLE_ID)),
             'alfred_workflow_data':
             os.path.expanduser(b'~/Library/Application Support/Alfred 2/'
-                               b'Workflow Data/{}'.format(BUNDLE_ID)),
+                               b'Workflow Data/{0}'.format(BUNDLE_ID)),
             'alfred_workflow_name': b'Alfred-Workflow Test',
             'alfred_workflow_uid':
             b'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
@@ -368,8 +365,7 @@ class WorkflowTests(unittest.TestCase):
         delete_info_plist()
         self._teardown_env()
         try:
-            with self.assertRaises(IOError):
-                Workflow()
+            self.assertRaises(IOError, Workflow)
         finally:
             create_info_plist()
 
@@ -440,8 +436,7 @@ class WorkflowTests(unittest.TestCase):
             wf = Workflow(default_settings={'arg1': 'value1'})
             self.assertEqual(wf.settings['arg1'], 'value1')
             self.assertTrue(os.path.exists(wf.settings_path))
-            with self.assertRaises(SystemExit):
-                wf.args
+            self.assertRaises(SystemExit, lambda wf: wf.args, wf)
             self.assertFalse(os.path.exists(wf.settings_path))
         finally:
             sys.argv = oargs[:]
@@ -458,8 +453,7 @@ class WorkflowTests(unittest.TestCase):
             os.makedirs(cachepath)
             wf.cached_data('test', somedata)
             self.assertTrue(os.path.exists(wf.cachefile('test.cpickle')))
-            with self.assertRaises(SystemExit):
-                wf.args
+            self.assertRaises(SystemExit, lambda wf: wf.args, wf)
             self.assertFalse(os.path.exists(wf.cachefile('test.cpickle')))
         finally:
             sys.argv = oargs[:]
@@ -593,8 +587,11 @@ class WorkflowTests(unittest.TestCase):
     def test_cache_serializer(self):
         """Cache serializer"""
         self.assertEqual(self.wf.cache_serializer, 'cpickle')
-        with self.assertRaises(ValueError):
-            self.wf.cache_serializer = 'non-existent'
+
+        def set_serializer(wf, serializer):
+            wf.cache_serializer = serializer
+
+        self.assertRaises(ValueError, set_serializer, self.wf, 'non-existent')
         self.assertEqual(self.wf.cache_serializer, 'cpickle')
         self.wf.cache_serializer = 'pickle'
         self.assertEqual(self.wf.cache_serializer, 'pickle')
@@ -643,8 +640,11 @@ class WorkflowTests(unittest.TestCase):
     def test_data_serializer(self):
         """Data serializer"""
         self.assertEqual(self.wf.data_serializer, 'cpickle')
-        with self.assertRaises(ValueError):
-            self.wf.data_serializer = 'non-existent'
+
+        def set_serializer(wf, serializer):
+            wf.data_serializer = serializer
+
+        self.assertRaises(ValueError, set_serializer, self.wf, 'non-existent')
         self.assertEqual(self.wf.data_serializer, 'cpickle')
         self.wf.data_serializer = 'pickle'
         self.assertEqual(self.wf.data_serializer, 'pickle')
@@ -675,7 +675,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_non_existent_stored_data(self):
         """Non-existent stored data"""
-        self.assertIsNone(self.wf.stored_data('banjo magic'))
+        self.assertTrue(self.wf.stored_data('banjo magic') is None)
 
     def test_borked_stored_data(self):
         """Borked stored data"""
@@ -689,15 +689,14 @@ class WorkflowTests(unittest.TestCase):
         self.wf.store_data('test', data)
         metadata, datapath = self._stored_data_paths('test', 'cpickle')
         os.unlink(datapath)
-        self.assertIsNone(self.wf.stored_data('test'))
+        self.assertTrue(self.wf.stored_data('test') is None)
 
         self.wf.store_data('test', data)
         metadata, datapath = self._stored_data_paths('test', 'cpickle')
         with open(metadata, 'wb') as file_obj:
             file_obj.write('bangers and mash')
             self.wf.logger.debug('Changed format to `bangers and mash`')
-        with self.assertRaises(ValueError):
-            self.wf.stored_data('test')
+        self.assertRaises(ValueError, self.wf.stored_data, 'test')
 
     def test_reject_settings(self):
         """Disallow settings.json"""
@@ -705,15 +704,14 @@ class WorkflowTests(unittest.TestCase):
 
         self.wf.data_serializer = 'json'
 
-        with self.assertRaises(ValueError):
-            self.wf.store_data('settings', data)
+        self.assertRaises(ValueError, self.wf.store_data, 'settings', data)
 
     def test_invalid_data_serializer(self):
         """Invalid data serializer"""
         data = {'key7': 'value7'}
 
-        with self.assertRaises(ValueError):
-            self.wf.store_data('test', data, 'spong')
+        self.assertRaises(ValueError, self.wf.store_data, 'test', data,
+                          'spong')
 
     ####################################################################
     # Data deletion
@@ -796,10 +794,12 @@ class WorkflowTests(unittest.TestCase):
         # wait for background update check
         self.assertTrue(is_running('__workflow_update_check'))
         while is_running('__workflow_update_check'):
+            print('__workflow_update_check running ...', file=sys.stderr)
             time.sleep(0.05)
         time.sleep(1)
 
         # There *is* a newer version in the repo
+        print(wf.settings, file=sys.stderr)
         self.assertTrue(wf.update_available)
 
         # Mock out subprocess and check the correct command is run
@@ -852,8 +852,8 @@ class WorkflowTests(unittest.TestCase):
         self.wf.save_password(self.account, self.password2)
         self.assertEqual(self.wf.get_password(self.account), self.password2)
         # bad call to _call_security
-        with self.assertRaises(KeychainError):
-            self.wf._call_security('pants', BUNDLE_ID, self.account)
+        self.assertRaises(KeychainError, self.wf._call_security,
+                          'pants', BUNDLE_ID, self.account)
 
     ####################################################################
     # Running workflow
@@ -908,7 +908,7 @@ class WorkflowTests(unittest.TestCase):
                                  include_score=True, match_on=MATCH_ALL)
         self.assertEqual(len(results), 8)
         for item, score, rule in results:
-            self.wf.logger.debug('{} : {}'.format(item, score))
+            self.wf.logger.debug('{0} : {1}'.format(item, score))
             for value, r in self.search_items:
                 if value == item[0]:
                     self.assertEqual(rule, r)
@@ -999,11 +999,9 @@ class WorkflowTests(unittest.TestCase):
     def test_filter_empty_query_words(self):
         """Filter: empty query raises error"""
         data = ['bob', 'sue', 'henry']
-        with self.assertRaises(ValueError):
-            self.wf.filter('   ', data)
+        self.assertRaises(ValueError, self.wf.filter, '   ', data)
 
-        with self.assertRaises(ValueError):
-            self.wf.filter('', data)
+        self.assertRaises(ValueError, self.wf.filter, '', data)
 
     def test_filter_empty_query_words_ignored(self):
         """Filter: empty query words ignored"""
@@ -1115,8 +1113,7 @@ class WorkflowTests(unittest.TestCase):
     def test_first_run_no_version(self):
         """Workflow: first_run fails on no version"""
         wf = Workflow()
-        with self.assertRaises(ValueError):
-            wf.first_run
+        self.assertRaises(ValueError, lambda wf: wf.first_run, wf)
 
     def test_first_run_with_version(self):
         """Workflow: first_run"""
@@ -1140,7 +1137,7 @@ class WorkflowTests(unittest.TestCase):
     def test_last_version_empty(self):
         """Workflow: last_version_run empty"""
         wf = Workflow()
-        self.assertIsNone(wf.last_version_run)
+        self.assertTrue(wf.last_version_run is None)
 
     def test_last_version_on(self):
         """Workflow: last_version_run not empty"""
@@ -1161,7 +1158,7 @@ class WorkflowTests(unittest.TestCase):
     def test_versions_no_version(self):
         """Workflow: version is `None`"""
         wf = Workflow()
-        self.assertIsNone(wf.version)
+        self.assertTrue(wf.version is None)
         wf.reset()
 
     def test_last_version_no_version(self):
@@ -1196,7 +1193,7 @@ class WorkflowTests(unittest.TestCase):
 
         with VersionFile(vstr):
             wf = Workflow()
-            self.assertIsNone(wf.last_version_run)
+            self.assertTrue(wf.last_version_run is None)
             wf.run(cb)
 
             wf = Workflow()
@@ -1210,12 +1207,12 @@ class WorkflowTests(unittest.TestCase):
     def _print_results(self, results):
         """Print results of Workflow.filter"""
         for item, score, rule in results:
-            print('{!r} (rule {}) : {}'.format(item[0], rule, score))
+            print('{0!r} (rule {1}) : {2}'.format(item[0], rule, score))
 
     def _stored_data_paths(self, name, serializer):
         """Return list of paths created when storing data"""
-        metadata = self.wf.datafile('.{}.alfred-workflow'.format(name))
-        datapath = self.wf.datafile('{}.{}'.format(name, serializer))
+        metadata = self.wf.datafile('.{0}.alfred-workflow'.format(name))
+        datapath = self.wf.datafile('{0}.{1}'.format(name, serializer))
         return [metadata, datapath]
 
     def _setup_env(self):
@@ -1250,7 +1247,7 @@ class MagicArgsTests(unittest.TestCase):
             # Process magic arguments
             wf.args
         self.assertEquals(len(c.cmd), 0)
-        wf.logger.debug('STDERR : {}'.format(c.stderr))
+        wf.logger.debug('STDERR : {0}'.format(c.stderr))
 
     def test_version_magic(self):
         """Magic: version magic"""
@@ -1266,7 +1263,7 @@ class MagicArgsTests(unittest.TestCase):
                 # Process magic arguments
                 wf.args
         self.assertEquals(len(c.cmd), 0)
-        wf.logger.debug('STDERR : {}'.format(c.stderr))
+        wf.logger.debug('STDERR : {0}'.format(c.stderr))
 
         # Unversioned
         c = WorkflowMock(['script', 'workflow:version'])
@@ -1415,7 +1412,8 @@ class MagicArgsTests(unittest.TestCase):
         c = WorkflowMock(['script', 'workflow:foldingdefault'])
         with c:
             wf.args
-        self.assertIsNone(wf.settings.get('__workflow_diacritic_folding'))
+        self.assertTrue(wf.settings.get('__workflow_diacritic_folding')
+                        is None)
 
         wf = Workflow()
         c = WorkflowMock(['script', 'workflow:foldingon'])
@@ -1427,7 +1425,8 @@ class MagicArgsTests(unittest.TestCase):
         c = WorkflowMock(['script', 'workflow:foldingdefault'])
         with c:
             wf.args
-        self.assertIsNone(wf.settings.get('__workflow_diacritic_folding'))
+        self.assertTrue(wf.settings.get('__workflow_diacritic_folding') is
+                        None)
 
         wf = Workflow()
         c = WorkflowMock(['script', 'workflow:foldingoff'])
@@ -1488,7 +1487,7 @@ class MagicArgsTests(unittest.TestCase):
             wf.run(fake)
             wf.args
 
-        wf.logger.debug('Magic update command : {}'.format(c.cmd))
+        wf.logger.debug('Magic update command : {0}'.format(c.cmd))
 
         self.assertEquals(c.cmd[0], '/usr/bin/python')
         self.assertEquals(c.cmd[2], '__workflow_update_install')
@@ -1519,7 +1518,7 @@ class MagicArgsTests(unittest.TestCase):
         }
         wf = Workflow(update_settings=update_settings)
         wf.settings['__workflow_autoupdate'] = False
-        self.assertIsNone(wf.check_update())
+        self.assertTrue(wf.check_update() is None)
 
 
 class SettingsTests(unittest.TestCase):

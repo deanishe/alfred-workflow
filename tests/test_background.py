@@ -26,12 +26,12 @@ class BackgroundTests(unittest.TestCase):
         self.wf = Workflow()
 
     def _pidfile(self, name):
-        return self.wf.cachefile('{}.pid'.format(name))
+        return self.wf.cachefile('{0}.pid'.format(name))
 
     def _write_pidfile(self, name, pid):
         pidfile = self._pidfile(name)
         with open(pidfile, 'wb') as file:
-            file.write('{}'.format(pid))
+            file.write('{0}'.format(pid))
 
     def _delete_pidfile(self, name):
         pidfile = self._pidfile(name)

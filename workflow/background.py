@@ -37,7 +37,7 @@ def _arg_cache(name):
 
     """
 
-    return wf.cachefile('{}.argcache'.format(name))
+    return wf.cachefile('{0}.argcache'.format(name))
 
 
 def _pid_file(name):
@@ -50,7 +50,7 @@ def _pid_file(name):
 
     """
 
-    return wf.cachefile('{}.pid'.format(name))
+    return wf.cachefile('{0}.pid'.format(name))
 
 
 def _process_exists(pid):
@@ -169,7 +169,7 @@ def run_in_background(name, args, **kwargs):
     """
 
     if is_running(name):
-        log.info('Task `{}` is already running'.format(name))
+        log.info('Task `{0}` is already running'.format(name))
         return
 
     argcache = _arg_cache(name)
@@ -177,16 +177,16 @@ def run_in_background(name, args, **kwargs):
     # Cache arguments
     with open(argcache, 'wb') as file_obj:
         pickle.dump({'args': args, 'kwargs': kwargs}, file_obj)
-        log.debug('Command arguments cached to `{}`'.format(argcache))
+        log.debug('Command arguments cached to `{0}`'.format(argcache))
 
     # Call this script
     cmd = ['/usr/bin/python', __file__, name]
-    log.debug('Calling {!r} ...'.format(cmd))
+    log.debug('Calling {0!r} ...'.format(cmd))
     retcode = subprocess.call(cmd)
     if retcode:  # pragma: no cover
         log.error('Failed to call task in background')
     else:
-        log.debug('Executing task `{}` in background...'.format(name))
+        log.debug('Executing task `{0}` in background...'.format(name))
     return retcode
 
 
@@ -200,7 +200,7 @@ def main(wf):  # pragma: no cover
     name = wf.args[0]
     argcache = _arg_cache(name)
     if not os.path.exists(argcache):
-        log.critical('No arg cache found : {!r}'.format(argcache))
+        log.critical('No arg cache found : {0!r}'.format(argcache))
         return 1
 
     # Load cached arguments
@@ -221,22 +221,22 @@ def main(wf):  # pragma: no cover
 
     # Write PID to file
     with open(pidfile, 'wb') as file_obj:
-        file_obj.write('{}'.format(os.getpid()))
+        file_obj.write('{0}'.format(os.getpid()))
 
     # Run the command
     try:
-        log.debug('Task `{}` running'.format(name))
-        log.debug('cmd : {!r}'.format(args))
+        log.debug('Task `{0}` running'.format(name))
+        log.debug('cmd : {0!r}'.format(args))
 
         retcode = subprocess.call(args, **kwargs)
 
         if retcode:
-            log.error('Command failed with [{}] : {!r}'.format(retcode, args))
+            log.error('Command failed with [{0}] : {1!r}'.format(retcode, args))
 
     finally:
         if os.path.exists(pidfile):
             os.unlink(pidfile)
-        log.debug('Task `{}` finished'.format(name))
+        log.debug('Task `{0}` finished'.format(name))
 
 
 if __name__ == '__main__':  # pragma: no cover

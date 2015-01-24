@@ -20,7 +20,7 @@ import os
 import subprocess
 
 INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                               'info.plist.test')
+                               'data', 'info.plist.test')
 
 INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                                'info.plist')

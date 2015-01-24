@@ -25,18 +25,14 @@ import sys
 import tempfile
 from base64 import b64decode
 from pprint import pprint
+
+import pytest_httpbin
+import pytest_localserver
+
 from workflow import web
 
 
-BASE_URL = 'http://eu.httpbin.org/'
-
-
-def setUp():
-    pass
-
-
-def tearDown():
-    pass
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 
 class CaseInsensitiveDictTests(unittest.TestCase):
@@ -119,16 +115,14 @@ class CaseInsensitiveDictTests(unittest.TestCase):
             self.assertTrue(t in self.data_list)
 
 
+@pytest_httpbin.use_class_based_httpbin
 class WebTests(unittest.TestCase):
 
     def setUp(self):
         self.data = {'name': 'My name is Jürgen!',
                      'address': 'Hürterstr. 42\nEssen'}
-        self.test_file = os.path.join(os.path.dirname(__file__),
-                                      b'cönfüsed.gif')
-        self.fubar_url = 'http://deanishe.net/fubar.txt'
-        self.fubar_bytes = b'fübar'
-        self.fubar_unicode = 'fübar'
+        self.test_file = os.path.join(DATA_DIR,
+                                      'cönfüsed.gif')
         self.tempdir = os.path.join(tempfile.gettempdir(),
                                     'web_py.{0:d}.tmp'.format(os.getpid()))
 
@@ -138,30 +132,28 @@ class WebTests(unittest.TestCase):
 
     def test_404(self):
         """Non-existant URL raises HTTPError w/ 404"""
-        url = BASE_URL + 'status/404'
+        url = self.httpbin.url + '/status/404'
         r = web.get(url)
         self.assertRaises(urllib2.HTTPError, r.raise_for_status)
         self.assert_(r.status_code == 404)
 
     def test_follow_redirect(self):
         """Redirects are followed"""
-        newurl = 'http://www.kulturliste-duesseldorf.de/'
-        url = BASE_URL + 'redirect-to?url=' + newurl
+        url = self.httpbin.url + '/redirect-to?url=' + self.httpbin.url
         r = web.get(url)
-        self.assertEqual(r.url, newurl)
+        self.assertEqual(r.url.rstrip('/'), self.httpbin.url.rstrip('/'))
 
     def test_no_follow_redirect(self):
         """Redirects are not followed"""
-        newurl = 'http://www.kulturliste-duesseldorf.de/'
-        url = BASE_URL + 'redirect-to?url=' + newurl
+        url = self.httpbin.url + '/redirect-to?url=' + self.httpbin.url
         r = web.get(url, allow_redirects=False)
-        self.assertNotEquals(r.url, newurl)
+        self.assertNotEquals(r.url, self.httpbin.url)
         self.assertRaises(urllib2.HTTPError, r.raise_for_status)
         self.assertEqual(r.status_code, 302)
 
     def test_post_form(self):
         """POST Form data"""
-        url = BASE_URL + 'post'
+        url = self.httpbin.url + '/post'
         r = web.post(url, data=self.data)
         self.assert_(r.status_code == 200)
         r.raise_for_status()
@@ -171,7 +163,7 @@ class WebTests(unittest.TestCase):
 
     def test_post_json(self):
         """POST request with JSON body"""
-        url = BASE_URL + 'post'
+        url = self.httpbin.url + '/post'
         headers = {'content-type': 'application/json'}
         print('Posting JSON ...')
         r = web.post(url, headers=headers, data=json.dumps(self.data))
@@ -186,15 +178,15 @@ class WebTests(unittest.TestCase):
 
     def test_timeout(self):
         """Request times out"""
-        url = BASE_URL + 'delay/10'
+        url = self.httpbin.url + '/delay/3'
         if sys.version_info < (2, 7):
-            self.assertRaises(urllib2.URLError, web.get, url, timeout=5)
+            self.assertRaises(urllib2.URLError, web.get, url, timeout=1)
         else:
-            self.assertRaises(socket.timeout, web.get, url, timeout=5)
+            self.assertRaises(socket.timeout, web.get, url, timeout=1)
 
     def test_encoding(self):
         """HTML is decoded"""
-        url = BASE_URL + 'html'
+        url = self.httpbin.url + '/html'
         r = web.get(url)
         self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
@@ -202,21 +194,42 @@ class WebTests(unittest.TestCase):
     def test_no_encoding(self):
         """No encoding"""
         # Is an image
-        url = 'https://avatars.githubusercontent.com/u/747913'
+        url = self.httpbin.url + '/bytes/100'
         r = web.get(url)
         self.assertEqual(r.encoding, None)
         self.assert_(isinstance(r.text, str))
 
     def test_xml_encoding(self):
         """XML is decoded"""
-        url = 'http://feeds.theguardian.com/theguardian/technology/rss'
+        url = self.httpbin.url + '/response-headers'
+        params = {'Content-Type': 'text/xml;charset=UTF-8'}
+        r = web.get(url, params)
+        self.assertEqual(r.encoding, 'utf-8')
+        self.assert_(isinstance(r.text, unicode))
+
+    def test_html_encoding(self):
+        """HTML is decoded"""
+        url = self.httpbin.url + '/html'
         r = web.get(url)
+        self.assertEqual(r.encoding, 'utf-8')
+        self.assert_(isinstance(r.text, unicode))
+
+    def test_default_encoding(self):
+        """Default encodings for mimetypes"""
+        url = self.httpbin.url + '/response-headers'
+        params = {'Content-Type': 'application/json'}
+        r = web.get(url, params)
+        self.assertEqual(r.encoding, 'utf-8')
+        self.assert_(isinstance(r.text, unicode))
+
+        params = {'Content-Type': 'application/xml'}
+        r = web.get(url, params)
         self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
 
     def test_get_vars(self):
         """GET vars"""
-        url = BASE_URL + 'get'
+        url = self.httpbin.url + '/get'
         r = web.get(url, params=self.data)
         self.assertEqual(r.status_code, 200)
         args = r.json()['args']
@@ -225,7 +238,7 @@ class WebTests(unittest.TestCase):
 
     def test_auth_succeeds(self):
         """Basic AUTH succeeds"""
-        url = BASE_URL + '/basic-auth/bobsmith/password1'
+        url = self.httpbin.url + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password1'))
         self.assertEqual(r.status_code, 200)
         data = r.json()
@@ -234,14 +247,14 @@ class WebTests(unittest.TestCase):
 
     def test_auth_fails(self):
         """Basic AUTH fails"""
-        url = BASE_URL + '/basic-auth/bobsmith/password1'
+        url = self.httpbin.url + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password2'))
         self.assertEqual(r.status_code, 401)
         self.assertRaises(urllib2.HTTPError, r.raise_for_status)
 
     def test_file_upload(self):
         """File upload"""
-        url = BASE_URL + 'post'
+        url = self.httpbin.url + '/post'
         files = {'file': {'filename': 'cönfüsed.gif',
                           'content': open(self.test_file, 'rb').read(),
                           'mimetype': 'image/gif',
@@ -261,7 +274,7 @@ class WebTests(unittest.TestCase):
 
     def test_file_upload_without_form_data(self):
         """File upload w/o form data"""
-        url = BASE_URL + 'post'
+        url = self.httpbin.url + '/post'
         files = {'file': {'filename': 'cönfüsed.gif',
                           'content': open(self.test_file, 'rb').read()
                           }}
@@ -277,53 +290,16 @@ class WebTests(unittest.TestCase):
 
     def test_json_encoding(self):
         """JSON decoded correctly"""
-        url = 'https://suggestqueries.google.com/complete/search?client=firefox&q=münchen'
-        r = web.get(url)
+        url = self.httpbin.url + '/get'
+        params = {'town': 'münchen'}
+        r = web.get(url, params)
         self.assertEqual(r.status_code, 200)
         data = r.json()
-        self.assertEqual(data[0], 'münchen')
-
-    def test_iter_content(self):
-        """iter_content returns content"""
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
-        contents = b''
-        for s in r.iter_content(chunk_size=1):
-            contents += s
-        self.assertEqual(contents, self.fubar_bytes)
-
-    def test_iter_content_decoded(self):
-        """iter_content returns content"""
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
-        contents = ''
-        for u in r.iter_content(chunk_size=1, decode_unicode=True):
-            contents += u
-        self.assertEqual(contents, self.fubar_unicode)
-
-    def test_encoded_content(self):
-        """Encoded content"""
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.content, self.fubar_bytes)
-        self.assertEqual(r.text, self.fubar_unicode)
-
-    def test_decoded_content(self):
-        """Decoded content"""
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.text, self.fubar_unicode)
-
-    def test_encoded_decode_content(self):
-        """Encoded and decoded content"""
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.content, self.fubar_bytes)
-        self.assertEqual(r.text, self.fubar_unicode)
+        self.assertEqual(data['args']['town'], 'münchen')
 
     def test_gzipped_content(self):
         """Gzipped content decoded"""
-        url = BASE_URL + 'gzip'
+        url = self.httpbin.url + '/gzip'
         r = web.get(url)
         self.assertEqual(r.status_code, 200)
         data = r.json()
@@ -331,7 +307,7 @@ class WebTests(unittest.TestCase):
 
     def test_gzipped_iter_content(self):
         """Gzipped iter_content decoded"""
-        url = BASE_URL + 'gzip'
+        url = self.httpbin.url + '/gzip'
         r = web.get(url)
         self.assertEqual(r.status_code, 200)
         data = b''
@@ -340,24 +316,157 @@ class WebTests(unittest.TestCase):
         data = json.loads(data)
         self.assertTrue(data.get('gzipped'))
 
-    def test_save_to_path(self):
-        """Save data to disk"""
-        filepath = os.path.join(self.tempdir, 'fubar.txt')
-        self.assertFalse(os.path.exists(self.tempdir))
-        self.assertFalse(os.path.exists(filepath))
+########################################################################
+# py.test functions new in v2
+########################################################################
 
-        r = web.get(self.fubar_url)
-        self.assertEqual(r.status_code, 200)
+fubar_path = os.path.join(DATA_DIR, 'fubar.txt')
+fubar_bytes = open(fubar_path).read()
+fubar_unicode = unicode(fubar_bytes, 'utf-8')
 
+utf8html_path = os.path.join(DATA_DIR, 'utf8.html')
+utf8html_bytes = open(utf8html_path).read()
+utf8html_unicode = unicode(utf8html_bytes, 'utf-8')
+
+utf8xml_path = os.path.join(DATA_DIR, 'utf8.xml')
+utf8xml_bytes = open(utf8xml_path).read()
+utf8xml_unicode = unicode(utf8xml_bytes, 'utf-8')
+
+gifpath = os.path.join(DATA_DIR, 'cönfüsed.gif')
+gifbytes = open(gifpath).read()
+
+gifpath_gzip = os.path.join(DATA_DIR, 'cönfüsed.gif.gz')
+gifbytes_gzip = open(gifpath_gzip).read()
+
+tempdir = os.path.join(tempfile.gettempdir(),
+                       'web_py.{0}.tmp'.format(os.getpid()))
+
+
+def test_charset_sniffing(httpserver):
+    """Charset sniffing for HTML and XML"""
+    httpserver.serve_content(utf8html_bytes,
+                             headers={'Content-Type': 'text/html'})
+    r = web.get(httpserver.url)
+    r.raise_for_status()
+    assert r.encoding == 'utf-8'
+    # XML
+    httpserver.serve_content(utf8xml_bytes,
+                             headers={'Content-Type': 'text/xml'})
+    r = web.get(httpserver.url)
+    r.raise_for_status()
+    assert r.encoding == 'utf-8'
+
+
+def test_save_to_path(httpserver):
+    """Save directly to file"""
+    filepath = os.path.join(tempdir, 'fubar.txt')
+    assert not os.path.exists(tempdir)
+    assert not os.path.exists(filepath)
+    httpserver.serve_content(fubar_bytes,
+                             headers={'Content-Type': 'text/plain'})
+    try:
+        r = web.get(httpserver.url)
+        assert r.status_code == 200
         r.save_to_path(filepath)
 
-        self.assertTrue(os.path.exists(filepath))
+        assert os.path.exists(filepath)
+        data = open(filepath).read()
+        assert data == fubar_bytes
 
-        with open(filepath, 'rb') as fileobj:
-            data = fileobj.read()
+    finally:
+        if os.path.exists(tempdir):
+            shutil.rmtree(tempdir)
 
-        self.assertEqual(data, self.fubar_bytes)
+
+def test_iter_content(httpserver):
+    """iter_content bytes"""
+    httpserver.serve_content(fubar_bytes,
+                             headers={'Content-Type': 'text/plain'})
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    contents = b''
+    for s in r.iter_content(chunk_size=1):
+        contents += s
+    assert contents == fubar_bytes
+
+
+def test_iter_content_decoded(httpserver):
+    """iter_content decoded"""
+    httpserver.serve_content(fubar_bytes, headers={
+                             'Content-Type':
+                             'text/plain; charset=UTF-8'})
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    contents = ''
+    for s in r.iter_content(chunk_size=1, decode_unicode=True):
+        contents += s
+    assert contents == fubar_unicode
+
+
+def test_iter_content_nosniff(httpserver):
+    """iter_content doesn't read content"""
+    # Content isn't sniffed when streaming
+    httpserver.serve_content(utf8html_bytes,
+                             headers={'Content-Type': 'text/html'})
+    r = web.get(httpserver.url)
+    it = r.iter_content(decode_unicode=True)
+    for chunk in it:
+        pass
+    assert r.encoding is None
+
+    # Encoding read from HTTP header
+    httpserver.serve_content(
+        utf8html_bytes,
+        headers={'Content-Type': 'text/html; charset=ascii'})
+    r = web.get(httpserver.url)
+    it = r.iter_content(decode_unicode=True)
+    for chunk in it:
+        pass
+    assert r.encoding == 'ascii'
+
+    # Encoding properly sniffed
+    r = web.get(httpserver.url)
+    assert r.encoding == 'utf-8'
+
+
+def test_encoded_content(httpserver):
+    """Content decoding"""
+    httpserver.serve_content(fubar_bytes, headers={
+                             'Content-Type':
+                             'text/plain; charset=UTF-8'})
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    assert r.content == fubar_bytes
+    assert r.text == fubar_unicode
+
+
+def test_gzipped_content(httpserver):
+    """Gzip encoding"""
+    httpserver.serve_content(gifbytes,
+                             headers={'Content-Type': 'image/gif'})
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    assert r.content == gifbytes
+
+    httpserver.serve_content(
+        gifbytes_gzip,
+        headers={
+            'Content-Type': 'image/gif',
+            'Content-Encoding': 'gzip',
+        })
+    # Full response
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    assert r.content == gifbytes
+    # Streamed response
+    r = web.get(httpserver.url)
+    assert r.status_code == 200
+    content = b''
+    for chunk in r.iter_content():
+        content += chunk
+    assert content == gifbytes
 
 
 if __name__ == '__main__':  # pragma: no cover
-    unittest.main()
+    import pytest
+    pytest.main([__file__])

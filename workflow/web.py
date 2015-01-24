@@ -11,9 +11,10 @@
 A lightweight HTTP library with a requests-like interface.
 """
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 
 import codecs
+from httplib import responses as RESPONSES
 import json
 import mimetypes
 import os
@@ -26,55 +27,16 @@ import urllib
 import urllib2
 import zlib
 
+from workflow import __version__ as VERSION
+from workflow import __url__ as HOMEPAGE
+from workflow import base
 
-USER_AGENT = u'Alfred-Workflow/1.11 (http://www.deanishe.net)'
+log = base.get_logger(__name__)
+
+USER_AGENT = (u'Alfred-Workflow/{0} ({1})'.format(VERSION, HOMEPAGE))
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
-
-# HTTP response codes
-RESPONSES = {
-    100: 'Continue',
-    101: 'Switching Protocols',
-    200: 'OK',
-    201: 'Created',
-    202: 'Accepted',
-    203: 'Non-Authoritative Information',
-    204: 'No Content',
-    205: 'Reset Content',
-    206: 'Partial Content',
-    300: 'Multiple Choices',
-    301: 'Moved Permanently',
-    302: 'Found',
-    303: 'See Other',
-    304: 'Not Modified',
-    305: 'Use Proxy',
-    307: 'Temporary Redirect',
-    400: 'Bad Request',
-    401: 'Unauthorized',
-    402: 'Payment Required',
-    403: 'Forbidden',
-    404: 'Not Found',
-    405: 'Method Not Allowed',
-    406: 'Not Acceptable',
-    407: 'Proxy Authentication Required',
-    408: 'Request Timeout',
-    409: 'Conflict',
-    410: 'Gone',
-    411: 'Length Required',
-    412: 'Precondition Failed',
-    413: 'Request Entity Too Large',
-    414: 'Request-URI Too Long',
-    415: 'Unsupported Media Type',
-    416: 'Requested Range Not Satisfiable',
-    417: 'Expectation Failed',
-    500: 'Internal Server Error',
-    501: 'Not Implemented',
-    502: 'Bad Gateway',
-    503: 'Service Unavailable',
-    504: 'Gateway Timeout',
-    505: 'HTTP Version Not Supported'
-}
 
 
 def str_dict(dic):
@@ -205,6 +167,7 @@ class Response(object):
         self.headers = CaseInsensitiveDictionary()
         self._content = None
         self._gzipped = False
+        self._is_stream = False
 
         # Execute query
         try:
@@ -286,6 +249,14 @@ class Response(object):
         return self._content
 
     @property
+    def is_stream(self):
+        """``True`` if this response has been accessed as a stream
+
+        """
+
+        return self._is_stream
+
+    @property
     def text(self):
         """Unicode-decoded content of response body.
 
@@ -315,9 +286,14 @@ class Response(object):
 
         """
 
+        self._is_stream = True
+
         def decode_stream(iterator, r):
 
-            decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
+            decoder = codecs.getincrementaldecoder(r.encoding)(
+                errors='replace')
+
+            assert self._content is None
 
             for chunk in iterator:
                 data = decoder.decode(chunk)
@@ -398,20 +374,23 @@ class Response(object):
                 encoding = param[8:]
                 break
 
-        # Encoding declared in document should override HTTP headers
-        if self.mimetype == 'text/html':  # sniff HTML headers
-            m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
-                          self.content)
-            if m:
-                encoding = m.group(1)
+        # Safe to load content and sniff it
+        if not self.is_stream:
 
-        elif ((self.mimetype.startswith('application/') or
-               self.mimetype.startswith('text/')) and
-              'xml' in self.mimetype):
-            m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
-                          self.content)
-            if m:
-                encoding = m.group(1)
+            # Encoding declared in document should override HTTP headers
+            if self.mimetype == 'text/html':  # sniff HTML headers
+                m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
+                              self.content, re.IGNORECASE)
+                if m:
+                    encoding = m.group(1)
+
+            elif ((self.mimetype.startswith('application/') or
+                   self.mimetype.startswith('text/')) and
+                  'xml' in self.mimetype):
+                m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
+                              self.content, re.IGNORECASE)
+                if m:
+                    encoding = m.group(1)
 
         # Format defaults
         if self.mimetype == 'application/json' and not encoding:

@@ -187,6 +187,7 @@ class Response(object):
             self.status_code = self.raw.getcode()
             self.url = self.raw.geturl()
         self.reason = RESPONSES.get(self.status_code)
+        log.debug('[{0}] {1}'.format(self.status_code, self.url))
 
         # Parse additional info if request succeeded
         if not self.error:
@@ -501,6 +502,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
         url = url.encode('utf-8')
 
     if params:  # GET args (POST args are handled in encode_multipart_formdata)
+        # TODO: correctly combine params with URLs that contain ?
         url = url + '?' + urllib.urlencode(str_dict(params))
 
     req = urllib2.Request(url, data, headers)
@@ -565,8 +567,8 @@ def encode_multipart_formdata(fields, files):
 
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
-    boundary = '-----' + ''.join(random.choice(BOUNDARY_CHARS)
-                                 for i in range(30))
+    boundary = '-----' + ''.join([random.choice(BOUNDARY_CHARS) for
+                                  i in range(30)])
     CRLF = '\r\n'
     output = []
 

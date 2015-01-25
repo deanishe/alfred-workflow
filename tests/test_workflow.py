@@ -32,34 +32,34 @@ from util import (
     WorkflowMock,
     VersionFile,
     InfoPlist,
-    INFO_PLIST_TEST,
     INFO_PLIST_PATH,
     create_info_plist,
-    delete_info_plist)
+    delete_info_plist,
+)
 
-from workflow.workflow import (Workflow, Settings, PasswordNotFound,
-                               KeychainError, MATCH_ALL, MATCH_ALLCHARS,
-                               MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
-                               MATCH_SUBSTRING, MATCH_INITIALS_CONTAIN,
-                               MATCH_INITIALS_STARTSWITH,
-                               manager)
+from workflow.workflow import (
+    Workflow,
+    PasswordNotFound,
+    KeychainError,
+    manager,
+)
 
-from workflow.update import Version
+from workflow.base import Version
+
+from workflow.search import (
+    MATCH_ALL,
+    MATCH_ALLCHARS,
+    MATCH_ATOM,
+    MATCH_CAPITALS,
+    MATCH_STARTSWITH,
+    MATCH_SUBSTRING,
+    MATCH_INITIALS_CONTAIN,
+    MATCH_INITIALS_STARTSWITH,
+)
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
 WORKFLOW_NAME = 'Alfred-Workflow Test'
-
-DEFAULT_SETTINGS = {'key1': 'value1',
-                    'key2': 'hübner'}
-
-
-def setUp():
-    pass
-
-
-def tearDown():
-    pass
 
 
 class SerializerTests(unittest.TestCase):
@@ -1497,53 +1497,6 @@ class MagicArgsTests(unittest.TestCase):
             wf = Workflow(update_settings=update_settings)
             wf.settings['__workflow_autoupdate'] = False
             self.assertTrue(wf.check_update() is None)
-
-
-class SettingsTests(unittest.TestCase):
-    """Test suite for `workflow.workflow.Settings`"""
-
-    def setUp(self):
-        self.tempdir = tempfile.mkdtemp()
-        self.settings_file = os.path.join(self.tempdir, 'settings.json')
-        with open(self.settings_file, 'wb') as file_obj:
-            json.dump(DEFAULT_SETTINGS, file_obj)
-
-    def tearDown(self):
-        if os.path.exists(self.tempdir):
-            shutil.rmtree(self.tempdir)
-
-    def test_defaults(self):
-        """Default settings"""
-        if os.path.exists(self.settings_file):
-            os.unlink(self.settings_file)
-        s = Settings(self.settings_file, {'key1': 'value2'})
-        self.assertEqual(s['key1'], 'value2')
-
-    def test_load_settings(self):
-        """Load saved settings"""
-        s = Settings(self.settings_file, {'key1': 'value2'})
-        for key in DEFAULT_SETTINGS:
-            self.assertEqual(DEFAULT_SETTINGS[key], s[key])
-
-    def test_save_settings(self):
-        """Settings saved"""
-        s = Settings(self.settings_file)
-        self.assertEqual(s['key1'], DEFAULT_SETTINGS['key1'])
-        s['key1'] = 'spoons!'
-        s2 = Settings(self.settings_file)
-        self.assertEqual(s['key1'], s2['key1'])
-
-    def test_dict_methods(self):
-        """Settings dict methods"""
-        other = {'key1': 'spoons!'}
-        s = Settings(self.settings_file)
-        self.assertEqual(s['key1'], DEFAULT_SETTINGS['key1'])
-        s.update(other)
-        s.setdefault('alist', [])
-        s2 = Settings(self.settings_file)
-        self.assertEqual(s['key1'], s2['key1'])
-        self.assertEqual(s['key1'], 'spoons!')
-        self.assertEqual(s2['alist'], [])
 
 
 if __name__ == '__main__':  # pragma: no cover

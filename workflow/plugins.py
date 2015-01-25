@@ -15,26 +15,14 @@ Simple plugin management/registration system.
 
 from __future__ import print_function, unicode_literals, absolute_import
 
-from contextlib import contextmanager
 import os
-import sys
 
-from workflow import base
+from workflow import base, util
 
 log = base.get_logger(__name__)
 
 _plugins = {}
 _plugin_paths = [os.path.join(os.path.dirname(__file__), 'plugins')]
-
-
-@contextmanager
-def syspath(paths):
-    """Temporarily adds ``paths`` to front of :data:`sys.path`"""
-    _syspath = sys.path[:]
-    for path in paths:
-        sys.path.insert(0, path)
-    yield
-    sys.path = _syspath
 
 
 def get_plugin(name):
@@ -59,7 +47,7 @@ def load_plugins(names):
     """Load specifed plugins from the configured plugin paths"""
     global _plugins, _plugin_paths
 
-    with syspath(_plugin_paths):
+    with util.syspath(_plugin_paths):
 
         for name in names:
             if name in _plugins:

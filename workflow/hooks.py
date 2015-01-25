@@ -124,9 +124,10 @@ class Namespace(dict):
 
 signal = Namespace().signal
 
-workflow_init = signal('workflow_init')
-pre_run = signal('pre_run')
-post_run = signal('post_run')
+workflow_initialized = signal('workflow_initialized')
+workflow_will_run = signal('workflow_will_run')
+workflow_did_run = signal('workflow_did_run')
+workflow_error = signal('workflow_error')
 xml_generator_done = signal('xml_generator_done')
 get_serializer = signal('get_serializer')
 get_updater = signal('get_updater')

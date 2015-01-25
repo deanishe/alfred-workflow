@@ -13,7 +13,9 @@
 
 from __future__ import print_function, unicode_literals, absolute_import
 
+from contextlib import contextmanager
 import os
+import sys
 import unicodedata
 
 from workflow.base import get_logger
@@ -36,7 +38,8 @@ def find_upwards(filename, start_dirpath=None):
     if start_dirpath is None:
         start_dirpath = os.getcwdu()
 
-    dirpath = os.path.abspath(start_dirpath)
+    filename = decode(filename)
+    dirpath = decode(os.path.abspath(start_dirpath))
     result = None
 
     while True:
@@ -54,7 +57,7 @@ def find_upwards(filename, start_dirpath=None):
     return result
 
 
-def decode(self, text, encoding='utf-8', normalization='NFC'):
+def decode(text, encoding='utf-8', normalization='NFC'):
     """Return ``text`` as normalised unicode.
 
     If ``encoding`` and/or ``normalization`` is ``None``, the
@@ -88,6 +91,18 @@ def create_directory(dirpath):
 
     """
 
+    dirpath = decode(dirpath)
+
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
     return dirpath
+
+
+@contextmanager
+def syspath(paths):
+    """Temporarily adds ``paths`` to front of :data:`sys.path`"""
+    _syspath = sys.path[:]
+    for path in paths:
+        sys.path.insert(0, path)
+    yield
+    sys.path = _syspath

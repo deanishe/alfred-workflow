@@ -22,21 +22,23 @@ Self-updating from GitHub
 
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, absolute_import
 
 import os
 import tempfile
-import re
 import subprocess
 
-import workflow
-import web
+from workflow import base, hooks, web, workflow
 
 # __all__ = []
 
+log = base.get_logger(__name__)
 
 RELEASES_BASE = 'https://api.github.com/repos/{0}/releases'
 
+ONE_HOUR = 3600
+ONE_DAY = ONE_HOUR * 24
+ONE_WEEK = ONE_DAY * 7
 
 _wf = None
 
@@ -48,123 +50,73 @@ def wf():
     return _wf
 
 
-class Version(object):
-    """Mostly semantic versioning
+class Updater(object):
+    """Base class for auto-updaters
 
-    The main difference to proper :ref:`semantic versioning <semver>`
-    is that this implementation doesn't require a minor or patch version.
+    Subclasses must override the following methods:
+
+    - :meth:`get_updater`
+    - :meth:`get_latest_version_info`
+
     """
 
-    #: Match version and pre-release/build information in version strings
-    match_version = re.compile(r'([0-9\.]+)(.+)?').match
+    @staticmethod
+    def get_updater(update_settings):
+        """Return :class:`Updater` instance for ``update_settings``"""
+        raise NotImplementedError()
 
-    def __init__(self, vstr):
-        self.vstr = vstr
-        self.major = 0
-        self.minor = 0
-        self.patch = 0
-        self.suffix = ''
-        self.build = ''
-        self._parse(vstr)
+    def __init__(self, update_settings):
+        self.settings = update_settings
 
-    def _parse(self, vstr):
-        if vstr.startswith('v'):
-            m = self.match_version(vstr[1:])
-        else:
-            m = self.match_version(vstr)
-        if not m:
-            raise ValueError('Invalid version number: {0}'.format(vstr))
+    def get_latest_version_info(self):
+        """Check web/filesystem/whatever for new version
 
-        version, suffix = m.groups()
-        parts = self._parse_dotted_string(version)
-        self.major = parts.pop(0)
-        if len(parts):
-            self.minor = parts.pop(0)
-        if len(parts):
-            self.patch = parts.pop(0)
-        if not len(parts) == 0:
-            raise ValueError('Invalid version (too long) : {0}'.format(vstr))
+        :returns: :class:`Version` instance and URL to .alfredworkflow
+            file
+        :rtype: tuple
 
-        if suffix:
-            # Build info
-            idx = suffix.find('+')
-            if idx > -1:
-                self.build = suffix[idx+1:]
-                suffix = suffix[:idx]
-            if suffix:
-                if not suffix.startswith('-'):
-                    raise ValueError(
-                        'Invalid suffix : `{0}`. Must start with `-`'.format(
-                            suffix))
-                self.suffix = suffix[1:]
-
-        # wf().logger.debug('version str `{}` -> {}'.format(vstr, repr(self)))
-
-    def _parse_dotted_string(self, s):
-        """Parse string ``s`` into list of ints and strings"""
-        parsed = []
-        parts = s.split('.')
-        for p in parts:
-            if p.isdigit():
-                p = int(p)
-            parsed.append(p)
-        return parsed
-
-    @property
-    def tuple(self):
-        """Return version number as a tuple of major, minor, patch, pre-release
         """
 
-        return (self.major, self.minor, self.patch, self.suffix)
+        raise NotImplementedError()
 
-    def __lt__(self, other):
-        if not isinstance(other, Version):
-            raise ValueError('Not a Version instance: {0!r}'.format(other))
-        t = self.tuple[:3]
-        o = other.tuple[:3]
-        if t < o:
-            return True
-        if t == o:  # We need to compare suffixes
-            if self.suffix and not other.suffix:
-                return True
-            if other.suffix and not self.suffix:
-                return False
-            return (self._parse_dotted_string(self.suffix) <
-                    self._parse_dotted_string(other.suffix))
-        # t > o
-        return False
 
-    def __eq__(self, other):
-        if not isinstance(other, Version):
-            raise ValueError('Not a Version instance: {0!r}'.format(other))
-        return self.tuple == other.tuple
+class UpdateManager(object):
+    """"""
 
-    def __ne__(self, other):
-        return not self.__eq__(other)
+    cache_key_fmt = '__aw_updater-{0}'
 
-    def __gt__(self, other):
-        if not isinstance(other, Version):
-            raise ValueError('Not a Version instance: {0!r}'.format(other))
-        return other.__lt__(self)
+    def __init__(self, update_settings, update_interval=ONE_DAY):
+        self.update_settings = update_settings
+        self.update_interval = update_interval
 
-    def __le__(self, other):
-        if not isinstance(other, Version):
-            raise ValueError('Not a Version instance: {0!r}'.format(other))
-        return not other.__lt__(self)
+    def get_updater(self):
+        """Return :class:`Updater` instance for :attr:`update_settings`
 
-    def __ge__(self, other):
-        return not self.__lt__(other)
+        """
 
-    def __str__(self):
-        vstr = '{0}.{1}.{2}'.format(self.major, self.minor, self.patch)
-        if self.suffix:
-            vstr += '-{0}'.format(self.suffix)
-        if self.build:
-            vstr += '+{0}'.format(self.build)
-        return vstr
+        results = hooks.get_updater.send(self.update_settings)
+        for receiver, updater in results:
+            if updater is not None:
+                return updater
 
-    def __repr__(self):
-        return "Version('{0}')".format(str(self))
+    def check_for_update(self, force=False):
+        """"""
+        updater = self.get_updater()
+        name = self.cache_key_fmt.format(updater.__class__.__name__)
+
+    def install_update(self):
+        """"""
+        if self.check_for_update():
+            pass
+        else:
+            log.debug('No update available')
+            return False
+
+    @property
+    def update_available(self):
+        """"""
+        updater = self.get_updater()
+        name = self.cache_key_fmt.format(updater.__class__.__name__)
 
 
 def download_workflow(url):
@@ -228,7 +180,7 @@ def get_valid_releases(github_slug):
     releases = []
 
     wf().logger.debug('Retrieving releases list from `{0}` ...'.format(
-                       api_url))
+                      api_url))
 
     def retrieve_releases():
         wf().logger.info(
@@ -237,7 +189,7 @@ def get_valid_releases(github_slug):
 
     slug = github_slug.replace('/', '-')
     for release in wf().cached_data('gh-releases-{0}'.format(slug),
-                                     retrieve_releases):
+                                    retrieve_releases):
         version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):
@@ -283,7 +235,7 @@ def check_update(github_slug, current_version):
     releases = get_valid_releases(github_slug)
 
     wf().logger.info('{0} releases for {1}'.format(len(releases),
-                                                    github_slug))
+                                                   github_slug))
 
     if not len(releases):
         raise ValueError('No valid releases for {0}'.format(github_slug))

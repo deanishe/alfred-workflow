@@ -15,16 +15,14 @@ up your Python script to best utilise the :class:`Workflow` object.
 
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, absolute_import
 
 import binascii
 import os
 import sys
-import string
 import re
 import plistlib
 import subprocess
-import unicodedata
 import shutil
 import json
 import cPickle
@@ -37,391 +35,14 @@ try:
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
+from workflow.base import KeychainError, PasswordExists, PasswordNotFound
+from workflow import env, hooks, icons, search, util
+from workflow import storage
+
 
 #: Sentinel for properties that haven't been set yet (that might
 #: correctly have the value ``None``)
 UNSET = object()
-
-####################################################################
-# Standard system icons
-####################################################################
-
-# These icons are default OS X icons. They are super-high quality, and
-# will be familiar to users.
-# This library uses `ICON_ERROR` when a workflow dies in flames, so
-# in my own workflows, I use `ICON_WARNING` for less fatal errors
-# (e.g. bad user input, no results etc.)
-
-# The system icons are all in this directory. There are many more than
-# are listed here
-
-ICON_ROOT = '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
-
-ICON_ACCOUNT = os.path.join(ICON_ROOT, 'Accounts.icns')
-ICON_BURN = os.path.join(ICON_ROOT, 'BurningIcon.icns')
-ICON_CLOCK = os.path.join(ICON_ROOT, 'Clock.icns')
-ICON_COLOR = os.path.join(ICON_ROOT, 'ProfileBackgroundColor.icns')
-ICON_COLOUR = ICON_COLOR  # Queen's English, if you please
-ICON_EJECT = os.path.join(ICON_ROOT, 'EjectMediaIcon.icns')
-# Shown when a workflow throws an error
-ICON_ERROR = os.path.join(ICON_ROOT, 'AlertStopIcon.icns')
-ICON_FAVORITE = os.path.join(ICON_ROOT, 'ToolbarFavoritesIcon.icns')
-ICON_FAVOURITE = ICON_FAVORITE
-ICON_GROUP = os.path.join(ICON_ROOT, 'GroupIcon.icns')
-ICON_HELP = os.path.join(ICON_ROOT, 'HelpIcon.icns')
-ICON_HOME = os.path.join(ICON_ROOT, 'HomeFolderIcon.icns')
-ICON_INFO = os.path.join(ICON_ROOT, 'ToolbarInfo.icns')
-ICON_NETWORK = os.path.join(ICON_ROOT, 'GenericNetworkIcon.icns')
-ICON_NOTE = os.path.join(ICON_ROOT, 'AlertNoteIcon.icns')
-ICON_SETTINGS = os.path.join(ICON_ROOT, 'ToolbarAdvanced.icns')
-ICON_SWIRL = os.path.join(ICON_ROOT, 'ErasingIcon.icns')
-ICON_SWITCH = os.path.join(ICON_ROOT, 'General.icns')
-ICON_SYNC = os.path.join(ICON_ROOT, 'Sync.icns')
-ICON_TRASH = os.path.join(ICON_ROOT, 'TrashIcon.icns')
-ICON_USER = os.path.join(ICON_ROOT, 'UserIcon.icns')
-ICON_WARNING = os.path.join(ICON_ROOT, 'AlertCautionIcon.icns')
-ICON_WEB = os.path.join(ICON_ROOT, 'BookmarkIcon.icns')
-
-####################################################################
-# non-ASCII to ASCII diacritic folding.
-# Used by `fold_to_ascii` method
-####################################################################
-
-ASCII_REPLACEMENTS = {
-    'À': 'A',
-    'Á': 'A',
-    'Â': 'A',
-    'Ã': 'A',
-    'Ä': 'A',
-    'Å': 'A',
-    'Æ': 'AE',
-    'Ç': 'C',
-    'È': 'E',
-    'É': 'E',
-    'Ê': 'E',
-    'Ë': 'E',
-    'Ì': 'I',
-    'Í': 'I',
-    'Î': 'I',
-    'Ï': 'I',
-    'Ð': 'D',
-    'Ñ': 'N',
-    'Ò': 'O',
-    'Ó': 'O',
-    'Ô': 'O',
-    'Õ': 'O',
-    'Ö': 'O',
-    'Ø': 'O',
-    'Ù': 'U',
-    'Ú': 'U',
-    'Û': 'U',
-    'Ü': 'U',
-    'Ý': 'Y',
-    'Þ': 'Th',
-    'ß': 'ss',
-    'à': 'a',
-    'á': 'a',
-    'â': 'a',
-    'ã': 'a',
-    'ä': 'a',
-    'å': 'a',
-    'æ': 'ae',
-    'ç': 'c',
-    'è': 'e',
-    'é': 'e',
-    'ê': 'e',
-    'ë': 'e',
-    'ì': 'i',
-    'í': 'i',
-    'î': 'i',
-    'ï': 'i',
-    'ð': 'd',
-    'ñ': 'n',
-    'ò': 'o',
-    'ó': 'o',
-    'ô': 'o',
-    'õ': 'o',
-    'ö': 'o',
-    'ø': 'o',
-    'ù': 'u',
-    'ú': 'u',
-    'û': 'u',
-    'ü': 'u',
-    'ý': 'y',
-    'þ': 'th',
-    'ÿ': 'y',
-    'Ł': 'L',
-    'ł': 'l',
-    'Ń': 'N',
-    'ń': 'n',
-    'Ņ': 'N',
-    'ņ': 'n',
-    'Ň': 'N',
-    'ň': 'n',
-    'Ŋ': 'ng',
-    'ŋ': 'NG',
-    'Ō': 'O',
-    'ō': 'o',
-    'Ŏ': 'O',
-    'ŏ': 'o',
-    'Ő': 'O',
-    'ő': 'o',
-    'Œ': 'OE',
-    'œ': 'oe',
-    'Ŕ': 'R',
-    'ŕ': 'r',
-    'Ŗ': 'R',
-    'ŗ': 'r',
-    'Ř': 'R',
-    'ř': 'r',
-    'Ś': 'S',
-    'ś': 's',
-    'Ŝ': 'S',
-    'ŝ': 's',
-    'Ş': 'S',
-    'ş': 's',
-    'Š': 'S',
-    'š': 's',
-    'Ţ': 'T',
-    'ţ': 't',
-    'Ť': 'T',
-    'ť': 't',
-    'Ŧ': 'T',
-    'ŧ': 't',
-    'Ũ': 'U',
-    'ũ': 'u',
-    'Ū': 'U',
-    'ū': 'u',
-    'Ŭ': 'U',
-    'ŭ': 'u',
-    'Ů': 'U',
-    'ů': 'u',
-    'Ű': 'U',
-    'ű': 'u',
-    'Ŵ': 'W',
-    'ŵ': 'w',
-    'Ŷ': 'Y',
-    'ŷ': 'y',
-    'Ÿ': 'Y',
-    'Ź': 'Z',
-    'ź': 'z',
-    'Ż': 'Z',
-    'ż': 'z',
-    'Ž': 'Z',
-    'ž': 'z',
-    'ſ': 's',
-    'Α': 'A',
-    'Β': 'B',
-    'Γ': 'G',
-    'Δ': 'D',
-    'Ε': 'E',
-    'Ζ': 'Z',
-    'Η': 'E',
-    'Θ': 'Th',
-    'Ι': 'I',
-    'Κ': 'K',
-    'Λ': 'L',
-    'Μ': 'M',
-    'Ν': 'N',
-    'Ξ': 'Ks',
-    'Ο': 'O',
-    'Π': 'P',
-    'Ρ': 'R',
-    'Σ': 'S',
-    'Τ': 'T',
-    'Υ': 'U',
-    'Φ': 'Ph',
-    'Χ': 'Kh',
-    'Ψ': 'Ps',
-    'Ω': 'O',
-    'α': 'a',
-    'β': 'b',
-    'γ': 'g',
-    'δ': 'd',
-    'ε': 'e',
-    'ζ': 'z',
-    'η': 'e',
-    'θ': 'th',
-    'ι': 'i',
-    'κ': 'k',
-    'λ': 'l',
-    'μ': 'm',
-    'ν': 'n',
-    'ξ': 'x',
-    'ο': 'o',
-    'π': 'p',
-    'ρ': 'r',
-    'ς': 's',
-    'σ': 's',
-    'τ': 't',
-    'υ': 'u',
-    'φ': 'ph',
-    'χ': 'kh',
-    'ψ': 'ps',
-    'ω': 'o',
-    'А': 'A',
-    'Б': 'B',
-    'В': 'V',
-    'Г': 'G',
-    'Д': 'D',
-    'Е': 'E',
-    'Ж': 'Zh',
-    'З': 'Z',
-    'И': 'I',
-    'Й': 'I',
-    'К': 'K',
-    'Л': 'L',
-    'М': 'M',
-    'Н': 'N',
-    'О': 'O',
-    'П': 'P',
-    'Р': 'R',
-    'С': 'S',
-    'Т': 'T',
-    'У': 'U',
-    'Ф': 'F',
-    'Х': 'Kh',
-    'Ц': 'Ts',
-    'Ч': 'Ch',
-    'Ш': 'Sh',
-    'Щ': 'Shch',
-    'Ъ': "'",
-    'Ы': 'Y',
-    'Ь': "'",
-    'Э': 'E',
-    'Ю': 'Iu',
-    'Я': 'Ia',
-    'а': 'a',
-    'б': 'b',
-    'в': 'v',
-    'г': 'g',
-    'д': 'd',
-    'е': 'e',
-    'ж': 'zh',
-    'з': 'z',
-    'и': 'i',
-    'й': 'i',
-    'к': 'k',
-    'л': 'l',
-    'м': 'm',
-    'н': 'n',
-    'о': 'o',
-    'п': 'p',
-    'р': 'r',
-    'с': 's',
-    'т': 't',
-    'у': 'u',
-    'ф': 'f',
-    'х': 'kh',
-    'ц': 'ts',
-    'ч': 'ch',
-    'ш': 'sh',
-    'щ': 'shch',
-    'ъ': "'",
-    'ы': 'y',
-    'ь': "'",
-    'э': 'e',
-    'ю': 'iu',
-    'я': 'ia',
-    # 'ᴀ': '',
-    # 'ᴁ': '',
-    # 'ᴂ': '',
-    # 'ᴃ': '',
-    # 'ᴄ': '',
-    # 'ᴅ': '',
-    # 'ᴆ': '',
-    # 'ᴇ': '',
-    # 'ᴈ': '',
-    # 'ᴉ': '',
-    # 'ᴊ': '',
-    # 'ᴋ': '',
-    # 'ᴌ': '',
-    # 'ᴍ': '',
-    # 'ᴎ': '',
-    # 'ᴏ': '',
-    # 'ᴐ': '',
-    # 'ᴑ': '',
-    # 'ᴒ': '',
-    # 'ᴓ': '',
-    # 'ᴔ': '',
-    # 'ᴕ': '',
-    # 'ᴖ': '',
-    # 'ᴗ': '',
-    # 'ᴘ': '',
-    # 'ᴙ': '',
-    # 'ᴚ': '',
-    # 'ᴛ': '',
-    # 'ᴜ': '',
-    # 'ᴝ': '',
-    # 'ᴞ': '',
-    # 'ᴟ': '',
-    # 'ᴠ': '',
-    # 'ᴡ': '',
-    # 'ᴢ': '',
-    # 'ᴣ': '',
-    # 'ᴤ': '',
-    # 'ᴥ': '',
-    'ᴦ': 'G',
-    'ᴧ': 'L',
-    'ᴨ': 'P',
-    'ᴩ': 'R',
-    'ᴪ': 'PS',
-    'ẞ': 'Ss',
-    'Ỳ': 'Y',
-    'ỳ': 'y',
-    'Ỵ': 'Y',
-    'ỵ': 'y',
-    'Ỹ': 'Y',
-    'ỹ': 'y',
-}
-
-####################################################################
-# Smart-to-dumb punctuation mapping
-####################################################################
-
-DUMB_PUNCTUATION = {
-    '‘': "'",
-    '’': "'",
-    '‚': "'",
-    '“': '"',
-    '”': '"',
-    '„': '"',
-    '–': '-',
-    '—': '-'
-}
-
-
-####################################################################
-# Used by `Workflow.filter`
-####################################################################
-
-# Anchor characters in a name
-#: Characters that indicate the beginning of a "word" in CamelCase
-INITIALS = string.ascii_uppercase + string.digits
-
-#: Split on non-letters, numbers
-split_on_delimiters = re.compile('[^a-zA-Z0-9]').split
-
-# Match filter flags
-#: Match items that start with ``query``
-MATCH_STARTSWITH = 1
-#: Match items whose capital letters start with ``query``
-MATCH_CAPITALS = 2
-#: Match items with a component "word" that matches ``query``
-MATCH_ATOM = 4
-#: Match items whose initials (based on atoms) start with ``query``
-MATCH_INITIALS_STARTSWITH = 8
-#: Match items whose initials (based on atoms) contain ``query``
-MATCH_INITIALS_CONTAIN = 16
-#: Combination of :const:`MATCH_INITIALS_STARTSWITH` and
-#: :const:`MATCH_INITIALS_CONTAIN`
-MATCH_INITIALS = 24
-#: Match items if ``query`` is a substring
-MATCH_SUBSTRING = 32
-#: Match items if all characters in ``query`` appear in the item in order
-MATCH_ALLCHARS = 64
-#: Combination of all other ``MATCH_*`` constants
-MATCH_ALL = 127
 
 
 ####################################################################
@@ -430,55 +51,6 @@ MATCH_ALL = 127
 
 # Number of days to wait between checking for updates to the workflow
 DEFAULT_UPDATE_FREQUENCY = 1
-
-
-####################################################################
-# Keychain access errors
-####################################################################
-
-class KeychainError(Exception):
-    """Raised by methods :meth:`Workflow.save_password`,
-    :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
-    when ``security`` CLI app returns an unknown error code.
-
-    """
-
-
-class PasswordNotFound(KeychainError):
-    """Raised by method :meth:`Workflow.get_password` when ``account``
-    is unknown to the Keychain.
-
-    """
-
-
-class PasswordExists(KeychainError):
-    """Raised when trying to overwrite an existing account password.
-
-    You should never receive this error: it is used internally
-    by the :meth:`Workflow.save_password` method to know if it needs
-    to delete the old password first (a Keychain implementation detail).
-
-    """
-
-
-####################################################################
-# Helper functions
-####################################################################
-
-def isascii(text):
-    """Test if ``text`` contains only ASCII characters
-
-    :param text: text to test for ASCII-ness
-    :type text: ``unicode``
-    :returns: ``True`` if ``text`` contains only ASCII characters
-    :rtype: ``Boolean``
-    """
-
-    try:
-        text.encode('ascii')
-    except UnicodeEncodeError:
-        return False
-    return True
 
 
 ####################################################################
@@ -787,82 +359,6 @@ class Item(object):
         return root
 
 
-class Settings(dict):
-    """A dictionary that saves itself when changed.
-
-    Dictionary keys & values will be saved as a JSON file
-    at ``filepath``. If the file does not exist, the dictionary
-    (and settings file) will be initialised with ``defaults``.
-
-    :param filepath: where to save the settings
-    :type filepath: :class:`unicode`
-    :param defaults: dict of default settings
-    :type defaults: :class:`dict`
-
-
-    An appropriate instance is provided by :class:`Workflow` instances at
-    :attr:`Workflow.settings`.
-
-    """
-
-    def __init__(self, filepath, defaults=None):
-
-        super(Settings, self).__init__()
-        self._filepath = filepath
-        self._nosave = False
-        if os.path.exists(self._filepath):
-            self._load()
-        elif defaults:
-            for key, val in defaults.items():
-                self[key] = val
-            self.save()  # save default settings
-
-    def _load(self):
-        """Load cached settings from JSON file `self._filepath`"""
-
-        self._nosave = True
-        with open(self._filepath, 'rb') as file_obj:
-            for key, value in json.load(file_obj, encoding='utf-8').items():
-                self[key] = value
-        self._nosave = False
-
-    def save(self):
-        """Save settings to JSON file specified in ``self._filepath``
-
-        If you're using this class via :attr:`Workflow.settings`, which
-        you probably are, ``self._filepath`` will be ``settings.json``
-        in your workflow's data directory (see :attr:`~Workflow.datadir`).
-        """
-        if self._nosave:
-            return
-        data = {}
-        for key, value in self.items():
-            data[key] = value
-        with open(self._filepath, 'wb') as file_obj:
-            json.dump(data, file_obj, sort_keys=True, indent=2,
-                      encoding='utf-8')
-
-    # dict methods
-    def __setitem__(self, key, value):
-        super(Settings, self).__setitem__(key, value)
-        self.save()
-
-    def __delitem__(self, key):
-        super(Settings, self).__delitem__(key)
-        self.save()
-
-    def update(self, *args, **kwargs):
-        """Override :class:`dict` method to save on update."""
-        super(Settings, self).update(*args, **kwargs)
-        self.save()
-
-    def setdefault(self, key, value=None):
-        """Override :class:`dict` method to save on update."""
-        ret = super(Settings, self).setdefault(key, value)
-        self.save()
-        return ret
-
-
 class Workflow(object):
     """Create new :class:`Workflow` instance.
 
@@ -952,6 +448,8 @@ class Workflow(object):
         if libraries:
             sys.path = libraries + sys.path
 
+        hooks.workflow_initialized.send(self)
+
     ####################################################################
     # API methods
     ####################################################################
@@ -1039,9 +537,7 @@ class Workflow(object):
     def info(self):
         """:class:`dict` of ``info.plist`` contents."""
 
-        if not self._info_loaded:
-            self._load_info_plist()
-        return self._info
+        return env.info
 
     @property
     def bundleid(self):
@@ -1052,13 +548,7 @@ class Workflow(object):
 
         """
 
-        if not self._bundleid:
-            if self.alfred_env.get('workflow_bundleid'):
-                self._bundleid = self.alfred_env.get('workflow_bundleid')
-            else:
-                self._bundleid = unicode(self.info['bundleid'], 'utf-8')
-
-        return self._bundleid
+        return env.bundleid
 
     @property
     def name(self):
@@ -1069,13 +559,7 @@ class Workflow(object):
 
         """
 
-        if not self._name:
-            if self.alfred_env.get('workflow_name'):
-                self._name = self.decode(self.alfred_env.get('workflow_name'))
-            else:
-                self._name = self.decode(self.info['name'])
-
-        return self._name
+        return env.name
 
     @property
     def version(self):
@@ -1093,7 +577,7 @@ class Workflow(object):
         :rtype: :class:`~workflow.update.Version` object
 
         """
-
+        # TODO: version file only! (?)
         if self._version is UNSET:
 
             version = None
@@ -1103,13 +587,9 @@ class Workflow(object):
 
             # Fallback to `version` file
             if not version:
-                filepath = self.workflowfile('version')
+                version = env.get('version')
 
-                if os.path.exists(filepath):
-                    with open(filepath, 'rb') as fileobj:
-                        version = fileobj.read()
-
-            if version:
+            if version and isinstance(version, basestring):
                 from update import Version
                 version = Version(version)
 
@@ -1137,6 +617,7 @@ class Workflow(object):
         See :ref:`Magic arguments <magic-arguments>` for details.
 
         """
+        # TODO: Extract into plugins
 
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
@@ -1151,7 +632,7 @@ class Workflow(object):
             if msg:
                 self.logger.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
-                    self.add_item(msg, valid=False, icon=ICON_INFO)
+                    self.add_item(msg, valid=False, icon=icons.INFO)
                     self.send_feedback()
                 sys.exit(0)
         return args
@@ -1170,17 +651,7 @@ class Workflow(object):
 
         """
 
-        if self.alfred_env.get('workflow_cache'):
-            dirpath = self.alfred_env.get('workflow_cache')
-
-        else:
-            dirpath = os.path.join(
-                os.path.expanduser(
-                    '~/Library/Caches/com.runningwithcrayons.Alfred-2/'
-                    'Workflow Data/'),
-                self.bundleid)
-
-        return self._create(dirpath)
+        return util.create_directory(env.cachedir)
 
     @property
     def datadir(self):
@@ -1196,15 +667,7 @@ class Workflow(object):
 
         """
 
-        if self.alfred_env.get('workflow_data'):
-            dirpath = self.alfred_env.get('workflow_data')
-
-        else:
-            dirpath = os.path.join(os.path.expanduser(
-                '~/Library/Application Support/Alfred 2/Workflow Data/'),
-                self.bundleid)
-
-        return self._create(dirpath)
+        return util.create_directory(env.datadir)
 
     @property
     def workflowdir(self):
@@ -1215,40 +678,7 @@ class Workflow(object):
 
         """
 
-        if not self._workflowdir:
-            # Try the working directory first, then the directory
-            # the library is in. CWD will be the workflow root if
-            # a workflow is being run in Alfred
-            candidates = [
-                os.path.abspath(os.getcwdu()),
-                os.path.dirname(os.path.abspath(os.path.dirname(__file__)))]
-
-            # climb the directory tree until we find `info.plist`
-            for dirpath in candidates:
-
-                # Ensure directory path is Unicode
-                dirpath = self.decode(dirpath)
-
-                while True:
-                    if os.path.exists(os.path.join(dirpath, 'info.plist')):
-                        self._workflowdir = dirpath
-                        break
-
-                    elif dirpath == '/':
-                        # no `info.plist` found
-                        break
-
-                    # Check the parent directory
-                    dirpath = os.path.dirname(dirpath)
-
-                # No need to check other candidates
-                if self._workflowdir:
-                    break
-
-            if not self._workflowdir:
-                raise IOError("'info.plist' not found in directory tree")
-
-        return self._workflowdir
+        return util.create_directory(env.workflowdir)
 
     def cachefile(self, filename):
         """Return full path to ``filename`` within your workflow's
@@ -1298,7 +728,7 @@ class Workflow(object):
 
         """
 
-        return self.cachefile('%s.log' % self.bundleid)
+        return self.cachefile('{0}.log'.format(self.bundleid))
 
     @property
     def logger(self):
@@ -1385,8 +815,8 @@ class Workflow(object):
         if not self._settings:
             self.logger.debug('Reading settings from `{0}` ...'.format(
                               self.settings_path))
-            self._settings = Settings(self.settings_path,
-                                      self._default_settings)
+            self._settings = storage.PersistentDict(self.settings_path,
+                                                    self._default_settings)
         return self._settings
 
     @property
@@ -1683,269 +1113,18 @@ class Workflow(object):
 
     def filter(self, query, items, key=lambda x: x, ascending=False,
                include_score=False, min_score=0, max_results=0,
-               match_on=MATCH_ALL, fold_diacritics=True):
+               match_on=search.MATCH_ALL, fold_diacritics=True):
         """Fuzzy search filter. Returns list of ``items`` that match ``query``.
 
         ``query`` is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected.
 
-        .. warning::
-
-            If ``query`` is an empty string or contains only whitespace,
-            a :class:`ValueError` will be raised.
-
-        :param query: query to test items against
-        :type query: ``unicode``
-        :param items: iterable of items to test
-        :type items: ``list`` or ``tuple``
-        :param key: function to get comparison key from ``items``.
-            Must return a ``unicode`` string. The default simply returns
-            the item.
-        :type key: ``callable``
-        :param ascending: set to ``True`` to get worst matches first
-        :type ascending: ``Boolean``
-        :param include_score: Useful for debugging the scoring algorithm.
-            If ``True``, results will be a list of tuples
-            ``(item, score, rule)``.
-        :type include_score: ``Boolean``
-        :param min_score: If non-zero, ignore results with a score lower
-            than this.
-        :type min_score: ``int``
-        :param max_results: If non-zero, prune results list to this length.
-        :type max_results: ``int``
-        :param match_on: Filter option flags. Bitwise-combined list of
-            ``MATCH_*`` constants (see below).
-        :type match_on: ``int``
-        :param fold_diacritics: Convert search keys to ASCII-only
-            characters if ``query`` only contains ASCII characters.
-        :type fold_diacritics: ``Boolean``
-        :returns: list of ``items`` matching ``query`` or list of
-            ``(item, score, rule)`` `tuples` if ``include_score`` is ``True``.
-            ``rule`` is the ``MATCH_*`` rule that matched the item.
-        :rtype: ``list``
-
-        **Matching rules**
-
-        By default, :meth:`filter` uses all of the following flags (i.e.
-        :const:`MATCH_ALL`). The tests are always run in the given order:
-
-        1. :const:`MATCH_STARTSWITH` : Item search key startswith
-            ``query``(case-insensitive).
-        2. :const:`MATCH_CAPITALS` : The list of capital letters in item
-            search key starts with ``query`` (``query`` may be
-            lower-case). E.g., ``of`` would match ``OmniFocus``,
-            ``gc`` would match ``Google Chrome``
-        3. :const:`MATCH_ATOM` : Search key is split into "atoms" on
-            non-word characters (.,-,' etc.). Matches if ``query`` is
-            one of these atoms (case-insensitive).
-        4. :const:`MATCH_INITIALS_STARTSWITH` : Initials are the first
-            characters of the above-described "atoms" (case-insensitive).
-        5. :const:`MATCH_INITIALS_CONTAIN` : ``query`` is a substring of
-            the above-described initials.
-        6. :const:`MATCH_INITIALS` : Combination of (4) and (5).
-        7. :const:`MATCH_SUBSTRING` : Match if ``query`` is a substring
-            of item search key (case-insensitive).
-        8. :const:`MATCH_ALLCHARS` : Matches if all characters in
-            ``query`` appear in item search key in the same order
-            (case-insensitive).
-        9. :const:`MATCH_ALL` : Combination of all the above.
-
-
-        :const:`MATCH_ALLCHARS` is considerably slower than the other
-        tests and provides much less accurate results.
-
-        **Examples:**
-
-        To ignore :const:`MATCH_ALLCHARS` (tends to provide the worst
-        matches and is expensive to run), use
-        ``match_on=MATCH_ALL ^ MATCH_ALLCHARS``.
-
-        To match only on capitals, use ``match_on=MATCH_CAPITALS``.
-
-        To match only on startswith and substring, use
-        ``match_on=MATCH_STARTSWITH | MATCH_SUBSTRING``.
-
-        **Diacritic folding**
-
-        .. versionadded:: 1.3
-
-        If ``fold_diacritics`` is ``True`` (the default), and ``query``
-        contains only ASCII characters, non-ASCII characters in search keys
-        will be converted to ASCII equivalents (e.g. **ü** -> **u**,
-        **ß** -> **ss**, **é** -> **e**).
-
-        See :const:`ASCII_REPLACEMENTS` for all replacements.
-
-        If ``query`` contains non-ASCII characters, search keys will not be
-        altered.
+        See :func:`workflow.search.filter` for detailed documentation.
 
         """
 
-        if not query:
-            raise ValueError('Empty `query`')
-
-        # Remove preceding/trailing spaces
-        query = query.strip()
-
-        if not query:
-            raise ValueError('`query` contains only whitespace')
-
-        # Use user override if there is one
-        fold_diacritics = self.settings.get('__workflow_diacritic_folding',
-                                            fold_diacritics)
-
-        results = []
-
-        for item in items:
-            skip = False
-            score = 0
-            words = [s.strip() for s in query.split(' ')]
-            value = key(item).strip()
-            if value == '':
-                continue
-            for word in words:
-                if word == '':
-                    continue
-                s, rule = self._filter_item(value, word, match_on,
-                                            fold_diacritics)
-
-                if not s:  # Skip items that don't match part of the query
-                    skip = True
-                score += s
-
-            if skip:
-                continue
-
-            if score:
-                # use "reversed" `score` (i.e. highest becomes lowest) and
-                # `value` as sort key. This means items with the same score
-                # will be sorted in alphabetical not reverse alphabetical order
-                results.append(((100.0 / score, value.lower(), score),
-                                (item, score, rule)))
-
-        # sort on keys, then discard the keys
-        results.sort(reverse=ascending)
-        results = [t[1] for t in results]
-
-        if min_score:
-            results = [r for r in results if r[1] > min_score]
-
-        if max_results and len(results) > max_results:
-            results = results[:max_results]
-
-        # return list of ``(item, score, rule)``
-        if include_score:
-            return results
-        # just return list of items
-        return [t[0] for t in results]
-
-    def _filter_item(self, value, query, match_on, fold_diacritics):
-        """Filter ``value`` against ``query`` using rules ``match_on``
-
-        :returns: ``(score, rule)``
-
-        """
-
-        query = query.lower()
-
-        if not isascii(query):
-            fold_diacritics = False
-
-        if fold_diacritics:
-            value = self.fold_to_ascii(value)
-
-        # pre-filter any items that do not contain all characters
-        # of ``query`` to save on running several more expensive tests
-        if not set(query) <= set(value.lower()):
-
-            return (0, None)
-
-        # item starts with query
-        if match_on & MATCH_STARTSWITH and value.lower().startswith(query):
-            score = 100.0 - (len(value) / len(query))
-
-            return (score, MATCH_STARTSWITH)
-
-        # query matches capitalised letters in item,
-        # e.g. of = OmniFocus
-        if match_on & MATCH_CAPITALS:
-            initials = ''.join([c for c in value if c in INITIALS])
-            if initials.lower().startswith(query):
-                score = 100.0 - (len(initials) / len(query))
-
-                return (score, MATCH_CAPITALS)
-
-        # split the item into "atoms", i.e. words separated by
-        # spaces or other non-word characters
-        if (match_on & MATCH_ATOM or
-                match_on & MATCH_INITIALS_CONTAIN or
-                match_on & MATCH_INITIALS_STARTSWITH):
-            atoms = [s.lower() for s in split_on_delimiters(value)]
-            # print('atoms : %s  -->  %s' % (value, atoms))
-            # initials of the atoms
-            initials = ''.join([s[0] for s in atoms if s])
-
-        if match_on & MATCH_ATOM:
-            # is `query` one of the atoms in item?
-            # similar to substring, but scores more highly, as it's
-            # a word within the item
-            if query in atoms:
-                score = 100.0 - (len(value) / len(query))
-
-                return (score, MATCH_ATOM)
-
-        # `query` matches start (or all) of the initials of the
-        # atoms, e.g. ``himym`` matches "How I Met Your Mother"
-        # *and* "how i met your mother" (the ``capitals`` rule only
-        # matches the former)
-        if (match_on & MATCH_INITIALS_STARTSWITH and
-                initials.startswith(query)):
-            score = 100.0 - (len(initials) / len(query))
-
-            return (score, MATCH_INITIALS_STARTSWITH)
-
-        # `query` is a substring of initials, e.g. ``doh`` matches
-        # "The Dukes of Hazzard"
-        elif (match_on & MATCH_INITIALS_CONTAIN and
-                query in initials):
-            score = 95.0 - (len(initials) / len(query))
-
-            return (score, MATCH_INITIALS_CONTAIN)
-
-        # `query` is a substring of item
-        if match_on & MATCH_SUBSTRING and query in value.lower():
-            score = 90.0 - (len(value) / len(query))
-
-            return (score, MATCH_SUBSTRING)
-
-        # finally, assign a score based on how close together the
-        # characters in `query` are in item.
-        if match_on & MATCH_ALLCHARS:
-            search = self._search_for_query(query)
-            match = search(value)
-            if match:
-                score = 100.0 / ((1 + match.start()) *
-                                 (match.end() - match.start() + 1))
-
-                return (score, MATCH_ALLCHARS)
-
-        # Nothing matched
-        return (0, None)
-
-    def _search_for_query(self, query):
-        if query in self._search_pattern_cache:
-            return self._search_pattern_cache[query]
-
-        # Build pattern: include all characters
-        pattern = []
-        for c in query:
-            # pattern.append('[^{0}]*{0}'.format(re.escape(c)))
-            pattern.append('.*?{0}'.format(re.escape(c)))
-        pattern = ''.join(pattern)
-        search = re.compile(pattern, re.IGNORECASE).search
-
-        self._search_pattern_cache[query] = search
-        return search
+        return search.filter(query, items, key, ascending, include_score,
+                             min_score, max_results, match_on, fold_diacritics)
 
     def run(self, func):
         """Call ``func`` to run your workflow
@@ -2000,7 +1179,7 @@ class Workflow(object):
                 else:  # pragma: no cover
                     name = os.path.dirname(__file__)
                 self.add_item("Error in workflow '%s'" % name, unicode(err),
-                              icon=ICON_ERROR)
+                              icon=icons.ERROR)
                 self.send_feedback()
             return 1
         finally:
@@ -2569,23 +1748,11 @@ class Workflow(object):
         :type normalization: ``unicode`` or ``None``
         :returns: decoded and normalised ``unicode``
 
-        :class:`Workflow` uses "NFC" normalisation by default. This is the
-        standard for Python and will work well with data from the web (via
-        :mod:`~workflow.web` or :mod:`json`).
-
-        OS X, on the other hand, uses "NFD" normalisation (nearly), so data
-        coming from the system (e.g. via :mod:`subprocess` or
-        :func:`os.listdir`/:mod:`os.path`) may not match. You should either
-        normalise this data, too, or change the default normalisation used by
-        :class:`Workflow`.
-
         """
 
         encoding = encoding or self._input_encoding
         normalization = normalization or self._normalizsation
-        if not isinstance(text, unicode):
-            text = unicode(text, encoding)
-        return unicodedata.normalize(normalization, text)
+        return util.decode(text, encoding, normalization)
 
     def fold_to_ascii(self, text):
         """Convert non-ASCII characters to closest ASCII equivalent.
@@ -2600,32 +1767,7 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-        if isascii(text):
-            return text
-        text = ''.join([ASCII_REPLACEMENTS.get(c, c) for c in text])
-        return unicode(unicodedata.normalize('NFKD',
-                       text).encode('ascii', 'ignore'))
-
-    def dumbify_punctuation(self, text):
-        """Convert non-ASCII punctuation to closest ASCII equivalent.
-
-        This method replaces "smart" quotes and n- or m-dashes with their
-        workaday ASCII equivalents. This method is currently not used
-        internally, but exists as a helper method for workflow authors.
-
-        .. versionadded: 1.9.7
-
-        :param text: text to convert
-        :type text: ``unicode``
-        :returns: text with only ASCII punctuation
-        :rtype: ``unicode``
-
-        """
-        if isascii(text):
-            return text
-
-        text = ''.join([DUMB_PUNCTUATION.get(c, c) for c in text])
-        return text
+        return search.fold_to_ascii(text)
 
     def _delete_directory_contents(self, dirpath, filter_func):
         """Delete all files in a directory

@@ -13,146 +13,200 @@
 
 from __future__ import print_function, unicode_literals, absolute_import
 
+import functools
 import os
-import plistLib
+import plistlib
+import sys
 
+from workflow import __version__
 from workflow import util
-from workflow.base import get_logger
+from workflow.base import get_logger, Version
 
 log = get_logger(__name__)
 
 #: Root directory for workflow data directories. Workflows should
 #: store their data in ``<bundleid>`` subdirectories.
-DATA_ROOT = os.path.join(os.path.expanduser(
+data_root = os.path.join(os.path.expanduser(
     '~/Library/Application Support/Alfred 2/Workflow Data'))
 #: Root directory for workflow cache directories. Workflows should
 #: store their data in ``<bundleid>`` subdirectories.
-CACHE_ROOT = os.path.join(os.path.expanduser(
+cache_root = os.path.join(os.path.expanduser(
     '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data'))
 
-#: Names of the environmental variables set by Alfred
-ALFRED_ENVVARS = (
-    'alfred_preferences',
-    'alfred_preferences_localhash',
-    'alfred_theme',
-    'alfred_theme_background',
-    'alfred_theme_subtext',
-    'alfred_version',
-    'alfred_version_build',
-    'alfred_workflow_bundleid',
-    'alfred_workflow_cache',
-    'alfred_workflow_data',
-    'alfred_workflow_name',
-    'alfred_workflow_uid',
-)
 
-#: Environmental variables that should be converted to integers
-ALFRED_ENVVARS_INT = ('alfred_version_build', 'alfred_theme_subtext')
-
-# Data parsed from info.plist
-_info = None
-# Alfred's environmental variables
-_alfred_env = None
-# This workflow's bundle ID
-_bundleid = None
-# This workflow's name
-_workflow_name = None
+# _env = None
 
 
-def get_info():
-    """Return contents of ``info.plist``"""
-    global _info
-    if _info is None:
-        path = os.path.join(get_workflowdir(), 'info.plist')
-        _info = plistLib.readPlist(path)
-    return _info
+# def _e():
+#     global _env
+#     if _env is None:
+#         _env = WorkflowEnvironment()
+#     return _env
 
 
-def get_alfred_env():
-    """Return dict of Alfred's environmental variables
+# def get(key, default=None):
+#     return _e().get(key)
 
-    The ``alfred_`` prefix is stripped from the variable names.
+
+class WorkflowEnvironment(dict):
+    """Lazy-loading dictionary of workflow-related environmental vars
+
 
     """
 
-    global _alfred_env
+    # Template for loading values. Keys are the eventual attribute
+    # names/keys. Values are 3-tuples, processed in same order:
+    #
+    #    1. Name of corresponding envvar
+    #    2. Name of key in info.plist or in class method (_get_{name})
+    #    3. Post-processor callable. Called on any value retrieved
+    #
+    # Values from envvars are populated immediately, others are
+    # populated lazily. If an envvar isn't found, it will fall back
+    # to info.plist/getter method.
+    _vars = {
+        # name, env varname, info.plist/method name, post-processor
+        'info': (None, None, None),
+        'logfile': (None, None, None),
+        'preferences': ('alfred_preferences', None, util.decode),
+        'preferences_localhash': ('alfred_preferences_localhash',
+                                  None, util.decode),
+        'theme': ('alfred_theme', None, util.decode),
+        'theme_background': ('alfred_theme_background', None, util.decode),
+        'theme_subtext': ('alfred_theme_subtext', None, int),
+        'alfred_version': ('alfred_version', None, Version),
+        'alfred_build': ('alfred_version_build', None, int),
+        'uid': ('alfred_workflow_uid', None, util.decode),
+        'bundleid': ('alfred_workflow_bundleid', 'bundleid', util.decode),
+        'name': ('alfred_workflow_name', 'name', util.decode),
+        'cachedir': ('alfred_workflow_cache', None,
+                     util.decode),
+        'datadir': ('alfred_workflow_data', None, util.decode),
+        'workflowdir': (None, None, util.decode),
+        'version': (None, None, None),
+    }
 
-    if _alfred_env is None:
-        data = {}
-        for key in ALFRED_ENVVARS:
-            value = os.getenv(key)
+    def __init__(self, *args, **kwargs):
+        super(WorkflowEnvironment, self).__init__(*args, **kwargs)
+        # self.__dict__ = self
+        self._info = None
+        # Need to alias these here as they will disappear from the
+        # local namespace when `sys.modules` is messed with below
+        self._path = os.path
+        self._read_plist = plistlib.readPlist
+        self._create_directory = util.create_directory
+        self._find_upwards = util.find_upwards
+        self._log = log
+        self._getitem = super(WorkflowEnvironment, self).__getitem__
+        self._cache_root = cache_root
+        self._data_root = data_root
+        self._version = Version
+        self['aw_version'] = Version(__version__)
+        # Map varnames to loaders for lazy loading
+        # {name: (getfunc, postfunc), ...}
+        self._loaders = {}
 
-            if isinstance(value, str):
-                if key in ALFRED_ENVVARS_INT:
-                    value = int(value)
-                else:
-                    value = util.decode(value)
+        # Load environmental variables and store lazy loaders
+        # for info.plist ones
+        for name in self._vars:
+            envname, alt, post = self._vars[name]
+            value = None
+            # Try to load variable from environment
+            if envname:
+                value = os.getenv(envname)
 
-            data[key[7:]] = value
+            if value is not None:
+                if post is not None:
+                    value = post(value)
+                log.debug('Setting from environment : {0} = {1!r}'.format(name,
+                          value))
+                self[name] = value
+            # Defer loading till needed
+            else:
+                func = None
+                if alt is not None:  # Fetch from info.plist
+                    func = functools.partial(self.getinfo, alt)
+                    func.__name__ = 'info.plist[{0}]'.format(alt)
+                else:  # Find generator method
+                    methname = '_get_{0}'.format(name)
+                    if hasattr(self, methname):
+                        func = getattr(self, methname)
+                    else:
+                        # TODO: collect unset vars and log a WARNING
+                        # telling user to update Alfred
+                        log.warning('Unset environmental var : {0}'.format(
+                                    name))
 
-        _alfred_env = data
+                if func is not None:
+                    self._loaders[name] = (func, post)
+                    log.debug('Lazy loader for `{0}` : {1}'.format(name,
+                              func.__name__))
 
-    return _alfred_env
+                else:  # TODO: is defaulting to `None` correct?
+                    self[name] = None
 
+    def __getattr__(self, attr):
+        if attr in self or attr in self._vars:
+            return self[attr]
+        elif attr in globals():
+            return globals()[attr]
+        else:
+            raise AttributeError('{0!r}'.format(attr))
 
-def _env_or_info(envname, infoname):
-    """Read value from either Alfred env vars or ``info.plist``
+    def __getitem__(self, key):
+        if key in self:  # Already in dict
+            return self._getitem(key)
 
-    :param envname: Name of environmental var to check
-    :type envname: string
-    :param infoname: Name of key in ``info.plist`` to check
-    :type infoname: string
-    :returns: ``unicode`` value
+        if key in self._loaders:  # Lazy-loading
+            loader, post = self._loaders[key]
+            # self._log.debug('Loading `{0}` with {1!r}'.format(key,
+            #                 loader.__name__))
+            value = loader()
+            if post is not None:
+                value = post(value)
+            self[key] = value
+            return value
+        # Fall back to superclass
+        return self._getitem(key)
 
-    """
+    def _get_info(self):
+        """The parsed contents of ``info.plist``"""
+        path = self._path.join(self['workflowdir'], 'info.plist')
+        self._log.debug('Reading {0} ...'.format(path))
+        return self._read_plist(path)
 
-    if get_alfred_env().get(envname) is not None:
-        return get_alfred_env().get(envname)
-    return util.decode(get_info()[infoname])
+    def getinfo(self, key):
+        return self['info'].get(key)
 
+    def _get_cachedir(self):
+        dirpath = self._path.join(self._cache_root, self['bundleid'])
+        return dirpath
 
-def get_bundleid():
-    """Return workflow's bundle ID"""
-    global _bundleid
+    def _get_datadir(self):
+        dirpath = self._path.join(self._data_root, self['bundleid'])
+        return dirpath
 
-    if _bundleid is None:
-        _bundleid = _env_or_info('workflow_bundleid', 'bundleid')
+    def _get_logfile(self):
+        filepath = self._path.join(self['cachedir'],
+                                   '{0}.log'.format(self['bundleid']))
+        return filepath
 
-    return _bundleid
+    def _get_workflowdir(self):
+        path = self._find_upwards('info.plist')
+        if path is None:
+            raise EnvironmentError(
+                '`info.plist` not found in directory tree')
+        return self._path.dirname(path)
 
+    def _get_version(self):
+        path = self._find_upwards('version')
+        if path is None:
+            return None
+        with open(path, 'rb') as fp:
+            return self._version(fp.read())
 
-def get_datadir():
-    """Return path to workflow's data directory"""
-    if get_alfred_env().get('workflow_data') is not None:
-        dirpath = get_alfred_env().get('workflow_data')
-    else:
-        dirpath = os.path.join(DATA_ROOT, get_bundleid())
-
-    return util.create_directory(dirpath)
-
-
-def get_cachedir():
-    """Return path to workflow's cache directory"""
-    if get_alfred_env().get('workflow_cache') is not None:
-        dirpath = get_alfred_env().get('workflow_cache')
-    else:
-        dirpath = os.path.join(CACHE_ROOT, get_bundleid())
-
-    return util.create_directory(dirpath)
-
-
-def get_workflowdir():
-    """Return path to workflow's root directory"""
-    path = util.find_upwards('info.plist')
-    if path is None:
-        raise EnvironmentError("`info.plist` not found in directory tree")
-    return os.path.dirname(path)
-
-
-def get_name():
-    """Return name of this workflow"""
-    global _workflow_name
-    if _workflow_name is None:
-        _workflow_name = _env_or_info('workflow_name', 'name')
-
-    return _workflow_name
+# Some questionable magic ...
+# Replace this module in the namespace with a WorkflowEnvironment instance
+# From outside, the methods and attributes of WorkflowEnvironment are
+# the attributes and functions of this module
+sys.modules[__name__] = WorkflowEnvironment()

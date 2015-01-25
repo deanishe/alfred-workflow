@@ -244,8 +244,8 @@ def check_update(github_slug, current_version):
     latest_release = releases[0]
 
     # (latest_version, download_url) = get_latest_release(releases)
-    vr = Version(latest_release['version'])
-    vl = Version(current_version)
+    vr = base.Version(latest_release['version'])
+    vl = base.Version(current_version)
     wf().logger.debug('Latest : {0!r} Installed : {1!r}'.format(vr, vl))
     if vr > vl:
 

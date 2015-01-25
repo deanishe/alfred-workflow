@@ -27,6 +27,13 @@ except ImportError:
 
 
 ####################################################################
+# Key names for library's saved settings
+####################################################################
+
+KEY_DIACRITICS = '__aw_diacritic_folding'
+
+
+####################################################################
 # Keychain access errors
 ####################################################################
 
@@ -54,6 +61,10 @@ class PasswordExists(KeychainError):
 
     """
 
+
+####################################################################
+# Data models
+####################################################################
 
 class Version(object):
     """Mostly semantic versioning
@@ -174,6 +185,10 @@ class Version(object):
         return "Version('{0}')".format(str(self))
 
 
+####################################################################
+# Logging helpers
+####################################################################
+
 def get_logger(name):
     """Get :class:`logging.Logger` for ``name``
 
@@ -211,3 +226,36 @@ def init_logging(console=True, logfile=None, level=logging.INFO):
         logger.addHandler(hdlr)
 
     logger.setLevel(level)
+
+
+####################################################################
+# Helpers from blinker
+# https://github.com/jek/blinker/
+####################################################################
+
+class _symbol(object):
+
+    def __init__(self, name):
+        """Construct a new named symbol."""
+        self.__name__ = self.name = name
+
+    def __repr__(self):
+        return 'symbol({0!r})'.format(self.name)
+
+_symbol.__name__ = b'symbol'
+
+
+class symbol(object):
+    """A constant symbol.
+
+    Is a singleton
+
+    """
+
+    symbols = {}
+
+    def __new__(cls, name):
+        try:
+            return cls.symbols[name]
+        except KeyError:
+            return cls.symbols.setdefault(name, _symbol(name))

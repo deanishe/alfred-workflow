@@ -36,7 +36,7 @@ except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
 from workflow.base import KeychainError, PasswordExists, PasswordNotFound
-from workflow import env, hooks, icons, search, util
+from workflow import base, env, hooks, icons, search, util
 from workflow import storage
 
 
@@ -587,11 +587,11 @@ class Workflow(object):
 
             # Fallback to `version` file
             if not version:
-                version = env.get('version')
+                version = env['version']
+                self.logger.debug('version from env : {0}'.format(version))
 
             if version and isinstance(version, basestring):
-                from update import Version
-                version = Version(version)
+                version = base.Version(version)
 
             self._version = version
 
@@ -1123,6 +1123,10 @@ class Workflow(object):
 
         """
 
+        override = self.settings.get(base.KEY_DIACRITICS)
+        if override is not None:
+            fold_diacritics = override
+
         return search.filter(query, items, key, ascending, include_score,
                              min_score, max_results, match_on, fold_diacritics)
 
@@ -1303,8 +1307,7 @@ class Workflow(object):
 
             version = self.settings.get('__workflow_last_version')
             if version:
-                from update import Version
-                version = Version(version)
+                version = base.Version(version)
 
             self._last_version_run = version
 
@@ -1334,8 +1337,7 @@ class Workflow(object):
             version = self.version
 
         if isinstance(version, basestring):
-            from update import Version
-            version = Version(version)
+            version = base.Version(version)
 
         self.settings['__workflow_last_version'] = str(version)
 
@@ -1395,7 +1397,7 @@ class Workflow(object):
             # version = self._update_settings['version']
             version = str(self.version)
 
-            from background import run_in_background
+            from workflow.background import run_in_background
 
             # update.py is adjacent to this file
             update_script = os.path.join(os.path.dirname(__file__),
@@ -1424,7 +1426,7 @@ class Workflow(object):
 
         """
 
-        import update
+        from workflow import update
 
         github_slug = self._update_settings['github_slug']
         # version = self._update_settings['version']
@@ -1433,7 +1435,7 @@ class Workflow(object):
         if not update.check_update(github_slug, version):
             return False
 
-        from background import run_in_background
+        from workflow.background import run_in_background
 
         # update.py is adjacent to this file
         update_script = os.path.join(os.path.dirname(__file__),
@@ -1646,7 +1648,7 @@ class Workflow(object):
                 self.logger.debug(arg)
 
                 if not isatty:
-                    self.add_item(arg, icon=ICON_INFO)
+                    self.add_item(arg, icon=icons.INFO)
 
             if not isatty:
                 self.send_feedback()

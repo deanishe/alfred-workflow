@@ -12,12 +12,18 @@
 Stuff used be multiple tests
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, absolute_import
 
 from cStringIO import StringIO
 import sys
 import os
 import subprocess
+
+import pytest
+
+import workflow
+import workflow.workflow
+from workflow._env import WorkflowEnvironment
 
 INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                'data', 'info.plist.test')
@@ -27,6 +33,80 @@ INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
 
 VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                             'version')
+
+
+@pytest.fixture
+def workflow_env(request, version=None, info_plist=True):
+    ip_path = os.path.join(os.getcwdu(), 'info.plist')
+    v_path = os.path.join(os.getcwdu(), 'version')
+    v_delete = not os.path.exists(v_path)
+    _env = workflow.env
+
+    def tear_down():
+        workflow.env = _env
+        if v_delete and os.path.exists(v_path):
+            os.unlink(v_path)
+        if os.path.exists(ip_path) and os.path.islink(ip_path):
+            os.unlink(ip_path)
+
+    request.addfinalizer(tear_down)
+
+    if version is not None:
+        with open(v_path, 'wb') as fp:
+            fp.write(str(version))
+
+    if info_plist:
+        if not os.path.exists(ip_path):
+            os.symlink(INFO_PLIST_TEST, ip_path)
+
+    workflow.env = WorkflowEnvironment()
+    workflow.workflow.env = workflow.env
+
+
+class WorkflowEnv(object):
+
+    def __init__(self, version=None, info_plist=True):
+        self.version = version
+        self.info_plist = info_plist
+        self.ip_path = os.path.join(INFO_PLIST_PATH)
+        self.ip_backup = os.path.join(os.getcwdu(),
+                                      'info.plist.{0}'.format(os.getpid()))
+
+        self.v_path = os.path.join(os.getcwdu(), 'version')
+        self.v_backup = os.path.join(os.getcwdu(),
+                                     'version.{0}'.format(os.getpid()))
+
+    def __enter__(self):
+        # Move existing files
+        if os.path.exists(self.ip_path):
+            os.rename(self.ip_path, self.ip_backup)
+        if os.path.exists(self.v_path):
+            os.rename(self.v_path, self.v_backup)
+
+        self._env = workflow.env
+
+        if self.version is not None:
+            with open(self.v_path, 'wb') as fp:
+                fp.write(str(self.version))
+
+        if self.info_plist:
+            if not os.path.exists(self.ip_path):
+                os.symlink(INFO_PLIST_TEST, self.ip_path)
+
+        workflow.env = WorkflowEnvironment()
+        workflow.workflow.env = workflow.env
+
+    def __exit__(self, *args):
+        workflow.env = self._env
+        workflow.workflow.env = self._env
+        if os.path.exists(self.v_backup):
+            if os.path.exists(self.v_path):
+                os.unlink(self.v_path)
+            os.rename(self.v_backup, self.v_path)
+        if os.path.exists(self.ip_backup):
+            if os.path.exists(self.ip_path):
+                os.unlink(self.ip_path)
+            os.rename(self.ip_backup, self.ip_path)
 
 
 class WorkflowMock(object):

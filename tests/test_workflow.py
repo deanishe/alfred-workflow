@@ -27,6 +27,8 @@ import time
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
+import pytest
+
 from util import (
     # create_info_plist, delete_info_plist,
     WorkflowMock,
@@ -35,6 +37,8 @@ from util import (
     INFO_PLIST_PATH,
     create_info_plist,
     delete_info_plist,
+    workflow_env,
+    WorkflowEnv,
 )
 
 from workflow.workflow import (
@@ -44,7 +48,7 @@ from workflow.workflow import (
     manager,
 )
 
-from workflow.base import Version
+from workflow import base
 
 from workflow.search import (
     MATCH_ALL,
@@ -172,16 +176,6 @@ class WorkflowTests(unittest.TestCase):
             ('Öffnungszeiten an Feiertagen', 'oaf'),
             ('Fußpilz', 'fuss'),
             ('salé', 'sale')
-        ]
-
-        self.punctuation_data = [
-            ('"test"', '"test"'),
-            ('„wat denn?“', '"wat denn?"'),
-            ('‚wie dat denn?‘', "'wie dat denn?'"),
-            ('“test”', '"test"'),
-            ('and—why—not', 'and-why-not'),
-            ('10–20', '10-20'),
-            ('Shady’s back', "Shady's back"),
         ]
 
         self.env_data = {
@@ -374,11 +368,11 @@ class WorkflowTests(unittest.TestCase):
         """Info.plist missing"""
         # delete_info_plist()
         self._teardown_env()
-        with InfoPlist(present=False):
+        with WorkflowEnv(info_plist=False):
             # wf = Workflow()
             self.assertFalse(os.path.exists(INFO_PLIST_PATH))
             # self.assertRaises(IOError, lambda wf: wf.info, wf)
-            self.assertRaises(IOError, Workflow)
+            self.assertRaises(EnvironmentError, Workflow)
         # try:
         #     self.assertRaises(IOError, Workflow)
         # finally:
@@ -924,7 +918,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_filter_folding_force_on(self):
         """Filter: diacritic folding forced on"""
-        self.wf.settings['__workflow_diacritic_folding'] = True
+        self.wf.settings[base.KEY_DIACRITICS] = True
         for key, query in self.search_items_diacritics:
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True,
@@ -933,7 +927,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_filter_folding_force_off(self):
         """Filter: diacritic folding forced off"""
-        self.wf.settings['__workflow_diacritic_folding'] = False
+        self.wf.settings[base.KEY_DIACRITICS] = False
         for key, query in self.search_items_diacritics:
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True)
@@ -976,11 +970,6 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(results, data)
         results = self.wf.filter('bob', data, ascending=True)
         self.assertEquals(results, data[::-1])
-
-    def test_punctuation(self):
-        """Punctuation: dumbified"""
-        for input, output in self.punctuation_data:
-            self.assertEqual(self.wf.dumbify_punctuation(input), output)
 
     def test_icons(self):
         """Icons"""
@@ -1052,18 +1041,17 @@ class WorkflowTests(unittest.TestCase):
         d = {'github_slug': 'deanishe/alfred-workflow', 'version': vstr}
         wf = Workflow(update_settings=d)
         self.assertEqual(str(wf.version), vstr)
-        self.assertTrue(isinstance(wf.version, Version))
-        self.assertEqual(wf.version, Version(vstr))
+        self.assertTrue(isinstance(wf.version, base.Version))
+        self.assertEqual(wf.version, base.Version(vstr))
 
     def test_versions_from_version_file(self):
         """Workflow: version from `version`"""
         vstr = '1.9.7'
-        with VersionFile(vstr):
-            with InfoPlist():
-                wf = Workflow()
-                self.assertEqual(str(wf.version), vstr)
-                self.assertTrue(isinstance(wf.version, Version))
-                self.assertEqual(wf.version, Version(vstr))
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            self.assertEqual(str(wf.version), vstr)
+            self.assertTrue(isinstance(wf.version, base.Version))
+            self.assertEqual(wf.version, base.Version(vstr))
 
     def test_first_run_no_version(self):
         """Workflow: first_run fails on no version"""
@@ -1074,22 +1062,20 @@ class WorkflowTests(unittest.TestCase):
     def test_first_run_with_version(self):
         """Workflow: first_run"""
         vstr = '1.9.7'
-        with VersionFile(vstr):
-            with InfoPlist():
-                wf = Workflow()
-                self.assertTrue(wf.first_run)
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            self.assertTrue(wf.first_run)
             wf.reset()
 
     def test_first_run_with_previous_run(self):
         """Workflow: first_run with previous run"""
         vstr = '1.9.7'
         last_vstr = '1.9.6'
-        with VersionFile(vstr):
-            with InfoPlist():
-                wf = Workflow()
-                wf.set_last_version(last_vstr)
-                self.assertTrue(wf.first_run)
-                self.assertEqual(wf.last_version_run, Version(last_vstr))
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            wf.set_last_version(last_vstr)
+            self.assertTrue(wf.first_run)
+            self.assertEqual(wf.last_version_run, base.Version(last_vstr))
             wf.reset()
 
     def test_last_version_empty(self):
@@ -1101,18 +1087,17 @@ class WorkflowTests(unittest.TestCase):
         """Workflow: last_version_run not empty"""
         vstr = '1.9.7'
 
-        with InfoPlist():
-            with VersionFile(vstr):
-                wf = Workflow()
-                wf.set_last_version(vstr)
-                self.assertEqual(Version(vstr), wf.last_version_run)
-                wf.reset()
-            # Set automatically
-            with VersionFile(vstr):
-                wf = Workflow()
-                wf.set_last_version()
-                self.assertEqual(Version(vstr), wf.last_version_run)
-                wf.reset()
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            wf.set_last_version(vstr)
+            self.assertEqual(base.Version(vstr), wf.last_version_run)
+            wf.reset()
+        # Set automatically
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            wf.set_last_version()
+            self.assertEqual(base.Version(vstr), wf.last_version_run)
+            wf.reset()
 
     def test_versions_no_version(self):
         """Workflow: version is `None`"""
@@ -1131,18 +1116,17 @@ class WorkflowTests(unittest.TestCase):
         vstr = '1.9.6'
         wf = Workflow()
         self.assertTrue(wf.set_last_version(vstr))
-        self.assertEqual(wf.last_version_run, Version(vstr))
+        self.assertEqual(wf.last_version_run, base.Version(vstr))
         wf.reset()
 
     def test_last_version_auto_version(self):
         """Workflow: last_version auto version"""
         vstr = '1.9.7'
-        with VersionFile(vstr):
-            with InfoPlist():
-                wf = Workflow()
-                self.assertTrue(wf.set_last_version())
-                self.assertEqual(wf.last_version_run, Version(vstr))
-                wf.reset()
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            self.assertTrue(wf.set_last_version())
+            self.assertEqual(wf.last_version_run, base.Version(vstr))
+            wf.reset()
 
     def test_last_version_set_after_run(self):
         """Workflow: last_version set after `run()`"""
@@ -1151,15 +1135,19 @@ class WorkflowTests(unittest.TestCase):
         def cb(wf):
             return
 
-        with VersionFile(vstr):
-            with InfoPlist():
-                wf = Workflow()
-                self.assertTrue(wf.last_version_run is None)
-                wf.run(cb)
+        with WorkflowEnv(vstr):
+            assert os.path.exists('./version')
+            v = open('./version').read()
+            assert v != ''
+            wf = Workflow()
+            self.assertTrue(wf.last_version_run is None)
+            self.assertEqual(wf.version, base.Version(vstr))
+            wf.run(cb)
 
-                wf = Workflow()
-                self.assertEqual(wf.last_version_run, Version(vstr))
-                wf.reset()
+        with WorkflowEnv(vstr):
+            wf = Workflow()
+            self.assertEqual(wf.last_version_run, base.Version(vstr))
+            wf.reset()
 
     ####################################################################
     # Helpers

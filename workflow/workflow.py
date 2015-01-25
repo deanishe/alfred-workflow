@@ -1123,9 +1123,8 @@ class Workflow(object):
 
         """
 
-        override = self.settings.get(base.KEY_DIACRITICS)
-        if override is not None:
-            fold_diacritics = override
+        fold_diacritics = self.settings.get(base.KEY_DIACRITICS,
+                                            fold_diacritics)
 
         return search.filter(query, items, key, ascending, include_score,
                              min_score, max_results, match_on, fold_diacritics)
@@ -1176,7 +1175,7 @@ class Workflow(object):
                     'For assistance, see: {0}'.format(self.help_url))
             if not sys.stdout.isatty():  # Show error in Alfred
                 self._items = []
-                if self._name:
+                if self._name:  # pragma: no cover
                     name = self._name
                 elif self._bundleid:
                     name = self._bundleid
@@ -1385,7 +1384,7 @@ class Workflow(object):
         frequency = self._update_settings.get('frequency',
                                               DEFAULT_UPDATE_FREQUENCY)
 
-        if not force and not self.settings.get('__workflow_autoupdate', True):
+        if not force and not self.settings.get(base.KEY_AUTO_UPDATE, True):
             self.logger.debug('Auto update turned off by user')
             return
 
@@ -1589,16 +1588,16 @@ class Workflow(object):
 
         # Diacritic folding
         def fold_on():
-            self.settings['__workflow_diacritic_folding'] = True
+            self.settings[base.KEY_DIACRITICS] = True
             return 'Diacritics will always be folded'
 
         def fold_off():
-            self.settings['__workflow_diacritic_folding'] = False
+            self.settings[base.KEY_DIACRITICS] = False
             return 'Diacritics will never be folded'
 
         def fold_default():
-            if '__workflow_diacritic_folding' in self.settings:
-                del self.settings['__workflow_diacritic_folding']
+            if base.KEY_DIACRITICS in self.settings:
+                del self.settings[base.KEY_DIACRITICS]
             return 'Diacritics folding reset'
 
         self.magic_arguments['foldingon'] = fold_on
@@ -1607,11 +1606,11 @@ class Workflow(object):
 
         # Updates
         def update_on():
-            self.settings['__workflow_autoupdate'] = True
+            self.settings[base.KEY_AUTO_UPDATE] = True
             return 'Auto update turned on'
 
         def update_off():
-            self.settings['__workflow_autoupdate'] = False
+            self.settings[base.KEY_AUTO_UPDATE] = False
             return 'Auto update turned off'
 
         def do_update():

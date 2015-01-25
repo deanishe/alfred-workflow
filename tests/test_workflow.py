@@ -31,13 +31,10 @@ import pytest
 
 from util import (
     # create_info_plist, delete_info_plist,
-    WorkflowMock,
-    VersionFile,
     InfoPlist,
     INFO_PLIST_PATH,
     create_info_plist,
     delete_info_plist,
-    workflow_env,
     WorkflowEnv,
 )
 
@@ -64,6 +61,17 @@ from workflow.search import (
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
 WORKFLOW_NAME = 'Alfred-Workflow Test'
+
+
+@pytest.fixture
+def wfenv(request, version=None, info_plist=True,
+          argv=None, exit=True, call=True, stderr=False):
+
+    e = WorkflowEnv(version, info_plist, argv, exit, call, stderr)
+    request.addfinalizer(e.tear_down)
+    e.set_up()
+
+    return e
 
 
 class SerializerTests(unittest.TestCase):
@@ -149,6 +157,7 @@ class WorkflowTests(unittest.TestCase):
     """Test suite for workflow.workflow.Workflow"""
 
     def setUp(self):
+        self.version_path = os.path.join(os.getcwdu(), 'version')
         self.libs = [os.path.join(os.path.dirname(__file__), b'lib')]
         self.account = 'this-is-my-test-account'
         self.password = 'this-is-my-safe-password'
@@ -202,6 +211,8 @@ class WorkflowTests(unittest.TestCase):
 
         self._setup_env()
         create_info_plist()
+        if os.path.exists(self.version_path):
+            os.unlink(self.version_path)
 
         self.wf = Workflow(libraries=self.libs)
 
@@ -219,6 +230,8 @@ class WorkflowTests(unittest.TestCase):
 
         self._teardown_env()
         delete_info_plist()
+        if os.path.exists(self.version_path):
+            os.unlink(self.version_path)
 
     ####################################################################
     # Result item generation
@@ -846,76 +859,6 @@ class WorkflowTests(unittest.TestCase):
     # Filtering
     ####################################################################
 
-    def test_filter_all_rules(self):
-        """Filter: all rules"""
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True, match_on=MATCH_ALL)
-        self.assertEqual(len(results), 8)
-        # now with scores, rules
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 include_score=True, match_on=MATCH_ALL)
-        self.assertEqual(len(results), 8)
-        for item, score, rule in results:
-            self.wf.logger.debug('{0} : {1}'.format(item, score))
-            for value, r in self.search_items:
-                if value == item[0]:
-                    self.assertEqual(rule, r)
-        # self.assertTrue(False)
-
-    def test_filter_no_caps(self):
-        """Filter: no caps"""
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True,
-                                 match_on=MATCH_ALL ^ MATCH_CAPITALS,
-                                 include_score=True)
-        self._print_results(results)
-        for item, score, rule in results:
-            self.assertNotEqual(rule, MATCH_CAPITALS)
-        # self.assertEqual(len(results), 7)
-
-    def test_filter_only_caps(self):
-        """Filter: only caps"""
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True,
-                                 match_on=MATCH_CAPITALS,
-                                 include_score=True)
-        self._print_results(results)
-        self.assertEqual(len(results), 1)
-
-    def test_filter_max_results(self):
-        """Filter: max results"""
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True, max_results=4)
-        self.assertEqual(len(results), 4)
-
-    def test_filter_min_score(self):
-        """Filter: min score"""
-        results = self.wf.filter('test', self.search_items, key=lambda x: x[0],
-                                 ascending=True, min_score=90,
-                                 include_score=True)
-        self.assertEqual(len(results), 6)
-
-    def test_filter_folding(self):
-        """Filter: diacritic folding"""
-        for key, query in self.search_items_diacritics:
-            results = self.wf.filter(query, [key], min_score=90,
-                                     include_score=True)
-            self.assertEqual(len(results), 1)
-
-    def test_filter_no_folding(self):
-        """Filter: folding turned off for non-ASCII query"""
-        data = ['fühler', 'fuhler', 'fübar', 'fubar']
-        results = self.wf.filter('fü', data)
-        self.assertEquals(len(results), 2)
-
-    def test_filter_folding_off(self):
-        """Filter: diacritic folding off"""
-        for key, query in self.search_items_diacritics:
-            results = self.wf.filter(query, [key], min_score=90,
-                                     include_score=True,
-                                     fold_diacritics=False)
-            self.assertEqual(len(results), 0)
-
     def test_filter_folding_force_on(self):
         """Filter: diacritic folding forced on"""
         self.wf.settings[base.KEY_DIACRITICS] = True
@@ -932,44 +875,6 @@ class WorkflowTests(unittest.TestCase):
             results = self.wf.filter(query, [key], min_score=90,
                                      include_score=True)
             self.assertEqual(len(results), 0)
-
-    def test_filter_empty_key(self):
-        """Filter: empty keys are ignored"""
-        data = ['bob', 'sue', 'henry']
-
-        def key(s):
-            """Return empty key"""
-            return ''
-
-        results = self.wf.filter('lager', data, key)
-        self.assertEquals(len(results), 0)
-
-    def test_filter_empty_query_words(self):
-        """Filter: empty query raises error"""
-        data = ['bob', 'sue', 'henry']
-        self.assertRaises(ValueError, self.wf.filter, '   ', data)
-
-        self.assertRaises(ValueError, self.wf.filter, '', data)
-
-    def test_filter_empty_query_words_ignored(self):
-        """Filter: empty query words ignored"""
-        data = ['bob jones', 'sue smith', 'henry rogers']
-        results = self.wf.filter('bob       jones', data)
-        self.assertEquals(len(results), 1)
-
-    def test_filter_identical_items(self):
-        """Filter: identical items are not discarded"""
-        data = ['bob', 'bob', 'bob']
-        results = self.wf.filter('bob', data)
-        self.assertEquals(len(results), len(data))
-
-    def test_filter_reversed_results(self):
-        """Filter: results reversed"""
-        data = ['bob', 'bobby', 'bobby smith']
-        results = self.wf.filter('bob', data)
-        self.assertEquals(results, data)
-        results = self.wf.filter('bob', data, ascending=True)
-        self.assertEquals(results, data[::-1])
 
     def test_icons(self):
         """Icons"""
@@ -1055,7 +960,7 @@ class WorkflowTests(unittest.TestCase):
 
     def test_first_run_no_version(self):
         """Workflow: first_run fails on no version"""
-        with InfoPlist():
+        with WorkflowEnv():
             wf = Workflow()
             self.assertRaises(ValueError, lambda wf: wf.first_run, wf)
 
@@ -1136,9 +1041,6 @@ class WorkflowTests(unittest.TestCase):
             return
 
         with WorkflowEnv(vstr):
-            assert os.path.exists('./version')
-            v = open('./version').read()
-            assert v != ''
             wf = Workflow()
             self.assertTrue(wf.last_version_run is None)
             self.assertEqual(wf.version, base.Version(vstr))
@@ -1190,14 +1092,12 @@ class MagicArgsTests(unittest.TestCase):
     def test_list_magic(self):
         """Magic: list magic"""
         # TODO: Verify output somehow
-        c = WorkflowMock(['script', 'workflow:magic'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
-            wf.logger.debug('STDERR : {0}'.format(c.stderr))
+        with WorkflowEnv(argv=['script', 'workflow:magic']) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(len(e.cmd), 0)
+            wf.logger.debug('STDERR : {0}'.format(e.stderr))
 
     def test_version_magic(self):
         """Magic: version magic"""
@@ -1206,131 +1106,124 @@ class MagicArgsTests(unittest.TestCase):
         vstr = '1.9.7'
 
         # Versioned
-        c = WorkflowMock(['script', 'workflow:version'])
-        with InfoPlist():
-            with c:
-                with VersionFile(vstr):
-                    wf = Workflow()
-                    # Process magic arguments
-                    wf.args
-            self.assertEquals(len(c.cmd), 0)
-            wf.logger.debug('STDERR : {0}'.format(c.stderr))
+        with WorkflowEnv(vstr, argv=['script', 'workflow:version']) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(len(e.cmd), 0)
+            wf.logger.debug('STDERR : {0}'.format(e.stderr))
 
-            # Unversioned
-            c = WorkflowMock(['script', 'workflow:version'])
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
+        with WorkflowEnv(argv=['script', 'workflow:version']) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(len(e.cmd), 0)
 
     def test_openhelp(self):
         """Magic: open help URL"""
         url = 'http://www.deanishe.net/alfred-workflow/'
-        c = WorkflowMock(['script', 'workflow:help'])
-        with InfoPlist():
-            with c:
-                wf = Workflow(help_url=url)
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], url)
+        argv = ['script', 'workflow:help']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow(help_url=url)
+            # Process magic arguments
+            wf.args
+
+            self.assertEquals(e.cmd[0], 'open')
+            self.assertEquals(e.cmd[1], url)
 
     def test_openhelp_no_url(self):
         """Magic: no help URL"""
-        c = WorkflowMock(['script', 'workflow:help'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
+        argv = ['script', 'workflow:help']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(len(e.cmd), 0)
 
     def test_openlog(self):
         """Magic: open logfile"""
-        c = WorkflowMock(['script', 'workflow:openlog'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.logfile)
+        argv = ['script', 'workflow:openlog']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(e.cmd[0], 'open')
+            self.assertEquals(e.cmd[1], wf.logfile)
 
     def test_cachedir(self):
         """Magic: open cachedir"""
-        c = WorkflowMock(['script', 'workflow:opencache'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.cachedir)
+        argv = ['script', 'workflow:opencache']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(e.cmd[0], 'open')
+            self.assertEquals(e.cmd[1], wf.cachedir)
 
     def test_datadir(self):
         """Magic: open datadir"""
-        c = WorkflowMock(['script', 'workflow:opendata'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.datadir)
+        argv = ['script', 'workflow:opendata']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(e.cmd[0], 'open')
+            self.assertEquals(e.cmd[1], wf.datadir)
 
     def test_workflowdir(self):
         """Magic: open workflowdir"""
-        c = WorkflowMock(['script', 'workflow:openworkflow'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.workflowdir)
+        argv = ['script', 'workflow:openworkflow']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(e.cmd[0], 'open')
+            self.assertEquals(e.cmd[1], wf.workflowdir)
 
     def test_open_term(self):
         """Magic: open Terminal"""
-        c = WorkflowMock(['script', 'workflow:openterm'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd, ['open', '-a', 'Terminal', wf.workflowdir])
+        argv = ['script', 'workflow:openterm']
+        with WorkflowEnv(argv=argv) as e:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            self.assertEquals(e.cmd, ['open', '-a',
+                                      'Terminal', wf.workflowdir])
 
     def test_delete_data(self):
         """Magic: delete data"""
-        c = WorkflowMock(['script', 'workflow:deldata'])
-        with InfoPlist():
+        argv = ['script', 'workflow:deldata']
+
+        with WorkflowEnv(argv=argv):
             wf = Workflow()
             testpath = wf.datafile('file.test')
             with open(testpath, 'wb') as file_obj:
                 file_obj.write('test!')
-            with c:
-                self.assertTrue(os.path.exists(testpath))
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(testpath))
+
+            self.assertTrue(os.path.exists(testpath))
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(testpath))
 
     def test_delete_cache(self):
         """Magic: delete cache"""
-        c = WorkflowMock(['script', 'workflow:delcache'])
-        with InfoPlist():
+        argv = ['script', 'workflow:delcache']
+
+        with WorkflowEnv(argv=argv):
             wf = Workflow()
             testpath = wf.cachefile('file.test')
             with open(testpath, 'wb') as file_obj:
                 file_obj.write('test!')
-            with c:
-                self.assertTrue(os.path.exists(testpath))
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(testpath))
+
+            self.assertTrue(os.path.exists(testpath))
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(testpath))
 
     def test_reset(self):
         """Magic: reset"""
-        with InfoPlist():
+        argv = ['script', 'workflow:reset']
+        with WorkflowEnv(argv=argv):
             wf = Workflow()
             wf.settings['key'] = 'value'
             datatest = wf.datafile('data.test')
@@ -1344,58 +1237,50 @@ class MagicArgsTests(unittest.TestCase):
             for p in (datatest, cachetest, settings_path):
                 self.assertTrue(os.path.exists(p))
 
-            c = WorkflowMock(['script', 'workflow:reset'])
-            with c:
-                wf.args
+            wf.args
 
             for p in (datatest, cachetest, settings_path):
                 self.assertFalse(os.path.exists(p))
 
     def test_delete_settings(self):
         """Magic: delete settings"""
-        c = WorkflowMock(['script', 'workflow:delsettings'])
-        with InfoPlist():
+        argv = ['script', 'workflow:delsettings']
+        with WorkflowEnv(argv=argv):
             wf = Workflow()
             wf.settings['key'] = 'value'
             filepath = wf.datafile('settings.json')
-            with c:
-                self.assertTrue(os.path.exists(filepath))
-                wf2 = Workflow()
-                self.assertEquals(wf2.settings.get('key'), 'value')
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(filepath))
-                wf3 = Workflow()
-                self.assertFalse('key' in wf3.settings)
+            self.assertTrue(os.path.exists(filepath))
+            wf2 = Workflow()
+            self.assertEquals(wf2.settings.get('key'), 'value')
+            # Process magic arguments
+            wf.args
+            self.assertFalse(os.path.exists(filepath))
+            wf3 = Workflow()
+            self.assertFalse('key' in wf3.settings)
 
     def test_folding(self):
         """Magic: folding"""
-        with InfoPlist():
+        with WorkflowEnv(argv=['script', 'workflow:foldingdefault']):
             wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingdefault'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding')
+            wf.args
+            self.assertTrue(wf.settings.get(base.KEY_DIACRITICS)
                             is None)
 
+        with WorkflowEnv(argv=['script', 'workflow:foldingon']):
             wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingon'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding'))
+            wf.args
+            self.assertTrue(wf.settings.get(base.KEY_DIACRITICS))
 
+        with WorkflowEnv(argv=['script', 'workflow:foldingdefault']):
             wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingdefault'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding') is
+            wf.args
+            self.assertTrue(wf.settings.get(base.KEY_DIACRITICS) is
                             None)
 
+        with WorkflowEnv(argv=['script', 'workflow:foldingoff']):
             wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingoff'])
-            with c:
-                wf.args
-            self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
+            wf.args
+            self.assertFalse(wf.settings.get(base.KEY_DIACRITICS))
 
     def test_auto_update(self):
         """Magic: auto-update"""
@@ -1409,21 +1294,21 @@ class MagicArgsTests(unittest.TestCase):
         def fake(wf):
             return
 
-        with InfoPlist():
+        argv = ['script', 'workflow:autoupdate']
+        with WorkflowEnv(argv=argv):
             wf = Workflow(update_settings=update_settings)
-            c = WorkflowMock(['script', 'workflow:autoupdate'])
-            with c:
-                wf.args
-                wf.run(fake)
-            self.assertTrue(wf.settings.get('__workflow_autoupdate'))
+            wf.args
+            wf.run(fake)
+            self.assertTrue(wf.settings.get(base.KEY_AUTO_UPDATE))
 
             wf = Workflow()
             wf.reset()
-            c = WorkflowMock(['script', 'workflow:noautoupdate'])
-            with c:
-                wf.args
-                wf.run(fake)
-            self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+        argv = ['script', 'workflow:noautoupdate']
+        with WorkflowEnv(argv=argv):
+            wf = Workflow(update_settings=update_settings)
+            wf.args
+            wf.run(fake)
+            self.assertFalse(wf.settings.get(base.KEY_AUTO_UPDATE))
 
             # del wf.settings['__workflow_autoupdate']
             wf.reset()
@@ -1439,33 +1324,29 @@ class MagicArgsTests(unittest.TestCase):
             'version': 'v2.0',
             'frequency': 1,
         }
-        with InfoPlist():
+        argv = ['script', 'workflow:update']
+        with WorkflowEnv(argv=argv) as e:
             wf = Workflow(update_settings=update_settings)
             wf.run(fake)
 
             self.assertFalse(wf.update_available)
 
-            # Mock subprocess.call etc. so the script doesn't try to
-            # update the workflow in Alfred
-            c = WorkflowMock(['script', 'workflow:update'])
-            with c:
-                wf.run(fake)
-                wf.args
+            wf.run(fake)
+            wf.args
 
-            wf.logger.debug('Magic update command : {0}'.format(c.cmd))
+            wf.logger.debug('Magic update command : {0}'.format(e.cmd))
 
-            self.assertEquals(c.cmd[0], '/usr/bin/python')
-            self.assertEquals(c.cmd[2], '__workflow_update_install')
+            self.assertEquals(e.cmd[0], '/usr/bin/python')
+            self.assertEquals(e.cmd[2], '__workflow_update_install')
 
+        with WorkflowEnv(argv=argv) as e:
             update_settings['version'] = 'v6.0'
             wf = Workflow(update_settings=update_settings)
-            c = WorkflowMock(['script', 'workflow:update'])
-            with c:
-                wf.run(fake)
-                wf.args
+            wf.run(fake)
+            wf.args
 
-        # Update command wasn't called
-        self.assertEqual(c.cmd, ())
+            # Update command wasn't called
+            self.assertEqual(e.cmd, ())
 
     def test_update_turned_off(self):
         """Magic: updates turned off"""
@@ -1481,10 +1362,17 @@ class MagicArgsTests(unittest.TestCase):
             'version': 'v2.0',
             'frequency': 1,
         }
-        with InfoPlist():
+        with WorkflowEnv():
             wf = Workflow(update_settings=update_settings)
-            wf.settings['__workflow_autoupdate'] = False
+            wf.settings[base.KEY_AUTO_UPDATE] = False
             self.assertTrue(wf.check_update() is None)
+
+
+def test_env_passthrough(wfenv):
+    """Env vars pass through"""
+    wf = Workflow()
+    assert wf.info['bundleid'] == wf.bundleid
+    assert wf.info['name'] == wf.name
 
 
 if __name__ == '__main__':  # pragma: no cover

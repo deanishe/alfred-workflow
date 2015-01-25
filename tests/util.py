@@ -19,8 +19,6 @@ import sys
 import os
 import subprocess
 
-import pytest
-
 import workflow
 import workflow.workflow
 from workflow._env import WorkflowEnvironment
@@ -35,37 +33,11 @@ VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                             'version')
 
 
-@pytest.fixture
-def workflow_env(request, version=None, info_plist=True):
-    ip_path = os.path.join(os.getcwdu(), 'info.plist')
-    v_path = os.path.join(os.getcwdu(), 'version')
-    v_delete = not os.path.exists(v_path)
-    _env = workflow.env
-
-    def tear_down():
-        workflow.env = _env
-        if v_delete and os.path.exists(v_path):
-            os.unlink(v_path)
-        if os.path.exists(ip_path) and os.path.islink(ip_path):
-            os.unlink(ip_path)
-
-    request.addfinalizer(tear_down)
-
-    if version is not None:
-        with open(v_path, 'wb') as fp:
-            fp.write(str(version))
-
-    if info_plist:
-        if not os.path.exists(ip_path):
-            os.symlink(INFO_PLIST_TEST, ip_path)
-
-    workflow.env = WorkflowEnvironment()
-    workflow.workflow.env = workflow.env
-
-
 class WorkflowEnv(object):
 
-    def __init__(self, version=None, info_plist=True):
+    def __init__(self, version=None, info_plist=True,
+                 argv=None, exit=True, call=True, stderr=False):
+
         self.version = version
         self.info_plist = info_plist
         self.ip_path = os.path.join(INFO_PLIST_PATH)
@@ -76,7 +48,33 @@ class WorkflowEnv(object):
         self.v_backup = os.path.join(os.getcwdu(),
                                      'version.{0}'.format(os.getpid()))
 
+        # if version and os.path.exists(self.v_path):
+        #     raise IOError('Path already exists : {0}'.format(self.v_path))
+
+        # if info_plist and os.path.exists(self.ip_path):
+        #     raise IOError('Path already exists : {0}'.format(self.ip_path))
+
+        self.argv = argv
+        self.override_exit = exit
+        self.override_call = call
+        self.override_stderr = stderr
+        self.argv_orig = None
+        self.call_orig = None
+        self.exit_orig = None
+        self.stderr_orig = None
+        self.cmd = ()
+        self.args = []
+        self.kwargs = {}
+        self.stderr = ''
+
     def __enter__(self):
+        self.set_up()
+        return self
+
+    def __exit__(self, *args):
+        self.tear_down()
+
+    def set_up(self):
         # Move existing files
         if os.path.exists(self.ip_path):
             os.rename(self.ip_path, self.ip_backup)
@@ -86,19 +84,43 @@ class WorkflowEnv(object):
         self._env = workflow.env
 
         if self.version is not None:
+            # assert not os.path.exists(self.v_path)
             with open(self.v_path, 'wb') as fp:
                 fp.write(str(self.version))
 
         if self.info_plist:
+            # assert not os.path.exists(self.ip_path)
             if not os.path.exists(self.ip_path):
                 os.symlink(INFO_PLIST_TEST, self.ip_path)
 
         workflow.env = WorkflowEnvironment()
         workflow.workflow.env = workflow.env
 
-    def __exit__(self, *args):
+        # Other python libs
+        if self.override_call:
+            self.call_orig = subprocess.call
+            subprocess.call = self._call
+
+        if self.override_exit:
+            self.exit_orig = sys.exit
+            sys.exit = self._exit
+
+        if self.argv:
+            self.argv_orig = sys.argv[:]
+            sys.argv = self.argv[:]
+
+        if self.override_stderr:
+            self.stderr_orig = sys.stderr
+            sys.stderr = StringIO()
+
+    def tear_down(self):
+        # Restore env
         workflow.env = self._env
         workflow.workflow.env = self._env
+        # Restore paths
+        # for p in (self.v_path, self.ip_path):
+        #     if os.path.exists(p):
+        #         os.unlink(p)
         if os.path.exists(self.v_backup):
             if os.path.exists(self.v_path):
                 os.unlink(self.v_path)
@@ -107,6 +129,29 @@ class WorkflowEnv(object):
             if os.path.exists(self.ip_path):
                 os.unlink(self.ip_path)
             os.rename(self.ip_backup, self.ip_path)
+
+        # Restore other modules
+        if self.call_orig:
+            subprocess.call = self.call_orig
+
+        if self.exit_orig:
+            sys.exit = self.exit_orig
+
+        if self.argv_orig:
+            sys.argv = self.argv_orig[:]
+
+        if self.stderr_orig:
+            self.stderr = sys.stderr.getvalue()
+            sys.stderr.close()
+            sys.stderr = self.stderr_orig
+
+    def _exit(self, status=0):
+        return
+
+    def _call(self, cmd, *args, **kwargs):
+        self.cmd = cmd
+        self.args = args
+        self.kwargs = kwargs
 
 
 class WorkflowMock(object):

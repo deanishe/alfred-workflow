@@ -306,7 +306,7 @@ def filter(query, items, key=lambda x: x, ascending=False,
         raise ValueError('`query` contains only whitespace')
 
     # Use user override if there is one
-    # fold_diacritics = self.settings.get('__workflow_diacritic_folding',
+    # fold_diacritics = self.settings.get(base.KEY_DIACRITICS,
     #                                     fold_diacritics)
 
     results = []

@@ -31,6 +31,7 @@ except ImportError:
 ####################################################################
 
 KEY_DIACRITICS = '__aw_diacritic_folding'
+KEY_AUTO_UPDATE = '__aw_autoupdate'
 
 
 ####################################################################

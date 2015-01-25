@@ -249,7 +249,7 @@ def check_update(github_slug, current_version):
     wf().logger.debug('Latest : {0!r} Installed : {1!r}'.format(vr, vl))
     if vr > vl:
 
-        wf().cache_data('__workflow_update_status', {
+        wf().cache_data(base.KEY_UPDATE_DATA, {
             'version': latest_release['version'],
             'download_url': latest_release['download_url'],
             'available': True
@@ -257,7 +257,7 @@ def check_update(github_slug, current_version):
 
         return True
 
-    wf().cache_data('__workflow_update_status', {
+    wf().cache_data(base.KEY_UPDATE_DATA, {
         'available': False
     })
     return False
@@ -278,7 +278,7 @@ def install_update(github_slug, current_version):
     """
     # TODO: `github_slug` and `current_version` are both unusued.
 
-    update_data = wf().cached_data('__workflow_update_status', max_age=0)
+    update_data = wf().cached_data(base.KEY_UPDATE_DATA, max_age=0)
 
     if not update_data or not update_data.get('available'):
         wf().logger.info('No update available')
@@ -290,7 +290,7 @@ def install_update(github_slug, current_version):
     subprocess.call(['open', local_file])
 
     update_data['available'] = False
-    wf().cache_data('__workflow_update_status', update_data)
+    wf().cache_data(base.KEY_UPDATE_DATA, update_data)
     return True
 
 

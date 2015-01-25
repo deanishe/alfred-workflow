@@ -30,33 +30,24 @@ from unicodedata import normalize
 import pytest
 
 from util import (
-    # create_info_plist, delete_info_plist,
-    InfoPlist,
     INFO_PLIST_PATH,
     create_info_plist,
     delete_info_plist,
     WorkflowEnv,
 )
 
-from workflow.workflow import (
-    Workflow,
+from workflow.base import (
     PasswordNotFound,
     KeychainError,
+)
+
+from workflow.workflow import (
+    Workflow,
     manager,
 )
 
 from workflow import base
 
-from workflow.search import (
-    MATCH_ALL,
-    MATCH_ALLCHARS,
-    MATCH_ATOM,
-    MATCH_CAPITALS,
-    MATCH_STARTSWITH,
-    MATCH_SUBSTRING,
-    MATCH_INITIALS_CONTAIN,
-    MATCH_INITIALS_STARTSWITH,
-)
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
@@ -163,17 +154,6 @@ class WorkflowTests(unittest.TestCase):
         self.password = 'this-is-my-safe-password'
         self.password2 = 'this-is-my-other-safe-password'
         self.password3 = 'this-pässwörd-is\\"non-ASCII"'
-        self.search_items = [
-            ('Test Item One', MATCH_STARTSWITH),
-            ('test item two', MATCH_STARTSWITH),
-            ('TwoExtraSpecialTests', MATCH_CAPITALS),
-            ('this-is-a-test', MATCH_ATOM),
-            ('the extra special trials', MATCH_INITIALS_STARTSWITH),
-            ('not the extra special trials', MATCH_INITIALS_CONTAIN),
-            ('intestinal fortitude', MATCH_SUBSTRING),
-            ('the splits', MATCH_ALLCHARS),
-            ('nomatch', 0),
-        ]
 
         self.search_items_diacritics = [
             # search key, query
@@ -1310,7 +1290,7 @@ class MagicArgsTests(unittest.TestCase):
             wf.run(fake)
             self.assertFalse(wf.settings.get(base.KEY_AUTO_UPDATE))
 
-            # del wf.settings['__workflow_autoupdate']
+            # del wf.settings[base.KEY_AUTO_UPDATE]
             wf.reset()
 
     def test_update(self):
@@ -1337,7 +1317,9 @@ class MagicArgsTests(unittest.TestCase):
             wf.logger.debug('Magic update command : {0}'.format(e.cmd))
 
             self.assertEquals(e.cmd[0], '/usr/bin/python')
-            self.assertEquals(e.cmd[2], '__workflow_update_install')
+            self.assertEquals(e.cmd[1], '-m')
+            self.assertEquals(e.cmd[2], 'workflow.background')
+            self.assertEquals(e.cmd[3], base.KEY_INSTALLER)
 
         with WorkflowEnv(argv=argv) as e:
             update_settings['version'] = 'v6.0'
@@ -1368,11 +1350,13 @@ class MagicArgsTests(unittest.TestCase):
             self.assertTrue(wf.check_update() is None)
 
 
-def test_env_passthrough(wfenv):
-    """Env vars pass through"""
+def test_passthroughs(wfenv):
+    """Test wrapper methods"""
     wf = Workflow()
     assert wf.info['bundleid'] == wf.bundleid
     assert wf.info['name'] == wf.name
+    assert wf.fold_to_ascii('bob') == 'bob'
+    assert wf.fold_to_ascii('böb') == 'bob'
 
 
 if __name__ == '__main__':  # pragma: no cover

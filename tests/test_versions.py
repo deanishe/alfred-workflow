@@ -14,7 +14,7 @@ test_versions.py
 from __future__ import print_function
 
 import unittest
-from workflow.update import Version
+from workflow.base import Version
 
 
 class VersionTests(unittest.TestCase):

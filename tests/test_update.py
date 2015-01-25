@@ -19,7 +19,7 @@ import os
 import time
 
 from util import WorkflowMock, create_info_plist, delete_info_plist
-from workflow import Workflow, update
+from workflow import base, Workflow, update
 from workflow.background import is_running
 
 RELEASE_LATEST = '6.0'
@@ -100,8 +100,8 @@ class UpdateTests(unittest.TestCase):
             self.assertFalse(v in versions)
 
         # Correct latest release
-        self.assertEquals(update.Version(releases[0]['version']),
-                          update.Version(RELEASE_LATEST))
+        self.assertEquals(base.Version(releases[0]['version']),
+                          base.Version(RELEASE_LATEST))
 
     def test_version_formats(self):
         """Update: version formats"""
@@ -123,7 +123,7 @@ class UpdateTests(unittest.TestCase):
 
         self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT))
 
-        update_info = self.wf.cached_data('__workflow_update_status')
+        update_info = self.wf.cached_data(base.KEY_UPDATE_DATA)
         self.assertFalse(update.check_update(TEST_REPO_SLUG,
                                              update_info['version']))
 
@@ -135,7 +135,7 @@ class UpdateTests(unittest.TestCase):
         wf.reset()
 
         # Verify that there's no update available
-        self.assertTrue(wf.cached_data('__workflow_update_status') is None)
+        self.assertTrue(wf.cached_data(base.KEY_UPDATE_DATA) is None)
 
         self.assertFalse(update.install_update(TEST_REPO_SLUG,
                                                RELEASE_LATEST))
@@ -152,7 +152,7 @@ class UpdateTests(unittest.TestCase):
         self.assertTrue(c.cmd[1].endswith('.alfredworkflow'))
 
         self.assertFalse(wf.cached_data(
-                         '__workflow_update_status')['available'])
+                         base.KEY_UPDATE_DATA)['available'])
 
     def test_no_auto_update(self):
         """Update: no update check"""
@@ -161,16 +161,16 @@ class UpdateTests(unittest.TestCase):
         wf = Workflow()
         wf.reset()
 
-        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+        self.assertTrue(self.wf.cached_data(base.KEY_UPDATE_DATA) is
                         None)
 
         wf = Workflow()
         c = WorkflowMock(['script', 'workflow:noautoupdate'])
         with c:
             wf.args
-        self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+        self.assertFalse(wf.settings.get(base.KEY_AUTO_UPDATE))
 
-        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+        self.assertTrue(self.wf.cached_data(base.KEY_UPDATE_DATA) is
                         None)
 
         c = WorkflowMock()
@@ -178,7 +178,7 @@ class UpdateTests(unittest.TestCase):
             wf = Workflow(update_settings={'github_slug': TEST_REPO_SLUG,
                           'version': RELEASE_CURRENT})
 
-        self.assertTrue(self.wf.cached_data('__workflow_update_status') is
+        self.assertTrue(self.wf.cached_data(base.KEY_UPDATE_DATA) is
                         None)
 
     def test_workflow_update_methods(self):
@@ -201,13 +201,15 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(wf.update_available)
 
         # wait for background update check
-        self.assertTrue(is_running('__workflow_update_check'))
-        while is_running('__workflow_update_check'):
+        self.assertTrue(is_running(base.KEY_UPDATER))
+        while is_running(base.KEY_UPDATER):
             time.sleep(0.05)
         time.sleep(1)
 
         # There *is* a newer version in the repo
-        self.assertTrue(wf.update_available)
+        ud = wf.update_available
+        print('update_available : {0!r}'.format(ud))
+        self.assertTrue(ud)
 
         # Mock out subprocess and check the correct command is run
         c = WorkflowMock()
@@ -215,10 +217,12 @@ class UpdateTests(unittest.TestCase):
             self.assertTrue(wf.start_update())
         # wf.logger.debug('start_update : {}'.format(c.cmd))
         self.assertEquals(c.cmd[0], '/usr/bin/python')
-        self.assertEquals(c.cmd[2], '__workflow_update_install')
+        self.assertEquals(c.cmd[1], '-m')
+        self.assertEquals(c.cmd[2], 'workflow.background')
+        self.assertEquals(c.cmd[2], base.KEY_UPDATER)
 
         # Grab the updated release data, then reset the cache
-        update_info = wf.cached_data('__workflow_update_status')
+        update_info = wf.cached_data(base.KEY_UPDATE_DATA)
 
         wf.reset()
 
@@ -231,8 +235,8 @@ class UpdateTests(unittest.TestCase):
         wf.run(fake)
 
         # Wait for background update check
-        self.assertTrue(is_running('__workflow_update_check'))
-        while is_running('__workflow_update_check'):
+        self.assertTrue(is_running(base.KEY_UPDATER))
+        while is_running(base.KEY_UPDATER):
             time.sleep(0.05)
 
         # Remote version is same as the one we passed to Workflow

@@ -21,7 +21,6 @@ import binascii
 import os
 import sys
 import re
-import plistlib
 import subprocess
 import shutil
 import json
@@ -35,9 +34,8 @@ try:
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
-from workflow.base import KeychainError, PasswordExists, PasswordNotFound
-from workflow import base, env, hooks, icons, search, util
-from workflow import storage
+from . import base, env, hooks, icons, search, util
+from . import storage
 
 
 #: Sentinel for properties that haven't been set yet (that might
@@ -417,8 +415,6 @@ class Workflow(object):
         self._data_serializer = 'cpickle'
         # info.plist should be in the directory above this one
         self._info_plist = self.workflowfile('info.plist')
-        self._info = None
-        self._info_loaded = False
         self._logger = None
         self._items = []
         self._alfred_env = None
@@ -1173,13 +1169,14 @@ class Workflow(object):
             if self.help_url:
                 self.logger.info(
                     'For assistance, see: {0}'.format(self.help_url))
-            if not sys.stdout.isatty():  # Show error in Alfred
+            if not sys.stdout.isatty():
+                # Show error in Alfred
                 self._items = []
                 if self._name:  # pragma: no cover
                     name = self._name
-                elif self._bundleid:
+                elif self._bundleid:  # pragma: no cover
                     name = self._bundleid
-                else:  # pragma: no cover
+                else:
                     name = os.path.dirname(__file__)
                 self.add_item("Error in workflow '%s'" % name, unicode(err),
                               icon=icons.ERROR)
@@ -1304,7 +1301,7 @@ class Workflow(object):
 
         if self._last_version_run is UNSET:
 
-            version = self.settings.get('__workflow_last_version')
+            version = self.settings.get(base.KEY_VERSION_LAST_RUN)
             if version:
                 version = base.Version(version)
 
@@ -1338,7 +1335,7 @@ class Workflow(object):
         if isinstance(version, basestring):
             version = base.Version(version)
 
-        self.settings['__workflow_last_version'] = str(version)
+        self.settings[base.KEY_VERSION_LAST_RUN] = str(version)
 
         self.logger.debug('Set last run version : {0}'.format(version))
 
@@ -1357,7 +1354,7 @@ class Workflow(object):
 
         """
 
-        update_data = self.cached_data('__workflow_update_status', max_age=0)
+        update_data = self.cached_data(base.KEY_UPDATE_DATA, max_age=0)
         self.logger.debug('update_data : {0}'.format(update_data))
 
         if not update_data or not update_data.get('available'):
@@ -1390,7 +1387,7 @@ class Workflow(object):
 
         # Check for new version if it's time
         if (force or not self.cached_data_fresh(
-                '__workflow_update_status', frequency * 86400)):
+                base.KEY_UPDATE_DATA, frequency * 86400)):
 
             github_slug = self._update_settings['github_slug']
             # version = self._update_settings['version']
@@ -1407,7 +1404,7 @@ class Workflow(object):
 
             self.logger.info('Checking for update ...')
 
-            run_in_background('__workflow_update_check', cmd)
+            run_in_background(base.KEY_UPDATER, cmd)
 
         else:
             self.logger.debug('Update check not due')
@@ -1444,7 +1441,7 @@ class Workflow(object):
                version]
 
         self.logger.debug('Downloading update ...')
-        run_in_background('__workflow_update_install', cmd)
+        run_in_background(base.KEY_INSTALLER, cmd)
 
         return True
 
@@ -1458,8 +1455,8 @@ class Workflow(object):
         If the account exists, the old password will first be deleted
         (Keychain throws an error otherwise).
 
-        If something goes wrong, a :class:`KeychainError` exception will
-        be raised.
+        If something goes wrong, a :class:`base.KeychainError` exception
+        will be raised.
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
@@ -1479,7 +1476,7 @@ class Workflow(object):
                                 '-w', password)
             self.logger.debug('Saved password : %s:%s', service, account)
 
-        except PasswordExists:
+        except base.PasswordExists:
             self.logger.debug('Password exists : %s:%s', service, account)
             current_password = self.get_password(account, service)
 
@@ -1791,28 +1788,6 @@ class Workflow(object):
                     os.unlink(path)
                 self.logger.debug('Deleted : %r', path)
 
-    def _load_info_plist(self):
-        """Load workflow info from ``info.plist``
-
-        """
-
-        self._info = plistlib.readPlist(self._info_plist)
-        self._info_loaded = True
-
-    def _create(self, dirpath):
-        """Create directory `dirpath` if it doesn't exist
-
-        :param dirpath: path to directory
-        :type dirpath: ``unicode``
-        :returns: ``dirpath`` argument
-        :rtype: ``unicode``
-
-        """
-
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
-        return dirpath
-
     def _call_security(self, action, service, account, *args):
         """Call the ``security`` CLI app that provides access to keychains.
 
@@ -1844,11 +1819,11 @@ class Workflow(object):
                              stderr=subprocess.STDOUT)
         retcode, output = p.wait(), p.stdout.read().strip().decode('utf-8')
         if retcode == 44:  # password does not exist
-            raise PasswordNotFound()
+            raise base.PasswordNotFound()
         elif retcode == 45:  # password already exists
-            raise PasswordExists()
+            raise base.PasswordExists()
         elif retcode > 0:
-            err = KeychainError('Unknown Keychain error : %s' % output)
+            err = base.KeychainError('Unknown Keychain error : %s' % output)
             err.retcode = retcode
             raise err
         return output

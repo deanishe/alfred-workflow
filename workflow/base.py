@@ -32,6 +32,10 @@ except ImportError:
 
 KEY_DIACRITICS = '__aw_diacritic_folding'
 KEY_AUTO_UPDATE = '__aw_autoupdate'
+KEY_UPDATER = '__aw_background_updater'
+KEY_INSTALLER = '__aw_background_installer'
+KEY_UPDATE_DATA = '__aw_update_data'
+KEY_VERSION_LAST_RUN = '__aw_last_version_run'
 
 
 ####################################################################

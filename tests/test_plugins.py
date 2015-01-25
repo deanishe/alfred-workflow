@@ -14,20 +14,10 @@
 from __future__ import print_function, unicode_literals, absolute_import
 
 import os
-import sys
 
 from workflow import plugins
 
 LIB_PATH = os.path.join(os.path.dirname(__file__), 'lib')
-
-
-def test_syspath():
-    """Manipulate `sys.path`"""
-    assert LIB_PATH not in sys.path
-    with plugins.syspath([LIB_PATH]):
-        assert LIB_PATH in sys.path
-        assert sys.path[0] == LIB_PATH
-    assert LIB_PATH not in sys.path
 
 
 def test_plugin_path():

@@ -9,6 +9,9 @@
 #
 
 """
+Common core workflow functions, such as exceptions, constants and
+logging.
+
 """
 
 from __future__ import print_function, unicode_literals, absolute_import
@@ -18,23 +21,43 @@ import logging.handlers
 import os
 import re
 
+from .util import symbol
+
+
 try:
     from logging import NullHandler
-except ImportError:
+except ImportError:  # pragma: no cover
     class NullHandler(logging.Handler):
         def emit(self, *args, **kwargs):
             pass
 
 
 ####################################################################
-# Key names for library's saved settings
+# Constants
 ####################################################################
 
+#: Sentinel for properties that haven't been set yet (that might
+#: correctly have the value ``None``)
+UNSET = symbol('UNSET')
+
+
+# Key names for library's saved settings.
+# These can't be symbols, as they get serialised to JSON
+# ------------------------------------------------------------------
+
+#: User override for diacritic folding. Set with ``foldingon``,
+#: ``foldingoff`` & ``foldingdefault`` :ref:`magic-arguments`.
 KEY_DIACRITICS = '__aw_diacritic_folding'
+#: User override for automatic update checks. Set with
+#: ``autoupdateon`` and ``autoupdateoff`` :ref:`magic-arguments`.
 KEY_AUTO_UPDATE = '__aw_autoupdate'
+#: :mod:`~workflow.background` process name for the updater script.
 KEY_UPDATER = '__aw_background_updater'
+#: :mod:`~workflow.background` process name for the installer script.
 KEY_INSTALLER = '__aw_background_installer'
+#: Cache key update data is stored under.
 KEY_UPDATE_DATA = '__aw_update_data'
+#: Settings key last version run is saved under.
 KEY_VERSION_LAST_RUN = '__aw_last_version_run'
 
 
@@ -75,7 +98,35 @@ class Version(object):
     """Mostly semantic versioning
 
     The main difference to proper :ref:`semantic versioning <semver>`
-    is that this implementation doesn't require a minor or patch version.
+    is that this implementation doesn't require a minor or patch
+    version.
+
+    >>> v1 = Version('2.5')
+    >>> v2 = Version('2.5.1')
+    >>> v1 > v2
+    False
+    >>> v1 == v2
+    False
+    >>> v1 < v2
+    True
+    >>> v3 = Version('2.5-beta')
+    >>> v1 > v3  # release > beta
+    True
+    >>> v4 = Version('v2.5')
+    >>> v1 == v4
+    True
+    >>> v = Version('dave')
+    Traceback (most recent call last):
+        ...
+    ValueError: Invalid version number: dave
+    >>> v = Version('1.1.1.1')
+    Traceback (most recent call last):
+        ...
+    ValueError: Invalid version (too long): 1.1.1.1
+    >>> v = Version('1.1.1alpha')
+    Traceback (most recent call last):
+        ...
+    ValueError: Invalid suffix: `alpha`. Must start with `-`
     """
 
     #: Match version and pre-release/build information in version strings
@@ -106,7 +157,7 @@ class Version(object):
         if len(parts):
             self.patch = parts.pop(0)
         if not len(parts) == 0:
-            raise ValueError('Invalid version (too long) : {0}'.format(vstr))
+            raise ValueError('Invalid version (too long): {0}'.format(vstr))
 
         if suffix:
             # Build info
@@ -117,7 +168,7 @@ class Version(object):
             if suffix:
                 if not suffix.startswith('-'):
                     raise ValueError(
-                        'Invalid suffix : `{0}`. Must start with `-`'.format(
+                        'Invalid suffix: `{0}`. Must start with `-`'.format(
                             suffix))
                 self.suffix = suffix[1:]
 
@@ -217,6 +268,7 @@ def init_logging(console=True, logfile=None, level=logging.INFO):
     logger.handlers = []
     if console:
         hdlr = logging.StreamHandler()
+        hdlr.aw_handler = True
         fmt = logging.Formatter(fmt_str, datefmt='%H:%M:%S')
         hdlr.setFormatter(fmt)
         logger.addHandler(hdlr)
@@ -226,41 +278,9 @@ def init_logging(console=True, logfile=None, level=logging.INFO):
         hdlr = logging.handlers.RotatingFileHandler(logfile,
                                                     maxBytes=1024*1024,
                                                     backupCount=0)
+        hdlr.aw_handler = True
         fmt = logging.Formatter(fmt_str, datefmt='%H:%M:%S')
         hdlr.setFormatter(fmt)
         logger.addHandler(hdlr)
 
     logger.setLevel(level)
-
-
-####################################################################
-# Helpers from blinker
-# https://github.com/jek/blinker/
-####################################################################
-
-class _symbol(object):
-
-    def __init__(self, name):
-        """Construct a new named symbol."""
-        self.__name__ = self.name = name
-
-    def __repr__(self):
-        return 'symbol({0!r})'.format(self.name)
-
-_symbol.__name__ = b'symbol'
-
-
-class symbol(object):
-    """A constant symbol.
-
-    Is a singleton
-
-    """
-
-    symbols = {}
-
-    def __new__(cls, name):
-        try:
-            return cls.symbols[name]
-        except KeyError:
-            return cls.symbols.setdefault(name, _symbol(name))

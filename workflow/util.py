@@ -18,10 +18,6 @@ import os
 import sys
 import unicodedata
 
-from workflow.base import get_logger
-
-log = get_logger(__name__)
-
 
 def find_upwards(filename, start_dirpath=None):
     """Search up directory tree for ``filename``
@@ -106,3 +102,44 @@ def syspath(paths):
         sys.path.insert(0, path)
     yield
     sys.path = _syspath
+
+
+####################################################################
+# Helpers from blinker
+# https://github.com/jek/blinker/
+####################################################################
+
+class _symbol(object):
+
+    def __init__(self, name):
+        """Construct a new named symbol."""
+        self.__name__ = self.name = name
+
+    def __repr__(self):
+        return self.name
+
+    # def __str__(self):
+    #     return self.name
+
+    # def __unicode__(self):
+    #     return unicode(self.name, 'utf-8')
+
+_symbol.__name__ = b'symbol'
+
+
+class symbol(object):
+    """A constant symbol.
+
+    Is a singleton.
+
+    """
+
+    symbols = {}
+
+    def __new__(cls, name):
+        if isinstance(name, unicode):
+            name = name.encode('utf-8')
+        try:
+            return cls.symbols[name]
+        except KeyError:
+            return cls.symbols.setdefault(name, _symbol(name))

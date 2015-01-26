@@ -23,24 +23,14 @@ import sys
 import re
 import subprocess
 import shutil
-import json
-import cPickle
-import pickle
 import time
 import logging
 import logging.handlers
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:  # pragma: no cover
-    import xml.etree.ElementTree as ET
 
 from . import base, env, hooks, icons, search, util
 from . import storage
-
-
-#: Sentinel for properties that haven't been set yet (that might
-#: correctly have the value ``None``)
-UNSET = object()
+from .storage import manager
+from .feedback import Item, XMLGenerator
 
 
 ####################################################################
@@ -54,308 +44,6 @@ DEFAULT_UPDATE_FREQUENCY = 1
 ####################################################################
 # Implementation classes
 ####################################################################
-
-class SerializerManager(object):
-    """Contains registered serializers.
-
-    .. versionadded:: 1.8
-
-    A configured instance of this class is available at
-    ``workflow.manager``.
-
-    Use :meth:`register()` to register new (or replace
-    existing) serializers, which you can specify by name when calling
-    :class:`Workflow` data storage methods.
-
-    See :ref:`manual-serialization` and :ref:`manual-persistent-data`
-    for further information.
-
-    """
-
-    def __init__(self):
-        self._serializers = {}
-
-    def register(self, name, serializer):
-        """Register ``serializer`` object under ``name``.
-
-        Raises :class:`AttributeError` if ``serializer`` in invalid.
-
-        .. note::
-
-            ``name`` will be used as the file extension of the saved files.
-
-        :param name: Name to register ``serializer`` under
-        :type name: ``unicode`` or ``str``
-        :param serializer: object with ``load()`` and ``dump()``
-            methods
-
-        """
-
-        # Basic validation
-        getattr(serializer, 'load')
-        getattr(serializer, 'dump')
-
-        self._serializers[name] = serializer
-
-    def serializer(self, name):
-        """Return serializer object for ``name`` or ``None`` if no such
-        serializer is registered
-
-        :param name: Name of serializer to return
-        :type name: ``unicode`` or ``str``
-        :returns: serializer object or ``None``
-
-        """
-
-        return self._serializers.get(name)
-
-    def unregister(self, name):
-        """Remove registered serializer with ``name``
-
-        Raises a :class:`ValueError` if there is no such registered
-        serializer.
-
-        :param name: Name of serializer to remove
-        :type name: ``unicode`` or ``str``
-        :returns: serializer object
-
-        """
-
-        if name not in self._serializers:
-            raise ValueError('No such serializer registered : {0}'.format(name))
-
-        serializer = self._serializers[name]
-        del self._serializers[name]
-
-        return serializer
-
-    @property
-    def serializers(self):
-        """Return names of registered serializers"""
-        return sorted(self._serializers.keys())
-
-
-class JSONSerializer(object):
-    """Wrapper around :mod:`json`. Sets ``indent`` and ``encoding``.
-
-    .. versionadded:: 1.8
-
-    Use this serializer if you need readable data files. JSON doesn't
-    support Python objects as well as ``cPickle``/``pickle``, so be
-    careful which data you try to serialize as JSON.
-
-    """
-
-    @classmethod
-    def load(cls, file_obj):
-        """Load serialized object from open JSON file.
-
-        .. versionadded:: 1.8
-
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-        :returns: object loaded from JSON file
-        :rtype: object
-
-        """
-
-        return json.load(file_obj)
-
-    @classmethod
-    def dump(cls, obj, file_obj):
-        """Serialize object ``obj`` to open JSON file.
-
-        .. versionadded:: 1.8
-
-        :param obj: Python object to serialize
-        :type obj: JSON-serializable data structure
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-
-        """
-
-        return json.dump(obj, file_obj, indent=2, encoding='utf-8')
-
-
-class CPickleSerializer(object):
-    """Wrapper around :mod:`cPickle`. Sets ``protocol``.
-
-    .. versionadded:: 1.8
-
-    This is the default serializer and the best combination of speed and
-    flexibility.
-
-    """
-
-    @classmethod
-    def load(cls, file_obj):
-        """Load serialized object from open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-        :returns: object loaded from pickle file
-        :rtype: object
-
-        """
-
-        return cPickle.load(file_obj)
-
-    @classmethod
-    def dump(cls, obj, file_obj):
-        """Serialize object ``obj`` to open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param obj: Python object to serialize
-        :type obj: Python object
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-
-        """
-
-        return cPickle.dump(obj, file_obj, protocol=-1)
-
-
-class PickleSerializer(object):
-    """Wrapper around :mod:`pickle`. Sets ``protocol``.
-
-    .. versionadded:: 1.8
-
-    Use this serializer if you need to add custom pickling.
-
-    """
-
-    @classmethod
-    def load(cls, file_obj):
-        """Load serialized object from open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-        :returns: object loaded from pickle file
-        :rtype: object
-
-        """
-
-        return pickle.load(file_obj)
-
-    @classmethod
-    def dump(cls, obj, file_obj):
-        """Serialize object ``obj`` to open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param obj: Python object to serialize
-        :type obj: Python object
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-
-        """
-
-        return pickle.dump(obj, file_obj, protocol=-1)
-
-
-# Set up default manager and register built-in serializers
-manager = SerializerManager()
-manager.register('cpickle', CPickleSerializer)
-manager.register('pickle', PickleSerializer)
-manager.register('json', JSONSerializer)
-
-
-class Item(object):
-    """Represents a feedback item for Alfred. Generates Alfred-compliant
-    XML for a single item.
-
-    You probably shouldn't use this class directly, but via
-    :meth:`Workflow.add_item`. See :meth:`~Workflow.add_item`
-    for details of arguments.
-
-    """
-
-    def __init__(self, title, subtitle='', modifier_subtitles=None,
-                 arg=None, autocomplete=None, valid=False, uid=None,
-                 icon=None, icontype=None, type=None, largetext=None,
-                 copytext=None):
-        """Arguments the same as for :meth:`Workflow.add_item`.
-
-        """
-
-        self.title = title
-        self.subtitle = subtitle
-        self.modifier_subtitles = modifier_subtitles or {}
-        self.arg = arg
-        self.autocomplete = autocomplete
-        self.valid = valid
-        self.uid = uid
-        self.icon = icon
-        self.icontype = icontype
-        self.type = type
-        self.largetext = largetext
-        self.copytext = copytext
-
-    @property
-    def elem(self):
-        """Create and return feedback item for Alfred.
-
-        :returns: :class:`ElementTree.Element <xml.etree.ElementTree.Element>`
-            instance for this :class:`Item` instance.
-
-        """
-
-        # Attributes on <item> element
-        attr = {}
-        if self.valid:
-            attr['valid'] = 'yes'
-        else:
-            attr['valid'] = 'no'
-        # Allow empty string for autocomplete. This is a useful value,
-        # as TABing the result will revert the query back to just the
-        # keyword
-        if self.autocomplete is not None:
-            attr['autocomplete'] = self.autocomplete
-
-        # Optional attributes
-        for name in ('uid', 'type'):
-            value = getattr(self, name, None)
-            if value:
-                attr[name] = value
-
-        root = ET.Element('item', attr)
-        ET.SubElement(root, 'title').text = self.title
-        ET.SubElement(root, 'subtitle').text = self.subtitle
-
-        # Add modifier subtitles
-        for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
-            if mod in self.modifier_subtitles:
-                ET.SubElement(root, 'subtitle',
-                              {'mod': mod}).text = self.modifier_subtitles[mod]
-
-        # Add arg as element instead of attribute on <item>, as it's more
-        # flexible (newlines aren't allowed in attributes)
-        if self.arg:
-            ET.SubElement(root, 'arg').text = self.arg
-
-        # Add icon if there is one
-        if self.icon:
-            if self.icontype:
-                attr = dict(type=self.icontype)
-            else:
-                attr = {}
-            ET.SubElement(root, 'icon', attr).text = self.icon
-
-        if self.largetext:
-            ET.SubElement(root, 'text',
-                          {'type': 'largetype'}).text = self.largetext
-
-        if self.copytext:
-            ET.SubElement(root, 'text',
-                          {'type': 'copy'}).text = self.copytext
-
-        return root
-
 
 class Workflow(object):
     """Create new :class:`Workflow` instance.
@@ -406,6 +94,7 @@ class Workflow(object):
         self._normalizsation = normalization
         self._capture_args = capture_args
         self.help_url = help_url
+        self._xmlgen = XMLGenerator()
         self._workflowdir = None
         self._settings_path = None
         self._settings = None
@@ -413,17 +102,12 @@ class Workflow(object):
         self._name = None
         self._cache_serializer = 'cpickle'
         self._data_serializer = 'cpickle'
-        # info.plist should be in the directory above this one
-        self._info_plist = self.workflowfile('info.plist')
         self._logger = None
-        self._items = []
         self._alfred_env = None
         # Version number of the workflow
-        self._version = UNSET
+        self._version = base.UNSET
         # Version from last workflow run
-        self._last_version_run = UNSET
-        # Cache for regex patterns created for filter keys
-        self._search_pattern_cache = {}
+        self._last_version_run = base.UNSET
         # Magic arguments
         #: The prefix for all magic arguments. Default is ``workflow:``
         self.magic_prefix = 'workflow:'
@@ -574,7 +258,7 @@ class Workflow(object):
 
         """
         # TODO: version file only! (?)
-        if self._version is UNSET:
+        if self._version is base.UNSET:
 
             version = None
             # First check `update_settings`
@@ -741,31 +425,35 @@ class Workflow(object):
             return self._logger
 
         # Initialise new logger and optionally handlers
-        logger = logging.getLogger('workflow')
 
-        if not len(logger.handlers):  # Only add one set of handlers
-            logfile = logging.handlers.RotatingFileHandler(
-                self.logfile,
-                maxBytes=1024*1024,
-                backupCount=0)
-
-            console = logging.StreamHandler()
-
-            fmt = logging.Formatter(
-                '%(asctime)s %(filename)s:%(lineno)s'
-                ' %(levelname)-8s %(message)s',
-                datefmt='%H:%M:%S')
-
-            logfile.setFormatter(fmt)
-            console.setFormatter(fmt)
-
-            logger.addHandler(logfile)
-            logger.addHandler(console)
-
-        logger.setLevel(logging.DEBUG)
-        self._logger = logger
+        base.init_logging(logfile=self.logfile, level=logging.INFO)
+        self._logger = base.get_logger('')
 
         return self._logger
+
+        # if not len(logger.handlers):  # Only add one set of handlers
+        #     logfile = logging.handlers.RotatingFileHandler(
+        #         self.logfile,
+        #         maxBytes=1024*1024,
+        #         backupCount=0)
+
+        #     console = logging.StreamHandler()
+
+        #     fmt = logging.Formatter(
+        #         '%(asctime)s %(filename)s:%(lineno)s'
+        #         ' %(levelname)-8s %(message)s',
+        #         datefmt='%H:%M:%S')
+
+        #     logfile.setFormatter(fmt)
+        #     console.setFormatter(fmt)
+
+        #     logger.addHandler(logfile)
+        #     logger.addHandler(console)
+
+        # logger.setLevel(logging.DEBUG)
+        # self._logger = logger
+
+        # return self._logger
 
     @logger.setter
     def logger(self, logger):
@@ -799,12 +487,12 @@ class Workflow(object):
         information on how to use :attr:`settings` and **important
         limitations** on what it can do.
 
-        :returns: :class:`~workflow.workflow.Settings` instance
+        :returns: :class:`~workflow.storage.PersistentDict` instance
             initialised from the data in JSON file at
             :attr:`settings_path` or if that doesn't exist, with the
             ``default_settings`` :class:`dict` passed to
             :class:`Workflow` on instantiation.
-        :rtype: :class:`~workflow.workflow.Settings` instance
+        :rtype: :class:`~workflow.storage.PersistentDict` instance
 
         """
 
@@ -1251,19 +939,14 @@ class Workflow(object):
 
         """
 
-        item = self.item_class(title, subtitle, modifier_subtitles, arg,
-                               autocomplete, valid, uid, icon, icontype, type,
-                               largetext, copytext)
-        self._items.append(item)
-        return item
+        return self._xmlgen.add_item(title, subtitle, modifier_subtitles, arg,
+                                     autocomplete, valid, uid, icon, icontype,
+                                     type, largetext, copytext)
 
     def send_feedback(self):
         """Print stored items to console/Alfred as XML."""
-        root = ET.Element('items')
-        for item in self._items:
-            root.append(item.elem)
-        sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        sys.stdout.write(ET.tostring(root).encode('utf-8'))
+        output = self._xmlgen.xml()
+        sys.stdout.write(output)
         sys.stdout.flush()
 
     ####################################################################
@@ -1299,7 +982,7 @@ class Workflow(object):
 
         """
 
-        if self._last_version_run is UNSET:
+        if self._last_version_run is base.UNSET:
 
             version = self.settings.get(base.KEY_VERSION_LAST_RUN)
             if version:

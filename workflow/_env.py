@@ -9,6 +9,20 @@
 #
 
 """
+:class:`WorkflowEnvironment` is a dictionary (items are also accessible
+as attributes) containing workflow variables, such as the cache
+directory path, workflow name etc., from Alfred's environmental
+arguments and ``info.plist``.
+
+You probably don't want to instantiate this class directly (except
+for testing), but use the :mod:`~workflow.env` module instead. It
+replaces itself with an instance of :class`WorkflowEnvironment` on
+import.
+
+:class:`WorkflowEnvironment` is lazy loading. Environmental variables
+will be read on initialisation, ``info.plist`` will only be parsed
+when one of the corresponding variables is accessed.
+
 """
 
 from __future__ import print_function, unicode_literals, absolute_import
@@ -25,12 +39,12 @@ log = get_logger(__name__)
 
 #: Root directory for workflow data directories. Workflows should
 #: store their data in ``<bundleid>`` subdirectories.
-data_root = os.path.join(os.path.expanduser(
-    '~/Library/Application Support/Alfred 2/Workflow Data'))
+data_root = os.path.expanduser(
+    '~/Library/Application Support/Alfred 2/Workflow Data')
 #: Root directory for workflow cache directories. Workflows should
 #: store their data in ``<bundleid>`` subdirectories.
-cache_root = os.path.join(os.path.expanduser(
-    '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data'))
+cache_root = os.path.expanduser(
+    '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data')
 
 
 # _env = None
@@ -48,10 +62,7 @@ cache_root = os.path.join(os.path.expanduser(
 
 
 class WorkflowEnvironment(dict):
-    """Lazy-loading dictionary of workflow-related environmental vars
-
-
-    """
+    """Lazy-loading dictionary of workflow-related environmental vars"""
 
     # Template for loading values. Keys are the eventual attribute
     # names/keys. Values are 3-tuples, processed in same order:
@@ -142,8 +153,8 @@ class WorkflowEnvironment(dict):
     def __getattr__(self, attr):
         if attr in self or attr in self._vars:
             return self[attr]
-        elif attr in globals():
-            return globals()[attr]
+        # elif attr in globals():
+        #     return globals()[attr]
         else:
             raise AttributeError('{0!r}'.format(attr))
 
@@ -154,8 +165,6 @@ class WorkflowEnvironment(dict):
 
         if key in self._loaders:  # Lazy-loading
             loader, post = self._loaders[key]
-            # log.debug('Loading `{0}` with {1!r}'.format(key,
-            #           loader.__name__))
             value = loader()
             log.debug('Loaded `{0}` with `{1}` : {2!r}'.format(
                       key, loader.__name__, value))

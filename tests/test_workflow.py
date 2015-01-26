@@ -17,23 +17,20 @@ from __future__ import print_function, unicode_literals
 
 import sys
 import os
-from StringIO import StringIO
 import unittest
 import json
-import tempfile
-import shutil
 import logging
 import time
-from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
 import pytest
 
 from util import (
     INFO_PLIST_PATH,
-    create_info_plist,
-    delete_info_plist,
+    # create_info_plist,
+    # delete_info_plist,
     WorkflowEnv,
+    ALFRED_ENVVARS,
 )
 
 from workflow.base import (
@@ -65,83 +62,12 @@ def wfenv(request, version=None, info_plist=True,
     return e
 
 
-class SerializerTests(unittest.TestCase):
-    """Test workflow.manager serialisation API"""
-
-    def setUp(self):
-        self.serializers = ['json', 'cpickle', 'pickle']
-        self.tempdir = tempfile.mkdtemp()
-
-    def tearDown(self):
-        if os.path.exists(self.tempdir):
-            shutil.rmtree(self.tempdir)
-
-    def _is_serializer(self, obj):
-        """Does `obj` implement the serializer API?"""
-        self.assertTrue(hasattr(obj, 'load'))
-        self.assertTrue(hasattr(obj, 'dump'))
-
-    def test_default_serializers(self):
-        """Default serializers"""
-        for name in self.serializers:
-            self._is_serializer(manager.serializer(name))
-
-        self.assertEqual(set(self.serializers), set(manager.serializers))
-
-    def test_serialization(self):
-        """Dump/load data"""
-        data = {'arg1': 'value1', 'arg2': 'value2'}
-
-        for name in self.serializers:
-            serializer = manager.serializer(name)
-            path = os.path.join(self.tempdir, 'test.{0}'.format(name))
-            self.assertFalse(os.path.exists(path))
-
-            with open(path, 'wb') as file_obj:
-                serializer.dump(data, file_obj)
-
-            self.assertTrue(os.path.exists(path))
-
-            with open(path, 'rb') as file_obj:
-                data2 = serializer.load(file_obj)
-
-            self.assertEqual(data, data2)
-
-            os.unlink(path)
-
-    def test_register_unregister(self):
-        """Register/unregister serializers"""
-        serializers = {}
-        for name in self.serializers:
-            serializer = manager.serializer(name)
-            self._is_serializer(serializer)
-
-        for name in self.serializers:
-            serializer = manager.unregister(name)
-            self._is_serializer(serializer)
-            serializers[name] = serializer
-
-        for name in self.serializers:
-            self.assertEqual(manager.serializer(name), None)
-
-        for name in self.serializers:
-            self.assertRaises(ValueError, manager.unregister, name)
-
-        for name in self.serializers:
-            serializer = serializers[name]
-            manager.register(name, serializer)
-
-    def test_register_invalid(self):
-        """Register invalid serializer"""
-        class Thing(object):
-            """Bad serializer"""
-            pass
-        invalid1 = Thing()
-        invalid2 = Thing()
-        setattr(invalid2, 'load', lambda x: x)
-
-        self.assertRaises(AttributeError, manager.register, 'bork', invalid1)
-        self.assertRaises(AttributeError, manager.register, 'bork', invalid2)
+@pytest.fixture
+def cleanenv(request):
+    e = WorkflowEnv(info_plist=False, exit=False, call=False,
+                    env_default=False)
+    request.addfinalizer(e.tear_down)
+    e.set_up()
 
 
 class WorkflowTests(unittest.TestCase):
@@ -167,177 +93,18 @@ class WorkflowTests(unittest.TestCase):
             ('salé', 'sale')
         ]
 
-        self.env_data = {
-            'alfred_preferences':
-            os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
-            'alfred_preferences_localhash':
-            b'adbd4f66bc3ae8493832af61a41ee609b20d8705',
-            'alfred_theme': b'alfred.theme.yosemite',
-            'alfred_theme_background': b'rgba(255,255,255,0.98)',
-            'alfred_theme_subtext': b'3',
-            'alfred_version': b'2.4',
-            'alfred_version_build': b'277',
-            'alfred_workflow_bundleid': str(BUNDLE_ID),
-            'alfred_workflow_cache':
-            os.path.expanduser(b'~/Library/Caches/com.runningwithcrayons.'
-                               b'Alfred-2/Workflow Data/{0}'.format(BUNDLE_ID)),
-            'alfred_workflow_data':
-            os.path.expanduser(b'~/Library/Application Support/Alfred 2/'
-                               b'Workflow Data/{0}'.format(BUNDLE_ID)),
-            'alfred_workflow_name': b'Alfred-Workflow Test',
-            'alfred_workflow_uid':
-            b'user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959',
-        }
-
-        self._setup_env()
-        create_info_plist()
-        if os.path.exists(self.version_path):
-            os.unlink(self.version_path)
+        self.wfenv = WorkflowEnv()
+        self.wfenv.set_up()
 
         self.wf = Workflow(libraries=self.libs)
 
     def tearDown(self):
-        create_info_plist()
-        self.wf.reset()
         try:
             self.wf.delete_password(self.account)
         except PasswordNotFound:
             pass
 
-        for dirpath in (self.wf.cachedir, self.wf.datadir):
-            if os.path.exists(dirpath):
-                shutil.rmtree(dirpath)
-
-        self._teardown_env()
-        delete_info_plist()
-        if os.path.exists(self.version_path):
-            os.unlink(self.version_path)
-
-    ####################################################################
-    # Result item generation
-    ####################################################################
-
-    def test_item_creation(self):
-        """XML generation"""
-        self.wf.add_item('title', 'subtitle', arg='arg',
-                         autocomplete='autocomplete',
-                         valid=True, uid='uid', icon='icon.png',
-                         icontype='fileicon',
-                         type='file', largetext='largetext',
-                         copytext='copytext')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        from pprint import pprint
-        pprint(output)
-
-        root = ET.fromstring(output)
-        item = list(root)[0]
-
-        self.assertEqual(item.attrib['uid'], 'uid')
-        self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
-        self.assertEqual(item.attrib['valid'], 'yes')
-        self.assertEqual(item.attrib['uid'], 'uid')
-
-        title, subtitle, arg, icon, largetext, copytext = list(item)
-
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-
-        self.assertEqual(subtitle.text, 'subtitle')
-        self.assertEqual(subtitle.tag, 'subtitle')
-
-        self.assertEqual(arg.text, 'arg')
-        self.assertEqual(arg.tag, 'arg')
-
-        self.assertEqual(largetext.tag, 'text')
-        self.assertEqual(largetext.text, 'largetext')
-        self.assertEqual(largetext.attrib['type'], 'largetype')
-
-        self.assertEqual(copytext.tag, 'text')
-        self.assertEqual(copytext.text, 'copytext')
-        self.assertEqual(copytext.attrib['type'], 'copy')
-
-        self.assertEqual(icon.text, 'icon.png')
-        self.assertEqual(icon.tag, 'icon')
-        self.assertEqual(icon.attrib['type'], 'fileicon')
-
-    def test_item_creation_with_modifiers(self):
-        """XML generation (with modifiers)"""
-        mod_subs = {}
-        for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
-            mod_subs[mod] = mod
-        self.wf.add_item('title', 'subtitle',
-                         mod_subs,
-                         arg='arg',
-                         autocomplete='autocomplete',
-                         valid=True, uid='uid', icon='icon.png',
-                         icontype='fileicon',
-                         type='file')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        from pprint import pprint
-        pprint(output)
-        root = ET.fromstring(output)
-        item = list(root)[0]
-        self.assertEqual(item.attrib['uid'], 'uid')
-        self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
-        self.assertEqual(item.attrib['valid'], 'yes')
-        self.assertEqual(item.attrib['uid'], 'uid')
-        (title, subtitle, sub_cmd, sub_ctrl, sub_alt, sub_shift, sub_fn, arg,
-         icon) = list(item)
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-        self.assertEqual(subtitle.text, 'subtitle')
-        self.assertEqual(sub_cmd.text, 'cmd')
-        self.assertEqual(sub_cmd.attrib['mod'], 'cmd')
-        self.assertEqual(sub_ctrl.text, 'ctrl')
-        self.assertEqual(sub_ctrl.attrib['mod'], 'ctrl')
-        self.assertEqual(sub_alt.text, 'alt')
-        self.assertEqual(sub_alt.attrib['mod'], 'alt')
-        self.assertEqual(sub_shift.text, 'shift')
-        self.assertEqual(sub_shift.attrib['mod'], 'shift')
-        self.assertEqual(sub_fn.text, 'fn')
-        self.assertEqual(sub_fn.attrib['mod'], 'fn')
-        self.assertEqual(subtitle.tag, 'subtitle')
-        self.assertEqual(arg.text, 'arg')
-        self.assertEqual(arg.tag, 'arg')
-        self.assertEqual(icon.text, 'icon.png')
-        self.assertEqual(icon.tag, 'icon')
-        self.assertEqual(icon.attrib['type'], 'fileicon')
-
-    def test_item_creation_no_optionals(self):
-        """XML generation (no optionals)"""
-        self.wf.add_item('title')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        # pprint(output)
-        root = ET.fromstring(output)
-        item = list(root)[0]
-        for key in ['uid', 'arg', 'autocomplete']:
-            self.assertFalse(key in item.attrib)
-        self.assertEqual(item.attrib['valid'], 'no')
-        title, subtitle = list(item)
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-        self.assertEqual(subtitle.text, None)
-        tags = [elem.tag for elem in list(item)]
-        for tag in ['icon', 'arg']:
-            self.assert_(tag not in tags)
+        self.wfenv.tear_down()
 
     ####################################################################
     # Environment
@@ -357,27 +124,13 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.wf.name, WORKFLOW_NAME)
         self.assertEqual(self.wf.bundleid, BUNDLE_ID)
 
-    def test_info_plist_missing(self):
-        """Info.plist missing"""
-        # delete_info_plist()
-        self._teardown_env()
-        with WorkflowEnv(info_plist=False):
-            # wf = Workflow()
-            self.assertFalse(os.path.exists(INFO_PLIST_PATH))
-            # self.assertRaises(IOError, lambda wf: wf.info, wf)
-            self.assertRaises(EnvironmentError, Workflow)
-        # try:
-        #     self.assertRaises(IOError, Workflow)
-        # finally:
-        #     create_info_plist()
-
     def test_alfred_env_vars(self):
         """Alfred environmental variables"""
 
         self._setup_env()
 
-        for key in self.env_data:
-            value = self.env_data[key]
+        for key in ALFRED_ENVVARS:
+            value = ALFRED_ENVVARS[key]
             key = key.replace('alfred_', '')
             if key in ('version_build', 'theme_subtext'):
                 self.assertEqual(int(value), self.wf.alfred_env[key])
@@ -386,13 +139,13 @@ class WorkflowTests(unittest.TestCase):
                 self.assertTrue(isinstance(self.wf.alfred_env[key], unicode))
 
         self.assertEqual(self.wf.datadir,
-                         self.env_data['alfred_workflow_data'])
+                         ALFRED_ENVVARS['alfred_workflow_data'])
         self.assertEqual(self.wf.cachedir,
-                         self.env_data['alfred_workflow_cache'])
+                         ALFRED_ENVVARS['alfred_workflow_cache'])
         self.assertEqual(self.wf.bundleid,
-                         self.env_data['alfred_workflow_bundleid'])
+                         ALFRED_ENVVARS['alfred_workflow_bundleid'])
         self.assertEqual(self.wf.name,
-                         self.env_data['alfred_workflow_name'])
+                         ALFRED_ENVVARS['alfred_workflow_name'])
 
         self._teardown_env()
 
@@ -429,36 +182,33 @@ class WorkflowTests(unittest.TestCase):
 
     def test_magic_args(self):
         """Magic args"""
-        # cache original sys.argv
-        oargs = sys.argv[:]
 
         # delsettings
-        sys.argv = [oargs[0]] + [b'workflow:delsettings']
-        try:
+        with WorkflowEnv(argv=['script', b'workflow:delsettings']) as e:
             wf = Workflow(default_settings={'arg1': 'value1'})
             self.assertEqual(wf.settings['arg1'], 'value1')
             self.assertTrue(os.path.exists(wf.settings_path))
-            self.assertRaises(SystemExit, lambda wf: wf.args, wf)
+            self.assertFalse(e.exit_called)
+            wf.args
+            self.assertTrue(e.exit_called)
+            # self.assertRaises(SystemExit, lambda wf: wf.args, wf)
             self.assertFalse(os.path.exists(wf.settings_path))
-        finally:
-            sys.argv = oargs[:]
 
         # delcache
-        sys.argv = [oargs[0]] + [b'workflow:delcache']
-
         def somedata():
             return {'arg1': 'value1'}
 
-        try:
+        with WorkflowEnv(argv=['script', b'workflow:delcache']) as e:
             wf = Workflow()
-            cachepath = wf.cachefile('somedir')
-            os.makedirs(cachepath)
+            # cachepath = wf.cachefile('somedir')
+            # os.makedirs(cachepath)
             wf.cached_data('test', somedata)
             self.assertTrue(os.path.exists(wf.cachefile('test.cpickle')))
-            self.assertRaises(SystemExit, lambda wf: wf.args, wf)
+            self.assertFalse(e.exit_called)
+            wf.args
+            self.assertTrue(e.exit_called)
+            # self.assertRaises(SystemExit, lambda wf: wf.args, wf)
             self.assertFalse(os.path.exists(wf.cachefile('test.cpickle')))
-        finally:
-            sys.argv = oargs[:]
 
     def test_logger(self):
         """Logger"""
@@ -871,21 +621,23 @@ class WorkflowTests(unittest.TestCase):
 
     def test_datadir_is_unicode(self):
         """Workflow.datadir returns Unicode"""
-        wf = Workflow()
-        self.assertTrue(isinstance(wf.datadir, unicode))
-        self._teardown_env()
-        wf = Workflow()
-        self.assertTrue(isinstance(wf.datadir, unicode))
+        with WorkflowEnv():  # From ENV
+            wf = Workflow()
+            self.assertTrue(isinstance(wf.datadir, unicode))
+        with WorkflowEnv(env_default=False):  # From info.plist
+            wf = Workflow()
+            self.assertTrue(isinstance(wf.datadir, unicode))
 
     def test_datafile_is_unicode(self):
         """Workflow.datafile returns Unicode"""
-        wf = Workflow()
-        self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
-        self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
-        self._teardown_env()
-        wf = Workflow()
-        self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
-        self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
+        with WorkflowEnv():  # From ENV
+            wf = Workflow()
+            self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
+            self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
+        with WorkflowEnv(env_default=False):  # From info.plist
+            wf = Workflow()
+            self.assertTrue(isinstance(wf.datafile(b'test.txt'), unicode))
+            self.assertTrue(isinstance(wf.datafile('über.txt'), unicode))
 
     def test_cachedir_is_unicode(self):
         """Workflow.cachedir returns Unicode"""
@@ -1020,7 +772,7 @@ class WorkflowTests(unittest.TestCase):
         def cb(wf):
             return
 
-        with WorkflowEnv(vstr):
+        with WorkflowEnv(vstr, wfreset=False):
             wf = Workflow()
             self.assertTrue(wf.last_version_run is None)
             self.assertEqual(wf.version, base.Version(vstr))
@@ -1049,13 +801,13 @@ class WorkflowTests(unittest.TestCase):
     def _setup_env(self):
         """Add Alfred env variables to environment"""
 
-        for key in self.env_data:
-            os.environ[key] = self.env_data[key]
+        for key in ALFRED_ENVVARS:
+            os.environ[key] = ALFRED_ENVVARS[key]
 
     def _teardown_env(self):
         """Remove Alfred env variables from environment"""
 
-        for key in self.env_data:
+        for key in ALFRED_ENVVARS:
             if key in os.environ:
                 del os.environ[key]
 
@@ -1240,18 +992,21 @@ class MagicArgsTests(unittest.TestCase):
 
     def test_folding(self):
         """Magic: folding"""
-        with WorkflowEnv(argv=['script', 'workflow:foldingdefault']):
+        with WorkflowEnv(argv=['script', 'workflow:foldingdefault'],
+                         wfreset=False):
             wf = Workflow()
             wf.args
             self.assertTrue(wf.settings.get(base.KEY_DIACRITICS)
                             is None)
 
-        with WorkflowEnv(argv=['script', 'workflow:foldingon']):
+        with WorkflowEnv(argv=['script', 'workflow:foldingon'],
+                         wfreset=False):
             wf = Workflow()
             wf.args
             self.assertTrue(wf.settings.get(base.KEY_DIACRITICS))
 
-        with WorkflowEnv(argv=['script', 'workflow:foldingdefault']):
+        with WorkflowEnv(argv=['script', 'workflow:foldingdefault'],
+                         wfreset=False):
             wf = Workflow()
             wf.args
             self.assertTrue(wf.settings.get(base.KEY_DIACRITICS) is
@@ -1305,7 +1060,7 @@ class MagicArgsTests(unittest.TestCase):
             'frequency': 1,
         }
         argv = ['script', 'workflow:update']
-        with WorkflowEnv(argv=argv) as e:
+        with WorkflowEnv(argv=argv, wfreset=False) as e:
             wf = Workflow(update_settings=update_settings)
             wf.run(fake)
 
@@ -1350,13 +1105,54 @@ class MagicArgsTests(unittest.TestCase):
             self.assertTrue(wf.check_update() is None)
 
 
-def test_passthroughs(wfenv):
+def test_wrapper_methods(wfenv):
     """Test wrapper methods"""
     wf = Workflow()
+    # workflow.env
     assert wf.info['bundleid'] == wf.bundleid
     assert wf.info['name'] == wf.name
     assert wf.fold_to_ascii('bob') == 'bob'
     assert wf.fold_to_ascii('böb') == 'bob'
+
+
+def test_infoplist_missing(cleanenv):
+    from workflow import env
+    assert not os.path.exists(INFO_PLIST_PATH)
+    print(env)
+    with pytest.raises(EnvironmentError):
+        wf = Workflow()
+        wf.bundleid
+
+
+def test_magic_args():
+    """Magic args"""
+
+    # delsettings
+    with WorkflowEnv(argv=['script', b'workflow:delsettings'],
+                     exit=False):
+        wf = Workflow(default_settings={'arg1': 'value1'})
+        assert not os.path.exists(wf.settings_path)
+        assert wf.settings['arg1'] == 'value1'
+        assert os.path.exists(wf.settings_path)
+        with pytest.raises(SystemExit):
+            wf.args
+        assert not os.path.exists(wf.settings_path)
+
+    # delcache
+    def somedata():
+        return {'arg1': 'value1'}
+
+    with WorkflowEnv(argv=['script', b'workflow:delcache'],
+                     exit=False):
+        wf = Workflow()
+        assert not os.path.exists(wf.settings_path)
+        cachepath = wf.cachefile('somedir')
+        os.makedirs(cachepath)
+        wf.cached_data('test', somedata)
+        assert os.path.exists(wf.cachefile('test.cpickle'))
+        with pytest.raises(SystemExit):
+            wf.args
+        assert not os.path.exists(wf.cachefile('test.cpickle'))
 
 
 if __name__ == '__main__':  # pragma: no cover

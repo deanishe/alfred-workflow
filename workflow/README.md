@@ -28,7 +28,7 @@ Logging, data models, constants.
 
 - [ ] 
 
-### `env.py` ###
+### `_env.py` and `env.py` ###
 
 Workflow variables from `info.plist` and environment.
 
@@ -49,13 +49,9 @@ Attachment points for plugins.
 - [ ] Attachment for magic args
 - [ ] Attachment for XML post-processor
 
-### `storage.py` ###
+### `icons.py` ###
 
-Persisent storage APIs. Data & cache directories, Keychain.
-
-- [ ] Data storage API
-- [ ] Cache storage API
-- [ ] Keychain API
+Namespace for system icon paths.
 
 ### `plugins.py` ###
 
@@ -64,6 +60,18 @@ Simple plugin loader and manager.
 - [ ] GitHub updater
 - [ ] Default magic args
 - [ ] Default serializers
+
+### `search.py` ###
+
+Where data filtering functions live.
+
+### `storage.py` ###
+
+Persisent storage APIs. Data & cache directories, Keychain.
+
+- [ ] Data storage API
+- [ ] Cache storage API
+- [ ] Keychain API
 
 ### `update.py` ###
 

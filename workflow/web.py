@@ -137,16 +137,15 @@ class Response(object):
 
     A simplified version of the ``Response`` object in the ``requests`` library.
 
-    >>> r = request('http://www.google.com')
+    >>> r = request('GET', 'https://github.com/')
     >>> r.status_code
     200
     >>> r.encoding
-    ISO-8859-1
+    'utf-8'
     >>> r.content  # bytes
-    <html> ...
+    '<!DOCTYPE ...'
     >>> r.text  # unicode, decoded according to charset in HTTP header/meta tag
-    u'<html> ...'
-    >>> r.json()  # content parsed as JSON
+    u'<!DOCTYPE ...'
 
     """
 
@@ -303,7 +302,7 @@ class Response(object):
 
             data = decoder.decode(b'', final=True)
             if data:
-                yield data  # pragma: nocover
+                yield data  # pragma: no cover
 
         def generate():
 

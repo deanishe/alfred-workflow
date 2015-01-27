@@ -19,8 +19,8 @@ Main class
 
 Run scripts in the background.
 
-- [ ] Change logging.
-- [ ] Remove `Workflow` if possible
+- [x] Change logging.
+- [x] Remove `Workflow` if possible
 
 ### `base.py` ###
 
@@ -88,6 +88,8 @@ HTTP library.
 
 Legacy module. Probably to be removed.
 
+#### Workflow ####
+
 - [ ] Move data/caching code to `storage.py`
-- [ ] Move serializers to `serializers.py`
+- [ ] Move serializers to `storage.py` and plugins
 - [ ] Replace `alfred_env` and `info` with `env`

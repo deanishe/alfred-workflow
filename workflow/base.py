@@ -33,8 +33,17 @@ except ImportError:  # pragma: no cover
 
 
 ####################################################################
-# Constants
+# Settings & Constants
 ####################################################################
+
+#: Path to built-in plugins
+DEFAULT_PLUGIN_PATH = os.path.join(os.path.dirname(__file__), 'plugins')
+#: Built-in plugins to load
+DEFAULT_PLUGINS = [
+    'magic_default.py',
+    'pretty_xml.py',
+    'update_github.py',
+]
 
 #: Sentinel for properties that haven't been set yet (that might
 #: correctly have the value ``None``)
@@ -261,7 +270,13 @@ def get_logger(name):
 
 
 def init_logging(console=True, logfile=None, level=logging.INFO):
-    """Add handlers to root logger and set log level"""
+    """Add handlers to root logger and set log level
+
+    Ensure that root logger has at most two loggers: console and
+    logfile.
+
+    """
+
     fmt_str = ('%(asctime)s %(filename)s:%(lineno)s'
                ' %(levelname)-8s %(message)s')
     logger = logging.getLogger('')

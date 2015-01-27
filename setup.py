@@ -52,7 +52,13 @@ classifiers = [
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
-tests_require = ['nose', 'coverage', 'yanc']
+tests_require = [
+    'coverage',
+    'pytest',
+    'pytest_cov',
+    'pytest_httpbin',
+    'pytest_localserver',
+]
 zip_safe = False
 
 setup(

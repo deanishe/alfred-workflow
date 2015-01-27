@@ -27,4 +27,6 @@ log = get_logger(__name__)
 # Replace this module in the namespace with a WorkflowEnvironment instance
 # From outside, the methods and attributes of WorkflowEnvironment are
 # the attributes and functions of this module
-sys.modules[__name__] = WorkflowEnvironment()
+e = WorkflowEnvironment()
+e.__file__ = __file__
+sys.modules[__name__] = e

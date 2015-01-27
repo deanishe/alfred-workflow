@@ -1,15 +1,7 @@
 #!/bin/bash
-# Copied from flask-login
-# https://github.com/maxcountryman/flask-login
-
-# OUTPUT_PATH=$(pwd)/tests_output
 
 rootdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# workflow="${rootdir}/workflow"
 logpath="${rootdir}/test.log"
-# testroot="/tmp/alfred-wörkflöw-$$"
-# testdir="${testroot}/tests"
-# curdir=$(pwd)
 
 function log() {
     echo "$@" | tee -a $logpath
@@ -21,9 +13,8 @@ if [[ -f "${logpath}" ]]; then
 fi
 
 
-###############################################################################
 # Set test options and run tests
-###############################################################################
+#-------------------------------------------------------------------------
 
 # Most options are in tox.ini
 PYTEST_OPTS="--cov workflow"
@@ -41,8 +32,12 @@ case "$ret" in
     *) log -e "FAILURE" ;;
 esac
 
+if [[ "${ret}" -ne 0 ]]; then
+	exit $ret
+fi
+
 # Test coverage
-coverage report --fail-under 100
+coverage report --fail-under 100 --show-missing
 ret=${PIPESTATUS[0]}
 
 echo
@@ -51,15 +46,5 @@ case "$ret" in
     0) log -e "SUCCESS" ;;
     *) log -e "FAILURE" ;;
 esac
-
-###############################################################################
-# Delete test environment
-###############################################################################
-
-# cd "$curdir"
-
-# if [[ -d "${testroot}" ]]; then
-#     rm -rf "${testroot}"
-# fi
 
 exit $ret

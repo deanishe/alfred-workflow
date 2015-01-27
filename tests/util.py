@@ -390,45 +390,44 @@ class WorkflowMock(object):
             sys.stderr.close()
             sys.stderr = self.stderr_orig
 
+# class VersionFile(object):
+#     """Context manager to create and delete `version` file"""
 
-class VersionFile(object):
-    """Context manager to create and delete `version` file"""
+#     def __init__(self, version, path=None):
 
-    def __init__(self, version, path=None):
+#         self.version = version
+#         self.path = path or VERSION_PATH
 
-        self.version = version
-        self.path = path or VERSION_PATH
+#     def __enter__(self):
+#         with open(self.path, 'wb') as fp:
+#             fp.write(self.version)
+#         print('version {0} in {1}'.format(self.version, self.path),
+#               file=sys.stderr)
 
-    def __enter__(self):
-        with open(self.path, 'wb') as fp:
-            fp.write(self.version)
-        print('version {0} in {1}'.format(self.version, self.path),
-              file=sys.stderr)
-
-    def __exit__(self, *args):
-        if os.path.exists(self.path):
-            os.unlink(self.path)
+#     def __exit__(self, *args):
+#         if os.path.exists(self.path):
+#             os.unlink(self.path)
 
 
-class InfoPlist(object):
-    """Context manager to create and delete `info.plist` out of the way"""
+# class InfoPlist(object):
+#     """Context manager to create and delete `info.plist` out of the way"""
 
-    def __init__(self, path=None, dest_path=None, present=True):
+#     def __init__(self, path=None, dest_path=None, present=True):
 
-        self.path = path or INFO_PLIST_TEST
-        self.dest_path = dest_path or INFO_PLIST_PATH
-        # Whether or not Info.plist should be created or deleted
-        self.present = present
+#         self.path = path or INFO_PLIST_TEST
+#         self.dest_path = dest_path or INFO_PLIST_PATH
+#         # Whether or not Info.plist should be created or deleted
+#         self.present = present
 
-    def __enter__(self):
-        if self.present:
-            create_info_plist(self.path, self.dest_path)
-        else:
-            delete_info_plist(self.dest_path)
+#     def __enter__(self):
+#         if self.present:
+#             create_info_plist(self.path, self.dest_path)
+#         else:
+#             delete_info_plist(self.dest_path)
 
-    def __exit__(self, *args):
-        if self.present:
-            delete_info_plist(self.dest_path)
+#     def __exit__(self, *args):
+#         if self.present:
+#             delete_info_plist(self.dest_path)
 
 
 def create_info_plist(source=INFO_PLIST_TEST, dest=INFO_PLIST_PATH):

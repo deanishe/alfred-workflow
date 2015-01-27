@@ -29,6 +29,22 @@ def hashable_identity(obj):
         return id(obj)
 
 
+# def first_result(results):
+#     """Get first non-``None`` receiver and result from a signal send.
+
+#     :param results: list of ``(receiver, result)`` tuples
+#     :returns: ``(receiver, result)`` tuple
+
+#     If ``receiver`` is ``None``, there were no results.
+
+#     """
+
+#     for receiver, result in results:
+#         if result is not None:
+#             return (receiver, result)
+#     return (None, None)
+
+
 class Signal(object):
     """Simple signal emitter.
     """
@@ -105,6 +121,26 @@ class Signal(object):
             del ref
         return result
 
+    def first_response(self, sender, **kwargs):
+        """Return receiver and first non-``None`` result of :meth:`send`.
+
+        :returns: ``(receiver, result)`` tuple
+
+        If ``receiver`` is ``None`` (i.e. ``(None, None)`` is returned),
+        there were no results.
+
+        Arguments passed through to :meth:`send`.
+
+        """
+
+        results = self.send(sender, **kwargs)
+
+        for receiver, result in results:
+            if result is not None:
+                return (receiver, result)
+
+        return (None, None)
+
     def clear(self):
         """Remove all receivers"""
         self._receivers.clear()
@@ -124,11 +160,32 @@ class Namespace(dict):
 
 signal = Namespace().signal
 
+#: Sent at the end of :meth:`Workflow.__init__ `workflow.workflow.Workflow>`.
+#: ``sender`` is :class:`~workflow.workflow.Workflow` instance.
 workflow_initialized = signal('workflow_initialized')
+#: Sent before :meth:`Workflow.run <workflow.workflow.Workflow.run>`
+#: runs your workflow's main function.
+#: ``sender`` is :class:`~workflow.workflow.Workflow` instance.
 workflow_will_run = signal('workflow_will_run')
+#: Sent after :meth:`Workflow.run <workflow.workflow.Workflow.run>`
+#: runs your workflow's main function.
+#: ``sender`` is :class:`~workflow.workflow.Workflow` instance.
 workflow_did_run = signal('workflow_did_run')
+#: Sent after :meth:`Workflow.run <workflow.workflow.Workflow.run>`
+#: catches an Exception and before it handles it. Access the
+#: Exception at ``Workflow.exception``.
 workflow_error = signal('workflow_error')
+#: Sent when XML generation is complete.
+#: ``sender`` is the XML bytestring, UTF-8 encoded by default.
+#: Result should be XML bytestring or ``None``.
 xml_generator_done = signal('xml_generator_done')
+#: Sent when a serializer is required.
+#: ``sender`` is the string format name, e.g. ``'json'`` or ``'pickle'``.
 get_serializer = signal('get_serializer')
+#: Sent when an updater is required.
+#: ``sender`` is :class:`~workflow.update.UpdateManager` instance.
 get_updater = signal('get_updater')
+#: Sent when a magic arg has been found.
+#: ``sender`` is unicode magic argument without the prefix.
+#: The result should be a callable or ``None``.
 get_magic = signal('get_magic')

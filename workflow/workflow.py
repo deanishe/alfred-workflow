@@ -27,11 +27,21 @@ import time
 import logging
 import logging.handlers
 
-from . import base, env, hooks, icons, search, util
-from . import storage
-from .storage import manager
-from .feedback import Item, XMLGenerator
+from workflow import (
+    base,
+    env,
+    hooks,
+    icons,
+    search,
+    storage,
+    util,
+)
 
+# TODO: Change this!
+from workflow.storage import manager
+from workflow.feedback import Item, XMLGenerator
+
+log = base.get_logger(__name__)
 
 ####################################################################
 # Used by `Workflow.check_update`
@@ -104,6 +114,8 @@ class Workflow(object):
         self._data_serializer = 'cpickle'
         self._logger = None
         self._alfred_env = None
+        # Stored Exception
+        self.exception = None
         # Version number of the workflow
         self._version = base.UNSET
         # Version from last workflow run
@@ -268,7 +280,7 @@ class Workflow(object):
             # Fallback to `version` file
             if not version:
                 version = env['version']
-                self.logger.debug('version from env : {0}'.format(version))
+                log.debug('version from env : {0}'.format(version))
 
             if version and isinstance(version, basestring):
                 version = base.Version(version)
@@ -310,7 +322,7 @@ class Workflow(object):
                     msg = self.magic_arguments[name]()
 
             if msg:
-                self.logger.debug(msg)
+                log.debug(msg)
                 if not sys.stdout.isatty():  # Show message in Alfred
                     self.add_item(msg, valid=False, icon=icons.INFO)
                     self.send_feedback()
@@ -497,8 +509,8 @@ class Workflow(object):
         """
 
         if not self._settings:
-            self.logger.debug('Reading settings from `{0}` ...'.format(
-                              self.settings_path))
+            log.debug('Reading settings from `{0}` ...'.format(
+                      self.settings_path))
             self._settings = storage.PersistentDict(self.settings_path,
                                                     self._default_settings)
         return self._settings
@@ -544,7 +556,7 @@ class Workflow(object):
                 'Unknown serializer : `{0}`. Register your serializer '
                 'with `manager` first.'.format(serializer_name))
 
-        self.logger.debug(
+        log.debug(
             'default cache serializer set to `{0}`'.format(serializer_name))
 
         self._cache_serializer = serializer_name
@@ -589,7 +601,7 @@ class Workflow(object):
                 'Unknown serializer : `{0}`. Register your serializer '
                 'with `manager` first.'.format(serializer_name))
 
-        self.logger.debug(
+        log.debug(
             'default data serializer set to `{0}`'.format(serializer_name))
 
         self._data_serializer = serializer_name
@@ -607,7 +619,7 @@ class Workflow(object):
         metadata_path = self.datafile('.{0}.alfred-workflow'.format(name))
 
         if not os.path.exists(metadata_path):
-            self.logger.debug('No data stored for `{0}`'.format(name))
+            log.debug('No data stored for `{0}`'.format(name))
             return None
 
         with open(metadata_path, 'rb') as file_obj:
@@ -617,18 +629,18 @@ class Workflow(object):
 
         if serializer is None:
             raise ValueError(
-                'Unknown serializer `{0}`. Register a corresponding serializer '
-                'with `manager.register()` to load this data.'.format(
+                'Unknown serializer `{0}`. Register a corresponding serializer'
+                ' with `manager.register()` to load this data.'.format(
                     serializer_name))
 
-        self.logger.debug('Data `{0}` stored in `{1}` format'.format(
+        log.debug('Data `{0}` stored in `{1}` format'.format(
             name, serializer_name))
 
         filename = '{0}.{1}'.format(name, serializer_name)
         data_path = self.datafile(filename)
 
         if not os.path.exists(data_path):
-            self.logger.debug('No data stored for `{0}`'.format(name))
+            log.debug('No data stored for `{0}`'.format(name))
             if os.path.exists(metadata_path):
                 os.unlink(metadata_path)
 
@@ -637,7 +649,7 @@ class Workflow(object):
         with open(data_path, 'rb') as file_obj:
             data = serializer.load(file_obj)
 
-        self.logger.debug('Stored data loaded from : {0}'.format(data_path))
+        log.debug('Stored data loaded from : {0}'.format(data_path))
 
         return data
 
@@ -684,7 +696,7 @@ class Workflow(object):
             for path in (metadata_path, data_path):
                 if os.path.exists(path):
                     os.unlink(path)
-                    self.logger.debug('Deleted data file : {0}'.format(path))
+                    log.debug('Deleted data file : {0}'.format(path))
 
             return
 
@@ -695,7 +707,7 @@ class Workflow(object):
         with open(data_path, 'wb') as file_obj:
             serializer.dump(data, file_obj)
 
-        self.logger.debug('Stored data saved at : {0}'.format(data_path))
+        log.debug('Stored data saved at : {0}'.format(data_path))
 
     def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if
@@ -720,7 +732,7 @@ class Workflow(object):
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
 
             with open(cache_path, 'rb') as file_obj:
-                self.logger.debug('Loading cached data from : %s',
+                log.debug('Loading cached data from : %s',
                                   cache_path)
                 return serializer.load(file_obj)
 
@@ -751,13 +763,13 @@ class Workflow(object):
         if data is None:
             if os.path.exists(cache_path):
                 os.unlink(cache_path)
-                self.logger.debug('Deleted cache file : %s', cache_path)
+                log.debug('Deleted cache file : %s', cache_path)
             return
 
         with open(cache_path, 'wb') as file_obj:
             serializer.dump(data, file_obj)
 
-        self.logger.debug('Cached data saved at : %s', cache_path)
+        log.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
         """Is data cached at `name` less than `max_age` old?
@@ -835,27 +847,32 @@ class Workflow(object):
         # to catch any errors and display an error message in Alfred
         try:
             if self.version:
-                self.logger.debug('Workflow version : {0}'.format(self.version))
+                log.debug('Workflow version : {0}'.format(
+                                  self.version))
 
             # Run update check if configured for self-updates.
             # This call has to go in the `run` try-except block, as it will
             # initialise `self.settings`, which will raise an exception
             # if `settings.json` isn't valid.
-
             if self._update_settings:
                 self.check_update()
+
+            hooks.workflow_will_run.send(self)
 
             # Run workflow's entry function/method
             func(self)
 
+            hooks.workflow_did_run.send(self)
             # Set last version run to current version after a successful
             # run
             self.set_last_version()
 
         except Exception as err:
-            self.logger.exception(err)
+            log.exception(err)
+            self.exception = err
+            hooks.workflow_error.send(self)
             if self.help_url:
-                self.logger.info(
+                log.info(
                     'For assistance, see: {0}'.format(self.help_url))
             if not sys.stdout.isatty():
                 # Show error in Alfred
@@ -871,8 +888,8 @@ class Workflow(object):
                 self.send_feedback()
             return 1
         finally:
-            self.logger.debug('Workflow finished in {0:0.3f} seconds.'.format(
-                              time.time() - start))
+            log.debug('Workflow finished in {0:0.3f} seconds.'.format(
+                      time.time() - start))
         return 0
 
     # Alfred feedback methods ------------------------------------------
@@ -882,60 +899,8 @@ class Workflow(object):
                  icontype=None, type=None, largetext=None, copytext=None):
         """Add an item to be output to Alfred
 
-        :param title: Title shown in Alfred
-        :type title: ``unicode``
-        :param subtitle: Subtitle shown in Alfred
-        :type subtitle: ``unicode``
-        :param modifier_subtitles: Subtitles shown when modifier
-            (CMD, OPT etc.) is pressed. Use a ``dict`` with the lowercase
-            keys ``cmd``, ``ctrl``, ``shift``, ``alt`` and ``fn``
-        :type modifier_subtitles: ``dict``
-        :param arg: Argument passed by Alfred as ``{query}`` when item is
-            actioned
-        :type arg: ``unicode``
-        :param autocomplete: Text expanded in Alfred when item is TABbed
-        :type autocomplete: ``unicode``
-        :param valid: Whether or not item can be actioned
-        :type valid: ``Boolean``
-        :param uid: Used by Alfred to remember/sort items
-        :type uid: ``unicode``
-        :param icon: Filename of icon to use
-        :type icon: ``unicode``
-        :param icontype: Type of icon. Must be one of ``None`` , ``'filetype'``
-           or ``'fileicon'``. Use ``'filetype'`` when ``icon`` is a filetype
-           such as ``'public.folder'``. Use ``'fileicon'`` when you wish to
-           use the icon of the file specified as ``icon``, e.g.
-           ``icon='/Applications/Safari.app', icontype='fileicon'``.
-           Leave as `None` if ``icon`` points to an actual
-           icon file.
-        :type icontype: ``unicode``
-        :param type: Result type. Currently only ``'file'`` is supported
-            (by Alfred). This will tell Alfred to enable file actions for
-            this item.
-        :type type: ``unicode``
-        :param largetext: Text to be displayed in Alfred's large text box
-            if user presses CMD+L on item.
-        :type largetext: ``unicode``
-        :param copytext: Text to be copied to pasteboard if user presses
-            CMD+C on item.
-        :type copytext: ``unicode``
-        :returns: :class:`Item` instance
-
-        See the :ref:`script-filter-results` section of the documentation
-        for a detailed description of what the various parameters do and how
-        they interact with one another.
-
-        See :ref:`icons` for a list of the supported system icons.
-
-        .. note::
-
-            Although this method returns an :class:`Item` instance, you don't
-            need to hold onto it or worry about it. All generated :class:`Item`
-            instances are also collected internally and sent to Alfred when
-            :meth:`send_feedback` is called.
-
-            The generated :class:`Item` is only returned in case you want to
-            edit it or do something with it other than send it to Alfred.
+        Passes arguments through to :class:`XMLGenerator` method
+        :meth:`~workflow.feedback.XMLGenerator.add_item`.
 
         """
 
@@ -946,6 +911,18 @@ class Workflow(object):
     def send_feedback(self):
         """Print stored items to console/Alfred as XML."""
         output = self._xmlgen.xml()
+        receiver, result = hooks.xml_generator_done.first_response(output)
+        if receiver is not None:  # A plugin returned something
+            log.debug('hook result : {0} from {1}'.format(result,
+                                                          receiver.__name__))
+            if isinstance(result, str):
+                output = result
+            else:
+                raise ValueError(
+                    'Plugin returned `{0}`, not `str` : {1!r}'.format(
+                        result.__class__.__name__, result))
+        else:
+            log.debug('No hooks for XML generator')
         sys.stdout.write(output)
         sys.stdout.flush()
 
@@ -990,8 +967,8 @@ class Workflow(object):
 
             self._last_version_run = version
 
-        self.logger.debug('Last run version : {0}'.format(
-                          self._last_version_run))
+        log.debug('Last run version : {0}'.format(
+                  self._last_version_run))
 
         return self._last_version_run
 
@@ -1009,7 +986,7 @@ class Workflow(object):
 
         if not version:
             if not self.version:
-                self.logger.warning(
+                log.warning(
                     "Can't save last version: workflow has no version")
                 return False
 
@@ -1020,7 +997,7 @@ class Workflow(object):
 
         self.settings[base.KEY_VERSION_LAST_RUN] = str(version)
 
-        self.logger.debug('Set last run version : {0}'.format(version))
+        log.debug('Set last run version : {0}'.format(version))
 
         return True
 
@@ -1038,7 +1015,7 @@ class Workflow(object):
         """
 
         update_data = self.cached_data(base.KEY_UPDATE_DATA, max_age=0)
-        self.logger.debug('update_data : {0}'.format(update_data))
+        log.debug('update_data : {0}'.format(update_data))
 
         if not update_data or not update_data.get('available'):
             return False
@@ -1065,7 +1042,7 @@ class Workflow(object):
                                               DEFAULT_UPDATE_FREQUENCY)
 
         if not force and not self.settings.get(base.KEY_AUTO_UPDATE, True):
-            self.logger.debug('Auto update turned off by user')
+            log.debug('Auto update turned off by user')
             return
 
         # Check for new version if it's time
@@ -1085,12 +1062,12 @@ class Workflow(object):
             cmd = ['/usr/bin/python', update_script, 'check', github_slug,
                    version]
 
-            self.logger.info('Checking for update ...')
+            log.info('Checking for update ...')
 
             run_in_background(base.KEY_UPDATER, cmd)
 
         else:
-            self.logger.debug('Update check not due')
+            log.debug('Update check not due')
 
     def start_update(self):
         """Check for update and download and install new workflow file
@@ -1123,7 +1100,7 @@ class Workflow(object):
         cmd = ['/usr/bin/python', update_script, 'install', github_slug,
                version]
 
-        self.logger.debug('Downloading update ...')
+        log.debug('Downloading update ...')
         run_in_background(base.KEY_INSTALLER, cmd)
 
         return True
@@ -1157,20 +1134,20 @@ class Workflow(object):
         try:
             self._call_security('add-generic-password', service, account,
                                 '-w', password)
-            self.logger.debug('Saved password : %s:%s', service, account)
+            log.debug('Saved password : %s:%s', service, account)
 
         except base.PasswordExists:
-            self.logger.debug('Password exists : %s:%s', service, account)
+            log.debug('Password exists : %s:%s', service, account)
             current_password = self.get_password(account, service)
 
             if current_password == password:
-                self.logger.debug('Password unchanged')
+                log.debug('Password unchanged')
 
             else:
                 self.delete_password(account, service)
                 self._call_security('add-generic-password', service,
                                     account, '-w', password)
-                self.logger.debug('save_password : %s:%s', service, account)
+                log.debug('save_password : %s:%s', service, account)
 
     def get_password(self, account, service=None):
         """Retrieve the password saved at ``service/account``. Raise
@@ -1207,7 +1184,7 @@ class Workflow(object):
             if h:
                 password = unicode(binascii.unhexlify(h), 'utf-8')
 
-        self.logger.debug('Got password : %s:%s', service, account)
+        log.debug('Got password : %s:%s', service, account)
 
         return password
 
@@ -1229,7 +1206,7 @@ class Workflow(object):
 
         self._call_security('delete-generic-password', service, account)
 
-        self.logger.debug('Deleted password : %s:%s', service, account)
+        log.debug('Deleted password : %s:%s', service, account)
 
     ####################################################################
     # Methods for workflow:* magic args
@@ -1324,7 +1301,7 @@ class Workflow(object):
                 if name == 'magic':
                     continue
                 arg = '{0}{1}'.format(self.magic_prefix, name)
-                self.logger.debug(arg)
+                log.debug(arg)
 
                 if not isatty:
                     self.add_item(arg, icon=icons.INFO)
@@ -1364,7 +1341,7 @@ class Workflow(object):
         """Delete workflow's :attr:`settings_path`."""
         if os.path.exists(self.settings_path):
             os.unlink(self.settings_path)
-            self.logger.debug('Deleted : %r', self.settings_path)
+            log.debug('Deleted : %r', self.settings_path)
 
     def reset(self):
         """Delete :attr:`settings <settings_path>`, :attr:`cache <cachedir>`
@@ -1469,7 +1446,7 @@ class Workflow(object):
                     shutil.rmtree(path)
                 else:
                     os.unlink(path)
-                self.logger.debug('Deleted : %r', path)
+                log.debug('Deleted : %r', path)
 
     def _call_security(self, action, service, account, *args):
         """Call the ``security`` CLI app that provides access to keychains.

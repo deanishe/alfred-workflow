@@ -1,10 +1,26 @@
 
+Priorities:
+	- Get caching/data API fixed and implemented @priority(1)
+		Update relies on this!
+	- Get update API fixed and implemented @priority(2)
+		The test cases badly need to be rewritten to use local server & files
+		Seems little point in rewriting them twice…
 Code:
 	__init__.py:
-	_env.py:
+		Eventually `Workflow` should end up here.
 	background.py:
 	base.py:
+	_env.py:
+		Workflow-related variables, e.g. Alfred's environmental and `info.plist` contents. Also version, workflow directory.
+		- Rename `WorkflowEnvironment` to `Environment`?
+		- Refactor `WorkflowEnvironment` into more general model?
+			- Add a hook?
+		- Add `workflow_rootdir`?
+			Where Alfred stores workflows by default, parsed from Alfred's settings
+		- Other useful variables?
 	env.py:
+		Placeholder module that's overwritten by an instance of `_env.WorkflowEnvironment` on import.
+		- Is this too much magic?
 	feedback.py:
 	hooks.py:
 	icons.py:

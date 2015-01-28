@@ -239,12 +239,16 @@ Coombs.
 
 If you want to add a workflow to the
 [list of workflows using Alfred-Workflow](#workflows-using-alfred-workflow),
-**don't add it to this README!** The list is automatically generated from
+**don't add it to this README!** The list is machine-generated from
 [Packal.org][packal] and the
 [`library_workflows.tsv`](extras/library_workflows.tsv) file. If your workflow
-is available on [Packal][packal], it should be added automatically. If not,
+is available on [Packal][packal], it will be added automatically. If not,
 please add it to [`library_workflows.tsv`](extras/library_workflows.tsv),
 instead of `README.md`, and submit a corresponding pull request.
+
+The list is not auto-updated, so if you've released a workflow and are keen
+to see it in this list, please [open an issue][issues] asking me to update the
+list.
 
 ### Bug reports, pull requests ###
 
@@ -275,14 +279,18 @@ the following in mind:
   Even if your function/method isn't user-facing, some other developer will be
   looking at it. Even if it's only a one-liner, the developer may be looking
   at [the docs][docs-api] in a browser, not at the source code.
-- Performance counts. Alfred will try to run a workflow anew on every
-  keypress. As a rule, 0.3 seconds execution time is decent, 0.2 seconds or
-  less is smooth. Alfred-Workflow should do its utmost to consume as
+
+  If you don't feel comfortable writing English, I'd be happy to write the docs
+  for you, but please ensure the code is easily understandable (i.e. comment
+  the code if it's not totally obvious).
+- Performance counts. By default, Alfred will try to run a workflow anew
+  on every keypress. As a rule, 0.3 seconds execution time is decent, 0.2
+  seconds or less is smooth. Alfred-Workflow should do its utmost to consume as
   little of that time as possible.
 
-Currently, there is Travis-CI integration, but also a `run-tests.sh` script in
-the root directory of the repo which will fail *if code coverage is less than
-100%* (Travis-CI also uses this script). Add `# pragma: no cover` with care.
+The main entry point for unit testing is the `run-tests.sh` script in the root
+directory. This will fail *if code coverage is < 100%*. Travis-CI also uses
+this script. Add `# pragma: no cover` with care.
 
 
 ### Contributors ###

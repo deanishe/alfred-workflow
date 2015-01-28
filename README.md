@@ -610,7 +610,7 @@ These are some of the Alfred workflows that use this library.
 [shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
 [shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg?style=flat
 [shield-status]: https://pypip.in/status/Alfred-Workflow/badge.svg?style=flat
-[shield-travis]: https://img.shields.io/travis/deanishe/alfred-workflow.svg?style=flat
+[shield-travis]: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master&style=flat
 [shield-version]: https://pypip.in/version/Alfred-Workflow/badge.svg?text=version&style=flat
 [smargh]: https://github.com/smargh
 [sphinx]: http://sphinx-doc.org/

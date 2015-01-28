@@ -94,6 +94,24 @@ class PersistentDict(dict):
         self.save()
         return ret
 
+    def clear(self):
+        """Override :class:`dict` method to save on update."""
+        ret = super(PersistentDict, self).clear()
+        self.save()
+        return ret
+
+    def pop(self, *args):
+        """Override :class:`dict` method to save on update."""
+        ret = super(PersistentDict, self).pop(*args)
+        self.save()
+        return ret
+
+    def popitem(self):
+        """Override :class:`dict` method to save on update."""
+        ret = super(PersistentDict, self).popitem()
+        self.save()
+        return ret
+
 
 class SerializerManager(object):
     """Contains registered serializers.

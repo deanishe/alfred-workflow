@@ -7,7 +7,7 @@ Priorities:
 		Seems little point in rewriting them twice…
 Code:
 	__init__.py:
-		Eventually `Workflow` should end up here.
+		- Move `Workflow` to here.
 	background.py:
 	base.py:
 	_env.py:
@@ -18,22 +18,28 @@ Code:
 		- Add `workflow_rootdir`?
 			Where Alfred stores workflows by default, parsed from Alfred's settings
 		- Other useful variables?
+			-	`light_theme` / `dark_theme`
+				Computed value of whether the theme background is dark or light
 	env.py:
 		Placeholder module that's overwritten by an instance of `_env.WorkflowEnvironment` on import.
 		- Is this too much magic?
 	feedback.py:
+		- Use hooks to get feedback generator class?
 	hooks.py:
 	icons.py:
 	plugins/:
 	plugins.py:
 		- Function to load default plugins
 		- Function to unload/reset plugins
+		- Ensure default plugin path is last in resolution path when loading plugins
 	search.py:
 	storage.py:
-		- `SerializationManager` or `get_serializer()`
+		- `SerializationManager` or `get_serializer()`?
 		- Base `Serializer` class
 		- `store(d)_data()` and associated API
 		- `cache(d)_data()` and associated API
+		-	Add `clear()` method to `PersistentDict` @done(15-01-28 15:47)
+		-	Add `pop()` and `popitems()` to `PersistentDict` @done(15-01-28 19:57)
 	update.py:
 	util.py:
 	version:
@@ -42,9 +48,11 @@ Code:
 		- Move `Workflow` class to __init__.py
 		Workflow:
 			- Send signals @done(15-01-26 21:28)
-			- Change `self.logger` calls to `log`
+			- Change `self.logger` calls to `log` @done(15-01-28 12:00)
 			- Move Keychain API to `storage.py`
 			- Move magic args to plugin(s)
+			- Only log "set last run version" when it changes?
+			- Use hooks to get feedback generator class?
 			Missing tests:
 				- XML signal
 				- Update code

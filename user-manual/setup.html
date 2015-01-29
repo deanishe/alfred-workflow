@@ -34,7 +34,7 @@
     <link rel="top" title="Alfred-Workflow 1.11.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Including 3rd party libraries" href="third-party.html"/>
-        <link rel="prev" title="User Manual" href="index.html"/>
+        <link rel="prev" title="Supported OS X versions" href="osx-version-support.html"/>
  
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
@@ -90,6 +90,7 @@ the _static path in each subdirectory -->
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="osx-version-support.html">Supported OS X versions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Workflow setup and skeleton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
@@ -167,7 +168,7 @@ the _static path in each subdirectory -->
             
   <div class="section" id="workflow-setup-and-skeleton">
 <span id="setup"></span><h1>Workflow setup and skeleton<a class="headerlink" href="#workflow-setup-and-skeleton" title="Permalink to this headline">¶</a></h1>
-<p><strong>Alfred-Python</strong> is aimed particularly at authors of so-called
+<p>Alfred-Workflow is aimed particularly at authors of so-called
 <strong>Script Filters</strong>. These are activated by a keyword in Alfred, receive
 user input and return results to Alfred.</p>
 <p>To write a Script Filter with Alfred-Workflow, make sure your Script Filter
@@ -180,10 +181,10 @@ following (and only the following) <strong>Escaping</strong> options:</p>
 <li>Backslashes</li>
 </ul>
 <p>The <strong>Script</strong> field should contain the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>python yourscript.py &quot;{query}&quot;
+<div class="highlight-python"><div class="highlight"><pre>/usr/bin/python yourscript.py &quot;{query}&quot;
 </pre></div>
 </div>
-<p>where <tt class="docutils literal"><span class="pre">yourscript.py</span></tt> is the name of your script.</p>
+<p>where <tt class="docutils literal"><span class="pre">yourscript.py</span></tt> is the name of your script <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
 <p>Your workflow should start out like this. This enables <tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt>
 to capture any errors thrown by your scripts:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -220,9 +221,7 @@ to capture any errors thrown by your scripts:</p>
 32
 33
 34
-35
-36
-37</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+35</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># encoding: utf-8</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -254,13 +253,19 @@ to capture any errors thrown by your scripts:</p>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-    <span class="c"># Assign Workflow logger to a global variable, so all module</span>
-    <span class="c"># functions can access it without having to pass the Workflow</span>
-    <span class="c"># instance around</span>
+    <span class="c"># Assign Workflow logger to a global variable for convenience</span>
     <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It&#8217;s better to specify <tt class="docutils literal"><span class="pre">/usr/bin/python</span></tt> over just <tt class="docutils literal"><span class="pre">python</span></tt>. This
+ensures that the script will always be run with the system default
+Python regardless of what <tt class="docutils literal"><span class="pre">PATH</span></tt> might be.</td></tr>
+</tbody>
+</table>
 </div>
 
 
@@ -272,7 +277,7 @@ to capture any errors thrown by your scripts:</p>
         <a href="third-party.html" class="btn btn-neutral float-right" title="Including 3rd party libraries"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="User Manual"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="osx-version-support.html" class="btn btn-neutral" title="Supported OS X versions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

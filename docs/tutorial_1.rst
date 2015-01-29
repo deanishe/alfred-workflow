@@ -109,7 +109,7 @@ Now we can start coding.
 Writing your Python script
 ==========================
 
-Using your text editor of choice, create a new text file and save it in your
+Using your text editor of choice [#]_, create a new text file and save it in your
 workflow directory as ``pinboard.py`` (the name we used when setting up the
 Script Filter).
 
@@ -603,3 +603,10 @@ To learn more about coding in Python, try these resources:
 .. _The Python Tutorial: http://docs.python.org/2/tutorial/
 .. _Dive into Python: http://www.diveintopython.net/toc/index.html
 .. _Learn Python the Hard Way: http://learnpythonthehardway.org/book/
+
+.. [#] **Do not** use TextEdit to edit code. By default it uses "smart" quotes,
+       which will break code. If you have OS X 10.7 or later,
+       `TextMate <https://github.com/textmate/textmate/releases>`_ is an
+       excellent and free editor.
+       `TextWrangler <http://www.barebones.com/products/textwrangler/>`_ is
+       another good, free editor for OS X (supports 10.6).

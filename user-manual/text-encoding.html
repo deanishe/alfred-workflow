@@ -449,8 +449,8 @@ recognise them as being the same:</p>
 <p>As a result of this Python quirk (Python 3 is alas no better in this regard),
 it&#8217;s important to ensure that all input is normalized in the same way or, for
 example, a user-provided query (NFC-normalized by default) may not match the
-output of a shell command run via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> (NFD-normalized) even
-though they are ostensibly the same.</p>
+output of a shell command run via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> (which may be NFD-normalized)
+even though they are ostensibly the same.</p>
 </div>
 <div class="section" id="normalization-with-alfred-workflow">
 <h3>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>

@@ -30,9 +30,9 @@ smart enough to do two things, instead. The advantage of using one script is
 that if you build a workflow with lots of actions, you don't have a dozen or
 more scripts to manage.
 
-We'll start by adding an argument parser (using :mod:`argparse`) to ``main()``
-and some if-clauses to alter the script's behaviour depending on the arguments
-passed to it by Alfred.
+We'll start by adding an argument parser (using :mod:`argparse` [#]_) to
+``main()`` and some if-clauses to alter the script's behaviour depending on the
+arguments passed to it by Alfred.
 
 .. code-block:: python
    :linenos:
@@ -471,12 +471,8 @@ script in Terminal) and your workflow's log file. Normally, I use it like this:
         wf.run(main)
 
 Assigning :attr:`Workflow.logger <workflow.workflow.Workflow.logger>` to the
-module-global ``log`` means it can be accessed from within any function
-without having to pass the :class:`~workflow.workflow.Workflow` or
-:attr:`Workflow.logger <workflow.workflow.Workflow.logger>` instance around.
-
-The ``wf`` object is also a module-level global, but it's only created if the
-script is run, not imported.
+module global ``log`` is just a convenience. You could use ``wf.logger`` in
+its place.
 
 
 Spit and polish
@@ -486,7 +482,7 @@ So far, the workflow's looking pretty good. But there are still a few of things
 that could be better. For one, it's not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
 writing these tutorials). For another, it can be confusing if there are no results
-from a workflow and Alfred shows its default Google/Amazon searches instead.
+from a workflow and Alfred shows its fallback Google/Amazon searches instead.
 Finally, the workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can't be helped if we don't have any
 posts cached, but apart from the very first run, we always will, so why don't
@@ -691,10 +687,10 @@ uninstalled. So we'd best start our background process from within the workflow
 itself.
 
 Normally, you'd use :class:`subprocess.Popen` to start a background process,
-but that doesn't work quite as you might expect in Alfred: it treats your
-workflow as still running till the background process has finished, too, so it
-won't call your workflow with a new query till the update is done. Which is
-exactly what happens now and the behaviour we want to avoid.
+but that doesn't necessarily work quite as you might expect in Alfred: it
+treats your workflow as still running till the subprocess has finished,
+too, so it won't call your workflow with a new query till the update is done.
+Which is exactly what happens now and the behaviour we want to avoid.
 
 Fortunately, Alfred-Workflow provides the :mod:`~workflow.background` module
 to solve this problem.
@@ -706,10 +702,11 @@ responsive to Alfred's queries.
 
 Alfred-Workflow's :mod:`~workflow.background` module is based on, and uses the
 same API as :func:`subprocess.call`, but it runs the command as a background
-process (consequently, it won't return anything). So, our updater script will
-be called from our main workflow script, but :mod:`~workflow.background` will
-run it as a background process. This way, it will appear to exit immediately,
-so Alfred will keep on calling our workflow every time the query changes.
+daemon process (consequently, it won't return anything). So, our updater script
+will be called from our main workflow script, but :mod:`~workflow.background`
+will run it as a background process. This way, it will appear to exit
+immediately, so Alfred will keep on calling our workflow every time the query
+changes.
 
 Meanwhile, our main workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.
@@ -1060,3 +1057,6 @@ enable your workflow to update itself from GitHub.
 .. _Packal.org: http://www.packal.org/
 .. _Packal Updater workflow: http://www.packal.org/workflow/packal-updater
 .. _GitHub releases: https://help.github.com/articles/about-releases
+
+.. [#] :mod:`argparse` isn't available in Python 2.6, so this workflow won't
+       run on Snow Leopard (10.6).

@@ -10,40 +10,43 @@ Self-updating
 
 Add self-updating capabilities to your workflow. It regularly (every day
 by default) fetches the latest releases from the specified GitHub repository
-and then asks the user if they want to replace the workflow if a newer version
+and then asks the user if they want to update the workflow if a newer version
 is available.
 
-Users may turn off automatic checks for updates using the
-``workflow:noautoupdate`` :ref:`magic argument <magic-arguments>`.
+Users can turn off automatic checks for updates with the ``workflow:noautoupdate``
+:ref:`magic argument <magic-arguments>` and back on again with
+``workflow:autoupdate``.
 
 .. danger::
 
     If you are not careful, you might accidentally overwrite a local version of
-    the worklow you're working on and lose all your changes!
-
-    If you're working on a workflow, it's a good idea to make sure you increase
-    the version number *before* you start making any changes.
-
-    See :ref:`version-numbers` for precise information on how
-    Alfred-Workflow determines whether a workflow has been updated.
+    the worklow you're working on and lose all your changes! It's a good idea
+    to make sure you increase the version number *before* you start making any
+    changes.
 
 
 Currently, only updates from `GitHub releases`_ are supported.
 
+GitHub releases
+===============
+
 For your workflow to be able to recognise and download newer versions, the
-``version`` value you pass to :class:`~workflow.workflow.Workflow` **should**
+``version`` value you pass to :class:`~workflow.workflow.Workflow` *should*
 be one of the versions (i.e. tags) in the corresponding GitHub repo's
 releases list. See :ref:`version-numbers` for more information.
 
-There must be one (and only one) ``.alfredworkflow`` binary attached to a
-release otherwise it will be ignored. This is the file that will be downloaded
-and installed via Alfred's default installation mechanism.
+There must be **one (and only one)** ``.alfredworkflow`` binary attached to a
+release otherwise the release will be ignored. This is the file that will be
+downloaded and installed via Alfred's default installation mechanism.
 
 .. important::
 
-    Releases marked as ``pre-release`` on GitHub will also be ignored.
+    Releases marked as ``pre-release`` on GitHub will be ignored.
 
-To use this feature, you must pass a :class:`dict` as the ``update_settings``
+Configuration
+=============
+
+To use self-updating, you must pass a :class:`dict` as the ``update_settings``
 argument to :class:`~workflow.workflow.Workflow`. It **must** have the key/value
 pair ``github_slug``, which is your username and the name of the
 workflow's repo in the format ``username/reponame``. The version of the currently
@@ -76,6 +79,7 @@ installed workflow must also be specified. You can do this in the
     ...
 
     if wf.update_available:
+        # Download new version and tell Alfred to install it
         wf.start_update()
 
 Or alternatively, create a ``version`` file in the root directory or your
@@ -116,10 +120,12 @@ Using a ``version`` file:
     ...
 
     if wf.update_available:
+        # Download new version and tell Alfred to install it
         wf.start_update()
 
-Please see :ref:`manual-versioning` for detailed information on the required
-version number format and associated features.
+You **must** use semantic version numbering. Please see
+:ref:`manual-versioning` for detailed information on the required version
+number format and associated features.
 
 .. note::
 
@@ -127,19 +133,50 @@ version number format and associated features.
 	version of your workflow is available, but will *not* automatically inform
 	the	user nor download and install the update.
 
-To view update status/install a newer version, the user must either
-call one of your workflow's Script Filters with the ``workflow:update``
-:ref:`magic argument <magic-arguments>`, in which case Alfred-Workflow
-will handle the update automatically, or you must add your own update action
-using :attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
+Usage
+=====
+
+You can just leave it up to the user to check update status and install new
+versions manually using the ``workflow:update``
+:ref:`magic argument <magic-arguments>` in a Script Filter, or you could roll
+your own update handling using
+:attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
 and :meth:`Workflow.start_update() <workflow.workflow.Workflow.start_update>`
 to check for and install newer versions respectively.
 
+The simplest way, however, is usually to add an update notification to the top
+of your Script Filter's results that triggers Alfred-Workflow's
+``workflow:update`` magic argument:
+
+.. code-block:: python
+    :linenos:
+
+    wf = Workflow(...update_settings={...})
+
+    if wf.update_available:
+        # Add a notification to top of Script Filter results
+        wf.add_item('New version available',
+                    'Action this item to install the update',
+                    autocomplete='workflow:update',
+                    icon=ICON_INFO)
+
+    # Show other results here
+    ...
+
+By adding an :class:`~workflow.workflow.Item` with ``valid=False`` and
+``autocomplete='workflow:update'``, Alfred's query will be expanded to
+``workflow:update`` when a user actions the item, which is a
+:ref:`magic argument <magic-arguments>` that will in turn prompt
+Alfred-Workflow to download and install the update.
+
+Under the hood
+==============
+
 The :meth:`~workflow.workflow.Workflow.check_update` method is called
-automatically when you create a :class:`workflow.workflow.Workflow` object. If
-sufficient time has elapsed since the last check (1 day by default), it starts
-a background process that checks for new releases. You can alter the update
-interval with the optional ``frequency`` key in ``update_settings``
+automatically when you call :class:`Workflow.run <workflow.workflow.Workflow.run>`
+If sufficient time has elapsed since the last check (1 day by default), it
+starts a background process that checks for new releases. You can alter the
+update interval with the optional ``frequency`` key in ``update_settings``
 :class:`dict` (see the :ref:`example above <update-example>`).
 
 :attr:`Workflow.update_available <workflow.workflow.Workflow.update_available>`
@@ -147,16 +184,14 @@ is ``True`` if an update is available, and ``False`` otherwise.
 
 :meth:`Workflow.start_update() <workflow.workflow.Workflow.start_update>`
 returns ``False`` if no update is available, or if one is, it will return
-``True``, download the newer version and tell Alfred to install it.
+``True``, then download the newer version and tell Alfred to install it in
+the background.
 
 If you want more control over the update mechanism, you can use
 :func:`update.check_update() <workflow.update.check_update>` directly.
 It caches information on the latest available release under the cache key
 ``__workflow_update_status``, which you can access via
 :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`.
-
-Users can turn off automatic checks for updates with the ``workflow:noautoupdate``
-:ref:`magic argument <magic-arguments>` and back on again with ``workflow:autoupdate``.
 
 
 Version numbers

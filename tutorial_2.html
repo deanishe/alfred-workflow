@@ -186,9 +186,9 @@ second script to do this, but we&#8217;re going to stick with one script and mak
 smart enough to do two things, instead. The advantage of using one script is
 that if you build a workflow with lots of actions, you don&#8217;t have a dozen or
 more scripts to manage.</p>
-<p>We&#8217;ll start by adding an argument parser (using <a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a>) to <tt class="docutils literal"><span class="pre">main()</span></tt>
-and some if-clauses to alter the script&#8217;s behaviour depending on the arguments
-passed to it by Alfred.</p>
+<p>We&#8217;ll start by adding an argument parser (using <a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> <a class="footnote-reference" href="#id3" id="id1">[1]</a>) to
+<tt class="docutils literal"><span class="pre">main()</span></tt> and some if-clauses to alter the script&#8217;s behaviour depending on the
+arguments passed to it by Alfred.</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
@@ -787,11 +787,8 @@ script in Terminal) and your workflow&#8217;s log file. Normally, I use it like 
 </pre></div>
 </td></tr></table></div>
 <p>Assigning <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></tt></a> to the
-module-global <tt class="docutils literal"><span class="pre">log</span></tt> means it can be accessed from within any function
-without having to pass the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></tt></a> instance around.</p>
-<p>The <tt class="docutils literal"><span class="pre">wf</span></tt> object is also a module-level global, but it&#8217;s only created if the
-script is run, not imported.</p>
+module global <tt class="docutils literal"><span class="pre">log</span></tt> is just a convenience. You could use <tt class="docutils literal"><span class="pre">wf.logger</span></tt> in
+its place.</p>
 </div>
 <div class="section" id="spit-and-polish">
 <h2>Spit and polish<a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
@@ -799,7 +796,7 @@ script is run, not imported.</p>
 that could be better. For one, it&#8217;s not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
 writing these tutorials). For another, it can be confusing if there are no results
-from a workflow and Alfred shows its default Google/Amazon searches instead.
+from a workflow and Alfred shows its fallback Google/Amazon searches instead.
 Finally, the workflow is unresponsive while updating
 the list of recent posts from Pinboard. That can&#8217;t be helped if we don&#8217;t have any
 posts cached, but apart from the very first run, we always will, so why don&#8217;t
@@ -1089,10 +1086,10 @@ whether or not the workflow is being used, and even if the workflow were
 uninstalled. So we&#8217;d best start our background process from within the workflow
 itself.</p>
 <p>Normally, you&#8217;d use <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> to start a background process,
-but that doesn&#8217;t work quite as you might expect in Alfred: it treats your
-workflow as still running till the background process has finished, too, so it
-won&#8217;t call your workflow with a new query till the update is done. Which is
-exactly what happens now and the behaviour we want to avoid.</p>
+but that doesn&#8217;t necessarily work quite as you might expect in Alfred: it
+treats your workflow as still running till the subprocess has finished,
+too, so it won&#8217;t call your workflow with a new query till the update is done.
+Which is exactly what happens now and the behaviour we want to avoid.</p>
 <p>Fortunately, Alfred-Workflow provides the <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module
 to solve this problem.</p>
 <p>Using the <a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><tt class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></tt></a>
@@ -1101,10 +1098,11 @@ we can easily run a script in the background while our workflow remains
 responsive to Alfred&#8217;s queries.</p>
 <p>Alfred-Workflow&#8217;s <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> module is based on, and uses the
 same API as <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>, but it runs the command as a background
-process (consequently, it won&#8217;t return anything). So, our updater script will
-be called from our main workflow script, but <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a> will
-run it as a background process. This way, it will appear to exit immediately,
-so Alfred will keep on calling our workflow every time the query changes.</p>
+daemon process (consequently, it won&#8217;t return anything). So, our updater script
+will be called from our main workflow script, but <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><tt class="xref py py-mod docutils literal"><span class="pre">background</span></tt></a>
+will run it as a background process. This way, it will appear to exit
+immediately, so Alfred will keep on calling our workflow every time the query
+changes.</p>
 <p>Meanwhile, our main workflow script will check if the background updater is
 running and post a useful, friendly notification if it is.</p>
 <p>Let&#8217;s have at it.</p>
@@ -1555,6 +1553,13 @@ attribute and inform the user of the availability of an update if it&#8217;s
 <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
 <p>See <a class="reference internal" href="user-manual/update.html#manual-updates"><em>Self-updating</em></a> in the <a class="reference internal" href="user-manual/index.html#user-manual"><em>User Manual</em></a> for information on how to
 enable your workflow to update itself from GitHub.</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> isn&#8217;t available in Python 2.6, so this workflow won&#8217;t
+run on Snow Leopard (10.6).</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

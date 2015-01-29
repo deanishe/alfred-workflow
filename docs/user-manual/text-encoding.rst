@@ -268,8 +268,8 @@ recognise them as being the same:
 As a result of this Python quirk (Python 3 is alas no better in this regard),
 it's important to ensure that all input is normalized in the same way or, for
 example, a user-provided query (NFC-normalized by default) may not match the
-output of a shell command run via :mod:`subprocess` (NFD-normalized) even
-though they are ostensibly the same.
+output of a shell command run via :mod:`subprocess` (which may be NFD-normalized)
+even though they are ostensibly the same.
 
 
 Normalization with Alfred-Workflow

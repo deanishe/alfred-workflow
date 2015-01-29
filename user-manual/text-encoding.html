@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.10.3 documentation</title>
+  <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.11.1 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Alfred-Workflow 1.10.3 documentation" href="../index.html"/>
+    <link rel="top" title="Alfred-Workflow 1.11.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Alfred-Workflow API" href="../api/index.html"/>
         <link rel="prev" title="Serialization of stored/cached data" href="serialization.html"/>
@@ -382,7 +382,7 @@ represented in the same way.</p>
 system (filepaths, output of command-line programs), you should instantiate
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with the <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt> argument.</p>
 <p>If your workflow uses data from the Web (via native Python libraries, including
-<tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt>), you probably don&#8217;t need to do anything
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a>), you probably don&#8217;t need to do anything
 (everything will be NFC-normalized).</p>
 <p>If you&#8217;re mixing both kinds of data, the simplest solution is probably to run
 all data from the system through <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to ensure it is
@@ -454,12 +454,12 @@ though they are ostensibly the same.</p>
 </div>
 <div class="section" id="normalization-with-alfred-workflow">
 <h3>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>
-<p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and <tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt> return command
+<p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a> return command
 line arguments from Alfred and text/decoded JSON data respectively as
 NFC-normalized Unicode strings.</p>
 <p>This is the default for Python. You can change this via the <tt class="docutils literal"><span class="pre">normalization</span></tt>
 keyword to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> (this will, however, not affect
-<tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt>, which <em>always</em> returns NFC-encoded Unicode
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a>, which <em>always</em> returns NFC-encoded Unicode
 strings).</p>
 <p>If your workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
 <a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should almost certainly be NFC-normalizing those
@@ -519,7 +519,7 @@ Python <a class="reference external" href="https://docs.python.org/2/howto/unico
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.3',
+            VERSION:'1.11.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

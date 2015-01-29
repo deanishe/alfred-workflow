@@ -137,16 +137,16 @@ def workflow_link(workflow, rest=False, github_links=True):
         if workflow.get('author_url'):
             if (github_links and workflow.get('github_user_url') and
                     workflow['github_user_url'] != workflow['author_url']):
-                output.append(' by `{author} <{author_url}>`__ '
-                              '(`on GitHub <{github_user_url}>`__).')
+                output.append('by `{author} <{author_url}>`__')
+                output.append('(`on GitHub <{github_user_url}>`__).')
             else:
-                output.append(' by `{author} <{author_url}>`__.')
+                output.append('by `{author} <{author_url}>`__.')
         else:
-            output.append(' by {author}.')
+            output.append('by {author}.')
 
         output.append('{description}')
 
-        return ' '.join(output).format(**workflow)
+        return '\n  '.join(output).format(**workflow)
 
     else:  # Markdown
         output.append('[{name}]({url})')

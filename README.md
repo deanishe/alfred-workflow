@@ -317,6 +317,7 @@ it is below 100%.
 
 These are some of the Alfred workflows that use this library.
 
+
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze)
   ([GitHub repo](https://github.com/XedMada/alfred-backblaze))
   by [XedMada](http://www.packal.org/users/xedmada)
@@ -456,11 +457,11 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search and Download pdfs and ebooks from Library Genesis.
-- [Movies](http://www.packal.org/workflow/movies)
-  ([GitHub repo](https://github.com/tmcknight/Movies-Alfred-Workflow))
+- [Movie and TV Show Search](http://www.packal.org/workflow/movie-and-tv-show-search)
+  ([GitHub repo](https://github.com/tmcknight/Movie-and-TV-Show-Search-Alfred-Workflow))
   by [tone](http://www.packal.org/users/tone)
   ([on GitHub](https://github.com/tmcknight/)).
-  Search for movies to find ratings from a few sites.
+  Search for movies and tv shows to find ratings from a few sites.
 - [Network Location](http://www.packal.org/workflow/network-location)
   ([GitHub repo](https://github.com/deanishe/alfred-network-location))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -590,6 +591,7 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
+
 
 
 

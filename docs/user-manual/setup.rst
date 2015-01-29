@@ -5,7 +5,7 @@
 Workflow setup and skeleton
 ===========================
 
-**Alfred-Python** is aimed particularly at authors of so-called
+Alfred-Workflow is aimed particularly at authors of so-called
 **Script Filters**. These are activated by a keyword in Alfred, receive
 user input and return results to Alfred.
 
@@ -20,10 +20,10 @@ following (and only the following) **Escaping** options:
 
 The **Script** field should contain the following::
 
-    python yourscript.py "{query}"
+    /usr/bin/python yourscript.py "{query}"
 
 
-where ``yourscript.py`` is the name of your script.
+where ``yourscript.py`` is the name of your script [#]_.
 
 Your workflow should start out like this. This enables :class:`Workflow`
 to capture any errors thrown by your scripts:
@@ -63,8 +63,11 @@ to capture any errors thrown by your scripts:
 
     if __name__ == '__main__':
         wf = Workflow()
-        # Assign Workflow logger to a global variable, so all module
-        # functions can access it without having to pass the Workflow
-        # instance around
+        # Assign Workflow logger to a global variable for convenience
         log = wf.logger
         sys.exit(wf.run(main))
+
+
+.. [#] It's better to specify ``/usr/bin/python`` over just ``python``. This
+       ensures that the script will always be run with the system default
+       Python regardless of what ``PATH`` might be.

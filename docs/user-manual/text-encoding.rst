@@ -215,7 +215,7 @@ system (filepaths, output of command-line programs), you should instantiate
 :class:`Workflow` with the ``normalization='NFD'`` argument.
 
 If your workflow uses data from the Web (via native Python libraries, including
-:mod:`~workflow.workflow.web`), you probably don't need to do anything
+:mod:`~workflow.web`), you probably don't need to do anything
 (everything will be NFC-normalized).
 
 If you're mixing both kinds of data, the simplest solution is probably to run
@@ -275,13 +275,13 @@ though they are ostensibly the same.
 Normalization with Alfred-Workflow
 ----------------------------------
 
-By default, :class:`Workflow` and :mod:`~workflow.workflow.web` return command
+By default, :class:`Workflow` and :mod:`~workflow.web` return command
 line arguments from Alfred and text/decoded JSON data respectively as
 NFC-normalized Unicode strings.
 
 This is the default for Python. You can change this via the ``normalization``
 keyword to :class:`Workflow` (this will, however, not affect
-:mod:`~workflow.workflow.web`, which *always* returns NFC-encoded Unicode
+:mod:`~workflow.web`, which *always* returns NFC-encoded Unicode
 strings).
 
 If your workflow works with data from the system (via :mod:`subprocess`,

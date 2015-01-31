@@ -58,4 +58,5 @@ Code:
 				- Update code
 
 Docs:
-	
+	README.md:
+		- Change `Install from source` to separate releases and cloning

@@ -18,6 +18,140 @@ import json
 import os
 import pickle
 
+from workflow import env, hooks, plugins
+
+
+def get_serializer(name, **kwargs):
+    """Return serializer class for ``name``
+
+    Returns ``None`` if no serializer could be found.
+
+    :param name: Name of serializer to retrieve
+    :type name: string
+    :param **kwargs: Passed to ``__init__`` method of serializer class
+    :returns: instance of subclass of :class:`Serializer` or ``None``
+
+    """
+
+    if not len(plugins.get_plugins()):  # Plugins not initialised yet
+        plugins.init_plugins()
+
+    cls = hooks.get_serializer.first_response(name)
+    log.debug('{0} serializer for {1}'.format(cls.__name__, name))
+
+    if cls is not None:
+        return cls(**kwargs)
+
+    return None
+
+
+class Serializer(object):
+    """Base class for serializers
+
+    This class implements the full data storage/caching API but
+    the :meth:`dump` and :meth:`load` are stubs that must be overridden
+    by subclasses (concrete serializers).
+
+    Any object that has ``dump()`` and ``load()`` methods (and a ``name``
+    attribute) that follow the standard Python API (e.g., :mod:`json`
+    or :mod:`pickle`) can be a serializer. It needn't inherit from this
+    class but must then implement the full API:
+
+    - ``dump()``
+    - ``load()``
+    - ``cache_data()``
+    - ``cached_data()``
+    - ``store_data()``
+    - ``stored_data()``
+
+    """
+
+    def __init__(self):
+        #: In subclasses, name **must** be set.
+        #: It is the format the serializer can handle and also the file
+        #: extension of saved files.
+        self.name = None
+        self._filepath = None
+
+    @property
+    def filepath(self):
+        """The path the current file will be written to.
+
+        Will only be set when one of the store/load methods is called.
+
+        """
+
+        return self._filepath
+
+    def _get_paths(self, name):
+        """Return ``(filepath, metadata_path)``"""
+        filename = '{0}.{1}'.format(self.name)
+        filepath = os.path.join(env.datadir, filename)
+        metadata_name = '.{0}.aw-meta'.format(self.name)
+        metadata_path = os.path.join(env.datadir, metadata_name)
+
+        return (filepath, metadata_path)
+
+    def store_data(self, name, data, **kwargs):
+        """Save data to data directory
+
+        If ``data`` is ``None``, datastore will be deleted.
+
+        """
+
+        filepath, metadata_path = self._get_paths(name)
+        self._filepath = filepath
+
+        try:
+            if data is None:  # Delete stored data
+                for path in (filepath, metadata_path):
+                    if os.path.exists(path):
+                        os.unlink(path)
+                        log.debug('Deleted data file : {0}'.format(path))
+            else:
+                # Save file extension
+                with open(metadata_path, 'wb') as fp:
+                    fp.write(self.name)
+
+                with open(filepath, 'wb') as fp:
+                    self.dump(data, fp)
+
+                log.debug('Stored data saved to : {0}'.format(filepath))
+        finally:
+            self._filepath = None
+
+    def stored_data(self, name, **kwargs):
+        """Load data stored under ``name`` from data directory.
+
+        Returns ``None`` if datastore is not found.
+
+        :param name: Name of datastore
+
+        """
+
+    def cached_data(self, name, data_func=None, max_age=0, **kwargs):
+        """Retrieve data from cache or re-generate and re-cache data if
+        stale/non-existant. If ``max_age`` is 0 (default), return cached
+        data no matter how old.
+
+        """
+
+    def cache_data(self, name, data, **kwargs):
+        """Save ``data`` to cache under ``name``.
+
+        If ``data`` is ``None``, the corresponding cache file will be
+        deleted.
+
+        """
+
+    def load(self, file_obj, **kwargs):
+        """Return data deserialized from ``file_obj``"""
+        raise NotImplementedError
+
+    def dump(self, data, file_obj, **kwargs):
+        """Serialize ``data`` to ``file_obj``"""
+        raise NotImplementedError
+
 
 class PersistentDict(dict):
     """A dictionary that saves itself when changed.

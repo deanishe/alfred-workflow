@@ -33,7 +33,6 @@ Language ``/usr/bin/python`` and paste the following into the **Script** field
 (changing ``API_KEY``):
 
 .. code-block:: python
-   :emphasize-lines: 4
 
     import sys
     from workflow import Workflow, ICON_WEB, web

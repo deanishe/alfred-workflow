@@ -9,10 +9,10 @@
 Overview
 ========
 
-.. image:: https://img.shields.io/travis/deanishe/alfred-workflow.svg?style=flat
+.. image:: https://img.shields.io/travis/deanishe/alfred-workflow/master.svg?style=flat
     :target: https://travis-ci.org/deanishe/alfred-workflow
     :alt: Build Status
-.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg?style=flat
+.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat
     :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
     :alt: Code Coverage
 .. image:: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat

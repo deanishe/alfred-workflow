@@ -1521,31 +1521,38 @@ class AtomicWriterTests(unittest.TestCase):
 
     def test_failed_before_writing(self):
         """throw exception before writing"""
-        with self.assertRaises(Exception):
+        def write_function():
             with atomic_writer(self.settings_file, 'wb'):
                 raise Exception()
+
+        self.assertRaises(Exception, write_function)
         self.assertEqual(len(os.listdir(self.tempdir)), 0)
 
     def test_failed_after_writing(self):
         """throw exception in the end"""
-        with self.assertRaises(Exception):
+        def write_function():
             with atomic_writer(self.settings_file, 'wb') as file_obj:
                 json.dump(DEFAULT_SETTINGS, file_obj)
                 raise Exception()
+
+        self.assertRaises(Exception, write_function)
         self.assertEqual(len(os.listdir(self.tempdir)), 0)
     
     def test_failed_without_overwriting(self):
         """throw exception after writing won't overwrite the old file"""
+        mockSettings = {}
+
+        def write_function():
+            with atomic_writer(self.settings_file, 'wb') as file_obj:
+                json.dump(mockSettings, file_obj)
+                raise Exception()
+
         with atomic_writer(self.settings_file, 'wb') as file_obj:
             json.dump(DEFAULT_SETTINGS, file_obj)
         self.assertEqual(len(os.listdir(self.tempdir)), 1)
         self.assertTrue(os.path.exists(self.settings_file))
 
-        mockSettings = {}
-        with self.assertRaises(Exception):
-            with atomic_writer(self.settings_file, 'wb') as file_obj:
-                json.dump(mockSettings, file_obj)
-                raise Exception()
+        self.assertRaises(Exception, write_function)
         self.assertEqual(len(os.listdir(self.tempdir)), 1)
         self.assertTrue(os.path.exists(self.settings_file))
 

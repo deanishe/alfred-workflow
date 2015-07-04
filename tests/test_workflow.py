@@ -1594,8 +1594,7 @@ class AtomicMultipleFilesWriterTester(unittest.TestCase):
 
     def test_sigterm_signal(self):
         """The process is killed"""
-        with self.assertRaises(SystemExit):
-            self._mock_write_function()
+        self.assertRaises(SystemExit, self._mock_write_function)
 
         self.assertTrue(self.resultFlag)
         self.assertFalse(self.isKilledFlag)

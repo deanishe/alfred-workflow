@@ -145,14 +145,14 @@ class WebTests(unittest.TestCase):
 
     def test_follow_redirect(self):
         """Redirects are followed"""
-        newurl = 'http://www.kulturliste-duesseldorf.de/'
+        newurl = 'https://www.kulturliste-duesseldorf.de/'
         url = BASE_URL + 'redirect-to?url=' + newurl
         r = web.get(url)
         self.assertEqual(r.url, newurl)
 
     def test_no_follow_redirect(self):
         """Redirects are not followed"""
-        newurl = 'http://www.kulturliste-duesseldorf.de/'
+        newurl = 'https://www.kulturliste-duesseldorf.de/'
         url = BASE_URL + 'redirect-to?url=' + newurl
         r = web.get(url, allow_redirects=False)
         self.assertNotEquals(r.url, newurl)

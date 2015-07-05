@@ -1,4 +1,4 @@
-
+l
 Features to Add:
 
 
@@ -16,7 +16,8 @@ Features to Add:
 	web.py:
 
 	workflow.py:
-		- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1)
+		- `workflow:magic` should allow ↩ and ⇥ to expand and run magic arguments
+		- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1) @done(15-04-28 12:50)
 		Save a "flag" in the data directory upon first run.
 		Should the file only be created the first time `first_run()` is called instead?
 		How about being able to pass a version argument to `first_run()`?
@@ -27,6 +28,9 @@ Features to Add:
 	Docs:
 		- Add tutorial using `workflow.web`
 		- Add tutorial using filesystem/Unicode
+		- Generate Dash docset from AW documentation
+		- Better theme
+			RTD theme looks awful in Dash. Py3 theme perhaps?
 
 
 

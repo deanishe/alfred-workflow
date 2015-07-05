@@ -5,22 +5,16 @@ Features to Add:
 	background.py:
 		- Add `kill_process()` function.
 			Allow `killing` of running processes. Can be used for stopping servers.
-		- Add file-locking to prevent `Workflow` from reading half-written files @priority(3) @v2
 
 
 	update.py:
 		- Generalise update functionality @v2
 			Use subclass-based plugin feature to automatically register updaters?
 
-
 	web.py:
 
 	workflow.py:
 		- `workflow:magic` should allow ↩ and ⇥ to expand and run magic arguments
-		- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1) @done(15-04-28 12:50)
-		Save a "flag" in the data directory upon first run.
-		Should the file only be created the first time `first_run()` is called instead?
-		How about being able to pass a version argument to `first_run()`?
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
 		- `max_age` argument of `cached_data()` should default to 0 (always return cached data) @v2 @priority(1)
 
@@ -80,8 +74,14 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
-	- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1) @done(14-12-20 14:17) @project(Features to Add / workflow.py)
+	- Allow GET params in URL as well as in `params` @done(15-07-05 13:31) @project(Features to Add / web.py)
+	- Add file-locking to prevent `Workflow` from reading half-written files @priority(3) @v2 @done(15-07-05 12:54) @project(Features to Add / background.py)
+	- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1) @done(15-04-28 12:50) @project(Features to Add / workflow.py)
+		Save a "flag" in the data directory upon first run.
+		Should the file only be created the first time `first_run()` is called instead?
+		How about being able to pass a version argument to `first_run()`?
 	- move "magic" args to class-level dictionary, so authors can add their own. @priority(2) @v2 @done(14-12-20 14:17) @project(Features to Add / workflow.py)
+	- `filter()` should replace "smart" punctuation with dumb equivalents @priority(1) @done(14-12-20 14:17) @project(Features to Add / workflow.py)
 	- Allow users to turn off automatic update checks @done(14-12-20 11:20) @project(Features to Add / update.py)
 	- Add `help_url`. Will be shown in log when an error occurs and can be opened via `workflow:help` magic arg. @done(14-12-20 10:39) @project(Features to Add / workflow.py)
 	- Handle gzip-encoded HTTP data @done(14-12-20 10:34) @project(Features to Add / web.py)
@@ -103,35 +103,35 @@ Archive:
 	- Add `setup.py` so `Alfred-Workflow` can be added to PyPi and installed with `pip` @done(14-09-14 01:19) @project(General)
 	- Add explicit `save()` method to `Settings` @done(14-08-17 00:08) @project(General)
 	- optimise `filter` by memoising expensive operations, e.g. `pattern`/`search` generation @done(14-05-11 23:13) @project(workflow.py)
-- add `openterminal` magic arg. @done(14-03-08 00:05)
- @project(workflow.py)
-- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
- @project(Docs)
-- Normalise Unicode @done(14-03-06 20:34)
- @project(web.py)
-- Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
- @project(workflow.py)
-- Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
- @project(workflow.py)
-- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
- @project(workflow.py / Unit Tests)
-- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
- @project(workflow.py / Unit Tests)
-- Tests for `Workflow.run` method @done(14-03-03 03:21)
- @project(workflow.py / Unit Tests)
-- Add unit tests @done(14-03-03 03:20)
- @project(workflow.py)
-- Add unit tests @done(14-03-02 01:23)
- @project(web.py)
-- Give log file more unique name @done(14-02-27 23:01)
- @project(workflow.py)
-bundleid.log?
-- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
- @project(Other)
-https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
-Created own version
-- Add and adapt phyllisstein's `fuzzy` module @done(14-02-27 22:56)
- @project(Other)
-https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
-Created own version
+	- add `openterminal` magic arg. @done(14-03-08 00:05)
+	 @project(workflow.py)
+	- Update list of "magic" arguments in tutorial2.rst @done(14-03-07 19:02)
+	 @project(Docs)
+	- Normalise Unicode @done(14-03-06 20:34)
+	 @project(web.py)
+	- Add magic arguments for opening cache/data directories in Finder @done(14-03-05 00:10)
+	 @project(workflow.py)
+	- Add `workflowdir` method to match `datadir` and `cachedir`. @done(14-03-05 00:10)
+	 @project(workflow.py)
+	- Tests for `Workflow` data caching methods @done(14-03-03 03:21)
+	 @project(workflow.py / Unit Tests)
+	- Tests for `Workflow` Keychain methods @done(14-03-03 03:21)
+	 @project(workflow.py / Unit Tests)
+	- Tests for `Workflow.run` method @done(14-03-03 03:21)
+	 @project(workflow.py / Unit Tests)
+	- Add unit tests @done(14-03-03 03:20)
+	 @project(workflow.py)
+	- Add unit tests @done(14-03-02 01:23)
+	 @project(web.py)
+	- Give log file more unique name @done(14-02-27 23:01)
+	 @project(workflow.py)
+	bundleid.log?
+	- Add and adapt phyllisstein's `keychain` module @done(14-02-27 22:56)
+	 @project(Other)
+	https://github.com/phyllisstein/alp/blob/master/alp/keychain.py
+	Created own version
+	- Add and adapt phyllisstein's `fuzzy` module @done(14-02-27 22:56)
+	 @project(Other)
+	https://github.com/phyllisstein/alp/blob/master/alp/fuzzy.py
+	Created own version
 

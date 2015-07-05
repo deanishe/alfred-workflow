@@ -223,6 +223,17 @@ class WebTests(unittest.TestCase):
         for key in self.data:
             self.assertEqual(args[key], self.data[key])
 
+    def test_get_vars_with_params(self):
+        """GET vars + params"""
+        url = BASE_URL + 'get?get1=value1&get2=value2'
+        r = web.get(url, params=self.data)
+        self.assertEqual(r.status_code, 200)
+        args = r.json()['args']
+        for key in self.data:
+            self.assertEqual(args[key], self.data[key])
+        self.assertEqual(args['get1'], 'value1')
+        self.assertEqual(args['get2'], 'value2')
+
     def test_auth_succeeds(self):
         """Basic AUTH succeeds"""
         url = BASE_URL + '/basic-auth/bobsmith/password1'

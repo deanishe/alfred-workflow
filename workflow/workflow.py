@@ -815,20 +815,22 @@ def atomic_writer(file_path, mode):
 
 
 class atomic_multiple_files_writer(object):
-    """Atomic file writer decorator, for multiple files
+    """Atomic file writer decorator for writing multiple files
 
-       The docorator will finsih the writing process once it started,
+       The decorator will finish the writing process once it started,
        even after the SIGTERM signal.
-       
+
        Note:
          - This decorator does NOT support multiple threads.
          - Write function may be executed twice.
+
     """
-    def __init__(self, write_function, clazz_name=""):
+
+    def __init__(self, write_function, class_name=''):
         self.write_function = write_function
 
-    """Signal handler, called by system when SIGTERM is received by process."""
     def signal_handler(self, signal_number, frame):
+        """Called when process receives SIGTERM."""
         self.write_function(*self.args, **self.kwargs)
         if callable(self.old_signal_handler):
             self.old_signal_handler(signal_number, frame)
@@ -844,7 +846,8 @@ class atomic_multiple_files_writer(object):
         signal.signal(signal.SIGTERM, self.old_signal_handler)
 
     def __get__(self, obj=None, clazz=None):
-        return self.__class__(self.write_function.__get__(obj, clazz), clazz.__name__)
+        return self.__class__(self.write_function.__get__(obj, clazz),
+                              clazz.__name__)
 
 
 class Settings(dict):
@@ -1639,11 +1642,11 @@ class Workflow(object):
         self._store_data_to_file(metadata_path, serializer_name, data_path, serializer, data)
 
         self.logger.debug('Stored data saved at : {0}'.format(data_path))
-        
+
     @atomic_multiple_files_writer
     def _store_data_to_file(self, metadata_path, serializer_name, data_path, serializer, data):
         """atomic write metadata and data to file
-        
+
         :param: medata_path
         :type: ``unicode``
         :param: serializer_name

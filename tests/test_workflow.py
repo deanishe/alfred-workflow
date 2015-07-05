@@ -1502,25 +1502,25 @@ class MagicArgsTests(unittest.TestCase):
 
 
 class AtomicWriterTests(unittest.TestCase):
-    """Test for atomic writer"""
+    """Tests for atomic writer"""
 
     def setUp(self):
         self.tempdir = tempfile.mkdtemp()
         self.settings_file = os.path.join(self.tempdir, 'settings.json')
-         
+
     def tearDown(self):
         if os.path.exists(self.tempdir):
             shutil.rmtree(self.tempdir)
-    
+
     def test_write_file_succeed(self):
-        """succeed, no temp file left"""
+        """AtomicWriter: Succeed, no temp file left"""
         with atomic_writer(self.settings_file, 'wb') as file_obj:
             json.dump(DEFAULT_SETTINGS, file_obj)
         self.assertEqual(len(os.listdir(self.tempdir)), 1)
         self.assertTrue(os.path.exists(self.settings_file))
 
     def test_failed_before_writing(self):
-        """throw exception before writing"""
+        """AtomicWriter: Exception before writing"""
         def write_function():
             with atomic_writer(self.settings_file, 'wb'):
                 raise Exception()
@@ -1529,7 +1529,7 @@ class AtomicWriterTests(unittest.TestCase):
         self.assertEqual(len(os.listdir(self.tempdir)), 0)
 
     def test_failed_after_writing(self):
-        """throw exception in the end"""
+        """AtomicWriter: Exception after writing"""
         def write_function():
             with atomic_writer(self.settings_file, 'wb') as file_obj:
                 json.dump(DEFAULT_SETTINGS, file_obj)
@@ -1537,9 +1537,9 @@ class AtomicWriterTests(unittest.TestCase):
 
         self.assertRaises(Exception, write_function)
         self.assertEqual(len(os.listdir(self.tempdir)), 0)
-    
+
     def test_failed_without_overwriting(self):
-        """throw exception after writing won't overwrite the old file"""
+        """AtomicWriter: Exception after writing won't overwrite the old file"""
         mockSettings = {}
 
         def write_function():
@@ -1566,58 +1566,59 @@ class AtomicMultipleFilesWriterTester(unittest.TestCase):
 
     @atomic_multiple_files_writer
     def _mock_write_function(self):
-        if self.isKilledFlag:
-            self.isKilledFlag = False
+        if self.kill_flag:
+            self.kill_flag = False
             self._kill()
-        self.resultFlag = True
+        self.result_flag = True
 
     def _old_signal_handler(self, s, f):
-            self.oldSignalFlag = True
+            self.old_signal_flag = True
 
     def _kill(self):
         os.kill(os.getpid(), signal.SIGTERM)
 
     def setUp(self):
         signal.signal(signal.SIGTERM, signal.SIG_DFL)
-        
-        self.resultFlag = False     # flag for if the write_function is executed or not
-        self.oldSignalFlag = False  # flag for old signal handler is executed or not
-        self.isKilledFlag = True    # flag for if process need to be killed or not
+
+        self.result_flag = False  # True if the write_function is executed
+        self.old_signal_flag = False  # True if old signal handler is executed
+        self.kill_flag = True    # True if process should be killed
 
     def test_normal(self):
-        """Normal writing operator"""
-        self.isKilledFlag = False
+        """AtomicMultiple: Normal writing operator"""
+        self.kill_flag = False
 
         self._mock_write_function()
 
-        self.assertTrue(self.resultFlag)
+        self.assertTrue(self.result_flag)
 
     def test_sigterm_signal(self):
-        """The process is killed"""
+        """AtomicMultiple: Process is killed"""
         self.assertRaises(SystemExit, self._mock_write_function)
 
-        self.assertTrue(self.resultFlag)
-        self.assertFalse(self.isKilledFlag)
-    
+        self.assertTrue(self.result_flag)
+        self.assertFalse(self.kill_flag)
+
     def test_old_signal_handler(self):
-        """The process is killed with some other signal handler"""
+        """AtomicMultiple: Process killed with some other signal handler"""
         signal.signal(signal.SIGTERM, self._old_signal_handler)
 
         self._mock_write_function()
 
-        self.assertTrue(self.resultFlag)
-        self.assertTrue(self.oldSignalFlag)
-        self.assertFalse(self.isKilledFlag)
+        self.assertTrue(self.result_flag)
+        self.assertTrue(self.old_signal_flag)
+        self.assertFalse(self.kill_flag)
 
-    def test_old_signal_handler_recover(self):
-        """The previous signal handler is put back after writing"""
+    def test_old_signal_handler_restore(self):
+        """AtomicMultiple: Previous signal handler is restored after write"""
         signal.signal(signal.SIGTERM, self._old_signal_handler)
-        self.isKilledFlag = False
-        
+        self.kill_flag = False
+
         self._mock_write_function()
-        
-        self.assertTrue(self.resultFlag)
-        self.assertEqual(signal.getsignal(signal.SIGTERM), self._old_signal_handler)
+
+        self.assertTrue(self.result_flag)
+        self.assertEqual(signal.getsignal(signal.SIGTERM),
+                         self._old_signal_handler)
 
 
 class SettingsTests(unittest.TestCase):

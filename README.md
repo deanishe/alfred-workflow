@@ -5,12 +5,15 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 [![Build Status][shield-travis]][travis]
 [![Coverage Status][shield-coveralls]][coveralls]
-[![Code Health][shield-health]][landscape]
 [![Latest Version][shield-version]][pypi]
 [![Development Status][shield-status]][pypi]
+[![Supported Python Versions][shield-pyversions]][pypi]
+[![Downloads][shield-download]][pypi]
+<!--
+[![Code Health][shield-health]][landscape]
 [![Documentation Status][shield-docs]][docs]
 [![License][shield-licence]][pypi]
-[![Downloads][shield-download]][pypi]
+-->
 
 Supports OS X 10.6+ (Python 2.6 and 2.7).
 
@@ -328,6 +331,9 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Demonstration on how to use the Alfred Bundler in Python.
+- [Alfred Soundboard](http://www.packal.org/workflow/alfred-soundboard)
+  by [Steffen](http://www.packal.org/users/steffen).
+  A soundboard for alfred at your fingertips.
 - [alfred-ime](http://www.packal.org/workflow/ime)
   ([GitHub repo](https://github.com/owenwater/alfred-ime))
   by [owenwater](http://www.packal.org/users/owenwater)
@@ -338,6 +344,11 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   List, search and run/open AppleScripts for the active application.
+- [Base Converter](http://www.packal.org/workflow/base-converter)
+  ([GitHub repo](https://github.com/ahalbert/alfred-baseconverter))
+  by [ahalbert](http://www.packal.org/users/ahalbert)
+  ([on GitHub](https://github.com/ahalbert/)).
+  Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
 - [Better IMDB search](http://www.packal.org/workflow/better-imdb-search)
   by [frankspin](http://www.packal.org/users/frankspin).
   Search IMDB for movies and see results inside of Alfred.
@@ -357,6 +368,11 @@ These are some of the Alfred workflows that use this library.
 - [Code Case](http://www.packal.org/workflow/code-case)
   by [dfay](http://www.packal.org/users/dfay).
   Case Converter for Code.
+- [Codebox](http://www.packal.org/workflow/codebox)
+  ([GitHub repo](https://github.com/danielecook/codebox-alfred))
+  by [danielecook](http://www.packal.org/users/danielecook)
+  ([on GitHub](https://github.com/danielecook/)).
+  Search codebox snippets.
 - [Continuity Support](http://www.packal.org/workflow/continuity-support)
   by [dmarshall](http://www.packal.org/users/dmarshall).
   Enables calling and messaging via contacts or number input.
@@ -426,11 +442,21 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Read Hacker News with Alfred.
+- [HGNC Search](http://www.packal.org/workflow/hgnc-search)
+  ([GitHub repo](https://github.com/danielecook/HGNC-Search))
+  by [danielecook](http://www.packal.org/users/danielecook)
+  ([on GitHub](https://github.com/danielecook/)).
+  Search for human genes.
 - [Homebrew and Cask for Alfred](http://www.packal.org/workflow/homebrew-and-cask-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-homebrew))
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Easily control Homebrew and Cask with Alfred.
+- [iOS Simulator](http://www.packal.org/workflow/ios-simulator)
+  ([GitHub repo](https://github.com/jfro/ios-simulator-apps-alfred-workflow))
+  by [jfro](http://www.packal.org/users/jfro)
+  ([on GitHub](https://github.com/jfro/)).
+  Workflow for finding simulator app data folders, erasing apps and more.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks)
   ([GitHub repo](https://github.com/nkeim/alfred-ipython-notebook))
   by [nkeim](http://www.packal.org/users/nkeim)
@@ -441,6 +467,11 @@ These are some of the Alfred workflows that use this library.
   by [Amwam](http://www.packal.org/users/amwam)
   ([on GitHub](https://github.com/Amwam/)).
   Show and search through jobs on Jenkins.
+- [Julian Date calculator](http://www.packal.org/workflow/julian-date-calculator)
+  ([GitHub repo](https://github.com/Tam-Lin/julian_date))
+  by [Tam-Lin](http://www.packal.org/users/tam-lin)
+  ([on GitHub](https://github.com/Tam-Lin/)).
+  Converts dates to/from Julian dates, as well as some date math.
 - [KA Torrents](http://www.packal.org/workflow/ka-torrents)
   by [hackademic](http://www.packal.org/users/hackademic).
   Search and download torrents from kickass.so.
@@ -482,6 +513,11 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Greek and Latin parsers.
+- [pass](http://www.packal.org/workflow/pass)
+  ([GitHub repo](https://github.com/MatthewWest/pass-alfred/))
+  by [mwest](http://www.packal.org/users/mwest)
+  ([on GitHub](https://github.com/MatthewWest/)).
+  Provide a minimal wrapper over the pass password manager (passwordstore.org).
 - [Percent Change](http://www.packal.org/workflow/percent-change)
   ([GitHub repo](https://github.com/bradmontgomery/alfred-percent-change))
   by [bkmontgomery](http://www.packal.org/users/bkmontgomery)
@@ -492,6 +528,16 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Manage your Pocket list with Alfred.
+- [Product Hunt](http://www.packal.org/workflow/product-hunt)
+  ([GitHub repo](https://github.com/loris/alfred-producthunt-workflow))
+  by [loris](http://www.packal.org/users/loris)
+  ([on GitHub](https://github.com/loris/)).
+  List Product Hunt today's hunts.
+- [ProductHunt](http://www.packal.org/workflow/producthunt)
+  ([GitHub repo](https://github.com/chiefy/ph-workflow))
+  by [chiefy](http://www.packal.org/users/chiefy)
+  ([on GitHub](https://github.com/chiefy/)).
+  Read ProductHunt in Alfred.
 - [PWS History](http://www.packal.org/workflow/pws-history)
   ([GitHub repo](https://github.com/hrbrmstr/alfred-pws))
   by [hrbrmstr](http://www.packal.org/users/hrbrmstr)
@@ -500,6 +546,16 @@ These are some of the Alfred workflows that use this library.
 - [Quick Stocks](http://www.packal.org/workflow/quick-stocks)
   by [paperElectron](http://www.packal.org/users/paperelectron).
   Add some stock symbols for Alfred to check for you.
+- [Ramda Docs](http://www.packal.org/workflow/ramda-docs)
+  ([GitHub repo](https://github.com/raine/alfred-ramda-workflow))
+  by [raine](http://www.packal.org/users/raine)
+  ([on GitHub](https://github.com/raine/)).
+  Search Ramda documentation.
+- [Rates](http://www.packal.org/workflow/rates)
+  ([GitHub repo](https://github.com/kennedyoliveira/alfred-rates))
+  by [Kennedy Oliveira](http://www.packal.org/users/kennedy-oliveira)
+  ([on GitHub](https://github.com/kennedyoliveira/)).
+  Simple exchange rates for alfred.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-readability/))
   by [fniephaus](http://www.packal.org/users/fniephaus)
@@ -520,6 +576,16 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Follows any HTTP redirects and returns the canonical URL. Also displays information about the primary host (hostname, IP address(es), aliases).
+- [Rotten Search](http://www.packal.org/workflow/rotten-search)
+  ([GitHub repo](https://github.com/mrz1277/alfred-workflows/tree/master/net.yakiyama.alfred.rotten))
+  by [yakiyama](http://www.packal.org/users/yakiyama)
+  ([on GitHub](https://github.com/mrz1277/)).
+  Search movie from RottenTomatoes.com.
+- [Search Omnifocus](http://www.packal.org/workflow/search-omnifocus)
+  ([GitHub repo](https://github.com/rhydlewis/search-omnifocus))
+  by [rhyd](http://www.packal.org/users/rhyd)
+  ([on GitHub](https://github.com/rhydlewis/)).
+  This is a workflow that performs free text searches on OmniFocus data.
 - [Searchio!](http://www.packal.org/workflow/searchio)
   ([GitHub repo](https://github.com/deanishe/alfred-searchio))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -528,6 +594,14 @@ These are some of the Alfred workflows that use this library.
 - [SEND](http://www.packal.org/workflow/send)
   by [hackademic](http://www.packal.org/users/hackademic).
   Send documents to the cloud.
+- [Seq-utilies](http://www.packal.org/workflow/seq-utilities)
+  ([GitHub repo](https://github.com/danielecook/seq-utilities))
+  by [danielecook](http://www.packal.org/users/danielecook)
+  ([on GitHub](https://github.com/danielecook/)).
+  Fetch complement, reverse complement, RNA, and protein sequences. Generate random DNA. Blast a sequence.
+- [Simple Timer](http://www.packal.org/workflow/simple-timer)
+  by [Paul Eunjae Lee](http://www.packal.org/users/paul-eunjae-lee).
+  A very simple timer.
 - [Skimmer](http://www.packal.org/workflow/skimmer)
   ([GitHub repo](https://github.com/smargh/alfred-Skimmer))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -537,7 +611,7 @@ These are some of the Alfred workflows that use this library.
   ([GitHub repo](https://github.com/fspinillo/slackfred))
   by [frankspin](http://www.packal.org/users/frankspin)
   ([on GitHub](https://github.com/fspinillo/)).
-  Interact with the chat service Slack via Alfred.
+  Interact with the chat service Slack via Alfred (multi-org supported).
 - [Snippets](http://www.packal.org/workflow/snippets)
   ([GitHub repo](https://github.com/smargh/alfred_snippets))
   by [hackademic](http://www.packal.org/users/hackademic)
@@ -571,6 +645,9 @@ These are some of the Alfred workflows that use this library.
   by [frankspin](http://www.packal.org/users/frankspin)
   ([on GitHub](https://github.com/fspinillo/)).
   Check estimated pick up time for Uber based on inputted address.
+- [URL craft](http://www.packal.org/workflow/url-craft)
+  by [takanabe](http://www.packal.org/users/takanabe).
+  A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.
 - [VagrantUP](http://www.packal.org/workflow/vagrantup)
   ([GitHub repo](https://github.com/m1keil/alfred-vagrant-workflow))
   by [m1keil](http://www.packal.org/users/m1keil)
@@ -586,11 +663,27 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Your little Evernote Wiki-Helper.
+- [Workon Virtualenv](http://www.packal.org/workflow/workon-virtualenv)
+  ([GitHub repo](https://github.com/johnnycakes79/alfred-workon-virtualenv))
+  by [johnnycakes79](http://www.packal.org/users/johnnycakes79)
+  ([on GitHub](https://github.com/johnnycakes79/)).
+  Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).
+- [Wunderlist3.alfredworkflow](http://www.packal.org/workflow/wunderlist3alfredworkflow)
+  ([GitHub repo](https://github.com/camgnostic/Wunderlist-3-Alfred))
+  by [gnostic](http://www.packal.org/users/gnostic)
+  ([on GitHub](https://github.com/camgnostic/)).
+  A Wunderlist 3 API cloud-based alfred workflow.
+- [Youdao Dict](http://www.packal.org/workflow/youdao-dict)
+  ([GitHub repo](https://github.com/liszd/whyliam.workflows.youdao/releases))
+  by [WhyLiam](http://www.packal.org/users/whyliam)
+  ([on GitHub](https://github.com/liszd/)).
+  使用有道翻译你想知道的单词和语句.
 - [ZotQuery](http://www.packal.org/workflow/zotquery)
   ([GitHub repo](https://github.com/smargh/alfred_zotquery))
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
+
 
 
 
@@ -616,12 +709,13 @@ These are some of the Alfred workflows that use this library.
 [rtd]: https://readthedocs.org/
 [shield-coveralls]: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg?style=flat
 [shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest&style=flat
-[shield-download]: https://pypip.in/download/Alfred-Workflow/badge.svg?style=flat
+[shield-download]: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
 [shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
 [shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg?style=flat
-[shield-status]: https://pypip.in/status/Alfred-Workflow/badge.svg?style=flat
+[shield-status]: https://img.shields.io/pypi/status/Alfred-Workflow.svg?style=flat
 [shield-travis]: https://travis-ci.org/deanishe/alfred-workflow.svg?branch=master&style=flat
-[shield-version]: https://pypip.in/version/Alfred-Workflow/badge.svg?text=version&style=flat
+[shield-version]: https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat
+[shield-pyversions]: https://img.shields.io/pypi/pyversions/Alfred-Workflow.svg?style=flat
 [smargh]: https://github.com/smargh
 [sphinx]: http://sphinx-doc.org/
 [travis]: https://travis-ci.org/deanishe/alfred-workflow

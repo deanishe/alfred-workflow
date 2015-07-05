@@ -305,7 +305,7 @@ def main():
     output = [t[1] for t in output]
 
     for line in output:
-        print('- {}'.format(line))
+        print('- {}'.format(line).encode('utf-8'))
 
 
 if __name__ == '__main__':

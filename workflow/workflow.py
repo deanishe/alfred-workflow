@@ -794,15 +794,20 @@ class Item(object):
 def atomic_writer(file_path, mode):
     """Atomic file writer.
 
-    :param file_path
+    :param file_path: path of file to write to.
     :type file_path: ``unicode``
-    :param mode
+    :param mode: sames as for `func:open`
     :type mode: string
-    :returns: file object of the temporary file.
-    :rtype: ``file``
+
+    .. versionadded:: 1.12
+
+    Context manager that ensures the file is only written if the write
+    succeeds. The data is first written to a temporary file.
+
     """
-    TEMP_SUFFIX = '.aw.temp'
-    temp_file_path = file_path + TEMP_SUFFIX
+
+    temp_suffix = '.aw.temp'
+    temp_file_path = file_path + temp_suffix
     with open(temp_file_path, mode) as file_obj:
         try:
             yield file_obj
@@ -814,40 +819,58 @@ def atomic_writer(file_path, mode):
                 pass
 
 
-class atomic_multiple_files_writer(object):
-    """Atomic file writer decorator for writing multiple files
+class uninterruptible(object):
+    """Decorator that postpones SIGTERM until wrapped function is complete.
 
-       The decorator will finish the writing process once it started,
-       even after the SIGTERM signal.
+    .. versionadded:: 1.12
 
-       Note:
-         - This decorator does NOT support multiple threads.
-         - Write function may be executed twice.
+    Since version 2.7, Alfred allows Script Filters to be killed. If
+    your workflow is killed in the middle of critical code (e.g.
+    writing data to disk), this may corrupt your workflow's data.
+
+    Use this decorator to wrap critical functions that *must* complete.
+    If the script is killed while a wrapped function is executing,
+    the SIGTERM will be caught and handled after your function has
+    finished executing.
+
+    Alfred-Workflow uses this internally to ensure its settings, data
+    and cache writes complete.
+
+    .. important::
+
+        This decorator is NOT thread-safe.
 
     """
 
-    def __init__(self, write_function, class_name=''):
-        self.write_function = write_function
+    def __init__(self, func, class_name=''):
+        self.func = func
+        self._caught_signal = None
 
-    def signal_handler(self, signal_number, frame):
+    def signal_handler(self, signum, frame):
         """Called when process receives SIGTERM."""
-        self.write_function(*self.args, **self.kwargs)
-        if callable(self.old_signal_handler):
-            self.old_signal_handler(signal_number, frame)
-        elif self.old_signal_handler == signal.SIG_DFL:
-            sys.exit(0)
+        self._caught_signal = (signum, frame)
 
     def __call__(self, *args, **kwargs):
+        # Register handler for SIGTERM, then call `self.func`
         self.old_signal_handler = signal.getsignal(signal.SIGTERM)
-        self.args = args
-        self.kwargs = kwargs
         signal.signal(signal.SIGTERM, self.signal_handler)
-        self.write_function(*args, **kwargs)
+
+        self.func(*args, **kwargs)
+
+        # Restore old signal handler
         signal.signal(signal.SIGTERM, self.old_signal_handler)
 
-    def __get__(self, obj=None, clazz=None):
-        return self.__class__(self.write_function.__get__(obj, clazz),
-                              clazz.__name__)
+        # Handle any signal caught during execution
+        if self._caught_signal is not None:
+            signum, frame = self._caught_signal
+            if callable(self.old_signal_handler):
+                self.old_signal_handler(signum, frame)
+            elif self.old_signal_handler == signal.SIG_DFL:
+                sys.exit(0)
+
+    def __get__(self, obj=None, klass=None):
+        return self.__class__(self.func.__get__(obj, klass),
+                              klass.__name__)
 
 
 class Settings(dict):
@@ -1566,9 +1589,9 @@ class Workflow(object):
 
         if serializer is None:
             raise ValueError(
-                'Unknown serializer `{0}`. Register a corresponding serializer '
-                'with `manager.register()` to load this data.'.format(
-                    serializer_name))
+                'Unknown serializer `{0}`. Register a corresponding '
+                'serializer with `manager.register()` '
+                'to load this data.'.format(serializer_name))
 
         self.logger.debug('Data `{0}` stored in `{1}` format'.format(
             name, serializer_name))
@@ -1609,6 +1632,15 @@ class Workflow(object):
 
         """
 
+        # Ensure deletion is not interrupted by SIGTERM
+        @uninterruptible
+        def delete_paths(paths):
+            """Clear one or more data stores"""
+            for path in paths:
+                if os.path.exists(path):
+                    os.unlink(path)
+                    self.logger.debug('Deleted data file : {0}'.format(path))
+
         serializer_name = serializer or self.data_serializer
 
         # In order for `stored_data()` to be able to load data stored with
@@ -1632,39 +1664,22 @@ class Workflow(object):
                 '`manager.register()` first.'.format(serializer_name))
 
         if data is None:  # Delete cached data
-            for path in (metadata_path, data_path):
-                if os.path.exists(path):
-                    os.unlink(path)
-                    self.logger.debug('Deleted data file : {0}'.format(path))
-
+            delete_paths((metadata_path, data_path))
             return
 
-        self._store_data_to_file(metadata_path, serializer_name, data_path, serializer, data)
+        # Ensure write is not interrupted by SIGTERM
+        @uninterruptible
+        def _store():
+            # Save file extension
+            with atomic_writer(metadata_path, 'wb') as file_obj:
+                file_obj.write(serializer_name)
+
+            with atomic_writer(data_path, 'wb') as file_obj:
+                serializer.dump(data, file_obj)
+
+        _store()
 
         self.logger.debug('Stored data saved at : {0}'.format(data_path))
-
-    @atomic_multiple_files_writer
-    def _store_data_to_file(self, metadata_path, serializer_name, data_path, serializer, data):
-        """atomic write metadata and data to file
-
-        :param: medata_path
-        :type: ``unicode``
-        :param: serializer_name
-        :type: ``string``
-        :param: data_path
-        :type: ``string``
-        :param: serialier
-        :type: ``object``
-        :param: data
-        :type: ``dict``
-        """
-
-        # Save file extension
-        with open(metadata_path, 'wb') as file_obj:
-            file_obj.write(serializer_name)
-
-        with open(data_path, 'wb') as file_obj:
-            serializer.dump(data, file_obj)
 
     def cached_data(self, name, data_func=None, max_age=60):
         """Retrieve data from cache or re-generate and re-cache data if

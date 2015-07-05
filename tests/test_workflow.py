@@ -44,7 +44,7 @@ from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
                                MATCH_SUBSTRING, MATCH_INITIALS_CONTAIN,
                                MATCH_INITIALS_STARTSWITH,
-                               manager, atomic_writer, atomic_multiple_files_writer)
+                               manager, atomic_writer, uninterruptible)
 
 from workflow.update import Version
 
@@ -1561,10 +1561,10 @@ class AtomicWriterTests(unittest.TestCase):
             self.assertEqual(DEFAULT_SETTINGS, real_settings)
 
 
-class AtomicMultipleFilesWriterTester(unittest.TestCase):
+class UninterruptibleTests(unittest.TestCase):
     """Test for multiple files atomic writer"""
 
-    @atomic_multiple_files_writer
+    @uninterruptible
     def _mock_write_function(self):
         if self.kill_flag:
             self.kill_flag = False
@@ -1582,10 +1582,10 @@ class AtomicMultipleFilesWriterTester(unittest.TestCase):
 
         self.result_flag = False  # True if the write_function is executed
         self.old_signal_flag = False  # True if old signal handler is executed
-        self.kill_flag = True    # True if process should be killed
+        self.kill_flag = True  # True if process should be killed
 
     def test_normal(self):
-        """AtomicMultiple: Normal writing operator"""
+        """Uninterruptible: Normal writing operator"""
         self.kill_flag = False
 
         self._mock_write_function()
@@ -1593,14 +1593,14 @@ class AtomicMultipleFilesWriterTester(unittest.TestCase):
         self.assertTrue(self.result_flag)
 
     def test_sigterm_signal(self):
-        """AtomicMultiple: Process is killed"""
+        """Uninterruptible: Process is killed"""
         self.assertRaises(SystemExit, self._mock_write_function)
 
         self.assertTrue(self.result_flag)
         self.assertFalse(self.kill_flag)
 
     def test_old_signal_handler(self):
-        """AtomicMultiple: Process killed with some other signal handler"""
+        """Uninterruptible: Process killed with some other signal handler"""
         signal.signal(signal.SIGTERM, self._old_signal_handler)
 
         self._mock_write_function()
@@ -1610,7 +1610,7 @@ class AtomicMultipleFilesWriterTester(unittest.TestCase):
         self.assertFalse(self.kill_flag)
 
     def test_old_signal_handler_restore(self):
-        """AtomicMultiple: Previous signal handler is restored after write"""
+        """Uninterruptible: Previous signal handler is restored after write"""
         signal.signal(signal.SIGTERM, self._old_signal_handler)
         self.kill_flag = False
 

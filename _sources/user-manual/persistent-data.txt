@@ -5,6 +5,12 @@
 Persistent data
 ===============
 
+.. note::
+
+    If you are writing your own files without using the
+    :class:`Workflow <workflow.workflow.Workflow>` APIs, please see
+    :ref:`script-behaviour`.
+
 Alfred provides special data and cache directories for each Workflow (in
 ``~/Library/Application Support`` and ``~/Library/Caches`` respectively).
 :class:`Workflow <workflow.workflow.Workflow>` provides the following
@@ -249,3 +255,40 @@ Example usage:
 
 
 See :ref:`the relevant part of the tutorial <secure-settings>` for a full example.
+
+
+.. _script-behaviour:
+
+A note on Script Behaviour
+==========================
+
+In version 2.7, Alfred introduced a new Script Behaviour setting for
+Script Filters. This allows you (among other things) to specify that a
+running script should be killed if the user continues typing in Alfred.
+
+If you enable this setting, it's possible that Alfred will terminate your
+script in the middle of some critical code (e.g. writing a file).
+Alfred-Workflow provides the :class:`~workflow.workflow.uninterruptible`
+decorator to prevent your script being terminated in the middle of a
+critical function.
+
+Any function wrapped with :class:`~workflow.workflow.uninterruptible` will
+be executed fully, and any signal caught during its execution will be
+handled when your function completes.
+
+For example:
+
+.. code-block:: python
+    :linenos:
+
+    from workflow.workflow import uninterruptible
+
+    @uninterruptible
+    def critical_function():
+         # Your critical code here
+
+If you only want to write to a file, you can use the
+:class:`~workflow.workflow.atomic_writer` context manager. This does not
+guarantee that the file will be written, but does guarantee that it will
+only be written if the write succeeds (the data is first written to a temporary
+file).

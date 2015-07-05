@@ -12,6 +12,10 @@ The Workflow Object
    :members:
    :inherited-members:
 
+.. autofunction:: atomic_writer
+
+.. autoclass:: uninterruptible
+
 .. autoclass:: KeychainError
 
 .. autoclass:: PasswordNotFound

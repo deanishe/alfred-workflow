@@ -24,6 +24,8 @@ import tempfile
 import shutil
 import logging
 import time
+import signal
+
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
@@ -42,7 +44,7 @@ from workflow.workflow import (Workflow, Settings, PasswordNotFound,
                                MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
                                MATCH_SUBSTRING, MATCH_INITIALS_CONTAIN,
                                MATCH_INITIALS_STARTSWITH,
-                               manager)
+                               manager, atomic_writer, atomic_multiple_files_writer)
 
 from workflow.update import Version
 
@@ -1497,6 +1499,125 @@ class MagicArgsTests(unittest.TestCase):
             wf = Workflow(update_settings=update_settings)
             wf.settings['__workflow_autoupdate'] = False
             self.assertTrue(wf.check_update() is None)
+
+
+class AtomicWriterTests(unittest.TestCase):
+    """Test for atomic writer"""
+
+    def setUp(self):
+        self.tempdir = tempfile.mkdtemp()
+        self.settings_file = os.path.join(self.tempdir, 'settings.json')
+         
+    def tearDown(self):
+        if os.path.exists(self.tempdir):
+            shutil.rmtree(self.tempdir)
+    
+    def test_write_file_succeed(self):
+        """succeed, no temp file left"""
+        with atomic_writer(self.settings_file, 'wb') as file_obj:
+            json.dump(DEFAULT_SETTINGS, file_obj)
+        self.assertEqual(len(os.listdir(self.tempdir)), 1)
+        self.assertTrue(os.path.exists(self.settings_file))
+
+    def test_failed_before_writing(self):
+        """throw exception before writing"""
+        def write_function():
+            with atomic_writer(self.settings_file, 'wb'):
+                raise Exception()
+
+        self.assertRaises(Exception, write_function)
+        self.assertEqual(len(os.listdir(self.tempdir)), 0)
+
+    def test_failed_after_writing(self):
+        """throw exception in the end"""
+        def write_function():
+            with atomic_writer(self.settings_file, 'wb') as file_obj:
+                json.dump(DEFAULT_SETTINGS, file_obj)
+                raise Exception()
+
+        self.assertRaises(Exception, write_function)
+        self.assertEqual(len(os.listdir(self.tempdir)), 0)
+    
+    def test_failed_without_overwriting(self):
+        """throw exception after writing won't overwrite the old file"""
+        mockSettings = {}
+
+        def write_function():
+            with atomic_writer(self.settings_file, 'wb') as file_obj:
+                json.dump(mockSettings, file_obj)
+                raise Exception()
+
+        with atomic_writer(self.settings_file, 'wb') as file_obj:
+            json.dump(DEFAULT_SETTINGS, file_obj)
+        self.assertEqual(len(os.listdir(self.tempdir)), 1)
+        self.assertTrue(os.path.exists(self.settings_file))
+
+        self.assertRaises(Exception, write_function)
+        self.assertEqual(len(os.listdir(self.tempdir)), 1)
+        self.assertTrue(os.path.exists(self.settings_file))
+
+        with open(self.settings_file, 'rb') as file_obj:
+            real_settings = json.load(file_obj)
+            self.assertEqual(DEFAULT_SETTINGS, real_settings)
+
+
+class AtomicMultipleFilesWriterTester(unittest.TestCase):
+    """Test for multiple files atomic writer"""
+
+    @atomic_multiple_files_writer
+    def _mock_write_function(self):
+        if self.isKilledFlag:
+            self.isKilledFlag = False
+            self._kill()
+        self.resultFlag = True
+
+    def _old_signal_handler(self, s, f):
+            self.oldSignalFlag = True
+
+    def _kill(self):
+        os.kill(os.getpid(), signal.SIGTERM)
+
+    def setUp(self):
+        signal.signal(signal.SIGTERM, signal.SIG_DFL)
+        
+        self.resultFlag = False     # flag for if the write_function is executed or not
+        self.oldSignalFlag = False  # flag for old signal handler is executed or not
+        self.isKilledFlag = True    # flag for if process need to be killed or not
+
+    def test_normal(self):
+        """Normal writing operator"""
+        self.isKilledFlag = False
+
+        self._mock_write_function()
+
+        self.assertTrue(self.resultFlag)
+
+    def test_sigterm_signal(self):
+        """The process is killed"""
+        self.assertRaises(SystemExit, self._mock_write_function)
+
+        self.assertTrue(self.resultFlag)
+        self.assertFalse(self.isKilledFlag)
+    
+    def test_old_signal_handler(self):
+        """The process is killed with some other signal handler"""
+        signal.signal(signal.SIGTERM, self._old_signal_handler)
+
+        self._mock_write_function()
+
+        self.assertTrue(self.resultFlag)
+        self.assertTrue(self.oldSignalFlag)
+        self.assertFalse(self.isKilledFlag)
+
+    def test_old_signal_handler_recover(self):
+        """The previous signal handler is put back after writing"""
+        signal.signal(signal.SIGTERM, self._old_signal_handler)
+        self.isKilledFlag = False
+        
+        self._mock_write_function()
+        
+        self.assertTrue(self.resultFlag)
+        self.assertEqual(signal.getsignal(signal.SIGTERM), self._old_signal_handler)
 
 
 class SettingsTests(unittest.TestCase):

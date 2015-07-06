@@ -851,6 +851,7 @@ class uninterruptible(object):
         self._caught_signal = (signum, frame)
 
     def __call__(self, *args, **kwargs):
+        self._caught_signal = None
         # Register handler for SIGTERM, then call `self.func`
         self.old_signal_handler = signal.getsignal(signal.SIGTERM)
         signal.signal(signal.SIGTERM, self.signal_handler)

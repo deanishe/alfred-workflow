@@ -27,8 +27,6 @@ import urllib2
 import urlparse
 import zlib
 
-import sys
-
 
 USER_AGENT = u'Alfred-Workflow/1.11 (http://www.deanishe.net)'
 

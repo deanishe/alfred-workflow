@@ -12,6 +12,8 @@ Features to Add:
 			Use subclass-based plugin feature to automatically register updaters?
 
 	web.py:
+		- Prevent returning of `None` if a redirect fails
+			https://github.com/smargh/alfred_pandoctor/issues/1
 
 	workflow.py:
 		- `workflow:magic` should allow ↩ and ⇥ to expand and run magic arguments

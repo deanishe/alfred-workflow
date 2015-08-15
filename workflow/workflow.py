@@ -16,24 +16,25 @@ up your Python script to best utilise the :class:`Workflow` object.
 """
 
 from __future__ import print_function, unicode_literals
-from contextlib import contextmanager
 
 import binascii
-import os
-import sys
-import string
-import re
-import plistlib
-import subprocess
-import unicodedata
-import shutil
-import json
+from contextlib import contextmanager
 import cPickle
-import pickle
-import time
+import errno
+import json
 import logging
 import logging.handlers
+import os
+import pickle
+import plistlib
+import re
+import shutil
 import signal
+import string
+import subprocess
+import sys
+import time
+import unicodedata
 
 try:
     import xml.etree.cElementTree as ET
@@ -436,8 +437,12 @@ DEFAULT_UPDATE_FREQUENCY = 1
 
 
 ####################################################################
-# Keychain access errors
+# Lockfile and Keychain access errors
 ####################################################################
+
+class AcquisitionError(Exception):
+    """Raised if a lock cannot be acquired."""
+
 
 class KeychainError(Exception):
     """Raised by methods :meth:`Workflow.save_password`,
@@ -790,6 +795,69 @@ class Item(object):
         return root
 
 
+class LockFile(object):
+    """Context manager to create lock files"""
+
+    def __init__(self, protected_path, timeout=0, delay=0.05):
+        self.lockfile = protected_path + '.lock'
+        self.timeout = timeout
+        self.delay = delay
+        self._locked = False
+
+    @property
+    def locked(self):
+        """`True` if file is locked by this instance."""
+        return self._locked
+
+    def acquire(self, blocking=True):
+        """Acquire the lock if possible.
+
+        If the lock is in use and ``blocking`` is ``False``, return
+        ``False``.
+
+        Otherwise, check every `self.delay` seconds until it acquires
+        lock or exceeds `self.timeout` and raises an exception.
+
+        """
+        start = time.time()
+        while True:
+            try:
+                fd = os.open(self.lockfile, os.O_CREAT | os.O_EXCL | os.O_RDWR)
+                with os.fdopen(fd, 'w') as fd:
+                    fd.write('{0}'.format(os.getpid()))
+                break
+            except OSError as err:
+                if err.errno != errno.EEXIST:  # pragma: no cover
+                    raise
+                if self.timeout and (time.time() - start) >= self.timeout:
+                    raise AcquisitionError('Lock acquisition timed out.')
+                if not blocking:
+                    return False
+                time.sleep(self.delay)
+
+        self._locked = True
+        return True
+
+    def release(self):
+        """Release the lock by deleting `self.lockfile`."""
+        self._locked = False
+        os.unlink(self.lockfile)
+
+    def __enter__(self):
+        """Acquire lock."""
+        self.acquire()
+        return self
+
+    def __exit__(self, typ, value, traceback):
+        """Release lock."""
+        self.release()
+
+    def __del__(self):
+        """Clear up `self.lockfile`."""
+        if self._locked:  # pragma: no cover
+            self.release()
+
+
 @contextmanager
 def atomic_writer(file_path, mode):
     """Atomic file writer.
@@ -925,9 +993,10 @@ class Settings(dict):
         data = {}
         for key, value in self.items():
             data[key] = value
-        with atomic_writer(self._filepath, 'wb') as file_obj:
-            json.dump(data, file_obj, sort_keys=True, indent=2,
-                      encoding='utf-8')
+        with LockFile(self._filepath):
+            with atomic_writer(self._filepath, 'wb') as file_obj:
+                json.dump(data, file_obj, sort_keys=True, indent=2,
+                          encoding='utf-8')
 
     # dict methods
     def __setitem__(self, key, value):

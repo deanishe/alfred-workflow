@@ -1,80 +1,44 @@
-
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.12 documentation</title>
-  
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-
-  
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  
-  
-    
-
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.12 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Alfred-Workflow API" href="../api/index.html"/>
-        <link rel="prev" title="Serialization of stored/cached data" href="serialization.html"/>
- 
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Encoded strings and Unicode — Alfred-Workflow 1.13 documentation</title>
+<link href="../_static/favicon.ico" rel="shortcut icon"/>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.13 documentation"/>
+<link href="index.html" rel="up" title="User Manual"/>
+<link href="../api/index.html" rel="next" title="Alfred-Workflow API"/>
+<link href="serialization.html" rel="prev" title="Serialization of stored/cached data"/>
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
+<link href="_static/gh-fork-ribbon.css" rel="stylesheet"/>
+<link href="../_static/gh-fork-ribbon.css" rel="stylesheet"/>
+<link href="_static/custom.css" rel="stylesheet"/>
+<link href="../_static/custom.css" rel="stylesheet"/>
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
 <!-- <link rel="stylesheet" href="_static/custom.css"> -->
 <!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 </head>
-
 <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-nav-search">
+<a class="fa fa-home" href="../index.html"> Alfred-Workflow</a>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
@@ -100,7 +64,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Encoded strings and Unicode</a></li>
 </ul>
@@ -131,47 +95,34 @@ the _static path in each subdirectory -->
 </ul>
 </li>
 </ul>
-
-        
-      </div>
-      &nbsp;
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Encoded strings and Unicode</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          <a href="../_sources/user-manual/text-encoding.txt" rel="nofollow"> View page source</a>
-        
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main">
-            
-  <div class="section" id="module-workflow.workflow">
-<span id="encoded-strings-and-unicode"></span><span id="text-encoding"></span><h1>Encoded strings and Unicode<a class="headerlink" href="#module-workflow.workflow" title="Permalink to this headline">¶</a></h1>
+       
+    </nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">Alfred-Workflow</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="index.html">User Manual</a> »</li>
+<li>Encoded strings and Unicode</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/user-manual/text-encoding.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div role="main">
+<div class="section" id="module-workflow.workflow">
+<span id="encoded-strings-and-unicode"></span><span id="text-encoding"></span><h1><a name="//apple_ref/cpp/Module/workflow.workflow"></a>Encoded strings and Unicode<a class="headerlink" href="#module-workflow.workflow" title="Permalink to this headline">¶</a></h1>
 <p>This is a brief guide to Unicode and encoded strings aimed at Alfred-Workflow
 users (and Python coders in general) who are unfamiliar with them.</p>
 <p>Encoding errors are <em>by far</em> the most common group of bugs in Python workflows
-in the wild (they&#8217;re so easy for developers to miss).</p>
+in the wild (they’re so easy for developers to miss).</p>
 <p>This guide should give you an idea of what Unicode and encoded strings are,
 and why and how you as a workflow developer should deal with them.</p>
 <div class="admonition important">
@@ -179,16 +130,16 @@ and why and how you as a workflow developer should deal with them.</p>
 <p>String encoding is something Python 2 will let you largely ignore. It will
 happily let you mix strings of different encodings without complaint
 (although the result will most likely be garbage) and if you mix Unicode and
-encoded strings, Python will silently &#8220;promote&#8221; the encoded string to
+encoded strings, Python will silently “promote” the encoded string to
 Unicode by decoding it as ASCII. If your workflow only ever uses ASCII, you
 need never worry about Unicode or string encoding.</p>
 <p>But make no mistake: if you distribute your workflow, somebody <em>will</em> feed
-your workflow non-ASCII text. Although Alfred is English-only, it&#8217;s not used
-exclusively by monolingual English speakers. What&#8217;s more, standard
+your workflow non-ASCII text. Although Alfred is English-only, it’s not used
+exclusively by monolingual English speakers. What’s more, standard
 English-language characters, like £ or €, are also non-ASCII.</p>
 <p><strong>If you intend to distribute your workflow, you should make sure it works
 with non-ASCII text.</strong></p>
-<p class="last">If you don&#8217;t, I guarantee a text-encoding issue will be one of the first
+<p class="last">If you don’t, I guarantee a text-encoding issue will be one of the first
 bug reports.</p>
 </div>
 <div class="section" id="tl-dr">
@@ -200,12 +151,12 @@ encoding.</p>
 <p>Be sure to decode all input from and encode all output to the system
 (in particular via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> and when passing a <tt class="docutils literal"><span class="pre">{query}</span></tt> to a
 subsequent workflow action).</p>
-<p>If you don&#8217;t, your workflow <em>will</em> break or, at best, not work as intended
+<p>If you don’t, your workflow <em>will</em> break or, at best, not work as intended
 when someone feeds it non-ASCII text.</p>
 <p>Alfred-Workflow will almost always give you Unicode strings. (The exception is
 <a class="reference internal" href="../api/web.html#workflow.web.Response" title="workflow.web.Response"><tt class="xref py py-class docutils literal"><span class="pre">web.Response</span></tt></a>, whose
 <a class="reference internal" href="../api/web.html#workflow.web.Response.text" title="workflow.web.Response.text"><tt class="xref py py-meth docutils literal"><span class="pre">text()</span></tt></a> method will return an encoded string
-if it couldn&#8217;t determine the encoding.)</p>
+if it couldn’t determine the encoding.)</p>
 <p>Use <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to decode input and
 <tt class="docutils literal"><span class="pre">u'My</span> <span class="pre">unicode</span> <span class="pre">string'.encode('utf-8')</span></tt> to encode output, e.g.:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -249,7 +200,7 @@ if it couldn&#8217;t determine the encoding.)</p>
 39</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># encoding: utf-8</span>
 
-<span class="c"># Because we want to work with Unicode, it&#39;s simpler if we make</span>
+<span class="c"># Because we want to work with Unicode, it's simpler if we make</span>
 <span class="c"># literal strings in source code Unicode strings by default, so</span>
 <span class="c"># we set `encoding: utf-8` at the very top of the script and</span>
 <span class="c"># import `unicode_literals` before any code</span>
@@ -265,16 +216,16 @@ if it couldn&#8217;t determine the encoding.)</p>
 <span class="n">query</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c"># `subprocess` returns encoded strings (UTF-8 in this case)</span>
 <span class="c"># Note: the arguments are prefixed with `b` because of unicode_literals</span>
-<span class="c"># You should pass encoded strings to `subprocess`. It doesn&#39;t much</span>
-<span class="c"># matter in this case, as everything can be encoded to ASCII, but if you&#39;re</span>
+<span class="c"># You should pass encoded strings to `subprocess`. It doesn't much</span>
+<span class="c"># matter in this case, as everything can be encoded to ASCII, but if you're</span>
 <span class="c"># passing in, say, a user-supplied query, be sure to encode it to UTF-8</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="n">b</span><span class="s">&#39;mdfind&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;-onlyin&#39;</span><span class="p">,</span>
-                                  <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&#39;HOME&#39;</span><span class="p">),</span>
-                                  <span class="n">b</span><span class="s">&#39;kind:folder date:today&#39;</span><span class="p">])</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="n">b</span><span class="s">'mdfind'</span><span class="p">,</span> <span class="n">b</span><span class="s">'-onlyin'</span><span class="p">,</span>
+                                  <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">'HOME'</span><span class="p">),</span>
+                                  <span class="n">b</span><span class="s">'kind:folder date:today'</span><span class="p">])</span>
 <span class="c"># Convert to Unicode and NFC-normalize</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 <span class="c"># Split the output into individual filepaths</span>
-<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
 <span class="c"># Filter paths by query</span>
 <span class="n">paths</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span>
                   <span class="c"># We just want to filter on filenames, not the whole path</span>
@@ -284,7 +235,7 @@ if it couldn&#8217;t determine the encoding.)</p>
 <span class="k">if</span> <span class="n">paths</span><span class="p">:</span>
    <span class="c"># For demonstration purposes, pass the first result as `{query}`</span>
    <span class="c"># to the next workflow Action.</span>
-   <span class="k">print</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+   <span class="k">print</span><span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -300,17 +251,17 @@ representation (e.g. UTF-8 or ASCII).</p>
 on disk, passed into or out of a program or transmitted over a network <em>must</em>
 be encoded. On OS X, almost all text (e.g. filenames, most text output from
 programs) is encoded with UTF-8.</p>
-<p>In order for your program to work properly, it&#8217;s important to ensure that all
+<p>In order for your program to work properly, it’s important to ensure that all
 text is of the same type/encoding:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="s">u&#39;Fahrvergnügen&#39;</span>  <span class="c"># This is a Unicode string</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">enc1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c"># OS X default encoding</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">enc2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;latin-1&#39;</span><span class="p">)</span>  <span class="c"># Older standard German encoding</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="s">u'Fahrvergnügen'</span>  <span class="c"># This is a Unicode string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">enc1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>  <span class="c"># OS X default encoding</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">enc2</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'latin-1'</span><span class="p">)</span>  <span class="c"># Older standard German encoding</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">enc1</span> <span class="o">==</span> <span class="n">enc2</span>
 <span class="go">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">==</span> <span class="n">enc1</span>
 <span class="go">UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal</span>
 <span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">unicode</span><span class="p">(</span><span class="n">enc1</span><span class="p">,</span> <span class="s">&#39;utf-8&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">enc2</span><span class="p">,</span> <span class="s">&#39;latin-1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">unicode</span><span class="p">(</span><span class="n">enc1</span><span class="p">,</span> <span class="s">'utf-8'</span><span class="p">)</span> <span class="o">==</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">enc2</span><span class="p">,</span> <span class="s">'latin-1'</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -324,18 +275,18 @@ as soon as it enters your program. In particular, this means:</p>
 <li>The output of subprocesses (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.check_output" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.check_output()</span></tt></a> or
 <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a> etc.)</li>
 <li>Filepaths (via <a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.). Sometimes. Basically, if you
-pass a Unicode string to a filesystem function, you&#8217;ll get Unicode back. If
-you pass an encoded string, you&#8217;ll get an encoded (UTF-8) string back.</li>
+pass a Unicode string to a filesystem function, you’ll get Unicode back. If
+you pass an encoded string, you’ll get an encoded (UTF-8) string back.</li>
 </ul>
 <p>Alfred-Workflow uses Unicode throughout, and any command-line arguments
 (<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.args</span></tt></a>), environmental variables (<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.alfred_env" title="workflow.workflow.Workflow.alfred_env"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.alfred_env</span></tt></a>),
 or data from the web (e.g. <a class="reference internal" href="../api/web.html#workflow.web.Response.text" title="workflow.web.Response.text"><tt class="xref py py-func docutils literal"><span class="pre">web.Response.text</span></tt></a>)
 will be decoded to Unicode for you.</p>
-<p>As a result of this, it&#8217;s important that you also decode any text your workflow
+<p>As a result of this, it’s important that you also decode any text your workflow
 pulls in from other sources. When you combine Unicode and encoded strings in
-Python 2, Python will &#8220;promote&#8221; the encoded string to Unicode by attempting
+Python 2, Python will “promote” the encoded string to Unicode by attempting
 to decode it as ASCII. In many cases this will work, but if the encoded string
-contains characters that aren&#8217;t in ASCII (e.g. £ or ü or —), your workflow
+contains characters that aren’t in ASCII (e.g. £ or ü or —), your workflow
 will die in flames.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -348,7 +299,7 @@ strings and it will return normalized Unicode. You can specify the encoding
 and normalization form with the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> and <tt class="docutils literal"><span class="pre">normalization</span></tt>
 arguments to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> or with the <tt class="docutils literal"><span class="pre">encoding</span></tt> and
 <tt class="docutils literal"><span class="pre">normalization</span></tt> arguments to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>. Generally,
-you shouldn&#8217;t need to change the default encoding of UTF-8, which is what
+you shouldn’t need to change the default encoding of UTF-8, which is what
 OS X uses, but you may need to alter the normalization depending on where
 your workflow gets its data from.</p>
 <div class="admonition tip">
@@ -365,8 +316,8 @@ to create an encoded string):</p>
 5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># encoding: utf-8</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
-<span class="n">ustr</span> <span class="o">=</span> <span class="s">&#39;This is a Unicode string&#39;</span>
-<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;This is an encoded string&#39;</span>
+<span class="n">ustr</span> <span class="o">=</span> <span class="s">'This is a Unicode string'</span>
+<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">'This is an encoded string'</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -383,22 +334,22 @@ represented in the same way.</p>
 system (filepaths, output of command-line programs), you should instantiate
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> with the <tt class="docutils literal"><span class="pre">normalization='NFD'</span></tt> argument.</p>
 <p>If your workflow uses data from the Web (via native Python libraries, including
-<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a>), you probably don&#8217;t need to do anything
+<a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a>), you probably don’t need to do anything
 (everything will be NFC-normalized).</p>
-<p>If you&#8217;re mixing both kinds of data, the simplest solution is probably to run
+<p>If you’re mixing both kinds of data, the simplest solution is probably to run
 all data from the system through <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to ensure it is
 normalized in the same way as data from the Web.</p>
 </div>
 <div class="section" id="why-does-normalization-matter">
 <h3>Why does normalization matter?<a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h3>
 <p>In Unicode, accented characters can be represented in different ways, e.g. <tt class="docutils literal"><span class="pre">ü</span></tt>
-can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as <tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python isn&#8217;t smart
+can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as <tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python isn’t smart
 enough to ensure that all Unicode strings are normalized to use the same
 representations when comparing them.</p>
-<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
-in Alfred&#8217;s query box or in the source code (which will be NFC-normalized by
+<p>Therefore, if you’re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
+in Alfred’s query box or in the source code (which will be NFC-normalized by
 default when using Alfred-Workflow) with an ostensibly identical string
-that came from OS X&#8217;s filesystem (which is NFD-normalized), Python won&#8217;t
+that came from OS X’s filesystem (which is NFD-normalized), Python won’t
 recognise them as being the same:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -424,31 +375,31 @@ recognise them as being the same:</p>
 22
 23</pre></div></td><td class="code"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span> <span class="o">=</span> <span class="s">u&#39;München.txt&#39;</span>  <span class="c"># German for &#39;Munich&#39;. NFC-normalized, as it&#39;s Python source code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">name</span> <span class="o">=</span> <span class="s">u'München.txt'</span>  <span class="c"># German for 'Munich'. NFC-normalized, as it's Python source code</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-<span class="go">u&#39;M\xfcnchen.txt&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>  <span class="c"># Create an empty text file called `München.txt`</span>
+<span class="go">u'M\xfcnchen.txt'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">''</span><span class="p">)</span>  <span class="c"># Create an empty text file called `München.txt`</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">u&#39;*.txt&#39;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">u'*.txt'</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u&#39;Match : {0} ({0!r}) == {1} ({1!r})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u'Match : {0} ({0!r}) == {1} ({1!r})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
 <span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u&#39;No match : {0} ({0!r}) != {1} ({1!r})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u'No match : {0} ({0!r}) != {1} ({1!r})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
 <span class="gp">...</span>
 <span class="go"># The filename has been NFD-normalized by the filesystem</span>
-<span class="go">No match : München.txt (u&#39;Mu\u0308nchen.txt&#39;) != München.txt (u&#39;M\xfcnchen.txt&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">u&#39;*.txt&#39;</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">filename</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFC&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>  <span class="c"># Ensure the same normalization</span>
+<span class="go">No match : München.txt (u'Mu\u0308nchen.txt') != München.txt (u'M\xfcnchen.txt')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">u'*.txt'</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">filename</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">'NFC'</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>  <span class="c"># Ensure the same normalization</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u&#39;Match : {0} ({0!r}) == {1} ({1!r})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u'Match : {0} ({0!r}) == {1} ({1!r})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
 <span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u&#39;No match : {0} ({0!r}) != {1} ({1!r})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">u'No match : {0} ({0!r}) != {1} ({1!r})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
 <span class="gp">...</span>
-<span class="go">Match : München.txt (u&#39;M\xfcnchen.txt&#39;) == München.txt (u&#39;M\xfcnchen.txt&#39;)</span>
+<span class="go">Match : München.txt (u'M\xfcnchen.txt') == München.txt (u'M\xfcnchen.txt')</span>
 </pre></div>
 </td></tr></table></div>
 <p>As a result of this Python quirk (Python 3 is alas no better in this regard),
-it&#8217;s important to ensure that all input is normalized in the same way or, for
+it’s important to ensure that all input is normalized in the same way or, for
 example, a user-provided query (NFC-normalized by default) may not match the
 output of a shell command run via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> (which may be NFD-normalized)
 even though they are ostensibly the same.</p>
@@ -477,81 +428,50 @@ instantiation and then normalized as above.</p>
 </div>
 <div class="section" id="further-information">
 <h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
-<p>If you&#8217;re unfamiliar with using Unicode in Python, have a look at the official
+<p>If you’re unfamiliar with using Unicode in Python, have a look at the official
 Python <a class="reference external" href="https://docs.python.org/2/howto/unicode.html">Unicode HOWTO</a>.</p>
 </div>
 </div>
-
-
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../api/index.html" class="btn btn-neutral float-right" title="Alfred-Workflow API"/>Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="serialization.html" class="btn btn-neutral" title="Serialization of stored/cached data"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2014, Dean Jackson.
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-right" href="../api/index.html" title="Alfred-Workflow API"></a>Next <span class="fa fa-arrow-circle-right"></span>
+<a class="btn btn-neutral" href="serialization.html" title="Serialization of stored/cached data"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2015, Dean Jackson.
     </p>
-  </div>
-
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</div>
+<a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.12',
+            VERSION:'1.13',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
     </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
 <div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-    </div>
+<div class="github-fork-ribbon">
+<a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
 </div>
- 
-
-
+</div>
 </body>
 </html>

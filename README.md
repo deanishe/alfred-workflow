@@ -320,7 +320,6 @@ it is below 100%.
 
 These are some of the Alfred workflows that use this library.
 
-
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze)
   ([GitHub repo](https://github.com/XedMada/alfred-backblaze))
   by [XedMada](http://www.packal.org/users/xedmada)
@@ -334,11 +333,6 @@ These are some of the Alfred workflows that use this library.
 - [Alfred Soundboard](http://www.packal.org/workflow/alfred-soundboard)
   by [Steffen](http://www.packal.org/users/steffen).
   A soundboard for alfred at your fingertips.
-- [alfred-ime](http://www.packal.org/workflow/ime)
-  ([GitHub repo](https://github.com/owenwater/alfred-ime))
-  by [owenwater](http://www.packal.org/users/owenwater)
-  ([on GitHub](https://github.com/owenwater/)).
-  A Input method workflow based on Google Input Tools.
 - [AppScripts](http://www.packal.org/workflow/appscripts)
   ([GitHub repo](https://github.com/deanishe/alfred-appscripts))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -349,6 +343,9 @@ These are some of the Alfred workflows that use this library.
   by [ahalbert](http://www.packal.org/users/ahalbert)
   ([on GitHub](https://github.com/ahalbert/)).
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
+- [BeautifulRatio](http://www.packal.org/workflow/beautifulratio)
+  by [yusuga](http://www.packal.org/users/yusuga).
+  This workflow calculates the Golden ratio and Silver ratio.
 - [Better IMDB search](http://www.packal.org/workflow/better-imdb-search)
   by [frankspin](http://www.packal.org/users/frankspin).
   Search IMDB for movies and see results inside of Alfred.
@@ -424,6 +421,9 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Fuzzy search across folder subtrees.
+- [Genymotion](http://www.packal.org/workflow/genymotion)
+  by [yakiyama](http://www.packal.org/users/yakiyama).
+  Start emulator instantly.
 - [Git Repos](http://www.packal.org/workflow/git-repos)
   ([GitHub repo](https://github.com/deanishe/alfred-repos))
   by [deanishe](http://www.packal.org/users/deanishe)
@@ -437,6 +437,9 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Manage your Gmail inbox with Alfred.
+- [Google Drive](http://www.packal.org/workflow/google-drive)
+  by [azai91](http://www.packal.org/users/azai91).
+  Browse, search and open Google Drive files from within Alfred.
 - [HackerNews for Alfred](http://www.packal.org/workflow/hackernews-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-hackernews))
   by [fniephaus](http://www.packal.org/users/fniephaus)
@@ -452,6 +455,11 @@ These are some of the Alfred workflows that use this library.
   by [fniephaus](http://www.packal.org/users/fniephaus)
   ([on GitHub](https://github.com/fniephaus/)).
   Easily control Homebrew and Cask with Alfred.
+- [IME](http://www.packal.org/workflow/ime)
+  ([GitHub repo](https://github.com/owenwater/alfred-ime))
+  by [owenwater](http://www.packal.org/users/owenwater)
+  ([on GitHub](https://github.com/owenwater/)).
+  A Input method workflow based on Google Input Tools.
 - [iOS Simulator](http://www.packal.org/workflow/ios-simulator)
   ([GitHub repo](https://github.com/jfro/ios-simulator-apps-alfred-workflow))
   by [jfro](http://www.packal.org/users/jfro)
@@ -488,6 +496,9 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search and Download pdfs and ebooks from Library Genesis.
+- [MailTo](http://www.packal.org/workflow/mailto)
+  by [deanishe](http://www.packal.org/users/deanishe).
+  Send mail to contacts and groups from your Address Book.
 - [Movie and TV Show Search](http://www.packal.org/workflow/movie-and-tv-show-search)
   ([GitHub repo](https://github.com/tmcknight/Movie-and-TV-Show-Search-Alfred-Workflow))
   by [tone](http://www.packal.org/users/tone)
@@ -523,6 +534,9 @@ These are some of the Alfred workflows that use this library.
   by [bkmontgomery](http://www.packal.org/users/bkmontgomery)
   ([on GitHub](https://github.com/bradmontgomery/)).
   Easily do percentage calculations.
+- [PHPStorm project opener ](http://www.packal.org/workflow/phpstorm-project-opener)
+  by [hansdubois](http://www.packal.org/users/hansdubois).
+  PHPStorm project opener.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred)
   ([GitHub repo](https://github.com/fniephaus/alfred-pocket))
   by [fniephaus](http://www.packal.org/users/fniephaus)
@@ -591,6 +605,9 @@ These are some of the Alfred workflows that use this library.
   by [deanishe](http://www.packal.org/users/deanishe)
   ([on GitHub](https://github.com/deanishe/)).
   Auto-suggest search results from multiple search engines and languages.
+- [Secure Password Generator](http://www.packal.org/workflow/secure-password-generator)
+  by [deanishe](http://www.packal.org/users/deanishe).
+  Generate secure random passwords from Alfred. Uses /dev/urandom as source of entropy.
 - [SEND](http://www.packal.org/workflow/send)
   by [hackademic](http://www.packal.org/users/hackademic).
   Send documents to the cloud.
@@ -668,6 +685,9 @@ These are some of the Alfred workflows that use this library.
   by [johnnycakes79](http://www.packal.org/users/johnnycakes79)
   ([on GitHub](https://github.com/johnnycakes79/)).
   Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).
+- [Wowhead](http://www.packal.org/workflow/wowhead)
+  by [owenwater](http://www.packal.org/users/owenwater).
+  An Alfred workflow that helps you search World of Warcraft® database provided by wowhead.com.
 - [Wunderlist3.alfredworkflow](http://www.packal.org/workflow/wunderlist3alfredworkflow)
   ([GitHub repo](https://github.com/camgnostic/Wunderlist-3-Alfred))
   by [gnostic](http://www.packal.org/users/gnostic)
@@ -683,6 +703,7 @@ These are some of the Alfred workflows that use this library.
   by [hackademic](http://www.packal.org/users/hackademic)
   ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
+
 
 
 

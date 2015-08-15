@@ -1,80 +1,44 @@
-
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Serialization of stored/cached data &mdash; Alfred-Workflow 1.12 documentation</title>
-  
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-
-  
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  
-  
-    
-
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.12 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Encoded strings and Unicode" href="text-encoding.html"/>
-        <link rel="prev" title="“Magic” arguments" href="magic-arguments.html"/>
- 
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Serialization of stored/cached data — Alfred-Workflow 1.13 documentation</title>
+<link href="../_static/favicon.ico" rel="shortcut icon"/>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.13 documentation"/>
+<link href="index.html" rel="up" title="User Manual"/>
+<link href="text-encoding.html" rel="next" title="Encoded strings and Unicode"/>
+<link href="magic-arguments.html" rel="prev" title="“Magic” arguments"/>
 <!-- Only one of these will work. Seems a better solution than symlinking
 the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
+<link href="_static/gh-fork-ribbon.css" rel="stylesheet"/>
+<link href="../_static/gh-fork-ribbon.css" rel="stylesheet"/>
+<link href="_static/custom.css" rel="stylesheet"/>
+<link href="../_static/custom.css" rel="stylesheet"/>
 <!--[if lt IE 9]>
 	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
 <!-- <link rel="stylesheet" href="_static/custom.css"> -->
 <!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 </head>
-
 <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-nav-search">
+<a class="fa fa-home" href="../index.html"> Alfred-Workflow</a>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
@@ -100,7 +64,7 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -131,43 +95,30 @@ the _static path in each subdirectory -->
 </ul>
 </li>
 </ul>
-
-        
-      </div>
-      &nbsp;
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Serialization of stored/cached data</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          <a href="../_sources/user-manual/serialization.txt" rel="nofollow"> View page source</a>
-        
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main">
-            
-  <div class="section" id="module-workflow">
-<span id="serialization-of-stored-cached-data"></span><span id="manual-serialization"></span><h1>Serialization of stored/cached data<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
+       
+    </nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">Alfred-Workflow</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="index.html">User Manual</a> »</li>
+<li>Serialization of stored/cached data</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/user-manual/serialization.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div role="main">
+<div class="section" id="module-workflow">
+<span id="serialization-of-stored-cached-data"></span><span id="manual-serialization"></span><h1><a name="//apple_ref/cpp/Module/workflow"></a>Serialization of stored/cached data<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <p>By default, both cache and data files (created using the APIs described in
 <a class="reference internal" href="persistent-data.html#manual-persistent-data"><em>Persistent data</em></a>) are cached using <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. This provides
 a great compromise in terms of speed and the ability to store arbitrary objects.</p>
@@ -183,10 +134,10 @@ data structures (<tt class="docutils literal"><span class="pre">dict</span></tt>
 default cache serialization format to <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> thus:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s">'pickle'</span>
 </pre></div>
 </td></tr></table></div>
-<p class="last">Unlike the stored data API, the cached data API can&#8217;t determine the format
+<p class="last">Unlike the stored data API, the cached data API can’t determine the format
 of the cached data. If you change the serializer without clearing the
 cache, errors will probably result as the serializer tries to load data
 in a foreign format.</p>
@@ -200,10 +151,10 @@ serializer or one for each individual datastore:</p>
 5
 6</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 <span class="c"># Use `pickle` as the global default serializer</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">&#39;pickle&#39;</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">data_serializer</span> <span class="o">=</span> <span class="s">'pickle'</span>
 
 <span class="c"># Use the JSON serializer only for these data</span>
-<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">store_data</span><span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">serializer</span><span class="o">=</span><span class="s">'json'</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>This is primarily so you can create files that are human-readable or useable
@@ -211,7 +162,7 @@ by other software. The generated JSON is formatted to make it readable.</p>
 <p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.stored_data" title="workflow.workflow.Workflow.stored_data"><tt class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></tt></a> method can
 automatically determine the serialization of the stored data (based on the file
 extension, which is the same as the name the serializer is registered under),
-provided the corresponding serializer is registered. If it isn&#8217;t, a
+provided the corresponding serializer is registered. If it isn’t, a
 <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> will be raised.</p>
 <div class="section" id="built-in-serializers">
 <h2>Built-in serializers<a class="headerlink" href="#built-in-serializers" title="Permalink to this headline">¶</a></h2>
@@ -239,9 +190,9 @@ the same way as in the built-in <a class="reference external" href="http://docs.
 2
 3
 4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Reading</span>
-<span class="n">obj</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">'filename'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">))</span>
 <span class="c"># Writing</span>
-<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">))</span>
+<span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 <p>To register a new serializer, call the
@@ -274,7 +225,7 @@ that performs serialization:</p>
      <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">):</span>
          <span class="c"># serialize obj to file_obj</span>
 
-<span class="hll"> <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">&#39;myformat&#39;</span><span class="p">,</span> <span class="n">MySerializer</span><span class="p">())</span>
+<span class="hll"> <span class="n">manager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">'myformat'</span><span class="p">,</span> <span class="n">MySerializer</span><span class="p">())</span>
 </span></pre></div>
 </td></tr></table></div>
 <div class="admonition note">
@@ -296,77 +247,46 @@ stored files.</p>
 information.</p>
 </div>
 </div>
-
-
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="text-encoding.html" class="btn btn-neutral float-right" title="Encoded strings and Unicode"/>Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="magic-arguments.html" class="btn btn-neutral" title="“Magic” arguments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2014, Dean Jackson.
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-right" href="text-encoding.html" title="Encoded strings and Unicode"></a>Next <span class="fa fa-arrow-circle-right"></span>
+<a class="btn btn-neutral" href="magic-arguments.html" title="“Magic” arguments"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2015, Dean Jackson.
     </p>
-  </div>
-
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</div>
+<a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.12',
+            VERSION:'1.13',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
     </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
 <div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-    </div>
+<div class="github-fork-ribbon">
+<a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
 </div>
- 
-
-
+</div>
 </body>
 </html>

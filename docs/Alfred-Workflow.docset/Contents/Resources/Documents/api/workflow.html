@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The Workflow Object — Alfred-Workflow 1.12 documentation</title>
+<title>The Workflow Object — Alfred-Workflow 1.13 documentation</title>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.12 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.13 documentation"/>
 <link href="index.html" rel="up" title="Alfred-Workflow API"/>
 <link href="web.html" rel="next" title="Fetching Data from the Web"/>
 <link href="index.html" rel="prev" title="Alfred-Workflow API"/>
@@ -117,8 +117,8 @@ the _static path in each subdirectory -->
 <hr/>
 </div>
 <div role="main">
-<div class="section" id="module-workflow"><a name="//apple_ref/cpp/Module/workflow.workflow"></a>
-<span id="the-workflow-object"></span><span id="workflow"></span><h1><a name="//apple_ref/cpp/Module/workflow"></a>The Workflow Object<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-workflow">
+<span id="the-workflow-object"></span><span id="workflow"></span><h1>The Workflow Object<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-workflow.workflow"></span><p>The <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> object is the main interface to this library.</p>
 <p>See <a class="reference internal" href="../user-manual/setup.html#setup"><em>Workflow setup and skeleton</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for an example of how to set
 up your Python script to best utilise the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> object.</p>
@@ -484,7 +484,7 @@ information on how to enable your workflow to update itself.</p>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_cache"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.clear_cache"></a>
-<tt class="descname">clear_cache</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x10bdce050&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_cache</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x108611050&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow’s <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><tt class="xref py py-attr docutils literal"><span class="pre">cachedir</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
@@ -501,7 +501,7 @@ By default, <em>all</em> files will be deleted.</td>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.clear_data"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.clear_data"></a>
-<tt class="descname">clear_data</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x10bdce140&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear_data</tt><big>(</big><em>filter_func=&lt;function &lt;lambda&gt; at 0x108611140&gt;</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all files in workflow’s <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><tt class="xref py py-attr docutils literal"><span class="pre">datadir</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
@@ -654,7 +654,7 @@ internally, but exists as a helper method for workflow authors.</p>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.filter"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.filter"></a>
-<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x10bdcd7d0&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">filter</tt><big>(</big><em>query</em>, <em>items</em>, <em>key=&lt;function &lt;lambda&gt; at 0x1086127d0&gt;</em>, <em>ascending=False</em>, <em>include_score=False</em>, <em>min_score=0</em>, <em>max_results=0</em>, <em>match_on=127</em>, <em>fold_diacritics=True</em><big>)</big><a class="headerlink" href="#workflow.workflow.Workflow.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fuzzy search filter. Returns list of <tt class="docutils literal"><span class="pre">items</span></tt> that match <tt class="docutils literal"><span class="pre">query</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">query</span></tt> is case-insensitive. Any item that does not contain the
 entirety of <tt class="docutils literal"><span class="pre">query</span></tt> is rejected.</p>
@@ -1277,7 +1277,7 @@ to delete the old password first (a Keychain implementation detail).</p>
 <hr/>
 <div role="contentinfo">
 <p>
-        © Copyright 2014, Dean Jackson.
+        © Copyright 2015, Dean Jackson.
     </p>
 </div>
 <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
@@ -1289,7 +1289,7 @@ to delete the old password first (a Keychain implementation detail).</p>
 <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.12',
+            VERSION:'1.13',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

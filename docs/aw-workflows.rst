@@ -31,11 +31,6 @@ section in the `GitHub README`_.
 - `Alfred Soundboard <http://www.packal.org/workflow/alfred-soundboard>`__
   by `Steffen <http://www.packal.org/users/steffen>`__.
   A soundboard for alfred at your fingertips.
-- `alfred-ime <http://www.packal.org/workflow/ime>`__
-  (`GitHub repo <https://github.com/owenwater/alfred-ime>`__)
-  by `owenwater <http://www.packal.org/users/owenwater>`__
-  (`on GitHub <https://github.com/owenwater/>`__).
-  A Input method workflow based on Google Input Tools.
 - `AppScripts <http://www.packal.org/workflow/appscripts>`__
   (`GitHub repo <https://github.com/deanishe/alfred-appscripts>`__)
   by `deanishe <http://www.packal.org/users/deanishe>`__
@@ -46,6 +41,9 @@ section in the `GitHub README`_.
   by `ahalbert <http://www.packal.org/users/ahalbert>`__
   (`on GitHub <https://github.com/ahalbert/>`__).
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
+- `BeautifulRatio <http://www.packal.org/workflow/beautifulratio>`__
+  by `yusuga <http://www.packal.org/users/yusuga>`__.
+  This workflow calculates the Golden ratio and Silver ratio.
 - `Better IMDB search <http://www.packal.org/workflow/better-imdb-search>`__
   by `frankspin <http://www.packal.org/users/frankspin>`__.
   Search IMDB for movies and see results inside of Alfred.
@@ -121,6 +119,9 @@ section in the `GitHub README`_.
   by `deanishe <http://www.packal.org/users/deanishe>`__
   (`on GitHub <https://github.com/deanishe/>`__).
   Fuzzy search across folder subtrees.
+- `Genymotion <http://www.packal.org/workflow/genymotion>`__
+  by `yakiyama <http://www.packal.org/users/yakiyama>`__.
+  Start emulator instantly.
 - `Git Repos <http://www.packal.org/workflow/git-repos>`__
   (`GitHub repo <https://github.com/deanishe/alfred-repos>`__)
   by `deanishe <http://www.packal.org/users/deanishe>`__
@@ -134,6 +135,9 @@ section in the `GitHub README`_.
   by `fniephaus <http://www.packal.org/users/fniephaus>`__
   (`on GitHub <https://github.com/fniephaus/>`__).
   Manage your Gmail inbox with Alfred.
+- `Google Drive <http://www.packal.org/workflow/google-drive>`__
+  by `azai91 <http://www.packal.org/users/azai91>`__.
+  Browse, search and open Google Drive files from within Alfred.
 - `HackerNews for Alfred <http://www.packal.org/workflow/hackernews-alfred>`__
   (`GitHub repo <https://github.com/fniephaus/alfred-hackernews>`__)
   by `fniephaus <http://www.packal.org/users/fniephaus>`__
@@ -149,6 +153,11 @@ section in the `GitHub README`_.
   by `fniephaus <http://www.packal.org/users/fniephaus>`__
   (`on GitHub <https://github.com/fniephaus/>`__).
   Easily control Homebrew and Cask with Alfred.
+- `IME <http://www.packal.org/workflow/ime>`__
+  (`GitHub repo <https://github.com/owenwater/alfred-ime>`__)
+  by `owenwater <http://www.packal.org/users/owenwater>`__
+  (`on GitHub <https://github.com/owenwater/>`__).
+  A Input method workflow based on Google Input Tools.
 - `iOS Simulator <http://www.packal.org/workflow/ios-simulator>`__
   (`GitHub repo <https://github.com/jfro/ios-simulator-apps-alfred-workflow>`__)
   by `jfro <http://www.packal.org/users/jfro>`__
@@ -185,6 +194,9 @@ section in the `GitHub README`_.
   by `hackademic <http://www.packal.org/users/hackademic>`__
   (`on GitHub <https://github.com/smargh/>`__).
   Search and Download pdfs and ebooks from Library Genesis.
+- `MailTo <http://www.packal.org/workflow/mailto>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  Send mail to contacts and groups from your Address Book.
 - `Movie and TV Show Search <http://www.packal.org/workflow/movie-and-tv-show-search>`__
   (`GitHub repo <https://github.com/tmcknight/Movie-and-TV-Show-Search-Alfred-Workflow>`__)
   by `tone <http://www.packal.org/users/tone>`__
@@ -220,6 +232,9 @@ section in the `GitHub README`_.
   by `bkmontgomery <http://www.packal.org/users/bkmontgomery>`__
   (`on GitHub <https://github.com/bradmontgomery/>`__).
   Easily do percentage calculations.
+- `PHPStorm project opener  <http://www.packal.org/workflow/phpstorm-project-opener>`__
+  by `hansdubois <http://www.packal.org/users/hansdubois>`__.
+  PHPStorm project opener.
 - `Pocket for Alfred <http://www.packal.org/workflow/pocket-alfred>`__
   (`GitHub repo <https://github.com/fniephaus/alfred-pocket>`__)
   by `fniephaus <http://www.packal.org/users/fniephaus>`__
@@ -288,6 +303,9 @@ section in the `GitHub README`_.
   by `deanishe <http://www.packal.org/users/deanishe>`__
   (`on GitHub <https://github.com/deanishe/>`__).
   Auto-suggest search results from multiple search engines and languages.
+- `Secure Password Generator <http://www.packal.org/workflow/secure-password-generator>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  Generate secure random passwords from Alfred. Uses /dev/urandom as source of entropy.
 - `SEND <http://www.packal.org/workflow/send>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Send documents to the cloud.
@@ -365,6 +383,9 @@ section in the `GitHub README`_.
   by `johnnycakes79 <http://www.packal.org/users/johnnycakes79>`__
   (`on GitHub <https://github.com/johnnycakes79/>`__).
   Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).
+- `Wowhead <http://www.packal.org/workflow/wowhead>`__
+  by `owenwater <http://www.packal.org/users/owenwater>`__.
+  An Alfred workflow that helps you search World of Warcraft® database provided by wowhead.com.
 - `Wunderlist3.alfredworkflow <http://www.packal.org/workflow/wunderlist3alfredworkflow>`__
   (`GitHub repo <https://github.com/camgnostic/Wunderlist-3-Alfred>`__)
   by `gnostic <http://www.packal.org/users/gnostic>`__

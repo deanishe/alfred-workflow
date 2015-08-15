@@ -22,7 +22,6 @@ import os
 import re
 import subprocess
 from time import time
-from urllib import urlopen
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
@@ -35,15 +34,33 @@ WORKFLOW_LIST = os.path.join(os.path.dirname(__file__),
 PACKAL_REPO_URL = 'https://github.com/packal/repository'
 PACKAL_REPO_DIR = os.path.expanduser('~/Temp/Packal-Repository')
 CACHE_PATH = os.path.expanduser('~/.packal_repo_cache.json')
+COOKIE_PATH = os.path.expanduser('~/.packal_repo_cookies.txt')
+
+USER_AGENT = 'Alfred-Workflow/1.12 (www.deanishe.net/alfred-workflow/)'
 
 MAX_CACHE_AGE = 7  # days
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(filename)s:%(lineno)d %(levelname)-8s %(message)s',
     datefmt='%H:%M:%S')
 
 log = logging.getLogger()
+
+
+def fetch_url(url):
+    """Return contents of ``url``."""
+    cmd = [
+        'curl',
+        '--referer', 'http://www.packal.org/workflow-list;auto',
+        '--location',
+        '--user-agent', USER_AGENT,
+        '--silent', '--show-error',
+        '--cookie-jar', COOKIE_PATH,
+        '--cookie', COOKIE_PATH,
+        url]
+    data = subprocess.check_output(cmd).decode('utf-8')
+    return data
 
 
 class Cache(object):
@@ -97,8 +114,10 @@ class Cache(object):
 
         if update:  # Fetch workflow pages from Packal and grab GitHub info
             log.info('Retrieving {} ...'.format(workflow['url']))
-            fp = urlopen(workflow['url'])
-            html = fp.read()
+            # fp = urlopen(workflow['url'])
+            # html = fp.read()
+            html = fetch_url(workflow['url'])
+            # log.debug(html)
             m = self.find_github_url(html)
             if not m:
                 log.warning('No Github info for `{}`'.format(
@@ -124,7 +143,7 @@ class Cache(object):
 
 
 def workflow_link(workflow, rest=False, github_links=True):
-    """Return a link for ``workflow`` in Markdown or ReST"""
+    """Return a link for ``workflow`` in Markdown or ReST."""
     output = []
 
     if rest:
@@ -171,7 +190,7 @@ def workflow_link(workflow, rest=False, github_links=True):
 
 
 def update_repo():
-    """Ensure Packal repo is present and up-to-date"""
+    """Ensure Packal repo is present and up-to-date."""
     if not os.path.exists(PACKAL_REPO_DIR):  # Clone repo
         cmd = ['git', 'clone', PACKAL_REPO_URL, PACKAL_REPO_DIR]
         subprocess.call(cmd)
@@ -185,7 +204,7 @@ def update_repo():
 
 
 def read_list(path):
-    """Read list of workflows from a TSV file"""
+    """Read list of workflows from a TSV file."""
     workflows = []
     with open(path) as file_obj:
         reader = csv.DictReader(file_obj, delimiter=b'\t')
@@ -211,7 +230,7 @@ def read_list(path):
 
 
 def read_manifest(path):
-    """Read dictionary of workflows from the Packal manifest.xml file"""
+    """Read dictionary of workflows from the Packal manifest.xml file."""
     workflows = {}
     tree = ET.parse(path)
     root = tree.getroot()

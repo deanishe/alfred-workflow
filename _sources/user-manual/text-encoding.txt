@@ -225,6 +225,9 @@ TL;DR
 
 Normalize *all* input.
 
+Nitty-Gritty
+------------
+
 If your workflow is based around comparing a user ``query`` to data from the
 system (filepaths, output of command-line programs), you should instantiate
 :class:`Workflow` with the ``normalization='NFD'`` argument.

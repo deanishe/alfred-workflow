@@ -68,10 +68,12 @@ Use :meth:`Workflow.decode` to decode input and
 
     # Because we want to work with Unicode, it's simpler if we make
     # literal strings in source code Unicode strings by default, so
-    # we set `encoding: utf-8` at the very top of the script and
-    # import `unicode_literals` before any code
+    # we set `encoding: utf-8` at the very top of the script to tell Python
+    # that this source file is UTF-8 and import `unicode_literals` before any
+    # code.
     #
     # See Tip further down the page for more info
+
     from __future__ import unicode_literals, print_function
 
     import subprocess
@@ -185,7 +187,20 @@ your workflow gets its data from.
     with ``u`` to mark it as a Unicode string, add
     ``from __future__ import unicode_literals`` at the top of your Python
     scripts. This makes all unprefixed strings Unicode by default (use ``b''``
-    to create an encoded string):
+    to create an encoded string). Add ``#encoding: utf-8`` to the top of your
+    source files to tell Python that the source code is UTF-8.
+
+    Encoded strings by default:
+
+    .. code-block:: python
+        :linenos:
+
+        # encoding: utf-8
+
+        ustr = u'This is a Unicode string'
+        bstr = 'This is a UTF-8 encoded string'
+
+    Unicode by default:
 
     .. code-block:: python
         :linenos:
@@ -194,7 +209,7 @@ your workflow gets its data from.
         from __future__ import unicode_literals
 
         ustr = 'This is a Unicode string'
-        bstr = b'This is an encoded string'
+        bstr = b'This is a UTF-8 encoded string'
 
 
 Normalization
@@ -227,14 +242,13 @@ Why does normalization matter?
 ------------------------------
 
 In Unicode, accented characters can be represented in different ways, e.g. ``ü``
-can be represented as ``ü`` or as ``u+¨``. Unfortunately, Python isn't smart
-enough to ensure that all Unicode strings are normalized to use the same
-representations when comparing them.
+can be represented as ``ü`` or as ``u+¨``. Unfortunately, Python doesn't ensure
+that all Unicode strings are normalized to use the same representations when
+comparing them.
 
-Therefore, if you're comparing a string containing ``ü`` entered by the user
-in Alfred's query box or in the source code (which will be NFC-normalized by
-default when using Alfred-Workflow) with an ostensibly identical string
-that came from OS X's filesystem (which is NFD-normalized), Python won't
+Therefore, if you're comparing a string containing ``ü`` that came from a
+JSON file (which will typically be NFC-normalized) with an ostensibly identical
+string that came from OS X's filesystem (which is NFD-normalized), Python won't
 recognise them as being the same:
 
 .. code-block:: python
@@ -265,15 +279,23 @@ recognise them as being the same:
     Match : München.txt (u'M\xfcnchen.txt') == München.txt (u'M\xfcnchen.txt')
 
 
-As a result of this Python quirk (Python 3 is alas no better in this regard),
-it's important to ensure that all input is normalized in the same way or, for
-example, a user-provided query (NFC-normalized by default) may not match the
-output of a shell command run via :mod:`subprocess` (which may be NFD-normalized)
-even though they are ostensibly the same.
+As a result of this Unicode quirk, it's important to ensure that all input is
+normalized in the same way or, for example, a user-provided query
+(which may be NFC- or NFD-normalized) may not match JSON data pulled from an API
+(which is probably NFC-normalized) even though they are ostensibly the same.
 
 
 Normalization with Alfred-Workflow
 ----------------------------------
+
+.. note::
+
+  This behaviour of Alfred-Workflow is not 100% correct. There are some strings
+  (notably in Asian alphabets) that cannot be represented in all normalization
+  forms, particularly NFC, which Alfred-Workflow uses by default. However, I
+  decided to NFC-normalize all text you will get from Alfred-Workflow by
+  default, as this will work as expected in 99+% of cases, and insulate
+  Alfred-Workflow users from much of the pain of text encoding.
 
 By default, :class:`Workflow` and :mod:`~workflow.web` return command
 line arguments from Alfred and text/decoded JSON data respectively as
@@ -285,9 +307,12 @@ keyword to :class:`Workflow` (this will, however, not affect
 strings).
 
 If your workflow works with data from the system (via :mod:`subprocess`,
-:func:`os.listdir` etc.), you should almost certainly be NFC-normalizing those
-strings or changing the default normalization to **NFD**, which is (more or
+:func:`os.listdir` etc.), you should probably be NFC-normalizing those
+strings or changing the default normalization to ``NFD``, which is (more or
 less) what OS X uses. :meth:`Workflow.decode()` can help with this.
+
+Unfortunately, there is no bulletproof solution, as the query from Alfred can
+have different normalization forms.
 
 If you pass a Unicode string to :meth:`Workflow.decode`,
 it will be normalized using the form passed in the ``normalization`` argument
@@ -297,6 +322,22 @@ If you pass an encoded string, it will be decoded to Unicode with the encoding
 passed in the ``encoding`` argument to :meth:`Workflow.decode`
 or the ``input_encoding`` argument to :class:`Workflow` on
 instantiation and then normalized as above.
+
+
+Other Gotchas
+=============
+
+Well, only one big gotcha. Namely, your shell probably has a sensible encoding
+(i.e. UTF-8) set via the ``LANG`` environmental variable (execute ``echo
+$LANG`` to check). Although this won't affect Python 2's auto-promotion of
+encoded strings (``str`` objects) to Unicode (it always uses ASCII), it *does*
+affect the printing of Unicode strings, so using :func:`print` may work
+perfectly in your shell where the environmental encoding is UTF-8 but not in
+Alfred, where encoding is ASCII by default.
+
+Be sure to print Unicode strings with
+``print(my_unicode_string.encode('utf-8'))`` (e.g. when passing an argument to
+an **Open URL** Action or **Post Notification** Output)!
 
 
 Further information

@@ -246,15 +246,19 @@ if it couldn&#8217;t determine the encoding.)</p>
 36
 37
 38
-39</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+39
+40
+41</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># encoding: utf-8</span>
 
 <span class="c"># Because we want to work with Unicode, it&#39;s simpler if we make</span>
 <span class="c"># literal strings in source code Unicode strings by default, so</span>
-<span class="c"># we set `encoding: utf-8` at the very top of the script and</span>
-<span class="c"># import `unicode_literals` before any code</span>
+<span class="c"># we set `encoding: utf-8` at the very top of the script to tell Python</span>
+<span class="c"># that this source file is UTF-8 and import `unicode_literals` before any</span>
+<span class="c"># code.</span>
 <span class="c">#</span>
 <span class="c"># See Tip further down the page for more info</span>
+
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">subprocess</span>
@@ -357,7 +361,19 @@ your workflow gets its data from.</p>
 with <tt class="docutils literal"><span class="pre">u</span></tt> to mark it as a Unicode string, add
 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></tt> at the top of your Python
 scripts. This makes all unprefixed strings Unicode by default (use <tt class="docutils literal"><span class="pre">b''</span></tt>
-to create an encoded string):</p>
+to create an encoded string). Add <tt class="docutils literal"><span class="pre">#encoding:</span> <span class="pre">utf-8</span></tt> to the top of your
+source files to tell Python that the source code is UTF-8.</p>
+<p>Encoded strings by default:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># encoding: utf-8</span>
+
+<span class="n">ustr</span> <span class="o">=</span> <span class="s">u&#39;This is a Unicode string&#39;</span>
+<span class="n">bstr</span> <span class="o">=</span> <span class="s">&#39;This is a UTF-8 encoded string&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Unicode by default:</p>
 <div class="last highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -366,7 +382,7 @@ to create an encoded string):</p>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
 <span class="n">ustr</span> <span class="o">=</span> <span class="s">&#39;This is a Unicode string&#39;</span>
-<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;This is an encoded string&#39;</span>
+<span class="n">bstr</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;This is a UTF-8 encoded string&#39;</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -392,13 +408,12 @@ normalized in the same way as data from the Web.</p>
 <div class="section" id="why-does-normalization-matter">
 <h3>Why does normalization matter?<a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h3>
 <p>In Unicode, accented characters can be represented in different ways, e.g. <tt class="docutils literal"><span class="pre">ü</span></tt>
-can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as <tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python isn&#8217;t smart
-enough to ensure that all Unicode strings are normalized to use the same
-representations when comparing them.</p>
-<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> entered by the user
-in Alfred&#8217;s query box or in the source code (which will be NFC-normalized by
-default when using Alfred-Workflow) with an ostensibly identical string
-that came from OS X&#8217;s filesystem (which is NFD-normalized), Python won&#8217;t
+can be represented as <tt class="docutils literal"><span class="pre">ü</span></tt> or as <tt class="docutils literal"><span class="pre">u+¨</span></tt>. Unfortunately, Python doesn&#8217;t ensure
+that all Unicode strings are normalized to use the same representations when
+comparing them.</p>
+<p>Therefore, if you&#8217;re comparing a string containing <tt class="docutils literal"><span class="pre">ü</span></tt> that came from a
+JSON file (which will typically be NFC-normalized) with an ostensibly identical
+string that came from OS X&#8217;s filesystem (which is NFD-normalized), Python won&#8217;t
 recognise them as being the same:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -447,14 +462,22 @@ recognise them as being the same:</p>
 <span class="go">Match : München.txt (u&#39;M\xfcnchen.txt&#39;) == München.txt (u&#39;M\xfcnchen.txt&#39;)</span>
 </pre></div>
 </td></tr></table></div>
-<p>As a result of this Python quirk (Python 3 is alas no better in this regard),
-it&#8217;s important to ensure that all input is normalized in the same way or, for
-example, a user-provided query (NFC-normalized by default) may not match the
-output of a shell command run via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a> (which may be NFD-normalized)
-even though they are ostensibly the same.</p>
+<p>As a result of this Unicode quirk, it&#8217;s important to ensure that all input is
+normalized in the same way or, for example, a user-provided query
+(which may be NFC- or NFD-normalized) may not match JSON data pulled from an API
+(which is probably NFC-normalized) even though they are ostensibly the same.</p>
 </div>
 <div class="section" id="normalization-with-alfred-workflow">
 <h3>Normalization with Alfred-Workflow<a class="headerlink" href="#normalization-with-alfred-workflow" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This behaviour of Alfred-Workflow is not 100% correct. There are some strings
+(notably in Asian alphabets) that cannot be represented in all normalization
+forms, particularly NFC, which Alfred-Workflow uses by default. However, I
+decided to NFC-normalize all text you will get from Alfred-Workflow by
+default, as this will work as expected in 99+% of cases, and insulate
+Alfred-Workflow users from much of the pain of text encoding.</p>
+</div>
 <p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> and <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a> return command
 line arguments from Alfred and text/decoded JSON data respectively as
 NFC-normalized Unicode strings.</p>
@@ -463,9 +486,11 @@ keyword to <a class="reference internal" href="../api/workflow.html#workflow.wor
 <a class="reference internal" href="../api/web.html#module-workflow.web" title="workflow.web"><tt class="xref py py-mod docutils literal"><span class="pre">web</span></tt></a>, which <em>always</em> returns NFC-encoded Unicode
 strings).</p>
 <p>If your workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">subprocess</span></tt></a>,
-<a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should almost certainly be NFC-normalizing those
-strings or changing the default normalization to <strong>NFD</strong>, which is (more or
+<a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></tt></a> etc.), you should probably be NFC-normalizing those
+strings or changing the default normalization to <tt class="docutils literal"><span class="pre">NFD</span></tt>, which is (more or
 less) what OS X uses. <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> can help with this.</p>
+<p>Unfortunately, there is no bulletproof solution, as the query from Alfred can
+have different normalization forms.</p>
 <p>If you pass a Unicode string to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a>,
 it will be normalized using the form passed in the <tt class="docutils literal"><span class="pre">normalization</span></tt> argument
 to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> or to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on instantiation.</p>
@@ -474,6 +499,19 @@ passed in the <tt class="docutils literal"><span class="pre">encoding</span></tt
 or the <tt class="docutils literal"><span class="pre">input_encoding</span></tt> argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> on
 instantiation and then normalized as above.</p>
 </div>
+</div>
+<div class="section" id="other-gotchas">
+<h2>Other Gotchas<a class="headerlink" href="#other-gotchas" title="Permalink to this headline">¶</a></h2>
+<p>Well, only one big gotcha. Namely, your shell probably has a sensible encoding
+(i.e. UTF-8) set via the <tt class="docutils literal"><span class="pre">LANG</span></tt> environmental variable (execute <tt class="docutils literal"><span class="pre">echo</span>
+<span class="pre">$LANG</span></tt> to check). Although this won&#8217;t affect Python 2&#8217;s auto-promotion of
+encoded strings (<tt class="docutils literal"><span class="pre">str</span></tt> objects) to Unicode (it always uses ASCII), it <em>does</em>
+affect the printing of Unicode strings, so using <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#print" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a> may work
+perfectly in your shell where the environmental encoding is UTF-8 but not in
+Alfred, where encoding is ASCII by default.</p>
+<p>Be sure to print Unicode strings with
+<tt class="docutils literal"><span class="pre">print(my_unicode_string.encode('utf-8'))</span></tt> (e.g. when passing an argument to
+an <strong>Open URL</strong> Action or <strong>Post Notification</strong> Output)!</p>
 </div>
 <div class="section" id="further-information">
 <h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>

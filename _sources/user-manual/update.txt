@@ -20,7 +20,7 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 .. danger::
 
     If you are not careful, you might accidentally overwrite a local version of
-    the worklow you're working on and lose all your changes! It's a good idea
+    the workflow you're working on and lose all your changes! It's a good idea
     to make sure you increase the version number *before* you start making any
     changes.
 
@@ -201,4 +201,4 @@ Please see :ref:`manual-versioning` for detailed information on the required
 version number format and associated features.
 
 
-.. _GitHub releases: https://help.github.com/categories/85/articles
+.. _GitHub releases: https://help.github.com/categories/releases/

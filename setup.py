@@ -72,3 +72,4 @@ setup(
     cmdclass={'test': NoseTestCommand},
     zip_safe=zip_safe,
 )
+

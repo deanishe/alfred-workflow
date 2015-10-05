@@ -184,9 +184,12 @@ def workflow_link(workflow, rest=False, github_links=True):
         else:
             output.append(' by {author}.')
 
-        output.append('{description}')
+        output.append('\n  {description}')
 
-        return '\n  '.join(output).format(**workflow)
+        if rest:
+            return '\n  '.join(output).format(**workflow)
+        else:
+            return ' '.join(output).format(**workflow)
 
 
 def update_repo():

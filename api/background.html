@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Background Tasks &mdash; Alfred-Workflow 1.13 documentation</title>
@@ -17,7 +18,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   
   
@@ -28,6 +28,8 @@
   
   
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
   
 
   
@@ -50,7 +52,7 @@ the _static path in each subdirectory -->
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,57 +62,59 @@ the _static path in each subdirectory -->
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Alfred-Workflow API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Background Tasks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Background Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
@@ -118,23 +122,16 @@ the _static path in each subdirectory -->
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
 
-        
+            
+          
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -149,7 +146,13 @@ the _static path in each subdirectory -->
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -158,13 +161,16 @@ the _static path in each subdirectory -->
     <li>Background Tasks</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/api/background.txt" rel="nofollow"> View page source</a>
+          
+            <a href="../_sources/api/background.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="module-workflow.background">
 <span id="background-tasks"></span><span id="background"></span><h1>Background Tasks<a class="headerlink" href="#module-workflow.background" title="Permalink to this headline">¶</a></h1>
@@ -176,7 +182,7 @@ the _static path in each subdirectory -->
 updating the data cache from a webservice, in the background, allowing
 the workflow to remain responsive in Alfred.</p>
 <p>For example, if your workflow requires up-to-date exchange rates, you might
-write a script <tt class="docutils literal"><span class="pre">update_exchange_rates.py</span></tt> to retrieve the data from the
+write a script <code class="docutils literal"><span class="pre">update_exchange_rates.py</span></code> to retrieve the data from the
 relevant webservice, and call it from your main workflow script:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -235,38 +241,38 @@ relevant webservice, and call it from your main workflow script:</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>For a working example, see <a class="reference internal" href="../tutorial_2.html#tutorial-2"><em>Part 2: A Distribution-Ready Pinboard Workflow</em></a>.</p>
+<p>For a working example, see <a class="reference internal" href="../tutorial_2.html#tutorial-2"><span>Part 2: A Distribution-Ready Pinboard Workflow</span></a>.</p>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="workflow.background.run_in_background">
-<tt class="descclassname">workflow.background.</tt><tt class="descname">run_in_background</tt><big>(</big><em>name</em>, <em>args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.background.</code><code class="descname">run_in_background</code><span class="sig-paren">(</span><em>name</em>, <em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pickle arguments to cache file, then call this script again via
-<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>.</p>
+<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of task</li>
-<li><strong>args</strong> &#8211; arguments passed as first argument to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a></li>
-<li><strong>**kwargs</strong> &#8211; keyword arguments to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a></li>
+<li><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of task</li>
+<li><strong>args</strong> &#8211; arguments passed as first argument to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
+<li><strong>**kwargs</strong> &#8211; keyword arguments to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">exit code of sub-process</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">int</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">int</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>When you call this function, it caches its arguments and then calls
-<tt class="docutils literal"><span class="pre">background.py</span></tt> in a subprocess. The Python subprocess will load the
+<code class="docutils literal"><span class="pre">background.py</span></code> in a subprocess. The Python subprocess will load the
 cached arguments, fork into the background, and then run the command you
 specified.</p>
-<p>This function will return as soon as the <tt class="docutils literal"><span class="pre">background.py</span></tt> subprocess has
+<p>This function will return as soon as the <code class="docutils literal"><span class="pre">background.py</span></code> subprocess has
 forked, returning the exit code of <em>that</em> process (i.e. not of the command
 you&#8217;re trying to run).</p>
 <p>If that process fails, an error will be written to the log file.</p>
@@ -276,17 +282,17 @@ return immediately and will not run the specified command.</p>
 
 <dl class="function">
 <dt id="workflow.background.is_running">
-<tt class="descclassname">workflow.background.</tt><tt class="descname">is_running</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether task is running under <tt class="docutils literal"><span class="pre">name</span></tt></p>
+<code class="descclassname">workflow.background.</code><code class="descname">is_running</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether task is running under <code class="docutils literal"><span class="pre">name</span></code></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; name of task</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of task</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if task with name <tt class="docutils literal"><span class="pre">name</span></tt> is running, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if task with name <code class="docutils literal"><span class="pre">name</span></code> is running, else <code class="docutils literal"><span class="pre">False</span></code></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">Boolean</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -296,15 +302,16 @@ return immediately and will not run the specified command.</p>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="update.html" class="btn btn-neutral float-right" title="Self-Updating"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="update.html" class="btn btn-neutral float-right" title="Self-Updating" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="web.html" class="btn btn-neutral" title="Fetching Data from the Web"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="web.html" class="btn btn-neutral" title="Fetching Data from the Web" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -314,11 +321,13 @@ return immediately and will not run the specified command.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Dean Jackson.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
+
         </div>
       </div>
 

@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Including 3rd party libraries &mdash; Alfred-Workflow 1.13 documentation</title>
@@ -17,7 +18,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   
   
@@ -28,6 +28,8 @@
   
   
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
   
 
   
@@ -50,7 +52,7 @@ the _static path in each subdirectory -->
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,33 +62,47 @@ the _static path in each subdirectory -->
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
@@ -107,34 +123,19 @@ the _static path in each subdirectory -->
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
 
-        
+            
+          
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -149,7 +150,13 @@ the _static path in each subdirectory -->
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -158,44 +165,47 @@ the _static path in each subdirectory -->
     <li>Including 3rd party libraries</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/user-manual/third-party.txt" rel="nofollow"> View page source</a>
+          
+            <a href="../_sources/user-manual/third-party.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="including-3rd-party-libraries">
 <span id="thirdparty"></span><h1>Including 3rd party libraries<a class="headerlink" href="#including-3rd-party-libraries" title="Permalink to this headline">¶</a></h1>
 <p>It&#8217;s a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
 in the OS X system Python. Alfred-Workflow makes it easy to include them in
 your Workflow.</p>
-<p>Simply create a <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory under your Workflow&#8217;s root directory
+<p>Simply create a <code class="docutils literal"><span class="pre">lib</span></code> subdirectory under your Workflow&#8217;s root directory
 and install your dependencies there. You can call the directory whatever you
-want, but in the following explanation, I&#8217;ll assume you used <tt class="docutils literal"><span class="pre">lib</span></tt>.</p>
+want, but in the following explanation, I&#8217;ll assume you used <code class="docutils literal"><span class="pre">lib</span></code>.</p>
 <p>To install libraries in your dependencies directory, use:</p>
 <div class="highlight-bash"><div class="highlight"><pre>pip install --target<span class="o">=</span>path/to/my/workflow/lib python-lib-name
 </pre></div>
 </div>
-<p>The path you pass as the <tt class="docutils literal"><span class="pre">--target</span></tt> argument should be the path to
+<p>The path you pass as the <code class="docutils literal"><span class="pre">--target</span></code> argument should be the path to
 the directory under your Workflow&#8217;s root directory in which you want to install
-your libraries. <tt class="docutils literal"><span class="pre">python-lib-name</span></tt> should be the &#8220;pip name&#8221; (i.e. the name the
+your libraries. <code class="docutils literal"><span class="pre">python-lib-name</span></code> should be the &#8220;pip name&#8221; (i.e. the name the
 library has on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>) of the library you want
-to install, e.g. <tt class="docutils literal"><span class="pre">requests</span></tt> or <tt class="docutils literal"><span class="pre">feedparser</span></tt>.</p>
-<p>This name is usually, but not always, the same as the name you use with <tt class="docutils literal"><span class="pre">import</span></tt>.</p>
+to install, e.g. <code class="docutils literal"><span class="pre">requests</span></code> or <code class="docutils literal"><span class="pre">feedparser</span></code>.</p>
+<p>This name is usually, but not always, the same as the name you use with <code class="docutils literal"><span class="pre">import</span></code>.</p>
 <p>For example, to install Alfred-Workflow, you would run
-<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></tt> but use <tt class="docutils literal"><span class="pre">import</span> <span class="pre">workflow</span></tt> to import it.</p>
+<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></code> but use <code class="docutils literal"><span class="pre">import</span> <span class="pre">workflow</span></code> to import it.</p>
 <p><strong>An example:</strong> You&#8217;re in a shell in Terminal.app in the Workflow&#8217;s root directory
-and you&#8217;re using <tt class="docutils literal"><span class="pre">lib</span></tt> as the directory for your Python libraries. You want to
+and you&#8217;re using <code class="docutils literal"><span class="pre">lib</span></code> as the directory for your Python libraries. You want to
 install <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>. You would run:</p>
 <div class="highlight-bash"><div class="highlight"><pre>pip install --target<span class="o">=</span>lib requests
 </pre></div>
 </div>
-<p>This will install the <tt class="docutils literal"><span class="pre">requests</span></tt> library into the <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory of the
+<p>This will install the <code class="docutils literal"><span class="pre">requests</span></code> library into the <code class="docutils literal"><span class="pre">lib</span></code> subdirectory of the
 current working directory.</p>
-<p>Then you instantiate <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>
-with the <tt class="docutils literal"><span class="pre">libraries</span></tt> argument:</p>
+<p>Then you instantiate <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
+with the <code class="docutils literal"><span class="pre">libraries</span></code> argument:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -213,11 +223,11 @@ with the <tt class="docutils literal"><span class="pre">libraries</span></tt> ar
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p>When using this feature you <strong>do not</strong> need to create an <tt class="docutils literal"><span class="pre">__init__.py</span></tt> file in
-the <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory. <tt class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></tt> and creating
-<tt class="docutils literal"><span class="pre">./lib/__init__.py</span></tt> are effectively equal alternatives.</p>
-<p>Instead of using <tt class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></tt>, you can add an empty
-<tt class="docutils literal"><span class="pre">__init__.py</span></tt> file to your <tt class="docutils literal"><span class="pre">lib</span></tt> subdirectory and import the libraries
+<p>When using this feature you <strong>do not</strong> need to create an <code class="docutils literal"><span class="pre">__init__.py</span></code> file in
+the <code class="docutils literal"><span class="pre">lib</span></code> subdirectory. <code class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code> and creating
+<code class="docutils literal"><span class="pre">./lib/__init__.py</span></code> are effectively equal alternatives.</p>
+<p>Instead of using <code class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code>, you can add an empty
+<code class="docutils literal"><span class="pre">__init__.py</span></code> file to your <code class="docutils literal"><span class="pre">lib</span></code> subdirectory and import the libraries
 installed therein using:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lib</span> <span class="kn">import</span> <span class="n">requests</span>
 </pre></div>
@@ -229,15 +239,16 @@ installed therein using:</p>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="persistent-data.html" class="btn btn-neutral float-right" title="Persistent data"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="persistent-data.html" class="btn btn-neutral float-right" title="Persistent data" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="setup.html" class="btn btn-neutral" title="Workflow setup and skeleton"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral" title="Workflow setup and skeleton" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -247,11 +258,13 @@ installed therein using:</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Dean Jackson.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
+
         </div>
       </div>
 

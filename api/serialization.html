@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Serialization &mdash; Alfred-Workflow 1.13 documentation</title>
@@ -17,7 +18,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   
   
@@ -28,6 +28,8 @@
   
   
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
   
 
   
@@ -50,7 +52,7 @@ the _static path in each subdirectory -->
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,51 +62,50 @@ the _static path in each subdirectory -->
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Alfred-Workflow API</a><ul class="current">
@@ -112,29 +113,25 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
 
-        
+            
+          
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -149,7 +146,13 @@ the _static path in each subdirectory -->
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -158,61 +161,64 @@ the _static path in each subdirectory -->
     <li>Serialization</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/api/serialization.txt" rel="nofollow"> View page source</a>
+          
+            <a href="../_sources/api/serialization.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="module-workflow">
 <span id="serialization"></span><span id="api-serialization"></span><h1>Serialization<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
-<p><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt> has
-<a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><em>several methods for storing persistent data</em></a>
+<p><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> has
+<a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><span>several methods for storing persistent data</span></a>
 to your workflow&#8217;s data and cache directories. By default these are stored as
-Python <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a> objects using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><tt class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></tt></a> (with
-the file extension <tt class="docutils literal"><span class="pre">.cpickle</span></tt>).</p>
+Python <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a> objects using <a class="reference internal" href="#workflow.workflow.CPickleSerializer" title="workflow.workflow.CPickleSerializer"><code class="xref py py-class docutils literal"><span class="pre">CPickleSerializer</span></code></a> (with
+the file extension <code class="docutils literal"><span class="pre">.cpickle</span></code>).</p>
 <p>You may, however, want to serialize your data in a different format, e.g. JSON,
 to make it user-readable/-editable or to interface with other software, and
-the <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><tt class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></tt></a> and data storage/caching APIs enable
+the <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><code class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></code></a> and data storage/caching APIs enable
 you to do this.</p>
 <p>For more information on how to change the default serializers, specify
 alternative ones and register new ones, see
-<a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><em>Persistent data</em></a> and <a class="reference internal" href="../user-manual/serialization.html#manual-serialization"><em>Serialization of stored/cached data</em></a> in the
-<a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a>.</p>
+<a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><span>Persistent data</span></a> and <a class="reference internal" href="../user-manual/serialization.html#manual-serialization"><span>Serialization of stored/cached data</span></a> in the
+<a class="reference internal" href="../user-manual/index.html#user-manual"><span>User Manual</span></a>.</p>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="workflow.workflow.SerializerManager">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">SerializerManager</tt><a class="headerlink" href="#workflow.workflow.SerializerManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">SerializerManager</code><a class="headerlink" href="#workflow.workflow.SerializerManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains registered serializers.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
 <p>A configured instance of this class is available at
-<tt class="docutils literal"><span class="pre">workflow.manager</span></tt>.</p>
-<p>Use <tt class="xref py py-meth docutils literal"><span class="pre">register()</span></tt> to register new (or replace
+<code class="docutils literal"><span class="pre">workflow.manager</span></code>.</p>
+<p>Use <code class="xref py py-meth docutils literal"><span class="pre">register()</span></code> to register new (or replace
 existing) serializers, which you can specify by name when calling
-<tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt> data storage methods.</p>
-<p>See <a class="reference internal" href="../user-manual/serialization.html#manual-serialization"><em>Serialization of stored/cached data</em></a> and <a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><em>Persistent data</em></a>
+<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> data storage methods.</p>
+<p>See <a class="reference internal" href="../user-manual/serialization.html#manual-serialization"><span>Serialization of stored/cached data</span></a> and <a class="reference internal" href="../user-manual/persistent-data.html#manual-persistent-data"><span>Persistent data</span></a>
 for further information.</p>
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.register">
-<tt class="descname">register</tt><big>(</big><em>name</em>, <em>serializer</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.register" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register <tt class="docutils literal"><span class="pre">serializer</span></tt> object under <tt class="docutils literal"><span class="pre">name</span></tt>.</p>
-<p>Raises <tt class="xref py py-class docutils literal"><span class="pre">AttributeError</span></tt> if <tt class="docutils literal"><span class="pre">serializer</span></tt> in invalid.</p>
+<code class="descname">register</code><span class="sig-paren">(</span><em>name</em>, <em>serializer</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.SerializerManager.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register <code class="docutils literal"><span class="pre">serializer</span></code> object under <code class="docutils literal"><span class="pre">name</span></code>.</p>
+<p>Raises <code class="xref py py-class docutils literal"><span class="pre">AttributeError</span></code> if <code class="docutils literal"><span class="pre">serializer</span></code> in invalid.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">name</span></tt> will be used as the file extension of the saved files.</p>
+<p class="last"><code class="docutils literal"><span class="pre">name</span></code> will be used as the file extension of the saved files.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name to register <tt class="docutils literal"><span class="pre">serializer</span></tt> under</li>
-<li><strong>serializer</strong> &#8211; object with <tt class="docutils literal"><span class="pre">load()</span></tt> and <tt class="docutils literal"><span class="pre">dump()</span></tt>
+<li><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name to register <code class="docutils literal"><span class="pre">serializer</span></code> under</li>
+<li><strong>serializer</strong> &#8211; object with <code class="docutils literal"><span class="pre">load()</span></code> and <code class="docutils literal"><span class="pre">dump()</span></code>
 methods</li>
 </ul>
 </td>
@@ -223,16 +229,16 @@ methods</li>
 
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.serializer">
-<tt class="descname">serializer</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.serializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return serializer object for <tt class="docutils literal"><span class="pre">name</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt> if no such
+<code class="descname">serializer</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.SerializerManager.serializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return serializer object for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">None</span></code> if no such
 serializer is registered</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name of serializer to return</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of serializer to return</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <code class="docutils literal"><span class="pre">None</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -240,21 +246,21 @@ serializer is registered</p>
 
 <dl class="attribute">
 <dt id="workflow.workflow.SerializerManager.serializers">
-<tt class="descname">serializers</tt><a class="headerlink" href="#workflow.workflow.SerializerManager.serializers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">serializers</code><a class="headerlink" href="#workflow.workflow.SerializerManager.serializers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return names of registered serializers</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.unregister">
-<tt class="descname">unregister</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.workflow.SerializerManager.unregister" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove registered serializer with <tt class="docutils literal"><span class="pre">name</span></tt></p>
-<p>Raises a <tt class="xref py py-class docutils literal"><span class="pre">ValueError</span></tt> if there is no such registered
+<code class="descname">unregister</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.SerializerManager.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove registered serializer with <code class="docutils literal"><span class="pre">name</span></code></p>
+<p>Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if there is no such registered
 serializer.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt> or <tt class="docutils literal"><span class="pre">str</span></tt>) &#8211; Name of serializer to remove</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of serializer to remove</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object</td>
 </tr>
@@ -266,18 +272,18 @@ serializer.</p>
 
 <dl class="class">
 <dt id="workflow.workflow.JSONSerializer">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">JSONSerializer</tt><a class="headerlink" href="#workflow.workflow.JSONSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">json</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">indent</span></tt> and <tt class="docutils literal"><span class="pre">encoding</span></tt>.</p>
+<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">JSONSerializer</code><a class="headerlink" href="#workflow.workflow.JSONSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">json</span></code></a>. Sets <code class="docutils literal"><span class="pre">indent</span></code> and <code class="docutils literal"><span class="pre">encoding</span></code>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
 <p>Use this serializer if you need readable data files. JSON doesn&#8217;t
-support Python objects as well as <tt class="docutils literal"><span class="pre">cPickle</span></tt>/<tt class="docutils literal"><span class="pre">pickle</span></tt>, so be
+support Python objects as well as <code class="docutils literal"><span class="pre">cPickle</span></code>/<code class="docutils literal"><span class="pre">pickle</span></code>, so be
 careful which data you try to serialize as JSON.</p>
 <dl class="classmethod">
 <dt id="workflow.workflow.JSONSerializer.dump">
-<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.JSONSerializer.dump" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serialize object <tt class="docutils literal"><span class="pre">obj</span></tt> to open JSON file.</p>
+<em class="property">classmethod </em><code class="descname">dump</code><span class="sig-paren">(</span><em>obj</em>, <em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.JSONSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize object <code class="docutils literal"><span class="pre">obj</span></code> to open JSON file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -287,7 +293,7 @@ careful which data you try to serialize as JSON.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>obj</strong> (<em>JSON-serializable data structure</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
 </ul>
 </td>
 </tr>
@@ -297,7 +303,7 @@ careful which data you try to serialize as JSON.</p>
 
 <dl class="classmethod">
 <dt id="workflow.workflow.JSONSerializer.load">
-<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.JSONSerializer.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.JSONSerializer.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load serialized object from open JSON file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
@@ -306,11 +312,11 @@ careful which data you try to serialize as JSON.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from JSON file</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)">object</a></td>
 </tr>
 </tbody>
 </table>
@@ -320,8 +326,8 @@ careful which data you try to serialize as JSON.</p>
 
 <dl class="class">
 <dt id="workflow.workflow.CPickleSerializer">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">CPickleSerializer</tt><a class="headerlink" href="#workflow.workflow.CPickleSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">CPickleSerializer</code><a class="headerlink" href="#workflow.workflow.CPickleSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">cPickle</span></code></a>. Sets <code class="docutils literal"><span class="pre">protocol</span></code>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -329,8 +335,8 @@ careful which data you try to serialize as JSON.</p>
 flexibility.</p>
 <dl class="classmethod">
 <dt id="workflow.workflow.CPickleSerializer.dump">
-<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.CPickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serialize object <tt class="docutils literal"><span class="pre">obj</span></tt> to open pickle file.</p>
+<em class="property">classmethod </em><code class="descname">dump</code><span class="sig-paren">(</span><em>obj</em>, <em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.CPickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize object <code class="docutils literal"><span class="pre">obj</span></code> to open pickle file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -340,7 +346,7 @@ flexibility.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>obj</strong> (<em>Python object</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
 </ul>
 </td>
 </tr>
@@ -350,7 +356,7 @@ flexibility.</p>
 
 <dl class="classmethod">
 <dt id="workflow.workflow.CPickleSerializer.load">
-<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.CPickleSerializer.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.CPickleSerializer.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load serialized object from open pickle file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
@@ -359,11 +365,11 @@ flexibility.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from pickle file</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)">object</a></td>
 </tr>
 </tbody>
 </table>
@@ -373,16 +379,16 @@ flexibility.</p>
 
 <dl class="class">
 <dt id="workflow.workflow.PickleSerializer">
-<em class="property">class </em><tt class="descclassname">workflow.workflow.</tt><tt class="descname">PickleSerializer</tt><a class="headerlink" href="#workflow.workflow.PickleSerializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">pickle</span></tt></a>. Sets <tt class="docutils literal"><span class="pre">protocol</span></tt>.</p>
+<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">PickleSerializer</code><a class="headerlink" href="#workflow.workflow.PickleSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html#module-pickle" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a>. Sets <code class="docutils literal"><span class="pre">protocol</span></code>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
 <p>Use this serializer if you need to add custom pickling.</p>
 <dl class="classmethod">
 <dt id="workflow.workflow.PickleSerializer.dump">
-<em class="property">classmethod </em><tt class="descname">dump</tt><big>(</big><em>obj</em>, <em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.PickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serialize object <tt class="docutils literal"><span class="pre">obj</span></tt> to open pickle file.</p>
+<em class="property">classmethod </em><code class="descname">dump</code><span class="sig-paren">(</span><em>obj</em>, <em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.PickleSerializer.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize object <code class="docutils literal"><span class="pre">obj</span></code> to open pickle file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -392,7 +398,7 @@ flexibility.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>obj</strong> (<em>Python object</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
 </ul>
 </td>
 </tr>
@@ -402,7 +408,7 @@ flexibility.</p>
 
 <dl class="classmethod">
 <dt id="workflow.workflow.PickleSerializer.load">
-<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>file_obj</em><big>)</big><a class="headerlink" href="#workflow.workflow.PickleSerializer.load" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>file_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.PickleSerializer.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load serialized object from open pickle file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
@@ -411,11 +417,11 @@ flexibility.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<tt class="docutils literal"><span class="pre">file</span></tt> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from pickle file</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)">object</a></td>
 </tr>
 </tbody>
 </table>
@@ -427,15 +433,16 @@ flexibility.</p>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../xml_format.html" class="btn btn-neutral float-right" title="Script Filter Results and the XML Format"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../xml_format.html" class="btn btn-neutral float-right" title="Script Filter Results and the XML Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="update.html" class="btn btn-neutral" title="Self-Updating"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="update.html" class="btn btn-neutral" title="Self-Updating" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -445,11 +452,13 @@ flexibility.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Dean Jackson.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
+
         </div>
       </div>
 

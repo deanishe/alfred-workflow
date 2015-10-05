@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Self-updating &mdash; Alfred-Workflow 1.13 documentation</title>
@@ -17,7 +18,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   
   
@@ -28,6 +28,8 @@
   
   
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
   
 
   
@@ -50,7 +52,7 @@ the _static path in each subdirectory -->
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,33 +62,47 @@ the _static path in each subdirectory -->
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
@@ -97,7 +113,14 @@ the _static path in each subdirectory -->
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Self-updating</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Self-updating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#github-releases">GitHub releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#under-the-hood">Under the hood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-numbers">Version numbers</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
@@ -107,34 +130,19 @@ the _static path in each subdirectory -->
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/background.html">Background Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/index.html#index">Index</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
 
-        
+            
+          
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -149,7 +157,13 @@ the _static path in each subdirectory -->
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -158,13 +172,16 @@ the _static path in each subdirectory -->
     <li>Self-updating</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/user-manual/update.txt" rel="nofollow"> View page source</a>
+          
+            <a href="../_sources/user-manual/update.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="self-updating">
 <span id="manual-updates"></span><h1>Self-updating<a class="headerlink" href="#self-updating" title="Permalink to this headline">¶</a></h1>
@@ -175,9 +192,9 @@ the _static path in each subdirectory -->
 by default) fetches the latest releases from the specified GitHub repository
 and then asks the user if they want to update the workflow if a newer version
 is available.</p>
-<p>Users can turn off automatic checks for updates with the <tt class="docutils literal"><span class="pre">workflow:noautoupdate</span></tt>
-<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a> and back on again with
-<tt class="docutils literal"><span class="pre">workflow:autoupdate</span></tt>.</p>
+<p>Users can turn off automatic checks for updates with the <code class="docutils literal"><span class="pre">workflow:noautoupdate</span></code>
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic argument</span></a> and back on again with
+<code class="docutils literal"><span class="pre">workflow:autoupdate</span></code>.</p>
 <div class="admonition danger">
 <p class="first admonition-title">Danger</p>
 <p class="last">If you are not careful, you might accidentally overwrite a local version of
@@ -189,26 +206,26 @@ changes.</p>
 <div class="section" id="github-releases">
 <h2>GitHub releases<a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h2>
 <p>For your workflow to be able to recognise and download newer versions, the
-<tt class="docutils literal"><span class="pre">version</span></tt> value you pass to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> <em>should</em>
+<code class="docutils literal"><span class="pre">version</span></code> value you pass to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> <em>should</em>
 be one of the versions (i.e. tags) in the corresponding GitHub repo&#8217;s
-releases list. See <a class="reference internal" href="versioning.html#version-numbers"><em>Version numbers</em></a> for more information.</p>
-<p>There must be <strong>one (and only one)</strong> <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> binary attached to a
+releases list. See <a class="reference internal" href="versioning.html#version-numbers"><span>Version numbers</span></a> for more information.</p>
+<p>There must be <strong>one (and only one)</strong> <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> binary attached to a
 release otherwise the release will be ignored. This is the file that will be
 downloaded and installed via Alfred&#8217;s default installation mechanism.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Releases marked as <tt class="docutils literal"><span class="pre">pre-release</span></tt> on GitHub will be ignored.</p>
+<p class="last">Releases marked as <code class="docutils literal"><span class="pre">pre-release</span></code> on GitHub will be ignored.</p>
 </div>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>To use self-updating, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> as the <tt class="docutils literal"><span class="pre">update_settings</span></tt>
-argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>. It <strong>must</strong> have the key/value
-pair <tt class="docutils literal"><span class="pre">github_slug</span></tt>, which is your username and the name of the
-workflow&#8217;s repo in the format <tt class="docutils literal"><span class="pre">username/reponame</span></tt>. The version of the currently
+<p>To use self-updating, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> as the <code class="docutils literal"><span class="pre">update_settings</span></code>
+argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>. It <strong>must</strong> have the key/value
+pair <code class="docutils literal"><span class="pre">github_slug</span></code>, which is your username and the name of the
+workflow&#8217;s repo in the format <code class="docutils literal"><span class="pre">username/reponame</span></code>. The version of the currently
 installed workflow must also be specified. You can do this in the
-<tt class="docutils literal"><span class="pre">update_settings</span></tt> dict or in a <tt class="docutils literal"><span class="pre">version</span></tt> file in the root of your workflow
-(next to <tt class="docutils literal"><span class="pre">info.plist</span></tt>), e.g.:</p>
+<code class="docutils literal"><span class="pre">update_settings</span></code> dict or in a <code class="docutils literal"><span class="pre">version</span></code> file in the root of your workflow
+(next to <code class="docutils literal"><span class="pre">info.plist</span></code>), e.g.:</p>
 <div class="highlight-python" id="update-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -254,8 +271,8 @@ installed workflow must also be specified. You can do this in the
     <span class="n">wf</span><span class="o">.</span><span class="n">start_update</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>Or alternatively, create a <tt class="docutils literal"><span class="pre">version</span></tt> file in the root directory or your
-workflow alongside <tt class="docutils literal"><span class="pre">info.plist</span></tt>:</p>
+<p>Or alternatively, create a <code class="docutils literal"><span class="pre">version</span></code> file in the root directory or your
+workflow alongside <code class="docutils literal"><span class="pre">info.plist</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>Your Workflow/
     icon.png
     info.plist
@@ -266,12 +283,12 @@ workflow alongside <tt class="docutils literal"><span class="pre">info.plist</sp
         ...
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">version</span></tt> file should be plain text with no file extension and contain
+<p>The <code class="docutils literal"><span class="pre">version</span></code> file should be plain text with no file extension and contain
 nothing but the version string, e.g.:</p>
 <div class="highlight-python"><div class="highlight"><pre>1.2.5
 </pre></div>
 </div>
-<p>Using a <tt class="docutils literal"><span class="pre">version</span></tt> file:</p>
+<p>Using a <code class="docutils literal"><span class="pre">version</span></code> file:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -306,7 +323,7 @@ nothing but the version string, e.g.:</p>
 </pre></div>
 </td></tr></table></div>
 <p>You <strong>must</strong> use semantic version numbering. Please see
-<a class="reference internal" href="versioning.html#manual-versioning"><em>Versioning and migration</em></a> for detailed information on the required version
+<a class="reference internal" href="versioning.html#manual-versioning"><span>Versioning and migration</span></a> for detailed information on the required version
 number format and associated features.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -318,15 +335,15 @@ the     user nor download and install the update.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>You can just leave it up to the user to check update status and install new
-versions manually using the <tt class="docutils literal"><span class="pre">workflow:update</span></tt>
-<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a> in a Script Filter, or you could roll
+versions manually using the <code class="docutils literal"><span class="pre">workflow:update</span></code>
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic argument</span></a> in a Script Filter, or you could roll
 your own update handling using
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
-and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></tt></a>
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></code></a>
+and <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></code></a>
 to check for and install newer versions respectively.</p>
 <p>The simplest way, however, is usually to add an update notification to the top
 of your Script Filter&#8217;s results that triggers Alfred-Workflow&#8217;s
-<tt class="docutils literal"><span class="pre">workflow:update</span></tt> magic argument:</p>
+<code class="docutils literal"><span class="pre">workflow:update</span></code> magic argument:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -350,49 +367,50 @@ of your Script Filter&#8217;s results that triggers Alfred-Workflow&#8217;s
 <span class="o">...</span>
 </pre></div>
 </td></tr></table></div>
-<p>By adding an <tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt> with <tt class="docutils literal"><span class="pre">valid=False</span></tt> and
-<tt class="docutils literal"><span class="pre">autocomplete='workflow:update'</span></tt>, Alfred&#8217;s query will be expanded to
-<tt class="docutils literal"><span class="pre">workflow:update</span></tt> when a user actions the item, which is a
-<a class="reference internal" href="magic-arguments.html#magic-arguments"><em>magic argument</em></a> that will in turn prompt
+<p>By adding an <code class="xref py py-class docutils literal"><span class="pre">Item</span></code> with <code class="docutils literal"><span class="pre">valid=False</span></code> and
+<code class="docutils literal"><span class="pre">autocomplete='workflow:update'</span></code>, Alfred&#8217;s query will be expanded to
+<code class="docutils literal"><span class="pre">workflow:update</span></code> when a user actions the item, which is a
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic argument</span></a> that will in turn prompt
 Alfred-Workflow to download and install the update.</p>
 </div>
 <div class="section" id="under-the-hood">
 <h2>Under the hood<a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><tt class="xref py py-meth docutils literal"><span class="pre">check_update()</span></tt></a> method is called
-automatically when you call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><tt class="xref py py-class docutils literal"><span class="pre">Workflow.run</span></tt></a>
+<p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><code class="xref py py-meth docutils literal"><span class="pre">check_update()</span></code></a> method is called
+automatically when you call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><code class="xref py py-class docutils literal"><span class="pre">Workflow.run</span></code></a>
 If sufficient time has elapsed since the last check (1 day by default), it
 starts a background process that checks for new releases. You can alter the
-update interval with the optional <tt class="docutils literal"><span class="pre">frequency</span></tt> key in <tt class="docutils literal"><span class="pre">update_settings</span></tt>
-<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> (see the <a class="reference internal" href="#update-example"><em>example above</em></a>).</p>
-<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><tt class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></tt></a>
-is <tt class="docutils literal"><span class="pre">True</span></tt> if an update is available, and <tt class="docutils literal"><span class="pre">False</span></tt> otherwise.</p>
-<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></tt></a>
-returns <tt class="docutils literal"><span class="pre">False</span></tt> if no update is available, or if one is, it will return
-<tt class="docutils literal"><span class="pre">True</span></tt>, then download the newer version and tell Alfred to install it in
+update interval with the optional <code class="docutils literal"><span class="pre">frequency</span></code> key in <code class="docutils literal"><span class="pre">update_settings</span></code>
+<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> (see the <a class="reference internal" href="#update-example"><span>example above</span></a>).</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></code></a>
+is <code class="docutils literal"><span class="pre">True</span></code> if an update is available, and <code class="docutils literal"><span class="pre">False</span></code> otherwise.</p>
+<p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.start_update" title="workflow.workflow.Workflow.start_update"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.start_update()</span></code></a>
+returns <code class="docutils literal"><span class="pre">False</span></code> if no update is available, or if one is, it will return
+<code class="docutils literal"><span class="pre">True</span></code>, then download the newer version and tell Alfred to install it in
 the background.</p>
 <p>If you want more control over the update mechanism, you can use
-<a class="reference internal" href="../api/update.html#workflow.update.check_update" title="workflow.update.check_update"><tt class="xref py py-func docutils literal"><span class="pre">update.check_update()</span></tt></a> directly.
+<a class="reference internal" href="../api/update.html#workflow.update.check_update" title="workflow.update.check_update"><code class="xref py py-func docutils literal"><span class="pre">update.check_update()</span></code></a> directly.
 It caches information on the latest available release under the cache key
-<tt class="docutils literal"><span class="pre">__workflow_update_status</span></tt>, which you can access via
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a>.</p>
+<code class="docutils literal"><span class="pre">__workflow_update_status</span></code>, which you can access via
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>.</p>
 </div>
 <div class="section" id="version-numbers">
 <h2>Version numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
-<p>Please see <a class="reference internal" href="versioning.html#manual-versioning"><em>Versioning and migration</em></a> for detailed information on the required
+<p>Please see <a class="reference internal" href="versioning.html#manual-versioning"><span>Versioning and migration</span></a> for detailed information on the required
 version number format and associated features.</p>
 </div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="versioning.html" class="btn btn-neutral float-right" title="Versioning and migration"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="versioning.html" class="btn btn-neutral float-right" title="Versioning and migration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="background.html" class="btn btn-neutral" title="Background processes"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="background.html" class="btn btn-neutral" title="Background processes" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -402,11 +420,13 @@ version number format and associated features.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Dean Jackson.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
+
         </div>
       </div>
 

@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Self-Updating &mdash; Alfred-Workflow 1.13 documentation</title>
@@ -17,7 +18,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   
   
@@ -28,6 +28,8 @@
   
   
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
   
 
   
@@ -50,7 +52,7 @@ the _static path in each subdirectory -->
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,81 +62,76 @@ the _static path in each subdirectory -->
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Alfred-Workflow API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Self-Updating</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Self-Updating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-workflow.update">API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
 
-        
+            
+          
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -149,7 +146,13 @@ the _static path in each subdirectory -->
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -158,13 +161,16 @@ the _static path in each subdirectory -->
     <li>Self-Updating</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/api/update.txt" rel="nofollow"> View page source</a>
+          
+            <a href="../_sources/api/update.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="self-updating">
 <span id="updates"></span><h1>Self-Updating<a class="headerlink" href="#self-updating" title="Permalink to this headline">¶</a></h1>
@@ -181,7 +187,7 @@ are supported.</p>
 <p class="last">Alfred-Workflow will check for updates, but will neither install them nor
 notify the user that an update is available.</p>
 </div>
-<p>Please see <a class="reference internal" href="../user-manual/update.html#manual-updates"><em>Self-updating</em></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><em>User Manual</em></a> for information
+<p>Please see <a class="reference internal" href="../user-manual/update.html#manual-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><span>User Manual</span></a> for information
 on how to enable automatic updates in your workflow.</p>
 <div class="section" id="module-workflow.update">
 <span id="api"></span><h2>API<a class="headerlink" href="#module-workflow.update" title="Permalink to this headline">¶</a></h2>
@@ -192,25 +198,25 @@ on how to enable automatic updates in your workflow.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This module is not intended to be used directly. Automatic updates
-are controlled by the <tt class="docutils literal"><span class="pre">update_settings</span></tt> <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> passed to
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a> objects.</p>
+are controlled by the <code class="docutils literal"><span class="pre">update_settings</span></code> <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> passed to
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> objects.</p>
 </div>
 <dl class="class">
 <dt id="workflow.update.Version">
-<em class="property">class </em><tt class="descclassname">workflow.update.</tt><tt class="descname">Version</tt><big>(</big><em>vstr</em><big>)</big><a class="headerlink" href="#workflow.update.Version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">workflow.update.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>vstr</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Mostly semantic versioning</p>
-<p>The main difference to proper <a class="reference internal" href="../user-manual/versioning.html#semver"><em>semantic versioning</em></a>
+<p>The main difference to proper <a class="reference internal" href="../user-manual/versioning.html#semver"><span>semantic versioning</span></a>
 is that this implementation doesn&#8217;t require a minor or patch version.</p>
-<dl class="staticmethod">
+<dl class="method">
 <dt id="workflow.update.Version.match_version">
-<em class="property">static </em><tt class="descname">match_version</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.update.Version.match_version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">match_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.match_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Match version and pre-release/build information in version strings</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.update.Version.tuple">
-<tt class="descname">tuple</tt><a class="headerlink" href="#workflow.update.Version.tuple" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tuple</code><a class="headerlink" href="#workflow.update.Version.tuple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return version number as a tuple of major, minor, patch, pre-release</p>
 </dd></dl>
 
@@ -218,13 +224,13 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 
 <dl class="function">
 <dt id="workflow.update.build_api_url">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">build_api_url</tt><big>(</big><em>slug</em><big>)</big><a class="headerlink" href="#workflow.update.build_api_url" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.update.</code><code class="descname">build_api_url</code><span class="sig-paren">(</span><em>slug</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.build_api_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate releases URL from GitHub slug</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slug</strong> &#8211; Repo name in form <tt class="docutils literal"><span class="pre">username/repo</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slug</strong> &#8211; Repo name in form <code class="docutils literal"><span class="pre">username/repo</span></code></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">URL to the API endpoint for the repo&#8217;s releases</td>
 </tr>
@@ -234,20 +240,20 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 
 <dl class="function">
 <dt id="workflow.update.check_update">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">check_update</tt><big>(</big><em>github_slug</em>, <em>current_version</em><big>)</big><a class="headerlink" href="#workflow.update.check_update" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.update.</code><code class="descname">check_update</code><span class="sig-paren">(</span><em>github_slug</em>, <em>current_version</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.check_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check whether a newer release is available on GitHub</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>github_slug</strong> &#8211; <tt class="docutils literal"><span class="pre">username/repo</span></tt> for workflow&#8217;s GitHub repo</li>
-<li><strong>current_version</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; the currently installed version of the
-workflow. <a class="reference internal" href="../user-manual/versioning.html#semver"><em>Semantic versioning</em></a> is required.</li>
+<li><strong>github_slug</strong> &#8211; <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow&#8217;s GitHub repo</li>
+<li><strong>current_version</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; the currently installed version of the
+workflow. <a class="reference internal" href="../user-manual/versioning.html#semver"><span>Semantic versioning</span></a> is required.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">True</span></tt> if an update is available, else <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">True</span></code> if an update is available, else <code class="docutils literal"><span class="pre">False</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -258,8 +264,8 @@ be cached.</p>
 
 <dl class="function">
 <dt id="workflow.update.download_workflow">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">download_workflow</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#workflow.update.download_workflow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download workflow at <tt class="docutils literal"><span class="pre">url</span></tt> to a local temporary file</p>
+<code class="descclassname">workflow.update.</code><code class="descname">download_workflow</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.download_workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download workflow at <code class="docutils literal"><span class="pre">url</span></code> to a local temporary file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -274,36 +280,36 @@ be cached.</p>
 
 <dl class="function">
 <dt id="workflow.update.get_valid_releases">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">get_valid_releases</tt><big>(</big><em>github_slug</em><big>)</big><a class="headerlink" href="#workflow.update.get_valid_releases" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.update.</code><code class="descname">get_valid_releases</code><span class="sig-paren">(</span><em>github_slug</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.get_valid_releases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of all valid releases</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>github_slug</strong> &#8211; <tt class="docutils literal"><span class="pre">username/repo</span></tt> for workflow&#8217;s GitHub repo</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>github_slug</strong> &#8211; <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow&#8217;s GitHub repo</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of dicts. Each <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> has the form
-<tt class="docutils literal"><span class="pre">{'version':</span> <span class="pre">'1.1',</span> <span class="pre">'download_url':</span> <span class="pre">'http://github.com/...'}</span></tt></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of dicts. Each <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> has the form
+<code class="docutils literal"><span class="pre">{'version':</span> <span class="pre">'1.1',</span> <span class="pre">'download_url':</span> <span class="pre">'http://github.com/...'}</span></code></td>
 </tr>
 </tbody>
 </table>
-<p>A valid release is one that contains one <tt class="docutils literal"><span class="pre">.alfredworkflow</span></tt> file.</p>
-<p>If the GitHub version (i.e. tag) is of the form <tt class="docutils literal"><span class="pre">v1.1</span></tt>, the leading
-<tt class="docutils literal"><span class="pre">v</span></tt> will be stripped.</p>
+<p>A valid release is one that contains one <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> file.</p>
+<p>If the GitHub version (i.e. tag) is of the form <code class="docutils literal"><span class="pre">v1.1</span></code>, the leading
+<code class="docutils literal"><span class="pre">v</span></code> will be stripped.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="workflow.update.install_update">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">install_update</tt><big>(</big><em>github_slug</em>, <em>current_version</em><big>)</big><a class="headerlink" href="#workflow.update.install_update" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.update.</code><code class="descname">install_update</code><span class="sig-paren">(</span><em>github_slug</em>, <em>current_version</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.install_update" title="Permalink to this definition">¶</a></dt>
 <dd><p>If a newer release is available, download and install it</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>github_slug</strong> &#8211; <tt class="docutils literal"><span class="pre">username/repo</span></tt> for workflow&#8217;s GitHub repo</li>
-<li><strong>current_version</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) &#8211; the currently installed version of the
-workflow. <a class="reference internal" href="../user-manual/versioning.html#semver"><em>Semantic versioning</em></a> is required.</li>
+<li><strong>github_slug</strong> &#8211; <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow&#8217;s GitHub repo</li>
+<li><strong>current_version</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; the currently installed version of the
+workflow. <a class="reference internal" href="../user-manual/versioning.html#semver"><span>Semantic versioning</span></a> is required.</li>
 </ul>
 </td>
 </tr>
@@ -314,7 +320,7 @@ workflow. <a class="reference internal" href="../user-manual/versioning.html#sem
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if an update is installed, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if an update is installed, else <code class="docutils literal"><span class="pre">False</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -322,22 +328,23 @@ workflow. <a class="reference internal" href="../user-manual/versioning.html#sem
 
 <dl class="function">
 <dt id="workflow.update.wf">
-<tt class="descclassname">workflow.update.</tt><tt class="descname">wf</tt><big>(</big><big>)</big><a class="headerlink" href="#workflow.update.wf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.update.</code><code class="descname">wf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.wf" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="serialization.html" class="btn btn-neutral float-right" title="Serialization"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="serialization.html" class="btn btn-neutral float-right" title="Serialization" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="background.html" class="btn btn-neutral" title="Background Tasks"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="background.html" class="btn btn-neutral" title="Background Tasks" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -347,11 +354,13 @@ workflow. <a class="reference internal" href="../user-manual/versioning.html#sem
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Dean Jackson.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
 </footer>
+
         </div>
       </div>
 

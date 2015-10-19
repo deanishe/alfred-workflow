@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #
-# Copyright © 2014 Fabio Niephaus <fabio.niephaus@gmail.com>,
-# Dean Jackson <deanishe@deanishe.net>
+# Copyright (c) 2014 Fabio Niephaus <fabio.niephaus@gmail.com>,
+#       Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #

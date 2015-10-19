@@ -1477,7 +1477,7 @@ class Workflow(object):
             logfile = logging.handlers.RotatingFileHandler(
                 self.logfile,
                 maxBytes=1024*1024,
-                backupCount=0)
+                backupCount=1)
 
             console = logging.StreamHandler()
 

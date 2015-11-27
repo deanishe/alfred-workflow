@@ -445,17 +445,17 @@ class AcquisitionError(Exception):
 
 
 class KeychainError(Exception):
-    """Raised by methods :meth:`Workflow.save_password`,
+    """Raised for unknown Keychain errors.
+
+    Raised by methods :meth:`Workflow.save_password`,
     :meth:`Workflow.get_password` and :meth:`Workflow.delete_password`
     when ``security`` CLI app returns an unknown error code.
-
     """
 
 
 class PasswordNotFound(KeychainError):
     """Raised by method :meth:`Workflow.get_password` when ``account``
     is unknown to the Keychain.
-
     """
 
 
@@ -465,7 +465,6 @@ class PasswordExists(KeychainError):
     You should never receive this error: it is used internally
     by the :meth:`Workflow.save_password` method to know if it needs
     to delete the old password first (a Keychain implementation detail).
-
     """
 
 
@@ -474,7 +473,7 @@ class PasswordExists(KeychainError):
 ####################################################################
 
 def isascii(text):
-    """Test if ``text`` contains only ASCII characters
+    """Test if ``text`` contains only ASCII characters.
 
     :param text: text to test for ASCII-ness
     :type text: ``unicode``
@@ -511,6 +510,7 @@ class SerializerManager(object):
     """
 
     def __init__(self):
+        """Create new SerializerManager object."""
         self._serializers = {}
 
     def register(self, name, serializer):
@@ -536,19 +536,19 @@ class SerializerManager(object):
         self._serializers[name] = serializer
 
     def serializer(self, name):
-        """Return serializer object for ``name`` or ``None`` if no such
-        serializer is registered
+        """Return serializer object for ``name``.
 
         :param name: Name of serializer to return
         :type name: ``unicode`` or ``str``
-        :returns: serializer object or ``None``
+        :returns: serializer object or ``None`` if no such serializer
+            is registered.
 
         """
 
         return self._serializers.get(name)
 
     def unregister(self, name):
-        """Remove registered serializer with ``name``
+        """Remove registered serializer with ``name``.
 
         Raises a :class:`ValueError` if there is no such registered
         serializer.
@@ -560,7 +560,8 @@ class SerializerManager(object):
         """
 
         if name not in self._serializers:
-            raise ValueError('No such serializer registered : {0}'.format(name))
+            raise ValueError('No such serializer registered : {0}'.format(
+                             name))
 
         serializer = self._serializers[name]
         del self._serializers[name]
@@ -569,7 +570,7 @@ class SerializerManager(object):
 
     @property
     def serializers(self):
-        """Return names of registered serializers"""
+        """Return names of registered serializers."""
         return sorted(self._serializers.keys())
 
 
@@ -704,8 +705,9 @@ manager.register('json', JSONSerializer)
 
 
 class Item(object):
-    """Represents a feedback item for Alfred. Generates Alfred-compliant
-    XML for a single item.
+    """Represents a feedback item for Alfred.
+
+    Generates Alfred-compliant XML for a single item.
 
     You probably shouldn't use this class directly, but via
     :meth:`Workflow.add_item`. See :meth:`~Workflow.add_item`
@@ -796,9 +798,10 @@ class Item(object):
 
 
 class LockFile(object):
-    """Context manager to create lock files"""
+    """Context manager to create lock files."""
 
     def __init__(self, protected_path, timeout=0, delay=0.05):
+        """Create new :class:`LockFile` object."""
         self.lockfile = protected_path + '.lock'
         self.timeout = timeout
         self.delay = delay

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 rootdir=$(cd $(dirname $0)/../; pwd)
-zipfile="alfred-workflow.zip"
+version=$(cat "${rootdir}/workflow/version")
+zipfile="alfred-workflow-${version}.zip"
 sourcedir="workflow"
 
 function help() {
@@ -27,9 +28,6 @@ case "$1" in
 	*)
 		;;
 esac
-
-# echo "\$rootdir : ${rootdir}	\$zipfile : ${zipfile}	\$sourcedir : ${sourcedir}"
-# exit 0
 
 cd "${rootdir}"
 

@@ -23,6 +23,7 @@ from workflow import Workflow, update
 from workflow.background import is_running
 
 RELEASE_LATEST = '6.0'
+RELEASE_LATEST_PRERELEASE = '7.1-beta'
 RELEASE_OLDEST = '1.0'
 # Use this as current version
 RELEASE_CURRENT = '2.0'
@@ -103,12 +104,33 @@ class UpdateTests(unittest.TestCase):
         self.assertEquals(update.Version(releases[0]['version']),
                           update.Version(RELEASE_LATEST))
 
+    def test_valid_releases_with_prereleases(self):
+        """Update: valid releases with prereleases"""
+
+        releases = update.get_valid_releases(TEST_REPO_SLUG, prerelease=True)
+
+        # Right number of valid releases
+        self.assertEquals(len(releases), 4)
+
+        # Invalid releases are not in list
+        versions = [d['version'] for d in releases]
+        for v in RELEASES_INVALID:
+            self.assertFalse(v in versions)
+
+        # Correct latest release
+        self.assertEquals(update.Version(releases[0]['version']),
+                          update.Version(RELEASE_LATEST_PRERELEASE))
+
     def test_version_formats(self):
         """Update: version formats"""
 
         # Up-to-date versions
         self.assertFalse(update.check_update(TEST_REPO_SLUG, '6.0'))
         self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v6.0'))
+
+        # Up-to-date pre-release versions
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, '7.1-beta', prerelease=True))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v7.1-beta', prerelease=True))
 
         # Old versions
         self.assertTrue(update.check_update(TEST_REPO_SLUG, 'v5.0'))
@@ -119,13 +141,23 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(update.check_update(TEST_REPO_SLUG, '8.0'))
 
     def test_check_update(self):
-        """Update: Check update"""
+        """Update: Check update with prereleases"""
 
         self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT))
 
         update_info = self.wf.cached_data('__workflow_update_status')
         self.assertFalse(update.check_update(TEST_REPO_SLUG,
                                              update_info['version']))
+
+    def test_check_update_with_prereleases(self):
+        """Update: Check update"""
+
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prerelease=True))
+
+        update_info = self.wf.cached_data('__workflow_update_status')
+        self.assertFalse(update.check_update(TEST_REPO_SLUG,
+                                             update_info['version'],
+                                             prerelease=True))
 
     def test_install_update(self):
         """Update: installs update"""
@@ -226,6 +258,61 @@ class UpdateTests(unittest.TestCase):
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': update_info['version'],
+        })
+
+        wf.run(fake)
+
+        # Wait for background update check
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
+            time.sleep(0.05)
+
+        # Remote version is same as the one we passed to Workflow
+        self.assertFalse(wf.update_available)
+        self.assertFalse(wf.start_update())
+
+        wf.reset()
+
+        # Initialise with outdated version allowing prerelease updates
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'prerelease': True,
+            'frequency': 1,
+        })
+
+        wf.run(fake)
+
+        # Check won't have completed yet
+        self.assertFalse(wf.update_available)
+
+        # wait for background update check
+        self.assertTrue(is_running('__workflow_update_check'))
+        while is_running('__workflow_update_check'):
+            time.sleep(0.05)
+        time.sleep(1)
+
+        # There *is* a newer version in the repo
+        self.assertTrue(wf.update_available)
+
+        # Mock out subprocess and check the correct command is run
+        c = WorkflowMock()
+        with c:
+            self.assertTrue(wf.start_update())
+        # wf.logger.debug('start_update : {}'.format(c.cmd))
+        self.assertEquals(c.cmd[0], '/usr/bin/python')
+        self.assertEquals(c.cmd[2], '__workflow_update_install')
+
+        # Grab the updated release data, then reset the cache
+        update_info = wf.cached_data('__workflow_update_status')
+
+        wf.reset()
+
+        # Initialise with latest available prerelease
+        wf = Workflow(update_settings={
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': update_info['version'],
+            'prerelease': True
         })
 
         wf.run(fake)

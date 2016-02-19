@@ -1029,7 +1029,9 @@ class Workflow(object):
         :param update_settings: settings for updating your workflow from GitHub.
             This must be a :class:`dict` that contains ``github_slug`` and
             ``version`` keys. ``github_slug`` is of the form ``username/repo``
-            and ``version`` **must** correspond to the tag of a release.
+            and ``version`` **must** correspond to the tag of a release. The
+            boolean ``prerelease`` key is optional; by default prereleases are
+            ignored.
             See :ref:`updates` for more information.
         :type update_settings: :class:`dict`
         :param input_encoding: encoding of command line arguments
@@ -2381,6 +2383,7 @@ class Workflow(object):
                 '__workflow_update_status', frequency * 86400)):
 
             github_slug = self._update_settings['github_slug']
+            prerelease = str(int(bool(self._update_settings.get('prerelease'))))
             # version = self._update_settings['version']
             version = str(self.version)
 
@@ -2391,7 +2394,7 @@ class Workflow(object):
                                          b'update.py')
 
             cmd = ['/usr/bin/python', update_script, 'check', github_slug,
-                   version]
+                   version, prerelease]
 
             self.logger.info('Checking for update ...')
 
@@ -2416,10 +2419,11 @@ class Workflow(object):
         import update
 
         github_slug = self._update_settings['github_slug']
+        prerelease = int(bool(self._update_settings.get('prerelease')))
         # version = self._update_settings['version']
         version = str(self.version)
 
-        if not update.check_update(github_slug, version):
+        if not update.check_update(github_slug, version, prerelease):
             return False
 
         from background import run_in_background
@@ -2429,7 +2433,7 @@ class Workflow(object):
                                      b'update.py')
 
         cmd = ['/usr/bin/python', update_script, 'install', github_slug,
-               version]
+               version, prerelease]
 
         self.logger.debug('Downloading update ...')
         run_in_background('__workflow_update_install', cmd)

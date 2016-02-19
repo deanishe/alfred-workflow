@@ -472,7 +472,6 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     """
 
     # TODO: cookies
-    # TODO: any way to force GET or POST?
     socket.setdefaulttimeout(timeout)
 
     # Default handlers
@@ -507,6 +506,10 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
         encodings.append('gzip')
 
     headers['accept-encoding'] = ', '.join(encodings)
+
+    # Force a POST by providing an empty data string
+    if method == 'POST' and not data:
+        data = ''
 
     if files:
         if not data:

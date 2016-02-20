@@ -2419,7 +2419,7 @@ class Workflow(object):
         import update
 
         github_slug = self._update_settings['github_slug']
-        prerelease = int(bool(self._update_settings.get('prerelease')))
+        prerelease = str(int(bool(self._update_settings.get('prerelease'))))
         # version = self._update_settings['version']
         version = str(self.version)
 

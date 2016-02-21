@@ -7,3 +7,5 @@ temp_*.py
 /dist
 /dbfilter.py
 /pinboard.json
+.tox
+*.egg-info

@@ -200,6 +200,7 @@ class Response(object):
         self.url = None
         self.raw = None
         self._encoding = None
+        self.mimetype = None
         self.error = None
         self.status_code = None
         self.reason = None
@@ -281,8 +282,10 @@ class Response(object):
                 decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
                 self._content = decoder.decompress(self.raw.read())
 
-            else:
+            elif self.raw:
                 self._content = self.raw.read()
+            else:
+                self._content = ''
 
         return self._content
 
@@ -387,41 +390,44 @@ class Response(object):
 
         """
 
-        headers = self.raw.info()
         encoding = None
 
-        if headers.getparam('charset'):
-            encoding = headers.getparam('charset')
+        if self.raw:
+            headers = self.raw.info()
 
-        # HTTP Content-Type header
-        for param in headers.getplist():
-            if param.startswith('charset='):
-                encoding = param[8:]
-                break
+            if headers.getparam('charset'):
+                encoding = headers.getparam('charset')
+
+            # HTTP Content-Type header
+            for param in headers.getplist():
+                if param.startswith('charset='):
+                    encoding = param[8:]
+                    break
 
         # Encoding declared in document should override HTTP headers
-        if self.mimetype == 'text/html':  # sniff HTML headers
-            m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
-                          self.content)
-            if m:
-                encoding = m.group(1)
+        if self.mimetype:
+            if self.mimetype == 'text/html':  # sniff HTML headers
+                m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
+                            self.content)
+                if m:
+                    encoding = m.group(1)
 
-        elif ((self.mimetype.startswith('application/') or
-               self.mimetype.startswith('text/')) and
-              'xml' in self.mimetype):
-            m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
-                          self.content)
-            if m:
-                encoding = m.group(1)
+            elif ((self.mimetype.startswith('application/') or
+                self.mimetype.startswith('text/')) and
+                'xml' in self.mimetype):
+                m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
+                            self.content)
+                if m:
+                    encoding = m.group(1)
 
-        # Format defaults
-        if self.mimetype == 'application/json' and not encoding:
-            # The default encoding for JSON
-            encoding = 'utf-8'
+            # Format defaults
+            if self.mimetype == 'application/json' and not encoding:
+                # The default encoding for JSON
+                encoding = 'utf-8'
 
-        elif self.mimetype == 'application/xml' and not encoding:
-            # The default for 'application/xml'
-            encoding = 'utf-8'
+            elif self.mimetype == 'application/xml' and not encoding:
+                # The default for 'application/xml'
+                encoding = 'utf-8'
 
         if encoding:
             encoding = encoding.lower()

@@ -295,6 +295,18 @@ The main entry point for unit testing is the `run-tests.sh` script in the root
 directory. This will fail *if code coverage is < 100%*. Travis-CI also uses
 this script. Add `# pragma: no cover` with care.
 
+#### Getting up and running
+
+This project uses [tox](https://testrun.org/tox/latest/) and
+[nose](https://nose.readthedocs.org/en/latest/) for running tests. Tox will
+install all the dependencies for you, if you install it first:
+```sh
+sudo easy_install tox
+```
+And then run `tox` in the root directory of this project. If you choose to use
+`run_tests.sh` directly, you'll need to manually install the dependencies listed
+in `tox.ini` (like yanc).
+
 
 ### Contributors ###
 

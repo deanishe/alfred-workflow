@@ -14,17 +14,16 @@ test_workflow.py
 
 from __future__ import print_function, unicode_literals
 
-
-import sys
-import os
-from StringIO import StringIO
-import unittest
 import json
-import tempfile
-import shutil
 import logging
-import time
+import os
+import shutil
 import signal
+from StringIO import StringIO
+import sys
+import tempfile
+import time
+import unittest
 
 from xml.etree import ElementTree as ET
 from unicodedata import normalize
@@ -1666,6 +1665,20 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(s['key1'], s2['key1'])
         self.assertEqual(s['key1'], 'spoons!')
         self.assertEqual(s2['alist'], [])
+
+    def test_settings_not_rewritten(self):
+        """Settings not rewritten for same value"""
+        s = Settings(self.settings_file)
+        mt = os.path.getmtime(self.settings_file)
+        time.sleep(1)  # wait long enough to register changes in `time.time()`
+        now = time.time()
+        for k, v in DEFAULT_SETTINGS.items():
+            s[k] = v
+        self.assertTrue(os.path.getmtime(self.settings_file) == mt)
+        s['finished_at'] = now
+        s2 = Settings(self.settings_file)
+        self.assertEqual(s['finished_at'], s2['finished_at'])
+        self.assertTrue(os.path.getmtime(self.settings_file) > mt)
 
 
 if __name__ == '__main__':  # pragma: no cover

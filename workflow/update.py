@@ -179,7 +179,7 @@ def download_workflow(url):
 
     if (not url.endswith('.alfredworkflow') or
             not filename.endswith('.alfredworkflow')):
-        raise ValueError('Attachment `{}` not a workflow'.format(filename))
+        raise ValueError('Attachment `{0}` not a workflow'.format(filename))
 
     local_path = os.path.join(tempfile.gettempdir(), filename)
 
@@ -237,7 +237,7 @@ def get_valid_releases(github_slug):
 
     slug = github_slug.replace('/', '-')
     for release in wf().cached_data('gh-releases-{0}'.format(slug),
-                                     retrieve_releases):
+                                    retrieve_releases):
         version = release['tag_name']
         download_urls = []
         for asset in release.get('assets', []):

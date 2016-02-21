@@ -1003,8 +1003,9 @@ class Settings(dict):
 
     # dict methods
     def __setitem__(self, key, value):
-        super(Settings, self).__setitem__(key, value)
-        self.save()
+        if self.get(key) != value:
+            super(Settings, self).__setitem__(key, value)
+            self.save()
 
     def __delitem__(self, key):
         super(Settings, self).__delitem__(key)

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+usage() {
+  cat > /dev/stderr <<EOS
+testone <package.name> <tests/test_script.py>
+
+Run one test script with coverage for one package.
+
+Usage:
+    testone <package.name> <test_script.py>
+    testone -h|--help
+
+Options:
+    -h, --help  Show this message and exit.
+
+Example:
+    extras/testone workflow.notify tests/test_notify.py
+
+EOS
+}
+
+
+if [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
+	usage
+  exit 0
+fi
+
+if [[ "$1" = "" ]] || [[ "$2" = "" ]]; then
+  echo "ERROR: Missing argument(s)." > /dev/stderr
+  echo "" > /dev/stderr
+  usage
+  exit 1
+fi
+
+nosetests \
+  --verbose \
+  --with-yanc \
+  --yanc-color=on \
+  --with-coverage \
+  --cover-min-percentage=100 \
+  --cover-package="$1" \
+  --logging-clear-handlers \
+  "$2"

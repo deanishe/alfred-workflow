@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 #
 # Alfred-Workflow documentation build configuration file, created by
 # sphinx-quickstart on Sun Mar  2 12:09:28 2014.
@@ -20,13 +20,16 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+
+# sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('_themes'))
 
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-#needs_sphinx = '1.0'
+
+# needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -36,6 +39,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
 ]
 
 intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None)}
@@ -54,7 +58,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Alfred-Workflow'
-copyright = u'2015, Dean Jackson'
+copyright = u'2016, Dean Jackson'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -114,9 +118,35 @@ pygments_style = 'sphinx'
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+    # import sphinx_rtd_theme
+    # html_theme = 'sphinx_rtd_theme'
+    # html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+    # import sphinx_readable_theme
+    # html_theme = 'readable'
+    # html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+    import alabaster
+    html_theme_path = [alabaster.get_path()]
+    extensions += ['alabaster']
+    html_theme = 'alabaster'
+    html_sidebars = {
+        '**': [
+            'about.html',
+            'navigation.html',
+            'relations.html',
+            'searchbox.html',
+            'donate.html',
+        ]
+    }
+    html_theme_options = {
+        'logo': 'icon_256.png',
+        'github_button': True,
+        'github_user': 'deanishe',
+        'github_repo': 'alfred-workflow',
+        'gittip_user': 'deanishe',
+        'logo_name': True,
+        'logo_text_align': 'center',
+        'description': "A helper library for creating Alfred 2 workflows.",
+    }
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

@@ -1,9 +1,136 @@
 /* GitHub "fork me" ribbon */
-
+/*
 .github-fork-ribbon {
 	background-color: #333;
 }
 
 .versionmodified {
 	font-style: italic;
+}
+
+cite {
+	font-style: normal !important;
+	// color: blue !important;
+	color: #404040;
+	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+	font-size: 75%;
+	font-weight: bold;
+	background: #fff;
+	border: solid 1px #e1e4e5;
+	padding: 2px 5px;
+}
+
+code.literal span.pre {
+	color: #404040;
+}
+*/
+
+/* Top navigation bar */
+div.related ul {
+	margin: 0.25em 1em;
+}
+
+/*div.section > div.topic,*/
+div#contents {
+	border-left: none;
+	border-right: none;
+	background-color: inherit;
+}
+
+a.image-reference,
+a.image-reference:hover,
+a.image-reference:active,
+a.image-reference:link {
+	text-decoration: none;
+}
+
+div[class^='highlight'],
+div.highlight,
+div.highlight-python {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	overflow-x: auto;
+	/*background-color: inherit;*/
+	background-color: #fff;
+}
+
+div[class^='highlight'] {
+	border: 1px solid #ccc;
+}
+
+div[class^='highlight'] div.highlight {
+	border: none;
+}
+
+div.linenodiv {
+	/*background-color: #fff;*/
+	padding-right: 0.25em;
+	padding-left: 0.25em;
+}
+
+div.highlight pre {
+	/*overflow-x: auto;*/
+	padding-left: 1em;
+	padding-right: 1em;
+	background-color: #fff;
+	/*border-left: 1px solid #ccc;*/
+}
+
+pre {
+	white-space: pre;
+}
+
+table.highlighttable {
+	border-collapse: collapse;
+	border-spacing: 0;
+    display: table;
+    max-width: 100%;
+    margin-left: 0;
+    /*background-color: #fff;*/
+}
+
+td.code,
+td.linenos {
+	vertical-align: top;
+}
+
+td.linenos {
+	border-right: 1px solid #ccc;
+}
+
+table.highlighttable td {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* Grey */
+div.admonition, div.note, div.seealso {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+/* Blue */
+ div.tip, div.note, div.seealso {
+	background-color: #e7f2fa;
+	border: 1px solid #6ab0de;
+ }
+
+/* Yellow */
+div.warning, div.important {
+    background-color: #fef9e9;
+    border: 1px solid #fbe091;
+}
+
+/* Red */
+div.danger, div.error {
+	background-color: #FCC;
+    border: 1px solid #FAA;
+}
+
+
+@media screen and (max-width: 875px) {
+    ul ul {
+        margin-left: 30px;
+    }
 }

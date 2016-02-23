@@ -6,25 +6,43 @@
 
 {% block extrahead %}
 {{ super() }}
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
+{# <link rel="stylesheet" href="{{ pathto('_static/gh-fork-ribbon.css', 1) }}"> #}
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="{{ pathto('_static/custom.css', 1) }}">
 {% endblock %}
 
+{#
+{% if not dash_docset %}
+  {% block relbar1 %}{% endblock %}
+{% endif %}
+ #}
 
 {% block footer %}
-<div class="github-fork-ribbon-wrapper right">
+{#
+<div class="github-fork-ribbon-wrapper left">
     <div class="github-fork-ribbon">
         <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
     </div>
 </div>
+ #}
 {{ super() }}
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
 {% endblock %}

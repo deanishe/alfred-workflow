@@ -1,0 +1,22 @@
+{% if theme_gratipay_user or theme_gittip_user or theme_paypal_donate %}
+	<h3>Donate</h3>
+	{% if theme_gratipay_user or theme_gittip_user %}
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="{{ theme_gratipay_user or theme_gittip_user }}"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	{% endif %}
+	{% if theme_paypal_donate %}
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+		<div class="gratipay">
+			<script data-gratipay-username="{{ theme_gratipay_user or theme_gittip_user }}"
+			        data-gratipay-widget="button"
+			        src="//gttp.co/v1.js"></script>
+		</div>
+	</p>
+	{% endif %}
+
+{% endif %}

@@ -1,4 +1,8 @@
 
+README.rst:
+	- Update list of files in workflow
+	- Add notifications to features list
+
 Features to Add:
 	- Offline tests.
 		Connections to GitHub are causing the integration tests to fail.
@@ -13,8 +17,6 @@ Features to Add:
 		- Post warning on 2.6 instead of doing anything
 		- Retrieve Notify.app from a URL instead of bundling it?
 		- Encode Notify.app in `notify.py`?
-		- Non-ASCII doesn't work via environmental variables. @done(16-02-22 22:02)
-			Probably have to use native libraries and post notifications in the background.
 
 	update.py:
 		- Generalise update functionality @v2
@@ -33,15 +35,8 @@ Features to Add:
 
 	Docs:
 		- Add "Quick Start" section
-		- Document `notify.py` in the manual. @done(16-02-23 11:01)
-		- Integrate sphinx.ext.napoleon @priority(1)
-			to parse the Google-style doctstrings in `notify.py`
 		- Add tutorial using `workflow.web`
 		- Add tutorial using filesystem/Unicode
-		- Generate Dash docset from AW documentation
-		- Better theme
-			RTD theme looks awful in Dash. Py3 theme perhaps?
-
 
 
 Features to Consider:
@@ -90,6 +85,14 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	- Non-ASCII doesn't work via environmental variables. @done(16-02-22 22:02) @project(Features to Add / notify.py)
+		Probably have to use native libraries and post notifications in the background.
+	- Document `notify.py` in the manual. @done(16-02-23 11:01) @project(Features to Add / Docs)
+	- Integrate sphinx.ext.napoleon @priority(1) @done(16-02-23 21:14) @project(Features to Add / Docs)
+		to parse the Google-style doctstrings in `notify.py`
+	- Generate Dash docset from AW documentation @done(16-02-23 21:14) @project(Features to Add / Docs)
+	- Better theme @done(16-02-23 21:14) @project(Features to Add / Docs)
+		RTD theme looks awful in Dash. Py3 theme perhaps?
 	- Allow GET params in URL as well as in `params` @done(15-07-05 13:31) @project(Features to Add / web.py)
 	- Add file-locking to prevent `Workflow` from reading half-written files @priority(3) @v2 @done(15-07-05 12:54) @project(Features to Add / background.py)
 	- Add `first_run()` to determine if the workflow has been run on this computer before. @priority(1) @done(15-04-28 12:50) @project(Features to Add / workflow.py)

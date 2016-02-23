@@ -1,15 +1,7 @@
 #!/bin/bash
-# Copied from flask-login
-# https://github.com/maxcountryman/flask-login
-
-# OUTPUT_PATH=$(pwd)/tests_output
 
 rootdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# workflow="${rootdir}/workflow"
 logpath="${rootdir}/test.log"
-# testroot="/tmp/alfred-wörkflöw-$$"
-# testdir="${testroot}/tests"
-# curdir=$(pwd)
 
 function log() {
     echo "$@" | tee -a $logpath
@@ -20,70 +12,39 @@ if [[ -f "${logpath}" ]]; then
     rm -rf "${logpath}"
 fi
 
-# ###############################################################################
-# # Set up test environment
-# ###############################################################################
-# if [[ -d "${testroot}" ]]; then
-#     rm -rf "${testroot}"
-# fi
 
-# mkdir -p "${testroot}"
-# cp -R "${rootdir}/tests" "${testdir}"
-# ln -s "${rootdir}/workflow" "${testdir}/workflow"
-# ln -s "${rootdir}/tests/info.plist.test" "${testroot}/info.plist"
-
-# cd "${testdir}"
-
-# cd "${rootdir}"
-
-
-###############################################################################
 # Set test options and run tests
-###############################################################################
+#-------------------------------------------------------------------------
 
-NOSETEST_OPTIONS="-d"
-
-if [ -n "$VERBOSE" ]; then
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS --verbose"
-fi
-
-if [ -z "$NOCOLOR" ]; then
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS --with-yanc --yanc-color=on"
-fi
-
-if [ -n "$OPTIONS" ]; then
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS $OPTIONS"
-fi
-
-if [ -n "$TESTS" ]; then
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS $TESTS"
-else
-    NOSETEST_OPTIONS="$NOSETEST_OPTIONS -v --with-coverage --cover-min-percentage=100 --cover-package=workflow --logging-clear-handlers"
-fi
-
-# PYTEST_OPTS="--cov-report term-missing --cov workflow --capture=fd"
+# Most options are in tox.ini
+PYTEST_OPTS="--cov workflow"
 
 log "Running tests..."
 
-nosetests $NOSETEST_OPTIONS 2>&1 | tee -a $logpath
-# py.test $PYTEST_OPTS 2>&1 | tee -a $logpath
+# nosetests $NOSETEST_OPTIONS 2>&1 | tee -a $logpath
+py.test $PYTEST_OPTS 2>&1 | tee -a $logpath
 ret=${PIPESTATUS[0]}
 
 echo
 
 case "$ret" in
-    0) log -e "SUCCESS" ;;
-    *) log -e "FAILURE" ;;
+    0) log "SUCCESS" ;;
+    *) log "FAILURE" ;;
 esac
 
-###############################################################################
-# Delete test environment
-###############################################################################
+if [[ "${ret}" -ne 0 ]]; then
+  exit $ret
+fi
 
-# cd "$curdir"
+# Test coverage
+coverage report --fail-under 100 --show-missing
+ret=${PIPESTATUS[0]}
 
-# if [[ -d "${testroot}" ]]; then
-#     rm -rf "${testroot}"
-# fi
+echo
+
+case "$ret" in
+    0) log "SUCCESS" ;;
+    *) log "FAILURE" ;;
+esac
 
 exit $ret

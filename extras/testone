@@ -32,12 +32,17 @@ if [[ "$1" = "" ]] || [[ "$2" = "" ]]; then
   exit 1
 fi
 
-nosetests \
-  --verbose \
-  --with-yanc \
-  --yanc-color=on \
-  --with-coverage \
-  --cover-min-percentage=100 \
-  --cover-package="$1" \
-  --logging-clear-handlers \
+# nosetests \
+#   --verbose \
+#   --with-yanc \
+#   --yanc-color=on \
+#   --with-coverage \
+#   --cover-min-percentage=100 \
+#   --cover-package="$1" \
+#   --logging-clear-handlers \
+#   "$2"
+
+py.test \
+  --cov-report term-missing \
+  --cov="$1" \
   "$2"

@@ -239,6 +239,7 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(wf.update_available)
         self.assertFalse(wf.start_update())
 
+# TODO: Offline tests using pytest_localserver
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

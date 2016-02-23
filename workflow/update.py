@@ -112,8 +112,7 @@ class Version(object):
 
     @property
     def tuple(self):
-        """Return version number as a tuple of major, minor, patch, pre-release
-        """
+        """Version number as a tuple of major, minor, patch, pre-release"""
 
         return (self.major, self.minor, self.patch, self.suffix)
 
@@ -228,7 +227,7 @@ def get_valid_releases(github_slug):
     releases = []
 
     wf().logger.debug('Retrieving releases list from `{0}` ...'.format(
-                       api_url))
+                      api_url))
 
     def retrieve_releases():
         wf().logger.info(
@@ -283,7 +282,7 @@ def check_update(github_slug, current_version):
     releases = get_valid_releases(github_slug)
 
     wf().logger.info('{0} releases for {1}'.format(len(releases),
-                                                    github_slug))
+                                                   github_slug))
 
     if not len(releases):
         raise ValueError('No valid releases for {0}'.format(github_slug))

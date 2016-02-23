@@ -8,6 +8,10 @@ Self-updating
 
 .. versionadded:: 1.9
 
+.. contents::
+   :local:
+
+
 Add self-updating capabilities to your workflow. It regularly (every day
 by default) fetches the latest releases from the specified GitHub repository
 and then asks the user if they want to update the workflow if a newer version

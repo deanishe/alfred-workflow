@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial &mdash; Alfred-Workflow 1.15 documentation</title>
+    <title>Quick Index &mdash; Alfred-Workflow 1.15 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="top" title="Alfred-Workflow 1.15 documentation" href="index.html" />
-    <link rel="next" title="Tutorial Part 1: Creating a Basic Pinboard Workflow" href="tutorial_1.html" />
-    <link rel="prev" title="Installation" href="installation.html" />
+    <link rel="prev" title="Workflows using Alfred-Workflow" href="aw-workflows.html" />
 
    
   
@@ -51,10 +50,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tutorial_1.html" title="Tutorial Part 1: Creating a Basic Pinboard Workflow"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="installation.html" title="Installation"
+          <a href="aw-workflows.html" title="Workflows using Alfred-Workflow"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li> 
       </ul>
@@ -65,18 +61,104 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="tutorial">
-<span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>This is a two-part tutorial on writing an Alfred 2 workflow with
-Alfred-Workflow, taking you through the basics to a full-featured workflow
-ready to share with the world.</p>
-<div class="section" id="part-1-a-basic-pinboard-workflow">
-<h2>Part 1: A Basic Pinboard Workflow<a class="headerlink" href="#part-1-a-basic-pinboard-workflow" title="Permalink to this headline">¶</a></h2>
-<p>In which we build an Alfred workflow to view recent posts to
-<a class="reference external" href="https://pinboard.in/">Pinboard</a>.</p>
-<p>If you&#8217;re new to Alfred and/or coding in general, start here.</p>
+  <div class="section" id="quick-index">
+<span id="quickindex"></span><h1>Quick Index<a class="headerlink" href="#quick-index" title="Permalink to this headline">¶</a></h1>
+<p>Quick links to the important parts of the documentation.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/persistent-data.html#caching-data">Caching data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/persistent-data.html#storing-data">Storing data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/persistent-data.html#settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/persistent-data.html#keychain-access">Keychain access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/persistent-data.html#a-note-on-script-behaviour">A note on Script Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/filtering.html#restricting-results">Restricting results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/filtering.html#diacritic-folding">Diacritic folding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/filtering.html#matching-rules">Matching rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/notifications.html">Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/notifications.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/update.html#github-releases">GitHub releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/update.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/update.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/update.html#under-the-hood">Under the hood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/update.html#version-numbers">Version numbers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/versioning.html#setting-a-version-number">Setting a version number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/versioning.html#version-numbers">Version numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/versioning.html#first-run-migration">First run/migration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/icons.html#list-of-icons">List of icons</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/magic-arguments.html#customising-magic-arguments">Customising magic arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/serialization.html#built-in-serializers">Built-in serializers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/serialization.html#managing-serializers">Managing serializers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/serialization.html#serializer-interface">Serializer interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/text-encoding.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/text-encoding.html#string-types">String types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/text-encoding.html#normalization">Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/text-encoding.html#other-gotchas">Other Gotchas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user-manual/text-encoding.html#further-information">Further information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/web.html#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/web.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/web.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/background.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/notify.html">Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/notify.html#module-workflow.notify">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/update.html#module-workflow.update">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/serialization.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial Part 1: Creating a Basic Pinboard Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#creating-a-new-workflow">Creating a new Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#describing-your-workflow">Describing your Workflow</a></li>
@@ -94,17 +176,6 @@ ready to share with the world.</p>
 </li>
 </ul>
 </li>
-</ul>
-</div>
-</div>
-<div class="section" id="part-2-a-distribution-ready-pinboard-workflow">
-<h2>Part 2: A Distribution-Ready Pinboard Workflow<a class="headerlink" href="#part-2-a-distribution-ready-pinboard-workflow" title="Permalink to this headline">¶</a></h2>
-<p>In which we make our <a class="reference external" href="https://pinboard.in/">Pinboard</a> workflow ready for
-the masses.</p>
-<p>Demonstrates more advanced usage of Alfred-Workflow and a few workflow
-tricks that might also be of interest to intermediate Pythonistas.</p>
-<div class="toctree-wrapper compound">
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#multi-step-actions">Multi-step actions</a></li>
@@ -128,7 +199,6 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 </ul>
 </li>
 </ul>
-</div>
 </div>
 </div>
 
@@ -168,12 +238,8 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
@@ -187,16 +253,15 @@ tricks that might also be of interest to intermediate Pythonistas.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quick Index</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
-      <li>Next: <a href="tutorial_1.html" title="next chapter">Tutorial Part 1: Creating a Basic Pinboard Workflow</a></li>
+      <li>Previous: <a href="aw-workflows.html" title="previous chapter">Workflows using Alfred-Workflow</a></li>
   </ul></li>
 </ul>
 </div>

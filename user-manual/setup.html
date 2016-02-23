@@ -1,180 +1,71 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Workflow setup and skeleton &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Workflow setup and skeleton &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="up" title="User Manual" href="index.html" />
+    <link rel="next" title="Including 3rd party libraries" href="third-party.html" />
+    <link rel="prev" title="User Manual" href="index.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Including 3rd party libraries" href="third-party.html"/>
-        <link rel="prev" title="Supported OS X versions" href="osx-version-support.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="../_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="third-party.html" title="Including 3rd party libraries"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="User Manual"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Workflow setup and skeleton</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/user-manual/setup.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="workflow-setup-and-skeleton">
 <span id="setup"></span><h1>Workflow setup and skeleton<a class="headerlink" href="#workflow-setup-and-skeleton" title="Permalink to this headline">¶</a></h1>
@@ -191,7 +82,7 @@ following (and only the following) <strong>Escaping</strong> options:</p>
 <li>Backslashes</li>
 </ul>
 <p>The <strong>Script</strong> field should contain the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/bin/python yourscript.py &quot;{query}&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>/usr/bin/python yourscript.py &quot;{query}&quot;
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">yourscript.py</span></code> is the name of your script <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
@@ -231,8 +122,8 @@ to capture any errors thrown by your scripts:</p>
 32
 33
 34
-35</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
-<span class="c"># encoding: utf-8</span>
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># encoding: utf-8</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -242,28 +133,28 @@ to capture any errors thrown by your scripts:</p>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-    <span class="c"># The Workflow instance will be passed to the function</span>
-    <span class="c"># you call from `Workflow.run`</span>
+    <span class="c1"># The Workflow instance will be passed to the function</span>
+    <span class="c1"># you call from `Workflow.run`</span>
 
-    <span class="c"># Your imports here if you want to catch import errors</span>
+    <span class="c1"># Your imports here if you want to catch import errors</span>
     <span class="kn">import</span> <span class="nn">somemodule</span>
     <span class="kn">import</span> <span class="nn">anothermodule</span>
 
-    <span class="c"># Get args from Workflow as normalized Unicode</span>
+    <span class="c1"># Get args from Workflow as normalized Unicode</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span>
 
-    <span class="c"># Do stuff here ...</span>
+    <span class="c1"># Do stuff here ...</span>
 
-    <span class="c"># Add an item to Alfred feedback</span>
-    <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Item title&#39;</span><span class="p">,</span> <span class="s">&#39;Item subtitle&#39;</span><span class="p">)</span>
+    <span class="c1"># Add an item to Alfred feedback</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Item title&#39;</span><span class="p">,</span> <span class="s1">&#39;Item subtitle&#39;</span><span class="p">)</span>
 
-    <span class="c"># Send output to Alfred</span>
+    <span class="c1"># Send output to Alfred</span>
     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
-    <span class="c"># Assign Workflow logger to a global variable for convenience</span>
+    <span class="c1"># Assign Workflow logger to a global variable for convenience</span>
     <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -279,78 +170,146 @@ Python regardless of what <code class="docutils literal"><span class="pre">PATH<
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="third-party.html" class="btn btn-neutral float-right" title="Including 3rd party libraries" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="osx-version-support.html" class="btn btn-neutral" title="Supported OS X versions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Manual</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">User Manual</a></li>
+      <li>Next: <a href="third-party.html" title="next chapter">Including 3rd party libraries</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

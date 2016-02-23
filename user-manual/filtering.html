@@ -1,191 +1,84 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Searching/filtering data &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Searching/filtering data &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="up" title="User Manual" href="index.html" />
+    <link rel="next" title="Retrieving data from the web" href="web.html" />
+    <link rel="prev" title="Persistent data" href="persistent-data.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Retrieving data from the web" href="web.html"/>
-        <link rel="prev" title="Persistent data" href="persistent-data.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="../_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="web.html" title="Retrieving data from the web"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="persistent-data.html" title="Persistent data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Searching/filtering data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#restricting-results">Restricting results</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#diacritic-folding">Diacritic folding</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#smart-punctuation">&#8220;Smart&#8221; punctuation</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#matching-rules">Matching rules</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Searching/filtering data</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/user-manual/filtering.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="searching-filtering-data">
 <span id="filtering"></span><h1>Searching/filtering data<a class="headerlink" href="#searching-filtering-data" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#restricting-results" id="id4">Restricting results</a></li>
+<li><a class="reference internal" href="#diacritic-folding" id="id5">Diacritic folding</a><ul>
+<li><a class="reference internal" href="#smart-punctuation" id="id6">&#8220;Smart&#8221; punctuation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#matching-rules" id="id7">Matching rules</a></li>
+</ul>
+</div>
 <p><a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> provides an
 Alfred-like search algorithm for filtering your workflow&#8217;s data. By default,
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> will try to match
@@ -231,30 +124,30 @@ complain if <code class="docutils literal"><span class="pre">items</span></code>
 21
 22
 23
-24</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-    <span class="n">query</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c"># Ensure `query` is initialised</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># Ensure `query` is initialised</span>
 
-    <span class="c"># Set `query` if a value was passed (it may be an empty string)</span>
+    <span class="c1"># Set `query` if a value was passed (it may be an empty string)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">):</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">items</span> <span class="o">=</span> <span class="n">load_my_items_from_somewhere</span><span class="p">()</span>  <span class="c"># Load data from blah</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">load_my_items_from_somewhere</span><span class="p">()</span>  <span class="c1"># Load data from blah</span>
 
-    <span class="k">if</span> <span class="n">query</span><span class="p">:</span>  <span class="c"># Only call `filter()` if there&#39;s a `query`</span>
+    <span class="k">if</span> <span class="n">query</span><span class="p">:</span>  <span class="c1"># Only call `filter()` if there&#39;s a `query`</span>
         <span class="n">items</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
 
-    <span class="c"># Show error if there are no results. Otherwise, Alfred will show</span>
-    <span class="c"># its fallback searches (i.e. &quot;Search Google for &#39;XYZ&#39;&quot;)</span>
+    <span class="c1"># Show error if there are no results. Otherwise, Alfred will show</span>
+    <span class="c1"># its fallback searches (i.e. &quot;Search Google for &#39;XYZ&#39;&quot;)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
-        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No items&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No items&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
 
-    <span class="c"># Generate list of results. If `items` is an empty list,</span>
-    <span class="c"># nothing will happen</span>
+    <span class="c1"># Generate list of results. If `items` is an empty list,</span>
+    <span class="c1"># nothing will happen</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
+        <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
 
-    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>  <span class="c"># Send results to Alfred via STDOUT</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>  <span class="c1"># Send results to Alfred via STDOUT</span>
 </pre></div>
 </td></tr></table></div>
 <p>This is by no means essential (<code class="docutils literal"><span class="pre">wf.args[0]</span></code> will always be set if the script
@@ -281,17 +174,17 @@ each item:</p>
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Carrie Jones&#39;</span><span class="p">,</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
 
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bs&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>Which returns:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>(<code class="docutils literal"><span class="pre">bs</span></code> are Bob Smith&#8217;s initials and <code class="docutils literal"><span class="pre">Butterkeks</span></code> contains both letters in that order.)</p>
@@ -311,44 +204,44 @@ each item:</p>
 13
 14
 15
-16</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
 <span class="n">books</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;My splendid adventure&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Carrie Jones&#39;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">,</span> <span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">}</span>
+    <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;My splendid adventure&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Carrie Jones&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;The horrors of Tuesdays&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">}</span>
 <span class="p">]</span>
 
 
 <span class="hll"><span class="k">def</span> <span class="nf">key_for_book</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
-</span><span class="hll">    <span class="k">return</span> <span class="s">&#39;{} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span> <span class="n">book</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">])</span>
+</span><span class="hll">    <span class="k">return</span> <span class="s1">&#39;{} {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="n">book</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">])</span>
 </span>
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="hll"><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
+<span class="hll"><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">)</span>
 </span></pre></div>
 </td></tr></table></div>
 <p>Which returns:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
- <span class="p">{</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
 <div class="section" id="restricting-results">
-<span id="id1"></span><h2>Restricting results<a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id4">Restricting results</a><a class="headerlink" href="#restricting-results" title="Permalink to this headline">¶</a></h2>
 <p>Chances are, you would not want <code class="docutils literal"><span class="pre">bot</span></code> to match <code class="docutils literal"><span class="pre">Bob</span> <span class="pre">Smith</span> <span class="pre">A</span> <span class="pre">damn</span> <span class="pre">fine</span> <span class="pre">afternoon</span></code>
 at all, or indeed any of the other books. Indeed, they have very low scores:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">include_score</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>produces:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
   <span class="mf">11.11111111111111</span><span class="p">,</span>
   <span class="mi">64</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+ <span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
   <span class="mf">3.3333333333333335</span><span class="p">,</span>
   <span class="mi">64</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Sam Butterkeks&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span> <span class="mf">3.125</span><span class="p">,</span> <span class="mi">64</span><span class="p">)]</span>
+ <span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;The horrors of Tuesdays&#39;</span><span class="p">},</span> <span class="mf">3.125</span><span class="p">,</span> <span class="mi">64</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>(<code class="docutils literal"><span class="pre">64</span></code> is the rule that matched, <code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code>,
@@ -363,15 +256,15 @@ returned as integers. To see the name of the corresponding rule, see
 <p>If we filter <code class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Brienne</span> <span class="pre">of</span> <span class="pre">Tarth',</span> <span class="pre">'title':</span> <span class="pre">'How</span> <span class="pre">to</span> <span class="pre">beat</span> <span class="pre">up</span> <span class="pre">men'}</span></code> and
 <code class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Zoltar',</span> <span class="pre">'title':</span> <span class="pre">'Battle</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Planets'}</span></code>, which we probably
 would want to match <code class="docutils literal"><span class="pre">bot</span></code>, we get:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
- <span class="p">({</span><span class="s">&#39;author&#39;</span><span class="p">:</span> <span class="s">&#39;Brienne of Tarth&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;How to beat up men&#39;</span><span class="p">},</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+ <span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Brienne of Tarth&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;How to beat up men&#39;</span><span class="p">},</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>(The ranking would be reversed if <code class="docutils literal"><span class="pre">key_for_book()</span></code> returned <code class="docutils literal"><span class="pre">author</span> <span class="pre">title</span></code>
 instead of <code class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></code>.)</p>
 <p>So in all likelihood, you&#8217;ll want to pass a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and/or exclude some of the matching rules:</p>
@@ -379,11 +272,11 @@ instead of <code class="docutils literal"><span class="pre">title</span> <span c
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">MATCH_ALL</span><span class="p">,</span> <span class="n">MATCH_ALLCHARS</span>
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">MATCH_ALL</span><span class="p">,</span> <span class="n">MATCH_ALLCHARS</span>
 
-<span class="c"># [...]</span>
+<span class="c1"># [...]</span>
 
-<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span><span class="p">)</span>
+<span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>You can set match rules using bitwise operators, so <code class="docutils literal"><span class="pre">|</span></code> to combine them or
@@ -392,10 +285,10 @@ instead of <code class="docutils literal"><span class="pre">title</span> <span c
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># match only CamelCase and initials</span>
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># match only CamelCase and initials</span>
 <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_CAPITALS</span> <span class="o">|</span> <span class="n">MATCH_INITIALS</span>
 
-<span class="c"># match everything but all-characters-in-item and substring</span>
+<span class="c1"># match everything but all-characters-in-item and substring</span>
 <span class="n">match_on</span><span class="o">=</span><span class="n">MATCH_ALL</span> <span class="o">^</span> <span class="n">MATCH_ALLCHARS</span> <span class="o">^</span> <span class="n">MATCH_SUBSTRING</span>
 </pre></div>
 </td></tr></table></div>
@@ -408,7 +301,7 @@ few hundred items or expect multi-word queries.</p>
 </div>
 </div>
 <div class="section" id="diacritic-folding">
-<span id="folding"></span><h2>Diacritic folding<a class="headerlink" href="#diacritic-folding" title="Permalink to this headline">¶</a></h2>
+<span id="folding"></span><h2><a class="toc-backref" href="#id5">Diacritic folding</a><a class="headerlink" href="#diacritic-folding" title="Permalink to this headline">¶</a></h2>
 <p>By default, <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>
 will fold non-ASCII characters to approximate ASCII equivalents (e.g. <em>é</em> &gt;
 <em>e</em>, <em>ü</em> &gt; <em>u</em>) if <code class="docutils literal"><span class="pre">query</span></code> contains only ASCII characters. This behaviour
@@ -423,7 +316,7 @@ should be used for comprehensive support of non-European alphabets.</p>
 <p>Users may override a Workflow&#8217;s default settings via <code class="docutils literal"><span class="pre">workflow:folding…</span></code>
 <a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic arguments</span></a>.</p>
 <div class="section" id="smart-punctuation">
-<span id="id2"></span><h3>&#8220;Smart&#8221; punctuation<a class="headerlink" href="#smart-punctuation" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id6">&#8220;Smart&#8221; punctuation</a><a class="headerlink" href="#smart-punctuation" title="Permalink to this headline">¶</a></h3>
 <p>The default diacritic folding only alters letters, not punctuation. If your
 workflow also works with text that contains so-called &#8220;smart&#8221; (i.e. curly)
 quotes or n- and m-dashes, you can use the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.dumbify_punctuation" title="workflow.workflow.Workflow.dumbify_punctuation"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.dumbify_punctuation()</span></code></a>
@@ -432,7 +325,7 @@ respectively.</p>
 </div>
 </div>
 <div class="section" id="matching-rules">
-<span id="id3"></span><h2>Matching rules<a class="headerlink" href="#matching-rules" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id7">Matching rules</a><a class="headerlink" href="#matching-rules" title="Permalink to this headline">¶</a></h2>
 <p>Here are the <code class="docutils literal"><span class="pre">MATCH_*</span></code> constants from <a class="reference internal" href="serialization.html#module-workflow" title="workflow"><code class="xref py py-mod docutils literal"><span class="pre">workflow</span></code></a> and their numeric values.</p>
 <p>For a detailed description of the rules see
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>.</p>
@@ -480,78 +373,146 @@ respectively.</p>
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="web.html" class="btn btn-neutral float-right" title="Retrieving data from the web" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="persistent-data.html" class="btn btn-neutral" title="Persistent data" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Manual</a><ul>
+      <li>Previous: <a href="persistent-data.html" title="previous chapter">Persistent data</a></li>
+      <li>Next: <a href="web.html" title="next chapter">Retrieving data from the web</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

@@ -5,6 +5,9 @@
 Serialization of stored/cached data
 ===================================
 
+.. contents::
+   :local:
+
 .. module:: workflow
 
 By default, both cache and data files (created using the APIs described in

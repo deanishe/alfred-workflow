@@ -1,184 +1,69 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Script Filter Results and the XML Format &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Script Filter Results and the XML Format &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="index.html" />
+    <link rel="next" title="Workflows using Alfred-Workflow" href="aw-workflows.html" />
+    <link rel="prev" title="Serialization" href="api/serialization.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="index.html"/>
-        <link rel="next" title="Workflows using Alfred-Workflow" href="aw-workflows.html"/>
-        <link rel="prev" title="Serialization" href="api/serialization.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="aw-workflows.html" title="Workflows using Alfred-Workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api/serialization.html" title="Serialization"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#item-parameters">Item parameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#title">title</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#subtitle">subtitle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#autocomplete">autocomplete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#arg">arg</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#valid">valid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uid">uid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#type">type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#copy-text">copy text</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#large-text">large text</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#icon">icon</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#image-files">Image files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#file-icons">File icons</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#filetype-icons">Filetype icons</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Script Filter Results and the XML Format</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/xml_format.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="script-filter-results-and-the-xml-format">
 <span id="script-filter-results"></span><h1>Script Filter Results and the XML Format<a class="headerlink" href="#script-filter-results-and-the-xml-format" title="Permalink to this headline">¶</a></h1>
@@ -186,6 +71,30 @@ the _static path in each subdirectory -->
 <p class="first admonition-title">Note</p>
 <p class="last">This document is valid as of version 2.5 of Alfred and 1.8.5 of
 Alfred-Workflow.</p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#xml-format-available-parameters" id="id1">XML format / available parameters</a></li>
+<li><a class="reference internal" href="#basic-example" id="id2">Basic example</a></li>
+<li><a class="reference internal" href="#item-parameters" id="id3">Item parameters</a><ul>
+<li><a class="reference internal" href="#title" id="id4">title</a></li>
+<li><a class="reference internal" href="#subtitle" id="id5">subtitle</a></li>
+<li><a class="reference internal" href="#autocomplete" id="id6">autocomplete</a></li>
+<li><a class="reference internal" href="#arg" id="id7">arg</a></li>
+<li><a class="reference internal" href="#valid" id="id8">valid</a></li>
+<li><a class="reference internal" href="#uid" id="id9">uid</a></li>
+<li><a class="reference internal" href="#type" id="id10">type</a></li>
+<li><a class="reference internal" href="#copy-text" id="id11">copy text</a></li>
+<li><a class="reference internal" href="#large-text" id="id12">large text</a></li>
+<li><a class="reference internal" href="#icon" id="id13">icon</a><ul>
+<li><a class="reference internal" href="#image-files" id="id14">Image files</a></li>
+<li><a class="reference internal" href="#file-icons" id="id15">File icons</a></li>
+<li><a class="reference internal" href="#filetype-icons" id="id16">Filetype icons</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <p>Alfred&#8217;s Script Filters are its most powerful workflow API and a main focus
 of Alfred-Workflow. Script Filters work by receiving a <code class="docutils literal"><span class="pre">{query}</span></code> from
@@ -205,7 +114,7 @@ as XML, you <strong>must not</strong> <a class="reference external" href="http:/
 will break the XML, and Alfred will show no results.</p>
 </div>
 <div class="section" id="xml-format-available-parameters">
-<span id="xml-format"></span><h2>XML format / available parameters<a class="headerlink" href="#xml-format-available-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="xml-format"></span><h2><a class="toc-backref" href="#id1">XML format / available parameters</a><a class="headerlink" href="#xml-format-available-parameters" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">If you&#8217;re not using Alfred-Workflow to generate your Script Filter&#8217;s
@@ -234,7 +143,7 @@ be as pretty as it will all be on one line).</p>
 13
 14
 15
-16</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;items&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">uid=</span><span class="s">&quot;home&quot;</span> <span class="na">valid=</span><span class="s">&quot;YES&quot;</span> <span class="na">autocomplete=</span><span class="s">&quot;Home Folder&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;title&gt;</span>Home Folder<span class="nt">&lt;/title&gt;</span>
@@ -284,44 +193,44 @@ XML output is UTF-8-encoded.</p>
 22
 23
 24
-25</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 
-<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;Home Folder&#39;</span><span class="p">,</span>     <span class="c"># title</span>
-            <span class="s">u&#39;Home folder ~/&#39;</span><span class="p">,</span>  <span class="c"># subtitle</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">u&#39;Home Folder&#39;</span><span class="p">,</span>     <span class="c1"># title</span>
+            <span class="s1">u&#39;Home folder ~/&#39;</span><span class="p">,</span>  <span class="c1"># subtitle</span>
             <span class="n">modifier_subtitles</span><span class="o">=</span><span class="p">{</span>
-                <span class="s">u&#39;shift&#39;</span><span class="p">:</span> <span class="s">u&#39;Subtext when shift is pressed&#39;</span><span class="p">,</span>
-                <span class="s">u&#39;fn&#39;</span><span class="p">:</span> <span class="s">u&#39;Subtext when fn is pressed&#39;</span><span class="p">,</span>
-                <span class="s">u&#39;ctrl&#39;</span><span class="p">:</span> <span class="s">u&#39;Subtext when ctrl is pressed&#39;</span><span class="p">,</span>
-                <span class="s">u&#39;alt&#39;</span><span class="p">:</span> <span class="s">u&#39;Subtext when alt is pressed&#39;</span><span class="p">,</span>
-                <span class="s">u&#39;cmd&#39;</span><span class="p">:</span> <span class="s">u&#39;Subtext when cmd is pressed&#39;</span>
+                <span class="s1">u&#39;shift&#39;</span><span class="p">:</span> <span class="s1">u&#39;Subtext when shift is pressed&#39;</span><span class="p">,</span>
+                <span class="s1">u&#39;fn&#39;</span><span class="p">:</span> <span class="s1">u&#39;Subtext when fn is pressed&#39;</span><span class="p">,</span>
+                <span class="s1">u&#39;ctrl&#39;</span><span class="p">:</span> <span class="s1">u&#39;Subtext when ctrl is pressed&#39;</span><span class="p">,</span>
+                <span class="s1">u&#39;alt&#39;</span><span class="p">:</span> <span class="s1">u&#39;Subtext when alt is pressed&#39;</span><span class="p">,</span>
+                <span class="s1">u&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">u&#39;Subtext when cmd is pressed&#39;</span>
             <span class="p">},</span>
-            <span class="n">arg</span><span class="o">=</span><span class="s">u&#39;~/&#39;</span><span class="p">,</span>
-            <span class="n">autocomplete</span><span class="o">=</span><span class="s">u&#39;Home Folder&#39;</span><span class="p">,</span>
+            <span class="n">arg</span><span class="o">=</span><span class="s1">u&#39;~/&#39;</span><span class="p">,</span>
+            <span class="n">autocomplete</span><span class="o">=</span><span class="s1">u&#39;Home Folder&#39;</span><span class="p">,</span>
             <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">uid</span><span class="o">=</span><span class="s">u&#39;home&#39;</span><span class="p">,</span>
-            <span class="n">icon</span><span class="o">=</span><span class="s">u&#39;~/&#39;</span><span class="p">,</span>
-            <span class="n">icontype</span><span class="o">=</span><span class="s">u&#39;fileicon&#39;</span><span class="p">,</span>
-            <span class="nb">type</span><span class="o">=</span><span class="s">u&#39;file&#39;</span><span class="p">,</span>
-            <span class="n">largetext</span><span class="o">=</span><span class="s">u&#39;Text for LargeType&#39;</span><span class="p">,</span>
-            <span class="n">copytext</span><span class="o">=</span><span class="s">u&#39;Text when copying&#39;</span><span class="p">)</span>
+            <span class="n">uid</span><span class="o">=</span><span class="s1">u&#39;home&#39;</span><span class="p">,</span>
+            <span class="n">icon</span><span class="o">=</span><span class="s1">u&#39;~/&#39;</span><span class="p">,</span>
+            <span class="n">icontype</span><span class="o">=</span><span class="s1">u&#39;fileicon&#39;</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s1">u&#39;file&#39;</span><span class="p">,</span>
+            <span class="n">largetext</span><span class="o">=</span><span class="s1">u&#39;Text for LargeType&#39;</span><span class="p">,</span>
+            <span class="n">copytext</span><span class="o">=</span><span class="s1">u&#39;Text when copying&#39;</span><span class="p">)</span>
 
-<span class="c"># Print XML to STDOUT</span>
+<span class="c1"># Print XML to STDOUT</span>
 <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 <div class="section" id="basic-example">
-<h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Basic example</a><a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
 <p>A minimal, valid result looks like this:</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;item&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;item&gt;</span>
     <span class="nt">&lt;title&gt;</span>My super title<span class="nt">&lt;/title&gt;</span>
 <span class="nt">&lt;/item&gt;</span>
 </pre></div>
 </div>
 <p>Generated with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;My super title&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">u&#39;My super title&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will show a result in Alfred with Alfred&#8217;s blank workflow icon and &#8220;My
@@ -330,7 +239,7 @@ super title&#8221; as its text.</p>
 other complementary parameters. Let&#8217;s have a look.</p>
 </div>
 <div class="section" id="item-parameters">
-<h2>Item parameters<a class="headerlink" href="#item-parameters" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Item parameters</a><a class="headerlink" href="#item-parameters" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="#param-title"><span>title</span></a></li>
 <li><a class="reference internal" href="#param-subtitle"><span>subtitle</span></a></li>
@@ -344,21 +253,21 @@ other complementary parameters. Let&#8217;s have a look.</p>
 <li><a class="reference internal" href="#param-icon"><span>icon</span></a></li>
 </ul>
 <div class="section" id="title">
-<span id="param-title"></span><h3>title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h3>
+<span id="param-title"></span><h3><a class="toc-backref" href="#id4">title</a><a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h3>
 <p>This is the large text shown for each result in Alfred&#8217;s results list.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
 the <code class="docutils literal"><span class="pre">title</span></code> argument or the first unnamed argument. This is the only
 required argument and must be <code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">u&#39;My title&#39;</span><span class="p">[,</span> <span class="o">...</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">u&#39;My title&#39;</span><span class="p">[,</span> <span class="o">...</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">u&#39;My title&#39;</span><span class="p">[,</span> <span class="o">...</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">u&#39;My title&#39;</span><span class="p">[,</span> <span class="o">...</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="subtitle">
-<span id="param-subtitle"></span><h3>subtitle<a class="headerlink" href="#subtitle" title="Permalink to this headline">¶</a></h3>
+<span id="param-subtitle"></span><h3><a class="toc-backref" href="#id5">subtitle</a><a class="headerlink" href="#subtitle" title="Permalink to this headline">¶</a></h3>
 <p>This is the smaller text shown under each result in Alfred&#8217;s results list.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
@@ -385,7 +294,7 @@ subtitles to be shown when the modifiers are pressed (see lines 7–13 of the
 <a class="reference internal" href="#code-example"><span>example code</span></a>).</p>
 </div>
 <div class="section" id="autocomplete">
-<span id="param-autocomplete"></span><h3>autocomplete<a class="headerlink" href="#autocomplete" title="Permalink to this headline">¶</a></h3>
+<span id="param-autocomplete"></span><h3><a class="toc-backref" href="#id6">autocomplete</a><a class="headerlink" href="#autocomplete" title="Permalink to this headline">¶</a></h3>
 <p>If the user presses <code class="docutils literal"><span class="pre">TAB</span></code> on a result, the query currently shown in Alfred&#8217;s
 query box will be expanded to the <code class="docutils literal"><span class="pre">autocomplete</span></code> value of the selected result.</p>
 <p>If the user presses <code class="docutils literal"><span class="pre">ENTER</span></code> on a result with <a class="reference internal" href="#param-valid"><span>valid</span></a> set to <code class="docutils literal"><span class="pre">no</span></code>,
@@ -398,7 +307,7 @@ Filter again with the new query.</p>
 have no effect.</p>
 </div>
 <div class="section" id="arg">
-<span id="param-arg"></span><h3>arg<a class="headerlink" href="#arg" title="Permalink to this headline">¶</a></h3>
+<span id="param-arg"></span><h3><a class="toc-backref" href="#id7">arg</a><a class="headerlink" href="#arg" title="Permalink to this headline">¶</a></h3>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
 the <code class="docutils literal"><span class="pre">arg</span></code> argument. Must be <code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>.</p>
 <p>This is the &#8220;value&#8221; of the result that will be passed by Alfred as <code class="docutils literal"><span class="pre">{query}</span></code>
@@ -420,7 +329,7 @@ you can include newlines within an element, but not within an attribute.</p>
 </div>
 </div>
 <div class="section" id="valid">
-<span id="param-valid"></span><h3>valid<a class="headerlink" href="#valid" title="Permalink to this headline">¶</a></h3>
+<span id="param-valid"></span><h3><a class="toc-backref" href="#id8">valid</a><a class="headerlink" href="#valid" title="Permalink to this headline">¶</a></h3>
 <p>Passed to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
 the <code class="docutils literal"><span class="pre">valid</span></code> argument. Must be <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code> (the default).</p>
 <p>In the XML file, <code class="docutils literal"><span class="pre">valid</span></code> is an attribute on the <code class="docutils literal"><span class="pre">&lt;item&gt;</span></code> element and must
@@ -430,7 +339,7 @@ have the value of either <code class="docutils literal"><span class="pre">YES</s
 3
 4
 5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nt">&lt;item</span> <span class="na">valid=</span><span class="s">&quot;YES&quot;</span><span class="nt">&gt;</span>
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">&lt;item</span> <span class="na">valid=</span><span class="s">&quot;YES&quot;</span><span class="nt">&gt;</span>
     ...
 <span class="nt">&lt;/item&gt;</span>
 <span class="nt">&lt;item</span> <span class="na">valid=</span><span class="s">&quot;NO&quot;</span><span class="nt">&gt;</span>
@@ -447,7 +356,7 @@ filepath).</p>
 isn&#8217;t set.</p>
 </div>
 <div class="section" id="uid">
-<span id="param-uid"></span><h3>uid<a class="headerlink" href="#uid" title="Permalink to this headline">¶</a></h3>
+<span id="param-uid"></span><h3><a class="toc-backref" href="#id9">uid</a><a class="headerlink" href="#uid" title="Permalink to this headline">¶</a></h3>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
 the <code class="docutils literal"><span class="pre">uid</span></code> argument. Must be <code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>.</p>
 <p>Alfred uses the <code class="docutils literal"><span class="pre">uid</span></code> to uniquely identify a result and apply its &#8220;knowledge&#8221;
@@ -462,7 +371,7 @@ appear in the XML file (the order in which you add them with
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a>).</p>
 </div>
 <div class="section" id="type">
-<span id="param-type"></span><h3>type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
+<span id="param-type"></span><h3><a class="toc-backref" href="#id10">type</a><a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
 <p>The type of the result. Currently, only <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">file:skipcheck</span></code> are
 supported.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
@@ -480,7 +389,7 @@ time if you&#8217;re sure the file exists.</p>
 but it is not necessary for the item to be <a class="reference internal" href="#param-valid"><span>valid</span></a>.</p>
 </div>
 <div class="section" id="copy-text">
-<span id="param-copytext"></span><h3>copy text<a class="headerlink" href="#copy-text" title="Permalink to this headline">¶</a></h3>
+<span id="param-copytext"></span><h3><a class="toc-backref" href="#id11">copy text</a><a class="headerlink" href="#copy-text" title="Permalink to this headline">¶</a></h3>
 <p>Text that will be copied to the pasteboard if a user presses <code class="docutils literal"><span class="pre">CMD+C</span></code> on a
 result.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
@@ -493,7 +402,7 @@ and Alfred&#8217;s window will close. If neither is set, nothing will be copied 
 the pasteboard and Alfred&#8217;s window will close.</p>
 </div>
 <div class="section" id="large-text">
-<span id="param-largetext"></span><h3>large text<a class="headerlink" href="#large-text" title="Permalink to this headline">¶</a></h3>
+<span id="param-largetext"></span><h3><a class="toc-backref" href="#id12">large text</a><a class="headerlink" href="#large-text" title="Permalink to this headline">¶</a></h3>
 <p>Text that will be displayed in Alfred&#8217;s Large Type pop-up if a user presses
 <code class="docutils literal"><span class="pre">CMD+L</span></code> on a result.</p>
 <p>Pass to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> as
@@ -503,18 +412,18 @@ the <code class="docutils literal"><span class="pre">largetext</span></code> arg
 will display the current query in its Large Type pop-up.</p>
 </div>
 <div class="section" id="icon">
-<span id="param-icon"></span><h3>icon<a class="headerlink" href="#icon" title="Permalink to this headline">¶</a></h3>
+<span id="param-icon"></span><h3><a class="toc-backref" href="#id13">icon</a><a class="headerlink" href="#icon" title="Permalink to this headline">¶</a></h3>
 <p>There are three different kinds of icon you can tell Alfred to use. Use the
 <code class="docutils literal"><span class="pre">type</span></code> attribute of the <code class="docutils literal"><span class="pre">&lt;icon&gt;</span></code> XML element or the <code class="docutils literal"><span class="pre">icontype</span></code> argument
 to <code class="docutils literal"><span class="pre">Alfred.add_item()</span></code> to define which type of icon you want.</p>
 <div class="section" id="image-files">
-<h4>Image files<a class="headerlink" href="#image-files" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id14">Image files</a><a class="headerlink" href="#image-files" title="Permalink to this headline">¶</a></h4>
 <p>This is the default. Simply pass the filename or filepath of an image file:</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;icon&gt;</span>icon.png<span class="nt">&lt;/icon&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;icon&gt;</span>icon.png<span class="nt">&lt;/icon&gt;</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s">u&#39;icon.png&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">u&#39;icon.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Relative paths will be interpreted by Alfred as relative to the root of your
@@ -527,14 +436,14 @@ and Alfred will have to resize the icon; smaller and it won&#8217;t look so good
 Retina screen.</p>
 </div>
 <div class="section" id="file-icons">
-<h4>File icons<a class="headerlink" href="#file-icons" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id15">File icons</a><a class="headerlink" href="#file-icons" title="Permalink to this headline">¶</a></h4>
 <p>Alternatively, you can tell Alfred to use the icon of a file:</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;icon</span> <span class="na">type=</span><span class="s">&quot;fileicon&quot;</span><span class="nt">&gt;</span>/path/to/some/file.pdf<span class="nt">&lt;/icon&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;icon</span> <span class="na">type=</span><span class="s">&quot;fileicon&quot;</span><span class="nt">&gt;</span>/path/to/some/file.pdf<span class="nt">&lt;/icon&gt;</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s">u&#39;/path/to/some/file.pdf&#39;</span><span class="p">,</span>
-                  <span class="n">icontype</span><span class="o">=</span><span class="s">u&#39;fileicon&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">u&#39;/path/to/some/file.pdf&#39;</span><span class="p">,</span>
+                  <span class="n">icontype</span><span class="o">=</span><span class="s1">u&#39;fileicon&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This is great if your workflow lists the user&#8217;s own files, and makes your
@@ -547,15 +456,15 @@ files, movies, ebooks, comics etc., any cover art will not be shown, but rather
 the standard icon for the appropriate filetype.</p>
 </div>
 <div class="section" id="filetype-icons">
-<h4>Filetype icons<a class="headerlink" href="#filetype-icons" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id16">Filetype icons</a><a class="headerlink" href="#filetype-icons" title="Permalink to this headline">¶</a></h4>
 <p>Finally, you can tell Alfred to use the icon for a specific filetype by
-specifying a <a class="reference external" href="http://www.escape.gr/manuals/qdrop/UTI.html">UTI</a> as the value
+specifying a <a class="reference external" href="https://en.wikipedia.org/wiki/Uniform_Type_Identifier">UTI</a> as the value
 to <code class="docutils literal"><span class="pre">icon</span></code> and <code class="docutils literal"><span class="pre">filetype</span></code> as the type:</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;icon</span> <span class="na">type=</span><span class="s">&quot;filetype&quot;</span><span class="nt">&gt;</span>public.html<span class="nt">&lt;/icon&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;icon</span> <span class="na">type=</span><span class="s">&quot;filetype&quot;</span><span class="nt">&gt;</span>public.html<span class="nt">&lt;/icon&gt;</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s">u&#39;public.html&#39;</span><span class="p">,</span> <span class="n">icontype</span><span class="o">=</span><span class="s">u&#39;filetype&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Workflow</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">u&#39;public.html&#39;</span><span class="p">,</span> <span class="n">icontype</span><span class="o">=</span><span class="s1">u&#39;filetype&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will show the icon for <code class="docutils literal"><span class="pre">HTML</span></code> pages, which will be different depending
@@ -579,78 +488,146 @@ by running <code class="docutils literal"><span class="pre">mdls</span> <span cl
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="aw-workflows.html" class="btn btn-neutral float-right" title="Workflows using Alfred-Workflow" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="api/serialization.html" class="btn btn-neutral" title="Serialization" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Script Filter Results and the XML Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#xml-format-available-parameters">XML format / available parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-example">Basic example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#item-parameters">Item parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#title">title</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subtitle">subtitle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autocomplete">autocomplete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arg">arg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#valid">valid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uid">uid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type">type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-text">copy text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#large-text">large text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#icon">icon</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api/serialization.html" title="previous chapter">Serialization</a></li>
+      <li>Next: <a href="aw-workflows.html" title="next chapter">Workflows using Alfred-Workflow</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

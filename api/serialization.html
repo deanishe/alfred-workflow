@@ -1,176 +1,71 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Serialization &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Serialization &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="index.html" />
+    <link rel="next" title="Script Filter Results and the XML Format" href="../xml_format.html" />
+    <link rel="prev" title="Self-Updating" href="update.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="../index.html"/>
-        <link rel="up" title="Alfred-Workflow API" href="index.html"/>
-        <link rel="next" title="Script Filter Results and the XML Format" href="../xml_format.html"/>
-        <link rel="prev" title="Self-Updating" href="update.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="../_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../xml_format.html" title="Script Filter Results and the XML Format"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="update.html" title="Self-Updating"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Alfred-Workflow API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">Alfred-Workflow API</a> &raquo;</li>
-      
-    <li>Serialization</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/api/serialization.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-workflow">
 <span id="serialization"></span><span id="api-serialization"></span><h1>Serialization<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
@@ -230,15 +125,15 @@ methods</li>
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.serializer">
 <code class="descname">serializer</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.SerializerManager.serializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return serializer object for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">None</span></code> if no such
-serializer is registered</p>
+<dd><p>Return serializer object for <code class="docutils literal"><span class="pre">name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of serializer to return</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <code class="docutils literal"><span class="pre">None</span></code></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <code class="docutils literal"><span class="pre">None</span></code> if no such serializer
+is registered.</td>
 </tr>
 </tbody>
 </table>
@@ -247,13 +142,13 @@ serializer is registered</p>
 <dl class="attribute">
 <dt id="workflow.workflow.SerializerManager.serializers">
 <code class="descname">serializers</code><a class="headerlink" href="#workflow.workflow.SerializerManager.serializers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return names of registered serializers</p>
+<dd><p>Return names of registered serializers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.unregister">
 <code class="descname">unregister</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.SerializerManager.unregister" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove registered serializer with <code class="docutils literal"><span class="pre">name</span></code></p>
+<dd><p>Remove registered serializer with <code class="docutils literal"><span class="pre">name</span></code>.</p>
 <p>Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if there is no such registered
 serializer.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -433,78 +328,140 @@ flexibility.</p>
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../xml_format.html" class="btn btn-neutral float-right" title="Script Filter Results and the XML Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="update.html" class="btn btn-neutral" title="Self-Updating" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notify.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="update.html" title="previous chapter">Self-Updating</a></li>
+      <li>Next: <a href="../xml_format.html" title="next chapter">Script Filter Results and the XML Format</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

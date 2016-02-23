@@ -1,185 +1,106 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Part 2: A Distribution-Ready Pinboard Workflow &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="index.html" />
+    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="next" title="User Manual" href="user-manual/index.html" />
+    <link rel="prev" title="Tutorial Part 1: Creating a Basic Pinboard Workflow" href="tutorial_1.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="index.html"/>
-        <link rel="up" title="Tutorial" href="tutorial.html"/>
-        <link rel="next" title="User Manual" href="user-manual/index.html"/>
-        <link rel="prev" title="Part 1: A Basic Pinboard Workflow" href="tutorial_1.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="user-manual/index.html" title="User Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_1.html" title="Tutorial Part 1: Creating a Basic Pinboard Workflow"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">Part 2: A Distribution-Ready Pinboard Workflow</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#performing-multiple-actions-from-one-script">Performing multiple actions from one script</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#multi-step-actions">Multi-step actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#saving-settings">Saving settings</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#magic-arguments">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#logging">Logging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#spit-and-polish">Spit and polish</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-fruits-of-your-labour">The fruits of your labour</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="tutorial.html">Tutorial</a> &raquo;</li>
-      
-    <li>Part 2: A Distribution-Ready Pinboard Workflow</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/tutorial_2.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="part-2-a-distribution-ready-pinboard-workflow">
-<span id="tutorial-2"></span><h1>Part 2: A Distribution-Ready Pinboard Workflow<a class="headerlink" href="#part-2-a-distribution-ready-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tutorial-part-2-creating-a-distribution-ready-pinboard-workflow">
+<span id="tutorial-2"></span><h1>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow<a class="headerlink" href="#tutorial-part-2-creating-a-distribution-ready-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
 <p>In which we create a <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> workflow ready for mass consumption.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#performing-multiple-actions-from-one-script" id="id4">Performing multiple actions from one script</a></li>
+<li><a class="reference internal" href="#multi-step-actions" id="id5">Multi-step actions</a></li>
+<li><a class="reference internal" href="#saving-settings" id="id6">Saving settings</a><ul>
+<li><a class="reference internal" href="#saving-settings-securely" id="id7">Saving settings securely</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#magic-arguments" id="id8">&#8220;Magic&#8221; arguments</a></li>
+<li><a class="reference internal" href="#logging" id="id9">Logging</a></li>
+<li><a class="reference internal" href="#spit-and-polish" id="id10">Spit and polish</a><ul>
+<li><a class="reference internal" href="#two-actions-one-keyword" id="id11">Two actions, one keyword</a></li>
+<li><a class="reference internal" href="#notifying-the-user-if-there-are-no-results" id="id12">Notifying the user if there are no results</a></li>
+<li><a class="reference internal" href="#greased-lightning-background-updates" id="id13">Greased lightning: background updates</a><ul>
+<li><a class="reference internal" href="#background-updater-script" id="id14">Background updater script</a></li>
+<li><a class="reference internal" href="#running-update-py-from-pinboard-py" id="id15">Running <code class="docutils literal"><span class="pre">update.py</span></code> from <code class="docutils literal"><span class="pre">pinboard.py</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-fruits-of-your-labour" id="id16">The fruits of your labour</a><ul>
+<li><a class="reference internal" href="#sharing-your-workflow" id="id17">Sharing your workflow</a></li>
+<li><a class="reference internal" href="#updating-your-workflow" id="id18">Updating your workflow</a><ul>
+<li><a class="reference internal" href="#the-packal-updater" id="id19">The Packal Updater</a></li>
+<li><a class="reference internal" href="#github-releases" id="id20">GitHub releases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>In the <a class="reference internal" href="tutorial.html#tutorial"><span>first part</span></a> of the tutorial, we built a useable
 workflow to view, search and open your recent Pinboard posts. The workflow
 isn&#8217;t quite ready to be distributed to other users, however: we can&#8217;t expect
@@ -191,7 +112,7 @@ comfort of Alfred&#8217;s friendly query box and use
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>
 to save it in the workflow&#8217;s data directory where it won&#8217;t get overwritten.</p>
 <div class="section" id="performing-multiple-actions-from-one-script">
-<h2>Performing multiple actions from one script<a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Performing multiple actions from one script</a><a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
 <p>To set the user&#8217;s API key, we&#8217;re going to need a new action. We could write a
 second script to do this, but we&#8217;re going to stick with one script and make it
 smart enough to do two things, instead. The advantage of using one script is
@@ -310,7 +231,7 @@ arguments passed to it by Alfred.</p>
 108
 109
 110
-111</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+111</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
 <span class="hll"> <span class="kn">import</span> <span class="nn">argparse</span>
@@ -323,73 +244,73 @@ arguments passed to it by Alfred.</p>
 </span><span class="hll"><span class="sd">     Returns a list of post dictionaries.</span>
 </span><span class="hll">
 </span><span class="hll"><span class="sd">     &quot;&quot;&quot;</span>
-</span><span class="hll">     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-</span><span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+</span><span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
 </span>     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
  <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
      <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
      <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
-     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
+     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-<span class="hll">     <span class="c"># build argument parser to parse script args and collect their</span>
-</span><span class="hll">     <span class="c"># values</span>
+<span class="hll">     <span class="c1"># build argument parser to parse script args and collect their</span>
+</span><span class="hll">     <span class="c1"># values</span>
 </span><span class="hll">     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-</span><span class="hll">     <span class="c"># add an optional (nargs=&#39;?&#39;) --setkey argument and save its</span>
-</span><span class="hll">     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
-</span><span class="hll">     <span class="c"># action with the API key</span>
-</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-</span><span class="hll">     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
-</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-</span><span class="hll">     <span class="c"># parse the script&#39;s arguments</span>
+</span><span class="hll">     <span class="c1"># add an optional (nargs=&#39;?&#39;) --setkey argument and save its</span>
+</span><span class="hll">     <span class="c1"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+</span><span class="hll">     <span class="c1"># action with the API key</span>
+</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="c1"># add an optional query and save it to &#39;query&#39;</span>
+</span><span class="hll">     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="c1"># parse the script&#39;s arguments</span>
 </span><span class="hll">     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c">####################################################################</span>
-</span><span class="hll">     <span class="c"># Save the provided API key</span>
-</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
+</span><span class="hll">     <span class="c1"># Save the provided API key</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c"># decide what to do based on arguments</span>
-</span><span class="hll">     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
-</span><span class="hll">         <span class="c"># save the key</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span>
-</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+</span><span class="hll">     <span class="c1"># decide what to do based on arguments</span>
+</span><span class="hll">     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c1"># Script was passed an API key</span>
+</span><span class="hll">         <span class="c1"># save the key</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span>
+</span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 0 means script exited cleanly</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c">####################################################################</span>
-</span><span class="hll">     <span class="c"># Check that we have an API key saved</span>
-</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
+</span><span class="hll">     <span class="c1"># Check that we have an API key saved</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;api_key&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
-</span><span class="hll">                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+</span><span class="hll">     <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;api_key&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>  <span class="c1"># API key has not yet been set</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No API key set.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="s1">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
 </span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c">####################################################################</span>
-</span><span class="hll">     <span class="c"># View/filter Pinboard posts</span>
-</span><span class="hll">     <span class="c">####################################################################</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
+</span><span class="hll">     <span class="c1"># View/filter Pinboard posts</span>
+</span><span class="hll">     <span class="c1">####################################################################</span>
 </span><span class="hll">
 </span><span class="hll">     <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
-</span><span class="hll">     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-</span><span class="hll">     <span class="c"># seconds old</span>
+</span><span class="hll">     <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+</span><span class="hll">     <span class="c1"># seconds old</span>
 </span><span class="hll">
 </span><span class="hll">     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
 </span><span class="hll">         <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
@@ -398,27 +319,27 @@ arguments passed to it by Alfred.</p>
 </span><span class="hll"><span class="sd">         &quot;&quot;&quot;</span>
 </span><span class="hll">         <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </span>
-     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="c1"># If script was passed a query, use it to filter posts</span>
      <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
          <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-     <span class="c"># Loop through the returned posts and add a item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add a item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -457,7 +378,7 @@ run it, and you&#8217;ll see the warning we just implemented:</p>
 <p>So let&#8217;s add that functionality now.</p>
 </div>
 <div class="section" id="multi-step-actions">
-<h2>Multi-step actions<a class="headerlink" href="#multi-step-actions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Multi-step actions</a><a class="headerlink" href="#multi-step-actions" title="Permalink to this headline">¶</a></h2>
 <p>Asking the user for input and saving it is best done in two steps:</p>
 <ol class="arabic simple">
 <li>Ask for the data.</li>
@@ -494,7 +415,7 @@ action to your workflow:</p>
 notification that it was saved.</p>
 </div>
 <div class="section" id="saving-settings">
-<span id="settings"></span><h2>Saving settings<a class="headerlink" href="#saving-settings" title="Permalink to this headline">¶</a></h2>
+<span id="settings"></span><h2><a class="toc-backref" href="#id6">Saving settings</a><a class="headerlink" href="#saving-settings" title="Permalink to this headline">¶</a></h2>
 <p>Saving the API key was pretty easy (1 line of code). <code class="xref py py-class docutils literal"><span class="pre">Settings</span></code>
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
@@ -503,7 +424,7 @@ the workflow&#8217;s data directory.</p>
 <p>Very simple, yes, but secure? No. A better place to save the API key would be
 in the user&#8217;s Keychain. Let&#8217;s do that.</p>
 <div class="section" id="saving-settings-securely">
-<span id="secure-settings"></span><h3>Saving settings securely<a class="headerlink" href="#saving-settings-securely" title="Permalink to this headline">¶</a></h3>
+<span id="secure-settings"></span><h3><a class="toc-backref" href="#id7">Saving settings securely</a><a class="headerlink" href="#saving-settings-securely" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> provides three methods for managing data
 saved in OS X&#8217;s Keychain: <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code></a>,
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><code class="xref py py-meth docutils literal"><span class="pre">save_password()</span></code></a> and <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><code class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></code></a>.</p>
@@ -622,7 +543,7 @@ file to store your API key:</p>
 109
 110
 111
-112</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+112</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">import</span> <span class="nn">argparse</span>
@@ -635,74 +556,74 @@ file to store your API key:</p>
 <span class="sd">     Returns a list of post dictionaries.</span>
 
 <span class="sd">     &quot;&quot;&quot;</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
  <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
      <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
      <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
-     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
+     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-     <span class="c"># build argument parser to parse script args and collect their</span>
-     <span class="c"># values</span>
+     <span class="c1"># build argument parser to parse script args and collect their</span>
+     <span class="c1"># values</span>
      <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-     <span class="c"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
-     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
-     <span class="c"># action with the API key</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># parse the script&#39;s arguments</span>
+     <span class="c1"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
+     <span class="c1"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+     <span class="c1"># action with the API key</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># add an optional query and save it to &#39;query&#39;</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># parse the script&#39;s arguments</span>
      <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Save the provided API key</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Save the provided API key</span>
+     <span class="c1">####################################################################</span>
 
-     <span class="c"># decide what to do based on arguments</span>
-     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
-         <span class="c"># save the key</span>
-<span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
-</span>         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+     <span class="c1"># decide what to do based on arguments</span>
+     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c1"># Script was passed an API key</span>
+         <span class="c1"># save the key</span>
+<span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+</span>         <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 0 means script exited cleanly</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Check that we have an API key saved</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Check that we have an API key saved</span>
+     <span class="c1">####################################################################</span>
 
 <span class="hll">     <span class="k">try</span><span class="p">:</span>
-</span><span class="hll">         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
-</span><span class="hll">     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
-</span><span class="hll">                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+</span><span class="hll">         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+</span><span class="hll">     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c1"># API key has not yet been set</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No API key set.&#39;</span><span class="p">,</span>
+</span><span class="hll">                     <span class="s1">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
 </span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </span>         <span class="k">return</span> <span class="mi">0</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># View/filter Pinboard posts</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># View/filter Pinboard posts</span>
+     <span class="c1">####################################################################</span>
 
      <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
-     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-     <span class="c"># seconds old</span>
+     <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c1"># seconds old</span>
 
      <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
          <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
@@ -711,27 +632,27 @@ file to store your API key:</p>
 <span class="sd">         &quot;&quot;&quot;</span>
          <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
 
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 
-     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="c1"># If script was passed a query, use it to filter posts</span>
      <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
          <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -752,7 +673,7 @@ workflow multiple times.</p>
 </div>
 </div>
 <div class="section" id="magic-arguments">
-<h2>&#8220;Magic&#8221; arguments<a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">&#8220;Magic&#8221; arguments</a><a class="headerlink" href="#magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>Now that the API key is stored in Keychain, we don&#8217;t need it saved in the
 workflow&#8217;s settings any more (and having it there that kind of defeats the
 purpose of using Keychain). To get rid of it, we can use one of Alfred-Workflow&#8217;s
@@ -767,7 +688,7 @@ Alfred and exited the workflow.</p>
 <a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a> for more details.</p>
 </div>
 <div class="section" id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
 <p>There&#8217;s a log, you say? Yup. There&#8217;s a <a class="reference external" href="http://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></code></a>
 instance at <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code></a>
 configured to output to both the Terminal (in case you&#8217;re running your workflow
@@ -783,15 +704,15 @@ script in Terminal) and your workflow&#8217;s log file. Normally, I use it like 
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
  <span class="n">log</span> <span class="o">=</span> <span class="bp">None</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Started&#39;</span><span class="p">)</span>
+     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Started&#39;</span><span class="p">)</span>
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
@@ -802,7 +723,7 @@ module global <code class="docutils literal"><span class="pre">log</span></code>
 its place.</p>
 </div>
 <div class="section" id="spit-and-polish">
-<h2>Spit and polish<a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Spit and polish</a><a class="headerlink" href="#spit-and-polish" title="Permalink to this headline">¶</a></h2>
 <p>So far, the workflow&#8217;s looking pretty good. But there are still a few of things
 that could be better. For one, it&#8217;s not necessarily obvious to a user where to
 find their Pinboard API key (it took me a good, hard Googling to find it while
@@ -814,7 +735,7 @@ posts cached, but apart from the very first run, we always will, so why don&#821
 we show what we have and update in the background?</p>
 <p>Let&#8217;s fix those issues. The easy ones first.</p>
 <div class="section" id="two-actions-one-keyword">
-<h3>Two actions, one keyword<a class="headerlink" href="#two-actions-one-keyword" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Two actions, one keyword</a><a class="headerlink" href="#two-actions-one-keyword" title="Permalink to this headline">¶</a></h3>
 <p>To solve the first issue (Pinboard API keys being hard to find), we&#8217;ll add a
 second <strong>Keyword</strong> input that responds to the same <code class="docutils literal"><span class="pre">pbsetkey</span></code> keyword as our
 other action, but this one will just send the user to the Pinboard
@@ -837,7 +758,7 @@ should open in your default browser.</p>
 <p>Easy peasy.</p>
 </div>
 <div class="section" id="notifying-the-user-if-there-are-no-results">
-<span id="no-results-warning"></span><h3>Notifying the user if there are no results<a class="headerlink" href="#notifying-the-user-if-there-are-no-results" title="Permalink to this headline">¶</a></h3>
+<span id="no-results-warning"></span><h3><a class="toc-backref" href="#id12">Notifying the user if there are no results</a><a class="headerlink" href="#notifying-the-user-if-there-are-no-results" title="Permalink to this headline">¶</a></h3>
 <p>Alfred&#8217;s default behaviour when a Script Filter returns no results is to show
 its fallback searches. This is also what it does if a workflow crashes. So,
 the best thing to do when a user is explicitly using your workflow is to
@@ -959,7 +880,7 @@ show a message indicating that no results were found.</p>
 114
 115
 116
-117</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+117</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">import</span> <span class="nn">argparse</span>
@@ -972,74 +893,74 @@ show a message indicating that no results were found.</p>
 <span class="sd">     Returns a list of post dictionaries.</span>
 
 <span class="sd">     &quot;&quot;&quot;</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
  <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
      <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
      <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
-     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
+     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-     <span class="c"># build argument parser to parse script args and collect their</span>
-     <span class="c"># values</span>
+     <span class="c1"># build argument parser to parse script args and collect their</span>
+     <span class="c1"># values</span>
      <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-     <span class="c"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
-     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
-     <span class="c"># action with the API key</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># parse the script&#39;s arguments</span>
+     <span class="c1"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
+     <span class="c1"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+     <span class="c1"># action with the API key</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># add an optional query and save it to &#39;query&#39;</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># parse the script&#39;s arguments</span>
      <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Save the provided API key</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Save the provided API key</span>
+     <span class="c1">####################################################################</span>
 
-     <span class="c"># decide what to do based on arguments</span>
-     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
-         <span class="c"># save the key</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
-         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+     <span class="c1"># decide what to do based on arguments</span>
+     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c1"># Script was passed an API key</span>
+         <span class="c1"># save the key</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+         <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 0 means script exited cleanly</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Check that we have an API key saved</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Check that we have an API key saved</span>
+     <span class="c1">####################################################################</span>
 
      <span class="k">try</span><span class="p">:</span>
-         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
-     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c1"># API key has not yet been set</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No API key set.&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
          <span class="k">return</span> <span class="mi">0</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># View/filter Pinboard posts</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># View/filter Pinboard posts</span>
+     <span class="c1">####################################################################</span>
 
      <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
-     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-     <span class="c"># seconds old</span>
+     <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c1"># seconds old</span>
 
      <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
          <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
@@ -1048,32 +969,32 @@ show a message indicating that no results were found.</p>
 <span class="sd">         &quot;&quot;&quot;</span>
          <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
 
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 
-     <span class="c"># If script was passed a query, use it to filter posts</span>
+     <span class="c1"># If script was passed a query, use it to filter posts</span>
      <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
          <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c"># we have no data to show, so show a warning and stop</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+<span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c1"># we have no data to show, so show a warning and stop</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
 </span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </span><span class="hll">         <span class="k">return</span> <span class="mi">0</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -1084,7 +1005,7 @@ Alfred&#8217;s distracting default searches and lets the user know exactly what&
 going on.</p>
 </div>
 <div class="section" id="greased-lightning-background-updates">
-<span id="background-updates"></span><h3>Greased lightning: background updates<a class="headerlink" href="#greased-lightning-background-updates" title="Permalink to this headline">¶</a></h3>
+<span id="background-updates"></span><h3><a class="toc-backref" href="#id13">Greased lightning: background updates</a><a class="headerlink" href="#greased-lightning-background-updates" title="Permalink to this headline">¶</a></h3>
 <p>All that remains is for our workflow to provide the blazing fast results Alfred
 users have come to expect. No waiting around for glacial web services for the
 likes of us. As long as we have some posts saved in the cache, we can show
@@ -1118,7 +1039,7 @@ changes.</p>
 running and post a useful, friendly notification if it is.</p>
 <p>Let&#8217;s have at it.</p>
 <div class="section" id="background-updater-script">
-<h4>Background updater script<a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id14">Background updater script</a><a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
 <p>Create a new file in the workflow root directory called <code class="docutils literal"><span class="pre">update.py</span></code> with these
 contents:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -1172,7 +1093,7 @@ contents:</p>
 49
 50
 51
-52</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+52</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
 
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">web</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">PasswordNotFound</span>
@@ -1184,27 +1105,27 @@ contents:</p>
 <span class="sd">     Returns a list of post dictionaries.</span>
 
 <span class="sd">     &quot;&quot;&quot;</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
      <span class="k">try</span><span class="p">:</span>
-         <span class="c"># Get API key from Keychain</span>
-         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+         <span class="c1"># Get API key from Keychain</span>
+         <span class="n">api_key</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
 
-         <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-         <span class="c"># seconds old</span>
+         <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+         <span class="c1"># seconds old</span>
 
          <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
              <span class="sd">&quot;&quot;&quot;`cached_data` can only take a bare callable (no args),</span>
@@ -1213,15 +1134,15 @@ contents:</p>
 <span class="sd">             &quot;&quot;&quot;</span>
              <span class="k">return</span> <span class="n">get_recent_posts</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
 
-         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-         <span class="c"># Record our progress in the log file</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;{} Pinboard posts cached&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">posts</span><span class="p">)))</span>
+         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+         <span class="c1"># Record our progress in the log file</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;{} Pinboard posts cached&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">posts</span><span class="p">)))</span>
 
-     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
-         <span class="c"># Nothing we can do about this, so just log it</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;No API key saved&#39;</span><span class="p">)</span>
+     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c1"># API key has not yet been set</span>
+         <span class="c1"># Nothing we can do about this, so just log it</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No API key saved&#39;</span><span class="p">)</span>
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
@@ -1236,16 +1157,16 @@ error that <a class="reference internal" href="api/workflow.html#workflow.workfl
 will raise if the user hasn&#8217;t set their API key via Alfred yet. <code class="docutils literal"><span class="pre">update.py</span></code>
 can quietly die if no API key has been set because <code class="docutils literal"><span class="pre">pinboard.py</span></code> takes care
 of notifying the user to set their API key.</p>
-<p>Let&#8217;s try out <code class="docutils literal"><span class="pre">update.py</span></code>. <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the workflow root directory</a>
+<p>Let&#8217;s try out <code class="docutils literal"><span class="pre">update.py</span></code>. <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the workflow root directory</a>
 and run the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>python update.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>python update.py
 </pre></div>
 </div>
 <p>If it works, you should see something like this:</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
-4</pre></div></td><td class="code"><div class="highlight"><pre> 21:59:59 workflow.py:855 DEBUG    get_password : net.deanishe.alfred-pinboard-recent:pinboard_api_key
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> 21:59:59 workflow.py:855 DEBUG    get_password : net.deanishe.alfred-pinboard-recent:pinboard_api_key
  21:59:59 workflow.py:544 DEBUG    Loading cached data from : /Users/dean/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/net.deanishe.alfred-pinboard-recent/posts.cache
 <span class="hll"> 21:59:59 update.py:111 DEBUG    <span class="m">100</span> Pinboard posts cached
 </span> 22:19:25 workflow.py:371 INFO     Opening workflow log file
@@ -1254,7 +1175,7 @@ and run the following:</p>
 <p>As you can see in the 3rd line, <code class="docutils literal"><span class="pre">update.py</span></code> did its job.</p>
 </div>
 <div class="section" id="running-update-py-from-pinboard-py">
-<h4>Running <code class="docutils literal"><span class="pre">update.py</span></code> from <code class="docutils literal"><span class="pre">pinboard.py</span></code><a class="headerlink" href="#running-update-py-from-pinboard-py" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id15">Running <code class="docutils literal"><span class="pre">update.py</span></code> from <code class="docutils literal"><span class="pre">pinboard.py</span></code></a><a class="headerlink" href="#running-update-py-from-pinboard-py" title="Permalink to this headline">¶</a></h4>
 <p>So now let&#8217;s update <code class="docutils literal"><span class="pre">pinboard.py</span></code> to call <code class="docutils literal"><span class="pre">update.py</span></code> instead of doing the
 update itself:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
@@ -1360,7 +1281,7 @@ update itself:</p>
 101
 102
 103
-104</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+104</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">import</span> <span class="nn">argparse</span>
@@ -1372,96 +1293,96 @@ update itself:</p>
  <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
      <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
      <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
-     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
-     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
+     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
+     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-     <span class="c"># build argument parser to parse script args and collect their</span>
-     <span class="c"># values</span>
+     <span class="c1"># build argument parser to parse script args and collect their</span>
+     <span class="c1"># values</span>
      <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-     <span class="c"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
-     <span class="c"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
-     <span class="c"># action with the API key</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># add an optional query and save it to &#39;query&#39;</span>
-     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-     <span class="c"># parse the script&#39;s arguments</span>
+     <span class="c1"># add an optional (nargs=&#39;?&#39;) --apikey argument and save its</span>
+     <span class="c1"># value to &#39;apikey&#39; (dest). This will be called from a separate &quot;Run Script&quot;</span>
+     <span class="c1"># action with the API key</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--setkey&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># add an optional query and save it to &#39;query&#39;</span>
+     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+     <span class="c1"># parse the script&#39;s arguments</span>
      <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Save the provided API key</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Save the provided API key</span>
+     <span class="c1">####################################################################</span>
 
-     <span class="c"># decide what to do based on arguments</span>
-     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c"># Script was passed an API key</span>
-         <span class="c"># save the key</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
-         <span class="k">return</span> <span class="mi">0</span>  <span class="c"># 0 means script exited cleanly</span>
+     <span class="c1"># decide what to do based on arguments</span>
+     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">:</span>  <span class="c1"># Script was passed an API key</span>
+         <span class="c1"># save the key</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">save_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+         <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># 0 means script exited cleanly</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># Check that we have an API key saved</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># Check that we have an API key saved</span>
+     <span class="c1">####################################################################</span>
 
      <span class="k">try</span><span class="p">:</span>
-<span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
-</span>     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c"># API key has not yet been set</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No API key set.&#39;</span><span class="p">,</span>
-                     <span class="s">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
+<span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">get_password</span><span class="p">(</span><span class="s1">&#39;pinboard_api_key&#39;</span><span class="p">)</span>
+</span>     <span class="k">except</span> <span class="n">PasswordNotFound</span><span class="p">:</span>  <span class="c1"># API key has not yet been set</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No API key set.&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Please use pbsetkey to set your Pinboard API key.&#39;</span><span class="p">,</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
          <span class="k">return</span> <span class="mi">0</span>
 
-     <span class="c">####################################################################</span>
-     <span class="c"># View/filter Pinboard posts</span>
-     <span class="c">####################################################################</span>
+     <span class="c1">####################################################################</span>
+     <span class="c1"># View/filter Pinboard posts</span>
+     <span class="c1">####################################################################</span>
 
      <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">query</span>
 
-     <span class="c"># Get posts from cache. Set `data_func` to None, as we don&#39;t want to</span>
-     <span class="c"># update the cache in this script and `max_age` to 0 because we want</span>
-     <span class="c"># the cached data regardless of age</span>
-<span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+     <span class="c1"># Get posts from cache. Set `data_func` to None, as we don&#39;t want to</span>
+     <span class="c1"># update the cache in this script and `max_age` to 0 because we want</span>
+     <span class="c1"># the cached data regardless of age</span>
+<span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c"># Start update script if cached data is too old (or doesn&#39;t exist)</span>
-</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
-</span><span class="hll">         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;/usr/bin/python&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">&#39;update.py&#39;</span><span class="p">)]</span>
-</span><span class="hll">         <span class="n">run_in_background</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+</span><span class="hll">     <span class="c1"># Start update script if cached data is too old (or doesn&#39;t exist)</span>
+</span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
+</span><span class="hll">         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/usr/bin/python&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s1">&#39;update.py&#39;</span><span class="p">)]</span>
+</span><span class="hll">         <span class="n">run_in_background</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c"># Notify the user if the cache is being updated</span>
-</span><span class="hll">     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">):</span>
-</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;Getting new posts from Pinboard&#39;</span><span class="p">,</span>
+</span><span class="hll">     <span class="c1"># Notify the user if the cache is being updated</span>
+</span><span class="hll">     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">):</span>
+</span><span class="hll">         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Getting new posts from Pinboard&#39;</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
 </span><span class="hll">                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
 </span>
-     <span class="c"># If script was passed a query, use it to filter posts if we have some</span>
+     <span class="c1"># If script was passed a query, use it to filter posts if we have some</span>
 <span class="hll">     <span class="k">if</span> <span class="n">query</span> <span class="ow">and</span> <span class="n">posts</span><span class="p">:</span>
 </span>         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c"># we have no data to show, so show a warning and stop</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">posts</span><span class="p">:</span>  <span class="c1"># we have no data to show, so show a warning and stop</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;No posts found&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WARNING</span><span class="p">)</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
          <span class="k">return</span> <span class="mi">0</span>
 
-     <span class="c"># Loop through the returned posts and add a item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add a item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -1498,7 +1419,7 @@ no cached data, so we check for this before trying to filter <code class="docuti
 </div>
 </div>
 <div class="section" id="the-fruits-of-your-labour">
-<h2>The fruits of your labour<a class="headerlink" href="#the-fruits-of-your-labour" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">The fruits of your labour</a><a class="headerlink" href="#the-fruits-of-your-labour" title="Permalink to this headline">¶</a></h2>
 <p>Now let&#8217;s give it a spin. Open up Alfred and enter <code class="docutils literal"><span class="pre">pbrecent</span>
 <span class="pre">workflow:delcache</span></code> to clear the cached data. Then enter <code class="docutils literal"><span class="pre">pbrecent</span></code> and start
 typing a query. You should see the &#8220;Getting new posts from Pinboard&#8221; message
@@ -1513,7 +1434,7 @@ a couple of letters, then twiddle your thumbs for ~55 seconds. Type another lett
 or two and you should see the &#8220;Getting new posts…&#8221; message <em>and</em> search
 results. Cool, huh?</p>
 <div class="section" id="sharing-your-workflow">
-<h3>Sharing your workflow<a class="headerlink" href="#sharing-your-workflow" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">Sharing your workflow</a><a class="headerlink" href="#sharing-your-workflow" title="Permalink to this headline">¶</a></h3>
 <p>Now you&#8217;ve produced a technical marvel, it&#8217;s time to tell the world and enjoy
 the well-earned plaudits. To build your workflow, open it up in Alfred&#8217;s
 Preferences, right-click on the workflow&#8217;s name in the list on the left-hand
@@ -1533,7 +1454,7 @@ workflows. Your workflow will be much easier to find on that site than in the
 forum, and they&#8217;ll also host the workflow download for you.</p>
 </div>
 <div class="section" id="updating-your-workflow">
-<h3>Updating your workflow<a class="headerlink" href="#updating-your-workflow" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Updating your workflow</a><a class="headerlink" href="#updating-your-workflow" title="Permalink to this headline">¶</a></h3>
 <p>Software, like plans, never survives contact with the enemy, err, user.</p>
 <p>It&#8217;s likely that a bug or two will be found and some sweet improvements will be
 suggested, and so you&#8217;ll probably want to release a new and improved version of
@@ -1542,7 +1463,7 @@ your workflow somewhere down the line.</p>
 to check for an update, there are a couple of ways you can have your workflow
 (semi-)automatically updated.</p>
 <div class="section" id="the-packal-updater">
-<h4>The Packal Updater<a class="headerlink" href="#the-packal-updater" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id19">The Packal Updater</a><a class="headerlink" href="#the-packal-updater" title="Permalink to this headline">¶</a></h4>
 <p>The simplest way in terms of implementation is to upload your workflow to
 <a class="reference external" href="http://www.packal.org/">Packal.org</a>. If you release a new version, any user who also uses the
 <a class="reference external" href="http://www.packal.org/workflow/packal-updater">Packal Updater workflow</a> will then be notified of the updated version. The
@@ -1550,7 +1471,7 @@ disadvantage of this method is it only works if a user installs and uses the
 <a class="reference external" href="http://www.packal.org/workflow/packal-updater">Packal Updater workflow</a>.</p>
 </div>
 <div class="section" id="github-releases">
-<h4>GitHub releases<a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id20">GitHub releases</a><a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h4>
 <p>A <em>slightly</em> more complex to implement method is to use Alfred-Workflow&#8217;s
 built-in support for updates via <a class="reference external" href="https://help.github.com/articles/about-releases">GitHub releases</a>. If you tell your
 <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object the name of your GitHub repo and
@@ -1577,78 +1498,135 @@ run on Snow Leopard (10.6).</td></tr>
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="user-manual/index.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="tutorial_1.html" class="btn btn-neutral" title="Part 1: A Basic Pinboard Workflow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="tutorial.html">Tutorial</a><ul>
+      <li>Previous: <a href="tutorial_1.html" title="previous chapter">Tutorial Part 1: Creating a Basic Pinboard Workflow</a></li>
+      <li>Next: <a href="user-manual/index.html" title="next chapter">User Manual</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

@@ -1,193 +1,86 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Versioning and migration &mdash; Alfred-Workflow 1.14 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Versioning and migration &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="up" title="User Manual" href="index.html" />
+    <link rel="next" title="System icons" href="icons.html" />
+    <link rel="prev" title="Self-updating" href="update.html" />
 
+   
   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.14 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="System icons" href="icons.html"/>
-        <link rel="prev" title="Self-updating" href="update.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="../_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="icons.html" title="System icons"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="update.html" title="Self-updating"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="../index.html" class="icon icon-home"> Alfred-Workflow
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                1.14
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Versioning and migration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-a-version-number">Setting a version number</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#version-numbers">Version numbers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#semantic-versioning">Semantic versioning</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#first-run-migration">First run/migration</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Alfred-Workflow API</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Versioning and migration</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/user-manual/versioning.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="versioning-and-migration">
 <span id="manual-versioning"></span><h1>Versioning and migration<a class="headerlink" href="#versioning-and-migration" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.10.</span></p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#setting-a-version-number" id="id3">Setting a version number</a></li>
+<li><a class="reference internal" href="#version-numbers" id="id4">Version numbers</a><ul>
+<li><a class="reference internal" href="#semantic-versioning" id="id5">Semantic versioning</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#first-run-migration" id="id6">First run/migration</a></li>
+</ul>
 </div>
 <p>If you intend to distribute your workflow, it&#8217;s a good idea to use version
 numbers. It allows users to see if they&#8217;re using an out-of-date version, and
@@ -202,11 +95,11 @@ workflow must have a version number.</p>
 <p>Having a version number also enables the first run/migration functionality.
 See <a class="reference internal" href="#first-run"><span>First run/migration</span></a> below for details.</p>
 <div class="section" id="setting-a-version-number">
-<span id="set-version"></span><h2>Setting a version number<a class="headerlink" href="#setting-a-version-number" title="Permalink to this headline">¶</a></h2>
+<span id="set-version"></span><h2><a class="toc-backref" href="#id3">Setting a version number</a><a class="headerlink" href="#setting-a-version-number" title="Permalink to this headline">¶</a></h2>
 <p>There are two ways to set a version number. The simplest and best is to
 create a <code class="docutils literal"><span class="pre">version</span></code> file in the root directory of your workflow (next to
 <code class="docutils literal"><span class="pre">info.plist</span></code>) that contains the version number:</p>
-<div class="highlight-python"><div class="highlight"><pre>Your Workflow/
+<div class="highlight-python"><div class="highlight"><pre><span></span>Your Workflow/
         icon.png
         info.plist
         yourscript.py
@@ -223,7 +116,7 @@ from GitHub.</p>
 version number in one place.</p>
 </div>
 <div class="section" id="version-numbers">
-<span id="id1"></span><h2>Version numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id4">Version numbers</a><a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
 <p>In version 1.10 and above, Alfred-Workflow requires <a class="reference internal" href="#semver"><span>Semantic versioning</span></a>,
 which is the format GitHub also expects. Alfred-Workflow deviates from the
 semantic versioning standard slightly, most notably in that you don&#8217;t have to
@@ -244,7 +137,7 @@ version, Alfred-Workflow will consider the remote version to be an update.</p>
 <code class="docutils literal"><span class="pre">update_settings={'version':</span> <span class="pre">'v1.2',</span> <span class="pre">...}</span></code> will be considered the same
 version as the GitHub release tag <code class="docutils literal"><span class="pre">v1.2</span></code> or <code class="docutils literal"><span class="pre">1.2</span></code> (or indeed <code class="docutils literal"><span class="pre">1.2.0</span></code>).</p>
 <div class="section" id="semantic-versioning">
-<span id="semver"></span><h3>Semantic versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
+<span id="semver"></span><h3><a class="toc-backref" href="#id5">Semantic versioning</a><a class="headerlink" href="#semantic-versioning" title="Permalink to this headline">¶</a></h3>
 <p>Semantic versioning is a standard for formatting software version numbers.</p>
 <p>Essentially, a version number must consist of a major version number, a minor
 version number and a patch version number separated by dots, e.g. <code class="docutils literal"><span class="pre">1.0.1</span></code>,
@@ -262,7 +155,7 @@ the rationale behind it.</p>
 </div>
 </div>
 <div class="section" id="first-run-migration">
-<span id="first-run"></span><h2>First run/migration<a class="headerlink" href="#first-run-migration" title="Permalink to this headline">¶</a></h2>
+<span id="first-run"></span><h2><a class="toc-backref" href="#id6">First run/migration</a><a class="headerlink" href="#first-run-migration" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.10.</span></p>
 </div>
@@ -298,78 +191,146 @@ yourself, use <a class="reference internal" href="../api/workflow.html#workflow.
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="icons.html" class="btn btn-neutral float-right" title="System icons" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="update.html" class="btn btn-neutral" title="Self-updating" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
 
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Manual</a><ul>
+      <li>Previous: <a href="update.html" title="previous chapter">Self-updating</a></li>
+      <li>Next: <a href="icons.html" title="next chapter">System icons</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
-</footer>
 
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.14',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
+      <div class="clearer"></div>
     </div>
-</div>
- 
 
 
-</body>
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

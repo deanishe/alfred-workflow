@@ -1,0 +1,291 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Supported software &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Overview" href="index.html" />
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+<!--[if lt IE 9]>
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link rel="stylesheet" href="_static/custom.css">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="supported-software">
+<span id="supported-versions"></span><h1>Supported software<a class="headerlink" href="#supported-software" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#alfred-2-versions" id="id3">Alfred 2 versions</a></li>
+<li><a class="reference internal" href="#os-x-versions" id="id4">OS X versions</a></li>
+<li><a class="reference internal" href="#python-versions" id="id5">Python versions</a><ul>
+<li><a class="reference internal" href="#why-no-python-3-support" id="id6">Why no Python 3 support?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="alfred-2-versions">
+<h2><a class="toc-backref" href="#id3">Alfred 2 versions</a><a class="headerlink" href="#alfred-2-versions" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow works with all versions of Alfred 2, but you must own the
+<a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a> to use Alfred&#8217;s workflow feature.</p>
+<p>All Script Filter features provided by Alfred 2 as of v2.8.3 are supported
+in the latest version of Alfred-Workflow.</p>
+</div>
+<div class="section" id="os-x-versions">
+<h2><a class="toc-backref" href="#id4">OS X versions</a><a class="headerlink" href="#os-x-versions" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow supports the same OS X versions as Alfred 2, namely 10.6 (Snow
+Leopard) and later.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="user-manual/notifications.html#notifications"><span>Notifications</span></a>, added in version 1.15 of Alfred-Workflow, are only
+available on Mountain Lion (10.8) and above.</p>
+</div>
+</div>
+<div class="section" id="python-versions">
+<h2><a class="toc-backref" href="#id5">Python versions</a><a class="headerlink" href="#python-versions" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow supports versions 2.6 and 2.7 of Python. Python 3 is <em>not</em>
+supported.</p>
+<p>Alfred-Workflow is intended to run on the OS X default system Python
+(<code class="docutils literal"><span class="pre">/usr/bin/python</span></code>), which is version 2.6 on OS X 10.6 and 2.7 on all later
+versions.</p>
+<p>Here is the <a class="reference external" href="https://docs.python.org/3/whatsnew/2.7.html">full list of new features in Python 2.7</a>, but the
+most important things if you want your workflow to run on Snow
+Leopard/Python 2.6 are:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> is not available in 2.6. Use <a class="reference external" href="http://docs.python.org/2.7/library/getopt.html#module-getopt" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">getopt</span></code></a> or
+<a class="reference external" href="https://pypi.python.org/pypi/argparse">include argparse in your workflow</a>. Personally, I&#8217;m a big fan of
+<a class="reference external" href="http://docopt.org/">docopt</a> for parsing command-line arguments, but <a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> is better
+for certain use cases.</li>
+<li>No dictionary views in 2.6.</li>
+<li>No set literals.</li>
+<li>No dictionary or set comprehensions.</li>
+<li>You must specify field numbers for <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#str.format" title="(in Python v2.7)"><code class="xref py py-meth docutils literal"><span class="pre">str.format()</span></code></a>, i.e.
+<code class="docutils literal"><span class="pre">'{0}.{1}'.format(first,</span> <span class="pre">second)</span></code> not just
+<code class="docutils literal"><span class="pre">'{}.{}'.format(first,</span> <span class="pre">second)</span></code>.</li>
+<li>No <a class="reference external" href="http://docs.python.org/2.7/library/collections.html#collections.Counter" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">Counter</span></code></a> or
+<a class="reference external" href="http://docs.python.org/2.7/library/collections.html#collections.OrderedDict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">OrderedDict</span></code></a> in <a class="reference external" href="http://docs.python.org/2.7/library/collections.html#module-collections" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">collections</span></code></a>.</li>
+</ul>
+<p>Python 2.6 is still included in later versions of OS X (up to and including
+Yosemite), so run your Python scripts with <code class="docutils literal"><span class="pre">/usr/bin/python2.6</span></code> in addition to
+<code class="docutils literal"><span class="pre">/usr/bin/python</span></code> (2.7) to make sure they will run on Snow Leopard.</p>
+<div class="section" id="why-no-python-3-support">
+<h3><a class="toc-backref" href="#id6">Why no Python 3 support?</a><a class="headerlink" href="#why-no-python-3-support" title="Permalink to this headline">¶</a></h3>
+<p>Three main reasons:</p>
+<ol class="arabic simple">
+<li>Python 3 isn&#8217;t installed by default on any version of OS X.</li>
+<li>Python 3 doesn&#8217;t get along well with Alfred 2.</li>
+<li>Alfred-Workflow is precisely the kind of project that&#8217;s hard to make
+2- and 3-compatible.</li>
+</ol>
+<p>Bluntly put, because of <strong>3</strong>, Python 3 support won&#8217;t come until <strong>1</strong> and/or
+<strong>2</strong> changes.</p>
+<p>Python 3 is <em>awesome</em> for writing workflows in theory. The encoding errors
+that are such a pain in Python 2 mostly just disappear.</p>
+<p>In practice, Alfred 2 has a long-standing bug (which won&#8217;t be fixed in v2) <a class="footnote-reference" href="#id2" id="id1">[1]</a>
+that makes it <a class="reference external" href="http://click.pocoo.org/5/python3/">one of those places where Python 3 chokes</a> and its automatic
+text decoding breaks the world.</p>
+<p>My working assumption is that Alfred 3 (whenever that may arrive) will require
+the library to be significantly rewritten due to an updated API, and will fix
+the incorrect encoding issue. At some point, Apple will surely add Python 3 to
+OS X by default, too.</p>
+<p>Python 3 support will most likely come when either of those things happens.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Alfred 2 uses UTF-8 but tells workflows by omission that it&#8217;s an ASCII
+environment (no locale is set, so Python 3 defaults to the C locale,
+i.e. ASCII, as per the POSIX spec). You <em>must</em> specify UTF-8 in the
+environment, e.g. by setting <code class="docutils literal"><span class="pre">PYTHONIOENCODING=UTF-8</span></code>, before calling
+<code class="docutils literal"><span class="pre">python3</span></code> otherwise your workflow (any Python 3 code, in fact) will
+die in flames.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Supported software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#alfred-2-versions">Alfred 2 versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#os-x-versions">OS X versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-versions">Python versions</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Overview</a></li>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
+</html>

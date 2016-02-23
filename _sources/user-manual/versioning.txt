@@ -7,6 +7,10 @@ Versioning and migration
 
 .. versionadded:: 1.10
 
+.. contents::
+   :local:
+
+
 If you intend to distribute your workflow, it's a good idea to use version
 numbers. It allows users to see if they're using an out-of-date version, and
 more importantly, it allows you to know which version a user has when they

@@ -1621,7 +1621,7 @@ class UninterruptibleTests(unittest.TestCase):
 
 
 class SettingsTests(unittest.TestCase):
-    """Test suite for `workflow.workflow.Settings`"""
+    """Test suite for `workflow.workflow.Settings`."""
 
     def setUp(self):
         self.tempdir = tempfile.mkdtemp()

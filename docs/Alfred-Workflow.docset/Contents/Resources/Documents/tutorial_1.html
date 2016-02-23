@@ -1,187 +1,105 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Part 1: A Basic Pinboard Workflow &mdash; Alfred-Workflow 1.13 documentation</title>
-  
-
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &mdash; Alfred-Workflow 1.15 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-  
+    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="index.html" />
+    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="next" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow" href="tutorial_2.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" />
 
+   
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  
-  
-    
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="top" title="Alfred-Workflow 1.13 documentation" href="index.html"/>
-        <link rel="up" title="Tutorial" href="tutorial.html"/>
-        <link rel="next" title="Part 2: A Distribution-Ready Pinboard Workflow" href="tutorial_2.html"/>
-        <link rel="prev" title="Tutorial" href="tutorial.html"/>
- 
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link rel="stylesheet" href="_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="../_static/gh-fork-ribbon.css">
-<link rel="stylesheet" href="_static/custom.css">
-<link rel="stylesheet" href="../_static/custom.css">
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
+<link rel="stylesheet" href="_static/custom.css">
 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial_2.html" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="index.html" class="fa fa-home"> Alfred-Workflow</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#github">GitHub</a></li>
-</ul>
-</li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Alfred-Workflow API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html#index">Index</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
-</ul>
-
-        
-      </div>
-      &nbsp;
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Alfred-Workflow</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-          <li><a href="tutorial.html">Tutorial</a> &raquo;</li>
-      
-    <li>Part 1: A Basic Pinboard Workflow</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          <a href="_sources/tutorial_1.txt" rel="nofollow"> View page source</a>
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
-  <div class="section" id="part-1-a-basic-pinboard-workflow">
-<span id="tutorial-1"></span><h1>Part 1: A Basic Pinboard Workflow<a class="headerlink" href="#part-1-a-basic-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tutorial-part-1-creating-a-basic-pinboard-workflow">
+<span id="tutorial-1"></span><h1>Tutorial Part 1: Creating a Basic Pinboard Workflow<a class="headerlink" href="#tutorial-part-1-creating-a-basic-pinboard-workflow" title="Permalink to this headline">¶</a></h1>
 <p>In which we build an Alfred workflow to view recent posts to <a class="reference external" href="https://pinboard.in/">Pinboard.in</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To use workflows, you must own Alfred&#8217;s
-<a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a>.</p>
+<p class="last">To use workflows, you must own Alfred&#8217;s <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a>.</p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#creating-a-new-workflow" id="id3">Creating a new Workflow</a></li>
+<li><a class="reference internal" href="#describing-your-workflow" id="id4">Describing your Workflow</a></li>
+<li><a class="reference internal" href="#adding-a-script-filter" id="id5">Adding a Script Filter</a></li>
+<li><a class="reference internal" href="#writing-your-python-script" id="id6">Writing your Python script</a></li>
+<li><a class="reference internal" href="#adding-workflow-actions" id="id7">Adding workflow actions</a></li>
+<li><a class="reference internal" href="#improving-performance-and-not-getting-banned" id="id8">Improving performance and not getting banned</a></li>
+<li><a class="reference internal" href="#making-the-posts-searchable" id="id9">Making the posts searchable</a><ul>
+<li><a class="reference internal" href="#improving-the-search-results" id="id10">Improving the search results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-now" id="id11">What now?</a><ul>
+<li><a class="reference internal" href="#further-reading" id="id12">Further reading</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="creating-a-new-workflow">
-<h2>Creating a new Workflow<a class="headerlink" href="#creating-a-new-workflow" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Creating a new Workflow</a><a class="headerlink" href="#creating-a-new-workflow" title="Permalink to this headline">¶</a></h2>
 <p>First, create a new, blank workflow in Alfred 2&#8217;s Preferences, under the
 <strong>Workflows</strong> tab:</p>
 <img alt="_images/screen1_blank_workflow.png" src="_images/screen1_blank_workflow.png" />
 </div>
 <div class="section" id="describing-your-workflow">
-<h2>Describing your Workflow<a class="headerlink" href="#describing-your-workflow" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Describing your Workflow</a><a class="headerlink" href="#describing-your-workflow" title="Permalink to this headline">¶</a></h2>
 <p>When the info dialog pops up, give your workflow a name, a <strong>Bundle Id</strong>,
 and possibly a description.</p>
 <div class="admonition important">
@@ -196,7 +114,7 @@ list). I grabbed a <a class="reference external" href="http://www.iconarchive.co
 <img alt="_images/screen2_workflow_info1.png" src="_images/screen2_workflow_info1.png" />
 </div>
 <div class="section" id="adding-a-script-filter">
-<h2>Adding a Script Filter<a class="headerlink" href="#adding-a-script-filter" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Adding a Script Filter</a><a class="headerlink" href="#adding-a-script-filter" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to add a <strong>Script Filter</strong>. Script Filters receive input from Alfred
 (the query entered by the user) and send results back to Alfred. They should run
 as quickly as possible because Alfred will try to call the Script Filter for
@@ -212,17 +130,17 @@ will show when you type the <strong>Keyword</strong>:</p>
 <img alt="_images/screen4_alfred_list.png" src="_images/screen4_alfred_list.png" />
 <p>The <strong>&#8220;Please Wait&#8221; Subtext</strong> is what is shown when your workflow is working,
 which in our case means fetching data from pinboard.in.</p>
-<p>Very importantly, set the <strong>Language</strong> to <tt class="docutils literal"><span class="pre">/bin/bash</span></tt>.
+<p>Very importantly, set the <strong>Language</strong> to <code class="docutils literal"><span class="pre">/bin/bash</span></code>.
 The <strong>Script</strong> field should contain:</p>
-<div class="highlight-python"><div class="highlight"><pre>python pinboard.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>python pinboard.py
 </pre></div>
 </div>
-<p>We&#8217;re going to create the <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> script in a second. The <strong>Escaping</strong>
+<p>We&#8217;re going to create the <code class="docutils literal"><span class="pre">pinboard.py</span></code> script in a second. The <strong>Escaping</strong>
 options don&#8217;t matter for now because our Script Filter doesn&#8217;t accept an
 argument.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>You <em>can</em> choose <tt class="docutils literal"><span class="pre">/usr/bin/python</span></tt> as the <strong>Language</strong> and paste
+<p>You <em>can</em> choose <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> as the <strong>Language</strong> and paste
 your Python code into the <strong>Script</strong> box, but this isn&#8217;t the best idea.</p>
 <p class="last">If you do this, you can&#8217;t run the script from the Terminal (which can be
 helpful when developing/debugging), and you can&#8217;t as easily use a proper
@@ -238,16 +156,16 @@ Right-click on your workflow in the list on the left and choose
 chose an icon):</p>
 <img alt="_images/screen7_finder.png" src="_images/screen7_finder.png" />
 <p>At this point, download <a class="reference external" href="https://github.com/deanishe/alfred-workflow/releases/latest">the latest release of Alfred-Workflow</a> from GitHub,
-extract it and copy the <tt class="docutils literal"><span class="pre">workflow</span></tt> directory into your workflow&#8217;s directory:</p>
+extract it and copy the <code class="docutils literal"><span class="pre">workflow</span></code> directory into your workflow&#8217;s directory:</p>
 <img alt="_images/screen8_finder_with_workflow.png" src="_images/screen8_finder_with_workflow.png" />
 <p>Now we can start coding.</p>
 </div>
 <div class="section" id="writing-your-python-script">
-<span id="writing-script"></span><h2>Writing your Python script<a class="headerlink" href="#writing-your-python-script" title="Permalink to this headline">¶</a></h2>
+<span id="writing-script"></span><h2><a class="toc-backref" href="#id6">Writing your Python script</a><a class="headerlink" href="#writing-your-python-script" title="Permalink to this headline">¶</a></h2>
 <p>Using your text editor of choice <a class="footnote-reference" href="#id2" id="id1">[1]</a>, create a new text file and save it in your
-workflow directory as <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (the name we used when setting up the
+workflow directory as <code class="docutils literal"><span class="pre">pinboard.py</span></code> (the name we used when setting up the
 Script Filter).</p>
-<p>Add the following code to <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> (be sure to change <tt class="docutils literal"><span class="pre">API_KEY</span></tt> to
+<p>Add the following code to <code class="docutils literal"><span class="pre">pinboard.py</span></code> (be sure to change <code class="docutils literal"><span class="pre">API_KEY</span></code> to
 your pinboard API key. You can find it on the <a class="reference external" href="https://pinboard.in/settings/password">settings/password page</a>):</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -283,39 +201,39 @@ your pinboard API key. You can find it on the <a class="reference external" href
 32
 33
 34
-35</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
- <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+ <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
 
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -327,19 +245,19 @@ keyword and hit <strong>ENTER</strong>. You should see something like this:</p>
 you should see an error like this:</p>
 <img alt="_images/screen10_workflow_error.png" src="_images/screen10_workflow_error.png" />
 <p>If Alfred shows nothing at all, it probably couldn&#8217;t run your Python script at
-all. You&#8217;ll have to <a class="reference external" href="http://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
+all. You&#8217;ll have to <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
 and run the script by hand to see the error:</p>
-<div class="highlight-python"><div class="highlight"><pre>python pinboard.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>python pinboard.py
 </pre></div>
 </div>
 </div>
 <div class="section" id="adding-workflow-actions">
-<h2>Adding workflow actions<a class="headerlink" href="#adding-workflow-actions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Adding workflow actions</a><a class="headerlink" href="#adding-workflow-actions" title="Permalink to this headline">¶</a></h2>
 <p>So now we can see a list of recent posts in Alfred, but can&#8217;t do anything with
 them. We&#8217;re going to change that and make the items &#8220;actionable&#8221; (i.e. you
 can hit <strong>ENTER</strong> on them and something happens, in this case, the page
 will be opened in your browser).</p>
-<p>Add the highlighted lines (27–28) to your <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> file:</p>
+<p>Add the highlighted lines (27–28) to your <code class="docutils literal"><span class="pre">pinboard.py</span></code> file:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -376,50 +294,50 @@ will be opened in your browser).</p>
 34
 35
 36
-37</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+37</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
- <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+ <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
 
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-<span class="hll">                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+<span class="hll">                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
 </span><span class="hll">                     <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
 </span>                     <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p><tt class="docutils literal"><span class="pre">valid=True</span></tt> tells Alfred that the item is actionable and <tt class="docutils literal"><span class="pre">arg</span></tt> is the
+<p><code class="docutils literal"><span class="pre">valid=True</span></code> tells Alfred that the item is actionable and <code class="docutils literal"><span class="pre">arg</span></code> is the
 value it will pass to the next action (in this case a URL).</p>
 <p>Go back to Alfred&#8217;s Preferences and add an <strong>Open URL</strong> action:</p>
 <img alt="_images/screen11_add_open_url.png" src="_images/screen11_add_open_url.png" />
-<p>Then enter <tt class="docutils literal"><span class="pre">{query}</span></tt> as the URL:</p>
+<p>Then enter <code class="docutils literal"><span class="pre">{query}</span></code> as the URL:</p>
 <img alt="_images/screen12_url_query.png" src="_images/screen12_url_query.png" />
 <p>When you hover your mouse over the Script Filter, you&#8217;ll notice a small &#8220;nub&#8221;
 appears on the right-hand side:</p>
@@ -430,14 +348,14 @@ appears on the right-hand side:</p>
 <strong>ENTER</strong>. The post&#8217;s webpage should open in your default browser.</p>
 </div>
 <div class="section" id="improving-performance-and-not-getting-banned">
-<h2>Improving performance and not getting banned<a class="headerlink" href="#improving-performance-and-not-getting-banned" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Improving performance and not getting banned</a><a class="headerlink" href="#improving-performance-and-not-getting-banned" title="Permalink to this headline">¶</a></h2>
 <p>The terms of use of the Pinboard API specifically limit calls to the recent
 posts method to <a class="reference external" href="https://pinboard.in/api#limits">1 call/minute</a>. As it&#8217;s
 likely you&#8217;ll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 Alfred-Workflow makes this a doddle with its
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> method.</p>
-<p>Go back to <tt class="docutils literal"><span class="pre">pinboard.py</span></tt> and make the following changes:</p>
+<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> method.</p>
+<p>Go back to <code class="docutils literal"><span class="pre">pinboard.py</span></code> and make the following changes:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -482,12 +400,12 @@ Alfred-Workflow makes this a doddle with its
 42
 43
 44
-45</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+45</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
- <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+ <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
 
 
 <span class="hll"> <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">():</span>
@@ -496,64 +414,64 @@ Alfred-Workflow makes this a doddle with its
 </span><span class="hll"><span class="sd">     Returns a list of post dictionaries.</span>
 </span><span class="hll">
 </span><span class="hll"><span class="sd">     &quot;&quot;&quot;</span>
-</span><span class="hll">     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-</span><span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+</span><span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
 </span><span class="hll">     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c"># throw an error if request failed</span>
-</span><span class="hll">     <span class="c"># Workflow will catch this and show it to the user</span>
+</span><span class="hll">     <span class="c1"># throw an error if request failed</span>
+</span><span class="hll">     <span class="c1"># Workflow will catch this and show it to the user</span>
 </span><span class="hll">     <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+</span><span class="hll">     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
 </span><span class="hll">     <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
 </span><span class="hll">     <span class="k">return</span> <span class="n">posts</span>
 </span>
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-<span class="hll">     <span class="c"># Retrieve posts from cache if available and no more than 60</span>
-</span><span class="hll">     <span class="c"># seconds old</span>
-</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="hll">     <span class="c1"># Retrieve posts from cache if available and no more than 60</span>
+</span><span class="hll">     <span class="c1"># seconds old</span>
+</span><span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 <p>We&#8217;ve moved the code that retrieves the data from the API to a separate
-function (<tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt>, line 9) and instead we ask
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></tt></a> (line 33)
-for the data cached under the name <tt class="docutils literal"><span class="pre">posts</span></tt> (the first argument).
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><tt class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></tt></a> will first check its cache for
-data saved under <tt class="docutils literal"><span class="pre">posts</span></tt> and return those data
-if they&#8217;re less than <tt class="docutils literal"><span class="pre">max_age</span></tt> seconds old. If the data are older or don&#8217;t
-exist, it will call the <tt class="docutils literal"><span class="pre">get_recent_posts()</span></tt> function passed as the second
-parameter, cache the data returned by that function under the name <tt class="docutils literal"><span class="pre">posts</span></tt>
+function (<code class="docutils literal"><span class="pre">get_recent_posts()</span></code>, line 9) and instead we ask
+<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a> (line 33)
+for the data cached under the name <code class="docutils literal"><span class="pre">posts</span></code> (the first argument).
+<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> will first check its cache for
+data saved under <code class="docutils literal"><span class="pre">posts</span></code> and return those data
+if they&#8217;re less than <code class="docutils literal"><span class="pre">max_age</span></code> seconds old. If the data are older or don&#8217;t
+exist, it will call the <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> function passed as the second
+parameter, cache the data returned by that function under the name <code class="docutils literal"><span class="pre">posts</span></code>
 and return it.</p>
 <p>So now we won&#8217;t get banned by Pinboard for hammering the API, and as a bonus,
 the workflow is now <em>blazingly</em> fast when the data are in its cache. For this
-reason, it&#8217;s probably a good idea to increase <tt class="docutils literal"><span class="pre">max_age</span></tt> to 300 or 600 seconds
+reason, it&#8217;s probably a good idea to increase <code class="docutils literal"><span class="pre">max_age</span></code> to 300 or 600 seconds
 (5 or 10 minutes) or even more—depending on how often you add new posts
 to Pinboard—to get super-fast results more often.</p>
 </div>
 <div class="section" id="making-the-posts-searchable">
-<h2>Making the posts searchable<a class="headerlink" href="#making-the-posts-searchable" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Making the posts searchable</a><a class="headerlink" href="#making-the-posts-searchable" title="Permalink to this headline">¶</a></h2>
 <p>What if you&#8217;re looking for a specific post? Who&#8217;s got time to scroll through
 a list of 20 results? Let&#8217;s make them searchable.</p>
 <p>First, update the Script Filter settings. Next to <strong>Keyword</strong>, change
 <strong>No Argument</strong> to <strong>Argument Optional</strong> and select <strong>with space</strong>.
 <strong>with space</strong> means that when you hit <strong>ENTER</strong> or <strong>TAB</strong> on your workflow
 action, Alfred will add a space after it, so you can start typing your query
-immediately. Then add <tt class="docutils literal"><span class="pre">&quot;{query}&quot;</span></tt> in the <strong>Script</strong> text field. <tt class="docutils literal"><span class="pre">{query}</span></tt>
+immediately. Then add <code class="docutils literal"><span class="pre">&quot;{query}&quot;</span></code> in the <strong>Script</strong> text field. <code class="docutils literal"><span class="pre">{query}</span></code>
 will be replaced by Alfred with whatever you&#8217;ve typed after the keyword. Finally,
 set the <strong>Escaping</strong> options to:</p>
 <ul class="simple">
@@ -563,7 +481,7 @@ set the <strong>Escaping</strong> options to:</p>
 <li>Backslashes</li>
 </ul>
 <p>and <strong>nothing</strong> else. This ensures that the query reaches your Python script
-unmolested by <tt class="docutils literal"><span class="pre">bash</span></tt>. Your <strong>Script Filter</strong> settings should now look like
+unmolested by <code class="docutils literal"><span class="pre">bash</span></code>. Your <strong>Script Filter</strong> settings should now look like
 this:</p>
 <img alt="_images/screen14_script_filter_details.png" src="_images/screen14_script_filter_details.png" />
 <p>First, we&#8217;ll set the script to get 100 recent posts from Pinboard (the maximum
@@ -618,12 +536,12 @@ seconds for 5 minutes if you&#8217;re a heavy Pinboardista):</p>
 47
 48
 49
-50</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+50</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
- <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+ <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
 
 
  <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">():</span>
@@ -632,40 +550,40 @@ seconds for 5 minutes if you&#8217;re a heavy Pinboardista):</p>
 <span class="sd">     Returns a list of post dictionaries.</span>
 
 <span class="sd">     &quot;&quot;&quot;</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-<span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+<span class="hll">     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
 </span>     <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-     <span class="c"># seconds old</span>
-<span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+     <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c1"># seconds old</span>
+<span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -740,12 +658,12 @@ posts based on it:</p>
 66
 67
 68
-69</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c"># encoding: utf-8</span>
+69</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1"># encoding: utf-8</span>
 
  <span class="kn">import</span> <span class="nn">sys</span>
  <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
 
- <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">&#39;your-pinboard-api-key&#39;</span>
+ <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
 
 
  <span class="k">def</span> <span class="nf">get_recent_posts</span><span class="p">():</span>
@@ -754,84 +672,84 @@ posts based on it:</p>
 <span class="sd">     Returns a list of post dictionaries.</span>
 
 <span class="sd">     &quot;&quot;&quot;</span>
-     <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
-     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">)</span>
+     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
+     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
      <span class="n">r</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
-     <span class="c"># throw an error if request failed</span>
-     <span class="c"># Workflow will catch this and show it to the user</span>
+     <span class="c1"># throw an error if request failed</span>
+     <span class="c1"># Workflow will catch this and show it to the user</span>
      <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
-     <span class="c"># Parse the JSON returned by pinboard and extract the posts</span>
+     <span class="c1"># Parse the JSON returned by pinboard and extract the posts</span>
      <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s">&#39;posts&#39;</span><span class="p">]</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span>
      <span class="k">return</span> <span class="n">posts</span>
 
 
 <span class="hll"> <span class="k">def</span> <span class="nf">search_key_for_post</span><span class="p">(</span><span class="n">post</span><span class="p">):</span>
 </span><span class="hll">     <span class="sd">&quot;&quot;&quot;Generate a string search key for a post&quot;&quot;&quot;</span>
 </span><span class="hll">     <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">])</span>  <span class="c"># title of post</span>
-</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">])</span>  <span class="c"># post tags</span>
-</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;extended&#39;</span><span class="p">])</span>  <span class="c"># description</span>
-</span><span class="hll">     <span class="k">return</span> <span class="s">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
+</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
+</span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
+</span><span class="hll">     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 </span>
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
 
-<span class="hll">     <span class="c"># Get query from Alfred</span>
+<span class="hll">     <span class="c1"># Get query from Alfred</span>
 </span><span class="hll">     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">):</span>
 </span><span class="hll">         <span class="n">query</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span class="hll">     <span class="k">else</span><span class="p">:</span>
 </span><span class="hll">         <span class="n">query</span> <span class="o">=</span> <span class="bp">None</span>
 </span>
-     <span class="c"># Retrieve posts from cache if available and no more than 600</span>
-     <span class="c"># seconds old</span>
-     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+     <span class="c1"># Retrieve posts from cache if available and no more than 600</span>
+     <span class="c1"># seconds old</span>
+     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">get_recent_posts</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 
-<span class="hll">     <span class="c"># If script was passed a query, use it to filter posts</span>
+<span class="hll">     <span class="c1"># If script was passed a query, use it to filter posts</span>
 </span><span class="hll">     <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
 </span><span class="hll">         <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </span>
-     <span class="c"># Loop through the returned posts and add an item for each to</span>
-     <span class="c"># the list of results for Alfred</span>
+     <span class="c1"># Loop through the returned posts and add an item for each to</span>
+     <span class="c1"># the list of results for Alfred</span>
      <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">],</span>
-                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
-                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s">&#39;href&#39;</span><span class="p">],</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">],</span>
+                     <span class="n">subtitle</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
+                     <span class="n">arg</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">],</span>
                      <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                      <span class="n">icon</span><span class="o">=</span><span class="n">ICON_WEB</span><span class="p">)</span>
 
-     <span class="c"># Send the results to Alfred as XML</span>
+     <span class="c1"># Send the results to Alfred as XML</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p>Looking at <tt class="docutils literal"><span class="pre">main()</span></tt> first, we add a <tt class="docutils literal"><span class="pre">query</span></tt> variable (lines 40–44).
+<p>Looking at <code class="docutils literal"><span class="pre">main()</span></code> first, we add a <code class="docutils literal"><span class="pre">query</span></code> variable (lines 40–44).
 Because our Script Filter can run with or without an argument, we test to see
-if any were passed to the script using via <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a>
-attribute of <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><tt class="xref py py-class docutils literal"><span class="pre">Workflow</span></tt></a>, and grab the first one if there were
-(this will be the contents of <tt class="docutils literal"><span class="pre">{query}</span></tt> from the Script Filter).</p>
-<p>Using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><tt class="xref py py-attr docutils literal"><span class="pre">args</span></tt></a> is similar to accessing
-<tt class="docutils literal"><span class="pre">sys.argv[1:]</span></tt> directly, but additionally decodes the arguments to Unicode
-and normalizes them. It also enables <a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><em>&#8220;Magic&#8221; arguments</em></a>.</p>
+if any were passed to the script using via <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><code class="xref py py-attr docutils literal"><span class="pre">args</span></code></a>
+attribute of <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>, and grab the first one if there were
+(this will be the contents of <code class="docutils literal"><span class="pre">{query}</span></code> from the Script Filter).</p>
+<p>Using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><code class="xref py py-attr docutils literal"><span class="pre">args</span></code></a> is similar to accessing
+<code class="docutils literal"><span class="pre">sys.argv[1:]</span></code> directly, but additionally decodes the arguments to Unicode
+and normalizes them. It also enables <a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
-using the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> method
-if there is a <tt class="docutils literal"><span class="pre">query</span></tt> (lines 51–52).</p>
-<p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> implements an
+using the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> method
+if there is a <code class="docutils literal"><span class="pre">query</span></code> (lines 51–52).</p>
+<p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> implements an
 Alfred-like search algorithm (e.g. &#8220;am&#8221; will match &#8220;Activity Monitor&#8221; as well
 as &#8220;I Am Legend&#8221;), but it needs a string to search. Therefore, we write the
-<tt class="docutils literal"><span class="pre">search_key_for_post()</span></tt> (line 29) function that will build a searchable string
+<code class="docutils literal"><span class="pre">search_key_for_post()</span></code> (line 29) function that will build a searchable string
 for each post, comprising its title, tags and description (in that order).</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p>In the last line of <tt class="docutils literal"><span class="pre">search_key_for_post()</span></tt>, we join the elements with
-<tt class="docutils literal"><span class="pre">u'</span> <span class="pre">'</span></tt> (a Unicode space), not <tt class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></tt> (a byte-string space). The
-<a class="reference internal" href="api/web.html#workflow.web.Response.json" title="workflow.web.Response.json"><tt class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></tt></a> method returns
+<p>In the last line of <code class="docutils literal"><span class="pre">search_key_for_post()</span></code>, we join the elements with
+<code class="docutils literal"><span class="pre">u'</span> <span class="pre">'</span></code> (a Unicode space), not <code class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></code> (a byte-string space). The
+<a class="reference internal" href="api/web.html#workflow.web.Response.json" title="workflow.web.Response.json"><code class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></code></a> method returns
 Unicode (as do most Alfred-Workflow methods and functions), and mixing
 Unicode and byte-strings will cause a fatal error if the byte-string
 contains non-ASCII characters. In this particular situation, using a
@@ -844,39 +762,39 @@ internally and decode all text to Unicode when it arrives in your workflow
 <p>Alfred-Workflow&#8217;s APIs use Unicode and it works hard to hide as much of
 the complexity of working with byte-strings and Unicode as possible, but
 you still need to manually decode encoded byte-strings from other sources
-with <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></tt></a> to avoid
+with <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> to avoid
 fatal encoding errors.</p>
-<p class="last">See <a class="reference internal" href="user-manual/text-encoding.html#text-encoding"><em>Encoded strings and Unicode</em></a> in the <a class="reference internal" href="user-manual/index.html#user-manual"><em>User Manual</em></a> for more information on
+<p class="last">See <a class="reference internal" href="user-manual/text-encoding.html#text-encoding"><span>Encoded strings and Unicode</span></a> in the <a class="reference internal" href="user-manual/index.html#user-manual"><span>User Manual</span></a> for more information on
 dealing with encoded (byte) strings and Unicode in workflows.</p>
 </div>
 <div class="section" id="improving-the-search-results">
-<h3>Improving the search results<a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Improving the search results</a><a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
 <p>If you&#8217;ve been trying out the workflow, you&#8217;ve probably noticed that your queries
 match a lot of posts they really shouldn&#8217;t. The reason for this is that,
-by default, <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a> matches
-<em>anything</em> that contains all the characters of <tt class="docutils literal"><span class="pre">query</span></tt> in the same order,
-regardless of case. To fix this, we&#8217;ll add a <tt class="docutils literal"><span class="pre">min_score</span></tt> argument to
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><tt class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></tt></a>. Change the line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
+by default, <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> matches
+<em>anything</em> that contains all the characters of <code class="docutils literal"><span class="pre">query</span></code> in the same order,
+regardless of case. To fix this, we&#8217;ll add a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
+<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>. Change the line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and try the workflow again. The junk results should be gone. You can adjust
-<tt class="docutils literal"><span class="pre">min_score</span></tt> up or down depending on how strict you want to be with the results.</p>
+<code class="docutils literal"><span class="pre">min_score</span></code> up or down depending on how strict you want to be with the results.</p>
 </div>
 </div>
 <div class="section" id="what-now">
-<h2>What now?<a class="headerlink" href="#what-now" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">What now?</a><a class="headerlink" href="#what-now" title="Permalink to this headline">¶</a></h2>
 <p>So we&#8217;ve got a working workflow, but it&#8217;s not yet ready to be distributed to
 other users (we can&#8217;t reasonably ask users to edit the code to enter their API
 key, especially as they&#8217;d have to do it again after updating the workflow to a
 new version). We&#8217;ll turn what we&#8217;ve got into a distribution-ready workflow in
-the <a class="reference internal" href="tutorial_2.html#tutorial-2"><em>second part of the tutorial</em></a>.</p>
+the <a class="reference internal" href="tutorial_2.html#tutorial-2"><span>second part of the tutorial</span></a>.</p>
 <div class="section" id="further-reading">
-<h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Further reading</a><a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
 <p>For more information about writing Alfred workflows, try the following:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446">A good tutorial on Alfred workflows for beginners</a> by <a class="reference external" href="http://customct.com/">Richard Guay</a></li>
@@ -910,74 +828,134 @@ another good, free editor for OS X (supports 10.6).</td></tr>
 
 
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="tutorial_2.html" class="btn btn-neutral float-right" title="Part 2: A Distribution-Ready Pinboard Workflow"/>Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015, Dean Jackson.
-    </p>
-  </div>
-
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
-</footer>
         </div>
       </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
 
-    </section>
-
-  </div>
-  
 
 
-  
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.13',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
 
-  
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
 
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-  
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-    </div>
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="tutorial.html">Tutorial</a><ul>
+      <li>Previous: <a href="tutorial.html" title="previous chapter">Tutorial</a></li>
+      <li>Next: <a href="tutorial_2.html" title="next chapter">Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
- 
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
 
 
-</body>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
 </html>

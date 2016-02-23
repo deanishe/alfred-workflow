@@ -15,12 +15,12 @@ from setuptools.command.test import test as TestCommand
 
 
 def read(fname):
-    """Return contents of file `fname` in this directory"""
+    """Return contents of file `fname` in this directory."""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 class NoseTestCommand(TestCommand):
-    """Enable running tests with `python setup.py test`"""
+    """Enable running tests with `python setup.py test`."""
 
     def finalize_options(self):
         TestCommand.finalize_options(self)
@@ -40,7 +40,7 @@ url = 'http://www.deanishe.net/alfred-workflow/'
 description = 'Full-featured helper library for writing Alfred 2 workflows'
 keywords = 'alfred workflow'
 packages = ['workflow']
-package_data = {'workflow': ['version']}
+package_data = {'workflow': ['version', 'Notify.tgz']}
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: MIT License',
@@ -72,4 +72,3 @@ setup(
     cmdclass={'test': NoseTestCommand},
     zip_safe=zip_safe,
 )
-

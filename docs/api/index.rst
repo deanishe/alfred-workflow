@@ -1,11 +1,11 @@
 
 .. _api:
 
-===================
-Alfred-Workflow API
-===================
+=================
+API Documentation
+=================
 
-This API documentation describes how Alfred-Workflow is put together.
+This API documentation is generated from the Alfred-Workflow source code. It describes how specific features work.
 
 See :ref:`user-manual` for documentation focussed on performing specific tasks.
 
@@ -15,6 +15,7 @@ See :ref:`user-manual` for documentation focussed on performing specific tasks.
    workflow
    web
    background
+   notify
    update
    serialization
 

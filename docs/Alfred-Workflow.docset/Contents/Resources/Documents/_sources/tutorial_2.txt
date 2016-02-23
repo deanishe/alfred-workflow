@@ -1,11 +1,14 @@
 
 .. _tutorial_2:
 
-==============================================
-Part 2: A Distribution-Ready Pinboard Workflow
-==============================================
+================================================================
+Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow
+================================================================
 
 In which we create a `Pinboard.in`_ workflow ready for mass consumption.
+
+.. contents::
+   :local:
 
 In the :ref:`first part <tutorial>` of the tutorial, we built a useable
 workflow to view, search and open your recent Pinboard posts. The workflow
@@ -791,7 +794,7 @@ can quietly die if no API key has been set because ``pinboard.py`` takes care
 of notifying the user to set their API key.
 
 
-Let's try out ``update.py``. `Open a Terminal window at the workflow root directory <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
+Let's try out ``update.py``. `Open a Terminal window at the workflow root directory <https://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the following::
 
    python update.py

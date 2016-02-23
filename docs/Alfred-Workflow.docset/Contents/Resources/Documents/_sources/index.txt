@@ -13,8 +13,9 @@ Overview
     :target: https://travis-ci.org/deanishe/alfred-workflow
     :alt: Build Status
 .. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat
-    :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
+    :target: https://coveralls.io/github/deanishe/alfred-workflow
     :alt: Code Coverage
+.. :target: https://coveralls.io/r/deanishe/alfred-workflow?branch=master
 .. .. image:: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
 ..     :target: https://landscape.io/github/deanishe/alfred-workflow/master
 ..     :alt: Code Health
@@ -34,7 +35,9 @@ Overview
     :target: https://pypi.python.org/pypi/Alfred-Workflow/
     :alt: Downloads
 
-|
+
+Go to :ref:`Quick Index <quickindex>`.
+
 
 Alfred-Workflow is a Python helper library for `Alfred 2`_ workflow authors,
 developed and hosted on `GitHub`_.
@@ -44,7 +47,7 @@ elsewhere, filter them and display results to the user. Alfred-Workflow
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
-Alfred-Workflow supports OS X 10.6+ (Python 2.6 and 2.7)
+Alfred-Workflow supports OS X 10.6+ (Python 2.6 and 2.7).
 
 
 Features
@@ -68,6 +71,7 @@ Features
   keep your workflow responsive
 - :ref:`Check for and install new workflow versions <manual-updates>` using
   GitHub releases.
+- :ref:`Post notifications <notifications>` with Notification Center (10.8+ only).
 
 
 
@@ -115,6 +119,19 @@ Pinboard item in Alfred to open it in your browser.
     you banned by the Pinboard API. See the :ref:`tutorial` if you want to
     build an API terms-compliant (and super-fast) Pinboard workflow.
 
+
+Supported software
+==================
+
+Alfred-Workflow supports all versions of Alfred 2 and all versions of OS X
+supported by Alfred 2. It works with Python 2.6 and 2.7, but *not* Python 3.
+
+Some features are not available on older versions of OS X.
+
+.. toctree::
+  :maxdepth: 2
+
+  supported-versions
 
 
 Installation
@@ -219,12 +236,31 @@ reports. However, it's generally better to use the forum/GitHub so that other
 users can benefit from and contribute to the conversation.
 
 
+Quick Index
+===========
+
+The Quick Index is a list of links to all the interesting parts of the
+documentation.
+
+.. toctree::
+    :maxdepth: 1
+
+    quickindex
+
+
+Indices and tables
+==================
+
+- :ref:`genindex`
+- :ref:`modindex`
+- :ref:`search`
+
 
 .. _GitHub: https://github.com/deanishe/alfred-workflow/
 .. _Requests: http://docs.python-requests.org/en/latest/
-.. _Alfred 2: http://www.alfredapp.com/
+.. _Alfred 2: https://www.alfredapp.com/
 .. _pip: https://pypi.python.org/pypi/pip
 .. _Python Package Index: https://pypi.python.org/pypi/Alfred-Workflow
 .. _Alfred forum thread: http://www.alfredforum.com/topic/4031-workflow-library-for-python/
 .. _issue on GitHub: https://github.com/deanishe/alfred-workflow/issues
-.. _Alfred 2 XML docs: http://support.alfredapp.com/workflows:config:inputs-script-filter#xmloutput
+.. _Alfred 2 XML docs: https://www.alfredapp.com/help/workflows/inputs/script-filter

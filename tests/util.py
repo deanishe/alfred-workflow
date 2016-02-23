@@ -9,7 +9,7 @@
 #
 
 """
-Stuff used be multiple tests
+Stuff used in multiple tests.
 """
 
 from __future__ import print_function, unicode_literals
@@ -17,7 +17,9 @@ from __future__ import print_function, unicode_literals
 from cStringIO import StringIO
 import sys
 import os
+import shutil
 import subprocess
+import tempfile
 
 INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                'info.plist.test')
@@ -30,7 +32,7 @@ VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
 
 
 class WorkflowMock(object):
-    """Context manager that overrides funcs and variables for testing
+    """Context manager that overrides funcs and variables for testing.
 
     c = WorkflowMock()
     with c:
@@ -40,7 +42,7 @@ class WorkflowMock(object):
     """
 
     def __init__(self, argv=None, exit=True, call=True, stderr=False):
-        """Context manager that overrides funcs and variables for testing
+        """Context manager that overrides funcs and variables for testing.
 
         :param argv: list of arguments to replace ``sys.argv`` with
         :type argv: list
@@ -105,7 +107,7 @@ class WorkflowMock(object):
 
 
 class VersionFile(object):
-    """Context manager to create and delete `version` file"""
+    """Context manager to create and delete `version` file."""
 
     def __init__(self, version, path=None):
 
@@ -123,8 +125,39 @@ class VersionFile(object):
             os.unlink(self.path)
 
 
+class FakePrograms(object):
+    """Context manager to inject fake programs into ``PATH``."""
+
+    def __init__(self, *names, **names2codes):
+        self.tempdir = None
+        self.orig_path = None
+        self.programs = {}
+        for n in names:
+            self.programs[n] = 1
+        self.programs.update(names2codes)
+
+    def __enter__(self):
+        self.tempdir = tempfile.mkdtemp()
+        for name, retcode in self.programs.items():
+            path = os.path.join(self.tempdir, name)
+            with open(path, 'wb') as fp:
+                fp.write("#!/bin/bash\n\nexit {0}\n".format(retcode))
+            os.chmod(path, 0700)
+
+        # Add new programs to front of PATH
+        self.orig_path = os.getenv('PATH')
+        os.environ['PATH'] = '{0}:{1}'.format(self.tempdir, self.orig_path)
+
+    def __exit__(self, *args):
+        os.environ['PATH'] = self.orig_path
+        try:
+            shutil.rmtree(self.tempdir)
+        except OSError:
+            pass
+
+
 class InfoPlist(object):
-    """Context manager to create and delete `info.plist` out of the way"""
+    """Context manager to create and delete `info.plist` out of the way."""
 
     def __init__(self, path=None, dest_path=None, present=True):
 

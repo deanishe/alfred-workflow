@@ -9,6 +9,10 @@ Script Filter Results and the XML Format
     This document is valid as of version 2.5 of Alfred and 1.8.5 of
     Alfred-Workflow.
 
+.. contents::
+    :local:
+
+
 Alfred's Script Filters are its most powerful workflow API and a main focus
 of Alfred-Workflow. Script Filters work by receiving a ``{query}`` from
 Alfred and returning a list of results as XML.
@@ -432,7 +436,7 @@ Filetype icons
 ^^^^^^^^^^^^^^
 
 Finally, you can tell Alfred to use the icon for a specific filetype by
-specifying a `UTI <http://www.escape.gr/manuals/qdrop/UTI.html>`_ as the value
+specifying a `UTI`_ as the value
 to ``icon`` and ``filetype`` as the type:
 
 .. code-block:: xml
@@ -464,4 +468,7 @@ filetypes but you don't have a specific filepath to use as a ``fileicon``.
 
     You can also find the UTI of a file (along with much of its other metadata)
     by running ``mdls /path/to/the/file`` in Terminal.
+
+
+.. _UTI: https://en.wikipedia.org/wiki/Uniform_Type_Identifier
 

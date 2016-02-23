@@ -1,11 +1,20 @@
 
 Features to Add:
-
+	- Offline tests.
+		Connections to GitHub are causing the integration tests to fail.
+		Also, it's really slow.
 
 	background.py:
 		- Add `kill_process()` function.
 			Allow `killing` of running processes. Can be used for stopping servers.
 
+	notify.py:
+		Post notifications directly from Python code. Uses workflow's own icon.
+		- Post warning on 2.6 instead of doing anything
+		- Retrieve Notify.app from a URL instead of bundling it?
+		- Encode Notify.app in `notify.py`?
+		- Non-ASCII doesn't work via environmental variables. @done(16-02-22 22:02)
+			Probably have to use native libraries and post notifications in the background.
 
 	update.py:
 		- Generalise update functionality @v2
@@ -16,12 +25,17 @@ Features to Add:
 			https://github.com/smargh/alfred_pandoctor/issues/1
 
 	workflow.py:
+		- Add interface to `notify.notify()`.
 		- `workflow:magic` should allow ↩ and ⇥ to expand and run magic arguments
 		- `filter()` should warn when comparing Unicode and `str` objects @priority(3)
 		- `max_age` argument of `cached_data()` should default to 0 (always return cached data) @v2 @priority(1)
 
 
 	Docs:
+		- Add "Quick Start" section
+		- Document `notify.py` in the manual. @done(16-02-23 11:01)
+		- Integrate sphinx.ext.napoleon @priority(1)
+			to parse the Google-style doctstrings in `notify.py`
 		- Add tutorial using `workflow.web`
 		- Add tutorial using filesystem/Unicode
 		- Generate Dash docset from AW documentation

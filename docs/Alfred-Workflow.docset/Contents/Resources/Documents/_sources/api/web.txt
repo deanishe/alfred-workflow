@@ -12,6 +12,9 @@ modelled on the excellent `requests`_ library.
 The purpose of :mod:`workflow.web` is to cover trivial cases at just 0.5% of
 the size of `requests`_.
 
+.. contents::
+   :local:
+
 Features
 --------
 

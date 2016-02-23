@@ -5,6 +5,10 @@
 Persistent data
 ===============
 
+.. contents::
+   :local:
+
+
 .. note::
 
     If you are writing your own files without using the

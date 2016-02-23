@@ -1,16 +1,20 @@
 
 .. _tutorial_1:
 
-=================================
-Part 1: A Basic Pinboard Workflow
-=================================
+===================================================
+Tutorial Part 1: Creating a Basic Pinboard Workflow
+===================================================
 
 In which we build an Alfred workflow to view recent posts to `Pinboard.in`_.
 
 .. note::
 
-    To use workflows, you must own Alfred's
-    `Powerpack <https://buy.alfredapp.com/>`_.
+    To use workflows, you must own Alfred's `Powerpack`_.
+
+
+.. contents::
+   :local:
+
 
 Creating a new Workflow
 =======================
@@ -167,7 +171,7 @@ you should see an error like this:
 .. image:: _static/screen10_workflow_error.png
 
 If Alfred shows nothing at all, it probably couldn't run your Python script at
-all. You'll have to `open the workflow directory in Terminal <http://www.youtube.com/watch?v=xsCCgITrrWI>`_
+all. You'll have to `open the workflow directory in Terminal <https://www.youtube.com/watch?v=xsCCgITrrWI>`_
 and run the script by hand to see the error::
 
 	python pinboard.py
@@ -603,6 +607,8 @@ To learn more about coding in Python, try these resources:
 .. _The Python Tutorial: http://docs.python.org/2/tutorial/
 .. _Dive into Python: http://www.diveintopython.net/toc/index.html
 .. _Learn Python the Hard Way: http://learnpythonthehardway.org/book/
+.. _Powerpack: https://buy.alfredapp.com/
+
 
 .. [#] **Do not** use TextEdit to edit code. By default it uses "smart" quotes,
        which will break code. If you have OS X 10.7 or later,

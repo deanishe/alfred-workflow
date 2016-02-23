@@ -5,6 +5,9 @@
 Encoded strings and Unicode
 ===========================
 
+.. contents::
+   :local:
+
 .. module:: workflow.workflow
 
 This is a brief guide to Unicode and encoded strings aimed at Alfred-Workflow
@@ -193,7 +196,6 @@ your workflow gets its data from.
     Encoded strings by default:
 
     .. code-block:: python
-        :linenos:
 
         # encoding: utf-8
 
@@ -203,7 +205,6 @@ your workflow gets its data from.
     Unicode by default:
 
     .. code-block:: python
-        :linenos:
 
         # encoding: utf-8
         from __future__ import unicode_literals
@@ -255,7 +256,6 @@ string that came from OS X's filesystem (which is NFD-normalized), Python won't
 recognise them as being the same:
 
 .. code-block:: python
-    :linenos:
 
     >>> from unicodedata import normalize
     >>> from glob import glob

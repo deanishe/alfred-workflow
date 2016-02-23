@@ -8,6 +8,10 @@ Self-updating
 
 .. versionadded:: 1.9
 
+.. contents::
+   :local:
+
+
 Add self-updating capabilities to your workflow. It regularly (every day
 by default) fetches the latest releases from the specified GitHub repository
 and then asks the user if they want to update the workflow if a newer version
@@ -20,7 +24,7 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 .. danger::
 
     If you are not careful, you might accidentally overwrite a local version of
-    the worklow you're working on and lose all your changes! It's a good idea
+    the workflow you're working on and lose all your changes! It's a good idea
     to make sure you increase the version number *before* you start making any
     changes.
 
@@ -201,4 +205,4 @@ Please see :ref:`manual-versioning` for detailed information on the required
 version number format and associated features.
 
 
-.. _GitHub releases: https://help.github.com/categories/85/articles
+.. _GitHub releases: https://help.github.com/categories/releases/

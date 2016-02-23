@@ -22,12 +22,12 @@ If you're new to writing workflows or coding in general, start with the
 .. toctree::
    :maxdepth: 3
 
-   osx-version-support
    setup
    third-party
    persistent-data
    filtering
    web
+   notifications
    background
    update
    versioning

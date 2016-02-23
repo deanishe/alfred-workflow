@@ -10,6 +10,8 @@
 	<string>python</string>
 	<key>DocSetPlatformFamily</key>
 	<string>alfred-workflow</string>
+	<key>dashIndexFilePath</key>
+	<string>quickindex.html</string>
 	<key>isDashDocset</key>
 	<true/>
 </dict>

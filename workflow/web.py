@@ -28,7 +28,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.11 (http://www.deanishe.net)'
+USER_AGENT = u'Alfred-Workflow/1.15 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters

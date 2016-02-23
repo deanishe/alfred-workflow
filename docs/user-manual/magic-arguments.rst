@@ -5,6 +5,10 @@
 "Magic" arguments
 =================
 
+.. contents::
+   :local:
+
+
 If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
 :class:`~workflow.workflow.Workflow` to perform certain actions, such as

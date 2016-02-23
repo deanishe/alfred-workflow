@@ -19,27 +19,34 @@ section in the `GitHub README`_.
 
 
 - `Alfred Backblaze <http://www.packal.org/workflow/alfred-backblaze>`__
-  (`GitHub repo <https://github.com/XedMada/alfred-backblaze>`__)
-  by `XedMada <http://www.packal.org/users/xedmada>`__
-  (`on GitHub <https://github.com/XedMada/>`__).
+  by `XedMada <http://www.packal.org/users/xedmada>`__.
   Pause and Start Backblaze online backups.
 - `Alfred Dependency Bundler Demo (Python) <http://www.packal.org/workflow/alfred-dependency-bundler-demo-python>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-bundler-python-demo>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Demonstration on how to use the Alfred Bundler in Python.
+- `Alfred Keyword Help <http://www.packal.org/workflow/alfred-keyword-help>`__
+  by `pochemuto <http://www.packal.org/users/pochemuto>`__.
+  Show and filter available keywords.
 - `Alfred Soundboard <http://www.packal.org/workflow/alfred-soundboard>`__
   by `Steffen <http://www.packal.org/users/steffen>`__.
   A soundboard for alfred at your fingertips.
+- `Alfred-Drive-Workflow <http://www.packal.org/workflow/alfred-drive-workflow>`__
+  by `azai91 <http://www.packal.org/users/azai91>`__.
+  Browse, search and open Google Drive files from within Alfred.
+- `Alfred-Flixsearch <http://www.packal.org/workflow/alfred-flixsearch>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  What's available on Netflix and in which countries.
+- `Alfred-Venmo-Workflow <http://www.packal.org/workflow/alfred-venmo-workflow>`__
+  by `azai91 <http://www.packal.org/users/azai91>`__.
+  Pay and charge friends easily in venmo.
+- `alfredwl <http://www.packal.org/workflow/alfredwl>`__
+  by `nicke5012 <http://www.packal.org/users/nicke5012>`__.
+  Wunderlist integration for Alfred2. Allows you to add tasks, show your lists, and show incomplete tasks through Alfred.
 - `AppScripts <http://www.packal.org/workflow/appscripts>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-appscripts>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, search and run/open AppleScripts for the active application.
 - `Base Converter <http://www.packal.org/workflow/base-converter>`__
-  (`GitHub repo <https://github.com/ahalbert/alfred-baseconverter>`__)
-  by `ahalbert <http://www.packal.org/users/ahalbert>`__
-  (`on GitHub <https://github.com/ahalbert/>`__).
+  by `ahalbert <http://www.packal.org/users/ahalbert>`__.
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
 - `BeautifulRatio <http://www.packal.org/workflow/beautifulratio>`__
   by `yusuga <http://www.packal.org/users/yusuga>`__.
@@ -48,135 +55,106 @@ section in the `GitHub README`_.
   by `frankspin <http://www.packal.org/users/frankspin>`__.
   Search IMDB for movies and see results inside of Alfred.
 - `BibQuery <http://www.packal.org/workflow/bibquery>`__
-  (`GitHub repo <https://github.com/smargh/alfred_bibquery>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search BibDesk from the comfort of your keyboard.
 - `Blur <http://www.packal.org/workflow/blur>`__
   by `Tyler Eich <http://www.packal.org/users/tyler-eich>`__.
   Set Alfred's background blur radius.
 - `Calendar <http://www.packal.org/workflow/calendar>`__
-  (`GitHub repo <https://github.com/owenwater/alfred-cal>`__)
-  by `owenwater <http://www.packal.org/users/owenwater>`__
-  (`on GitHub <https://github.com/owenwater/>`__).
+  by `owenwater <http://www.packal.org/users/owenwater>`__.
   Displays a monthly calendar with Alfred Workflow.
+- `CDN <http://www.packal.org/workflow/alfred-cdn-workflow>`__
+  by `azai91 <http://www.packal.org/users/azai91>`__.
+  Find CDNs quick with Alfred.
 - `Code Case <http://www.packal.org/workflow/code-case>`__
   by `dfay <http://www.packal.org/users/dfay>`__.
   Case Converter for Code.
 - `Codebox <http://www.packal.org/workflow/codebox>`__
-  (`GitHub repo <https://github.com/danielecook/codebox-alfred>`__)
-  by `danielecook <http://www.packal.org/users/danielecook>`__
-  (`on GitHub <https://github.com/danielecook/>`__).
+  by `danielecook <http://www.packal.org/users/danielecook>`__.
   Search codebox snippets.
 - `Continuity Support <http://www.packal.org/workflow/continuity-support>`__
   by `dmarshall <http://www.packal.org/users/dmarshall>`__.
   Enables calling and messaging via contacts or number input.
 - `Convert <http://www.packal.org/workflow/convert>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-convert>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Convert between different units. No Internet connection required.
 - `Date Calculator <http://www.packal.org/workflow/date-calculator>`__
-  (`GitHub repo <https://github.com/MuppetGate/Alfred-Workflows-DateCalculator>`__)
-  by `MuppetGate <http://www.packal.org/users/muppetgate>`__
-  (`on GitHub <https://github.com/MuppetGate/>`__).
+  by `MuppetGate <http://www.packal.org/users/muppetgate>`__.
   A basic date calculator.
 - `Digital Ocean status <http://www.packal.org/workflow/digital-ocean-status>`__
-  (`GitHub repo <https://github.com/fspinillo/alfred-digital-ocean>`__)
-  by `frankspin <http://www.packal.org/users/frankspin>`__
-  (`on GitHub <https://github.com/fspinillo/>`__).
+  by `frankspin <http://www.packal.org/users/frankspin>`__.
   Control your Digital Ocean droplets.
 - `Display Brightness <http://www.packal.org/workflow/display-brightness>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-brightness>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Adjust your display's brightness with Alfred.
 - `Dropbox Client for Alfred <http://www.packal.org/workflow/dropbox-client-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-dropbox/>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Access multiple Dropbox accounts with Alfred.
 - `Duden Search <http://www.packal.org/workflow/duden-search>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-duden>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Search duden.de German dictionary (with auto-suggest).
 - `Fabric for Alfred <http://www.packal.org/workflow/fabric-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Quickly execute Fabric tasks.
 - `Fakeum <http://www.packal.org/workflow/fakeum>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-fakeum/releases>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Generate fake test data in Alfred.
 - `Forvo <http://www.packal.org/workflow/forvo>`__
-  (`GitHub repo <https://github.com/owenwater/alfred-forvo>`__)
-  by `owenwater <http://www.packal.org/users/owenwater>`__
-  (`on GitHub <https://github.com/owenwater/>`__).
+  by `owenwater <http://www.packal.org/users/owenwater>`__.
   A pronunciation workflow based on Forvo.com.
 - `Fuzzy Folders <http://www.packal.org/workflow/fuzzy-folders>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-fuzzyfolders>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Fuzzy search across folder subtrees.
 - `Genymotion <http://www.packal.org/workflow/genymotion>`__
   by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Start emulator instantly.
+- `Gist <http://www.packal.org/workflow/gist>`__
+  by `danielecook <http://www.packal.org/users/danielecook>`__.
+  An alfred workflow for accessing github gists as snippets. Supports tags, stars, and private gists.
 - `Git Repos <http://www.packal.org/workflow/git-repos>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-repos>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Browse, search and open Git repositories from within Alfred.
+- `gitignore <http://www.packal.org/workflow/gitignore-0>`__
+  by `jdno <http://www.packal.org/users/jdno>`__.
+  Create .gitignore files using Alfred.
 - `Glosbe Translation <http://www.packal.org/workflow/glosbe-translation>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Translate text using Glosbe.com.
 - `Gmail Client for Alfred <http://www.packal.org/workflow/gmail-client-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-gmail>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Gmail inbox with Alfred.
-- `Google Drive <http://www.packal.org/workflow/google-drive>`__
-  by `azai91 <http://www.packal.org/users/azai91>`__.
-  Browse, search and open Google Drive files from within Alfred.
 - `HackerNews for Alfred <http://www.packal.org/workflow/hackernews-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-hackernews>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Read Hacker News with Alfred.
+- `Hayaku <http://www.packal.org/workflow/hayaku>`__
+  by `kizu <http://www.packal.org/users/kizu>`__.
+  Expands fuzzy CSS abbreviations.
 - `HGNC Search <http://www.packal.org/workflow/hgnc-search>`__
-  (`GitHub repo <https://github.com/danielecook/HGNC-Search>`__)
-  by `danielecook <http://www.packal.org/users/danielecook>`__
-  (`on GitHub <https://github.com/danielecook/>`__).
+  by `danielecook <http://www.packal.org/users/danielecook>`__.
   Search for human genes.
 - `Homebrew and Cask for Alfred <http://www.packal.org/workflow/homebrew-and-cask-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-homebrew>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Easily control Homebrew and Cask with Alfred.
 - `IME <http://www.packal.org/workflow/ime>`__
-  (`GitHub repo <https://github.com/owenwater/alfred-ime>`__)
-  by `owenwater <http://www.packal.org/users/owenwater>`__
-  (`on GitHub <https://github.com/owenwater/>`__).
+  by `owenwater <http://www.packal.org/users/owenwater>`__.
   A Input method workflow based on Google Input Tools.
 - `iOS Simulator <http://www.packal.org/workflow/ios-simulator>`__
-  (`GitHub repo <https://github.com/jfro/ios-simulator-apps-alfred-workflow>`__)
-  by `jfro <http://www.packal.org/users/jfro>`__
-  (`on GitHub <https://github.com/jfro/>`__).
+  by `jfro <http://www.packal.org/users/jfro>`__.
   Workflow for finding simulator app data folders, erasing apps and more.
 - `IPython Notebooks <http://www.packal.org/workflow/ipython-notebooks>`__
-  (`GitHub repo <https://github.com/nkeim/alfred-ipython-notebook>`__)
-  by `nkeim <http://www.packal.org/users/nkeim>`__
-  (`on GitHub <https://github.com/nkeim/>`__).
+  by `nkeim <http://www.packal.org/users/nkeim>`__.
   Search notebook titles on your IPython notebook server.
 - `Jenkins <http://www.packal.org/workflow/jenkins>`__
-  (`GitHub repo <https://github.com/Amwam/Jenkins-Alfred-Workflow/>`__)
-  by `Amwam <http://www.packal.org/users/amwam>`__
-  (`on GitHub <https://github.com/Amwam/>`__).
+  by `Amwam <http://www.packal.org/users/amwam>`__.
   Show and search through jobs on Jenkins.
+- `Jira Task Manager <http://www.packal.org/workflow/jira-task-manager>`__
+  by `miguelpuyol <http://www.packal.org/users/miguelpuyol>`__.
+  A Jira Task Manager for Alfred.
+- `Jisho v1.0 <http://www.packal.org/workflow/jisho-v10>`__
+  by `kylesezhi <http://www.packal.org/users/kylesezhi>`__.
+  Translate English and Japanese words with Jisho.org.
 - `Julian Date calculator <http://www.packal.org/workflow/julian-date-calculator>`__
-  (`GitHub repo <https://github.com/Tam-Lin/julian_date>`__)
-  by `Tam-Lin <http://www.packal.org/users/tam-lin>`__
-  (`on GitHub <https://github.com/Tam-Lin/>`__).
+  by `Tam-Lin <http://www.packal.org/users/tam-lin>`__.
   Converts dates to/from Julian dates, as well as some date math.
 - `KA Torrents <http://www.packal.org/workflow/ka-torrents>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
@@ -185,123 +163,94 @@ section in the `GitHub README`_.
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Choose SSH connection from filterable list.
 - `LastPass Vault Manager <http://www.packal.org/workflow/lastpass-vault-manager>`__
-  (`GitHub repo <https://github.com/bachya/lp-vault-manager>`__)
-  by `bachya <http://www.packal.org/users/bachya>`__
-  (`on GitHub <https://github.com/bachya/>`__).
+  by `bachya <http://www.packal.org/users/bachya>`__.
   A workflow to interact with a LastPass vault.
 - `LibGen <http://www.packal.org/workflow/libgen>`__
-  (`GitHub repo <https://github.com/smargh/alfred_libgen>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search and Download pdfs and ebooks from Library Genesis.
 - `MailTo <http://www.packal.org/workflow/mailto>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Send mail to contacts and groups from your Address Book.
+- `moment <http://www.packal.org/workflow/moment>`__
+  by `perfectworks <http://www.packal.org/users/perfectworks>`__.
+  Advanced time utility.
 - `Movie and TV Show Search <http://www.packal.org/workflow/movie-and-tv-show-search>`__
-  (`GitHub repo <https://github.com/tmcknight/Movie-and-TV-Show-Search-Alfred-Workflow>`__)
-  by `tone <http://www.packal.org/users/tone>`__
-  (`on GitHub <https://github.com/tmcknight/>`__).
+  by `tone <http://www.packal.org/users/tone>`__.
   Search for movies and tv shows to find ratings from a few sites.
+- `Movie Ratings <http://www.packal.org/workflow/movie-ratings>`__
+  by `mattsson <http://www.packal.org/users/mattsson>`__.
+  Search for a movie and see its IMDb, Rotten Tomatoes and Metacritic ratings.
+- `Myinstants <http://www.packal.org/workflow/myinstants>`__
+  by `flipxfx <http://www.packal.org/users/flipxfx>`__.
+  A workflow to search Myinstants.com.
 - `Network Location <http://www.packal.org/workflow/network-location>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-network-location>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, filter and activate network locations from within Alfred.
+- `Order of Magnituce <http://www.packal.org/workflow/order-magnitude>`__
+  by `tdhopper <http://www.packal.org/users/tdhopper>`__.
+  Convert a number to natural language (rounded to any number of places).
 - `Packal Workflow Search <http://www.packal.org/workflow/packal-workflow-search>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-packal-search>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Search Packal.org from the comfort of Alfred.
 - `Pandoctor <http://www.packal.org/workflow/pandoctor>`__
-  (`GitHub repo <https://github.com/smargh/alfred_pandoctor>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   An Alfred GUI for Pandoc.
 - `Parsers <http://www.packal.org/workflow/parsers>`__
-  (`GitHub repo <https://github.com/smargh/alfred_parsers>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Greek and Latin parsers.
 - `pass <http://www.packal.org/workflow/pass>`__
-  (`GitHub repo <https://github.com/MatthewWest/pass-alfred/>`__)
-  by `mwest <http://www.packal.org/users/mwest>`__
-  (`on GitHub <https://github.com/MatthewWest/>`__).
+  by `mwest <http://www.packal.org/users/mwest>`__.
   Provide a minimal wrapper over the pass password manager (passwordstore.org).
 - `Percent Change <http://www.packal.org/workflow/percent-change>`__
-  (`GitHub repo <https://github.com/bradmontgomery/alfred-percent-change>`__)
-  by `bkmontgomery <http://www.packal.org/users/bkmontgomery>`__
-  (`on GitHub <https://github.com/bradmontgomery/>`__).
+  by `bkmontgomery <http://www.packal.org/users/bkmontgomery>`__.
   Easily do percentage calculations.
+- `PERT Calculator <http://www.packal.org/workflow/pert-calculator>`__
+  by `agileadam <http://www.packal.org/users/agileadam>`__.
+  Generates accurate time estimates based on optimistic, realistic, and pessimistic expectations.
 - `PHPStorm project opener  <http://www.packal.org/workflow/phpstorm-project-opener>`__
   by `hansdubois <http://www.packal.org/users/hansdubois>`__.
   PHPStorm project opener.
 - `Pocket for Alfred <http://www.packal.org/workflow/pocket-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-pocket>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Pocket list with Alfred.
 - `Product Hunt <http://www.packal.org/workflow/product-hunt>`__
-  (`GitHub repo <https://github.com/loris/alfred-producthunt-workflow>`__)
-  by `loris <http://www.packal.org/users/loris>`__
-  (`on GitHub <https://github.com/loris/>`__).
+  by `loris <http://www.packal.org/users/loris>`__.
   List Product Hunt today's hunts.
 - `ProductHunt <http://www.packal.org/workflow/producthunt>`__
-  (`GitHub repo <https://github.com/chiefy/ph-workflow>`__)
-  by `chiefy <http://www.packal.org/users/chiefy>`__
-  (`on GitHub <https://github.com/chiefy/>`__).
+  by `chiefy <http://www.packal.org/users/chiefy>`__.
   Read ProductHunt in Alfred.
 - `PWS History <http://www.packal.org/workflow/pws-history>`__
-  (`GitHub repo <https://github.com/hrbrmstr/alfred-pws>`__)
-  by `hrbrmstr <http://www.packal.org/users/hrbrmstr>`__
-  (`on GitHub <https://github.com/hrbrmstr/>`__).
+  by `hrbrmstr <http://www.packal.org/users/hrbrmstr>`__.
   Retrieve personal weather station history from Weather Underground.
 - `Quick Stocks <http://www.packal.org/workflow/quick-stocks>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Add some stock symbols for Alfred to check for you.
 - `Ramda Docs <http://www.packal.org/workflow/ramda-docs>`__
-  (`GitHub repo <https://github.com/raine/alfred-ramda-workflow>`__)
-  by `raine <http://www.packal.org/users/raine>`__
-  (`on GitHub <https://github.com/raine/>`__).
+  by `raine <http://www.packal.org/users/raine>`__.
   Search Ramda documentation.
 - `Rates <http://www.packal.org/workflow/rates>`__
-  (`GitHub repo <https://github.com/kennedyoliveira/alfred-rates>`__)
-  by `Kennedy Oliveira <http://www.packal.org/users/kennedy-oliveira>`__
-  (`on GitHub <https://github.com/kennedyoliveira/>`__).
+  by `Kennedy Oliveira <http://www.packal.org/users/kennedy-oliveira>`__.
   Simple exchange rates for alfred.
 - `Readability for Alfred <http://www.packal.org/workflow/readability-alfred>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-readability/>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Readability list with Alfred.
 - `Reddit <http://www.packal.org/workflow/reddit>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-reddit>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Browse Reddit from Alfred.
 - `Relative Dates <http://www.packal.org/workflow/relative-dates>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-relative-dates>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Generate relative dates based on a simple input format.
 - `Resolve URL <http://www.packal.org/workflow/resolve-url>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-resolve-url>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Follows any HTTP redirects and returns the canonical URL. Also displays information about the primary host (hostname, IP address(es), aliases).
 - `Rotten Search <http://www.packal.org/workflow/rotten-search>`__
-  (`GitHub repo <https://github.com/mrz1277/alfred-workflows/tree/master/net.yakiyama.alfred.rotten>`__)
-  by `yakiyama <http://www.packal.org/users/yakiyama>`__
-  (`on GitHub <https://github.com/mrz1277/>`__).
+  by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Search movie from RottenTomatoes.com.
 - `Search Omnifocus <http://www.packal.org/workflow/search-omnifocus>`__
-  (`GitHub repo <https://github.com/rhydlewis/search-omnifocus>`__)
-  by `rhyd <http://www.packal.org/users/rhyd>`__
-  (`on GitHub <https://github.com/rhydlewis/>`__).
+  by `rhyd <http://www.packal.org/users/rhyd>`__.
   This is a workflow that performs free text searches on OmniFocus data.
 - `Searchio! <http://www.packal.org/workflow/searchio>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-searchio>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Auto-suggest search results from multiple search engines and languages.
 - `Secure Password Generator <http://www.packal.org/workflow/secure-password-generator>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
@@ -310,97 +259,91 @@ section in the `GitHub README`_.
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Send documents to the cloud.
 - `Seq-utilies <http://www.packal.org/workflow/seq-utilities>`__
-  (`GitHub repo <https://github.com/danielecook/seq-utilities>`__)
-  by `danielecook <http://www.packal.org/users/danielecook>`__
-  (`on GitHub <https://github.com/danielecook/>`__).
+  by `danielecook <http://www.packal.org/users/danielecook>`__.
   Fetch complement, reverse complement, RNA, and protein sequences. Generate random DNA. Blast a sequence.
 - `Simple Timer <http://www.packal.org/workflow/simple-timer>`__
   by `Paul Eunjae Lee <http://www.packal.org/users/paul-eunjae-lee>`__.
   A very simple timer.
 - `Skimmer <http://www.packal.org/workflow/skimmer>`__
-  (`GitHub repo <https://github.com/smargh/alfred-Skimmer>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Actions for PDF viewer Skim.
 - `slackfred <http://www.packal.org/workflow/slackfred>`__
-  (`GitHub repo <https://github.com/fspinillo/slackfred>`__)
-  by `frankspin <http://www.packal.org/users/frankspin>`__
-  (`on GitHub <https://github.com/fspinillo/>`__).
+  by `frankspin <http://www.packal.org/users/frankspin>`__.
   Interact with the chat service Slack via Alfred (multi-org supported).
 - `Snippets <http://www.packal.org/workflow/snippets>`__
-  (`GitHub repo <https://github.com/smargh/alfred_snippets>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Simple, document-specific text snippets.
+- `Splatoon <http://www.packal.org/workflow/splatoon>`__
+  by `flipxfx <http://www.packal.org/users/flipxfx>`__.
+  A workflow with Splatoon helpers (maps, wiki).
 - `Spritzr <http://www.packal.org/workflow/spritzr>`__
-  (`GitHub repo <https://github.com/smargh/alfred_spritzr>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   An Alfred Speed-Reader.
+- `Stack Overflow <http://www.packal.org/workflow/stack-overflow>`__
+  by `Que3216 <http://www.packal.org/users/que3216>`__.
+  Get answers to simple questions like "python function syntax", without having to open your web browser.
 - `StackOverflow Search <http://www.packal.org/workflow/stackoverflow-search>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-stackoverflow>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   Search StackOverflow.com from Alfred.
+- `Star Ratings <http://www.packal.org/workflow/star-ratings>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  View and set ratings for your files and folders.
+- `Steam <http://www.packal.org/workflow/steam>`__
+  by `tresni <http://www.packal.org/users/tresni>`__.
+  Activate your Steam codes & launch steam games with a quick keystroke or keyword.
 - `Sublime Text Projects <http://www.packal.org/workflow/sublime-text-projects>`__
-  (`GitHub repo <https://github.com/deanishe/alfred-sublime-text>`__)
-  by `deanishe <http://www.packal.org/users/deanishe>`__
-  (`on GitHub <https://github.com/deanishe/>`__).
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
   View, filter and open your Sublime Text (2 and 3) project files.
 - `Torrent <http://www.packal.org/workflow/torrent>`__
-  (`GitHub repo <https://github.com/bfw/alfred-torrent>`__)
-  by `bfw <http://www.packal.org/users/bfw>`__
-  (`on GitHub <https://github.com/bfw/>`__).
+  by `bfw <http://www.packal.org/users/bfw>`__.
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
 - `Travis CI for Alfred <http://www.packal.org/workflow/travis-ci-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Quickly check build statuses on travis-ci.org.
 - `UberTime <http://www.packal.org/workflow/ubertime>`__
-  (`GitHub repo <https://github.com/fspinillo/alfred-uber>`__)
-  by `frankspin <http://www.packal.org/users/frankspin>`__
-  (`on GitHub <https://github.com/fspinillo/>`__).
+  by `frankspin <http://www.packal.org/users/frankspin>`__.
   Check estimated pick up time for Uber based on inputted address.
 - `URL craft <http://www.packal.org/workflow/url-craft>`__
   by `takanabe <http://www.packal.org/users/takanabe>`__.
   A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.
 - `VagrantUP <http://www.packal.org/workflow/vagrantup>`__
-  (`GitHub repo <https://github.com/m1keil/alfred-vagrant-workflow>`__)
-  by `m1keil <http://www.packal.org/users/m1keil>`__
-  (`on GitHub <https://github.com/m1keil/>`__).
+  by `m1keil <http://www.packal.org/users/m1keil>`__.
   List and control Vagrant environments with Alfred2.
+- `Viscosity VPN Manager <http://www.packal.org/workflow/viscosity-vpn-manager>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  Manage Viscosity VPN connections.
 - `VM Control <http://www.packal.org/workflow/vm-control>`__
-  (`GitHub repo <https://github.com/fniephaus/alfred-vmcontrol>`__)
-  by `fniephaus <http://www.packal.org/users/fniephaus>`__
-  (`on GitHub <https://github.com/fniephaus/>`__).
+  by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Control your Parallels and Virtual Box virtual machines.
+- `VPN Switch <http://www.packal.org/workflow/vpn-switch>`__
+  by `flyeek <http://www.packal.org/users/flyeek>`__.
+  Switch VPN on/off.
 - `Wikify <http://www.packal.org/workflow/wikify>`__
-  (`GitHub repo <https://github.com/smargh/alfred_EN-Wikify>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Your little Evernote Wiki-Helper.
 - `Workon Virtualenv <http://www.packal.org/workflow/workon-virtualenv>`__
-  (`GitHub repo <https://github.com/johnnycakes79/alfred-workon-virtualenv>`__)
-  by `johnnycakes79 <http://www.packal.org/users/johnnycakes79>`__
-  (`on GitHub <https://github.com/johnnycakes79/>`__).
+  by `johnnycakes79 <http://www.packal.org/users/johnnycakes79>`__.
   Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).
 - `Wowhead <http://www.packal.org/workflow/wowhead>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   An Alfred workflow that helps you search World of Warcraft® database provided by wowhead.com.
+- `Wunderlist Workflow for Alfred <http://www.packal.org/workflow/wunderlist-workflow-alfred>`__
+  by `ipaterson <http://www.packal.org/users/ipaterson>`__.
+  Unbelievably fast entry for tasks with due dates, reminders, and recurrence in Wunderlist.
 - `Wunderlist3.alfredworkflow <http://www.packal.org/workflow/wunderlist3alfredworkflow>`__
-  (`GitHub repo <https://github.com/camgnostic/Wunderlist-3-Alfred>`__)
-  by `gnostic <http://www.packal.org/users/gnostic>`__
-  (`on GitHub <https://github.com/camgnostic/>`__).
+  by `gnostic <http://www.packal.org/users/gnostic>`__.
   A Wunderlist 3 API cloud-based alfred workflow.
 - `Youdao Dict <http://www.packal.org/workflow/youdao-dict>`__
-  (`GitHub repo <https://github.com/liszd/whyliam.workflows.youdao/releases>`__)
-  by `WhyLiam <http://www.packal.org/users/whyliam>`__
-  (`on GitHub <https://github.com/liszd/>`__).
+  by `WhyLiam <http://www.packal.org/users/whyliam>`__.
   使用有道翻译你想知道的单词和语句.
+- `Youtrack - create issues <http://www.packal.org/workflow/youtrack-create-issues>`__
+  by `altryne <http://www.packal.org/users/altryne>`__.
+  Creates issues in Your Youtrack installation.
 - `ZotQuery <http://www.packal.org/workflow/zotquery>`__
-  (`GitHub repo <https://github.com/smargh/alfred_zotquery>`__)
-  by `hackademic <http://www.packal.org/users/hackademic>`__
-  (`on GitHub <https://github.com/smargh/>`__).
+  by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search Zotero. From the Comfort of Your Keyboard.
+
+
 
 
 .. _GitHub README: https://github.com/deanishe/alfred-workflow#contributing

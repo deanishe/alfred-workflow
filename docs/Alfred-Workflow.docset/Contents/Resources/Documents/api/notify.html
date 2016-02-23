@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Notifications — Alfred-Workflow 1.15 documentation</title>
+<link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<link href="../_static/favicon.ico" rel="shortcut icon"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.15 documentation"/>
+<link href="index.html" rel="up" title="API Documentation"/>
+<link href="update.html" rel="next" title="Self-Updating"/>
+<link href="background.html" rel="prev" title="Background Tasks"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link href="../_static/custom.css" rel="stylesheet"/>
+</head>
+<body role="document">
+<div aria-label="related navigation" class="related" role="navigation">
+<h3>Navigation</h3>
+<ul>
+<li class="right" style="margin-right: 10px">
+<a accesskey="I" href="../genindex.html" title="General Index">index</a></li>
+<li class="right">
+<a href="../py-modindex.html" title="Python Module Index">modules</a> |</li>
+<li class="right">
+<a accesskey="N" href="update.html" title="Self-Updating">next</a> |</li>
+<li class="right">
+<a accesskey="P" href="background.html" title="Background Tasks">previous</a> |</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> »</li>
+<li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
+</ul>
+</div>
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
+<div class="section" id="notifications">
+<span id="api-notifications"></span><h1>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notifications aren’t available in version of OS X older than 10.8/Mountain
+Lion. Calling <a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on these systems will
+silently do nothing.</p>
+</div>
+<p><a class="reference internal" href="#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> allows you to post notifications via OS X’s
+Notification Center at any time, not just at the end of your script.
+Furthermore, it uses your workflow’s icon, not Alfred’s.</p>
+<p>The only functions that you should need to use directly to post notifications
+are <a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> and possibly
+<a class="reference internal" href="#workflow.notify.validate_sound" title="workflow.notify.validate_sound"><code class="xref py py-func docutils literal"><span class="pre">validate_sound()</span></code></a>.</p>
+<p>The image-processing functions <a class="reference internal" href="#workflow.notify.convert_image" title="workflow.notify.convert_image"><code class="xref py py-func docutils literal"><span class="pre">convert_image()</span></code></a> and
+<a class="reference internal" href="#workflow.notify.png_to_icns" title="workflow.notify.png_to_icns"><code class="xref py py-func docutils literal"><span class="pre">png_to_icns()</span></code></a> might be useful outside of this library.</p>
+<div class="section" id="module-workflow.notify">
+<span id="api"></span><h2><a name="//apple_ref/cpp/Module/workflow.notify"></a>API<a class="headerlink" href="#module-workflow.notify" title="Permalink to this headline">¶</a></h2>
+<p>Post notifications via the OS X Notification Center. This feature
+is only available on Mountain Lion (10.8) and later. It will
+silently fail on older systems.</p>
+<p>The main API is a single function, <a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a>.</p>
+<p>It works by copying a simple application to your workflow’s data
+directory. It replaces the application’s icon with your workflow’s
+icon and then calls the application to post notifications.</p>
+<dl class="function">
+<dt id="workflow.notify.convert_image"><a name="//apple_ref/cpp/Function/workflow.notify.convert_image"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">convert_image</code><span class="sig-paren">(</span><em>inpath</em>, <em>outpath</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.convert_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an image file using <cite>sips</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inpath</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path of source file.</li>
+<li><strong>outpath</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to destination file.</li>
+<li><strong>size</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Width and height of destination image in pixels.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> –
+Raised if <cite>sips</cite> exits with non-zero status.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.install_notifier"><a name="//apple_ref/cpp/Function/workflow.notify.install_notifier"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">install_notifier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.install_notifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract <cite>Notify.app</cite> from the workflow to data directory.</p>
+<p>Changes the bundle ID of the installed app and gives it the
+workflow’s icon.</p>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.log"><a name="//apple_ref/cpp/Function/workflow.notify.log"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return logger for this module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Logger for this module.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)">logging.Logger</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.notifier_icon_path"><a name="//apple_ref/cpp/Function/workflow.notify.notifier_icon_path"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">notifier_icon_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notifier_icon_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return path to icon file in installed Notify.app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Path to <cite>applet.icns</cite> within the app bundle.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.notifier_program"><a name="//apple_ref/cpp/Function/workflow.notify.notifier_program"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">notifier_program</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notifier_program" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return path to notifier applet executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Path to Notify.app <cite>applet</cite> executable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.notify"><a name="//apple_ref/cpp/Function/workflow.notify.notify"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post notification via Notify.app helper.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>title</strong> (<em>str, optional</em>) – Notification title.</li>
+<li><strong>text</strong> (<em>str, optional</em>) – Notification body text.</li>
+<li><strong>sound</strong> (<em>str, optional</em>) – Name of sound to play.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> –
+Raised if both <cite>title</cite> and <cite>text</cite> are empty.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>True</cite> if notification was posted, else <cite>False</cite>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.png_to_icns"><a name="//apple_ref/cpp/Function/workflow.notify.png_to_icns"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">png_to_icns</code><span class="sig-paren">(</span><em>png_path</em>, <em>icns_path</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.png_to_icns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert PNG file to ICNS using <cite>iconutil</cite>.</p>
+<p>Create an iconset from the source PNG file. Generate PNG files
+in each size required by OS X, then call <cite>iconutil</cite> to turn
+them into a single ICNS file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>png_path</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to source PNG file.</li>
+<li><strong>icns_path</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to destination ICNS file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> –
+Raised if <cite>iconutil</cite> or <cite>sips</cite> fail.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.validate_sound"><a name="//apple_ref/cpp/Function/workflow.notify.validate_sound"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">validate_sound</code><span class="sig-paren">(</span><em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.validate_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerce <cite>sound</cite> to valid sound name.</p>
+<p>Returns <cite>None</cite> for invalid sounds. Sound names can be found
+in <cite>System Preferences &gt; Sound &gt; Sound Effects</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sound</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of system sound.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Proper name of sound or <cite>None</cite>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="workflow.notify.wf"><a name="//apple_ref/cpp/Function/workflow.notify.wf"></a>
+<code class="descclassname">workflow.notify.</code><code class="descname">wf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.wf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <cite>Workflow</cite> object for this module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Workflow</cite> object for current workflow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow">workflow.Workflow</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper">
+<p class="logo">
+<a href="../index.html">
+<img alt="Logo" class="logo" src="../_static/icon_256.png"/>
+<h1 class="logo logo-name">Alfred-Workflow</h1>
+</a>
+</p>
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+<p>
+<iframe allowtransparency="true" frameborder="0" height="35px" scrolling="0" src="https://ghbtns.com/github-btn.html?user=deanishe&amp;repo=alfred-workflow&amp;type=watch&amp;count=true&amp;size=large" width="200px"></iframe>
+</p>
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="../index.html">Documentation overview</a><ul>
+<li><a href="index.html">API Documentation</a><ul>
+<li>Previous: <a href="background.html" title="previous chapter">Background Tasks</a></li>
+<li>Next: <a href="update.html" title="next chapter">Self-Updating</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<form action="../search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+<p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Donate</h3>
+<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
+</p>
+</div>
+</div>
+<div class="clearer"></div>
+</div>
+<div class="footer">
+      ©2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+</div>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img alt="" src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;"/></p></noscript>
+<!-- End Piwik Code -->
+</body>
+</html>

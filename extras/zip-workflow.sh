@@ -1,18 +1,39 @@
-#!/bin/bash
+#!/bin/zsh
+# Create a useable, zipped version of the workflow in the repo root.
+# The file will be named `alfred-workflow-X.X.X.zip`, or the like.
 
+set -e
+
+# Files to include in the zipped file
+patterns=('workflow/*.py')
+patterns+=('workflow/version')
+patterns+=('workflow/Notify.tgz')
+
+# Compute required paths relative to this script's location
+# (i.e. Don't move this script without editing it)
 rootdir=$(cd $(dirname $0)/../; pwd)
 version=$(cat "${rootdir}/workflow/version")
 zipfile="alfred-workflow-${version}.zip"
 sourcedir="workflow"
 
-function help() {
-cat << EOF
-Create ZIP archive of workflow
+log() {
+	echo "$@" > /dev/stderr
+}
 
-  zip-workflow.sh -s, --show	Only show what would done
-  zip-workflow.sh -h, --help	Show this message
+help() {
+cat > /dev/stderr << EOS
+zip-workflow.sh
 
-EOF
+Create distributable, useable ZIP archive of workflow in repo root.
+
+Usage:
+	zip-workflow.sh [-s]
+
+Options:
+  zip-workflow.sh -s, --show	Only show what would be done.
+  zip-workflow.sh -h, --help	Show this message and exit.
+
+EOS
 }
 
 show=0
@@ -29,31 +50,23 @@ case "$1" in
 		;;
 esac
 
-cd "${rootdir}"
+pushd "${rootdir}" &> /dev/null
 
 if [[ -f "${zipfile}" ]] && [[ $show -eq 0 ]]; then
-	echo "Deleting existing zip archive"
+	log "Deleting existing zip archive"
 	rm -f "${zipfile}"
 fi
 
 
 if [[ $show -eq 1 ]]; then
-	zip -sf -r ${zipfile} ${sourcedir} -i '*.py'
-	zip -sf -r ${zipfile} ${sourcedir} -i '*version'
-	status=$?
+	mode="-sf"
 else
-	zip -r ${zipfile} ${sourcedir} -i '*.py' 'version'
-	zip -r ${zipfile} ${sourcedir} -i '*version'
-	status=$?
+	mode=
 fi
 
-if [[ $status -gt 0 ]]; then
-	echo "ERROR: zip returned ${status}"
-	exit $status
-else
-	if [[ $show -eq 0 ]]; then
-		echo "Created ${zipfile}"
-	fi
-fi
+zip $mode -r ${zipfile} ${sourcedir} -i $patterns
 
-cd -
+log "Created ${zipfile}"
+popd &> /dev/null
+
+exit 0

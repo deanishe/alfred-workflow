@@ -5,6 +5,9 @@
 Searching/filtering data
 ========================
 
+.. contents::
+   :local:
+
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` provides an
 Alfred-like search algorithm for filtering your workflow's data. By default,
 :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will try to match

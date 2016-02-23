@@ -4,13 +4,11 @@ basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
 
 
-echo "######################################################################"
-echo "Building docs"
-echo "######################################################################"
+echo "========================= Building docs =============================="
 
 cd "${docdir}"
-if [[ -d _build/html ]]; then
-	rm -rf _build/html
+if [[ -d _build ]]; then
+	rm -rf _build/*
 fi
 make html
 cd -

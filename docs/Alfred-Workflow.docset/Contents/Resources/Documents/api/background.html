@@ -1,122 +1,53 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Background Tasks — Alfred-Workflow 1.13 documentation</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Background Tasks — Alfred-Workflow 1.15 documentation</title>
+<link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.15',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
-<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.13 documentation"/>
-<link href="index.html" rel="up" title="Alfred-Workflow API"/>
-<link href="update.html" rel="next" title="Self-Updating"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.15 documentation"/>
+<link href="index.html" rel="up" title="API Documentation"/>
+<link href="notify.html" rel="next" title="Notifications"/>
 <link href="web.html" rel="prev" title="Fetching Data from the Web"/>
-<!-- Only one of these will work. Seems a better solution than symlinking
-the _static path in each subdirectory -->
-<link href="_static/gh-fork-ribbon.css" rel="stylesheet"/>
-<link href="../_static/gh-fork-ribbon.css" rel="stylesheet"/>
-<link href="_static/custom.css" rel="stylesheet"/>
-<link href="../_static/custom.css" rel="stylesheet"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<!-- <link rel="stylesheet" href="_static/custom.css"> -->
-<!-- <link rel="shortcut icon" href="_static/favicon.ico"> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<link href="../_static/custom.css" rel="stylesheet"/>
 </head>
-<body class="wy-body-for-nav" role="document">
-<div class="wy-grid-for-nav">
-<nav class="wy-nav-side" data-toggle="wy-nav-shift">
-<div class="wy-side-nav-search">
-<a class="fa fa-home" href="../index.html"> Alfred-Workflow</a>
-<div role="search">
-<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
-<input name="q" placeholder="Search docs" type="text"/>
-<input name="check_keywords" type="hidden" value="yes"/>
-<input name="area" type="hidden" value="default"/>
-</form>
-</div>
-</div>
-<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<body role="document">
+<div aria-label="related navigation" class="related" role="navigation">
+<h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip-pypi">pip / PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#github">GitHub</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/osx-version-support.html">Supported OS X versions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/third-party.html">Including 3rd party libraries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/filtering.html">Searching/filtering data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/background.html">Background processes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/update.html">Self-updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/versioning.html">Versioning and migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/magic-arguments.html">“Magic” arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
-</ul>
-</li>
-</ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Alfred-Workflow API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Background Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
-<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#xml-format-available-parameters">XML format / available parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#basic-example">Basic example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../xml_format.html#item-parameters">Item parameters</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../aw-workflows.html#adding-your-own-workflow-to-the-list">Adding your own workflow to the list</a></li>
-</ul>
-</li>
+<li class="right" style="margin-right: 10px">
+<a accesskey="I" href="../genindex.html" title="General Index">index</a></li>
+<li class="right">
+<a href="../py-modindex.html" title="Python Module Index">modules</a> |</li>
+<li class="right">
+<a accesskey="N" href="notify.html" title="Notifications">next</a> |</li>
+<li class="right">
+<a accesskey="P" href="web.html" title="Fetching Data from the Web">previous</a> |</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> »</li>
+<li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
-       
-    </nav>
-<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
-<nav aria-label="top navigation" class="wy-nav-top" role="navigation">
-<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
-<a href="../index.html">Alfred-Workflow</a>
-</nav>
-<div class="wy-nav-content">
-<div class="rst-content">
-<div aria-label="breadcrumbs navigation" role="navigation">
-<ul class="wy-breadcrumbs">
-<li><a href="../index.html">Docs</a> »</li>
-<li><a href="index.html">Alfred-Workflow API</a> »</li>
-<li>Background Tasks</li>
-<li class="wy-breadcrumbs-aside">
-<a href="../_sources/api/background.txt" rel="nofollow"> View page source</a>
-</li>
-</ul>
-<hr/>
-</div>
-<div role="main">
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
 <div class="section" id="module-workflow.background">
 <span id="background-tasks"></span><span id="background"></span><h1><a name="//apple_ref/cpp/Module/workflow.background"></a>Background Tasks<a class="headerlink" href="#module-workflow.background" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
@@ -127,7 +58,7 @@ the _static path in each subdirectory -->
 updating the data cache from a webservice, in the background, allowing
 the workflow to remain responsive in Alfred.</p>
 <p>For example, if your workflow requires up-to-date exchange rates, you might
-write a script <tt class="docutils literal"><span class="pre">update_exchange_rates.py</span></tt> to retrieve the data from the
+write a script <code class="docutils literal"><span class="pre">update_exchange_rates.py</span></code> to retrieve the data from the
 relevant webservice, and call it from your main workflow script:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -156,68 +87,68 @@ relevant webservice, and call it from your main workflow script:</p>
 25
 26
 27
-28</pre></div></td><td class="code"><div class="highlight"><pre> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
  <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
-     <span class="c"># Is cache over 1 hour old or non-existent?</span>
-     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s">'exchange-rates'</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
-         <span class="n">run_in_background</span><span class="p">(</span><span class="s">'update'</span><span class="p">,</span>
-                           <span class="p">[</span><span class="s">'/usr/bin/python'</span><span class="p">,</span>
-                            <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s">'update_exchange_rates.py'</span><span class="p">)])</span>
+     <span class="c1"># Is cache over 1 hour old or non-existent?</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s1">'exchange-rates'</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
+         <span class="n">run_in_background</span><span class="p">(</span><span class="s1">'update'</span><span class="p">,</span>
+                           <span class="p">[</span><span class="s1">'/usr/bin/python'</span><span class="p">,</span>
+                            <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s1">'update_exchange_rates.py'</span><span class="p">)])</span>
 
-     <span class="c"># Add a notification if the script is running</span>
-     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s">'update'</span><span class="p">):</span>
-         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s">'Updating exchange rates...'</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+     <span class="c1"># Add a notification if the script is running</span>
+     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s1">'update'</span><span class="p">):</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">'Updating exchange rates...'</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
 
-     <span class="c"># max_age=0 will return the cached data regardless of age</span>
-     <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s">'exchage-rates'</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+     <span class="c1"># max_age=0 will return the cached data regardless of age</span>
+     <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">'exchage-rates'</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-     <span class="c"># Display (possibly stale) cached data</span>
+     <span class="c1"># Display (possibly stale) cached data</span>
      <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
          <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
              <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
 
-     <span class="c"># Send results to Alfred</span>
+     <span class="c1"># Send results to Alfred</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>For a working example, see <a class="reference internal" href="../tutorial_2.html#tutorial-2"><em>Part 2: A Distribution-Ready Pinboard Workflow</em></a>.</p>
+<p>For a working example, see <a class="reference internal" href="../tutorial_2.html#tutorial-2"><span>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow</span></a>.</p>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="workflow.background.run_in_background"><a name="//apple_ref/cpp/Function/workflow.background.run_in_background"></a>
-<tt class="descclassname">workflow.background.</tt><tt class="descname">run_in_background</tt><big>(</big><em>name</em>, <em>args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.background.</code><code class="descname">run_in_background</code><span class="sig-paren">(</span><em>name</em>, <em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pickle arguments to cache file, then call this script again via
-<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a>.</p>
+<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) – name of task</li>
-<li><strong>args</strong> – arguments passed as first argument to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a></li>
-<li><strong>**kwargs</strong> – keyword arguments to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></tt></a></li>
+<li><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of task</li>
+<li><strong>args</strong> – arguments passed as first argument to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
+<li><strong>**kwargs</strong> – keyword arguments to <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">exit code of sub-process</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="docutils literal"><span class="pre">int</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">int</span></code></p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>When you call this function, it caches its arguments and then calls
-<tt class="docutils literal"><span class="pre">background.py</span></tt> in a subprocess. The Python subprocess will load the
+<code class="docutils literal"><span class="pre">background.py</span></code> in a subprocess. The Python subprocess will load the
 cached arguments, fork into the background, and then run the command you
 specified.</p>
-<p>This function will return as soon as the <tt class="docutils literal"><span class="pre">background.py</span></tt> subprocess has
+<p>This function will return as soon as the <code class="docutils literal"><span class="pre">background.py</span></code> subprocess has
 forked, returning the exit code of <em>that</em> process (i.e. not of the command
 you’re trying to run).</p>
 <p>If that process fails, an error will be written to the log file.</p>
@@ -226,17 +157,17 @@ return immediately and will not run the specified command.</p>
 </dd></dl>
 <dl class="function">
 <dt id="workflow.background.is_running"><a name="//apple_ref/cpp/Function/workflow.background.is_running"></a>
-<tt class="descclassname">workflow.background.</tt><tt class="descname">is_running</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether task is running under <tt class="docutils literal"><span class="pre">name</span></tt></p>
+<code class="descclassname">workflow.background.</code><code class="descname">is_running</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether task is running under <code class="docutils literal"><span class="pre">name</span></code></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<tt class="docutils literal"><span class="pre">unicode</span></tt>) – name of task</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of task</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if task with name <tt class="docutils literal"><span class="pre">name</span></tt> is running, else <tt class="docutils literal"><span class="pre">False</span></tt></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if task with name <code class="docutils literal"><span class="pre">name</span></code> is running, else <code class="docutils literal"><span class="pre">False</span></code></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">Boolean</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -244,45 +175,108 @@ return immediately and will not run the specified command.</p>
 </div>
 </div>
 </div>
-<footer>
-<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-right" href="update.html" title="Self-Updating"></a>Next <span class="fa fa-arrow-circle-right"></span>
-<a class="btn btn-neutral" href="web.html" title="Fetching Data from the Web"><span class="fa fa-arrow-circle-left"></span> Previous</a>
 </div>
-<hr/>
-<div role="contentinfo">
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper">
+<p class="logo">
+<a href="../index.html">
+<img alt="Logo" class="logo" src="../_static/icon_256.png"/>
+<h1 class="logo logo-name">Alfred-Workflow</h1>
+</a>
+</p>
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
 <p>
-        © Copyright 2015, Dean Jackson.
+<iframe allowtransparency="true" frameborder="0" height="35px" scrolling="0" src="https://ghbtns.com/github-btn.html?user=deanishe&amp;repo=alfred-workflow&amp;type=watch&amp;count=true&amp;size=large" width="200px"></iframe>
+</p>
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notify.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="../index.html">Documentation overview</a><ul>
+<li><a href="index.html">API Documentation</a><ul>
+<li>Previous: <a href="web.html" title="previous chapter">Fetching Data from the Web</a></li>
+<li>Next: <a href="notify.html" title="next chapter">Notifications</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<form action="../search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+<p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
 </div>
-<a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
-</footer>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<h3>Donate</h3>
+<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
+</p>
 </div>
 </div>
-</section>
+<div class="clearer"></div>
 </div>
+<div class="footer">
+      ©2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+</div>
+<!-- Piwik -->
 <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.13',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-<script src="../_static/jquery.js" type="text/javascript"></script>
-<script src="../_static/underscore.js" type="text/javascript"></script>
-<script src="../_static/doctools.js" type="text/javascript"></script>
-<script src="../_static/js/theme.js" type="text/javascript"></script>
-<script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-<div class="github-fork-ribbon-wrapper right">
-<div class="github-fork-ribbon">
-<a href="https://github.com/deanishe/alfred-workflow">Fork me on GitHub</a>
-</div>
-</div>
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img alt="" src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;"/></p></noscript>
+<!-- End Piwik Code -->
 </body>
 </html>

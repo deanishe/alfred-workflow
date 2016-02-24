@@ -42,7 +42,7 @@ fi
 #   --logging-clear-handlers \
 #   "$2"
 
-py.test \
-  --cov-report term-missing \
-  --cov="$1" \
+py.test --cov="$1" \
+  --cov-report=term-missing \
+  --cov-config=.coveragerc \
   "$2"

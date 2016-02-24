@@ -9,3 +9,4 @@ temp_*.py
 /pinboard.json
 .tox
 *.egg-info
+/.cache

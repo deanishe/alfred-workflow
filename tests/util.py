@@ -30,6 +30,13 @@ INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
 VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                             'version')
 
+DEFAULT_SETTINGS = {
+    'key1': 'value1',
+    'key2': 'hübner',
+    'mutable1': ['mutable', 'object'],
+    'mutable2': {'mutable':  ['nested', 'object']},
+}
+
 
 class WorkflowMock(object):
     """Context manager that overrides funcs and variables for testing.

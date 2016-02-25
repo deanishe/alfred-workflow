@@ -132,7 +132,7 @@ def install_notifier():
     # none of this code will "work" on pre-10.8 systems. Let it run
     # until I figure out a better way of excluding this module
     # from coverage in py2.6.
-    if sys.version_info >= (2, 7):
+    if sys.version_info >= (2, 7):  # pragma: no cover
         from AppKit import NSWorkspace, NSImage
 
         ws = NSWorkspace.sharedWorkspace()

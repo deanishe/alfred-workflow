@@ -246,7 +246,6 @@ class Response(object):
                     'gzip' in headers.get('transfer-encoding', '')):
                 self._gzipped = True
 
-
     @property
     def stream(self):
         return self._stream

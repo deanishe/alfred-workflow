@@ -25,7 +25,6 @@ exclude_lines =
     if 0:
     if False:
     if __name__ == .__main__.:
-    if sys\.version_info >= (2, 7):
 
 ignore_errors = True
 

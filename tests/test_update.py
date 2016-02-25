@@ -8,6 +8,9 @@
 #
 # Created on 2014-08-16
 #
+
+# TODO: Offline tests using pytest_localserver
+
 """
 test_update.py
 """
@@ -239,7 +242,6 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(wf.update_available)
         self.assertFalse(wf.start_update())
 
-# TODO: Offline tests using pytest_localserver
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

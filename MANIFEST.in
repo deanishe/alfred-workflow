@@ -1,1 +1,2 @@
 include workflow/version
+include workflow/Notify.tgz

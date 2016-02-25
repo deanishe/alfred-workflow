@@ -1003,6 +1003,8 @@ class Settings(dict):
 
     # dict methods
     def __setitem__(self, key, value):
+        # TODO: Keep cached copy of original settings to compare against
+        # This way doesn't work with mutable values like lists, dicts.
         if self.get(key) != value:
             super(Settings, self).__setitem__(key, value)
             self.save()

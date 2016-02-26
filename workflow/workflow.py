@@ -20,6 +20,7 @@ from __future__ import print_function, unicode_literals
 import binascii
 from contextlib import contextmanager
 import cPickle
+from copy import deepcopy
 import errno
 import json
 import logging
@@ -968,6 +969,7 @@ class Settings(dict):
         super(Settings, self).__init__()
         self._filepath = filepath
         self._nosave = False
+        self._original = {}
         if os.path.exists(self._filepath):
             self._load()
         elif defaults:
@@ -979,9 +981,12 @@ class Settings(dict):
         """Load cached settings from JSON file `self._filepath`"""
 
         self._nosave = True
+        d = {}
         with open(self._filepath, 'rb') as file_obj:
             for key, value in json.load(file_obj, encoding='utf-8').items():
-                self[key] = value
+                d[key] = value
+        self.update(d)
+        self._original = deepcopy(d)
         self._nosave = False
 
     def save(self):
@@ -994,8 +999,9 @@ class Settings(dict):
         if self._nosave:
             return
         data = {}
-        for key, value in self.items():
-            data[key] = value
+        data.update(self)
+        # for key, value in self.items():
+        #     data[key] = value
         with LockFile(self._filepath):
             with atomic_writer(self._filepath, 'wb') as file_obj:
                 json.dump(data, file_obj, sort_keys=True, indent=2,
@@ -1003,9 +1009,7 @@ class Settings(dict):
 
     # dict methods
     def __setitem__(self, key, value):
-        # TODO: Keep cached copy of original settings to compare against
-        # This way doesn't work with mutable values like lists, dicts.
-        if self.get(key) != value:
+        if self._original.get(key) != value:
             super(Settings, self).__setitem__(key, value)
             self.save()
 

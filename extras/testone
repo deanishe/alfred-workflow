@@ -2,12 +2,12 @@
 
 usage() {
   cat > /dev/stderr <<EOS
-testone <package.name> <tests/test_script.py>
+testone <package.name> <tests/test_script.py>...
 
-Run one test script with coverage for one package.
+Run test script(s) with coverage for one package.
 
 Usage:
-    testone <package.name> <test_script.py>
+    testone <package.name> <test_script.py>...
     testone -h|--help
 
 Options:
@@ -32,17 +32,10 @@ if [[ "$1" = "" ]] || [[ "$2" = "" ]]; then
   exit 1
 fi
 
-# nosetests \
-#   --verbose \
-#   --with-yanc \
-#   --yanc-color=on \
-#   --with-coverage \
-#   --cover-min-percentage=100 \
-#   --cover-package="$1" \
-#   --logging-clear-handlers \
-#   "$2"
+package="$1"
+shift
 
-py.test \
-  --cov-report term-missing \
-  --cov="$1" \
-  "$2"
+py.test --cov="${package}" \
+  --cov-report=term-missing \
+  --cov-config=.coveragerc \
+  "$@"

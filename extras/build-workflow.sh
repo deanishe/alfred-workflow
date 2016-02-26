@@ -26,8 +26,11 @@ zip-workflow.sh
 
 Create distributable, useable ZIP archive of workflow in repo root.
 
+Resulting file will be called workflow-1.n.n.zip
+
 Usage:
 	zip-workflow.sh [-s]
+	zip-workflow.sh (-h|--help)
 
 Options:
   zip-workflow.sh -s, --show	Only show what would be done.

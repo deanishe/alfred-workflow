@@ -50,6 +50,8 @@ for debugging.
 - ``workflow:update`` — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.
 - ``workflow:noautoupdate`` — Turn off automatic checks for updates.
 - ``workflow:autoupdate`` — Turn automatic checks for updates on.
+- ``workflow:prereleases`` — Enable updating the workflow to pre-release versions.
+- ``workflow:noprereleases`` — Disable updating the workflow to pre-release versions (default).
 
 The three ``workflow:folding…`` settings allow users to override the diacritic
 folding set by a workflow's author. This may be useful if the author's choice

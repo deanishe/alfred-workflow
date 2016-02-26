@@ -159,6 +159,16 @@ class UpdateTests(unittest.TestCase):
                                              update_info['version'],
                                              prereleases=True))
 
+    def test_check_update_with_prereleases(self):
+        """Update: Check update"""
+
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prereleases=True))
+
+        update_info = self.wf.cached_data('__workflow_update_status')
+        self.assertFalse(update.check_update(TEST_REPO_SLUG,
+                                             update_info['version'],
+                                             prereleases=True))
+
     def test_install_update(self):
         """Update: installs update"""
 

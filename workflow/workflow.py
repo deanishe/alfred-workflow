@@ -2356,6 +2356,21 @@ class Workflow(object):
 
         return update_data['available']
 
+    @property
+    def prereleases(self):
+        """Should the workflow update to a newer pre-release version if
+        available?
+
+        :returns: ``True`` if pre-releases are enabled with the :ref:`magic
+        argument <magic-arguments>` or the ``update_settings`` dict, else
+        ``False``
+
+        """
+        if self._update_settings.get('prereleases'):
+            return True
+
+        return self.settings.get('__workflow_prereleases') or False
+
     def check_update(self, force=False):
         """Call update script if it's time to check for a new release
 
@@ -2384,7 +2399,7 @@ class Workflow(object):
                 '__workflow_update_status', frequency * 86400)):
 
             github_slug = self._update_settings['github_slug']
-            prereleases = str(int(bool(self._update_settings.get('prereleases'))))
+            prereleases = str(int(self.prereleases))
             # version = self._update_settings['version']
             version = str(self.version)
 
@@ -2420,7 +2435,7 @@ class Workflow(object):
         import update
 
         github_slug = self._update_settings['github_slug']
-        prereleases = str(int(bool(self._update_settings.get('prereleases'))))
+        prereleases = str(int(self.prereleases))
         # version = self._update_settings['version']
         version = str(self.version)
 
@@ -2606,6 +2621,14 @@ class Workflow(object):
             self.settings['__workflow_autoupdate'] = False
             return 'Auto update turned off'
 
+        def prereleases_on():
+            self.settings['__workflow_prereleases'] = True
+            return 'Prerelease updates turned on'
+
+        def prereleases_off():
+            self.settings['__workflow_prereleases'] = False
+            return 'Prerelease updates turned off'
+
         def do_update():
             if self.start_update():
                 return 'Downloading and installing update ...'
@@ -2614,6 +2637,8 @@ class Workflow(object):
 
         self.magic_arguments['autoupdate'] = update_on
         self.magic_arguments['noautoupdate'] = update_off
+        self.magic_arguments['prereleases'] = prereleases_on
+        self.magic_arguments['noprereleases'] = prereleases_off
         self.magic_arguments['update'] = do_update
 
         # Help

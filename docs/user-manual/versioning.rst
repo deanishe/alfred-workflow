@@ -94,6 +94,9 @@ the API.
 
 You may also add additional pre-release version info to the end of the version
 number, preceded by a hyphen (``-``), e.g. ``2.0.0-rc.1`` or ``2.0.0-beta``.
+Note that Alfred-Workflow does not use this pre-release version format to
+identify pre-releases; instead the pre-release option on the GitHub release
+editing page must be selected for releases that are not production-ready.
 
 Alfred-Workflow differs from the standard in that you aren't required to
 specify a minor or patch version, i.e. ``1.0`` is fine, as is ``1`` (and both

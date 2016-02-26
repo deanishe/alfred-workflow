@@ -1431,7 +1431,7 @@ class MagicArgsTests(unittest.TestCase):
                 wf.run(fake)
             self.assertTrue(wf.settings.get('__workflow_autoupdate'))
 
-            wf = Workflow()
+            wf = Workflow(update_settings=update_settings)
             wf.reset()
             c = WorkflowMock(['script', 'workflow:noautoupdate'])
             with c:
@@ -1440,6 +1440,89 @@ class MagicArgsTests(unittest.TestCase):
             self.assertFalse(wf.settings.get('__workflow_autoupdate'))
 
             # del wf.settings['__workflow_autoupdate']
+            wf.reset()
+
+    def test_prereleases(self):
+        """Magic: pre-release updates"""
+
+        update_settings = {
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+        }
+
+        def fake(wf):
+            return
+
+        with InfoPlist():
+            wf = Workflow(update_settings=update_settings)
+            c = WorkflowMock(['script', 'workflow:prereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertTrue(wf.settings.get('__workflow_prereleases'))
+
+            wf = Workflow(update_settings=update_settings)
+            wf.reset()
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertFalse(wf.settings.get('__workflow_prereleases'))
+
+            wf.reset()
+
+    def test_update_settings_override_magic_prereleases(self):
+        """Magic: pre-release updates can be overridden by `True` value for `prereleases` key in `update_settings`"""
+
+        update_settings = {
+            'github_slug': 'deanishe/alfred-workflow-dummy',
+            'version': 'v2.0',
+            'frequency': 1,
+            'prereleases': False,
+        }
+
+        def fake(wf):
+            return
+
+        # Normal behavior
+        with InfoPlist():
+            wf = Workflow(update_settings=update_settings)
+            c = WorkflowMock(['script', 'workflow:prereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertTrue(wf.prereleases)
+
+            wf = Workflow(update_settings=update_settings)
+            wf.reset()
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertFalse(wf.prereleases)
+
+            wf.reset()
+
+        update_settings['prereleases'] = True
+
+        # Pre-release enabled regardless of preference
+        with InfoPlist():
+            wf = Workflow(update_settings=update_settings)
+            c = WorkflowMock(['script', 'workflow:prereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertTrue(wf.prereleases)
+
+            wf = Workflow(update_settings=update_settings)
+            wf.reset()
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
+            with c:
+                wf.args
+                wf.run(fake)
+            self.assertTrue(wf.prereleases)
+
             wf.reset()
 
     def test_update(self):
@@ -1478,8 +1561,8 @@ class MagicArgsTests(unittest.TestCase):
                 wf.run(fake)
                 wf.args
 
-        # Update command wasn't called
-        self.assertEqual(c.cmd, ())
+            # Update command wasn't called
+            self.assertEqual(c.cmd, ())
 
     def test_update_turned_off(self):
         """Magic: updates turned off"""

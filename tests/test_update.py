@@ -107,7 +107,7 @@ class UpdateTests(unittest.TestCase):
     def test_valid_releases_with_prereleases(self):
         """Update: valid releases with prereleases"""
 
-        releases = update.get_valid_releases(TEST_REPO_SLUG, prerelease=True)
+        releases = update.get_valid_releases(TEST_REPO_SLUG, prereleases=True)
 
         # Right number of valid releases
         self.assertEquals(len(releases), 4)
@@ -129,8 +129,8 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v6.0'))
 
         # Up-to-date pre-release versions
-        self.assertFalse(update.check_update(TEST_REPO_SLUG, '7.1-beta', prerelease=True))
-        self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v7.1-beta', prerelease=True))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, '7.1-beta', prereleases=True))
+        self.assertFalse(update.check_update(TEST_REPO_SLUG, 'v7.1-beta', prereleases=True))
 
         # Old versions
         self.assertTrue(update.check_update(TEST_REPO_SLUG, 'v5.0'))
@@ -152,12 +152,12 @@ class UpdateTests(unittest.TestCase):
     def test_check_update_with_prereleases(self):
         """Update: Check update"""
 
-        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prerelease=True))
+        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prereleases=True))
 
         update_info = self.wf.cached_data('__workflow_update_status')
         self.assertFalse(update.check_update(TEST_REPO_SLUG,
                                              update_info['version'],
-                                             prerelease=True))
+                                             prereleases=True))
 
     def test_install_update(self):
         """Update: installs update"""
@@ -277,7 +277,7 @@ class UpdateTests(unittest.TestCase):
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': 'v2.0',
-            'prerelease': True,
+            'prereleases': True,
             'frequency': 1,
         })
 
@@ -312,7 +312,7 @@ class UpdateTests(unittest.TestCase):
         wf = Workflow(update_settings={
             'github_slug': 'deanishe/alfred-workflow-dummy',
             'version': update_info['version'],
-            'prerelease': True
+            'prereleases': True
         })
 
         wf.run(fake)

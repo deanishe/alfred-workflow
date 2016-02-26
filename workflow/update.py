@@ -209,11 +209,11 @@ def build_api_url(slug):
     return RELEASES_BASE.format(slug)
 
 
-def get_valid_releases(github_slug, prerelease=False):
+def get_valid_releases(github_slug, prereleases=False):
     """Return list of all valid releases
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
-    :param prerelease: Whether to download prerelease updates.
+    :param prereleases: Whether to download pre-release updates.
     :returns: list of dicts. Each :class:`dict` has the form
         ``{'version': '1.1', 'download_url': 'http://github.com/...'}``
 
@@ -248,7 +248,7 @@ def get_valid_releases(github_slug, prerelease=False):
             download_urls.append(url)
 
         # Validate release
-        if release['prerelease'] and not prerelease:
+        if release['prerelease'] and not prereleases:
             wf().logger.warning(
                 'Invalid release {0} : pre-release detected'.format(version))
             continue
@@ -267,13 +267,13 @@ def get_valid_releases(github_slug, prerelease=False):
     return releases
 
 
-def check_update(github_slug, current_version, prerelease=False):
+def check_update(github_slug, current_version, prereleases=False):
     """Check whether a newer release is available on GitHub
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param current_version: the currently installed version of the
         workflow. :ref:`Semantic versioning <semver>` is required.
-    :param prerelease: Whether to download prerelease updates.
+    :param prereleases: Whether to download pre-release updates.
     :type current_version: ``unicode``
     :returns: ``True`` if an update is available, else ``False``
 
@@ -282,7 +282,7 @@ def check_update(github_slug, current_version, prerelease=False):
 
     """
 
-    releases = get_valid_releases(github_slug, prerelease)
+    releases = get_valid_releases(github_slug, prereleases)
 
     wf().logger.info('{0} releases for {1}'.format(len(releases),
                                                     github_slug))
@@ -348,18 +348,18 @@ if __name__ == '__main__':  # pragma: nocover
     import sys
 
     def show_help():
-        print('Usage : update.py (check|install) github_slug version prerelease')
+        print('Usage : update.py (check|install) github_slug version prereleases')
         sys.exit(1)
 
     if len(sys.argv) != 5:
         show_help()
 
-    action, github_slug, version, prerelease = sys.argv[1:]
+    action, github_slug, version, prereleases = sys.argv[1:]
 
     if action not in ('check', 'install'):
         show_help()
 
     if action == 'check':
-        check_update(github_slug, version, prerelease != '0')
+        check_update(github_slug, version, prereleases != '0')
     elif action == 'install':
         install_update(github_slug, version)

@@ -213,9 +213,10 @@ def get_valid_releases(github_slug, prereleases=False):
     """Return list of all valid releases
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
-    :param prereleases: Whether to download pre-release updates.
+    :param prereleases: Whether to include pre-releases.
     :returns: list of dicts. Each :class:`dict` has the form
-        ``{'version': '1.1', 'download_url': 'http://github.com/...'}``
+        ``{'version': '1.1', 'download_url': 'http://github.com/...',
+        'prerelease': False }``
 
 
     A valid release is one that contains one ``.alfredworkflow`` file.
@@ -262,7 +263,11 @@ def get_valid_releases(github_slug, prereleases=False):
             continue
 
         wf().logger.debug('Release `{0}` : {1}'.format(version, url))
-        releases.append({'version': version, 'download_url': download_urls[0]})
+        releases.append({
+            'version': version,
+            'download_url': download_urls[0],
+            'prerelease': release['prerelease']
+        })
 
     return releases
 
@@ -273,7 +278,7 @@ def check_update(github_slug, current_version, prereleases=False):
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param current_version: the currently installed version of the
         workflow. :ref:`Semantic versioning <semver>` is required.
-    :param prereleases: Whether to download pre-release updates.
+    :param prereleases: Whether to include pre-releases.
     :type current_version: ``unicode``
     :returns: ``True`` if an update is available, else ``False``
 

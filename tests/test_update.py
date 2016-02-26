@@ -103,6 +103,7 @@ class UpdateTests(unittest.TestCase):
         # Correct latest release
         self.assertEquals(update.Version(releases[0]['version']),
                           update.Version(RELEASE_LATEST))
+        self.assertFalse(releases[0]['prerelease'])
 
     def test_valid_releases_with_prereleases(self):
         """Update: valid releases with prereleases"""
@@ -120,6 +121,7 @@ class UpdateTests(unittest.TestCase):
         # Correct latest release
         self.assertEquals(update.Version(releases[0]['version']),
                           update.Version(RELEASE_LATEST_PRERELEASE))
+        self.assertTrue(releases[0]['prerelease'])
 
     def test_version_formats(self):
         """Update: version formats"""
@@ -141,7 +143,7 @@ class UpdateTests(unittest.TestCase):
         self.assertFalse(update.check_update(TEST_REPO_SLUG, '8.0'))
 
     def test_check_update(self):
-        """Update: Check update with prereleases"""
+        """Update: Check update"""
 
         self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT))
 
@@ -150,17 +152,7 @@ class UpdateTests(unittest.TestCase):
                                              update_info['version']))
 
     def test_check_update_with_prereleases(self):
-        """Update: Check update"""
-
-        self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prereleases=True))
-
-        update_info = self.wf.cached_data('__workflow_update_status')
-        self.assertFalse(update.check_update(TEST_REPO_SLUG,
-                                             update_info['version'],
-                                             prereleases=True))
-
-    def test_check_update_with_prereleases(self):
-        """Update: Check update"""
+        """Update: Check update with prereleases"""
 
         self.assertTrue(update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT, prereleases=True))
 

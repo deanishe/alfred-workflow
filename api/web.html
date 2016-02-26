@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.15 documentation</title>
+    <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.15.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.15',
+        VERSION:     '1.15.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.15.2 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Background Tasks" href="background.html" />
     <link rel="prev" title="The Workflow Object" href="workflow.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="workflow.html" title="The Workflow Object"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15.2 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -121,7 +121,7 @@ documentation:</p>
 return <a class="reference internal" href="#workflow.web.Response" title="workflow.web.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> objects.</p>
 <dl class="function">
 <dt id="workflow.web.get">
-<code class="descclassname">workflow.web.</code><code class="descname">get</code><span class="sig-paren">(</span><em>url</em>, <em>params=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=True</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.get" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.web.</code><code class="descname">get</code><span class="sig-paren">(</span><em>url</em>, <em>params=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=True</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiate a GET request. Arguments as for <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><code class="xref py py-func docutils literal"><span class="pre">request()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -135,7 +135,7 @@ return <a class="reference internal" href="#workflow.web.Response" title="workfl
 
 <dl class="function">
 <dt id="workflow.web.post">
-<code class="descclassname">workflow.web.</code><code class="descname">post</code><span class="sig-paren">(</span><em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.post" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.web.</code><code class="descname">post</code><span class="sig-paren">(</span><em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiate a POST request. Arguments as for <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><code class="xref py py-func docutils literal"><span class="pre">request()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -149,7 +149,7 @@ return <a class="reference internal" href="#workflow.web.Response" title="workfl
 
 <dl class="function">
 <dt id="workflow.web.request">
-<code class="descclassname">workflow.web.</code><code class="descname">request</code><span class="sig-paren">(</span><em>method</em>, <em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.request" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">workflow.web.</code><code class="descname">request</code><span class="sig-paren">(</span><em>method</em>, <em>url</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>cookies=None</em>, <em>files=None</em>, <em>auth=None</em>, <em>timeout=60</em>, <em>allow_redirects=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiate an HTTP(S) request. Returns <a class="reference internal" href="#workflow.web.Response" title="workflow.web.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -167,6 +167,7 @@ return <a class="reference internal" href="#workflow.web.Response" title="workfl
 <li><strong>auth</strong> (<code class="docutils literal"><span class="pre">tuple</span></code>) &#8211; username, password</li>
 <li><strong>timeout</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; connection timeout limit in seconds</li>
 <li><strong>allow_redirects</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; follow redirections</li>
+<li><strong>stream</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) &#8211; Stream content instead of fetching it all at once.</li>
 </ul>
 </td>
 </tr>
@@ -194,7 +195,7 @@ will be used.</li>
 <h3><a class="toc-backref" href="#id4">The Response object</a><a class="headerlink" href="#the-response-object" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="workflow.web.Response">
-<em class="property">class </em><code class="descclassname">workflow.web.</code><code class="descname">Response</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.Response" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">workflow.web.</code><code class="descname">Response</code><span class="sig-paren">(</span><em>request</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returned by <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><code class="xref py py-func docutils literal"><span class="pre">request()</span></code></a> / <a class="reference internal" href="#workflow.web.get" title="workflow.web.get"><code class="xref py py-func docutils literal"><span class="pre">get()</span></code></a> / <a class="reference internal" href="#workflow.web.post" title="workflow.web.post"><code class="xref py py-func docutils literal"><span class="pre">post()</span></code></a> functions.</p>
 <p>A simplified version of the <code class="docutils literal"><span class="pre">Response</span></code> object in the <code class="docutils literal"><span class="pre">requests</span></code> library.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">)</span>

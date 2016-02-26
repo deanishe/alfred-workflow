@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Notifications &mdash; Alfred-Workflow 1.15 documentation</title>
+    <title>Notifications &mdash; Alfred-Workflow 1.15.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.15',
+        VERSION:     '1.15.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.15.2 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Background processes" href="background.html" />
     <link rel="prev" title="Retrieving data from the web" href="web.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="web.html" title="Retrieving data from the web"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15.2 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -75,7 +75,7 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Notifications are only available on Mountain Lion (10.8) and later. Calling
-<a class="reference internal" href="../api/notify.html#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on earlier systems will silently fail.</p>
+<a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on earlier systems will silently fail.</p>
 </div>
 <p>Alfred 2 allows you to post notifications, but only at the end of
 a workflow, and only with its own icon.</p>
@@ -90,7 +90,38 @@ whenever you want, and with your workflow&#8217;s icon.</p>
 <span class="n">notify</span><span class="p">(</span><span class="s1">&#39;My Title&#39;</span><span class="p">,</span> <span class="s1">&#39;My Text&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>See the <a class="reference internal" href="../api/notify.html#api-notifications"><span>API documentation</span></a> for more details.</p>
+<p>This is the full API:</p>
+<dl class="function">
+<dt id="workflow.notify.notify">
+<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post notification via Notify.app helper.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>title</strong> (<em>str, optional</em>) &#8211; Notification title.</li>
+<li><strong>text</strong> (<em>str, optional</em>) &#8211; Notification body text.</li>
+<li><strong>sound</strong> (<em>str, optional</em>) &#8211; Name of sound to play.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+Raised if both <cite>title</cite> and <cite>text</cite> are empty.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>True</cite> if notification was posted, else <cite>False</cite>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>See the <a class="reference internal" href="../api/notify.html#api-notifications"><span>API documentation</span></a> for details of the other
+functions.</p>
 </div>
 </div>
 

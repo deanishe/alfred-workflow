@@ -1,4 +1,6 @@
 
+.. module:: workflow.workflow
+
 .. _manual-persistent-data:
 
 ===============
@@ -7,27 +9,28 @@ Persistent data
 
 .. contents::
    :local:
+   :depth: 1
 
 
-.. note::
+.. tip::
 
     If you are writing your own files without using the
-    :class:`Workflow <workflow.workflow.Workflow>` APIs, please see
+    :class:`Workflow` APIs, see
     :ref:`script-behaviour`.
 
 Alfred provides special data and cache directories for each Workflow (in
 ``~/Library/Application Support`` and ``~/Library/Caches`` respectively).
-:class:`Workflow <workflow.workflow.Workflow>` provides the following
+:class:`Workflow` provides the following
 attributes/methods to make it easier to access these directories:
 
-- :attr:`~workflow.workflow.Workflow.datadir` — The full path to your Workflow's data directory.
-- :attr:`~workflow.workflow.Workflow.cachedir` — The full path to your Workflow's cache directory.
-- :meth:`datafile(filename) <workflow.workflow.Workflow.datafile>` — The full path to ``filename`` under the data directory.
-- :meth:`cachefile(filename) <workflow.workflow.Workflow.cachefile>` — The full path to ``filename`` under the cache directory.
+- :attr:`~Workflow.datadir` — The full path to your Workflow's data directory.
+- :attr:`~Workflow.cachedir` — The full path to your Workflow's cache directory.
+- :meth:`datafile(filename) <Workflow.datafile>` — The full path to ``filename`` under the data directory.
+- :meth:`cachefile(filename) <Workflow.cachefile>` — The full path to ``filename`` under the cache directory.
 
 The cache directory may be deleted during system maintenance, and is thus only
-suitable for temporary data or data that is easily recreated.
-:class:`Workflow <workflow.workflow.Workflow>`'s cache methods reflect this,
+suitable for temporary data or data that are easily recreated.
+:class:`Workflow`'s cache methods reflect this,
 and make it easy to replace cached data that are too old.
 See :ref:`Caching data <caching-data>` for details of the data caching API.
 
@@ -44,17 +47,17 @@ or by other software. See :ref:`manual-serialization` for more details.
     There are also simliar methods related to the root directory of your
     Workflow (where ``info.plist`` and your code are):
 
-    - :attr:`~workflow.workflow.Workflow.workflowdir` — The full path to your
+    - :attr:`~Workflow.workflowdir` — The full path to your
       Workflow's root directory.
-    - :meth:`workflowfile(filename) <workflow.workflow.Workflow.workflowfile>`
+    - :meth:`workflowfile(filename) <Workflow.workflowfile>`
       — The full path to ``filename`` under your Workflow's root directory.
 
     These are used internally to implement :ref:`magic-arguments`, which
     provide assistance with debugging, updating and managing your workflow.
 
-In addition, :class:`Workflow <workflow.workflow.Workflow>` also provides a
+In addition, :class:`Workflow` also provides a
 convenient interface for storing persistent settings with
-:attr:`Workflow.settings <workflow.workflow.Workflow.settings>`.
+:attr:`Workflow.settings <Workflow.settings>`.
 See :ref:`Settings <manual-settings>` and :ref:`Keychain access <keychain>` for more
 information on storing settings and sensitive data.
 
@@ -63,11 +66,11 @@ information on storing settings and sensitive data.
 Caching data
 ============
 
-:class:`Workflow <workflow.workflow.Workflow>` provides a few methods to simplify
-caching data that is slow to retrieve or expensive to generate (e.g. downloaded
+:class:`Workflow` provides a few methods to simplify
+caching data that are slow to retrieve or expensive to generate (e.g. downloaded
 from a web API). These data are cached in your workflow's cache directory (see
-:attr:`~workflow.workflow.Workflow.cachedir`). The main method is
-:meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`, which
+:attr:`~Workflow.cachedir`). The main method is
+:meth:`Workflow.cached_data() <Workflow.cached_data>`, which
 takes a name under which the data should be cached, a callable to retrieve
 the data if they aren't in the cache (or are too old), and a maximum age in seconds
 for the cached data:
@@ -107,13 +110,13 @@ Clearing cached data
 
 There is a convenience method for clearing a workflow's cache directory.
 
-:meth:`~workflow.workflow.Workflow.clear_cache` will by default delete all
-the files contained in :attr:`~workflow.workflow.Workflow.cachedir`. This is
+:meth:`~Workflow.clear_cache` will by default delete all
+the files contained in :attr:`~Workflow.cachedir`. This is
 the method called if you use the ``workflow:delcache`` or ``workflow:reset``
 :ref:`magic arguments <magic-arguments>`.
 
 You can selectively delete files from the cache by passing the optional
-``filter_func`` argument to :meth:`~workflow.workflow.Workflow.clear_cache`.
+``filter_func`` argument to :meth:`~Workflow.clear_cache`.
 This callable will be called with the filename (not path) of each file in the
 workflow's cache directory.
 
@@ -142,13 +145,13 @@ or more simply:
 Storing data
 ============
 
-:class:`Workflow <workflow.workflow.Workflow>` provides two methods to store
+:class:`Workflow` provides two methods to store
 and retrieve permanent data:
-:meth:`store_data() <workflow.workflow.Workflow.store_data>` and
-:meth:`stored_data() <workflow.workflow.Workflow.stored_data>`.
+:meth:`store_data() <Workflow.store_data>` and
+:meth:`stored_data() <Workflow.stored_data>`.
 
 These data are stored in your workflow's data directory
-(see :attr:`~workflow.workflow.Workflow.datadir`).
+(see :attr:`~Workflow.datadir`).
 
 .. code-block:: python
     :linenos:
@@ -177,10 +180,10 @@ Clearing stored data
 --------------------
 
 As with cached data, there is a convenience method for deleting all the files
-stored in your workflow's :attr:`~workflow.workflow.Workflow.datadir`.
+stored in your workflow's :attr:`~Workflow.datadir`.
 
-By default, :meth:`~workflow.workflow.Workflow.clear_data` will delete all the
-files stored in :attr:`~workflow.workflow.Workflow.datadir`. It is used by the
+By default, :meth:`~Workflow.clear_data` will delete all the
+files stored in :attr:`~Workflow.datadir`. It is used by the
 ``workflow:deldata`` and ``workflow:reset`` :ref:`magic arguments <magic-arguments>`.
 
 It is possible to selectively delete files contained in the data directory by
@@ -193,16 +196,16 @@ for details on how ``filter_func`` works.
 Settings
 ========
 
-:attr:`Workflow.settings <workflow.workflow.Workflow.settings>` is a subclass
+:attr:`Workflow.settings <Workflow.settings>` is a subclass
 of :class:`dict` that automatically saves its contents to the ``settings.json``
 file in your Workflow's data directory when it is changed.
 
-:class:`~workflow.workflow.Settings` can be used just like a normal :class:`dict`
+:class:`Settings` can be used just like a normal :class:`dict`
 with the caveat that all keys and values must be serializable to JSON.
 
 .. warning::
 
-    A :class:`~workflow.workflow.Settings` instance can only automatically
+    A :class:`Settings` instance can only automatically
     recognise when you directly alter the values of its own keys:
 
 .. code-block:: python
@@ -213,13 +216,13 @@ with the caveat that all keys and values must be serializable to JSON.
     wf.settings['key']['key2'] = 'value2'  # will *not* be automatically saved
 
 If you've altered a data structure stored within your workflow's
-:attr:`Workflow.settings <workflow.workflow.Workflow.settings>`, you need to
-explicitly call :meth:`Workflow.settings.save() <workflow.workflow.Settings.save>`.
+:attr:`Workflow.settings <Workflow.settings>`, you need to
+explicitly call :meth:`Workflow.settings.save() <Settings.save>`.
 
 If you need to store arbitrary data, you can use the :ref:`cached data API <caching-data>`.
 
 If you need to store data securely (such as passwords and API keys),
-:class:`Workflow <workflow.workflow.Workflow>` also provides :ref:`simple access to
+:class:`Workflow` also provides :ref:`simple access to
 the OS X Keychain <keychain>`.
 
 
@@ -228,12 +231,12 @@ the OS X Keychain <keychain>`.
 Keychain access
 ===============
 
-Methods :meth:`Workflow.save_password(account, password) <workflow.workflow.Workflow.save_password>`,
-:meth:`Workflow.get_password(account) <workflow.workflow.Workflow.get_password>`
-and :meth:`Workflow.delete_password(account) <workflow.workflow.Workflow.delete_password>`
+Methods :meth:`Workflow.save_password(account, password) <Workflow.save_password>`,
+:meth:`Workflow.get_password(account) <Workflow.get_password>`
+and :meth:`Workflow.delete_password(account) <Workflow.delete_password>`
 allow access to the Keychain. They may raise
-:class:`~workflow.workflow.Workflow.PasswordNotFound` if no password is set for
-the given ``account`` or :class:`~workflow.workflow.Workflow.KeychainError` if
+:class:`~Workflow.PasswordNotFound` if no password is set for
+the given ``account`` or :class:`~Workflow.KeychainError` if
 there is a problem accessing the Keychain. Passwords are stored in the user's
 default Keychain. By default, the Workflow's Bundle ID will be used as the
 service name, but this can be overridden by passing the ``service`` argument

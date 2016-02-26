@@ -10,7 +10,7 @@ This API documentation is generated from the Alfred-Workflow source code. It des
 See :ref:`user-manual` for documentation focussed on performing specific tasks.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    workflow
    web

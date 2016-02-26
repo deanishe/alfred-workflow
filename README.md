@@ -6,16 +6,11 @@ A helper library in Python for authors of workflows for [Alfred 2][alfred].
 
 [![Build Status][shield-travis]][travis] [![Coverage Status][shield-coveralls]][coveralls] [![Latest Version][shield-version]][pypi] [![Development Status][shield-status]][pypi] [![Supported Python Versions][shield-pyversions]][pypi] [![Downloads][shield-download]][pypi]
 
-<!--
-[![Code Health][shield-health]][landscape]
-[![Documentation Status][shield-docs]][docs]
-[![License][shield-licence]][pypi]
--->
-
 Supports OS X 10.6+ (Python 2.6 and 2.7).
 
 
-## Features ##
+Features
+--------
 
 - Catches and logs workflow errors for easier development and support
 - "Magic" arguments to help development/debugging
@@ -33,7 +28,8 @@ Supports OS X 10.6+ (Python 2.6 and 2.7).
 - Post notifications via Notification Center.
 
 
-## Contents ##
+Contents
+--------
 
 - [Installation](#installation)
     - [With pip](#with-pip)
@@ -53,7 +49,8 @@ Supports OS X 10.6+ (Python 2.6 and 2.7).
 - [Workflows using Alfred-Workflow](#workflows-using-alfred-workflow)
 
 
-## Installation ##
+Installation
+------------
 
 **Note**: If you intend to distribute your workflow to other users, you should include Alfred-Workflow (and other Python libraries your workflow requires) within your workflow's directory as described below. **Do not** ask users to install anything into their system Python. Python installations cannot support multiple versions of the same library, so if you rely on globally-installed libraries, the chances are very good that your workflow will sooner or later break—or be broken by—some other software doing the same naughty thing.
 
@@ -106,7 +103,8 @@ Or this:
 Alternatively, you can clone/download the Alfred-Workflow [repository][repo] and copy the `workflow` subdirectory to your workflow's root directory.
 
 
-## Usage ##
+Usage
+-----
 
 A few examples of how to use Alfred-Workflow.
 
@@ -126,12 +124,14 @@ from workflow import Workflow
 
 def main(wf):
     # The Workflow instance will be passed to the function
-    # you call from `Workflow.run`
-    # Your imports here if you want to catch import errors
+    # you call from `Workflow.run`. Not so useful, as
+    # the `wf` object created in `if __name__ ...` below is global.
+    #
+    # Your imports go here if you want to catch import errors (not a bad idea)
     # or if the modules/packages are in a directory added via `Workflow(libraries=...)`
     import somemodule
     import anothermodule
-    # Get args from Workflow, already in normalised Unicode
+    # Get args from Workflow, already in normalized Unicode
     args = wf.args
 
     # Do stuff here ...
@@ -139,12 +139,18 @@ def main(wf):
     # Add an item to Alfred feedback
     wf.add_item(u'Item title', u'Item subtitle')
 
-    # Send output to Alfred
+    # Send output to Alfred. You can only call this once.
+    # Well, you *can* call it multiple times, but Alfred won't be listening
+    # any more...
     wf.send_feedback()
 
 
 if __name__ == '__main__':
+    # Create a global `Workflow` object
     wf = Workflow()
+    # Call your entry function via `Workflow.run()` to enable its helper
+    # functions, like exception catching, ARGV normalization, magic
+    # arguments etc.
     sys.exit(wf.run(main))
 ```
 
@@ -210,14 +216,16 @@ wf.get_password('name of account')
 ```
 
 
-## Documentation ##
+Documentation
+-------------
 
 The full documentation, including API docs and a tutorial, can be found at [deanishe.net][docs].
 
 There is a mirror at [Read the Docs][docs-rtd].
 
 
-## Licensing, thanks ##
+Licensing, thanks
+-----------------
 
 The code and the documentation are released under the MIT and [Creative Commons Attribution-NonCommercial][cc] licences respectively. See [LICENCE.txt](LICENCE.txt) for details.
 
@@ -228,7 +236,8 @@ Many of the cooler ideas in Alfred-Workflow were inspired by [Alfred2-Ruby-Templ
 The Keychain parser was based on [Python-Keyring][python-keyring] by Jason R. Coombs.
 
 
-## Contributing ##
+Contributing
+------------
 
 
 ### Adding a workflow to the list ###
@@ -264,14 +273,16 @@ The main entry point for unit testing is the `run-tests.sh` script in the root d
 - [Owen Min][owenwater]
 
 
-## Tests ##
+Tests
+-----
 
 Alfred-Workflow includes a full suite of unit tests. Please use the `run-tests.sh` script in the root directory of the repo to run the unit tests: it creates the necessary test environment to run the unit tests. `test_workflow.py` *will* fail if not run via `run-scripts.sh`, but the test suites for the other modules may also be run directly.
 
 Moreover, `run-tests.sh` checks the coverage of the unit tests and will fail if it is below 100%.
 
 
-## Workflows using Alfred-Workflow ##
+Workflows using Alfred-Workflow
+-------------------------------
 
 These are some of the Alfred workflows that use this library.
 

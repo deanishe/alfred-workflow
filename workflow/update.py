@@ -348,18 +348,24 @@ if __name__ == '__main__':  # pragma: nocover
     import sys
 
     def show_help():
-        print('Usage : update.py (check|install) github_slug version prereleases')
+        print('Usage : update.py (check|install) github_slug version [--prereleases]')
         sys.exit(1)
 
-    if len(sys.argv) != 5:
+    argv = sys.argv[:]
+    prereleases = '--prereleases' in argv
+
+    if prereleases:
+        argv.remove('--prereleases')
+
+    if len(argv) != 4:
         show_help()
 
-    action, github_slug, version, prereleases = sys.argv[1:]
+    action, github_slug, version = argv[1:]
 
     if action not in ('check', 'install'):
         show_help()
 
     if action == 'check':
-        check_update(github_slug, version, prereleases != '0')
+        check_update(github_slug, version, prereleases)
     elif action == 'install':
         install_update(github_slug, version)

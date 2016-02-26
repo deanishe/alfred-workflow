@@ -2399,7 +2399,6 @@ class Workflow(object):
                 '__workflow_update_status', frequency * 86400)):
 
             github_slug = self._update_settings['github_slug']
-            prereleases = str(int(self.prereleases))
             # version = self._update_settings['version']
             version = str(self.version)
 
@@ -2410,7 +2409,10 @@ class Workflow(object):
                                          b'update.py')
 
             cmd = ['/usr/bin/python', update_script, 'check', github_slug,
-                   version, prereleases]
+                   version]
+
+            if self.prereleases:
+                cmd.append('--prereleases')
 
             self.logger.info('Checking for update ...')
 
@@ -2435,11 +2437,10 @@ class Workflow(object):
         import update
 
         github_slug = self._update_settings['github_slug']
-        prereleases = str(int(self.prereleases))
         # version = self._update_settings['version']
         version = str(self.version)
 
-        if not update.check_update(github_slug, version, prereleases):
+        if not update.check_update(github_slug, version, self.prereleases):
             return False
 
         from background import run_in_background
@@ -2449,7 +2450,10 @@ class Workflow(object):
                                      b'update.py')
 
         cmd = ['/usr/bin/python', update_script, 'install', github_slug,
-               version, prereleases]
+               version]
+
+        if self.prereleases:
+            cmd.append('--prereleases')
 
         self.logger.debug('Downloading update ...')
         run_in_background('__workflow_update_install', cmd)

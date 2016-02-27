@@ -1,0 +1,11 @@
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "eu.httpbin.org", 
+    "User-Agent": "HTTPie/0.9.2"
+  }, 
+  "origin": "188.100.137.91", 
+  "url": "http://eu.httpbin.org/get"
+}

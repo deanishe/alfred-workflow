@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 """
-test_lockfile.py
+test_workflow_lockfile.py
 
 Created by deanishe@deanishe.net on 2015-08-15.
 Copyright (c) 2015 deanishe@deanishe.net

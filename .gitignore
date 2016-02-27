@@ -10,3 +10,4 @@ temp_*.py
 .tox
 *.egg-info
 /.cache
+/coverage_report

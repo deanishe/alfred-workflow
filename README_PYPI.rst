@@ -6,6 +6,8 @@ elsewhere, filter them and display results to the user. Alfred-Workflow
 takes care of a lot of the details for you, allowing you to concentrate your
 efforts on your workflow's functionality.
 
+http://www.deanishe.net/alfred-workflow/
+
 
 Features
 ========

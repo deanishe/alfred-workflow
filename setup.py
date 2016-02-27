@@ -65,7 +65,7 @@ setup(
     name=name,
     version=version,
     description=description,
-    long_description=read('README.rst'),
+    long_description=read('README_PYPI.rst'),
     keywords=keywords,
     author=author,
     author_email=author_email,

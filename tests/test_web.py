@@ -540,5 +540,4 @@ def test_gzipped_content(httpserver):
 
 
 if __name__ == '__main__':  # pragma: no cover
-    import pytest
     pytest.main([__file__])

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# rootdir=$(cd $(dirname $0)/../; pwd)
+rootdir="$( cd "$( dirname "$0" )/../"; pwd )"
+logpath="${rootdir}/test.log"
+
 usage() {
   cat > /dev/stderr <<EOS
 testone <package.name> <tests/test_script.py>...
@@ -19,6 +23,10 @@ Example:
 EOS
 }
 
+log() {
+    echo "$@" | tee -a $logpath
+}
+
 
 if [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
 	usage
@@ -35,7 +43,45 @@ fi
 package="$1"
 shift
 
+# py.test --cov="${package}" \
+#   --cov-report=term-missing \
+#   --cov-config=.coveragerc \
+#   "$@"
+
 py.test --cov="${package}" \
-  --cov-report=term-missing \
+  --cov-report="" \
   --cov-config=.coveragerc \
-  "$@"
+  "$@" 2>&1 \
+  | tee -a $logpath
+
+ret1=${PIPESTATUS[0]}
+
+echo
+
+case "$ret1" in
+  0) log "TESTS OK";;
+  *) log "TESTS FAILED";;
+esac
+
+log ""
+
+# if [[ "$ret" -ne 0 ]]; then
+#   exit $ret
+# fi
+
+# Test coverage
+coverage report --fail-under 100 --show-missing
+ret2=${PIPESTATUS[0]}
+
+echo
+
+case "$ret2" in
+    0) log "COVERAGE OK" ;;
+    *) log "COVERAGE FAILED" ;;
+esac
+
+if [[ "$ret1" -ne 0 ]]; then
+  exit $ret1
+fi
+
+exit $ret2

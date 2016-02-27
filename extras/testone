@@ -51,6 +51,7 @@ shift
 py.test --cov="${package}" \
   --cov-report="" \
   --cov-config=.coveragerc \
+  --tb=long \
   "$@" 2>&1 \
   | tee -a $logpath
 

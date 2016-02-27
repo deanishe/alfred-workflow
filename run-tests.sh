@@ -22,7 +22,7 @@ PYTEST_OPTS="--cov workflow --cov-report html --cov-config=.coveragerc"
 
 log "Running tests..."
 
-py.test $PYTEST_OPTS 2>&1 | tee -a $logpath
+py.test $PYTEST_OPTS tests 2>&1 | tee -a $logpath
 ret1=${PIPESTATUS[0]}
 
 echo

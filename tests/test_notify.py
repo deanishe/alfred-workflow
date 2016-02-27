@@ -130,7 +130,7 @@ class NotifyTests(unittest.TestCase):
                 self.assertEqual(c.cmd[0], APPLET_PATH)
 
     def test_iconutil_fails(self):
-        """iconutil throws RuntimeError"""
+        """`iconutil` throws RuntimeError"""
         with InfoPlist():
             with FakePrograms('iconutil'):
                 icns_path = os.path.join(self.tempdir, 'icon.icns')
@@ -140,14 +140,13 @@ class NotifyTests(unittest.TestCase):
                                   icns_path)
 
     def test_sips_fails(self):
-        """sips throws RuntimeError"""
+        """`sips` throws RuntimeError"""
         with InfoPlist():
             with FakePrograms('sips'):
                 icon_path = os.path.join(self.tempdir, 'icon.png')
                 self.assertRaises(RuntimeError,
                                   notify.convert_image,
                                   PNG_PATH, icon_path, 64)
-
 
     def test_image_conversion(self):
         """PNG to ICNS conversion"""

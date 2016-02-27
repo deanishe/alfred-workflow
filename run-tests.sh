@@ -1,28 +1,22 @@
 #!/bin/bash
 
-# rootdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 rootdir="$( cd "$( dirname "$0" )"; pwd )"
-logpath="${rootdir}/test.log"
 
 function log() {
-    echo "$@" | tee -a $logpath
+    echo "$@" > /dev/stderr
 }
-
-# Delete old log file if it exists
-if [[ -f "${logpath}" ]]; then
-    rm -rf "${logpath}"
-fi
 
 
 # Set test options and run tests
 #-------------------------------------------------------------------------
 
-# Most options are in tox.ini
-PYTEST_OPTS="--cov workflow --cov-report html --cov-config=.coveragerc"
+# More options are in tox.ini
+
+export PYTEST_ADDOPTS="--cov-report=html"
 
 log "Running tests..."
 
-py.test $PYTEST_OPTS tests 2>&1 | tee -a $logpath
+py.test --cov=workflow tests
 ret1=${PIPESTATUS[0]}
 
 echo
@@ -34,9 +28,6 @@ esac
 
 log ""
 
-# if [[ "${ret}" -ne 0 ]]; then
-#   exit $ret
-# fi
 
 # Test coverage
 coverage report --fail-under 100 --show-missing

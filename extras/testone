@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# rootdir=$(cd $(dirname $0)/../; pwd)
 rootdir="$( cd "$( dirname "$0" )/../"; pwd )"
-logpath="${rootdir}/test.log"
+
 
 usage() {
   cat > /dev/stderr <<EOS
@@ -24,7 +23,7 @@ EOS
 }
 
 log() {
-    echo "$@" | tee -a $logpath
+    echo "$@" > /dev/stderr
 }
 
 
@@ -34,8 +33,8 @@ if [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
 fi
 
 if [[ "$1" = "" ]] || [[ "$2" = "" ]]; then
-  echo "ERROR: Missing argument(s)." > /dev/stderr
-  echo "" > /dev/stderr
+  log "ERROR: Missing argument(s)."
+  log ""
   usage
   exit 1
 fi
@@ -43,18 +42,10 @@ fi
 package="$1"
 shift
 
-# py.test --cov="${package}" \
-#   --cov-report=term-missing \
-#   --cov-config=.coveragerc \
-#   "$@"
+# export PYTEST_ADDOPTS="--cov-report=term"
 
-py.test --cov="${package}" \
-  --cov-report="" \
-  --cov-config=.coveragerc \
-  --tb=long \
-  "$@" 2>&1 \
-  | tee -a $logpath
-
+py.test --cov="${package}" "$@"
+# ret1=$?
 ret1=${PIPESTATUS[0]}
 
 echo
@@ -65,10 +56,6 @@ case "$ret1" in
 esac
 
 log ""
-
-# if [[ "$ret" -ne 0 ]]; then
-#   exit $ret
-# fi
 
 # Test coverage
 coverage report --fail-under 100 --show-missing

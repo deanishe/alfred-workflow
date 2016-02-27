@@ -13,10 +13,12 @@ from __future__ import print_function
 from contextlib import contextmanager
 
 import pytest
+import pytest_localserver
 
 from workflow import Workflow
 
 from util import WorkflowMock, create_info_plist, delete_info_plist
+from test_update import fakeresponse, DATA_JSON, HTTP_HEADERS_JSON
 
 
 UPDATE_SETTINGS = {
@@ -70,7 +72,7 @@ def test_auto_update():
         print('update_available={0!r}'.format(wf.update_available))
 
 
-def test_update():
+def test_update(httpserver):
     """Auto-update installs update"""
 
     def fake(wf):
@@ -82,23 +84,24 @@ def test_update():
 
     # Mock subprocess.call etc. so the script doesn't try to
     # update the workflow in Alfred
-    with ctx(['workflow:update'], clear=False) as (wf, c):
-        wf.run(fake)
-        wf.args
+    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+        with ctx(['workflow:update'], clear=False) as (wf, c):
+            wf.run(fake)
+            wf.args
 
-        print('Magic update command : {0!r}'.format(c.cmd))
+            print('Magic update command : {0!r}'.format(c.cmd))
 
-        assert c.cmd[0] == '/usr/bin/python'
-        assert c.cmd[2] == '__workflow_update_install'
+            assert c.cmd[0] == '/usr/bin/python'
+            assert c.cmd[2] == '__workflow_update_install'
 
-    update_settings = UPDATE_SETTINGS.copy()
-    update_settings['version'] = 'v6.0'
-    with ctx(['workflow:update'], update_settings) as (wf, c):
-        wf.run(fake)
-        wf.args
+        update_settings = UPDATE_SETTINGS.copy()
+        update_settings['version'] = 'v6.0'
+        with ctx(['workflow:update'], update_settings) as (wf, c):
+            wf.run(fake)
+            wf.args
 
-        # Update command wasn't called
-        assert c.cmd == ()
+            # Update command wasn't called
+            assert c.cmd == ()
 
 
 def test_update_turned_off():

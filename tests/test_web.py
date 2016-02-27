@@ -179,7 +179,7 @@ class WebTests(unittest.TestCase):
 
     def test_post_without_data(self):
         """POST request without data"""
-        url = BASE_URL + 'post'
+        url = self.httpbin.url + '/post'
         r = web.post(url)
         self.assert_(r.status_code == 200)
         r.raise_for_status()

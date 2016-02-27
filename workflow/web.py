@@ -541,7 +541,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     headers['accept-encoding'] = ', '.join(encodings)
 
-    # Force a POST by providing an empty data string
+    # Force POST by providing an empty data string
     if method == 'POST' and not data:
         data = ''
 

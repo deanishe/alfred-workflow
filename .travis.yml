@@ -9,7 +9,7 @@ env:
     - VERSION=2.6.9
 
 before_install:
-  - brew update
+  # - brew update
   - brew install duti
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 
@@ -19,7 +19,7 @@ install:
   - get_python_environment macpython $VERSION venv
   - pip install pytest coveralls pytest_cov pytest_httpbin pytest_localserver
   - if [[ "$VERSION" =~ ^2.7.* ]]; then
-      pip install PyObjC
+      pip install PyObjC;
     fi
   # - sudo pip install tox coveralls
   # - sudo pip install pytest pytest_cov pytest_httpbin pytest_localserver

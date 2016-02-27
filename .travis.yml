@@ -17,10 +17,11 @@ install:
   - git clone https://github.com/MacPython/terryfy
   - source terryfy/travis_tools.sh
   - get_python_environment $SOURCE $VERSION venv
-  - pip install pytest coveralls pytest_cov pytest_httpbin pytest_localserver
-  - if [[ "$VERSION" =~ ^2.7.* ]]; then
-      pip install pyobjc-core && pip install pyobjc-framework-Cocoa;
-    fi
+  - extras/travis-install-deps.sh
+  # - pip install pytest coveralls pytest_cov pytest_httpbin pytest_localserver
+  # - if [[ "$VERSION" =~ ^2.7.* ]]; then
+  #     pip install pyobjc-core && pip install pyobjc-framework-Cocoa;
+  #   fi
   # - sudo pip install tox coveralls
   # - sudo pip install pytest pytest_cov pytest_httpbin pytest_localserver
 

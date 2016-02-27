@@ -19,7 +19,6 @@ install:
   - get_python_environment $SOURCE $VERSION venv
   - pip install pytest coveralls pytest_cov pytest_httpbin pytest_localserver
   - if [[ "$VERSION" =~ ^2.7.* ]]; then
-      # extras/travis-install-pyobjc.sh;
       pip install pyobjc-core && pip install pyobjc-framework-Cocoa;
     fi
   # - sudo pip install tox coveralls

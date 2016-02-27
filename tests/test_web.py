@@ -177,6 +177,13 @@ class WebTests(unittest.TestCase):
             self.assert_(data['json'][key] == self.data[key])
         return
 
+    def test_post_without_data(self):
+        """POST request without data"""
+        url = BASE_URL + 'post'
+        r = web.post(url)
+        self.assert_(r.status_code == 200)
+        r.raise_for_status()
+
     def test_timeout(self):
         """Request times out"""
         url = self.httpbin.url + '/delay/3'

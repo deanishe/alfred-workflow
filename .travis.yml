@@ -1,11 +1,12 @@
-# language: objective-c
-language: python
-sudo: true
-os: osx
+language:
+  - objective-c
 
 env:
-  - TOX_ENV=py26
-  - TOX_ENV=py27
+  # - TOX_ENV=py26
+  # - TOX_ENV=py27
+  matrix:
+    - VERSION=2.7.10
+    - VERSION=2.6.9
 
 before_install:
   - brew update
@@ -13,11 +14,19 @@ before_install:
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 
 install:
-  - sudo pip install tox coveralls
+  - git clone https://github.com/MacPython/terryfy
+  - source terryfy/travis_tools.sh
+  - get_python_environment macpython $VERSION venv
+  - pip install pytest coveralls pytest_cov pytest_httpbin pytest_localserver
+  - if [[ "$VERSION" =~ ^2.7.* ]]; then
+      pip install PyObjC
+    fi
+  # - sudo pip install tox coveralls
   # - sudo pip install pytest pytest_cov pytest_httpbin pytest_localserver
 
 script:
-  - tox -e $TOX_ENV
+  # - tox -e $TOX_ENV
+  - ./run-tests.sh
 
 after_success:
   - cd tests

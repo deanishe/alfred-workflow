@@ -13,6 +13,7 @@ Build & distribution
 - `Notify.tgz` — The app compressed for distribution.
 - `publish-cheeseshop.sh` — Build the distribution and publish on PyPi.
 - `testone` — Run test script(s) with coverage for one module/package.
+- `travis-install-deps.sh` — Install Python dependencies when running on [Travis CI][travis].
 
 
 Docs
@@ -38,3 +39,4 @@ Icons
 
 
 [dash]: https://kapeli.com/dash
+[travis]: https://travis-ci.org/deanishe/alfred-workflow

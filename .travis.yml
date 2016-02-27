@@ -8,6 +8,7 @@ before_install:
   - sudo duti -s com.apple.TextEdit alfredworkflow all
 install:
   - sudo pip install tox coveralls
+  - sudo pip install pytest pytest_cov pytest_httpbin pytest_localserver
 script:
   - tox -e $TOX_ENV
 after_success:

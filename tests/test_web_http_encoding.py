@@ -39,20 +39,6 @@ TEST_DATA = [
     ('utf8.json', {'Content-Type': 'application/json'}, 'utf-8'),
 ]
 
-# @contextmanager
-# def fakeresponse(httpserver, content, headers=None):
-#     orig = web.request
-#     httpserver.serve_content(content, headers=headers)
-
-#     def _request(*args, **kwargs):
-#         """Replace request URL with `httpserver` URL"""
-#         args = (args[0], httpserver.url) + args[2:]
-#         return orig(*args, **kwargs)
-
-#     web.request = _request
-#     yield
-#     web.request = _request
-
 
 def test_web_encoding(httpserver):
     """Test web encoding"""

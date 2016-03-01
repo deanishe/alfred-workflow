@@ -11,11 +11,13 @@
 from __future__ import print_function
 
 from contextlib import contextmanager
+import time
 
 import pytest
 import pytest_localserver
 
 from workflow import Workflow
+from workflow import update
 
 from util import WorkflowMock, create_info_plist, delete_info_plist
 from test_update import fakeresponse, DATA_JSON, HTTP_HEADERS_JSON
@@ -78,10 +80,6 @@ def test_update(httpserver):
     def fake(wf):
         return
 
-    with ctx() as (wf, c):
-        wf.run(fake)
-        assert wf.update_available is False
-
     # Mock subprocess.call etc. so the script doesn't try to
     # update the workflow in Alfred
     with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
@@ -102,6 +100,17 @@ def test_update(httpserver):
 
             # Update command wasn't called
             assert c.cmd == ()
+
+
+def test_update_available(httpserver):
+    """update_available property works"""
+    slug = UPDATE_SETTINGS['github_slug']
+    v = UPDATE_SETTINGS['version']
+    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+        with ctx() as (wf, c):
+            assert wf.update_available is False
+            update.check_update(slug, v)
+            assert wf.update_available is True
 
 
 def test_update_turned_off():

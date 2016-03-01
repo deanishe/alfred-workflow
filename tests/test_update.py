@@ -47,6 +47,7 @@ DATA_JSON_EMPTY = open(DATA_JSON_EMPTY_PATH).read()
 DATA_JSON = open(DATA_JSON_PATH).read()
 
 RELEASE_LATEST = '6.0'
+RELEASE_LATEST_PRERELEASE = '7.1-beta'
 RELEASE_OLDEST = '1.0'
 # Use this as current version
 RELEASE_CURRENT = '2.0'
@@ -159,6 +160,23 @@ def test_valid_releases(httpserver, info):
         assert update.Version(releases[0]['version']) == \
             update.Version(RELEASE_LATEST)
 
+def test_valid_releases_with_prereleases(httpserver, info):
+    """Valid releases with prereleases"""
+    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+        releases = update.get_valid_releases(TEST_REPO_SLUG, prereleases=True)
+
+        # Correct number of releases
+        assert len(releases) == 4
+
+        # Invalid releases are not in the list
+        versions = [d['version'] for d in releases]
+        for v in RELEASES_INVALID:
+            assert v not in versions
+
+        # Correct latest release
+        assert update.Version(releases[0]['version']) == \
+            update.Version(RELEASE_LATEST_PRERELEASE)
+
 
 def test_version_formats(httpserver, info):
     """Version formats"""
@@ -166,7 +184,7 @@ def test_version_formats(httpserver, info):
     falsey = (
         # Up-to-date versions
         '6.0', 'v6.0',
-        # Unknown verisions
+        # Unknown versions
         'v8.0', '8.0',
     )
     truthy = (
@@ -179,6 +197,27 @@ def test_version_formats(httpserver, info):
             assert update.check_update(TEST_REPO_SLUG, vstr) is False
         for vstr in truthy:
             assert update.check_update(TEST_REPO_SLUG, vstr) is True
+
+
+def test_prerelease_version_formats(httpserver, info):
+    """Prerelease version formats"""
+
+    falsey = (
+        # Up-to-date versions
+        '7.1.0-beta', 'v7.1.0-beta',
+        # Unknown versions
+        'v8.0', '8.0',
+    )
+    truthy = (
+        # Old versions
+        'v5.0', '5.0',
+    )
+
+    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+        for vstr in falsey:
+            assert update.check_update(TEST_REPO_SLUG, vstr, prereleases=True) is False
+        for vstr in truthy:
+            assert update.check_update(TEST_REPO_SLUG, vstr, prereleases=True) is True
 
 
 def test_check_update(httpserver, info):
@@ -196,6 +235,25 @@ def test_check_update(httpserver, info):
 
         assert update.check_update(TEST_REPO_SLUG,
                                    update_info['version']) is False
+
+
+def test_check_update_with_prereleases(httpserver, info):
+    """Check update with prereleases"""
+    wf = Workflow()
+    wf.reset()
+
+    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+        assert update.check_update(TEST_REPO_SLUG,
+                                   RELEASE_CURRENT,
+                                   prereleases=True) is True
+
+        update_info = wf.cached_data('__workflow_update_status')
+        assert update_info is not None
+        assert wf.update_available is True
+
+        assert update.check_update(TEST_REPO_SLUG,
+                                   update_info['version'],
+                                   prereleases=True) is False
 
 
 def test_install_update(httpserver, info):
@@ -297,6 +355,62 @@ def test_no_auto_update(info):
 #         wf = Workflow(update_settings={
 #             'github_slug': 'deanishe/alfred-workflow-dummy',
 #             'version': update_info['version'],
+#         })
+
+#         wf.run(fake)
+
+#         # Wait for background update check
+#         assert is_running('__workflow_update_check') is True
+#         while is_running('__workflow_update_check'):
+#             time.sleep(0.05)
+
+#         # Remote version is same as the one we passed to Workflow
+#         assert wf.update_available is False
+#         assert wf.start_update() is False
+
+#         wf.reset()
+
+#         # Initialise with outdated version allowing pre-release updates
+#         wf = Workflow(update_settings={
+#             'github_slug': 'deanishe/alfred-workflow-dummy',
+#             'version': 'v1.0',
+#             'frequency': 1,
+#             'prereleases': True,
+#         })
+
+#         wf.run(fake)
+
+#         # Check shouldn't have completed yet
+#         assert wf.update_available is False
+
+#         # Wait for background update check
+#         assert is_running('__workflow_update_check') is True
+#         while is_running('__workflow_update_check'):
+#             time.sleep(0.5)
+#         time.sleep(1)
+
+#         # There *is* a newer version in the repo
+#         print(repr(wf.cached_data('__workflow_update_status', max_age=0)))
+#         assert wf.update_available is True
+
+#         # Mock out subprocess and check the correct command is run
+#         c = WorkflowMock()
+#         with c:
+#             assert wf.start_update() is True
+#         # wf.logger.debug('start_update : {}'.format(c.cmd))
+#         assert c.cmd[0] == '/usr/bin/python'
+#         assert c.cmd[2] == '__workflow_update_install'
+
+#         # Grab the updated release data, then reset the cache
+#         update_info = wf.cached_data('__workflow_update_status')
+
+#         wf.reset()
+
+#         # Initialise with latest available release allowing pre-release updates
+#         wf = Workflow(update_settings={
+#             'github_slug': 'deanishe/alfred-workflow-dummy',
+#             'version': update_info['version'],
+#             'prereleases': True,
 #         })
 
 #         wf.run(fake)

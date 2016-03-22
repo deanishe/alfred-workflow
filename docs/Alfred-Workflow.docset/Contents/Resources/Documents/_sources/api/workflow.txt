@@ -12,6 +12,8 @@ The Workflow Object
    :members:
    :inherited-members:
 
+.. autoclass:: Settings
+
 .. autofunction:: atomic_writer
 
 .. autoclass:: uninterruptible

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User Manual &mdash; Alfred-Workflow 1.15 documentation</title>
+    <title>User Manual &mdash; Alfred-Workflow 1.17 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.15',
+        VERSION:     '1.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.17 documentation" href="../index.html" />
     <link rel="next" title="Workflow setup and skeleton" href="setup.html" />
     <link rel="prev" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow" href="../tutorial_2.html" />
 
@@ -56,7 +56,7 @@
         <li class="right" >
           <a href="../tutorial_2.html" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -83,14 +83,8 @@ Alfred-Workflow&#8217;s libraries.</p>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persistent-data.html">Persistent data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="persistent-data.html#caching-data">Caching data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="persistent-data.html#clearing-cached-data">Clearing cached data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="persistent-data.html#storing-data">Storing data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="persistent-data.html#clearing-stored-data">Clearing stored data</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html#caching-data">Caching data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html#storing-data">Storing data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html#settings">Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html#keychain-access">Keychain access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html#a-note-on-script-behaviour">A note on Script Behaviour</a></li>
@@ -98,10 +92,7 @@ Alfred-Workflow&#8217;s libraries.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filtering.html">Searching/filtering data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html#restricting-results">Restricting results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filtering.html#diacritic-folding">Diacritic folding</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="filtering.html#smart-punctuation">&#8220;Smart&#8221; punctuation</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html#diacritic-folding">Diacritic folding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html#matching-rules">Matching rules</a></li>
 </ul>
 </li>
@@ -121,10 +112,7 @@ Alfred-Workflow&#8217;s libraries.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning and migration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html#setting-a-version-number">Setting a version number</a></li>
-<li class="toctree-l2"><a class="reference internal" href="versioning.html#version-numbers">Version numbers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="versioning.html#semantic-versioning">Semantic versioning</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#version-numbers">Version numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html#first-run-migration">First run/migration</a></li>
 </ul>
 </li>
@@ -145,13 +133,7 @@ Alfred-Workflow&#8217;s libraries.</p>
 <li class="toctree-l1"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html#tl-dr">TL;DR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html#string-types">String types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="text-encoding.html#normalization">Normalization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="text-encoding.html#id1">TL;DR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="text-encoding.html#nitty-gritty">Nitty-Gritty</a></li>
-<li class="toctree-l3"><a class="reference internal" href="text-encoding.html#why-does-normalization-matter">Why does normalization matter?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="text-encoding.html#normalization-with-alfred-workflow">Normalization with Alfred-Workflow</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html#normalization">Normalization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html#other-gotchas">Other Gotchas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html#further-information">Further information</a></li>
 </ul>

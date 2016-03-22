@@ -20,7 +20,7 @@ If you're new to writing workflows or coding in general, start with the
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    setup
    third-party

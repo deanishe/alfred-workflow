@@ -989,6 +989,7 @@ class Settings(dict):
         self._original = deepcopy(d)
         self._nosave = False
 
+    @uninterruptible
     def save(self):
         """Save settings to JSON file specified in ``self._filepath``
 

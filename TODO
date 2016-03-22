@@ -1,8 +1,5 @@
 
 Features to Add:
-	- Offline tests.
-		Connections to GitHub are causing the integration tests to fail.
-		Also, it's really slow.
 
 	background.py:
 		- Add `kill_process()` function.
@@ -70,7 +67,7 @@ Features to Consider:
 
 
 	workflow.py:
-		- automatically add `lib` and/or `packages` subdirectory to `sys.path`
+		- automatically add `workflow_libs` subdirectory to `sys.path`
 		- Add `TechnicolorLogger` formatter
 
 
@@ -81,6 +78,9 @@ General:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	- Offline tests. @done(16-02-28 02:14) @project(Features to Add)
+		Connections to GitHub are causing the integration tests to fail.
+		Also, it's really slow.
 	- Update list of files in workflow @done(16-02-23 21:24) @project(README.rst)
 	- Add notifications to features list @done(16-02-23 21:24) @project(README.rst)
 	- Integrate sphinx.ext.napoleon @priority(1) @done(16-02-23 21:14) @project(Features to Add / Docs)

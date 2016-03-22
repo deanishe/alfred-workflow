@@ -1040,7 +1040,10 @@ class Workflow(object):
         :param update_settings: settings for updating your workflow from GitHub.
             This must be a :class:`dict` that contains ``github_slug`` and
             ``version`` keys. ``github_slug`` is of the form ``username/repo``
-            and ``version`` **must** correspond to the tag of a release.
+            and ``version`` **must** correspond to the tag of a release. The
+            boolean ``prereleases`` key is optional and if ``True`` will
+            override the :ref:`magic argument <magic-arguments>` preference.
+            This is only recommended when the installed workflow is a pre-release.
             See :ref:`updates` for more information.
         :type update_settings: :class:`dict`
         :param input_encoding: encoding of command line arguments
@@ -2364,6 +2367,23 @@ class Workflow(object):
 
         return update_data['available']
 
+    @property
+    def prereleases(self):
+        """Should the workflow update to a newer pre-release version if
+        available?
+
+        .. versionadded:: 1.16
+
+        :returns: ``True`` if pre-releases are enabled with the :ref:`magic
+        argument <magic-arguments>` or the ``update_settings`` dict, else
+        ``False``
+
+        """
+        if self._update_settings.get('prereleases'):
+            return True
+
+        return self.settings.get('__workflow_prereleases') or False
+
     def check_update(self, force=False):
         """Call update script if it's time to check for a new release
 
@@ -2404,6 +2424,9 @@ class Workflow(object):
             cmd = ['/usr/bin/python', update_script, 'check', github_slug,
                    version]
 
+            if self.prereleases:
+                cmd.append('--prereleases')
+
             self.logger.info('Checking for update ...')
 
             run_in_background('__workflow_update_check', cmd)
@@ -2430,7 +2453,7 @@ class Workflow(object):
         # version = self._update_settings['version']
         version = str(self.version)
 
-        if not update.check_update(github_slug, version):
+        if not update.check_update(github_slug, version, self.prereleases):
             return False
 
         from background import run_in_background
@@ -2441,6 +2464,9 @@ class Workflow(object):
 
         cmd = ['/usr/bin/python', update_script, 'install', github_slug,
                version]
+
+        if self.prereleases:
+            cmd.append('--prereleases')
 
         self.logger.debug('Downloading update ...')
         run_in_background('__workflow_update_install', cmd)
@@ -2612,6 +2638,14 @@ class Workflow(object):
             self.settings['__workflow_autoupdate'] = False
             return 'Auto update turned off'
 
+        def prereleases_on():
+            self.settings['__workflow_prereleases'] = True
+            return 'Prerelease updates turned on'
+
+        def prereleases_off():
+            self.settings['__workflow_prereleases'] = False
+            return 'Prerelease updates turned off'
+
         def do_update():
             if self.start_update():
                 return 'Downloading and installing update ...'
@@ -2620,6 +2654,8 @@ class Workflow(object):
 
         self.magic_arguments['autoupdate'] = update_on
         self.magic_arguments['noautoupdate'] = update_off
+        self.magic_arguments['prereleases'] = prereleases_on
+        self.magic_arguments['noprereleases'] = prereleases_off
         self.magic_arguments['update'] = do_update
 
         # Help

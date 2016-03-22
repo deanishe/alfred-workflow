@@ -45,7 +45,10 @@ downloaded and installed via Alfred's default installation mechanism.
 
 .. important::
 
-    Releases marked as ``pre-release`` on GitHub will be ignored.
+    Releases marked as ``pre-release`` on GitHub will be ignored unless the
+    ``workflow:prereleases`` :ref:`magic argument <magic-arguments>` has
+    been enabled or the ``prereleases`` key is set to ``True`` in the
+    ``update_settings`` :class:`dict`.
 
 Configuration
 =============
@@ -77,7 +80,13 @@ installed workflow must also be specified. You can do this in the
         # this key may be omitted
         'version': __version__,
         # Optional number of days between checks for updates
-        'frequency': 7
+        'frequency': 7,
+        # Force checking for pre-release updates
+        # This is only recommended when distributing a pre-release;
+        # otherwise allow users to choose whether they want 
+        # production-ready or pre-release updates with the 
+        # `prereleases` magic argument.
+        'prereleases': '-beta' in __version__
     }, ...)
 
     ...

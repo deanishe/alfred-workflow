@@ -1409,6 +1409,42 @@ class MagicArgsTests(unittest.TestCase):
                 wf.args
             self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
 
+    def test_prereleases(self):
+        """Magic: prereleases"""
+        with InfoPlist():
+            wf = Workflow()
+
+            c = WorkflowMock(['script', 'workflow:prereleases'])
+            with c:
+                wf.args
+            self.assertTrue(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
+
+            wf = Workflow()
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
+            with c:
+                wf.args
+            self.assertFalse(wf.settings.get('__workflow_prereleases'))
+            self.assertFalse(wf.prereleases)
+
+    def test_update_settings_override_magic_prereleases(self):
+        """Magic: pre-release updates can be overridden by `True` value for `prereleases` key in `update_settings`"""
+        with InfoPlist():
+            d = {'prereleases': True}
+            wf = Workflow(update_settings=d)
+
+            c = WorkflowMock(['script', 'workflow:prereleases'])
+            with c:
+                wf.args
+            self.assertTrue(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
+
+            wf = Workflow(update_settings=d)
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
+            with c:
+                wf.args
+            self.assertFalse(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
 
 class AtomicWriterTests(unittest.TestCase):
     """Tests for atomic writer"""

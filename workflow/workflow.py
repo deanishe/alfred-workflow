@@ -1488,23 +1488,22 @@ class Workflow(object):
         logger = logging.getLogger('workflow')
 
         if not len(logger.handlers):  # Only add one set of handlers
-            logfile = logging.handlers.RotatingFileHandler(
-                self.logfile,
-                maxBytes=1024*1024,
-                backupCount=1)
-
-            console = logging.StreamHandler()
 
             fmt = logging.Formatter(
                 '%(asctime)s %(filename)s:%(lineno)s'
                 ' %(levelname)-8s %(message)s',
                 datefmt='%H:%M:%S')
 
+            logfile = logging.handlers.RotatingFileHandler(
+                self.logfile,
+                maxBytes=1024*1024,
+                backupCount=1)
             logfile.setFormatter(fmt)
-            console.setFormatter(fmt)
-
             logger.addHandler(logfile)
-            logger.addHandler(console)
+
+            # console = logging.StreamHandler()
+            # console.setFormatter(fmt)
+            # logger.addHandler(console)
 
         logger.setLevel(logging.DEBUG)
         self._logger = logger
@@ -2151,7 +2150,12 @@ class Workflow(object):
         # to catch any errors and display an error message in Alfred
         try:
             if self.version:
-                self.logger.debug('Workflow version : {0}'.format(self.version))
+                msg = 'Workflow version : {0}'.format(self.version)
+                self.logger.debug(msg)
+                print(msg, file=sys.stderr)
+
+            print('The debug log can be found in the log file:\n{0}'.format(
+                  self.logfile).encode('utf-8'), file=sys.stderr)
 
             # Run update check if configured for self-updates.
             # This call has to go in the `run` try-except block, as it will
@@ -2171,8 +2175,10 @@ class Workflow(object):
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:
-                self.logger.info(
-                    'For assistance, see: {0}'.format(self.help_url))
+                msg = 'For assistance, see: {0}'.format(self.help_url)
+                self.logger.info(msg)
+                print(msg, file=sys.stderr)
+
             if not sys.stdout.isatty():  # Show error in Alfred
                 self._items = []
                 if self._name:
@@ -2186,8 +2192,10 @@ class Workflow(object):
                 self.send_feedback()
             return 1
         finally:
-            self.logger.debug('Workflow finished in {0:0.3f} seconds.'.format(
-                              time.time() - start))
+            msg = 'Workflow finished in {0:0.3f} seconds.'.format(
+                time.time() - start)
+            self.logger.debug(msg)
+            print(msg, file=sys.stderr)
         return 0
 
     # Alfred feedback methods ------------------------------------------

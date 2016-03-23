@@ -1409,95 +1409,42 @@ class MagicArgsTests(unittest.TestCase):
                 wf.args
             self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
 
-    def test_auto_update(self):
-        """Magic: auto-update"""
-
-        update_settings = {
-            'github_slug': 'deanishe/alfred-workflow-dummy',
-            'version': 'v2.0',
-            'frequency': 1,
-        }
-
-        def fake(wf):
-            return
-
+    def test_prereleases(self):
+        """Magic: prereleases"""
         with InfoPlist():
-            wf = Workflow(update_settings=update_settings)
-            c = WorkflowMock(['script', 'workflow:autoupdate'])
+            wf = Workflow()
+
+            c = WorkflowMock(['script', 'workflow:prereleases'])
             with c:
                 wf.args
-                wf.run(fake)
-            self.assertTrue(wf.settings.get('__workflow_autoupdate'))
+            self.assertTrue(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
 
             wf = Workflow()
-            wf.reset()
-            c = WorkflowMock(['script', 'workflow:noautoupdate'])
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
             with c:
                 wf.args
-                wf.run(fake)
-            self.assertFalse(wf.settings.get('__workflow_autoupdate'))
+            self.assertFalse(wf.settings.get('__workflow_prereleases'))
+            self.assertFalse(wf.prereleases)
 
-            # del wf.settings['__workflow_autoupdate']
-            wf.reset()
-
-    def test_update(self):
-        """Magic: update"""
-
-        def fake(wf):
-            return
-
-        update_settings = {
-            'github_slug': 'deanishe/alfred-workflow-dummy',
-            'version': 'v2.0',
-            'frequency': 1,
-        }
+    def test_update_settings_override_magic_prereleases(self):
+        """Magic: pre-release updates can be overridden by `True` value for `prereleases` key in `update_settings`"""
         with InfoPlist():
-            wf = Workflow(update_settings=update_settings)
-            wf.run(fake)
+            d = {'prereleases': True}
+            wf = Workflow(update_settings=d)
 
-            self.assertFalse(wf.update_available)
-
-            # Mock subprocess.call etc. so the script doesn't try to
-            # update the workflow in Alfred
-            c = WorkflowMock(['script', 'workflow:update'])
+            c = WorkflowMock(['script', 'workflow:prereleases'])
             with c:
-                wf.run(fake)
                 wf.args
+            self.assertTrue(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
 
-            wf.logger.debug('Magic update command : {0}'.format(c.cmd))
-
-            self.assertEquals(c.cmd[0], '/usr/bin/python')
-            self.assertEquals(c.cmd[2], '__workflow_update_install')
-
-            update_settings['version'] = 'v6.0'
-            wf = Workflow(update_settings=update_settings)
-            c = WorkflowMock(['script', 'workflow:update'])
+            wf = Workflow(update_settings=d)
+            c = WorkflowMock(['script', 'workflow:noprereleases'])
             with c:
-                wf.run(fake)
                 wf.args
-
-        # Update command wasn't called
-        self.assertEqual(c.cmd, ())
-
-    def test_update_turned_off(self):
-        """Magic: updates turned off"""
-
-        # Check update isn't performed if user has turned off
-        # auto-update
-
-        def fake(wf):
-            return
-
-        update_settings = {
-            'github_slug': 'deanishe/alfred-workflow-dummy',
-            'version': 'v2.0',
-            'frequency': 1,
-        }
-        with InfoPlist():
-            wf = Workflow(update_settings=update_settings)
-            wf.settings['__workflow_autoupdate'] = False
-            self.assertTrue(wf.check_update() is None)
-
+            self.assertFalse(wf.settings.get('__workflow_prereleases'))
+            self.assertTrue(wf.prereleases)
 
 class AtomicWriterTests(unittest.TestCase):
     """Tests for atomic writer"""

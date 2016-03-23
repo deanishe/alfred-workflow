@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Versioning and migration &mdash; Alfred-Workflow 1.15 documentation</title>
+    <title>Versioning and migration &mdash; Alfred-Workflow 1.17 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.15',
+        VERSION:     '1.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.15 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.17 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="System icons" href="icons.html" />
     <link rel="prev" title="Self-updating" href="update.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="update.html" title="Self-updating"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -145,7 +145,10 @@ version number and a patch version number separated by dots, e.g. <code class="d
 minor version when you add new features and the major version if you change
 the API.</p>
 <p>You may also add additional pre-release version info to the end of the version
-number, preceded by a hyphen (<code class="docutils literal"><span class="pre">-</span></code>), e.g. <code class="docutils literal"><span class="pre">2.0.0-rc.1</span></code> or <code class="docutils literal"><span class="pre">2.0.0-beta</span></code>.</p>
+number, preceded by a hyphen (<code class="docutils literal"><span class="pre">-</span></code>), e.g. <code class="docutils literal"><span class="pre">2.0.0-rc.1</span></code> or <code class="docutils literal"><span class="pre">2.0.0-beta</span></code>.
+Note that Alfred-Workflow does not use this pre-release version format to
+identify pre-releases; instead the pre-release option on the GitHub release
+editing page must be selected for releases that are not production-ready.</p>
 <p>Alfred-Workflow differs from the standard in that you aren&#8217;t required to
 specify a minor or patch version, i.e. <code class="docutils literal"><span class="pre">1.0</span></code> is fine, as is <code class="docutils literal"><span class="pre">1</span></code> (and both
 are considered equal and also equal to <code class="docutils literal"><span class="pre">1.0.0</span></code>).</p>

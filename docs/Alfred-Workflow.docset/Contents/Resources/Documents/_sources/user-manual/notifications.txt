@@ -29,4 +29,9 @@ Usage
 
 	notify('My Title', 'My Text')
 
-See the :ref:`API documentation <api-notifications>` for more details.
+This is the full API:
+
+.. autofunction:: workflow.notify.notify
+
+See the :ref:`API documentation <api-notifications>` for details of the other
+functions.

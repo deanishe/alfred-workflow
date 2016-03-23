@@ -1,13 +1,16 @@
 #!/bin/bash
 
+rootdir="$( cd "$( dirname "$0" )/../"; pwd )"
+
+
 usage() {
   cat > /dev/stderr <<EOS
-testone <package.name> <tests/test_script.py>
+testone <package.name> <tests/test_script.py>...
 
-Run one test script with coverage for one package.
+Run test script(s) with coverage for one package.
 
 Usage:
-    testone <package.name> <test_script.py>
+    testone <package.name> <test_script.py>...
     testone -h|--help
 
 Options:
@@ -19,6 +22,10 @@ Example:
 EOS
 }
 
+log() {
+    echo "$@" > /dev/stderr
+}
+
 
 if [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
 	usage
@@ -26,23 +33,43 @@ if [[ "$1" = "-h" ]] || [[ "$1" = "--help" ]]; then
 fi
 
 if [[ "$1" = "" ]] || [[ "$2" = "" ]]; then
-  echo "ERROR: Missing argument(s)." > /dev/stderr
-  echo "" > /dev/stderr
+  log "ERROR: Missing argument(s)."
+  log ""
   usage
   exit 1
 fi
 
-# nosetests \
-#   --verbose \
-#   --with-yanc \
-#   --yanc-color=on \
-#   --with-coverage \
-#   --cover-min-percentage=100 \
-#   --cover-package="$1" \
-#   --logging-clear-handlers \
-#   "$2"
+package="$1"
+shift
 
-py.test --cov="$1" \
-  --cov-report=term-missing \
-  --cov-config=.coveragerc \
-  "$2"
+# export PYTEST_ADDOPTS="--cov-report=term"
+
+py.test --cov="${package}" "$@"
+# ret1=$?
+ret1=${PIPESTATUS[0]}
+
+echo
+
+case "$ret1" in
+  0) log "TESTS OK";;
+  *) log "TESTS FAILED";;
+esac
+
+log ""
+
+# Test coverage
+coverage report --fail-under 100 --show-missing
+ret2=${PIPESTATUS[0]}
+
+echo
+
+case "$ret2" in
+    0) log "COVERAGE OK" ;;
+    *) log "COVERAGE FAILED" ;;
+esac
+
+if [[ "$ret1" -ne 0 ]]; then
+  exit $ret1
+fi
+
+exit $ret2

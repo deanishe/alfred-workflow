@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #
-# Copyright © 2014 deanishe@deanishe.net
+# Copyright (c) 2014 Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
@@ -19,7 +19,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-class NoseTestCommand(TestCommand):
+class PyTestCommand(TestCommand):
     """Enable running tests with `python setup.py test`."""
 
     def finalize_options(self):
@@ -52,14 +52,20 @@ classifiers = [
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
-tests_require = ['nose', 'coverage', 'yanc']
+tests_require = [
+    'coverage',
+    'pytest',
+    'pytest_cov',
+    'pytest_httpbin',
+    'pytest_localserver',
+]
 zip_safe = False
 
 setup(
     name=name,
     version=version,
     description=description,
-    long_description=read('README.rst'),
+    long_description=read('README_PYPI.rst'),
     keywords=keywords,
     author=author,
     author_email=author_email,
@@ -69,6 +75,6 @@ setup(
     include_package_data=True,
     classifiers=classifiers,
     tests_require=tests_require,
-    cmdclass={'test': NoseTestCommand},
+    cmdclass={'test': PyTestCommand},
     zip_safe=zip_safe,
 )

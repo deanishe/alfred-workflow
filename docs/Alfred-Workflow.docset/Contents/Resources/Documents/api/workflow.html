@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>The Workflow Object — Alfred-Workflow 1.15 documentation</title>
+<title>The Workflow Object — Alfred-Workflow 1.17 documentation</title>
 <link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.15',
+        VERSION:     '1.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -18,7 +18,7 @@
 <script src="../_static/underscore.js" type="text/javascript"></script>
 <script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.15 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.17 documentation"/>
 <link href="index.html" rel="up" title="API Documentation"/>
 <link href="web.html" rel="next" title="Fetching Data from the Web"/>
 <link href="index.html" rel="prev" title="API Documentation"/>
@@ -40,7 +40,7 @@
 <a accesskey="N" href="web.html" title="Fetching Data from the Web">next</a> |</li>
 <li class="right">
 <a accesskey="P" href="index.html" title="API Documentation">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.15 documentation</a> »</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17 documentation</a> »</li>
 <li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
@@ -68,7 +68,10 @@ exists, <a class="reference internal" href="#workflow.workflow.Workflow.settings
 <li><strong>update_settings</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – settings for updating your workflow from GitHub.
 This must be a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that contains <code class="docutils literal"><span class="pre">github_slug</span></code> and
 <code class="docutils literal"><span class="pre">version</span></code> keys. <code class="docutils literal"><span class="pre">github_slug</span></code> is of the form <code class="docutils literal"><span class="pre">username/repo</span></code>
-and <code class="docutils literal"><span class="pre">version</span></code> <strong>must</strong> correspond to the tag of a release.
+and <code class="docutils literal"><span class="pre">version</span></code> <strong>must</strong> correspond to the tag of a release. The
+boolean <code class="docutils literal"><span class="pre">prereleases</span></code> key is optional and if <code class="docutils literal"><span class="pre">True</span></code> will
+override the <a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><span>magic argument</span></a> preference.
+This is only recommended when the installed workflow is a pre-release.
 See <a class="reference internal" href="update.html#updates"><span>Self-Updating</span></a> for more information.</li>
 <li><strong>input_encoding</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – encoding of command line arguments</li>
 <li><strong>normalization</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – normalisation to apply to CLI args.
@@ -931,6 +934,25 @@ application (usually Console.app).</p>
 <code class="descname">open_workflowdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.open_workflowdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open the workflow’s <a class="reference internal" href="#workflow.workflow.Workflow.workflowdir" title="workflow.workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a> in Finder.</p>
 </dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.prereleases"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.prereleases"></a>
+<code class="descname">prereleases</code><a class="headerlink" href="#workflow.workflow.Workflow.prereleases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should the workflow update to a newer pre-release version if
+available?</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.16.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if pre-releases are enabled with the :ref:<a href="#id3"><span class="problematic" id="id4">`</span></a>magic</td>
+</tr>
+</tbody>
+</table>
+<p>argument &lt;magic-arguments&gt;` or the <code class="docutils literal"><span class="pre">update_settings</span></code> dict, else
+<code class="docutils literal"><span class="pre">False</span></code></p>
+</dd></dl>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.reset"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.reset"></a>
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.reset" title="Permalink to this definition">¶</a></dt>
@@ -1015,13 +1037,13 @@ limitations</strong> on what it can do.</p>
 <col class="field-name"></col>
 <col class="field-body"></col>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code> instance
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> instance
 initialised from the data in JSON file at
 <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings_path</span></code></a> or if that doesn’t exist, with the
 <code class="docutils literal"><span class="pre">default_settings</span></code> <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> passed to
 <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> on instantiation.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code> instance</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> instance</td>
 </tr>
 </tbody>
 </table>
@@ -1180,6 +1202,28 @@ semantic).</p>
 </tbody>
 </table>
 </dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="workflow.workflow.Settings"><a name="//apple_ref/cpp/Class/workflow.workflow.Settings"></a>
+<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">Settings</code><span class="sig-paren">(</span><em>filepath</em>, <em>defaults=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary that saves itself when changed.</p>
+<p>Dictionary keys &amp; values will be saved as a JSON file
+at <code class="docutils literal"><span class="pre">filepath</span></code>. If the file does not exist, the dictionary
+(and settings file) will be initialised with <code class="docutils literal"><span class="pre">defaults</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filepath</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – where to save the settings</li>
+<li><strong>defaults</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – dict of default settings</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>An appropriate instance is provided by <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> instances at
+<a class="reference internal" href="#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>.</p>
 </dd></dl>
 <dl class="function">
 <dt id="workflow.workflow.atomic_writer"><a name="//apple_ref/cpp/Function/workflow.workflow.atomic_writer"></a>

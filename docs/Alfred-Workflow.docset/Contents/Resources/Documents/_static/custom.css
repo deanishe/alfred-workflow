@@ -37,11 +37,12 @@ div#contents {
 	background-color: inherit;
 }
 
-a.image-reference,
-a.image-reference:hover,
-a.image-reference:active,
-a.image-reference:link {
+a.reference.image-reference,
+a.reference.image-reference:hover,
+a.reference.image-reference:active,
+a.reference.image-reference:link {
 	text-decoration: none;
+	border-bottom: none;
 }
 
 div[class^='highlight'],

@@ -2922,13 +2922,13 @@ class Workflow(object):
         cmd = ['security', action, '-s', service, '-a', account] + list(args)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
-        retcode, output = p.wait(), p.stdout.read().strip().decode('utf-8')
-        if retcode == 44:  # password does not exist
+        stdout, _ = p.communicate()
+        if p.returncode == 44:  # password does not exist
             raise PasswordNotFound()
-        elif retcode == 45:  # password already exists
+        elif p.returncode == 45:  # password already exists
             raise PasswordExists()
-        elif retcode > 0:
-            err = KeychainError('Unknown Keychain error : %s' % output)
-            err.retcode = retcode
+        elif p.returncode > 0:
+            err = KeychainError('Unknown Keychain error : %s' % stdout)
+            err.retcode = p.returncode
             raise err
-        return output
+        return stdout.strip().decode('utf-8')

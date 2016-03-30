@@ -282,6 +282,8 @@ def packal_user_url(author):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-b', '--bundleid', action='store_true', default=False,
+                        help="Print a list of bundle IDs.")
     parser.add_argument('-r', '--rest', action='store_true', default=False,
                         help='Generate ReST list (default is Markdown)')
     parser.add_argument('-g', '--github', action='store_true',
@@ -318,11 +320,17 @@ def main():
     log.info('{} workflows using Alfred-Workflow'.format(len(workflows)))
 
     for workflow in workflows:
-        # msg = '[{name}]({url}) by [{author}](http://www.packal.org/users/{username}). {short}'.format(**workflow)
-        msg = workflow_link(workflow, rest=args.rest, github_links=args.github)
-        if not msg.endswith('.'):
-            msg += '.'
-        output.append((workflow['name'], msg))
+        if args.bundleid:
+            # print(workflow.keys())
+            # return
+            output.append((workflow['name'], workflow['bundle']))
+        else:
+            # msg = '[{name}]({url}) by [{author}](http://www.packal.org/users/{username}). {short}'.format(**workflow)
+            msg = workflow_link(workflow, rest=args.rest, github_links=args.github)
+            if not msg.endswith('.'):
+                msg += '.'
+            output.append((workflow['name'], msg))
+
     output.sort(key=lambda s: s[0].lower())
     output = [t[1] for t in output]
 

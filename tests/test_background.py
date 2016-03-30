@@ -65,7 +65,7 @@ class BackgroundTests(unittest.TestCase):
         self.assertTrue(os.path.exists('info.plist'))
         cmd = ['sleep', '1']
         run_in_background('test', cmd)
-        sleep(0.5)
+        sleep(0.6)
         self.assertTrue(is_running('test'))
         self.assertTrue(os.path.exists(self._pidfile('test')))
         self.assertEqual(run_in_background('test', cmd), None)

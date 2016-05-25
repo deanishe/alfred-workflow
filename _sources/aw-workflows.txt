@@ -45,6 +45,9 @@ section in the `GitHub README`_.
 - `AppScripts <http://www.packal.org/workflow/appscripts>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, search and run/open AppleScripts for the active application.
+- `Ariafred <http://www.packal.org/workflow/ariafred>`__
+  by `Wildog <http://www.packal.org/users/wildog>`__.
+  Manage Aria2 downloads directly in Alfred, with background notification.
 - `Base Converter <http://www.packal.org/workflow/base-converter>`__
   by `ahalbert <http://www.packal.org/users/ahalbert>`__.
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
@@ -81,6 +84,9 @@ section in the `GitHub README`_.
 - `Date Calculator <http://www.packal.org/workflow/date-calculator>`__
   by `MuppetGate <http://www.packal.org/users/muppetgate>`__.
   A basic date calculator.
+- `Dict.cc for Alfred <http://www.packal.org/workflow/dictcc-alfred>`__
+  by `PhilippN <http://www.packal.org/users/philippn>`__.
+  This Alfred workflow uses the offline translation databases provided by dict.cc.
 - `Digital Ocean status <http://www.packal.org/workflow/digital-ocean-status>`__
   by `frankspin <http://www.packal.org/users/frankspin>`__.
   Control your Digital Ocean droplets.
@@ -105,6 +111,9 @@ section in the `GitHub README`_.
 - `Fuzzy Folders <http://www.packal.org/workflow/fuzzy-folders>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Fuzzy search across folder subtrees.
+- `Gank Alfred Workflow <http://www.packal.org/workflow/gank-alfred-workflow>`__
+  by `hujiawei <http://www.packal.org/users/hujiawei>`__.
+  The missing Alfred Workflow for searching ganks(干货) in gank.io.
 - `Genymotion <http://www.packal.org/workflow/genymotion>`__
   by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Start emulator instantly.
@@ -159,6 +168,9 @@ section in the `GitHub README`_.
 - `KA Torrents <http://www.packal.org/workflow/ka-torrents>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search and download torrents from kickass.so.
+- `KAT Search <http://www.packal.org/workflow/kat-search>`__
+  by `emamuna <http://www.packal.org/users/emamuna>`__.
+  Just a workflow used to search on KAT (KickAssTorrent) website.
 - `Laser SSH <http://www.packal.org/workflow/laser-ssh>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Choose SSH connection from filterable list.
@@ -171,6 +183,12 @@ section in the `GitHub README`_.
 - `MailTo <http://www.packal.org/workflow/mailto>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Send mail to contacts and groups from your Address Book.
+- `MangaEden Search <http://www.packal.org/workflow/mangaeden-search>`__
+  by `emamuna <http://www.packal.org/users/emamuna>`__.
+  Search, read and download manga from mangaeden.com.
+- `Mianliao <http://www.packal.org/workflow/mianliao>`__
+  by `whtsky <http://www.packal.org/users/whtsky>`__.
+  Help you log into Mianliao Network.
 - `moment <http://www.packal.org/workflow/moment>`__
   by `perfectworks <http://www.packal.org/users/perfectworks>`__.
   Advanced time utility.
@@ -186,6 +204,9 @@ section in the `GitHub README`_.
 - `Network Location <http://www.packal.org/workflow/network-location>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, filter and activate network locations from within Alfred.
+- `NyaaSearch <http://www.packal.org/workflow/nyaasearch>`__
+  by `Ankirama <http://www.packal.org/users/ankirama>`__.
+  Search torrents on nyaa and download/copy it.
 - `Order of Magnituce <http://www.packal.org/workflow/order-magnitude>`__
   by `tdhopper <http://www.packal.org/users/tdhopper>`__.
   Convert a number to natural language (rounded to any number of places).
@@ -222,6 +243,9 @@ section in the `GitHub README`_.
 - `PWS History <http://www.packal.org/workflow/pws-history>`__
   by `hrbrmstr <http://www.packal.org/users/hrbrmstr>`__.
   Retrieve personal weather station history from Weather Underground.
+- `Python Interpreter <http://www.packal.org/workflow/python-interpreter>`__
+  by `altre <http://www.packal.org/users/altre>`__.
+  Use python interpreter directly from alfred.
 - `Quick Stocks <http://www.packal.org/workflow/quick-stocks>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Add some stock symbols for Alfred to check for you.
@@ -243,12 +267,18 @@ section in the `GitHub README`_.
 - `Resolve URL <http://www.packal.org/workflow/resolve-url>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Follows any HTTP redirects and returns the canonical URL. Also displays information about the primary host (hostname, IP address(es), aliases).
+- `RGB to Hex <http://www.packal.org/workflow/rgb-hex>`__
+  by `Sonic Wu <http://www.packal.org/users/sonic-wu>`__.
+  Convert RGB values of a color to a hexadecimal string.
 - `Rotten Search <http://www.packal.org/workflow/rotten-search>`__
   by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Search movie from RottenTomatoes.com.
 - `Search Omnifocus <http://www.packal.org/workflow/search-omnifocus>`__
   by `rhyd <http://www.packal.org/users/rhyd>`__.
   This is a workflow that performs free text searches on OmniFocus data.
+- `Search Terminal history <http://www.packal.org/workflow/search-terminal-history>`__
+  by `N00bDaan <http://www.packal.org/users/n00bdaan>`__.
+  Search Terminal history and copy command to clipboard for quick adjustment/reuse.
 - `Searchio! <http://www.packal.org/workflow/searchio>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Auto-suggest search results from multiple search engines and languages.
@@ -261,6 +291,9 @@ section in the `GitHub README`_.
 - `Seq-utilies <http://www.packal.org/workflow/seq-utilities>`__
   by `danielecook <http://www.packal.org/users/danielecook>`__.
   Fetch complement, reverse complement, RNA, and protein sequences. Generate random DNA. Blast a sequence.
+- `Shell Variables <http://www.packal.org/workflow/shell-variables>`__
+  by `hug33k <http://www.packal.org/users/hug33k>`__.
+  Get your shell's variables into Alfred.
 - `Simple Timer <http://www.packal.org/workflow/simple-timer>`__
   by `Paul Eunjae Lee <http://www.packal.org/users/paul-eunjae-lee>`__.
   A very simple timer.
@@ -294,6 +327,9 @@ section in the `GitHub README`_.
 - `Sublime Text Projects <http://www.packal.org/workflow/sublime-text-projects>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   View, filter and open your Sublime Text (2 and 3) project files.
+- `TeXdoc <http://www.packal.org/workflow/texdoc>`__
+  by `Egon Geerardyn <http://www.packal.org/users/egon-geerardyn>`__.
+  Searches your LaTeX documentation using texdoc.
 - `Torrent <http://www.packal.org/workflow/torrent>`__
   by `bfw <http://www.packal.org/users/bfw>`__.
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
@@ -342,8 +378,6 @@ section in the `GitHub README`_.
 - `ZotQuery <http://www.packal.org/workflow/zotquery>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search Zotero. From the Comfort of Your Keyboard.
-
-
 
 
 .. _GitHub README: https://github.com/deanishe/alfred-workflow#contributing

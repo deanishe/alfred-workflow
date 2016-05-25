@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Supported software &mdash; Alfred-Workflow 1.17 documentation</title>
+    <title>Supported software &mdash; Alfred-Workflow 1.17.3 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.17',
+        VERSION:     '1.17.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.17 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.17.3 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Overview" href="index.html" />
 
@@ -56,7 +56,7 @@
         <li class="right" >
           <a href="index.html" title="Overview"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.17 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.17.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -69,7 +69,7 @@
 <span id="supported-versions"></span><h1>Supported software<a class="headerlink" href="#supported-software" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#alfred-2-versions" id="id3">Alfred 2 versions</a></li>
+<li><a class="reference internal" href="#alfred-versions" id="id3">Alfred versions</a></li>
 <li><a class="reference internal" href="#os-x-versions" id="id4">OS X versions</a></li>
 <li><a class="reference internal" href="#python-versions" id="id5">Python versions</a><ul>
 <li><a class="reference internal" href="#why-no-python-3-support" id="id6">Why no Python 3 support?</a></li>
@@ -77,12 +77,14 @@
 </li>
 </ul>
 </div>
-<div class="section" id="alfred-2-versions">
-<h2><a class="toc-backref" href="#id3">Alfred 2 versions</a><a class="headerlink" href="#alfred-2-versions" title="Permalink to this headline">¶</a></h2>
-<p>Alfred-Workflow works with all versions of Alfred 2, but you must own the
+<div class="section" id="alfred-versions">
+<h2><a class="toc-backref" href="#id3">Alfred versions</a><a class="headerlink" href="#alfred-versions" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow works with all versions of Alfred 2 and 3, but you must own the
 <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a> to use Alfred&#8217;s workflow feature.</p>
 <p>All Script Filter features provided by Alfred 2 as of v2.8.3 are supported
 in the latest version of Alfred-Workflow.</p>
+<p>New features introduced in Alfred 3, such as more powerful modifiers, will
+be supported by Alfred-Workflow 2.</p>
 </div>
 <div class="section" id="os-x-versions">
 <h2><a class="toc-backref" href="#id4">OS X versions</a><a class="headerlink" href="#os-x-versions" title="Permalink to this headline">¶</a></h2>
@@ -137,11 +139,10 @@ that are such a pain in Python 2 mostly just disappear.</p>
 <p>In practice, Alfred 2 has a long-standing bug (which won&#8217;t be fixed in v2) <a class="footnote-reference" href="#id2" id="id1">[1]</a>
 that makes it <a class="reference external" href="http://click.pocoo.org/5/python3/">one of those places where Python 3 chokes</a> and its automatic
 text decoding breaks the world.</p>
-<p>My working assumption is that Alfred 3 (whenever that may arrive) will require
-the library to be significantly rewritten due to an updated API, and will fix
-the incorrect encoding issue. At some point, Apple will surely add Python 3 to
-OS X by default, too.</p>
-<p>Python 3 support will most likely come when either of those things happens.</p>
+<p>Now that Alfred 3 is available and has some significant new features, there is
+<em>no chance</em> of this version of Alfred-Workflow getting Python 3 support, as
+development has effectively stopped in favour of version 2.</p>
+<p>When Python 3 support comes, it will be in version 2 or 3 of the library.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -189,7 +190,7 @@ die in flames.</td></tr>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Supported software</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#alfred-2-versions">Alfred 2 versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alfred-versions">Alfred versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#os-x-versions">OS X versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-versions">Python versions</a></li>
 </ul>

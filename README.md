@@ -4,7 +4,9 @@ Alfred-Workflow
 
 A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred].
 
-[![Build Status][shield-travis]][travis] [![Coverage Status][shield-coveralls]][coveralls] [![Latest Version][shield-version]][pypi] [![Development Status][shield-status]][pypi] [![Supported Python Versions][shield-pyversions]][pypi] [![Downloads][shield-download]][pypi]
+[![Build Status][shield-travis]][travis] [![Coverage Status][shield-coveralls]][coveralls] [![Latest Version][shield-version]][pypi] [![Development Status][shield-status]][pypi] [![Supported Python Versions][shield-pyversions]][pypi]
+
+<!-- [![Downloads][shield-download]][pypi] -->
 
 Supports OS X 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
 

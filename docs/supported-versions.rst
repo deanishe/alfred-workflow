@@ -9,14 +9,17 @@ Supported software
    :local:
 
 
-Alfred 2 versions
-=================
+Alfred versions
+===============
 
-Alfred-Workflow works with all versions of Alfred 2, but you must own the
+Alfred-Workflow works with all versions of Alfred 2 and 3, but you must own the
 `Powerpack`_ to use Alfred's workflow feature.
 
 All Script Filter features provided by Alfred 2 as of v2.8.3 are supported
 in the latest version of Alfred-Workflow.
+
+New features introduced in Alfred 3, such as more powerful modifiers, will
+be supported by Alfred-Workflow 2.
 
 
 OS X versions
@@ -83,12 +86,11 @@ In practice, Alfred 2 has a long-standing bug (which won't be fixed in v2) [#]_
 that makes it `one of those places where Python 3 chokes`_ and its automatic
 text decoding breaks the world.
 
-My working assumption is that Alfred 3 (whenever that may arrive) will require
-the library to be significantly rewritten due to an updated API, and will fix
-the incorrect encoding issue. At some point, Apple will surely add Python 3 to
-OS X by default, too.
+Now that Alfred 3 is available and has some significant new features, there is
+*no chance* of this version of Alfred-Workflow getting Python 3 support, as
+development has effectively stopped in favour of version 2.
 
-Python 3 support will most likely come when either of those things happens.
+When Python 3 support comes, it will be in version 2 or 3 of the library.
 
 
 .. _full list of new features in Python 2.7: https://docs.python.org/3/whatsnew/2.7.html

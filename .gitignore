@@ -11,3 +11,5 @@ temp_*.py
 *.egg-info
 /.cache
 /coverage_report
+.tags
+.tags1

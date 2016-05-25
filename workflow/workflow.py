@@ -1480,7 +1480,6 @@ class Workflow(object):
         :returns: an initialised :class:`~logging.Logger`
 
         """
-
         if self._logger:
             return self._logger
 
@@ -1501,9 +1500,9 @@ class Workflow(object):
             logfile.setFormatter(fmt)
             logger.addHandler(logfile)
 
-            # console = logging.StreamHandler()
-            # console.setFormatter(fmt)
-            # logger.addHandler(console)
+            console = logging.StreamHandler()
+            console.setFormatter(fmt)
+            logger.addHandler(console)
 
         logger.setLevel(logging.DEBUG)
         self._logger = logger
@@ -1518,7 +1517,6 @@ class Workflow(object):
         :type logger: `~logging.Logger` instance
 
         """
-
         self._logger = logger
 
     @property
@@ -2149,13 +2147,10 @@ class Workflow(object):
         # Call workflow's entry function/method within a try-except block
         # to catch any errors and display an error message in Alfred
         try:
-            if self.version:
-                msg = 'Workflow version : {0}'.format(self.version)
-                self.logger.debug(msg)
-                print(msg, file=sys.stderr)
 
-            print('The debug log can be found in the log file:\n{0}'.format(
-                  self.logfile).encode('utf-8'), file=sys.stderr)
+            if self.version:
+                self.logger.debug(
+                    'Workflow version : {0}'.format(self.version))
 
             # Run update check if configured for self-updates.
             # This call has to go in the `run` try-except block, as it will
@@ -2175,9 +2170,8 @@ class Workflow(object):
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:
-                msg = 'For assistance, see: {0}'.format(self.help_url)
-                self.logger.info(msg)
-                print(msg, file=sys.stderr)
+                self.logger.info(
+                    'For assistance, see: {0}'.format(self.help_url))
 
             if not sys.stdout.isatty():  # Show error in Alfred
                 self._items = []
@@ -2191,11 +2185,11 @@ class Workflow(object):
                               icon=ICON_ERROR)
                 self.send_feedback()
             return 1
+
         finally:
-            msg = 'Workflow finished in {0:0.3f} seconds.'.format(
-                time.time() - start)
-            self.logger.debug(msg)
-            print(msg, file=sys.stderr)
+            self.logger.debug('Workflow finished in {0:0.3f} seconds.'.format(
+                time.time() - start))
+
         return 0
 
     # Alfred feedback methods ------------------------------------------

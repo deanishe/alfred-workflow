@@ -31,16 +31,16 @@ Overview
 .. .. image:: https://img.shields.io/pypi/l/Alfred-Workflow.svg?style=flat
 ..     :target: https://pypi.python.org/pypi/Alfred-Workflow/
 ..     :alt: License
-.. image:: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
-    :target: https://pypi.python.org/pypi/Alfred-Workflow/
-    :alt: Downloads
+.. .. image:: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
+..     :target: https://pypi.python.org/pypi/Alfred-Workflow/
+..     :alt: Downloads
 
 
 Go to :ref:`Quick Index <quickindex>`.
 
 
-Alfred-Workflow is a Python helper library for `Alfred 2`_ workflow authors,
-developed and hosted on `GitHub`_.
+Alfred-Workflow is a Python helper library for `Alfred 2 and 3`_ workflow
+authors, developed and hosted on `GitHub`_.
 
 Alfred workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. Alfred-Workflow
@@ -258,7 +258,7 @@ Indices and tables
 
 .. _GitHub: https://github.com/deanishe/alfred-workflow/
 .. _Requests: http://docs.python-requests.org/en/latest/
-.. _Alfred 2: https://www.alfredapp.com/
+.. _Alfred 2 and 3: https://www.alfredapp.com/
 .. _pip: https://pypi.python.org/pypi/pip
 .. _Python Package Index: https://pypi.python.org/pypi/Alfred-Workflow
 .. _Alfred forum thread: http://www.alfredforum.com/topic/4031-workflow-library-for-python/

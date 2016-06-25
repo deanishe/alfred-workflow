@@ -578,4 +578,3 @@ These are some of the Alfred workflows that use this library.
 [pip-docs]: https://pip.pypa.io/en/latest/
 [ruby-template]: http://zhaocai.github.io/alfred2-ruby-template/
 [python-keyring]: https://pypi.python.org/pypi/keyring
-[]

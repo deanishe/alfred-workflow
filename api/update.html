@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Self-Updating &mdash; Alfred-Workflow 1.17.3 documentation</title>
+    <title>Self-Updating &mdash; Alfred-Workflow 1.17.4 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.17.3',
+        VERSION:     '1.17.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.17.3 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.17.4 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Serialization" href="serialization.html" />
     <link rel="prev" title="Notifications" href="notify.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="notify.html" title="Notifications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -100,9 +100,28 @@ are controlled by the <code class="docutils literal"><span class="pre">update_se
 <dt id="workflow.update.Version">
 <em class="property">class </em><code class="descclassname">workflow.update.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>vstr</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Mostly semantic versioning</p>
+<p>Mostly semantic versioning.</p>
 <p>The main difference to proper <a class="reference internal" href="../user-manual/versioning.html#semver"><span>semantic versioning</span></a>
 is that this implementation doesn&#8217;t require a minor or patch version.</p>
+<p>Version strings may also be prefixed with &#8220;v&#8221;, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;v1.1.1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">tuple</span>
+<span class="go">(1, 1, 1, &#39;&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;2.0&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">tuple</span>
+<span class="go">(2, 0, 0, &#39;&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;3.1-beta&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tuple</span>
+<span class="go">(3, 1, 0, &#39;beta&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0.1&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.0.1&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="workflow.update.Version.match_version">
 <code class="descname">match_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.match_version" title="Permalink to this definition">¶</a></dt>
@@ -112,7 +131,7 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 <dl class="attribute">
 <dt id="workflow.update.Version.tuple">
 <code class="descname">tuple</code><a class="headerlink" href="#workflow.update.Version.tuple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Version number as a tuple of major, minor, patch, pre-release</p>
+<dd><p>Version number as a tuple of major, minor, patch, pre-release.</p>
 </dd></dl>
 
 </dd></dl>
@@ -120,7 +139,7 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 <dl class="function">
 <dt id="workflow.update.build_api_url">
 <code class="descclassname">workflow.update.</code><code class="descname">build_api_url</code><span class="sig-paren">(</span><em>slug</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.build_api_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate releases URL from GitHub slug</p>
+<dd><p>Generate releases URL from GitHub slug.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -177,7 +196,7 @@ be cached.</p>
 <dl class="function">
 <dt id="workflow.update.get_valid_releases">
 <code class="descclassname">workflow.update.</code><code class="descname">get_valid_releases</code><span class="sig-paren">(</span><em>github_slug</em>, <em>prereleases=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.get_valid_releases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return list of all valid releases</p>
+<dd><p>Return list of all valid releases.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

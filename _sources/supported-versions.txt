@@ -42,12 +42,13 @@ Leopard) and later.
 Python versions
 ===============
 
-Alfred-Workflow supports versions 2.6 and 2.7 of Python. Python 3 is *not*
-supported.
+Alfred-Workflow supports the 2.6 and 2.7 system Pythons installed on OS X
+10.6 (Snow Leopard) and newer (i.e. ``/usr/bin/python``).
 
-Alfred-Workflow is intended to run on the OS X default system Python
-(``/usr/bin/python``), which is version 2.6 on OS X 10.6 and 2.7 on all later
-versions.
+Python 3 is not supported and does not work.
+
+Other, non-Apple, non-system versions of Python 2.x (e.g. Homebrew, conda,
+pyenv etc.) are also not supported and may or may not work.
 
 Here is the `full list of new features in Python 2.7`_, but the
 most important things if you want your workflow to run on Snow

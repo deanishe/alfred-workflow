@@ -33,5 +33,6 @@ If you're new to writing workflows or coding in general, start with the
    versioning
    icons
    magic-arguments
+   workflow-variables
    serialization
    text-encoding

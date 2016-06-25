@@ -1,8 +1,8 @@
 
 .. _workflow:
 
-The Workflow Object
-===================
+The Workflow class for Alfred 2 and 3
+=====================================
 
 .. module:: workflow
 

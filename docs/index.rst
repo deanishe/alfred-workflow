@@ -43,9 +43,9 @@ Alfred-Workflow is a Python helper library for `Alfred 2 and 3`_ workflow
 authors, developed and hosted on `GitHub`_.
 
 Alfred workflows typically take user input, fetch data from the Web or
-elsewhere, filter them and display results to the user. Alfred-Workflow
-takes care of a lot of the details for you, allowing you to concentrate your
-efforts on your workflow's functionality.
+elsewhere, filter them and display results to the user. Alfred-Workflow takes
+care of a lot of the details for you, allowing you to concentrate your efforts
+on your workflow's functionality.
 
 Alfred-Workflow supports OS X 10.6+ (Python 2.6 and 2.7).
 
@@ -70,9 +70,16 @@ Features
 - Easily launch :ref:`background tasks <background-processes>` (daemons) to
   keep your workflow responsive
 - :ref:`Check for and install new workflow versions <manual-updates>` using
-  GitHub releases.
-- :ref:`Post notifications <notifications>` with Notification Center (10.8+ only).
+  GitHub releases
+- :ref:`Post notifications <notifications>` with Notification Center (10.8+ only)
 
+
+Alfred 3-only features
+----------------------
+
+- Set :ref:`workflows variables <workflow-variables>` from code
+- Advanced modifiers
+- Alfred 3-only updates (won't break Alfred 2 installs)
 
 
 Quick example
@@ -90,6 +97,8 @@ Language ``/usr/bin/python`` and paste the following into the **Script** field
 
     import sys
     from workflow import Workflow, ICON_WEB, web
+    # To use Alfred 3's feedback mechanism:
+    # from workflow import Workflow3
 
     API_KEY = 'your-pinboard-api-key'
 

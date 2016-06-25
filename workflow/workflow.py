@@ -877,7 +877,6 @@ def atomic_writer(file_path, mode):
     succeeds. The data is first written to a temporary file.
 
     """
-
     temp_suffix = '.aw.temp'
     temp_file_path = file_path + temp_suffix
     with open(temp_file_path, mode) as file_obj:
@@ -1029,40 +1028,41 @@ class Settings(dict):
         self.save()
         return ret
 
+
 class Workflow(object):
     """Create new :class:`Workflow` instance.
 
-        :param default_settings: default workflow settings. If no settings file
-            exists, :class:`Workflow.settings` will be pre-populated with
-            ``default_settings``.
-        :type default_settings: :class:`dict`
-        :param update_settings: settings for updating your workflow from GitHub.
-            This must be a :class:`dict` that contains ``github_slug`` and
-            ``version`` keys. ``github_slug`` is of the form ``username/repo``
-            and ``version`` **must** correspond to the tag of a release. The
-            boolean ``prereleases`` key is optional and if ``True`` will
-            override the :ref:`magic argument <magic-arguments>` preference.
-            This is only recommended when the installed workflow is a pre-release.
-            See :ref:`updates` for more information.
-        :type update_settings: :class:`dict`
-        :param input_encoding: encoding of command line arguments
-        :type input_encoding: :class:`unicode`
-        :param normalization: normalisation to apply to CLI args.
-            See :meth:`Workflow.decode` for more details.
-        :type normalization: :class:`unicode`
-        :param capture_args: capture and act on ``workflow:*`` arguments. See
-            :ref:`Magic arguments <magic-arguments>` for details.
-        :type capture_args: :class:`Boolean`
-        :param libraries: sequence of paths to directories containing
-            libraries. These paths will be prepended to ``sys.path``.
-        :type libraries: :class:`tuple` or :class:`list`
-        :param help_url: URL to webpage where a user can ask for help with
-            the workflow, report bugs, etc. This could be the GitHub repo
-            or a page on AlfredForum.com. If your workflow throws an error,
-            this URL will be displayed in the log and Alfred's debugger. It can
-            also be opened directly in a web browser with the ``workflow:help``
-            :ref:`magic argument <magic-arguments>`.
-        :type help_url: :class:`unicode` or :class:`str`
+    :param default_settings: default workflow settings. If no settings file
+        exists, :class:`Workflow.settings` will be pre-populated with
+        ``default_settings``.
+    :type default_settings: :class:`dict`
+    :param update_settings: settings for updating your workflow from GitHub.
+        This must be a :class:`dict` that contains ``github_slug`` and
+        ``version`` keys. ``github_slug`` is of the form ``username/repo``
+        and ``version`` **must** correspond to the tag of a release. The
+        boolean ``prereleases`` key is optional and if ``True`` will
+        override the :ref:`magic argument <magic-arguments>` preference.
+        This is only recommended when the installed workflow is a pre-release.
+        See :ref:`updates` for more information.
+    :type update_settings: :class:`dict`
+    :param input_encoding: encoding of command line arguments
+    :type input_encoding: :class:`unicode`
+    :param normalization: normalisation to apply to CLI args.
+        See :meth:`Workflow.decode` for more details.
+    :type normalization: :class:`unicode`
+    :param capture_args: capture and act on ``workflow:*`` arguments. See
+        :ref:`Magic arguments <magic-arguments>` for details.
+    :type capture_args: :class:`Boolean`
+    :param libraries: sequence of paths to directories containing
+        libraries. These paths will be prepended to ``sys.path``.
+    :type libraries: :class:`tuple` or :class:`list`
+    :param help_url: URL to webpage where a user can ask for help with
+        the workflow, report bugs, etc. This could be the GitHub repo
+        or a page on AlfredForum.com. If your workflow throws an error,
+        this URL will be displayed in the log and Alfred's debugger. It can
+        also be opened directly in a web browser with the ``workflow:help``
+        :ref:`magic argument <magic-arguments>`.
+    :type help_url: :class:`unicode` or :class:`str`
 
     """
 

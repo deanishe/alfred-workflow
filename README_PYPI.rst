@@ -29,16 +29,12 @@ Features
 * Post notifications via Notification Center.
 
 
-Alfred 3 support
-----------------
+Alfred 3-only features
+----------------------
 
-The current version of Alfred-Workflow *does not* have explicit support for any
-of Alfred 3's new features. It is unlikely to get them due to the complexity of
-supporting two versions (without just dropping stuff on the floor). Alfred 3
-support will be added in the `v2 branch`_.
-
-v2 is a move towards a very similar API on a different architecture (i.e. it
-will look almost the same).
+* Set `workflow variables`_ from code
+* Advanced modifiers
+* Alfred 3-only updates (won't break Alfred 2 installs)
 
 
 Quick Example
@@ -149,3 +145,4 @@ http://www.deanishe.net/alfred-workflow/.
 .. _GitHub repository: https://github.com/deanishe/alfred-workflow
 .. _Cheese Shop: https://pypi.python.org/pypi
 .. _pip documentation: https://pip.pypa.io/en/latest/
+.. _workflow variables: http://www.deanishe.net/alfred-workflow/user-manual/workflow-variables.html

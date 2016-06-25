@@ -8,22 +8,13 @@
 # Created on 2014-02-15
 #
 
-"""
-A Python helper library for `Alfred 2 <http://www.alfredapp.com/>`_ Workflow
-authors.
-"""
+"""A helper library for `Alfred <http://www.alfredapp.com/>`_ workflows."""
 
 import os
 
-__title__ = 'Alfred-Workflow'
-__version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
-__author__ = 'Dean Jackson'
-__licence__ = 'MIT'
-__copyright__ = 'Copyright 2014 Dean Jackson'
-
-
 # Workflow objects
 from .workflow import Workflow, manager
+from .workflow3 import Workflow3
 
 # Exceptions
 from .workflow import PasswordNotFound, KeychainError
@@ -68,8 +59,16 @@ from .workflow import (
     MATCH_SUBSTRING,
 )
 
+
+__title__ = 'Alfred-Workflow'
+__version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
+__author__ = 'Dean Jackson'
+__licence__ = 'MIT'
+__copyright__ = 'Copyright 2014 Dean Jackson'
+
 __all__ = [
     'Workflow',
+    'Workflow3',
     'manager',
     'PasswordNotFound',
     'KeychainError',

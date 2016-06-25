@@ -34,11 +34,11 @@ Features
 - Post notifications via Notification Center.
 
 
-### Alfred 3 support ###
+### Alfred 3-only features ###
 
-The current version of Alfred-Workflow *does not* have explicit support for any of Alfred 3's new features. It is unlikely to get them due to the complexity of supporting two versions (without just dropping stuff on the floor). Alfred 3 support will be added in the [v2 branch][awv2].
-
-v2 is a move towards a very similar API on a different architecture (i.e. it will look almost the same).
+- Set workflow variables from code
+- Advanced modifiers
+- Alfred 3-only updates (won't break Alfred 2 installs)
 
 
 Contents
@@ -253,6 +253,15 @@ The list is not auto-updated, so if you've released a workflow and are keen to s
 ### Bug reports, pull requests ###
 
 Bug reports, feature suggestions and pull requests are very welcome. Head over to the [issues][issues] if you have a feature request or a bug report.
+
+**Please note:** that the only supported versions of Python are the Apple
+system Pythons installed on OS X 10.6+ (i.e. `/usr/bin/python`). Any pull
+requests that break compatibility with these Pythons will be rejected out of
+hand.
+
+Compatibility with other Pythons is a low priority. Pull requests adding
+compatibility with other Pythons will be rejected if they add significant
+complexity or additional dependencies, such as `six`.
 
 If you want to make a pull request, do that [here][pulls], but please bear the following in mind:
 

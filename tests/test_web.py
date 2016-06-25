@@ -209,9 +209,12 @@ class WebTests(unittest.TestCase):
 
     def test_xml_encoding(self):
         """XML is decoded"""
-        url = self.httpbin.url + '/response-headers'
+        # Why doesn't this work with a local httpbin?
+        # url = self.httpbin.url + '/response-headers'
+        url = 'http://httpbin.org/response-headers'
         params = {'Content-Type': 'text/xml;charset=UTF-8'}
         r = web.get(url, params)
+        r.raise_for_status()
         self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
 
@@ -224,11 +227,14 @@ class WebTests(unittest.TestCase):
 
     def test_default_encoding(self):
         """Default encodings for mimetypes"""
-        url = self.httpbin.url + '/response-headers'
+        # Why doesn't this work with a local httpbin?
+        # url = self.httpbin.url + '/response-headers'
+        url = 'http://httpbin.org/response-headers'
         # params = {'Content-Type': 'application/json'}
         # httpbin returns JSON by default. web.py should automatically
         # set `encoding` to UTF-8 when mimetype = 'application/json'
         r = web.get(url)
+        r.raise_for_status()
         self.assertEqual(r.encoding, 'utf-8')
         self.assert_(isinstance(r.text, unicode))
 

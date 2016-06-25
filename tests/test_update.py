@@ -84,6 +84,8 @@ URL_BAD = 'http://github.com/file.zip'
 def info(request):
     """Ensure `info.plist` exists in the working directory."""
     create_info_plist()
+    os.environ['alfred_version'] = '2.4'
+    update._wf = None
     request.addfinalizer(delete_info_plist)
 
 

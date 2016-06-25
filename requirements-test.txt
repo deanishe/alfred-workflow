@@ -1,0 +1,5 @@
+pytest==2.8.7
+pytest-cov==2.2.1
+pytest-httpbin==0.2.0
+pytest-localserver==0.3.5
+tox==2.3.1

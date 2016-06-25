@@ -7,9 +7,7 @@
 # Created on 2014-02-15
 #
 
-"""
-A lightweight HTTP library with a requests-like interface.
-"""
+"""Lightweight HTTP library with a requests-like interface."""
 
 from __future__ import print_function
 
@@ -28,7 +26,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.17 (+http://www.deanishe.net/alfred-workflow)'
+USER_AGENT = u'Alfred-Workflow/1.17.4 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -79,7 +77,7 @@ RESPONSES = {
 
 
 def str_dict(dic):
-    """Convert keys and values in ``dic`` into UTF-8-encoded :class:`str`
+    """Convert keys and values in ``dic`` into UTF-8-encoded :class:`str`.
 
     :param dic: :class:`dict` of Unicode strings
     :returns: :class:`dict`
@@ -99,7 +97,7 @@ def str_dict(dic):
 
 
 class NoRedirectHandler(urllib2.HTTPRedirectHandler):
-    """Prevent redirections"""
+    """Prevent redirections."""
 
     def redirect_request(self, *args):
         return None
@@ -572,6 +570,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
         query = urllib.urlencode(str_dict(params), doseq=True)
         url = urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
+    print('URL={0!r}\nDATA={1!r}\nHEADERS={2!r}'.format(url, data, headers))
     req = urllib2.Request(url, data, headers)
     return Response(req, stream)
 

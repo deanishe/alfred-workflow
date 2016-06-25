@@ -1161,6 +1161,11 @@ class WorkflowTests(unittest.TestCase):
                 self.assertEqual(wf.last_version_run, Version(vstr))
                 wf.reset()
 
+    def test_alfred_version(self):
+        """Workflow: alfred_version correct."""
+        wf = Workflow()
+        self.assertEqual(wf.alfred_version, Version('2.4'))
+
     ####################################################################
     # Helpers
     ####################################################################

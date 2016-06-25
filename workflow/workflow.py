@@ -1029,7 +1029,6 @@ class Settings(dict):
         self.save()
         return ret
 
-
 class Workflow(object):
     """Create new :class:`Workflow` instance.
 
@@ -1127,6 +1126,11 @@ class Workflow(object):
     ####################################################################
 
     # info.plist contents and alfred_* environment variables  ----------
+
+    @property
+    def alfred_version(self):
+        from update import Version
+        return Version(self.alfred_env.get('version'))
 
     @property
     def alfred_env(self):

@@ -49,16 +49,37 @@ def wf():
 
 
 class Version(object):
-    """Mostly semantic versioning
+    """Mostly semantic versioning.
 
     The main difference to proper :ref:`semantic versioning <semver>`
     is that this implementation doesn't require a minor or patch version.
+
+    Version strings may also be prefixed with "v", e.g.:
+
+    >>> v = Version('v1.1.1')
+    >>> v.tuple
+    (1, 1, 1, '')
+
+    >>> v = Version('2.0')
+    >>> v.tuple
+    (2, 0, 0, '')
+
+    >>> Version('3.1-beta').tuple
+    (3, 1, 0, 'beta')
+
+    >>> Version('1.0.1') > Version('0.0.1')
+    True
     """
 
     #: Match version and pre-release/build information in version strings
     match_version = re.compile(r'([0-9\.]+)(.+)?').match
 
     def __init__(self, vstr):
+        """Create new `Version` object.
+
+        Args:
+            vstr (basestring): Semantic version string.
+        """
         self.vstr = vstr
         self.major = 0
         self.minor = 0
@@ -101,7 +122,7 @@ class Version(object):
         # wf().logger.debug('version str `{}` -> {}'.format(vstr, repr(self)))
 
     def _parse_dotted_string(self, s):
-        """Parse string ``s`` into list of ints and strings"""
+        """Parse string ``s`` into list of ints and strings."""
         parsed = []
         parts = s.split('.')
         for p in parts:
@@ -112,8 +133,7 @@ class Version(object):
 
     @property
     def tuple(self):
-        """Version number as a tuple of major, minor, patch, pre-release"""
-
+        """Version number as a tuple of major, minor, patch, pre-release."""
         return (self.major, self.minor, self.patch, self.suffix)
 
     def __lt__(self, other):
@@ -195,21 +215,74 @@ def download_workflow(url):
 
 
 def build_api_url(slug):
-    """Generate releases URL from GitHub slug
+    """Generate releases URL from GitHub slug.
 
     :param slug: Repo name in form ``username/repo``
     :returns: URL to the API endpoint for the repo's releases
 
-     """
-
+    """
     if len(slug.split('/')) != 2:
         raise ValueError('Invalid GitHub slug : {0}'.format(slug))
 
     return RELEASES_BASE.format(slug)
 
 
+def _validate_release(release):
+    """Return release for running version of Alfred."""
+    alf3 = wf().alfred_version.major == 3
+
+    downloads = {'.alfredworkflow': [], '.alfred3workflow': []}
+    dl_count = 0
+    version = release['tag_name']
+
+    for asset in release.get('assets', []):
+        url = asset.get('browser_download_url')
+        if not url:  # pragma: nocover
+            continue
+
+        ext = os.path.splitext(url)[1].lower()
+        if ext not in downloads:
+            continue
+
+        # Ignore Alfred 3-only files if Alfred 2 is running
+        if ext == '.alfred3workflow' and not alf3:
+            continue
+
+        downloads[ext].append(url)
+        dl_count += 1
+
+        # download_urls.append(url)
+
+    if dl_count == 0:
+        wf().logger.warning(
+            'Invalid release {0} : No workflow file'.format(version))
+        return None
+
+    for k in downloads:
+        if len(downloads[k]) > 1:
+            wf().logger.warning(
+                'Invalid release %s : multiple %s files'.format(version, k))
+            return None
+
+    # Prefer .alfred3workflow file if there is one and Alfred 3 is
+    # running.
+    if alf3 and len(downloads['.alfred3workflow']):
+        download_url = downloads['.alfred3workflow'][0]
+
+    else:
+        download_url = downloads['.alfredworkflow'][0]
+
+    wf().logger.debug('Release `{0}` : {1}'.format(version, download_url))
+
+    return {
+        'version': version,
+        'download_url': download_url,
+        'prerelease': release['prerelease']
+    }
+
+
 def get_valid_releases(github_slug, prereleases=False):
-    """Return list of all valid releases
+    """Return list of all valid releases.
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param prereleases: Whether to include pre-releases.
@@ -224,7 +297,6 @@ def get_valid_releases(github_slug, prereleases=False):
     ``v`` will be stripped.
 
     """
-
     api_url = build_api_url(github_slug)
     releases = []
 
@@ -239,34 +311,58 @@ def get_valid_releases(github_slug, prereleases=False):
     slug = github_slug.replace('/', '-')
     for release in wf().cached_data('gh-releases-{0}'.format(slug),
                                     retrieve_releases):
-        version = release['tag_name']
-        download_urls = []
-        for asset in release.get('assets', []):
-            url = asset.get('browser_download_url')
-            if not url or not url.endswith('.alfredworkflow'):
-                continue
-            download_urls.append(url)
 
-        # Validate release
-        if release['prerelease'] and not prereleases:
-            wf().logger.warning(
-                'Invalid release {0} : pre-release detected'.format(version))
-            continue
-        if not download_urls:
-            wf().logger.warning(
-                'Invalid release {0} : No workflow file'.format(version))
-            continue
-        if len(download_urls) > 1:
-            wf().logger.warning(
-                'Invalid release {0} : multiple workflow files'.format(version))
+        wf().logger.debug('Release : %r', release)
+
+        release = _validate_release(release)
+        if release is None:
+            wf().logger.debug('Invalid release')
             continue
 
-        wf().logger.debug('Release `{0}` : {1}'.format(version, url))
-        releases.append({
-            'version': version,
-            'download_url': download_urls[0],
-            'prerelease': release['prerelease']
-        })
+        elif release['prerelease'] and not prereleases:
+            wf().logger.debug('Ignoring prerelease : %s', release['version'])
+            continue
+
+        releases.append(release)
+
+        # else:
+
+        #     try:
+        #         valid = _validate_release(release)
+        #     except Exception as err:
+        #         wf().logger.exception(err)
+        #         raise err
+        #     else:
+        #         wf().logger.debug('valid=%r', valid)
+
+        #     version = release['tag_name']
+        #     download_urls = []
+        #     for asset in release.get('assets', []):
+        #         url = asset.get('browser_download_url')
+        #         if not url or not url.endswith('.alfredworkflow'):
+        #             continue
+        #         download_urls.append(url)
+
+        #     # Validate release
+        #     if release['prerelease'] and not prereleases:
+        #         wf().logger.warning(
+        #             'Invalid release {0} : pre-release detected'.format(version))
+        #         continue
+        #     if not download_urls:
+        #         wf().logger.warning(
+        #             'Invalid release {0} : No workflow file'.format(version))
+        #         continue
+        #     if len(download_urls) > 1:
+        #         wf().logger.warning(
+        #             'Invalid release {0} : multiple workflow files'.format(version))
+        #         continue
+
+        #     wf().logger.debug('Release `{0}` : {1}'.format(version, url))
+        #     releases.append({
+        #         'version': version,
+        #         'download_url': download_urls[0],
+        #         'prerelease': release['prerelease']
+        #     })
 
     return releases
 

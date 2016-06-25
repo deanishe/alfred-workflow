@@ -22,7 +22,11 @@ import subprocess
 import tempfile
 
 INFO_PLIST_TEST = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                               'info.plist.test')
+                               'data/info.plist.alfred2')
+
+INFO_PLIST_TEST3 = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                'data/info.plist.alfred3')
+
 
 INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
                                'info.plist')

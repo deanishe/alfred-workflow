@@ -7,9 +7,8 @@
 #
 # Created on 2014-08-16
 #
-"""
-test_versions.py
-"""
+
+"""Test `update.Version` class."""
 
 from __future__ import print_function
 

@@ -1,0 +1,495 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.18 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.18',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Alfred-Workflow 1.18 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="index.html" />
+    <link rel="next" title="Fetching Data from the Web" href="web.html" />
+    <link rel="prev" title="The Workflow class for Alfred 2 and 3" href="workflow.html" />
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+<!--[if lt IE 9]>
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link rel="stylesheet" href="../_static/custom.css">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="web.html" title="Fetching Data from the Web"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="workflow.html" title="The Workflow class for Alfred 2 and 3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.18 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-workflow3">
+<span id="the-workflow3-class-for-alfred-3"></span><span id="workflow3"></span><h1>The Workflow3 class for Alfred 3<a class="headerlink" href="#module-workflow3" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-workflow.workflow3"></span><p><a class="reference internal" href="#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> is an Alfred 3-only version of
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>It supports setting <a class="reference internal" href="../user-manual/workflow-variables.html#workflow-variables"><span>Workflow variables</span></a> and
+<a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">the</span> <span class="pre">more</span> <span class="pre">advanced</span> <span class="pre">modifiers</span></code></a> supported by Alfred 3.</p>
+<p>In order for the feedback mechanism to work correctly, it&#8217;s important
+to create <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> objects via the
+<a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a> methods
+respectively.</p>
+<dl class="class">
+<dt id="workflow.workflow3.Workflow3">
+<em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Workflow3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Workflow class that generates Alfred 3 feedback.</p>
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.add_item">
+<code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.add_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an item to be output to Alfred.</p>
+<p>See <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">add_item()</span></code></a> for the main
+documentation.</p>
+<p>The key difference is that this method does not support the
+<code class="docutils literal"><span class="pre">modifier_subtitles</span></code> argument. Use the <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">add_modifier()</span></code></a>
+method instead on the returned item instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Alfred feedback item.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3">Item3</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.getvar">
+<code class="descname">getvar</code><span class="sig-paren">(</span><em>name</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.getvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value of workflow variable for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
+<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.item_class">
+<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.send_feedback">
+<code class="descname">send_feedback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.send_feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print stored items to console/Alfred as JSON.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.setvar">
+<code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a workflow variable that will be inherited by all new items.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.workflow3.Item3">
+<em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Item3</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a feedback item for Alfred 3.</p>
+<p>Generates Alfred-compliant XML for a single item.</p>
+<p>You probably shouldn&#8217;t use this class directly, but via
+<a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a>. See <a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">add_item()</span></code></a>
+for details of arguments.</p>
+<dl class="method">
+<dt id="workflow.workflow3.Item3.add_modifier">
+<code class="descname">add_modifier</code><span class="sig-paren">(</span><em>key</em>, <em>subtitle=None</em>, <em>arg=None</em>, <em>valid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3.add_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add alternative values for a modifier key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Modifier key, e.g. <code class="docutils literal"><span class="pre">&quot;cmd&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;alt&quot;</span></code></li>
+<li><strong>subtitle</strong> (<em>unicode, optional</em>) &#8211; Override item subtitle.</li>
+<li><strong>arg</strong> (<em>unicode, optional</em>) &#8211; Input for following action.</li>
+<li><strong>valid</strong> (<em>bool, optional</em>) &#8211; Override item validity.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Configured <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier">Modifier</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Item3.getvar">
+<code class="descname">getvar</code><span class="sig-paren">(</span><em>name</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3.getvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value of workflow variable for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
+<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Item3.obj">
+<code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Item3.obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Modifier formatted for JSON serialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data suitable for Alfred 3 feedback.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Item3.setvar">
+<code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3.setvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a workflow variable for this Item.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.workflow3.Modifier">
+<em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Modifier</code><span class="sig-paren">(</span><em>key</em>, <em>subtitle=None</em>, <em>arg=None</em>, <em>valid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify <code class="docutils literal"><span class="pre">Item3</span></code> values for when specified modifier keys are pressed.</p>
+<p>Valid modifiers (i.e. values for <code class="docutils literal"><span class="pre">key</span></code>) are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>cmd</li>
+<li>alt</li>
+<li>shift</li>
+<li>ctrl</li>
+<li>fn</li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.arg">
+<code class="descname">arg</code><a class="headerlink" href="#workflow.workflow3.Modifier.arg" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em></p>
+<p>Arg to pass to following action.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.key">
+<code class="descname">key</code><a class="headerlink" href="#workflow.workflow3.Modifier.key" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em></p>
+<p>Modifier key (see above).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.subtitle">
+<code class="descname">subtitle</code><a class="headerlink" href="#workflow.workflow3.Modifier.subtitle" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em></p>
+<p>Override item subtitle.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.valid">
+<code class="descname">valid</code><a class="headerlink" href="#workflow.workflow3.Modifier.valid" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em></p>
+<p>Override item validity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.variables">
+<code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Modifier.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em></p>
+<p>Workflow variables set by this modifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Modifier.getvar">
+<code class="descname">getvar</code><span class="sig-paren">(</span><em>name</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Modifier.getvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value of workflow variable for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
+<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Modifier.obj">
+<code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Modifier.obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return modifier for Alfred 3 feedback JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Modifier for serializing to JSON.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Modifier.setvar">
+<code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Modifier.setvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a workflow variable for this Item.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual/index.html">User Manual</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">The Workflow class for Alfred 2 and 3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">The Workflow3 class for Alfred 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Fetching Data from the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html">Background Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notify.html">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-Updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../xml_format.html">Script Filter Results and the XML Format</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows using Alfred-Workflow</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="workflow.html" title="previous chapter">The Workflow class for Alfred 2 and 3</a></li>
+      <li>Next: <a href="web.html" title="next chapter">Fetching Data from the Web</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    <div class="footer">
+      &copy;2016, Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
+</html>

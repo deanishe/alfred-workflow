@@ -26,7 +26,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.18 (+http://www.deanishe.net/alfred-workflow)'
+USER_AGENT = u'Alfred-Workflow/1.18.1 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -570,7 +570,6 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
         query = urllib.urlencode(str_dict(params), doseq=True)
         url = urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
-    print('URL={0!r}\nDATA={1!r}\nHEADERS={2!r}'.format(url, data, headers))
     req = urllib2.Request(url, data, headers)
     return Response(req, stream)
 

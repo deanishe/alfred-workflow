@@ -433,7 +433,6 @@ class Response(object):
                               self.content)
                 if m:
                     encoding = m.group(1)
-                    print('sniffed HTML encoding=%r' % encoding)
 
             elif ((self.mimetype.startswith('application/') or
                    self.mimetype.startswith('text/')) and

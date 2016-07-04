@@ -9,8 +9,6 @@
 
 """Lightweight HTTP library with a requests-like interface."""
 
-from __future__ import print_function
-
 import codecs
 import json
 import mimetypes

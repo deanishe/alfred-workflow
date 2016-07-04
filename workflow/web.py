@@ -26,7 +26,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.18.1 (+http://www.deanishe.net/alfred-workflow)'
+USER_AGENT = u'Alfred-Workflow/1.18.2 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -105,9 +105,10 @@ class NoRedirectHandler(urllib2.HTTPRedirectHandler):
 
 # Adapted from https://gist.github.com/babakness/3901174
 class CaseInsensitiveDictionary(dict):
-    """
-    Dictionary that enables case insensitive searching while preserving
-    case sensitivity when keys are listed, ie, via keys() or items() methods.
+    """Dictionary with caseless key search.
+
+    Enables case insensitive searching while preserving case sensitivity
+    when keys are listed, ie, via keys() or items() methods.
 
     Works by storing a lowercase version of the key as the new key and
     stores the original key-value pair as the key's value
@@ -195,7 +196,6 @@ class Response(object):
         :type stream: ``bool``
 
         """
-
         self.request = request
         self._stream = stream
         self.url = None
@@ -246,6 +246,11 @@ class Response(object):
 
     @property
     def stream(self):
+        """Whether response is streamed.
+
+        Returns:
+            bool: `True` if response is streamed.
+        """
         return self._stream
 
     @stream.setter
@@ -263,17 +268,15 @@ class Response(object):
         :rtype: :class:`list` / :class:`dict`
 
         """
-
         return json.loads(self.content, self.encoding or 'utf-8')
 
     @property
     def encoding(self):
-        """Text encoding of document or ``None``
+        """Text encoding of document or ``None``.
 
         :returns: :class:`str` or ``None``
 
         """
-
         if not self._encoding:
             self._encoding = self._get_encoding()
 
@@ -281,13 +284,12 @@ class Response(object):
 
     @property
     def content(self):
-        """Raw content of response (i.e. bytes)
+        """Raw content of response (i.e. bytes).
 
         :returns: Body of HTTP response
         :rtype: :class:`str`
 
         """
-
         if not self._content:
 
             # Decompress gzipped content
@@ -313,7 +315,6 @@ class Response(object):
         :rtype: :class:`unicode` or :class:`str`
 
         """
-
         if self.encoding:
             return unicodedata.normalize('NFC', unicode(self.content,
                                                         self.encoding))
@@ -331,7 +332,6 @@ class Response(object):
         :returns: iterator
 
         """
-
         if not self.stream:
             raise RuntimeError("You cannot call `iter_content` on a "
                                "Response unless you passed `stream=True`"
@@ -384,7 +384,6 @@ class Response(object):
         :param filepath: Path to save retrieved data.
 
         """
-
         filepath = os.path.abspath(filepath)
         dirname = os.path.dirname(filepath)
         if not os.path.exists(dirname):
@@ -401,7 +400,6 @@ class Response(object):
 
         error will be instance of :class:`urllib2.HTTPError`
         """
-
         if self.error is not None:
             raise self.error
         return
@@ -413,7 +411,6 @@ class Response(object):
         :rtype: ``unicode`` or ``None``
 
         """
-
         headers = self.raw.info()
         encoding = None
 

@@ -10,7 +10,7 @@ A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred]
 
 Supports OS X 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
 
-Alfred-Workflow is designed to take the grunt work out of writing a workflow.
+Alfred-Workflow takes the grunt work out of writing a workflow.
 
 It gives you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
 
@@ -298,6 +298,7 @@ Workflows using Alfred-Workflow
 
 These are some of the Alfred workflows that use this library.
 
+
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) ([GitHub repo](https://github.com/XedMada/alfred-backblaze)) by [XedMada](http://www.packal.org/users/xedmada) ([on GitHub](https://github.com/XedMada/)).
   Pause and Start Backblaze online backups.
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python) ([GitHub repo](https://github.com/deanishe/alfred-bundler-python-demo)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -348,6 +349,8 @@ These are some of the Alfred workflows that use this library.
   Control your Digital Ocean droplets.
 - [Display Brightness](http://www.packal.org/workflow/display-brightness) ([GitHub repo](https://github.com/fniephaus/alfred-brightness)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Adjust your display's brightness with Alfred.
+- [Docker Cloud](http://www.packal.org/workflow/docker-cloud) by [amigold](http://www.packal.org/users/amigold).
+  Shortcuts to quickly navigate Docker Cloud services and node clusters.
 - [Dropbox Client for Alfred](http://www.packal.org/workflow/dropbox-client-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-dropbox/)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Access multiple Dropbox accounts with Alfred.
 - [Duden Search](http://www.packal.org/workflow/duden-search) ([GitHub repo](https://github.com/deanishe/alfred-duden)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -382,6 +385,8 @@ These are some of the Alfred workflows that use this library.
   Search for human genes.
 - [Homebrew and Cask for Alfred](http://www.packal.org/workflow/homebrew-and-cask-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-homebrew)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Easily control Homebrew and Cask with Alfred.
+- [İETT Next Departures](http://www.packal.org/workflow/iett-next-departures) ([GitHub repo](https://github.com/ttuygun/alfred-iett-workflow)) by [ttuygun](http://www.packal.org/users/ttuygun) ([on GitHub](https://github.com/ttuygun/)).
+  This alfred workflow shows next departures from beautiful Istanbul's bus service İETT. It uses data from İETT's website.
 - [IME](http://www.packal.org/workflow/ime) ([GitHub repo](https://github.com/owenwater/alfred-ime)) by [owenwater](http://www.packal.org/users/owenwater) ([on GitHub](https://github.com/owenwater/)).
   A Input method workflow based on Google Input Tools.
 - [iOS Simulator](http://www.packal.org/workflow/ios-simulator) ([GitHub repo](https://github.com/jfro/ios-simulator-apps-alfred-workflow)) by [jfro](http://www.packal.org/users/jfro) ([on GitHub](https://github.com/jfro/)).
@@ -420,6 +425,8 @@ These are some of the Alfred workflows that use this library.
   Search for a movie and see its IMDb, Rotten Tomatoes and Metacritic ratings.
 - [Myinstants](http://www.packal.org/workflow/myinstants) ([GitHub repo](https://github.com/flipxfx/alfred-myinstants)) by [flipxfx](http://www.packal.org/users/flipxfx) ([on GitHub](https://github.com/flipxfx/)).
   A workflow to search Myinstants.com.
+- [Naver Korean-English Dictionary](http://www.packal.org/workflow/naver-korean-english-dictionary) ([GitHub repo](https://github.com/pjvandehaar/alfred-workflow-naver-korean-english-dictionary)) by [pjvandehaar](http://www.packal.org/users/pjvandehaar) ([on GitHub](https://github.com/pjvandehaar/)).
+  Access the Naver Korean-English dictionary (in both directions) with autocomplete suggestions and a hotkey to use the current selection.
 - [Network Location](http://www.packal.org/workflow/network-location) ([GitHub repo](https://github.com/deanishe/alfred-network-location)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   List, filter and activate network locations from within Alfred.
 - [NyaaSearch](http://www.packal.org/workflow/nyaasearch) ([GitHub repo](https://github.com/Ankirama/alfred-workflows/tree/master/NyaaSearch)) by [Ankirama](http://www.packal.org/users/ankirama) ([on GitHub](https://github.com/Ankirama/)).
@@ -480,6 +487,8 @@ These are some of the Alfred workflows that use this library.
   Send documents to the cloud.
 - [Seq-utilies](http://www.packal.org/workflow/seq-utilities) ([GitHub repo](https://github.com/danielecook/seq-utilities)) by [danielecook](http://www.packal.org/users/danielecook) ([on GitHub](https://github.com/danielecook/)).
   Fetch complement, reverse complement, RNA, and protein sequences. Generate random DNA. Blast a sequence.
+- [Shell Variables](http://www.packal.org/workflow/shell-variables) ([GitHub repo](https://github.com/hug33k/Alfred-ShellVariables)) by [hug33k](http://www.packal.org/users/hug33k) ([on GitHub](https://github.com/hug33k/)).
+  Get your shell's variables into Alfred.
 - [Simple Timer](http://www.packal.org/workflow/simple-timer) by [Paul Eunjae Lee](http://www.packal.org/users/paul-eunjae-lee).
   A very simple timer.
 - [Skimmer](http://www.packal.org/workflow/skimmer) ([GitHub repo](https://github.com/smargh/alfred-Skimmer)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
@@ -488,6 +497,8 @@ These are some of the Alfred workflows that use this library.
   Interact with the chat service Slack via Alfred (multi-org supported).
 - [Snippets](http://www.packal.org/workflow/snippets) ([GitHub repo](https://github.com/smargh/alfred_snippets)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Simple, document-specific text snippets.
+- [Sourcegraph](http://www.packal.org/workflow/sourcegraph) ([GitHub repo](https://github.com/sourcegraph/sourcegraph-alfred)) by [rohanpai](http://www.packal.org/users/rohanpai) ([on GitHub](https://github.com/sourcegraph/)).
+  Sourcegraph Alfred Workflow.
 - [Splatoon](http://www.packal.org/workflow/splatoon) ([GitHub repo](https://github.com/flipxfx/alfred-splatoon)) by [flipxfx](http://www.packal.org/users/flipxfx) ([on GitHub](https://github.com/flipxfx/)).
   A workflow with Splatoon helpers (maps, wiki).
 - [Spritzr](http://www.packal.org/workflow/spritzr) ([GitHub repo](https://github.com/smargh/alfred_spritzr)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
@@ -498,12 +509,16 @@ These are some of the Alfred workflows that use this library.
   Search StackOverflow.com from Alfred.
 - [Star Ratings](http://www.packal.org/workflow/star-ratings) ([GitHub repo](https://github.com/deanishe/alfred-star-ratings)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   View and set ratings for your files and folders.
+- [Status](http://www.packal.org/workflow/status) ([GitHub repo](https://github.com/ekonstantinidis/alfred-status-workflow)) by [iamemmanouil](http://www.packal.org/users/iamemmanouil) ([on GitHub](https://github.com/ekonstantinidis/)).
+  Alfred workflow that displays status of well known services like GitHub, Twitter and more.
 - [Steam](http://www.packal.org/workflow/steam) by [tresni](http://www.packal.org/users/tresni).
   Activate your Steam codes & launch steam games with a quick keystroke or keyword.
 - [Sublime Text Projects](http://www.packal.org/workflow/sublime-text-projects) ([GitHub repo](https://github.com/deanishe/alfred-sublime-text)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   View, filter and open your Sublime Text (2 and 3) project files.
 - [TeXdoc](http://www.packal.org/workflow/texdoc) ([GitHub repo](https://github.com/egeerardyn/alfred-texdoc)) by [Egon Geerardyn](http://www.packal.org/users/egon-geerardyn) ([on GitHub](https://github.com/egeerardyn/)).
   Searches your LaTeX documentation using texdoc.
+- [TodoList](https://github.com/ecmadao/Alfred-TodoList) by [ecmadao](https://github.com/ecmadao) ([on GitHub](https://github.com/ecmadao/)).
+  A simple todo-workflow lets you add, complete or delete todo in to-do lists.
 - [Torrent](http://www.packal.org/workflow/torrent) ([GitHub repo](https://github.com/bfw/alfred-torrent)) by [bfw](http://www.packal.org/users/bfw) ([on GitHub](https://github.com/bfw/)).
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
 - [Travis CI for Alfred](http://www.packal.org/workflow/travis-ci-alfred) by [fniephaus](http://www.packal.org/users/fniephaus).
@@ -513,7 +528,7 @@ These are some of the Alfred workflows that use this library.
 - [URL craft](http://www.packal.org/workflow/url-craft) by [takanabe](http://www.packal.org/users/takanabe).
   A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.
 - [VagrantUP](http://www.packal.org/workflow/vagrantup) ([GitHub repo](https://github.com/m1keil/alfred-vagrant-workflow)) by [m1keil](http://www.packal.org/users/m1keil) ([on GitHub](https://github.com/m1keil/)).
-  List and control Vagrant environments with Alfred2.
+  List and control Vagrant environments with Alfred2/3.
 - [Viscosity VPN Manager](http://www.packal.org/workflow/viscosity-vpn-manager) ([GitHub repo](https://github.com/deanishe/alfred-viscosity)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   Manage Viscosity VPN connections.
 - [VM Control](http://www.packal.org/workflow/vm-control) ([GitHub repo](https://github.com/fniephaus/alfred-vmcontrol)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).

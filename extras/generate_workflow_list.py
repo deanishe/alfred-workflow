@@ -41,11 +41,12 @@ USER_AGENT = 'Alfred-Workflow/1.12 (www.deanishe.net/alfred-workflow/)'
 MAX_CACHE_AGE = 7  # days
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='%(filename)s:%(lineno)d %(levelname)-8s %(message)s',
     datefmt='%H:%M:%S')
 
 log = logging.getLogger()
+log.setLevel(logging.INFO)
 
 
 def fetch_url(url):
@@ -213,10 +214,12 @@ def read_list(path):
         reader = csv.DictReader(file_obj, delimiter=b'\t')
         for workflow in reader:
             # Decode text
-            for k in workflow:
-                workflow[k] = workflow[k].decode('utf-8')
+            # log.debug('workflow=%r', workflow)
+            for k, v in workflow.items():
+                if v is not None:
+                    workflow[k] = v.decode('utf-8')
 
-            if is_github_url(workflow['url']):
+            if is_github_url(workflow.get('url') or ''):
                 m = parse_github_url(workflow['url'])
                 if m:
                     username, repo = m.groups()
@@ -284,6 +287,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-b', '--bundleid', action='store_true', default=False,
                         help="Print a list of bundle IDs.")
+    parser.add_argument('-v', '--verbose', action='store_true', default=False,
+                        help="Generate debug messages.")
     parser.add_argument('-r', '--rest', action='store_true', default=False,
                         help='Generate ReST list (default is Markdown)')
     parser.add_argument('-g', '--github', action='store_true',
@@ -291,6 +296,11 @@ def main():
                         help='Add GitHub links to repo/user profile.'
                         ' Default is no extra links.')
     args = parser.parse_args()
+
+    if args.verbose:
+        log.setLevel(logging.DEBUG)
+
+    log.debug('args=%r', args)
 
     cache = Cache(CACHE_PATH)
     update_repo()

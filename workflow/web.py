@@ -24,7 +24,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.18.2 (+http://www.deanishe.net/alfred-workflow)'
+USER_AGENT = u'Alfred-Workflow/1.19 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -171,7 +171,7 @@ class Response(object):
     """
     Returned by :func:`request` / :func:`get` / :func:`post` functions.
 
-    A simplified version of the ``Response`` object in the ``requests`` library.
+    Simplified version of the ``Response`` object in the ``requests`` library.
 
     >>> r = request('http://www.google.com')
     >>> r.status_code
@@ -375,7 +375,7 @@ class Response(object):
         return chunks
 
     def save_to_path(self, filepath):
-        """Save retrieved data to file at ``filepath``
+        """Save retrieved data to file at ``filepath``.
 
         .. versionadded: 1.9.6
 
@@ -496,7 +496,6 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
       will be used.
 
     """
-
     # TODO: cookies
     socket.setdefaulttimeout(timeout)
 
@@ -575,7 +574,6 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
     :returns: :class:`Response` instance
 
     """
-
     return request('GET', url, params, headers=headers, cookies=cookies,
                    auth=auth, timeout=timeout, allow_redirects=allow_redirects,
                    stream=stream)
@@ -614,7 +612,6 @@ def encode_multipart_formdata(fields, files):
     - ``mimetype`` is optional. If not provided, :mod:`mimetypes` will be used to guess the mimetype, or ``application/octet-stream`` will be used.
 
     """
-
     def get_content_type(filename):
         """Return or guess mimetype of ``filename``.
 

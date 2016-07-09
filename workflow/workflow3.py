@@ -8,8 +8,9 @@
 #
 
 """
-:class:`Workflow3` is an Alfred 3-only version of
-:class:`~workflow.workflow.Workflow`.
+:class:`Workflow3` supports Alfred 3's new features.
+
+It is an Alfred 3-only version of :class:`~workflow.workflow.Workflow`.
 
 It supports setting :ref:`workflow-variables` and
 :class:`the more advanced modifiers <Modifier>` supported by Alfred 3.
@@ -23,6 +24,7 @@ respectively.
 from __future__ import print_function, unicode_literals, absolute_import
 
 import json
+import os
 import sys
 
 from .workflow import Workflow
@@ -282,8 +284,28 @@ class Workflow3(Workflow):
     item_class = Item3
 
     def __init__(self, **kwargs):
+        """Create a new :class:`Workflow3` object.
+
+        See :class:`~workflow.workflow.Workflow` for documentation.
+        """
         Workflow.__init__(self, **kwargs)
         self.variables = {}
+
+    @property
+    def _default_cachedir(self):
+        """Alfred 3's default cache directory."""
+        return os.path.join(
+                os.path.expanduser(
+                    '~/Library/Caches/com.runningwithcrayons.Alfred-3/'
+                    'Workflow Data/'),
+                self.bundleid)
+
+    @property
+    def _default_datadir(self):
+        """Alfred 3's default data directory."""
+        return os.path.join(os.path.expanduser(
+            '~/Library/Application Support/Alfred 3/Workflow Data/'),
+            self.bundleid)
 
     def setvar(self, name, value):
         """Set a workflow variable that will be inherited by all new items.

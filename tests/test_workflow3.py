@@ -185,3 +185,10 @@ def test_item_config(info3):
 
     c = r['config']
     assert c['var1'] == 'val2'
+
+
+def test_default_directories(info3):
+    """Workflow3: Default directories."""
+    wf3 = Workflow3()
+    assert 'Alfred 3' in wf3.datadir
+    assert 'Alfred-3' in wf3.cachedir

@@ -1088,8 +1088,6 @@ class Workflow(object):
         self._name = None
         self._cache_serializer = 'cpickle'
         self._data_serializer = 'cpickle'
-        # info.plist should be in the directory above this one
-        self._info_plist = self.workflowfile('info.plist')
         self._info = None
         self._info_loaded = False
         self._logger = None
@@ -1212,7 +1210,6 @@ class Workflow(object):
     @property
     def info(self):
         """:class:`dict` of ``info.plist`` contents."""
-
         if not self._info_loaded:
             self._load_info_plist()
         return self._info
@@ -2880,11 +2877,9 @@ class Workflow(object):
                 self.logger.debug('Deleted : %r', path)
 
     def _load_info_plist(self):
-        """Load workflow info from ``info.plist``
-
-        """
-
-        self._info = plistlib.readPlist(self._info_plist)
+        """Load workflow info from ``info.plist``."""
+        # info.plist should be in the directory above this one
+        self._info = plistlib.readPlist(self.workflowfile('info.plist'))
         self._info_loaded = True
 
     def _create(self, dirpath):

@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>net.deanishe.alfred3-playground</string>
+	<key>connections</key>
+	<dict>
+		<key>09F722E6-ACA5-4CB3-A131-6E6DE108E252</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AC1AAB30-9607-4DC2-B2F3-D6B3357206F6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>0CC45322-E88E-493F-9BA3-CE1E17C66D87</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6B9FC014-E149-4BE7-93EA-5335C7D8C717</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>25957072-B13A-4F86-9950-50175E938B1F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6E5C9B37-FB91-4BF5-9A3D-A1D9B6E2A1E8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>33DD7A54-FDD3-486F-B4EB-19E272614B5E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>839E233E-4178-46C4-9A62-4DF7CCD49E77</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3B890BFA-40BA-4BE2-AD69-C2B1F4F40A5F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>25957072-B13A-4F86-9950-50175E938B1F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>4435323F-0090-491A-BD2B-3304ED0C5BDB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>854C8139-E4E5-4C72-8E21-3205A3C7B5FA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>45CF4095-41DA-4A4E-A915-5FCF2AB2B747</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EA61B2B7-E568-4BE8-B06C-92ADE513519C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>5AB7545C-85BD-4B7F-826B-8599038DB60D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F08F562C-BD2A-4A73-9CE4-94C802FC6306</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>5E3CCB44-A1A2-40FF-8C48-24F049039260</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>33DD7A54-FDD3-486F-B4EB-19E272614B5E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>6B9FC014-E149-4BE7-93EA-5335C7D8C717</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>09F722E6-ACA5-4CB3-A131-6E6DE108E252</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4435323F-0090-491A-BD2B-3304ED0C5BDB</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>6E5C9B37-FB91-4BF5-9A3D-A1D9B6E2A1E8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5A4F4844-18C2-49FB-8B6A-5D64AD6DDEC4</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>6E6567EB-838D-4F3C-9D02-98AF66BCC0EB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AFEE83C3-A7FB-4E69-8FF7-EBE17C3CB596</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>7D464713-4906-4827-97B2-EE96F33092B4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E04E63B7-F4EF-4645-A3EE-0F74200359A8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>839E233E-4178-46C4-9A62-4DF7CCD49E77</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2250F6C0-FDA1-426A-90D0-583BA131F5BD</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9843D20C-0D29-4E08-821D-75099273DF09</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CBDACFA9-EE76-414F-AB8A-6C7A92E007F7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>AFEE83C3-A7FB-4E69-8FF7-EBE17C3CB596</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5E3CCB44-A1A2-40FF-8C48-24F049039260</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CEB83354-78C9-4A94-A11A-247A461EE1A0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2B567C45-6B6B-4FCE-925C-AE4546DE8738</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>D0D391C8-83A8-480D-BEC0-75AAAB9B6E81</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>08DFA5AB-33D1-47D6-B394-B5690EB4E9A1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E7DC9E3F-4E68-4964-8FE7-BB7F6A307E22</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0CC45322-E88E-493F-9BA3-CE1E17C66D87</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EA61B2B7-E568-4BE8-B06C-92ADE513519C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E9F32ABC-111F-4FBE-96AA-3D3051362405</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F08F562C-BD2A-4A73-9CE4-94C802FC6306</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E4657501-086C-40CC-A94F-F06631BD376E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Dean Jackson</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Dean's Alfred 3 Playground</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string># encoding: utf-8
+
+from __future__ import print_function
+
+import os
+import sys
+
+query = sys.argv[1]
+
+def log(s, *vars):
+    print(s % vars, file=sys.stderr)
+
+log("query=%r", query)
+
+for k in sorted(os.environ.keys()):
+    log("%s=%r", k, os.environ[k])</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>2250F6C0-FDA1-426A-90D0-583BA131F5BD</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>fixedorder</key>
+				<false/>
+				<key>items</key>
+				<string>[{"title":"Option 1","arg":"{\"alfredworkflow\": {\"variables\": {\"var1\": \"val1\", \"var2\": 2, \"var3\": \"3\"}, \"arg\": \"Arg 1\"}}","subtitle":"Subtitle 1"},{"title":"Option 2","arg":"Arg 2","subtitle":"Subtitle 2"},{"title":"Option 3","arg":"Arg 3","subtitle":"Subtitle 3"}]</string>
+				<key>keyword</key>
+				<string>vartest</string>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Variables Test</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.listfilter</string>
+			<key>uid</key>
+			<string>6E6567EB-838D-4F3C-9D02-98AF66BCC0EB</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>json</key>
+				<string>{
+  "alfredworkflow" : {
+    "arg" : "{query}",
+    "config" : {
+    },
+    "variables" : {
+    }
+  }
+}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.json</string>
+			<key>uid</key>
+			<string>AFEE83C3-A7FB-4E69-8FF7-EBE17C3CB596</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{var:var1}</string>
+				<key>variables</key>
+				<dict/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>33DD7A54-FDD3-486F-B4EB-19E272614B5E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>'{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<true/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>5E3CCB44-A1A2-40FF-8C48-24F049039260</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>'{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>839E233E-4178-46C4-9A62-4DF7CCD49E77</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>testasvar</string>
+				<key>subtext</key>
+				<string>Enter a value for VAR1</string>
+				<key>text</key>
+				<string>AppleScript variables</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E7DC9E3F-4E68-4964-8FE7-BB7F6A307E22</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+	set var1 to (system attribute "VAR1")
+	log "VAR1=" &amp; var1
+	return var1
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>09F722E6-ACA5-4CB3-A131-6E6DE108E252</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>6B9FC014-E149-4BE7-93EA-5335C7D8C717</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>variables</key>
+				<dict>
+					<key>VAR1</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>0CC45322-E88E-493F-9BA3-CE1E17C66D87</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>NSAppleScript : '{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>AC1AAB30-9607-4DC2-B2F3-D6B3357206F6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run argv
+	set var1 to (system attribute "VAR1")
+	log "VAR1=" &amp; var1
+	return var1
+end run</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4435323F-0090-491A-BD2B-3304ED0C5BDB</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>osascript : '{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>854C8139-E4E5-4C72-8E21-3205A3C7B5FA</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>alfredversion</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Alfred Version Number</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>45CF4095-41DA-4A4E-A915-5FCF2AB2B747</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>ObjC.import('stdlib');
+
+function run(argv) {
+
+	// Get major version number
+	var v = $.getenv('alfred_version').split('.')[0];
+
+	Application('Alfred ' + v).search('workflow soccerclub ' + argv[0]);
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>EA61B2B7-E568-4BE8-B06C-92ADE513519C</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>alticon</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>cat &lt;&lt; EOB
+{
+	"items": [{
+		"title": "Item with Icon",
+		"subtitle": "Keep an eye on the icon...",
+		"icon": {
+			"type": "fileicon",
+			"path": "/Applications/Safari.app"
+		},
+		"mods": {
+			"cmd": {
+				"subtitle": "Alternate icon!",
+				"icon": {
+					"type": "fileicon",
+					"path": "/Applications/Mail.app"
+				}
+			}
+		}
+	}]
+}
+EOB</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Test Alternate Icons</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>6900D3B4-4013-45BF-B1A1-1D0DDD2EE074</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>largetypetext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.largetype</string>
+			<key>uid</key>
+			<string>E9F32ABC-111F-4FBE-96AA-3D3051362405</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>autocomplete</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>cat &lt;&lt;EOS
+{"items":[
+	{"title":"autocomplete isn't present"},
+	{"title":"autocomplete is present, but empty","autocomplete":""}
+]}
+EOS</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>What happens on TAB?</string>
+				<key>title</key>
+				<string>Test Autocomplete Behaviour</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>104CC15A-5897-428C-8929-9CB67A7695D5</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>CBDACFA9-EE76-414F-AB8A-6C7A92E007F7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>pbres</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>pbpaste -Prefer txt</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Feed Alfred Results from Clipboard</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>9843D20C-0D29-4E08-821D-75099273DF09</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>empty</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>echo '{"items":['
+
+cat &lt;&lt;EOS
+{
+"title":"Empty arg valid?",
+"subtitle":"This item has an empty arg",
+"arg":"",
+"valid":true
+},
+{
+"title":"No arg valid?",
+"subtitle":"This item has no arg",
+"valid":false
+},
+{
+"title":"This item is not valid",
+"subtitle":"This item has an empty arg",
+"arg":"",
+"valid":false
+},
+EOS
+
+cat &lt;&lt;EOS
+{
+"title":"Empty autocomplete completes?",
+"subtitle":"This item has an empty autocomplete",
+"autocomplete":""
+},
+{
+"title":"No autocomplete completes?",
+"subtitle":"This item has no autocomplete"
+}
+EOS
+
+
+
+
+echo ']}'</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Debug Alfred 3's handling of variables etc.</string>
+				<key>title</key>
+				<string>How does Alfred treat empty/missing values?</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7D464713-4906-4827-97B2-EE96F33092B4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>overrides</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>echo '{"items":['
+
+# Subtitles
+
+cat &lt;&lt;EOS
+{
+	"title":"Empty CMD subtitle?",
+	"subtitle":"This item has an empty CMD subtitle",
+	"mods":{
+ 		"cmd":{"subtitle":""}
+	}
+},
+
+{
+	"title":"No CMD subtitle?",
+	"subtitle":"This item has no CMD subtitle",
+	"mods":{
+		"cmd":{"arg":""}
+	}
+},
+EOS
+
+
+# Args
+
+cat &lt;&lt;EOS
+{
+	"title":"Empty ALT arg?",
+	"subtitle":"This item has an empty ALT arg",
+	"valid":true,
+	"arg":"moo-cow",
+	"mods":{
+ 		"alt":{"arg":""}
+	}
+},
+
+{
+	"title":"No ALT arg?",
+	"subtitle":"This item has no ALT arg",
+	"valid":true,
+	"arg":"moo-cow",
+	"mods":{
+		"alt":{"subtitle":"This item has no ALT arg"}
+	}
+},
+EOS
+
+
+# Variables
+
+cat &lt;&lt;EOS
+{
+	"title":"Empty SHIFT variable?",
+	"subtitle":"This item has an empty SHIFT variable",
+	"valid":true,
+	"arg":"{\"alfredworkflow\":{\"arg\":\"moo-cow\",\"variables\":{\"myvar\":\"myval\"}}}",
+	"mods": {
+		"shift":{"arg":"{\"alfredworkflow\":{\"arg\":\"moo-cow\",\"variables\":{\"myvar\":\"\"}}}"}
+	}
+},
+
+{
+	"title":"Missing SHIFT variable?",
+	"subtitle":"This item has no SHIFT variables",
+	"valid":true,
+	"arg":"{\"alfredworkflow\":{\"arg\":\"moo-cow\",\"variables\":{\"myvar\":\"myval\"}}}",
+	"mods": {
+		"shift":{"arg":"moo-cow"}
+	}
+},
+
+{
+	"title":"Different SHIFT variable?",
+	"subtitle":"This item has different SHIFT variables",
+	"valid":true,
+	"arg":"{\"alfredworkflow\":{\"arg\":\"moo-cow\",\"variables\":{\"myvar\":\"myval\"}}}",
+	"mods": {
+		"shift":{"arg":"{\"alfredworkflow\":{\"arg\":\"moo-cow\",\"variables\":{\"myothervar\":\"myotherval\"}}}"}
+	}
+}
+
+EOS
+
+
+
+echo ']}'</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Debug Alfred 3's handling of variables etc.</string>
+				<key>title</key>
+				<string>What do Modifiers Override?</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>CEB83354-78C9-4A94-A11A-247A461EE1A0</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>query={query}
+variables={allvars}</string>
+				<key>cleardebuggertext</key>
+				<true/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>E04E63B7-F4EF-4645-A3EE-0F74200359A8</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>query={query}
+variables={allvars}</string>
+				<key>cleardebuggertext</key>
+				<true/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>2B567C45-6B6B-4FCE-925C-AE4546DE8738</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>cat &lt;&lt;EOS
+Line 1
+Line 2
+Line 3
+EOS</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F08F562C-BD2A-4A73-9CE4-94C802FC6306</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>argv</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>ARGV test (AppleScript)</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3B890BFA-40BA-4BE2-AD69-C2B1F4F40A5F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>E4657501-086C-40CC-A94F-F06631BD376E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run argv
+  set theQuery to item 1 of argv
+  log "query=" &amp; theQuery
+  log "PANTS=" &amp; (system attribute "PANTS")
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>6E5C9B37-FB91-4BF5-9A3D-A1D9B6E2A1E8</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>output</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Multiline Output</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>5AB7545C-85BD-4B7F-826B-8599038DB60D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>'{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>5A4F4844-18C2-49FB-8B6A-5D64AD6DDEC4</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict>
+					<key>ENVVARS</key>
+					<string>working!</string>
+					<key>home</key>
+					<string>{var:HOME}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>25957072-B13A-4F86-9950-50175E938B1F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>dict://{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>08DFA5AB-33D1-47D6-B394-B5690EB4E9A1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>1</integer>
+				<key>hotkey</key>
+				<integer>2</integer>
+				<key>hotmod</key>
+				<integer>1835008</integer>
+				<key>hotstring</key>
+				<string>D</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>D0D391C8-83A8-480D-BEC0-75AAAB9B6E81</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>animatedgif</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>cat &lt;&lt;EOS
+
+{"items":[
+	{"title":"Pig's Arse", "icon":{"type":"icon", "path":"/Users/daj/Pictures/Avatars/Pig's Arse.gif"}}
+]}
+
+EOS</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Show an item with an animated GIF icon</string>
+				<key>title</key>
+				<string>Animated GIF Test</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>976D7DBA-06F2-400E-A04F-198BB8C34958</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>time</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Fetching time…</string>
+				<key>script</key>
+				<string>t=$(date "+%H:%M:%S")
+cat &lt;&lt;EOS
+{ "items": [ {"title": "$t"} ] }
+EOS</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Show the current time</string>
+				<key>title</key>
+				<string>Current Time</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>FEF24D66-70AF-499B-A493-B41E51A6BD60</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>08DFA5AB-33D1-47D6-B394-B5690EB4E9A1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>1040</integer>
+		</dict>
+		<key>09F722E6-ACA5-4CB3-A131-6E6DE108E252</key>
+		<dict>
+			<key>xpos</key>
+			<integer>390</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+		<key>0CC45322-E88E-493F-9BA3-CE1E17C66D87</key>
+		<dict>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>230</integer>
+		</dict>
+		<key>104CC15A-5897-428C-8929-9CB67A7695D5</key>
+		<dict>
+			<key>note</key>
+			<string>Does empty autocomplete behave differently to missing autocomplete?
+
+YES!</string>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>2250F6C0-FDA1-426A-90D0-583BA131F5BD</key>
+		<dict>
+			<key>xpos</key>
+			<integer>600</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>25957072-B13A-4F86-9950-50175E938B1F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>920</integer>
+		</dict>
+		<key>2B567C45-6B6B-4FCE-925C-AE4546DE8738</key>
+		<dict>
+			<key>xpos</key>
+			<integer>570</integer>
+			<key>ypos</key>
+			<integer>730</integer>
+		</dict>
+		<key>33DD7A54-FDD3-486F-B4EB-19E272614B5E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>410</integer>
+			<key>ypos</key>
+			<integer>70</integer>
+		</dict>
+		<key>3B890BFA-40BA-4BE2-AD69-C2B1F4F40A5F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>890</integer>
+		</dict>
+		<key>4435323F-0090-491A-BD2B-3304ED0C5BDB</key>
+		<dict>
+			<key>xpos</key>
+			<integer>390</integer>
+			<key>ypos</key>
+			<integer>340</integer>
+		</dict>
+		<key>45CF4095-41DA-4A4E-A915-5FCF2AB2B747</key>
+		<dict>
+			<key>note</key>
+			<string>JavaScript to call whichever version of Alfred.</string>
+			<key>xpos</key>
+			<integer>390</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>5A4F4844-18C2-49FB-8B6A-5D64AD6DDEC4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>540</integer>
+			<key>ypos</key>
+			<integer>920</integer>
+		</dict>
+		<key>5AB7545C-85BD-4B7F-826B-8599038DB60D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>660</integer>
+			<key>ypos</key>
+			<integer>890</integer>
+		</dict>
+		<key>5E3CCB44-A1A2-40FF-8C48-24F049039260</key>
+		<dict>
+			<key>xpos</key>
+			<integer>310</integer>
+			<key>ypos</key>
+			<integer>70</integer>
+		</dict>
+		<key>6900D3B4-4013-45BF-B1A1-1D0DDD2EE074</key>
+		<dict>
+			<key>note</key>
+			<string>Can mods set a different icon?
+
+NO!</string>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>6B9FC014-E149-4BE7-93EA-5335C7D8C717</key>
+		<dict>
+			<key>xpos</key>
+			<integer>290</integer>
+			<key>ypos</key>
+			<integer>230</integer>
+		</dict>
+		<key>6E5C9B37-FB91-4BF5-9A3D-A1D9B6E2A1E8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>890</integer>
+		</dict>
+		<key>6E6567EB-838D-4F3C-9D02-98AF66BCC0EB</key>
+		<dict>
+			<key>note</key>
+			<string>Simple test of workflow variables</string>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>7D464713-4906-4827-97B2-EE96F33092B4</key>
+		<dict>
+			<key>note</key>
+			<string>How does Alfred handle missing vs empty values?</string>
+			<key>xpos</key>
+			<integer>670</integer>
+			<key>ypos</key>
+			<integer>700</integer>
+		</dict>
+		<key>839E233E-4178-46C4-9A62-4DF7CCD49E77</key>
+		<dict>
+			<key>xpos</key>
+			<integer>510</integer>
+			<key>ypos</key>
+			<integer>70</integer>
+		</dict>
+		<key>854C8139-E4E5-4C72-8E21-3205A3C7B5FA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>590</integer>
+			<key>ypos</key>
+			<integer>370</integer>
+		</dict>
+		<key>976D7DBA-06F2-400E-A04F-198BB8C34958</key>
+		<dict>
+			<key>xpos</key>
+			<integer>370</integer>
+			<key>ypos</key>
+			<integer>1040</integer>
+		</dict>
+		<key>9843D20C-0D29-4E08-821D-75099273DF09</key>
+		<dict>
+			<key>note</key>
+			<string>`cat` contents of clipboard to Alfred as results JSON</string>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>700</integer>
+		</dict>
+		<key>AC1AAB30-9607-4DC2-B2F3-D6B3357206F6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>580</integer>
+			<key>ypos</key>
+			<integer>230</integer>
+		</dict>
+		<key>AFEE83C3-A7FB-4E69-8FF7-EBE17C3CB596</key>
+		<dict>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>70</integer>
+		</dict>
+		<key>CBDACFA9-EE76-414F-AB8A-6C7A92E007F7</key>
+		<dict>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>700</integer>
+		</dict>
+		<key>CEB83354-78C9-4A94-A11A-247A461EE1A0</key>
+		<dict>
+			<key>note</key>
+			<string>What default Item values does "mod" override?</string>
+			<key>xpos</key>
+			<integer>390</integer>
+			<key>ypos</key>
+			<integer>700</integer>
+		</dict>
+		<key>D0D391C8-83A8-480D-BEC0-75AAAB9B6E81</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>1040</integer>
+		</dict>
+		<key>E04E63B7-F4EF-4645-A3EE-0F74200359A8</key>
+		<dict>
+			<key>xpos</key>
+			<integer>850</integer>
+			<key>ypos</key>
+			<integer>730</integer>
+		</dict>
+		<key>E4657501-086C-40CC-A94F-F06631BD376E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>1000</integer>
+			<key>ypos</key>
+			<integer>890</integer>
+		</dict>
+		<key>E7DC9E3F-4E68-4964-8FE7-BB7F6A307E22</key>
+		<dict>
+			<key>note</key>
+			<string>Is it possible to use variables with Run NSAppleScript and /usr/bin/osascript?</string>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+		<key>E9F32ABC-111F-4FBE-96AA-3D3051362405</key>
+		<dict>
+			<key>xpos</key>
+			<integer>760</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>EA61B2B7-E568-4BE8-B06C-92ADE513519C</key>
+		<dict>
+			<key>note</key>
+			<string>Extract Alfred's major version number from envvar and call the appropriate version of Alfred.</string>
+			<key>xpos</key>
+			<integer>580</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
+		<key>F08F562C-BD2A-4A73-9CE4-94C802FC6306</key>
+		<dict>
+			<key>xpos</key>
+			<integer>830</integer>
+			<key>ypos</key>
+			<integer>890</integer>
+		</dict>
+		<key>FEF24D66-70AF-499B-A493-B41E51A6BD60</key>
+		<dict>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>1180</integer>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<dict>
+		<key>PANTS</key>
+		<string>up</string>
+	</dict>
+	<key>version</key>
+	<string></string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>

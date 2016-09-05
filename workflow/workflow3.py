@@ -18,7 +18,9 @@ It supports setting :ref:`workflow-variables` and
 In order for the feedback mechanism to work correctly, it's important
 to create :class:`Item3` and :class:`Modifier` objects via the
 :meth:`Workflow3.add_item()` and :meth:`Item3.add_modifier()` methods
-respectively.
+respectively. If you instantiate :class:`Item3` or :class:`Modifier`
+objects directly, the current :class:`~workflow.workflow3.Workflow3`
+won't know anything about them, and they won't be sent to Alfred.
 """
 
 from __future__ import print_function, unicode_literals, absolute_import
@@ -94,7 +96,7 @@ class Modifier(object):
 
     @property
     def obj(self):
-        """Return modifier for Alfred 3 feedback JSON.
+        """Return modifier formatted for JSON serialization for Alfred 3.
 
         Returns:
             dict: Modifier for serializing to JSON.
@@ -130,7 +132,7 @@ class Modifier(object):
 class Item3(object):
     """Represents a feedback item for Alfred 3.
 
-    Generates Alfred-compliant XML for a single item.
+    Generates Alfred-compliant JSON for a single item.
 
     You probably shouldn't use this class directly, but via
     :meth:`Workflow3.add_item`. See :meth:`~Workflow3.add_item`
@@ -146,7 +148,6 @@ class Item3(object):
         Argument ``subtitle_modifiers`` is not supported.
 
         """
-
         self.title = title
         self.subtitle = subtitle
         self.arg = arg

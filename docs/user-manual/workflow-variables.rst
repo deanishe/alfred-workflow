@@ -41,7 +41,7 @@ a clean and powerful idiom.
 Click allows you to set a prefix, e.g. ``WF_``, and it will then automatically
 map matching environment variables to corresponding command-line options, e.g.
 ``WF_USERNAME=deanishe`` is equivalent to ``--username=deanishe`` and
-``wF_DEBUG=1`` is equivalent to ``--debug``.
+``WF_DEBUG=1`` is equivalent to ``--debug``.
 
 Let's say we're using a client program for some imaginary social whatnot that
 works like this::
@@ -53,6 +53,19 @@ You could control this program from a Script Filter as follows. This assumes
 you would connect the Script Filter to three Run Script Actions, one for
 each of ``profile``, ``pages`` and ``friends``, and with a Filter Utility
 before each Run Script that checks for ``pages == 1``, ``profile == 1`` etc.
+
+The Run Script action behind the ``pages == 1`` Filter Utility might then
+read:
+
+.. code-block:: bash
+    /usr/bin/python myscript.py pages
+
+The other options (``--view``, ``--edit``, ``--share``) are set via the
+corresponding environment variables (``WF_VIEW``, ``WF_EDIT`` and ``WF_SHARE``
+respectively).
+
+The salient part of the Script Filter driving the workflow might look
+like this:
 
 .. code-block:: python
     :linenos:
@@ -72,38 +85,49 @@ before each Run Script that checks for ``pages == 1``, ``profile == 1`` etc.
     # Profile
     it = wf.add_item('Profile', 'View profile', arg='profile', valid=True)
     # Inherited by all modifiers
-    it.setvalue('profile', '1')
+    it.setvar('profile', '1')
 
     mod = it.add_modifier('cmd', 'Edit profile')
-    # Set only on mod
-    mod.setvalue('WF_EDIT', '1')
+    # Set only on mod. Equivalent to option --edit
+    mod.setvar('WF_EDIT', '1')
 
     mod = it.add_modifier('alt', 'Share profile')
-    # Set only on mod
-    mod.setvalue('WF_SHARE', '1')
+    # Set only on mod. Equivalent to option --share
+    mod.setvar('WF_SHARE', '1')
 
-    # Set after modifier creation, so only set on item
-    it.setvalue('WF_VIEW', '1')
+    # Set after modifier creation, so only set on item, and is thus the default
+    # Equivalent to option --view
+    it.setvar('WF_VIEW', '1')
 
     # Pages
     it = wf.add_item('Pages', 'View pages', arg='pages', valid=True)
     # Inherited by all modifiers
-    it.setvalue('pages', '1')
+    it.setvar('pages', '1')
 
     mod = it.add_modifier('cmd', 'Edit pages')
-    # Set only on mod
-    mod.setvalue('WF_EDIT', '1')
+    # Set only on mod. Equivalent to option --edit
+    mod.setvar('WF_EDIT', '1')
 
     mod = it.add_modifier('alt', 'Share pages')
-    # Set only on mod
-    mod.setvalue('WF_SHARE', '1')
+    # Set only on mod. Equivalent to option --share
+    mod.setvar('WF_SHARE', '1')
 
-    # Set after modifier creation, so only set on item
-    it.setvalue('WF_VIEW', '1')
+    # Set after modifier creation, so only set on item, and is thus the default
+    # Equivalent to option --view
+    it.setvar('WF_VIEW', '1')
 
     # Repeat for Friends
     # ...
     # ...
+
+
+.. tip::
+    While you could also replace the ``(view|edit|friends)`` commands with
+    a ``--command (view|edit|friends)`` option and drive the whole workflow
+    via environment/workflow variables, I'd advise against going too far in
+    that direction (e.g. having a single Script Filter connected to a single
+    Run Action containing an option-less command), as it could make your
+    workflow very hard to follow for people wanting to hack on it.
 
 
 More information

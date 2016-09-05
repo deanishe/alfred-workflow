@@ -63,7 +63,7 @@ def tearDown():
 
 
 class SerializerTests(unittest.TestCase):
-    """Test workflow.manager serialisation API"""
+    """Test workflow.manager serialisation API."""
 
     def setUp(self):
         self.serializers = ['json', 'cpickle', 'pickle']
@@ -79,14 +79,14 @@ class SerializerTests(unittest.TestCase):
         self.assertTrue(hasattr(obj, 'dump'))
 
     def test_default_serializers(self):
-        """Default serializers"""
+        """Default serializers."""
         for name in self.serializers:
             self._is_serializer(manager.serializer(name))
 
         self.assertEqual(set(self.serializers), set(manager.serializers))
 
     def test_serialization(self):
-        """Dump/load data"""
+        """Dump/load data."""
         data = {'arg1': 'value1', 'arg2': 'value2'}
 
         for name in self.serializers:
@@ -107,7 +107,7 @@ class SerializerTests(unittest.TestCase):
             os.unlink(path)
 
     def test_register_unregister(self):
-        """Register/unregister serializers"""
+        """Register/unregister serializers."""
         serializers = {}
         for name in self.serializers:
             serializer = manager.serializer(name)
@@ -129,9 +129,9 @@ class SerializerTests(unittest.TestCase):
             manager.register(name, serializer)
 
     def test_register_invalid(self):
-        """Register invalid serializer"""
+        """Register invalid serializer."""
         class Thing(object):
-            """Bad serializer"""
+            """Bad serializer."""
             pass
         invalid1 = Thing()
         invalid2 = Thing()
@@ -142,7 +142,7 @@ class SerializerTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
-    """Test suite for workflow.workflow.Workflow"""
+    """Test suite for workflow.workflow.Workflow."""
 
     def setUp(self):
         self.libs = [os.path.join(os.path.dirname(__file__), b'lib')]
@@ -375,10 +375,10 @@ class WorkflowTests(unittest.TestCase):
         # delete_info_plist()
         self._teardown_env()
         with InfoPlist(present=False):
-            # wf = Workflow()
+            wf = Workflow()
             self.assertFalse(os.path.exists(INFO_PLIST_PATH))
             # self.assertRaises(IOError, lambda wf: wf.info, wf)
-            self.assertRaises(IOError, Workflow)
+            self.assertRaises(IOError, lambda: wf.workflowdir)
         # try:
         #     self.assertRaises(IOError, Workflow)
         # finally:

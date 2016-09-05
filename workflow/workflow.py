@@ -964,6 +964,7 @@ class Settings(dict):
     """
 
     def __init__(self, filepath, defaults=None):
+        """Create new :class:`Settings` object."""
 
         super(Settings, self).__init__()
         self._filepath = filepath
@@ -977,8 +978,7 @@ class Settings(dict):
             self.save()  # save default settings
 
     def _load(self):
-        """Load cached settings from JSON file `self._filepath`"""
-
+        """Load cached settings from JSON file `self._filepath`."""
         self._nosave = True
         d = {}
         with open(self._filepath, 'rb') as file_obj:
@@ -990,7 +990,7 @@ class Settings(dict):
 
     @uninterruptible
     def save(self):
-        """Save settings to JSON file specified in ``self._filepath``
+        """Save settings to JSON file specified in ``self._filepath``.
 
         If you're using this class via :attr:`Workflow.settings`, which
         you probably are, ``self._filepath`` will be ``settings.json``
@@ -1074,7 +1074,7 @@ class Workflow(object):
                  input_encoding='utf-8', normalization='NFC',
                  capture_args=True, libraries=None,
                  help_url=None):
-
+        """Create new :class:`Workflow` object."""
         self._default_settings = default_settings or {}
         self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
@@ -1127,6 +1127,7 @@ class Workflow(object):
 
     @property
     def alfred_version(self):
+        """Alfred version as :class:`~workflow.update.Version` object."""
         from update import Version
         return Version(self.alfred_env.get('version'))
 
@@ -1173,7 +1174,6 @@ class Workflow(object):
             ``alfred_`` prefix, e.g. ``preferences``, ``workflow_data``.
 
         """
-
         if self._alfred_env is not None:
             return self._alfred_env
 
@@ -1222,7 +1222,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not self._bundleid:
             if self.alfred_env.get('workflow_bundleid'):
                 self._bundleid = self.alfred_env.get('workflow_bundleid')
@@ -1239,7 +1238,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not self._name:
             if self.alfred_env.get('workflow_name'):
                 self._name = self.decode(self.alfred_env.get('workflow_name'))
@@ -1264,7 +1262,6 @@ class Workflow(object):
         :rtype: :class:`~workflow.update.Version` object
 
         """
-
         if self._version is UNSET:
 
             version = None
@@ -1308,7 +1305,6 @@ class Workflow(object):
         See :ref:`Magic arguments <magic-arguments>` for details.
 
         """
-
         msg = None
         args = [self.decode(arg) for arg in sys.argv[1:]]
 
@@ -1331,16 +1327,17 @@ class Workflow(object):
     def cachedir(self):
         """Path to workflow's cache directory.
 
-        The cache directory is a subdirectory of Alfred's own cache directory in
-        ``~/Library/Caches``. The full path is:
+        The cache directory is a subdirectory of Alfred's own cache directory
+        in ``~/Library/Caches``. The full path is:
 
-        ``~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/<bundle id>``
+        ``~/Library/Caches/com.runningwithcrayons.Alfred-X/Workflow Data/<bundle id>``
+
+        ``Alfred-X`` may be ``Alfred-2`` or ``Alfred-3``.
 
         :returns: full path to workflow's cache directory
         :rtype: ``unicode``
 
         """
-
         if self.alfred_env.get('workflow_cache'):
             dirpath = self.alfred_env.get('workflow_cache')
 
@@ -1371,7 +1368,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if self.alfred_env.get('workflow_data'):
             dirpath = self.alfred_env.get('workflow_data')
 
@@ -1395,7 +1391,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not self._workflowdir:
             # Try the working directory first, then the directory
             # the library is in. CWD will be the workflow root if
@@ -1441,7 +1436,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
@@ -1454,12 +1448,10 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         return os.path.join(self.datadir, filename)
 
     def workflowfile(self, filename):
-        """Return full path to ``filename`` in workflow's root dir
-        (where ``info.plist`` is).
+        """Return full path to ``filename`` in workflow's root directory.
 
         :param filename: basename of file
         :type filename: ``unicode``
@@ -1467,24 +1459,21 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         return os.path.join(self.workflowdir, filename)
 
     @property
     def logfile(self):
-        """Return path to logfile
+        """Return path to logfile.
 
         :returns: path to logfile within workflow's cache directory
         :rtype: ``unicode``
 
         """
-
         return self.cachefile('%s.log' % self.bundleid)
 
     @property
     def logger(self):
-        """Create and return a logger that logs to both console and
-        a log file.
+        """Create and return a logger that logs to both console and a log file.
 
         Use :meth:`open_log` to open the log file in Console.
 
@@ -1538,7 +1527,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not self._settings_path:
             self._settings_path = self.datafile('settings.json')
         return self._settings_path
@@ -1559,7 +1547,6 @@ class Workflow(object):
         :rtype: :class:`~workflow.workflow.Settings` instance
 
         """
-
         if not self._settings:
             self.logger.debug('Reading settings from `{0}` ...'.format(
                               self.settings_path))
@@ -1602,7 +1589,6 @@ class Workflow(object):
         :type serializer_name:
 
         """
-
         if manager.serializer(serializer_name) is None:
             raise ValueError(
                 'Unknown serializer : `{0}`. Register your serializer '
@@ -1667,7 +1653,6 @@ class Workflow(object):
         :param name: name of datastore
 
         """
-
         metadata_path = self.datafile('.{0}.alfred-workflow'.format(name))
 
         if not os.path.exists(metadata_path):
@@ -1723,7 +1708,6 @@ class Workflow(object):
         :returns: data in datastore or ``None``
 
         """
-
         # Ensure deletion is not interrupted by SIGTERM
         @uninterruptible
         def delete_paths(paths):
@@ -1787,7 +1771,6 @@ class Workflow(object):
             if ``data_func`` is not set
 
         """
-
         serializer = manager.serializer(self.cache_serializer)
 
         cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
@@ -1819,7 +1802,6 @@ class Workflow(object):
                 the cache serializer
 
         """
-
         serializer = manager.serializer(self.cache_serializer)
 
         cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
@@ -1845,7 +1827,6 @@ class Workflow(object):
             ``False``
 
         """
-
         age = self.cached_data_age(name)
 
         if not age:
@@ -1854,8 +1835,7 @@ class Workflow(object):
         return age < max_age
 
     def cached_data_age(self, name):
-        """Return age of data cached at `name` in seconds or 0 if
-        cache doesn't exist
+        """Return age in seconds of data cached at `name` or 0 if cache doesn't exist.
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -1863,7 +1843,6 @@ class Workflow(object):
         :rtype: ``int``
 
         """
-
         cache_path = self.cachefile('%s.%s' % (name, self.cache_serializer))
 
         if not os.path.exists(cache_path):
@@ -1924,7 +1903,7 @@ class Workflow(object):
         2. :const:`MATCH_CAPITALS` : The list of capital letters in item
             search key starts with ``query`` (``query`` may be
             lower-case). E.g., ``of`` would match ``OmniFocus``,
-            ``gc`` would match ``Google Chrome``
+            ``gc`` would match ``Google Chrome``.
         3. :const:`MATCH_ATOM` : Search key is split into "atoms" on
             non-word characters (.,-,' etc.). Matches if ``query`` is
             one of these atoms (case-insensitive).
@@ -1970,7 +1949,6 @@ class Workflow(object):
         altered.
 
         """
-
         if not query:
             raise ValueError('Empty `query`')
 
@@ -2382,14 +2360,13 @@ class Workflow(object):
 
     @property
     def prereleases(self):
-        """Should the workflow update to a newer pre-release version if
-        available?
+        """Should workflow update to newer pre-release version if available?
 
         .. versionadded:: 1.16
 
         :returns: ``True`` if pre-releases are enabled with the :ref:`magic
-        argument <magic-arguments>` or the ``update_settings`` dict, else
-        ``False``
+            argument <magic-arguments>` or the ``update_settings`` dict, else
+            ``False``.
 
         """
         if self._update_settings.get('prereleases'):

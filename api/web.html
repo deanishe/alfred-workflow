@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.18 documentation</title>
+    <title>Fetching Data from the Web &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.18',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.18 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Background Tasks" href="background.html" />
     <link rel="prev" title="The Workflow3 class for Alfred 3" href="workflow3.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="workflow3.html" title="The Workflow3 class for Alfred 3"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.18 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -197,7 +197,7 @@ will be used.</li>
 <dt id="workflow.web.Response">
 <em class="property">class </em><code class="descclassname">workflow.web.</code><code class="descname">Response</code><span class="sig-paren">(</span><em>request</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returned by <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><code class="xref py py-func docutils literal"><span class="pre">request()</span></code></a> / <a class="reference internal" href="#workflow.web.get" title="workflow.web.get"><code class="xref py py-func docutils literal"><span class="pre">get()</span></code></a> / <a class="reference internal" href="#workflow.web.post" title="workflow.web.post"><code class="xref py py-func docutils literal"><span class="pre">post()</span></code></a> functions.</p>
-<p>A simplified version of the <code class="docutils literal"><span class="pre">Response</span></code> object in the <code class="docutils literal"><span class="pre">requests</span></code> library.</p>
+<p>Simplified version of the <code class="docutils literal"><span class="pre">Response</span></code> object in the <code class="docutils literal"><span class="pre">requests</span></code> library.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
 <span class="go">200</span>
@@ -213,7 +213,7 @@ will be used.</li>
 <dl class="attribute">
 <dt id="workflow.web.Response.content">
 <code class="descname">content</code><a class="headerlink" href="#workflow.web.Response.content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raw content of response (i.e. bytes)</p>
+<dd><p>Raw content of response (i.e. bytes).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -229,7 +229,7 @@ will be used.</li>
 <dl class="attribute">
 <dt id="workflow.web.Response.encoding">
 <code class="descname">encoding</code><a class="headerlink" href="#workflow.web.Response.encoding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Text encoding of document or <code class="docutils literal"><span class="pre">None</span></code></p>
+<dd><p>Text encoding of document or <code class="docutils literal"><span class="pre">None</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -290,12 +290,28 @@ will be used.</li>
 <dl class="method">
 <dt id="workflow.web.Response.save_to_path">
 <code class="descname">save_to_path</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.Response.save_to_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save retrieved data to file at <code class="docutils literal"><span class="pre">filepath</span></code></p>
+<dd><p>Save retrieved data to file at <code class="docutils literal"><span class="pre">filepath</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> &#8211; Path to save retrieved data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.web.Response.stream">
+<code class="descname">stream</code><a class="headerlink" href="#workflow.web.Response.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether response is streamed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>True</cite> if response is streamed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></td>
 </tr>
 </tbody>
 </table>

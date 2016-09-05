@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.18 documentation</title>
+    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.18',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.18 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Fetching Data from the Web" href="web.html" />
     <link rel="prev" title="The Workflow class for Alfred 2 and 3" href="workflow.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="workflow.html" title="The Workflow class for Alfred 2 and 3"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.18 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,14 +69,16 @@
             
   <div class="section" id="module-workflow3">
 <span id="the-workflow3-class-for-alfred-3"></span><span id="workflow3"></span><h1>The Workflow3 class for Alfred 3<a class="headerlink" href="#module-workflow3" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-workflow.workflow3"></span><p><a class="reference internal" href="#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> is an Alfred 3-only version of
-<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<span class="target" id="module-workflow.workflow3"></span><p><a class="reference internal" href="#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> supports Alfred 3&#8217;s new features.</p>
+<p>It is an Alfred 3-only version of <a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
 <p>It supports setting <a class="reference internal" href="../user-manual/workflow-variables.html#workflow-variables"><span>Workflow variables</span></a> and
 <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">the</span> <span class="pre">more</span> <span class="pre">advanced</span> <span class="pre">modifiers</span></code></a> supported by Alfred 3.</p>
 <p>In order for the feedback mechanism to work correctly, it&#8217;s important
 to create <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> objects via the
 <a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a> methods
-respectively.</p>
+respectively. If you instantiate <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> or <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
+objects directly, the current <a class="reference internal" href="#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a>
+won&#8217;t know anything about them, and they won&#8217;t be sent to Alfred.</p>
 <dl class="class">
 <dt id="workflow.workflow3.Workflow3">
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Workflow3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3" title="Permalink to this definition">¶</a></dt>
@@ -159,7 +161,7 @@ method instead on the returned item instead.</p>
 <dt id="workflow.workflow3.Item3">
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Item3</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a feedback item for Alfred 3.</p>
-<p>Generates Alfred-compliant XML for a single item.</p>
+<p>Generates Alfred-compliant JSON for a single item.</p>
 <p>You probably shouldn&#8217;t use this class directly, but via
 <a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a>. See <a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">add_item()</span></code></a>
 for details of arguments.</p>
@@ -319,7 +321,7 @@ for details of arguments.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.obj">
 <code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Modifier.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return modifier for Alfred 3 feedback JSON.</p>
+<dd><p>Return modifier formatted for JSON serialization for Alfred 3.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

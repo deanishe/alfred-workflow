@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow variables &mdash; Alfred-Workflow 1.18 documentation</title>
+    <title>Workflow variables &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.18',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.18 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Serialization of stored/cached data" href="serialization.html" />
     <link rel="prev" title="“Magic” arguments" href="magic-arguments.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="magic-arguments.html" title="“Magic” arguments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.18 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -95,7 +95,7 @@ a clean and powerful idiom.</p>
 <p>Click allows you to set a prefix, e.g. <code class="docutils literal"><span class="pre">WF_</span></code>, and it will then automatically
 map matching environment variables to corresponding command-line options, e.g.
 <code class="docutils literal"><span class="pre">WF_USERNAME=deanishe</span></code> is equivalent to <code class="docutils literal"><span class="pre">--username=deanishe</span></code> and
-<code class="docutils literal"><span class="pre">wF_DEBUG=1</span></code> is equivalent to <code class="docutils literal"><span class="pre">--debug</span></code>.</p>
+<code class="docutils literal"><span class="pre">WF_DEBUG=1</span></code> is equivalent to <code class="docutils literal"><span class="pre">--debug</span></code>.</p>
 <p>Let&#8217;s say we&#8217;re using a client program for some imaginary social whatnot that
 works like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>prog [--username=&lt;name&gt;] (profile|pages|friends) (--view|--edit|--share)
@@ -105,6 +105,13 @@ works like this:</p>
 you would connect the Script Filter to three Run Script Actions, one for
 each of <code class="docutils literal"><span class="pre">profile</span></code>, <code class="docutils literal"><span class="pre">pages</span></code> and <code class="docutils literal"><span class="pre">friends</span></code>, and with a Filter Utility
 before each Run Script that checks for <code class="docutils literal"><span class="pre">pages</span> <span class="pre">==</span> <span class="pre">1</span></code>, <code class="docutils literal"><span class="pre">profile</span> <span class="pre">==</span> <span class="pre">1</span></code> etc.</p>
+<p>The Run Script action behind the <code class="docutils literal"><span class="pre">pages</span> <span class="pre">==</span> <span class="pre">1</span></code> Filter Utility might then
+read:</p>
+<p>The other options (<code class="docutils literal"><span class="pre">--view</span></code>, <code class="docutils literal"><span class="pre">--edit</span></code>, <code class="docutils literal"><span class="pre">--share</span></code>) are set via the
+corresponding environment variables (<code class="docutils literal"><span class="pre">WF_VIEW</span></code>, <code class="docutils literal"><span class="pre">WF_EDIT</span></code> and <code class="docutils literal"><span class="pre">WF_SHARE</span></code>
+respectively).</p>
+<p>The salient part of the Script Filter driving the workflow might look
+like this:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -151,7 +158,9 @@ before each Run Script that checks for <code class="docutils literal"><span clas
 44
 45
 46
-47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow3</span>
+47
+48
+49</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow3</span>
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow3</span><span class="p">()</span>
 
 <span class="c1"># Username will be needed in every case. Set at the workflow level</span>
@@ -166,40 +175,51 @@ before each Run Script that checks for <code class="docutils literal"><span clas
 <span class="c1"># Profile</span>
 <span class="n">it</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Profile&#39;</span><span class="p">,</span> <span class="s1">&#39;View profile&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># Inherited by all modifiers</span>
-<span class="n">it</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">it</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">add_modifier</span><span class="p">(</span><span class="s1">&#39;cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit profile&#39;</span><span class="p">)</span>
-<span class="c1"># Set only on mod</span>
-<span class="n">mod</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set only on mod. Equivalent to option --edit</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">add_modifier</span><span class="p">(</span><span class="s1">&#39;alt&#39;</span><span class="p">,</span> <span class="s1">&#39;Share profile&#39;</span><span class="p">)</span>
-<span class="c1"># Set only on mod</span>
-<span class="n">mod</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_SHARE&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set only on mod. Equivalent to option --share</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_SHARE&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
-<span class="c1"># Set after modifier creation, so only set on item</span>
-<span class="n">it</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_VIEW&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set after modifier creation, so only set on item, and is thus the default</span>
+<span class="c1"># Equivalent to option --view</span>
+<span class="n">it</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_VIEW&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="c1"># Pages</span>
 <span class="n">it</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Pages&#39;</span><span class="p">,</span> <span class="s1">&#39;View pages&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="s1">&#39;pages&#39;</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># Inherited by all modifiers</span>
-<span class="n">it</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">it</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">add_modifier</span><span class="p">(</span><span class="s1">&#39;cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit pages&#39;</span><span class="p">)</span>
-<span class="c1"># Set only on mod</span>
-<span class="n">mod</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set only on mod. Equivalent to option --edit</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">add_modifier</span><span class="p">(</span><span class="s1">&#39;alt&#39;</span><span class="p">,</span> <span class="s1">&#39;Share pages&#39;</span><span class="p">)</span>
-<span class="c1"># Set only on mod</span>
-<span class="n">mod</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_SHARE&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set only on mod. Equivalent to option --share</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_SHARE&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
-<span class="c1"># Set after modifier creation, so only set on item</span>
-<span class="n">it</span><span class="o">.</span><span class="n">setvalue</span><span class="p">(</span><span class="s1">&#39;WF_VIEW&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="c1"># Set after modifier creation, so only set on item, and is thus the default</span>
+<span class="c1"># Equivalent to option --view</span>
+<span class="n">it</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_VIEW&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
 
 <span class="c1"># Repeat for Friends</span>
 <span class="c1"># ...</span>
 <span class="c1"># ...</span>
 </pre></div>
 </td></tr></table></div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">While you could also replace the <code class="docutils literal"><span class="pre">(view|edit|friends)</span></code> commands with
+a <code class="docutils literal"><span class="pre">--command</span> <span class="pre">(view|edit|friends)</span></code> option and drive the whole workflow
+via environment/workflow variables, I&#8217;d advise against going too far in
+that direction (e.g. having a single Script Filter connected to a single
+Run Action containing an option-less command), as it could make your
+workflow very hard to follow for people wanting to hack on it.</p>
+</div>
 </div>
 <div class="section" id="more-information">
 <h2>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>

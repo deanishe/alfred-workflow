@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.18 documentation</title>
+    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.18',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.18 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="The Workflow3 class for Alfred 3" href="workflow3.html" />
     <link rel="prev" title="API Documentation" href="index.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="index.html" title="API Documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.18 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -306,6 +306,12 @@ format <code class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></co
 </dd></dl>
 
 <dl class="attribute">
+<dt id="workflow.workflow.Workflow.alfred_version">
+<code class="descname">alfred_version</code><a class="headerlink" href="#workflow.workflow.Workflow.alfred_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alfred version as <a class="reference internal" href="update.html#workflow.update.Version" title="workflow.update.Version"><code class="xref py py-class docutils literal"><span class="pre">Version</span></code></a> object.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="workflow.workflow.Workflow.args">
 <code class="descname">args</code><a class="headerlink" href="#workflow.workflow.Workflow.args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return command line args as normalised unicode.</p>
@@ -407,8 +413,7 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data_age">
 <code class="descname">cached_data_age</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.cached_data_age" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return age of data cached at <cite>name</cite> in seconds or 0 if
-cache doesn&#8217;t exist</p>
+<dd><p>Return age in seconds of data cached at <cite>name</cite> or 0 if cache doesn&#8217;t exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -449,9 +454,10 @@ cache doesn&#8217;t exist</p>
 <dt id="workflow.workflow.Workflow.cachedir">
 <code class="descname">cachedir</code><a class="headerlink" href="#workflow.workflow.Workflow.cachedir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to workflow&#8217;s cache directory.</p>
-<p>The cache directory is a subdirectory of Alfred&#8217;s own cache directory in
-<code class="docutils literal"><span class="pre">~/Library/Caches</span></code>. The full path is:</p>
-<p><code class="docutils literal"><span class="pre">~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></code></p>
+<p>The cache directory is a subdirectory of Alfred&#8217;s own cache directory
+in <code class="docutils literal"><span class="pre">~/Library/Caches</span></code>. The full path is:</p>
+<p><code class="docutils literal"><span class="pre">~/Library/Caches/com.runningwithcrayons.Alfred-X/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></code></p>
+<p><code class="docutils literal"><span class="pre">Alfred-X</span></code> may be <code class="docutils literal"><span class="pre">Alfred-2</span></code> or <code class="docutils literal"><span class="pre">Alfred-3</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -742,7 +748,7 @@ characters if <code class="docutils literal"><span class="pre">query</span></cod
 <dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">The list of capital letters in item</span></dt>
 <dd><p class="first last">search key starts with <code class="docutils literal"><span class="pre">query</span></code> (<code class="docutils literal"><span class="pre">query</span></code> may be
 lower-case). E.g., <code class="docutils literal"><span class="pre">of</span></code> would match <code class="docutils literal"><span class="pre">OmniFocus</span></code>,
-<code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code></p>
+<code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code>.</p>
 </dd>
 </dl>
 </li>
@@ -900,7 +906,7 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.logfile">
 <code class="descname">logfile</code><a class="headerlink" href="#workflow.workflow.Workflow.logfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return path to logfile</p>
+<dd><p>Return path to logfile.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -916,8 +922,7 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.logger">
 <code class="descname">logger</code><a class="headerlink" href="#workflow.workflow.Workflow.logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return a logger that logs to both console and
-a log file.</p>
+<dd><p>Create and return a logger that logs to both console and a log file.</p>
 <p>Use <a class="reference internal" href="#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><code class="xref py py-meth docutils literal"><span class="pre">open_log()</span></code></a> to open the log file in Console.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1005,8 +1010,7 @@ application (usually Console.app).</p>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.prereleases">
 <code class="descname">prereleases</code><a class="headerlink" href="#workflow.workflow.Workflow.prereleases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Should the workflow update to a newer pre-release version if
-available?</p>
+<dd><p>Should workflow update to newer pre-release version if available?</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.16.</span></p>
 </div>
@@ -1014,12 +1018,12 @@ available?</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if pre-releases are enabled with the :ref:<a href="#id3"><span class="problematic" id="id4">`</span></a>magic</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if pre-releases are enabled with the <a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><span>magic
+argument</span></a> or the <code class="docutils literal"><span class="pre">update_settings</span></code> dict, else
+<code class="docutils literal"><span class="pre">False</span></code>.</td>
 </tr>
 </tbody>
 </table>
-<p>argument &lt;magic-arguments&gt;` or the <code class="docutils literal"><span class="pre">update_settings</span></code> dict, else
-<code class="docutils literal"><span class="pre">False</span></code></p>
 </dd></dl>
 
 <dl class="method">
@@ -1269,8 +1273,7 @@ semantic).</p>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.workflowfile">
 <code class="descname">workflowfile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.workflowfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow&#8217;s root dir
-(where <code class="docutils literal"><span class="pre">info.plist</span></code> is).</p>
+<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow&#8217;s root directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

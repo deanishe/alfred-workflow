@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview &mdash; Alfred-Workflow 1.17 documentation</title>
+    <title>Overview &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.17',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.17 documentation" href="#" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="#" />
     <link rel="next" title="Supported software" href="supported-versions.html" />
 
    
@@ -52,7 +52,7 @@
         <li class="right" >
           <a href="supported-versions.html" title="Supported software"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Alfred-Workflow 1.17 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">Alfred-Workflow 1.19 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -68,14 +68,13 @@
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Latest Version" src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat" /></a>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Development Status" src="https://img.shields.io/pypi/status/Alfred-Workflow.svg?style=flat" /></a>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/Alfred-Workflow.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Downloads" src="https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat" /></a>
 <p>Go to <a class="reference internal" href="quickindex.html#quickindex"><span>Quick Index</span></a>.</p>
-<p>Alfred-Workflow is a Python helper library for <a class="reference external" href="https://www.alfredapp.com/">Alfred 2</a> workflow authors,
-developed and hosted on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/">GitHub</a>.</p>
+<p>Alfred-Workflow is a Python helper library for <a class="reference external" href="https://www.alfredapp.com/">Alfred 2 and 3</a> workflow
+authors, developed and hosted on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/">GitHub</a>.</p>
 <p>Alfred workflows typically take user input, fetch data from the Web or
-elsewhere, filter them and display results to the user. Alfred-Workflow
-takes care of a lot of the details for you, allowing you to concentrate your
-efforts on your workflow&#8217;s functionality.</p>
+elsewhere, filter them and display results to the user. Alfred-Workflow takes
+care of a lot of the details for you, allowing you to concentrate your efforts
+on your workflow&#8217;s functionality.</p>
 <p>Alfred-Workflow supports OS X 10.6+ (Python 2.6 and 2.7).</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
@@ -97,9 +96,17 @@ passwords, API keys etc.</li>
 <li>Easily launch <a class="reference internal" href="user-manual/background.html#background-processes"><span>background tasks</span></a> (daemons) to
 keep your workflow responsive</li>
 <li><a class="reference internal" href="user-manual/update.html#manual-updates"><span>Check for and install new workflow versions</span></a> using
-GitHub releases.</li>
-<li><a class="reference internal" href="user-manual/notifications.html#notifications"><span>Post notifications</span></a> with Notification Center (10.8+ only).</li>
+GitHub releases</li>
+<li><a class="reference internal" href="user-manual/notifications.html#notifications"><span>Post notifications</span></a> with Notification Center (10.8+ only)</li>
 </ul>
+<div class="section" id="alfred-3-only-features">
+<h3>Alfred 3-only features<a class="headerlink" href="#alfred-3-only-features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Set <a class="reference internal" href="user-manual/workflow-variables.html#workflow-variables"><span>workflows variables</span></a> from code</li>
+<li>Advanced modifiers</li>
+<li>Alfred 3-only updates (won&#8217;t break Alfred 2 installs)</li>
+</ul>
+</div>
 </div>
 <div class="section" id="quick-example">
 <h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
@@ -125,11 +132,15 @@ Language <code class="docutils literal"><span class="pre">/usr/bin/python</span>
 16
 17
 18
-19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_WEB</span><span class="p">,</span> <span class="n">web</span>
-
-<span class="hll"><span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
+<span class="c1"># To use Alfred 3&#39;s feedback mechanism:</span>
+<span class="hll"><span class="c1"># from workflow import Workflow3</span>
 </span>
+<span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;your-pinboard-api-key&#39;</span>
+
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.pinboard.in/v1/posts/recent&#39;</span>
     <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">auth_token</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
@@ -164,7 +175,7 @@ supported by Alfred 2. It works with Python 2.6 and 2.7, but <em>not</em> Python
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="supported-versions.html#alfred-2-versions">Alfred 2 versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-versions.html#alfred-versions">Alfred versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported-versions.html#os-x-versions">OS X versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported-versions.html#python-versions">Python versions</a></li>
 </ul>
@@ -221,6 +232,7 @@ Alfred-Workflow can do and how to do it.</p>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-manual/workflow-variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user-manual/text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -235,7 +247,8 @@ A handy reference if (like me) you sometimes forget parameter names.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow.html">The Workflow class for Alfred 2 and 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/workflow3.html">The Workflow3 class for Alfred 3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/web.html">Fetching Data from the Web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/background.html">Background Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/notify.html">Notifications</a></li>

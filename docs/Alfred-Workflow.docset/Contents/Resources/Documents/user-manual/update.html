@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Self-updating &mdash; Alfred-Workflow 1.17 documentation</title>
+    <title>Self-updating &mdash; Alfred-Workflow 1.19 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.17',
+        VERSION:     '1.19',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.17 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Versioning and migration" href="versioning.html" />
     <link rel="prev" title="Background processes" href="background.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="background.html" title="Background processes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.17 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -74,11 +74,14 @@
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#github-releases" id="id2">GitHub releases</a></li>
-<li><a class="reference internal" href="#configuration" id="id3">Configuration</a></li>
-<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
-<li><a class="reference internal" href="#under-the-hood" id="id5">Under the hood</a></li>
-<li><a class="reference internal" href="#version-numbers" id="id6">Version numbers</a></li>
+<li><a class="reference internal" href="#github-releases" id="id2">GitHub releases</a><ul>
+<li><a class="reference internal" href="#supporting-alfred-2-and-alfred-3" id="id3">Supporting Alfred 2 and Alfred 3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration" id="id4">Configuration</a></li>
+<li><a class="reference internal" href="#usage" id="id5">Usage</a></li>
+<li><a class="reference internal" href="#under-the-hood" id="id6">Under the hood</a></li>
+<li><a class="reference internal" href="#version-numbers" id="id7">Version numbers</a></li>
 </ul>
 </div>
 <p>Add self-updating capabilities to your workflow. It regularly (every day
@@ -88,13 +91,6 @@ is available.</p>
 <p>Users can turn off automatic checks for updates with the <code class="docutils literal"><span class="pre">workflow:noautoupdate</span></code>
 <a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic argument</span></a> and back on again with
 <code class="docutils literal"><span class="pre">workflow:autoupdate</span></code>.</p>
-<div class="admonition danger">
-<p class="first admonition-title">Danger</p>
-<p class="last">If you are not careful, you might accidentally overwrite a local version of
-the workflow you&#8217;re working on and lose all your changes! It&#8217;s a good idea
-to make sure you increase the version number <em>before</em> you start making any
-changes.</p>
-</div>
 <p>Currently, only updates from <a class="reference external" href="https://help.github.com/categories/releases/">GitHub releases</a> are supported.</p>
 <div class="section" id="github-releases">
 <h2><a class="toc-backref" href="#id2">GitHub releases</a><a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h2>
@@ -102,9 +98,10 @@ changes.</p>
 <code class="docutils literal"><span class="pre">version</span></code> value you pass to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> <em>should</em>
 be one of the versions (i.e. tags) in the corresponding GitHub repo&#8217;s
 releases list. See <a class="reference internal" href="versioning.html#version-numbers"><span>Version numbers</span></a> for more information.</p>
-<p>There must be <strong>one (and only one)</strong> <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> binary attached to a
-release otherwise the release will be ignored. This is the file that will be
-downloaded and installed via Alfred&#8217;s default installation mechanism.</p>
+<p>There must be <strong>one (and only one)</strong> <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> and/or <strong>one (and only
+one)</strong> <code class="docutils literal"><span class="pre">.alfred3workflow</span></code> binary attached to a release otherwise the release
+will be ignored. This is the file that will be downloaded and installed via
+Alfred&#8217;s default installation mechanism.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">Releases marked as <code class="docutils literal"><span class="pre">pre-release</span></code> on GitHub will be ignored unless the
@@ -112,9 +109,24 @@ downloaded and installed via Alfred&#8217;s default installation mechanism.</p>
 been enabled or the <code class="docutils literal"><span class="pre">prereleases</span></code> key is set to <code class="docutils literal"><span class="pre">True</span></code> in the
 <code class="docutils literal"><span class="pre">update_settings</span></code> <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>.</p>
 </div>
+<div class="section" id="supporting-alfred-2-and-alfred-3">
+<h3><a class="toc-backref" href="#id3">Supporting Alfred 2 and Alfred 3</a><a class="headerlink" href="#supporting-alfred-2-and-alfred-3" title="Permalink to this headline">¶</a></h3>
+<p>Alfred 3 workflows are fundamentally incompatible with Alfred 2.</p>
+<p>If you want to make a new release of an existing workflow that breaks
+compatibility with Alfred 2, it&#8217;s important that you use the alternate
+<code class="docutils literal"><span class="pre">.alfred3workflow</span></code> file extension for your release binaries to prevent Alfred
+2 installations trying to update themselves to death.</p>
+<p>You can have both an <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> file and an <code class="docutils literal"><span class="pre">.alfred3workflow</span></code> file
+in the same release. If Alfred-Workflow is running under Alfred 3, it will
+prefer the <code class="docutils literal"><span class="pre">.alfred3workflow</span></code> if present. Under Alfred 2, or if the release
+contains no <code class="docutils literal"><span class="pre">.alfred3workflow</span></code> file, Alfred-Workflow will use the
+<code class="docutils literal"><span class="pre">.alfredworkflow</span></code> file.</p>
+<p>There may only be one file of each type, however, or the release will be
+considered invalid.</p>
+</div>
 </div>
 <div class="section" id="configuration">
-<h2><a class="toc-backref" href="#id3">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>To use self-updating, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> as the <code class="docutils literal"><span class="pre">update_settings</span></code>
 argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>. It <strong>must</strong> have the key/value
 pair <code class="docutils literal"><span class="pre">github_slug</span></code>, which is your username and the name of the
@@ -241,7 +253,7 @@ the     user nor download and install the update.</p>
 </div>
 </div>
 <div class="section" id="usage">
-<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>You can just leave it up to the user to check update status and install new
 versions manually using the <code class="docutils literal"><span class="pre">workflow:update</span></code>
 <a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic argument</span></a> in a Script Filter, or you could roll
@@ -282,7 +294,7 @@ of your Script Filter&#8217;s results that triggers Alfred-Workflow&#8217;s
 Alfred-Workflow to download and install the update.</p>
 </div>
 <div class="section" id="under-the-hood">
-<h2><a class="toc-backref" href="#id5">Under the hood</a><a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Under the hood</a><a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.check_update" title="workflow.workflow.Workflow.check_update"><code class="xref py py-meth docutils literal"><span class="pre">check_update()</span></code></a> method is called
 automatically when you call <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.run" title="workflow.workflow.Workflow.run"><code class="xref py py-class docutils literal"><span class="pre">Workflow.run</span></code></a>
 If sufficient time has elapsed since the last check (1 day by default), it
@@ -302,7 +314,7 @@ It caches information on the latest available release under the cache key
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>.</p>
 </div>
 <div class="section" id="version-numbers">
-<h2><a class="toc-backref" href="#id6">Version numbers</a><a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Version numbers</a><a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
 <p>Please see <a class="reference internal" href="versioning.html#manual-versioning"><span>Versioning and migration</span></a> for detailed information on the required
 version number format and associated features.</p>
 </div>
@@ -360,6 +372,7 @@ version number format and associated features.</p>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>

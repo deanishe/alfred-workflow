@@ -13,6 +13,7 @@ See :ref:`user-manual` for documentation focussed on performing specific tasks.
    :maxdepth: 2
 
    workflow
+   workflow3
    web
    background
    notify

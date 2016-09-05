@@ -21,15 +21,9 @@ Users can turn off automatic checks for updates with the ``workflow:noautoupdate
 :ref:`magic argument <magic-arguments>` and back on again with
 ``workflow:autoupdate``.
 
-.. danger::
-
-    If you are not careful, you might accidentally overwrite a local version of
-    the workflow you're working on and lose all your changes! It's a good idea
-    to make sure you increase the version number *before* you start making any
-    changes.
-
 
 Currently, only updates from `GitHub releases`_ are supported.
+
 
 GitHub releases
 ===============
@@ -39,9 +33,10 @@ For your workflow to be able to recognise and download newer versions, the
 be one of the versions (i.e. tags) in the corresponding GitHub repo's
 releases list. See :ref:`version-numbers` for more information.
 
-There must be **one (and only one)** ``.alfredworkflow`` binary attached to a
-release otherwise the release will be ignored. This is the file that will be
-downloaded and installed via Alfred's default installation mechanism.
+There must be **one (and only one)** ``.alfredworkflow`` and/or **one (and only
+one)** ``.alfred3workflow`` binary attached to a release otherwise the release
+will be ignored. This is the file that will be downloaded and installed via
+Alfred's default installation mechanism.
 
 .. important::
 
@@ -49,6 +44,27 @@ downloaded and installed via Alfred's default installation mechanism.
     ``workflow:prereleases`` :ref:`magic argument <magic-arguments>` has
     been enabled or the ``prereleases`` key is set to ``True`` in the
     ``update_settings`` :class:`dict`.
+
+
+Supporting Alfred 2 and Alfred 3
+--------------------------------
+
+Alfred 3 workflows are fundamentally incompatible with Alfred 2.
+
+If you want to make a new release of an existing workflow that breaks
+compatibility with Alfred 2, it's important that you use the alternate
+``.alfred3workflow`` file extension for your release binaries to prevent Alfred
+2 installations trying to update themselves to death.
+
+You can have both an ``.alfredworkflow`` file and an ``.alfred3workflow`` file
+in the same release. If Alfred-Workflow is running under Alfred 3, it will
+prefer the ``.alfred3workflow`` if present. Under Alfred 2, or if the release
+contains no ``.alfred3workflow`` file, Alfred-Workflow will use the
+``.alfredworkflow`` file.
+
+There may only be one file of each type, however, or the release will be
+considered invalid.
+
 
 Configuration
 =============

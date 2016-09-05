@@ -49,7 +49,8 @@ Alfred's default installation mechanism.
 Supporting Alfred 2 and Alfred 3
 --------------------------------
 
-Alfred 3 workflows are fundamentally incompatible with Alfred 2.
+Workflows created *or edited* in Alfred 3 are fundamentally incompatible
+with Alfred 2, even if no Alfred 3-only features are used.
 
 If you want to make a new release of an existing workflow that breaks
 compatibility with Alfred 2, it's important that you use the alternate

@@ -20,7 +20,8 @@ to create :class:`Item3` and :class:`Modifier` objects via the
 :meth:`Workflow3.add_item()` and :meth:`Item3.add_modifier()` methods
 respectively. If you instantiate :class:`Item3` or :class:`Modifier`
 objects directly, the current :class:`~workflow.workflow3.Workflow3`
-object won't be aware of them, and they won't be sent to Alfred.
+object won't be aware of them, and they won't be sent to Alfred when
+you call :meth:`~workflow.workflow3.Workflow3.send_feedback()`.
 """
 
 from __future__ import print_function, unicode_literals, absolute_import

@@ -18,6 +18,9 @@ If you'd like your own workflow added to the list, please see the corresponding
 section in the `GitHub README`_.
 
 
+- `17Track <http://www.packal.org/workflow/17track>`__
+  by `emamuna <http://www.packal.org/users/emamuna>`__.
+  Workflow used to track your shipments on 17Track.net.
 - `Alfred Backblaze <http://www.packal.org/workflow/alfred-backblaze>`__
   by `XedMada <http://www.packal.org/users/xedmada>`__.
   Pause and Start Backblaze online backups.
@@ -36,18 +39,27 @@ section in the `GitHub README`_.
 - `Alfred-Flixsearch <http://www.packal.org/workflow/alfred-flixsearch>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   What's available on Netflix and in which countries.
+- `Alfred-HipChat <http://www.packal.org/workflow/alfred-hipchat>`__
+  by `zsprackett <http://www.packal.org/users/zsprackett>`__.
+  Allows you to navigate HipChat rooms and IM's from within Alfred.
 - `Alfred-Venmo-Workflow <http://www.packal.org/workflow/alfred-venmo-workflow>`__
   by `azai91 <http://www.packal.org/users/azai91>`__.
   Pay and charge friends easily in venmo.
 - `alfredwl <http://www.packal.org/workflow/alfredwl>`__
   by `nicke5012 <http://www.packal.org/users/nicke5012>`__.
   Wunderlist integration for Alfred2. Allows you to add tasks, show your lists, and show incomplete tasks through Alfred.
+- `Alphy <http://www.packal.org/workflow/alphy>`__
+  by `maximepeschard <http://www.packal.org/users/maximepeschard>`__.
+  Search and get links for GIFs on Giphy with Alfred.
 - `AppScripts <http://www.packal.org/workflow/appscripts>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, search and run/open AppleScripts for the active application.
 - `Ariafred <http://www.packal.org/workflow/ariafred>`__
   by `Wildog <http://www.packal.org/users/wildog>`__.
   Manage Aria2 downloads directly in Alfred, with background notification.
+- `Atmos <http://www.packal.org/workflow/atmos>`__
+  by `therockmandolinist <http://www.packal.org/users/therockmandolinist>`__.
+  An Alfred workflow to find temperature, speed of sound, pressure, and density at queried altitude, according on International Standard Atmosphere model.
 - `Base Converter <http://www.packal.org/workflow/base-converter>`__
   by `ahalbert <http://www.packal.org/users/ahalbert>`__.
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
@@ -93,12 +105,18 @@ section in the `GitHub README`_.
 - `Display Brightness <http://www.packal.org/workflow/display-brightness>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Adjust your display's brightness with Alfred.
+- `Docker Cloud <http://www.packal.org/workflow/docker-cloud>`__
+  by `amigold <http://www.packal.org/users/amigold>`__.
+  Shortcuts to quickly navigate Docker Cloud services and node clusters.
 - `Dropbox Client for Alfred <http://www.packal.org/workflow/dropbox-client-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Access multiple Dropbox accounts with Alfred.
 - `Duden Search <http://www.packal.org/workflow/duden-search>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Search duden.de German dictionary (with auto-suggest).
+- `Ekşi Sözlük Search <http://www.packal.org/workflow/eksi-sozluk-search>`__
+  by `ttuygun <http://www.packal.org/users/ttuygun>`__.
+  Search Turkey's eksisozluk.com.
 - `Fabric for Alfred <http://www.packal.org/workflow/fabric-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Quickly execute Fabric tasks.
@@ -108,6 +126,9 @@ section in the `GitHub README`_.
 - `Forvo <http://www.packal.org/workflow/forvo>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   A pronunciation workflow based on Forvo.com.
+- `Foursquare Search <http://www.packal.org/workflow/foursquare-search>`__
+  by `xilopaint <http://www.packal.org/users/xilopaint>`__.
+  Search Foursquare from Alfred 3.
 - `Fuzzy Folders <http://www.packal.org/workflow/fuzzy-folders>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Fuzzy search across folder subtrees.
@@ -132,6 +153,9 @@ section in the `GitHub README`_.
 - `Gmail Client for Alfred <http://www.packal.org/workflow/gmail-client-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Gmail inbox with Alfred.
+- `Goo Japanese Translater <http://www.packal.org/workflow/goo-japanese-translater>`__
+  by `rorvte <http://www.packal.org/users/rorvte>`__.
+  A workflow for searching the definitive Japanese dictionary at http://dictionary.goo.ne.jp.
 - `HackerNews for Alfred <http://www.packal.org/workflow/hackernews-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Read Hacker News with Alfred.
@@ -144,6 +168,9 @@ section in the `GitHub README`_.
 - `Homebrew and Cask for Alfred <http://www.packal.org/workflow/homebrew-and-cask-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Easily control Homebrew and Cask with Alfred.
+- `İETT Next Departures <http://www.packal.org/workflow/iett-next-departures>`__
+  by `ttuygun <http://www.packal.org/users/ttuygun>`__.
+  This alfred workflow shows next departures from beautiful Istanbul's bus service İETT. It uses data from İETT's website.
 - `IME <http://www.packal.org/workflow/ime>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   A Input method workflow based on Google Input Tools.
@@ -171,6 +198,9 @@ section in the `GitHub README`_.
 - `KAT Search <http://www.packal.org/workflow/kat-search>`__
   by `emamuna <http://www.packal.org/users/emamuna>`__.
   Just a workflow used to search on KAT (KickAssTorrent) website.
+- `Kitap Metre <http://www.packal.org/workflow/kitap-metre>`__
+  by `ttuygun <http://www.packal.org/users/ttuygun>`__.
+  This alfred workflow shows kitapmetre.com's (the best book price search engine) results.
 - `Laser SSH <http://www.packal.org/workflow/laser-ssh>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Choose SSH connection from filterable list.
@@ -201,6 +231,9 @@ section in the `GitHub README`_.
 - `Myinstants <http://www.packal.org/workflow/myinstants>`__
   by `flipxfx <http://www.packal.org/users/flipxfx>`__.
   A workflow to search Myinstants.com.
+- `Naver Korean-English Dictionary <http://www.packal.org/workflow/naver-korean-english-dictionary>`__
+  by `pjvandehaar <http://www.packal.org/users/pjvandehaar>`__.
+  Access the Naver Korean-English dictionary (in both directions) with autocomplete suggestions and a hotkey to use the current selection.
 - `Network Location <http://www.packal.org/workflow/network-location>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, filter and activate network locations from within Alfred.
@@ -246,9 +279,15 @@ section in the `GitHub README`_.
 - `Python Interpreter <http://www.packal.org/workflow/python-interpreter>`__
   by `altre <http://www.packal.org/users/altre>`__.
   Use python interpreter directly from alfred.
+- `quick command for alfred workflow 2  <http://www.packal.org/workflow/quick-command-alfred-workflow-2>`__
+  by `albertxavier <http://www.packal.org/users/albertxavier>`__.
+  Copy, run, generate, del your custom commands.
 - `Quick Stocks <http://www.packal.org/workflow/quick-stocks>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Add some stock symbols for Alfred to check for you.
+- `Radar <http://www.packal.org/workflow/radar>`__
+  by `amoose136 <http://www.packal.org/users/amoose136>`__.
+  Show animated doppler radar for local area using quicklook. (US only for now).
 - `Ramda Docs <http://www.packal.org/workflow/ramda-docs>`__
   by `raine <http://www.packal.org/users/raine>`__.
   Search Ramda documentation.
@@ -306,6 +345,9 @@ section in the `GitHub README`_.
 - `Snippets <http://www.packal.org/workflow/snippets>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Simple, document-specific text snippets.
+- `Sourcegraph <http://www.packal.org/workflow/sourcegraph>`__
+  by `rohanpai <http://www.packal.org/users/rohanpai>`__.
+  Sourcegraph Alfred Workflow.
 - `Splatoon <http://www.packal.org/workflow/splatoon>`__
   by `flipxfx <http://www.packal.org/users/flipxfx>`__.
   A workflow with Splatoon helpers (maps, wiki).
@@ -321,6 +363,9 @@ section in the `GitHub README`_.
 - `Star Ratings <http://www.packal.org/workflow/star-ratings>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   View and set ratings for your files and folders.
+- `Status <http://www.packal.org/workflow/status>`__
+  by `iamemmanouil <http://www.packal.org/users/iamemmanouil>`__.
+  Alfred workflow that displays status of well known services like GitHub, Twitter and more.
 - `Steam <http://www.packal.org/workflow/steam>`__
   by `tresni <http://www.packal.org/users/tresni>`__.
   Activate your Steam codes & launch steam games with a quick keystroke or keyword.
@@ -330,6 +375,12 @@ section in the `GitHub README`_.
 - `TeXdoc <http://www.packal.org/workflow/texdoc>`__
   by `Egon Geerardyn <http://www.packal.org/users/egon-geerardyn>`__.
   Searches your LaTeX documentation using texdoc.
+- `Today Menu <http://www.packal.org/workflow/today-menu>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Loads a daily list of events from Google and/or Exchange calendars.
+- `TodoList <https://github.com/ecmadao/Alfred-TodoList>`__
+  by `ecmadao <https://github.com/ecmadao>`__.
+  A simple todo-workflow lets you add, complete or delete todo in to-do lists.
 - `Torrent <http://www.packal.org/workflow/torrent>`__
   by `bfw <http://www.packal.org/users/bfw>`__.
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
@@ -344,7 +395,7 @@ section in the `GitHub README`_.
   A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.
 - `VagrantUP <http://www.packal.org/workflow/vagrantup>`__
   by `m1keil <http://www.packal.org/users/m1keil>`__.
-  List and control Vagrant environments with Alfred2.
+  List and control Vagrant environments with Alfred2/3.
 - `Viscosity VPN Manager <http://www.packal.org/workflow/viscosity-vpn-manager>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Manage Viscosity VPN connections.
@@ -375,6 +426,9 @@ section in the `GitHub README`_.
 - `Youtrack - create issues <http://www.packal.org/workflow/youtrack-create-issues>`__
   by `altryne <http://www.packal.org/users/altryne>`__.
   Creates issues in Your Youtrack installation.
+- `Zebra <http://www.packal.org/workflow/zebra>`__
+  by `rsnts <http://www.packal.org/users/rsnts>`__.
+  Alfred worflow for Zebra interaction.
 - `ZotQuery <http://www.packal.org/workflow/zotquery>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search Zotero. From the Comfort of Your Keyboard.

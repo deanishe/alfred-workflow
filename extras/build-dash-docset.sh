@@ -5,7 +5,7 @@ docdir="${basedir}/docs"
 icon="${basedir}/icon.png"
 
 
-echo "=================== Building Dash docset ============================="
+echo "======================= Building Dash docset ======================="
 
 cd "${docdir}"
 

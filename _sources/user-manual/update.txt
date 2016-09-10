@@ -73,12 +73,23 @@ Configuration
 To use self-updating, you must pass a :class:`dict` as the ``update_settings``
 argument to :class:`~workflow.workflow.Workflow`. It **must** have the key/value
 pair ``github_slug``, which is your username and the name of the
-workflow's repo in the format ``username/reponame``. The version of the currently
-installed workflow must also be specified. You can do this in the
-``update_settings`` dict or in a ``version`` file in the root of your workflow
-(next to ``info.plist``), e.g.:
+workflow's repo in the format ``username/reponame``. The version number of the currently
+installed workflow must also be specified (see below). There are several ways
+to specify the version number of your workflow:
+
+1. In Alfred 3, use the Workflow Version field in the workflow configuration
+   sheet. This saves the version number in ``info.plist``.
+   :class:`~workflow.workflow.Workflow` will retrieve the version from the
+   environment variables set by Alfred when it runs your workflow (or by
+   parsing ``info.plist`` if not running in Alfred).
+2. By setting the ``version`` key in the ``update_settings`` dictionary.
+3. By saving a ``version`` file in your workflow's root directory
+   (alongside ``info.plist``).
+
 
 .. _update-example:
+
+Via ``update_settings``:
 
 .. code-block:: python
     :linenos:
@@ -90,18 +101,22 @@ installed workflow must also be specified. You can do this in the
     ...
 
     wf = Workflow(..., update_settings={
-        # Your username and the workflow's repo's name
+        # Your username and the workflow's repo's name.
         'github_slug': 'username/reponame',
-        # The version (i.e. release/tag) of the installed workflow
-        # If a `version` file exists in the root of your workflow,
-        # this key may be omitted
+
+        # The version (i.e. release/tag) of the installed workflow.
+        # If you've set a Workflow Version in Alfred's workflow
+        # configuration sheet or if a `version` file exists in
+        # the root of your workflow, this key may be omitted
         'version': __version__,
-        # Optional number of days between checks for updates
+
+        # Optional number of days between checks for updates.
         'frequency': 7,
-        # Force checking for pre-release updates
+
+        # Force checking for pre-release updates.
         # This is only recommended when distributing a pre-release;
-        # otherwise allow users to choose whether they want 
-        # production-ready or pre-release updates with the 
+        # otherwise allow users to choose whether they want
+        # production-ready or pre-release updates with the
         # `prereleases` magic argument.
         'prereleases': '-beta' in __version__
     }, ...)
@@ -223,6 +238,8 @@ It caches information on the latest available release under the cache key
 ``__workflow_update_status``, which you can access via
 :meth:`Workflow.cached_data() <workflow.workflow.Workflow.cached_data>`.
 
+
+.. _version-details:
 
 Version numbers
 ===============

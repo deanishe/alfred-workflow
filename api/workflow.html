@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.19 documentation</title>
+    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.20 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.19',
+        VERSION:     '1.20',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.20 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="The Workflow3 class for Alfred 3" href="workflow3.html" />
     <link rel="prev" title="API Documentation" href="index.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="index.html" title="API Documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.20 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -170,7 +170,7 @@ also be opened directly in a web browser with the <code class="docutils literal"
 <dl class="method">
 <dt id="workflow.workflow.Workflow.add_item">
 <code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an item to be output to Alfred</p>
+<dd><p>Add an item to be output to Alfred.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -289,6 +289,10 @@ format <code class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></co
 </tr>
 <tr class="row-odd"><td>alfred_workflow_uid</td>
 <td>UID of workflow</td>
+</tr>
+<tr class="row-even"><td>alfred_workflow_version</td>
+<td>The version number specified in the
+workflow configuration sheet/info.plist</td>
 </tr>
 </tbody>
 </table>
@@ -413,7 +417,7 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data_age">
 <code class="descname">cached_data_age</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.cached_data_age" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return age in seconds of data cached at <cite>name</cite> or 0 if cache doesn&#8217;t exist.</p>
+<dd><p>Return age in seconds of cache <cite>name</cite> or 0 if cache doesn&#8217;t exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -431,7 +435,7 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data_fresh">
 <code class="descname">cached_data_fresh</code><span class="sig-paren">(</span><em>name</em>, <em>max_age</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.cached_data_fresh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is data cached at <cite>name</cite> less than <cite>max_age</cite> old?</p>
+<dd><p>Whether cache <cite>name</cite> is less than <cite>max_age</cite> seconds old.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -492,7 +496,7 @@ in <code class="docutils literal"><span class="pre">~/Library/Caches</span></cod
 <dl class="method">
 <dt id="workflow.workflow.Workflow.check_update">
 <code class="descname">check_update</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.check_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call update script if it&#8217;s time to check for a new release</p>
+<dd><p>Call update script if it&#8217;s time to check for a new release.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
@@ -650,8 +654,8 @@ normalise this data, too, or change the default normalisation used by
 <dl class="method">
 <dt id="workflow.workflow.Workflow.delete_password">
 <code class="descname">delete_password</code><span class="sig-paren">(</span><em>account</em>, <em>service=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.delete_password" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete the password stored at <code class="docutils literal"><span class="pre">service/account</span></code>. Raises
-<a class="reference internal" href="#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> if account is unknown.</p>
+<dd><p>Delete the password stored at <code class="docutils literal"><span class="pre">service/account</span></code>.</p>
+<p>Raise <a class="reference internal" href="#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> if account is unknown.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -849,8 +853,8 @@ altered.</p>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.get_password">
 <code class="descname">get_password</code><span class="sig-paren">(</span><em>account</em>, <em>service=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.get_password" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the password saved at <code class="docutils literal"><span class="pre">service/account</span></code>. Raise
-<a class="reference internal" href="#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> exception if password doesn&#8217;t exist.</p>
+<dd><p>Retrieve the password saved at <code class="docutils literal"><span class="pre">service/account</span></code>.</p>
+<p>Raise <a class="reference internal" href="#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> exception if password doesn&#8217;t exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -888,7 +892,7 @@ bundle ID</li>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.last_version_run">
 <code class="descname">last_version_run</code><a class="headerlink" href="#workflow.workflow.Workflow.last_version_run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return version of last version to run (or <code class="docutils literal"><span class="pre">None</span></code>)</p>
+<dd><p>Return version of last version to run (or <code class="docutils literal"><span class="pre">None</span></code>).</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.10.</span></p>
 </div>
@@ -985,14 +989,13 @@ function should return a <code class="docutils literal"><span class="pre">unicod
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_help">
 <code class="descname">open_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.open_help" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open <code class="xref py py-attr docutils literal"><span class="pre">help_url</span></code> in default browser</p>
+<dd><p>Open <code class="xref py py-attr docutils literal"><span class="pre">help_url</span></code> in default browser.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.open_log">
 <code class="descname">open_log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.open_log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open workflows <a class="reference internal" href="#workflow.workflow.Workflow.logfile" title="workflow.workflow.Workflow.logfile"><code class="xref py py-attr docutils literal"><span class="pre">logfile</span></code></a> in standard
-application (usually Console.app).</p>
+<dd><p>Open <a class="reference internal" href="#workflow.workflow.Workflow.logfile" title="workflow.workflow.Workflow.logfile"><code class="xref py py-attr docutils literal"><span class="pre">logfile</span></code></a> in default app (usually Console.app).</p>
 </dd></dl>
 
 <dl class="method">
@@ -1010,7 +1013,7 @@ application (usually Console.app).</p>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.prereleases">
 <code class="descname">prereleases</code><a class="headerlink" href="#workflow.workflow.Workflow.prereleases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Should workflow update to newer pre-release version if available?</p>
+<dd><p>Whether workflow should update to pre-release versions.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.16.</span></p>
 </div>
@@ -1036,7 +1039,7 @@ and <a class="reference internal" href="#workflow.workflow.Workflow.datadir" tit
 <dl class="method">
 <dt id="workflow.workflow.Workflow.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call <code class="docutils literal"><span class="pre">func</span></code> to run your workflow</p>
+<dd><p>Call <code class="docutils literal"><span class="pre">func</span></code> to run your workflow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1087,7 +1090,7 @@ workflow&#8217;s bundle ID</li>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.set_last_version">
 <code class="descname">set_last_version</code><span class="sig-paren">(</span><em>version=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.set_last_version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set <a class="reference internal" href="#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><code class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></code></a> to current version</p>
+<dd><p>Set <a class="reference internal" href="#workflow.workflow.Workflow.last_version_run" title="workflow.workflow.Workflow.last_version_run"><code class="xref py py-attr docutils literal"><span class="pre">last_version_run</span></code></a> to current version.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.10.</span></p>
 </div>
@@ -1214,7 +1217,7 @@ are no data stored.</p>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.update_available">
 <code class="descname">update_available</code><a class="headerlink" href="#workflow.workflow.Workflow.update_available" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is an update available?</p>
+<dd><p>Whether an update is available.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
@@ -1233,15 +1236,16 @@ information on how to enable your workflow to update itself.</p>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.version">
 <code class="descname">version</code><a class="headerlink" href="#workflow.workflow.Workflow.version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the version of the workflow</p>
+<dd><p>Return the version of the workflow.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.10.</span></p>
 </div>
-<p>Get the version from the <code class="docutils literal"><span class="pre">update_settings</span></code> dict passed on
-instantiation or the <code class="docutils literal"><span class="pre">version</span></code> file located in the workflow&#8217;s
-root directory. Return <code class="docutils literal"><span class="pre">None</span></code> if neither exist or
-<code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if the version number is invalid (i.e. not
-semantic).</p>
+<p>Get the workflow version from environment variable,
+the <code class="docutils literal"><span class="pre">update_settings</span></code> dict passed on
+instantiation, the <code class="docutils literal"><span class="pre">version</span></code> file located in the workflow&#8217;s
+root directory or <code class="docutils literal"><span class="pre">info.plist</span></code>. Return <code class="docutils literal"><span class="pre">None</span></code> if none
+exists or <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if the version number is invalid
+(i.e. not semantic).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

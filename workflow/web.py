@@ -115,7 +115,7 @@ class CaseInsensitiveDictionary(dict):
     """
 
     def __init__(self, initval=None):
-
+        """Create new case-insensitive dictionary."""
         if isinstance(initval, dict):
             for key, value in initval.iteritems():
                 self.__setitem__(key, value)

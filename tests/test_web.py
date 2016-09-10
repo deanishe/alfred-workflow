@@ -7,10 +7,7 @@
 #
 # Created on 2016-02-23
 #
-"""
-test_web2.py
-
-"""
+"""Unit tests for workflow.web."""
 
 from __future__ import print_function, unicode_literals
 

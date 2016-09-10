@@ -1182,14 +1182,12 @@ class WorkflowTests(unittest.TestCase):
         return [metadata, datapath]
 
     def _setup_env(self):
-        """Add Alfred env variables to environment"""
-
+        """Add Alfred env variables to environment."""
         for key in self.env_data:
             os.environ[key] = self.env_data[key]
 
     def _teardown_env(self):
-        """Remove Alfred env variables from environment"""
-
+        """Remove Alfred env variables from environment."""
         for key in self.env_data:
             if key in os.environ:
                 del os.environ[key]

@@ -1165,6 +1165,8 @@ class Workflow(object):
         alfred_workflow_data          Path to workflow's data directory
         alfred_workflow_name          Name of current workflow
         alfred_workflow_uid           UID of workflow
+        alfred_workflow_version       The version number specified in the
+                                      workflow configuration sheet/info.plist
         ============================  =========================================
 
         **Note:** all values are Unicode strings except ``version_build`` and
@@ -1191,7 +1193,8 @@ class Workflow(object):
                 'alfred_workflow_cache',
                 'alfred_workflow_data',
                 'alfred_workflow_name',
-                'alfred_workflow_uid'):
+                'alfred_workflow_uid',
+                'alfred_workflow_version'):
 
             value = os.getenv(key)
 
@@ -1248,15 +1251,16 @@ class Workflow(object):
 
     @property
     def version(self):
-        """Return the version of the workflow
+        """Return the version of the workflow.
 
         .. versionadded:: 1.9.10
 
-        Get the version from the ``update_settings`` dict passed on
-        instantiation or the ``version`` file located in the workflow's
-        root directory. Return ``None`` if neither exist or
-        :class:`ValueError` if the version number is invalid (i.e. not
-        semantic).
+        Get the workflow version from environment variable,
+        the ``update_settings`` dict passed on
+        instantiation, the ``version`` file located in the workflow's
+        root directory or ``info.plist``. Return ``None`` if none
+        exists or :class:`ValueError` if the version number is invalid
+        (i.e. not semantic).
 
         :returns: Version of the workflow (not Alfred-Workflow)
         :rtype: :class:`~workflow.update.Version` object
@@ -1265,17 +1269,25 @@ class Workflow(object):
         if self._version is UNSET:
 
             version = None
-            # First check `update_settings`
-            if self._update_settings:
+            # environment variable has priority
+            if self.alfred_env.get('workflow_version'):
+                version = self.alfred_env['workflow_version']
+
+            # Try `update_settings`
+            elif self._update_settings:
                 version = self._update_settings.get('version')
 
-            # Fallback to `version` file
+            # `version` file
             if not version:
                 filepath = self.workflowfile('version')
 
                 if os.path.exists(filepath):
                     with open(filepath, 'rb') as fileobj:
                         version = fileobj.read()
+
+            # info.plist
+            if not version:
+                version = self.info.get('version')
 
             if version:
                 from update import Version
@@ -1818,7 +1830,7 @@ class Workflow(object):
         self.logger.debug('Cached data saved at : %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
-        """Is data cached at `name` less than `max_age` old?
+        """Whether cache `name` is less than `max_age` seconds old.
 
         :param name: name of datastore
         :param max_age: maximum age of data in seconds
@@ -1835,7 +1847,7 @@ class Workflow(object):
         return age < max_age
 
     def cached_data_age(self, name):
-        """Return age in seconds of data cached at `name` or 0 if cache doesn't exist.
+        """Return age in seconds of cache `name` or 0 if cache doesn't exist.
 
         :param name: name of datastore
         :type name: ``unicode``
@@ -2008,12 +2020,11 @@ class Workflow(object):
         return [t[0] for t in results]
 
     def _filter_item(self, value, query, match_on, fold_diacritics):
-        """Filter ``value`` against ``query`` using rules ``match_on``
+        """Filter ``value`` against ``query`` using rules ``match_on``.
 
         :returns: ``(score, rule)``
 
         """
-
         query = query.lower()
 
         if not isascii(query):
@@ -2116,7 +2127,7 @@ class Workflow(object):
         return search
 
     def run(self, func):
-        """Call ``func`` to run your workflow
+        """Call ``func`` to run your workflow.
 
         :param func: Callable to call with ``self`` (i.e. the :class:`Workflow`
             instance) as first argument.
@@ -2130,7 +2141,6 @@ class Workflow(object):
         output to Alfred.
 
         """
-
         start = time.time()
 
         # Call workflow's entry function/method within a try-except block
@@ -2186,7 +2196,7 @@ class Workflow(object):
     def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
                  autocomplete=None, valid=False, uid=None, icon=None,
                  icontype=None, type=None, largetext=None, copytext=None):
-        """Add an item to be output to Alfred
+        """Add an item to be output to Alfred.
 
         :param title: Title shown in Alfred
         :type title: ``unicode``
@@ -2244,7 +2254,6 @@ class Workflow(object):
             edit it or do something with it other than send it to Alfred.
 
         """
-
         item = self.item_class(title, subtitle, modifier_subtitles, arg,
                                autocomplete, valid, uid, icon, icontype, type,
                                largetext, copytext)
@@ -2284,7 +2293,7 @@ class Workflow(object):
 
     @property
     def last_version_run(self):
-        """Return version of last version to run (or ``None``)
+        """Return version of last version to run (or ``None``).
 
         .. versionadded:: 1.9.10
 
@@ -2292,7 +2301,6 @@ class Workflow(object):
             or ``None``
 
         """
-
         if self._last_version_run is UNSET:
 
             version = self.settings.get('__workflow_last_version')
@@ -2308,7 +2316,7 @@ class Workflow(object):
         return self._last_version_run
 
     def set_last_version(self, version=None):
-        """Set :attr:`last_version_run` to current version
+        """Set :attr:`last_version_run` to current version.
 
         .. versionadded:: 1.9.10
 
@@ -2318,7 +2326,6 @@ class Workflow(object):
         :returns: ``True`` if version is saved, else ``False``
 
         """
-
         if not version:
             if not self.version:
                 self.logger.warning(
@@ -2339,7 +2346,7 @@ class Workflow(object):
 
     @property
     def update_available(self):
-        """Is an update available?
+        """Whether an update is available.
 
         .. versionadded:: 1.9
 
@@ -2349,7 +2356,6 @@ class Workflow(object):
         :returns: ``True`` if an update is available, else ``False``
 
         """
-
         update_data = self.cached_data('__workflow_update_status', max_age=0)
         self.logger.debug('update_data : {0}'.format(update_data))
 
@@ -2360,7 +2366,7 @@ class Workflow(object):
 
     @property
     def prereleases(self):
-        """Should workflow update to newer pre-release version if available?
+        """Whether workflow should update to pre-release versions.
 
         .. versionadded:: 1.16
 
@@ -2375,7 +2381,7 @@ class Workflow(object):
         return self.settings.get('__workflow_prereleases') or False
 
     def check_update(self, force=False):
-        """Call update script if it's time to check for a new release
+        """Call update script if it's time to check for a new release.
 
         .. versionadded:: 1.9
 
@@ -2389,7 +2395,6 @@ class Workflow(object):
         :type force: ``Boolean``
 
         """
-
         frequency = self._update_settings.get('frequency',
                                               DEFAULT_UPDATE_FREQUENCY)
 
@@ -2436,7 +2441,6 @@ class Workflow(object):
             installed, else ``False``
 
         """
-
         import update
 
         github_slug = self._update_settings['github_slug']
@@ -2508,8 +2512,9 @@ class Workflow(object):
                 self.logger.debug('save_password : %s:%s', service, account)
 
     def get_password(self, account, service=None):
-        """Retrieve the password saved at ``service/account``. Raise
-        :class:`PasswordNotFound` exception if password doesn't exist.
+        """Retrieve the password saved at ``service/account``.
+
+        Raise :class:`PasswordNotFound` exception if password doesn't exist.
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
@@ -2521,7 +2526,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not service:
             service = self.bundleid
 
@@ -2547,8 +2551,9 @@ class Workflow(object):
         return password
 
     def delete_password(self, account, service=None):
-        """Delete the password stored at ``service/account``. Raises
-        :class:`PasswordNotFound` if account is unknown.
+        """Delete the password stored at ``service/account``.
+
+        Raise :class:`PasswordNotFound` if account is unknown.
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
@@ -2558,7 +2563,6 @@ class Workflow(object):
         :type service: ``unicode``
 
         """
-
         if not service:
             service = self.bundleid
 
@@ -2571,9 +2575,8 @@ class Workflow(object):
     ####################################################################
 
     def _register_default_magic(self):
-        """Register the built-in magic arguments"""
+        """Register the built-in magic arguments."""
         # TODO: refactor & simplify
-
         # Wrap callback and message with callable
         def callback(func, msg):
             def wrapper():
@@ -2716,17 +2719,12 @@ class Workflow(object):
         and :attr:`data <datadir>`
 
         """
-
         self.clear_cache()
         self.clear_data()
         self.clear_settings()
 
     def open_log(self):
-        """Open workflows :attr:`logfile` in standard
-        application (usually Console.app).
-
-        """
-
+        """Open :attr:`logfile` in default app (usually Console.app)."""
         subprocess.call(['open', self.logfile])
 
     def open_cachedir(self):
@@ -2748,7 +2746,7 @@ class Workflow(object):
                         self.workflowdir])
 
     def open_help(self):
-        """Open :attr:`help_url` in default browser"""
+        """Open :attr:`help_url` in default browser."""
         subprocess.call(['open', self.help_url])
 
         return 'Opening workflow help URL in browser'
@@ -2785,7 +2783,6 @@ class Workflow(object):
         :class:`Workflow`.
 
         """
-
         encoding = encoding or self._input_encoding
         normalization = normalization or self._normalizsation
         if not isinstance(text, unicode):
@@ -2833,15 +2830,15 @@ class Workflow(object):
         return text
 
     def _delete_directory_contents(self, dirpath, filter_func):
-        """Delete all files in a directory
+        """Delete all files in a directory.
 
         :param dirpath: path to directory to clear
         :type dirpath: ``unicode`` or ``str``
         :param filter_func function to determine whether a file shall be
             deleted or not.
         :type filter_func ``callable``
-        """
 
+        """
         if os.path.exists(dirpath):
             for filename in os.listdir(dirpath):
                 if not filter_func(filename):
@@ -2860,7 +2857,7 @@ class Workflow(object):
         self._info_loaded = True
 
     def _create(self, dirpath):
-        """Create directory `dirpath` if it doesn't exist
+        """Create directory `dirpath` if it doesn't exist.
 
         :param dirpath: path to directory
         :type dirpath: ``unicode``
@@ -2868,14 +2865,12 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         if not os.path.exists(dirpath):
             os.makedirs(dirpath)
         return dirpath
 
     def _call_security(self, action, service, account, *args):
-        """Call the ``security`` CLI app that provides access to keychains.
-
+        """Call ``security`` CLI program that provides access to keychains.
 
         May raise `PasswordNotFound`, `PasswordExists` or `KeychainError`
         exceptions (the first two are subclasses of `KeychainError`).
@@ -2898,7 +2893,6 @@ class Workflow(object):
         :rtype: `tuple` (`int`, ``unicode``)
 
         """
-
         cmd = ['security', action, '-s', service, '-a', account] + list(args)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)

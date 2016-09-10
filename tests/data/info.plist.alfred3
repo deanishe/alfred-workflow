@@ -72,6 +72,8 @@
 			<integer>30</integer>
 		</dict>
 	</dict>
+	<key>version</key>
+	<string>1.1.1</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>

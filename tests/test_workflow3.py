@@ -51,6 +51,7 @@ def test_optional(info3):
                      autocomplete='auto',
                      largetext='large',
                      copytext='copy',
+                     quicklookurl='http://www.deanishe.net/alfred-workflow',
                      type='file',
                      icon='icon.png')
 
@@ -62,6 +63,7 @@ def test_optional(info3):
     assert o['text']['copy'] == 'copy'
     assert o['text']['largetype'] == 'large'
     assert o['icon']['path'] == 'icon.png'
+    assert o['quicklookurl'] == 'http://www.deanishe.net/alfred-workflow'
     assert o['type'] == 'file'
 
 

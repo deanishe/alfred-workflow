@@ -5,7 +5,7 @@
 Including 3rd party libraries
 =============================
 
-It's a Very Bad Idea ™ to install (or ask users to install) 3rd-party libraries
+It's a Very Bad Idea™ to install (or ask users to install) 3rd-party libraries
 in the OS X system Python. Alfred-Workflow makes it easy to include them in
 your Workflow.
 

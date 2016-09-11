@@ -719,7 +719,7 @@ class Item(object):
     def __init__(self, title, subtitle='', modifier_subtitles=None,
                  arg=None, autocomplete=None, valid=False, uid=None,
                  icon=None, icontype=None, type=None, largetext=None,
-                 copytext=None):
+                 copytext=None, quicklookurl=None):
         """Arguments the same as for :meth:`Workflow.add_item`.
 
         """
@@ -736,6 +736,7 @@ class Item(object):
         self.type = type
         self.largetext = largetext
         self.copytext = copytext
+        self.quicklookurl = quicklookurl
 
     @property
     def elem(self):
@@ -794,6 +795,9 @@ class Item(object):
         if self.copytext:
             ET.SubElement(root, 'text',
                           {'type': 'copy'}).text = self.copytext
+
+        if self.quicklookurl:
+            ET.SubElement(root, 'quicklookurl').text = self.quicklookurl
 
         return root
 
@@ -2195,7 +2199,8 @@ class Workflow(object):
 
     def add_item(self, title, subtitle='', modifier_subtitles=None, arg=None,
                  autocomplete=None, valid=False, uid=None, icon=None,
-                 icontype=None, type=None, largetext=None, copytext=None):
+                 icontype=None, type=None, largetext=None, copytext=None,
+                 quicklookurl=None):
         """Add an item to be output to Alfred.
 
         :param title: Title shown in Alfred
@@ -2235,6 +2240,9 @@ class Workflow(object):
         :param copytext: Text to be copied to pasteboard if user presses
             CMD+C on item.
         :type copytext: ``unicode``
+        :param quicklookurl: URL to be displayed using Alfred's Quick Look
+            feature (tapping ``SHIFT`` or ``⌘+Y`` on a result).
+        :type quicklookurl: ``unicode``
         :returns: :class:`Item` instance
 
         See the :ref:`script-filter-results` section of the documentation
@@ -2256,7 +2264,7 @@ class Workflow(object):
         """
         item = self.item_class(title, subtitle, modifier_subtitles, arg,
                                autocomplete, valid, uid, icon, icontype, type,
-                               largetext, copytext)
+                               largetext, copytext, quicklookurl)
         self._items.append(item)
         return item
 

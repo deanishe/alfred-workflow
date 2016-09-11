@@ -237,7 +237,8 @@ class WorkflowTests(unittest.TestCase):
                          valid=True, uid='uid', icon='icon.png',
                          icontype='fileicon',
                          type='file', largetext='largetext',
-                         copytext='copytext')
+                         copytext='copytext',
+                         quicklookurl='http://www.deanishe.net/alfred-workflow')
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio
@@ -256,7 +257,8 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(item.attrib['valid'], 'yes')
         self.assertEqual(item.attrib['uid'], 'uid')
 
-        title, subtitle, arg, icon, largetext, copytext = list(item)
+        title, subtitle, arg, icon, \
+            largetext, copytext, quicklookurl = list(item)
 
         self.assertEqual(title.text, 'title')
         self.assertEqual(title.tag, 'title')
@@ -279,8 +281,12 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(icon.tag, 'icon')
         self.assertEqual(icon.attrib['type'], 'fileicon')
 
+        self.assertEqual(quicklookurl.tag, 'quicklookurl')
+        self.assertEqual(quicklookurl.text,
+                         'http://www.deanishe.net/alfred-workflow')
+
     def test_item_creation_with_modifiers(self):
-        """XML generation (with modifiers)"""
+        """XML generation (with modifiers)."""
         mod_subs = {}
         for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
             mod_subs[mod] = mod

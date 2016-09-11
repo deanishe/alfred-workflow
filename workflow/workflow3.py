@@ -143,7 +143,7 @@ class Item3(object):
 
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
-                 type=None, largetext=None, copytext=None):
+                 type=None, largetext=None, copytext=None, quicklookurl=None):
         """Use same arguments as for :meth:`Workflow.add_item`.
 
         Argument ``subtitle_modifiers`` is not supported.
@@ -158,6 +158,7 @@ class Item3(object):
         self.icon = icon
         self.icontype = icontype
         self.type = type
+        self.quicklookurl = quicklookurl
         self.largetext = largetext
         self.copytext = copytext
 
@@ -244,6 +245,9 @@ class Item3(object):
 
         if text:
             o['text'] = text
+
+        if self.quicklookurl is not None:
+            o['quicklookurl'] = self.quicklookurl
 
         # Icon
         if self.icon is not None:
@@ -333,7 +337,7 @@ class Workflow3(Workflow):
 
     def add_item(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
-                 type=None, largetext=None, copytext=None):
+                 type=None, largetext=None, copytext=None, quicklookurl=None):
         """Add an item to be output to Alfred.
 
         See :meth:`~workflow.workflow.Workflow.add_item` for the main
@@ -349,7 +353,7 @@ class Workflow3(Workflow):
         """
         item = self.item_class(title, subtitle, arg,
                                autocomplete, valid, uid, icon, icontype, type,
-                               largetext, copytext)
+                               largetext, copytext, quicklookurl)
 
         for k in self.variables:
             item.setvar(k, self.variables[k])

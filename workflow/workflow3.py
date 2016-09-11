@@ -217,13 +217,14 @@ class Item3(object):
         Returns:
             dict: Data suitable for Alfred 3 feedback.
         """
+        # Basic values
         o = {'title': self.title,
              'subtitle': self.subtitle,
              'valid': self.valid}
 
-        text = {}
         icon = {}
 
+        # Optional values
         if self.arg is not None:
             o['arg'] = self.arg
 
@@ -236,30 +237,68 @@ class Item3(object):
         if self.type is not None:
             o['type'] = self.type
 
-        # Largetype and copytext
-        if self.largetext is not None:
-            text['largetype'] = self.largetext
-
-        if self.copytext is not None:
-            text['copy'] = self.copytext
-
-        if text:
-            o['text'] = text
-
         if self.quicklookurl is not None:
             o['quicklookurl'] = self.quicklookurl
 
-        # Icon
+        # Largetype and copytext
+        text = self._text()
+        if text:
+            o['text'] = text
+
+        icon = self._icon()
+        if icon:
+            o['icon'] = icon
+
+        # Variables and config
+        js = self._vars_and_config()
+        if js:
+            o['arg'] = js
+
+        # Modifiers
+        mods = self._modifiers()
+        if mods:
+            o['mods'] = mods
+
+        return o
+
+    def _icon(self):
+        """Return `icon` object for item.
+
+        Returns:
+            dict: Mapping for item `icon` (may be empty).
+        """
+        icon = {}
         if self.icon is not None:
             icon['path'] = self.icon
 
         if self.icontype is not None:
             icon['type'] = self.icontype
 
-        if icon:
-            o['icon'] = icon
+        return icon
 
-        # Variables and config
+    def _text(self):
+        """Return `largetext` and `copytext` object for item.
+
+        Returns:
+            dict: `text` mapping (may be empty)
+
+        """
+        text = {}
+        if self.largetext is not None:
+            text['largetype'] = self.largetext
+
+        if self.copytext is not None:
+            text['copy'] = self.copytext
+
+        return text
+
+    def _vars_and_config(self):
+        """Build `arg` including workflow variables and configuration.
+
+        Returns:
+            str: JSON string value for `arg` (or `None`)
+
+        """
         if self.variables or self.config:
             d = {}
             if self.variables:
@@ -271,17 +310,25 @@ class Item3(object):
             if self.arg is not None:
                 d['arg'] = self.arg
 
-            o['arg'] = json.dumps({'alfredworkflow': d})
+            return json.dumps({'alfredworkflow': d})
 
-        # Modifiers
+        return None
+
+    def _modifiers(self):
+        """Build `mods` dictionary for JSON feedback.
+
+        Returns:
+            dict: Modifier mapping or `None`.
+
+        """
         if self.modifiers:
             mods = {}
             for k, mod in self.modifiers.items():
                 mods[k] = mod.obj
 
-            o['mods'] = mods
+            return mods
 
-        return o
+        return None
 
 
 class Workflow3(Workflow):

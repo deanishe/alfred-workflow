@@ -259,7 +259,7 @@ def test_check_update_with_prereleases(httpserver, info):
 
 
 def test_install_update(httpserver, info):
-    """Update is installed"""
+    """Update is installed."""
     # Clear any cached data
     wf = Workflow()
     wf.reset()
@@ -269,7 +269,7 @@ def test_install_update(httpserver, info):
 
     with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
         # No update for latest release
-        assert update.install_update(TEST_REPO_SLUG, RELEASE_LATEST) is False
+        assert update.install_update() is False
 
         # Check for updates
         assert update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT) is True
@@ -277,8 +277,7 @@ def test_install_update(httpserver, info):
         # Verify new workflow is downloaded and installed
         c = WorkflowMock()
         with c:
-            assert update.install_update(TEST_REPO_SLUG,
-                                         RELEASE_CURRENT) is True
+            assert update.install_update() is True
 
         assert c.cmd[0] == 'open'
         assert c.cmd[1].endswith('.alfredworkflow')
@@ -287,7 +286,7 @@ def test_install_update(httpserver, info):
 
 
 def test_no_auto_update(info):
-    """No update check"""
+    """No update check."""
     wf = Workflow()
     wf.reset()
     # Assert cache was cleared

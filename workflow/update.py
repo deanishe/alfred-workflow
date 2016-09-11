@@ -9,8 +9,7 @@
 # Created on 2014-08-16
 #
 
-"""
-Self-updating from GitHub
+"""Self-updating from GitHub.
 
 .. versionadded:: 1.9
 
@@ -42,6 +41,7 @@ _wf = None
 
 
 def wf():
+    """Lazy `Workflow` object."""
     global _wf
     if _wf is None:
         _wf = workflow.Workflow()
@@ -137,6 +137,7 @@ class Version(object):
         return (self.major, self.minor, self.patch, self.suffix)
 
     def __lt__(self, other):
+        """Implement comparison."""
         if not isinstance(other, Version):
             raise ValueError('Not a Version instance: {0!r}'.format(other))
         t = self.tuple[:3]
@@ -154,27 +155,33 @@ class Version(object):
         return False
 
     def __eq__(self, other):
+        """Implement comparison."""
         if not isinstance(other, Version):
             raise ValueError('Not a Version instance: {0!r}'.format(other))
         return self.tuple == other.tuple
 
     def __ne__(self, other):
+        """Implement comparison."""
         return not self.__eq__(other)
 
     def __gt__(self, other):
+        """Implement comparison."""
         if not isinstance(other, Version):
             raise ValueError('Not a Version instance: {0!r}'.format(other))
         return other.__lt__(self)
 
     def __le__(self, other):
+        """Implement comparison."""
         if not isinstance(other, Version):
             raise ValueError('Not a Version instance: {0!r}'.format(other))
         return not other.__lt__(self)
 
     def __ge__(self, other):
+        """Implement comparison."""
         return not self.__lt__(other)
 
     def __str__(self):
+        """Return semantic version string."""
         vstr = '{0}.{1}.{2}'.format(self.major, self.minor, self.patch)
         if self.suffix:
             vstr += '-{0}'.format(self.suffix)
@@ -183,17 +190,17 @@ class Version(object):
         return vstr
 
     def __repr__(self):
+        """Return 'code' representation of `Version`."""
         return "Version('{0}')".format(str(self))
 
 
 def download_workflow(url):
-    """Download workflow at ``url`` to a local temporary file
+    """Download workflow at ``url`` to a local temporary file.
 
     :param url: URL to .alfredworkflow file in GitHub repo
     :returns: path to downloaded file
 
     """
-
     filename = url.split("/")[-1]
 
     if (not url.endswith('.alfredworkflow') or
@@ -203,8 +210,7 @@ def download_workflow(url):
     local_path = os.path.join(tempfile.gettempdir(), filename)
 
     wf().logger.debug(
-        'Downloading updated workflow from `{0}` to `{1}` ...'.format(
-            url, local_path))
+        'Downloading updated workflow from `%s` to `%s` ...', url, local_path)
 
     response = web.get(url)
 
@@ -255,13 +261,13 @@ def _validate_release(release):
 
     if dl_count == 0:
         wf().logger.warning(
-            'Invalid release {0} : No workflow file'.format(version))
+            'Invalid release %s : No workflow file', version)
         return None
 
     for k in downloads:
         if len(downloads[k]) > 1:
             wf().logger.warning(
-                'Invalid release %s : multiple %s files'.format(version, k))
+                'Invalid release %s : multiple %s files', version, k)
             return None
 
     # Prefer .alfred3workflow file if there is one and Alfred 3 is
@@ -272,7 +278,7 @@ def _validate_release(release):
     else:
         download_url = downloads['.alfredworkflow'][0]
 
-    wf().logger.debug('Release `{0}` : {1}'.format(version, download_url))
+    wf().logger.debug('Release `%s` : %s', version, download_url)
 
     return {
         'version': version,
@@ -300,12 +306,11 @@ def get_valid_releases(github_slug, prereleases=False):
     api_url = build_api_url(github_slug)
     releases = []
 
-    wf().logger.debug('Retrieving releases list from `{0}` ...'.format(
-                      api_url))
+    wf().logger.debug('Retrieving releases list from `%s` ...', api_url)
 
     def retrieve_releases():
         wf().logger.info(
-            'Retrieving releases for `{0}` ...'.format(github_slug))
+            'Retrieving releases for `%s` ...', github_slug)
         return web.get(api_url).json()
 
     slug = github_slug.replace('/', '-')
@@ -325,50 +330,11 @@ def get_valid_releases(github_slug, prereleases=False):
 
         releases.append(release)
 
-        # else:
-
-        #     try:
-        #         valid = _validate_release(release)
-        #     except Exception as err:
-        #         wf().logger.exception(err)
-        #         raise err
-        #     else:
-        #         wf().logger.debug('valid=%r', valid)
-
-        #     version = release['tag_name']
-        #     download_urls = []
-        #     for asset in release.get('assets', []):
-        #         url = asset.get('browser_download_url')
-        #         if not url or not url.endswith('.alfredworkflow'):
-        #             continue
-        #         download_urls.append(url)
-
-        #     # Validate release
-        #     if release['prerelease'] and not prereleases:
-        #         wf().logger.warning(
-        #             'Invalid release {0} : pre-release detected'.format(version))
-        #         continue
-        #     if not download_urls:
-        #         wf().logger.warning(
-        #             'Invalid release {0} : No workflow file'.format(version))
-        #         continue
-        #     if len(download_urls) > 1:
-        #         wf().logger.warning(
-        #             'Invalid release {0} : multiple workflow files'.format(version))
-        #         continue
-
-        #     wf().logger.debug('Release `{0}` : {1}'.format(version, url))
-        #     releases.append({
-        #         'version': version,
-        #         'download_url': download_urls[0],
-        #         'prerelease': release['prerelease']
-        #     })
-
     return releases
 
 
 def check_update(github_slug, current_version, prereleases=False):
-    """Check whether a newer release is available on GitHub
+    """Check whether a newer release is available on GitHub.
 
     :param github_slug: ``username/repo`` for workflow's GitHub repo
     :param current_version: the currently installed version of the
@@ -381,14 +347,12 @@ def check_update(github_slug, current_version, prereleases=False):
     be cached.
 
     """
-
     releases = get_valid_releases(github_slug, prereleases)
 
-    wf().logger.info('{0} releases for {1}'.format(len(releases),
-                                                   github_slug))
+    wf().logger.info('%d releases for %s', len(releases), github_slug)
 
     if not len(releases):
-        raise ValueError('No valid releases for {0}'.format(github_slug))
+        raise ValueError('No valid releases for %s', github_slug)
 
     # GitHub returns releases newest-first
     latest_release = releases[0]
@@ -396,7 +360,7 @@ def check_update(github_slug, current_version, prereleases=False):
     # (latest_version, download_url) = get_latest_release(releases)
     vr = Version(latest_release['version'])
     vl = Version(current_version)
-    wf().logger.debug('Latest : {0!r} Installed : {1!r}'.format(vr, vl))
+    wf().logger.debug('Latest : %r Installed : %r', vr, vl)
     if vr > vl:
 
         wf().cache_data('__workflow_update_status', {
@@ -413,21 +377,12 @@ def check_update(github_slug, current_version, prereleases=False):
     return False
 
 
-def install_update(github_slug, current_version):
-    """If a newer release is available, download and install it
-
-    :param github_slug: ``username/repo`` for workflow's GitHub repo
-    :param current_version: the currently installed version of the
-        workflow. :ref:`Semantic versioning <semver>` is required.
-    :type current_version: ``unicode``
-
-    If an update is available, it will be downloaded and installed.
+def install_update():
+    """If a newer release is available, download and install it.
 
     :returns: ``True`` if an update is installed, else ``False``
 
     """
-    # TODO: `github_slug` and `current_version` are both unusued.
-
     update_data = wf().cached_data('__workflow_update_status', max_age=0)
 
     if not update_data or not update_data.get('available'):
@@ -448,7 +403,9 @@ if __name__ == '__main__':  # pragma: nocover
     import sys
 
     def show_help():
-        print('Usage : update.py (check|install) github_slug version [--prereleases]')
+        """Print help message."""
+        print('Usage : update.py (check|install) github_slug version '
+              '[--prereleases]')
         sys.exit(1)
 
     argv = sys.argv[:]
@@ -468,4 +425,4 @@ if __name__ == '__main__':  # pragma: nocover
     if action == 'check':
         check_update(github_slug, version, prereleases)
     elif action == 'install':
-        install_update(github_slug, version)
+        install_update()

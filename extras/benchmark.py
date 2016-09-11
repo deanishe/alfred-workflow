@@ -100,7 +100,7 @@ class Table(object):
         is_title, data = row[0], row[1:]
         str_row = [is_title]
 
-        for i, cell in enumerate(data):
+        for cell in data:
             if isinstance(cell, unicode):
                 cell = cell.encode('utf-8')
             elif isinstance(cell, str):

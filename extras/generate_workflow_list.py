@@ -8,9 +8,7 @@
 # Created on 2014-10-02
 #
 
-"""
-Generate a list of workflows on Packal that use Alfred-Workflow.
-"""
+"""Generate a list of workflows on Packal that use Alfred-Workflow."""
 
 from __future__ import print_function, unicode_literals, absolute_import
 
@@ -65,6 +63,7 @@ def fetch_url(url):
 
 
 class Cache(object):
+    """Cache workflow data scraped from Packal."""
 
     find_github_url = re.compile(r"""field-github-url
                                  .*?
@@ -74,6 +73,7 @@ class Cache(object):
                                  re.DOTALL | re.VERBOSE).search
 
     def __init__(self, filepath):
+        """Create new `Cache` at `filepath`."""
         self.filepath = filepath
         self._data = {}
         self._load()
@@ -84,11 +84,12 @@ class Cache(object):
                 self._data = json.load(file_obj)
 
     def save(self):
+        """Save cache as JSON to `self.filepath`."""
         with open(self.filepath, 'wb') as file_obj:
             json.dump(self._data, file_obj, indent=2, sort_keys=True)
 
     def add_github_info(self, workflow):
-        """Add GitHub info to workflow dict
+        """Add GitHub info to workflow dict.
 
         {
             'github_user': 'github username',
@@ -97,15 +98,14 @@ class Cache(object):
             'github_user_url': 'https://github.com/user',
         }
         """
-
         update = True
         data = {}
 
         if workflow['bundle'] in self._data:
             data = self._data[workflow['bundle']]
             cache_age = time() - data['cached']
-            log.debug('Cache age of {} : {:0.3f} days'.format(
-                      workflow['bundle'], cache_age / 86400))
+            log.debug('Cache age of %s : %0.3f days', workflow['bundle'],
+                      cache_age / 86400)
             if cache_age < (MAX_CACHE_AGE * 86400):
                 update = False
 
@@ -114,15 +114,12 @@ class Cache(object):
                 return workflow
 
         if update:  # Fetch workflow pages from Packal and grab GitHub info
-            log.info('Retrieving {} ...'.format(workflow['url']))
-            # fp = urlopen(workflow['url'])
-            # html = fp.read()
+            log.info('Retrieving %s ...', workflow['url'])
             html = fetch_url(workflow['url'])
             # log.debug(html)
             m = self.find_github_url(html)
             if not m:
-                log.warning('No Github info for `{}`'.format(
-                            workflow['bundle']))
+                log.warning('No Github info for `%s`', workflow['bundle'])
             else:
                 github_url = m.group(1)
                 m = parse_github_url(github_url)
@@ -255,6 +252,7 @@ def read_manifest(path):
 
 
 def workflows_using_aw(dirpath):
+    """Yield bundle IDs of workflows using AW."""
     for root, _, filenames in os.walk(dirpath):
         for filename in filenames:
             if not filename.endswith('.alfredworkflow'):
@@ -274,16 +272,19 @@ def workflows_using_aw(dirpath):
 
 
 def packal_username(author):
+    """Format usernames for Packal."""
     user = author.lower()
     user = user.replace(' ', '-')
     return user
 
 
 def packal_user_url(author):
+    """Generate link to Packal page for `author`."""
     return 'http://www.packal.org/users/{}'.format(packal_username(author))
 
 
 def main():
+    """Run script."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-b', '--bundleid', action='store_true', default=False,
                         help="Print a list of bundle IDs.")
@@ -312,13 +313,13 @@ def main():
 
     bundles = []
 
-    log.info('Searching {}...'.format(PACKAL_REPO_DIR))
+    log.info('Searching %s...', PACKAL_REPO_DIR)
 
     for bundle in workflows_using_aw(PACKAL_REPO_DIR):
         if bundle in packal_workflows:
             bundles.append(bundle)
     # print('\n\n')
-    log.info('{} Packal workflows using Alfred-Workflow'.format(len(bundles)))
+    log.info('%d Packal workflows using Alfred-Workflow', len(bundles))
 
     output = []
     for bundle in bundles:
@@ -327,7 +328,7 @@ def main():
         workflow = cache.add_github_info(workflow)
         workflows.append(workflow)
 
-    log.info('{} workflows using Alfred-Workflow'.format(len(workflows)))
+    log.info('%d workflows using Alfred-Workflow', len(workflows))
 
     for workflow in workflows:
         if args.bundleid:
@@ -335,8 +336,8 @@ def main():
             # return
             output.append((workflow['name'], workflow['bundle']))
         else:
-            # msg = '[{name}]({url}) by [{author}](http://www.packal.org/users/{username}). {short}'.format(**workflow)
-            msg = workflow_link(workflow, rest=args.rest, github_links=args.github)
+            msg = workflow_link(workflow, rest=args.rest,
+                                github_links=args.github)
             if not msg.endswith('.'):
                 msg += '.'
             output.append((workflow['name'], msg))

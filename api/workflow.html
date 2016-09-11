@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.20 documentation</title>
+    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.21 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.20',
+        VERSION:     '1.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.20 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="The Workflow3 class for Alfred 3" href="workflow3.html" />
     <link rel="prev" title="API Documentation" href="index.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="index.html" title="API Documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.20 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -169,7 +169,7 @@ also be opened directly in a web browser with the <code class="docutils literal"
 
 <dl class="method">
 <dt id="workflow.workflow.Workflow.add_item">
-<code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>modifier_subtitles=None</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.add_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an item to be output to Alfred.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -201,6 +201,8 @@ this item.</li>
 if user presses CMD+L on item.</li>
 <li><strong>copytext</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Text to be copied to pasteboard if user presses
 CMD+C on item.</li>
+<li><strong>quicklookurl</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; URL to be displayed using Alfred&#8217;s Quick Look
+feature (tapping <code class="docutils literal"><span class="pre">SHIFT</span></code> or <code class="docutils literal"><span class="pre">⌘+Y</span></code> on a result).</li>
 </ul>
 </td>
 </tr>

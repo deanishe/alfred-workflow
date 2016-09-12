@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>Fetching Data from the Web — Alfred-Workflow 1.19 documentation</title>
+<title>Fetching Data from the Web — Alfred-Workflow 1.21 documentation</title>
 <link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.19',
+        VERSION:     '1.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -18,7 +18,7 @@
 <script src="../_static/underscore.js" type="text/javascript"></script>
 <script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.19 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.21 documentation"/>
 <link href="index.html" rel="up" title="API Documentation"/>
 <link href="background.html" rel="next" title="Background Tasks"/>
 <link href="workflow3.html" rel="prev" title="The Workflow3 class for Alfred 3"/>
@@ -40,7 +40,7 @@
 <a accesskey="N" href="background.html" title="Background Tasks">next</a> |</li>
 <li class="right">
 <a accesskey="P" href="workflow3.html" title="The Workflow3 class for Alfred 3">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> »</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> »</li>
 <li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
@@ -76,11 +76,12 @@ the size of <a class="reference external" href="http://docs.python-requests.org/
 the <a class="reference internal" href="#workflow.web.Response" title="workflow.web.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a> instances they return.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>As <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is based on Python 2’s standard HTTP libraries, it
-<strong>does not</strong> verify SSL certificates when establishing HTTPS
-connections.</p>
+<p>As <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is based on Python 2’s standard HTTP libraries,
+it <strong>does not</strong> verify SSL certificates when establishing HTTPS connections
+on Python versions older than 2.7.9 (i.e. pre-Yosemite).</p>
 <p class="last">As a result, you <strong>must not</strong> use this module for sensitive
-connections.</p>
+connections unless you’re certain it will only run on 2.7.9/Yosemite
+and later.</p>
 </div>
 <p>If you require certificate verification for HTTPS connections (which you
 really should), you should use the excellent <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a> library

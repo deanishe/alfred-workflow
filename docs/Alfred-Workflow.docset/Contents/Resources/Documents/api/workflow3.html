@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>The Workflow3 class for Alfred 3 — Alfred-Workflow 1.19 documentation</title>
+<title>The Workflow3 class for Alfred 3 — Alfred-Workflow 1.21 documentation</title>
 <link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.19',
+        VERSION:     '1.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -18,7 +18,7 @@
 <script src="../_static/underscore.js" type="text/javascript"></script>
 <script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.19 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.21 documentation"/>
 <link href="index.html" rel="up" title="API Documentation"/>
 <link href="web.html" rel="next" title="Fetching Data from the Web"/>
 <link href="workflow.html" rel="prev" title="The Workflow class for Alfred 2 and 3"/>
@@ -40,7 +40,7 @@
 <a accesskey="N" href="web.html" title="Fetching Data from the Web">next</a> |</li>
 <li class="right">
 <a accesskey="P" href="workflow.html" title="The Workflow class for Alfred 2 and 3">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> »</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> »</li>
 <li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
@@ -59,14 +59,15 @@ to create <a class="reference internal" href="#workflow.workflow3.Item3" title="
 <a class="reference internal" href="#workflow.workflow3.Workflow3.add_item" title="workflow.workflow3.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a> methods
 respectively. If you instantiate <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> or <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
 objects directly, the current <a class="reference internal" href="#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a>
-won’t know anything about them, and they won’t be sent to Alfred.</p>
+object won’t be aware of them, and they won’t be sent to Alfred when
+you call <a class="reference internal" href="#workflow.workflow3.Workflow3.send_feedback" title="workflow.workflow3.Workflow3.send_feedback"><code class="xref py py-meth docutils literal"><span class="pre">send_feedback()</span></code></a>.</p>
 <dl class="class">
 <dt id="workflow.workflow3.Workflow3"><a name="//apple_ref/cpp/Class/workflow.workflow3.Workflow3"></a>
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Workflow3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow class that generates Alfred 3 feedback.</p>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.add_item"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.add_item"></a>
-<code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.add_item" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.add_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an item to be output to Alfred.</p>
 <p>See <a class="reference internal" href="workflow.html#workflow.workflow.Workflow.add_item" title="workflow.workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">add_item()</span></code></a> for the main
 documentation.</p>
@@ -134,7 +135,7 @@ method instead on the returned item instead.</p>
 </dd></dl>
 <dl class="class">
 <dt id="workflow.workflow3.Item3"><a name="//apple_ref/cpp/Class/workflow.workflow3.Item3"></a>
-<em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Item3</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Item3</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a feedback item for Alfred 3.</p>
 <p>Generates Alfred-compliant JSON for a single item.</p>
 <p>You probably shouldn’t use this class directly, but via

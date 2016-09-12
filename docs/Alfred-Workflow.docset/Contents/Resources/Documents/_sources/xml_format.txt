@@ -6,8 +6,14 @@ Script Filter Results and the XML Format
 ========================================
 
 .. note::
-    This document is valid as of version 2.5 of Alfred and 1.8.5 of
-    Alfred-Workflow.
+    This document is valid for **Alfred 2**, as of version 2.5 of Alfred and 1.8.5 of Alfred-Workflow.
+
+    For Alfred 3, see `Alfred's online docs`_. The major differences are
+    the handling of modifiers and the addition of :ref:`workflow-variables`
+    and ``quicklookurl``.
+
+    If you're using Alfred 3, it may still be useful to read this
+    description, as the *behaviour* described still applies to Alfred 3.
 
 .. contents::
     :local:
@@ -250,7 +256,7 @@ the pasteboard (unless you have set :ref:`copy text <param-copytext>` for the
 item).
 
 Other than being copyable, setting ``arg`` doesn't make great deal of sense unless
-the item is also :ref:`valid <param-valid>`. An exception isif the item's
+the item is also :ref:`valid <param-valid>`. An exception is if the item's
 :ref:`param-type` is ``file``. In this case, a user can still use File Actions
 on an item, even if it is not :ref:`valid <param-valid>`.
 
@@ -259,6 +265,16 @@ on an item, even if it is not :ref:`valid <param-valid>`.
     ``arg`` may also be specified as an attribute of the ``<item>``
     element, but specifying it as a child element of ``<item>`` is more flexible:
     you can include newlines within an element, but not within an attribute.
+
+Alfred's behaviour is a little complicated when ``arg`` and ``valid`` are
+not specified. By default, Alfred will set ``arg`` to an empty string and
+``valid`` to ``True``. This may or may not make the item actionable depending
+on your Script Filter settings.
+
+Alfred-Workflow, on the other hand, will set ``valid`` to ``False`` if ``arg``
+and ``valid`` are not set, making the item unactionable. This is done to
+provide more predictable behaviour.
+
 
 .. _param-valid:
 
@@ -471,4 +487,4 @@ filetypes but you don't have a specific filepath to use as a ``fileicon``.
 
 
 .. _UTI: https://en.wikipedia.org/wiki/Uniform_Type_Identifier
-
+.. _Alfred's online docs: https://www.alfredapp.com/help/workflows/inputs/script-filter/json/

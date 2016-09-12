@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Self-updating &mdash; Alfred-Workflow 1.19 documentation</title>
+    <title>Self-updating &mdash; Alfred-Workflow 1.21 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.19',
+        VERSION:     '1.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Versioning and migration" href="versioning.html" />
     <link rel="prev" title="Background processes" href="background.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="background.html" title="Background processes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -111,7 +111,8 @@ been enabled or the <code class="docutils literal"><span class="pre">prereleases
 </div>
 <div class="section" id="supporting-alfred-2-and-alfred-3">
 <h3><a class="toc-backref" href="#id3">Supporting Alfred 2 and Alfred 3</a><a class="headerlink" href="#supporting-alfred-2-and-alfred-3" title="Permalink to this headline">¶</a></h3>
-<p>Alfred 3 workflows are fundamentally incompatible with Alfred 2.</p>
+<p>Workflows created <em>or edited</em> in Alfred 3 are fundamentally incompatible
+with Alfred 2, even if no Alfred 3-only features are used.</p>
 <p>If you want to make a new release of an existing workflow that breaks
 compatibility with Alfred 2, it&#8217;s important that you use the alternate
 <code class="docutils literal"><span class="pre">.alfred3workflow</span></code> file extension for your release binaries to prevent Alfred
@@ -130,11 +131,21 @@ considered invalid.</p>
 <p>To use self-updating, you must pass a <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> as the <code class="docutils literal"><span class="pre">update_settings</span></code>
 argument to <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>. It <strong>must</strong> have the key/value
 pair <code class="docutils literal"><span class="pre">github_slug</span></code>, which is your username and the name of the
-workflow&#8217;s repo in the format <code class="docutils literal"><span class="pre">username/reponame</span></code>. The version of the currently
-installed workflow must also be specified. You can do this in the
-<code class="docutils literal"><span class="pre">update_settings</span></code> dict or in a <code class="docutils literal"><span class="pre">version</span></code> file in the root of your workflow
-(next to <code class="docutils literal"><span class="pre">info.plist</span></code>), e.g.:</p>
-<div class="highlight-python" id="update-example"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+workflow&#8217;s repo in the format <code class="docutils literal"><span class="pre">username/reponame</span></code>. The version number of the currently
+installed workflow must also be specified (see below). There are several ways
+to specify the version number of your workflow:</p>
+<ol class="arabic simple">
+<li>In Alfred 3, use the Workflow Version field in the workflow configuration
+sheet. This saves the version number in <code class="docutils literal"><span class="pre">info.plist</span></code>.
+<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> will retrieve the version from the
+environment variables set by Alfred when it runs your workflow (or by
+parsing <code class="docutils literal"><span class="pre">info.plist</span></code> if not running in Alfred).</li>
+<li>By setting the <code class="docutils literal"><span class="pre">version</span></code> key in the <code class="docutils literal"><span class="pre">update_settings</span></code> dictionary.</li>
+<li>By saving a <code class="docutils literal"><span class="pre">version</span></code> file in your workflow&#8217;s root directory
+(alongside <code class="docutils literal"><span class="pre">info.plist</span></code>).</li>
+</ol>
+<p id="update-example">Via <code class="docutils literal"><span class="pre">update_settings</span></code>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -161,22 +172,30 @@ installed workflow must also be specified. You can do this in the
 25
 26
 27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span>
 
 <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.1&#39;</span>
 
 <span class="o">...</span>
 
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">update_settings</span><span class="o">=</span><span class="p">{</span>
-    <span class="c1"># Your username and the workflow&#39;s repo&#39;s name</span>
+    <span class="c1"># Your username and the workflow&#39;s repo&#39;s name.</span>
     <span class="s1">&#39;github_slug&#39;</span><span class="p">:</span> <span class="s1">&#39;username/reponame&#39;</span><span class="p">,</span>
-    <span class="c1"># The version (i.e. release/tag) of the installed workflow</span>
-    <span class="c1"># If a `version` file exists in the root of your workflow,</span>
-    <span class="c1"># this key may be omitted</span>
+
+    <span class="c1"># The version (i.e. release/tag) of the installed workflow.</span>
+    <span class="c1"># If you&#39;ve set a Workflow Version in Alfred&#39;s workflow</span>
+    <span class="c1"># configuration sheet or if a `version` file exists in</span>
+    <span class="c1"># the root of your workflow, this key may be omitted</span>
     <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
-    <span class="c1"># Optional number of days between checks for updates</span>
+
+    <span class="c1"># Optional number of days between checks for updates.</span>
     <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-    <span class="c1"># Force checking for pre-release updates</span>
+
+    <span class="c1"># Force checking for pre-release updates.</span>
     <span class="c1"># This is only recommended when distributing a pre-release;</span>
     <span class="c1"># otherwise allow users to choose whether they want</span>
     <span class="c1"># production-ready or pre-release updates with the</span>
@@ -314,7 +333,7 @@ It caches information on the latest available release under the cache key
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>.</p>
 </div>
 <div class="section" id="version-numbers">
-<h2><a class="toc-backref" href="#id7">Version numbers</a><a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
+<span id="version-details"></span><h2><a class="toc-backref" href="#id7">Version numbers</a><a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h2>
 <p>Please see <a class="reference internal" href="versioning.html#manual-versioning"><span>Versioning and migration</span></a> for detailed information on the required
 version number format and associated features.</p>
 </div>

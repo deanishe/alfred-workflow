@@ -28,12 +28,13 @@ the :class:`Response` instances they return.
 
 .. warning::
 
-    As :mod:`workflow.web` is based on Python 2's standard HTTP libraries, it
-    **does not** verify SSL certificates when establishing HTTPS
-    connections.
+    As :mod:`workflow.web` is based on Python 2's standard HTTP libraries,
+    it **does not** verify SSL certificates when establishing HTTPS connections
+    on Python versions older than 2.7.9 (i.e. pre-Yosemite).
 
     As a result, you **must not** use this module for sensitive
-    connections.
+    connections unless you're certain it will only run on 2.7.9/Yosemite
+    and later.
 
 If you require certificate verification for HTTPS connections (which you
 really should), you should use the excellent `requests`_ library

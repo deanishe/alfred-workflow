@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Script Filter Results and the XML Format &mdash; Alfred-Workflow 1.19 documentation</title>
+    <title>Script Filter Results and the XML Format &mdash; Alfred-Workflow 1.21 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.19',
+        VERSION:     '1.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.19 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="index.html" />
     <link rel="next" title="Workflows using Alfred-Workflow" href="aw-workflows.html" />
     <link rel="prev" title="Serialization" href="api/serialization.html" />
 
@@ -56,7 +56,7 @@
         <li class="right" >
           <a href="api/serialization.html" title="Serialization"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.19 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -69,8 +69,12 @@
 <span id="script-filter-results"></span><h1>Script Filter Results and the XML Format<a class="headerlink" href="#script-filter-results-and-the-xml-format" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This document is valid as of version 2.5 of Alfred and 1.8.5 of
-Alfred-Workflow.</p>
+<p>This document is valid for <strong>Alfred 2</strong>, as of version 2.5 of Alfred and 1.8.5 of Alfred-Workflow.</p>
+<p>For Alfred 3, see <a class="reference external" href="https://www.alfredapp.com/help/workflows/inputs/script-filter/json/">Alfred&#8217;s online docs</a>. The major differences are
+the handling of modifiers and the addition of <a class="reference internal" href="user-manual/workflow-variables.html#workflow-variables"><span>Workflow variables</span></a>
+and <code class="docutils literal"><span class="pre">quicklookurl</span></code>.</p>
+<p class="last">If you&#8217;re using Alfred 3, it may still be useful to read this
+description, as the <em>behaviour</em> described still applies to Alfred 3.</p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -318,7 +322,7 @@ result is &#8220;actioned&#8221; (i.e. by selecting it and hitting <code class="
 the pasteboard (unless you have set <a class="reference internal" href="#param-copytext"><span>copy text</span></a> for the
 item).</p>
 <p>Other than being copyable, setting <code class="docutils literal"><span class="pre">arg</span></code> doesn&#8217;t make great deal of sense unless
-the item is also <a class="reference internal" href="#param-valid"><span>valid</span></a>. An exception isif the item&#8217;s
+the item is also <a class="reference internal" href="#param-valid"><span>valid</span></a>. An exception is if the item&#8217;s
 <a class="reference internal" href="#param-type"><span>type</span></a> is <code class="docutils literal"><span class="pre">file</span></code>. In this case, a user can still use File Actions
 on an item, even if it is not <a class="reference internal" href="#param-valid"><span>valid</span></a>.</p>
 <div class="admonition note">
@@ -327,6 +331,13 @@ on an item, even if it is not <a class="reference internal" href="#param-valid">
 element, but specifying it as a child element of <code class="docutils literal"><span class="pre">&lt;item&gt;</span></code> is more flexible:
 you can include newlines within an element, but not within an attribute.</p>
 </div>
+<p>Alfred&#8217;s behaviour is a little complicated when <code class="docutils literal"><span class="pre">arg</span></code> and <code class="docutils literal"><span class="pre">valid</span></code> are
+not specified. By default, Alfred will set <code class="docutils literal"><span class="pre">arg</span></code> to an empty string and
+<code class="docutils literal"><span class="pre">valid</span></code> to <code class="docutils literal"><span class="pre">True</span></code>. This may or may not make the item actionable depending
+on your Script Filter settings.</p>
+<p>Alfred-Workflow, on the other hand, will set <code class="docutils literal"><span class="pre">valid</span></code> to <code class="docutils literal"><span class="pre">False</span></code> if <code class="docutils literal"><span class="pre">arg</span></code>
+and <code class="docutils literal"><span class="pre">valid</span></code> are not set, making the item unactionable. This is done to
+provide more predictable behaviour.</p>
 </div>
 <div class="section" id="valid">
 <span id="param-valid"></span><h3><a class="toc-backref" href="#id8">valid</a><a class="headerlink" href="#valid" title="Permalink to this headline">¶</a></h3>

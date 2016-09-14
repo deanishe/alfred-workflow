@@ -7,8 +7,7 @@
 # Created on 2014-02-15
 #
 
-"""
-The :class:`Workflow` object is the main interface to this library.
+"""The :class:`Workflow` object is the main interface to this library.
 
 See :ref:`setup` in the :ref:`user-manual` for an example of how to set
 up your Python script to best utilise the :class:`Workflow` object.
@@ -455,7 +454,9 @@ class KeychainError(Exception):
 
 
 class PasswordNotFound(KeychainError):
-    """Raised by method :meth:`Workflow.get_password` when ``account``
+    """Password not in Keychain.
+
+    Raised by method :meth:`Workflow.get_password` when ``account``
     is unknown to the Keychain.
     """
 
@@ -480,8 +481,8 @@ def isascii(text):
     :type text: ``unicode``
     :returns: ``True`` if ``text`` contains only ASCII characters
     :rtype: ``Boolean``
-    """
 
+    """
     try:
         text.encode('ascii')
     except UnicodeEncodeError:
@@ -529,7 +530,6 @@ class SerializerManager(object):
             methods
 
         """
-
         # Basic validation
         getattr(serializer, 'load')
         getattr(serializer, 'dump')
@@ -545,7 +545,6 @@ class SerializerManager(object):
             is registered.
 
         """
-
         return self._serializers.get(name)
 
     def unregister(self, name):
@@ -559,7 +558,6 @@ class SerializerManager(object):
         :returns: serializer object
 
         """
-
         if name not in self._serializers:
             raise ValueError('No such serializer registered : {0}'.format(
                              name))
@@ -598,7 +596,6 @@ class JSONSerializer(object):
         :rtype: object
 
         """
-
         return json.load(file_obj)
 
     @classmethod
@@ -613,7 +610,6 @@ class JSONSerializer(object):
         :type file_obj: ``file`` object
 
         """
-
         return json.dump(obj, file_obj, indent=2, encoding='utf-8')
 
 
@@ -639,7 +635,6 @@ class CPickleSerializer(object):
         :rtype: object
 
         """
-
         return cPickle.load(file_obj)
 
     @classmethod
@@ -654,7 +649,6 @@ class CPickleSerializer(object):
         :type file_obj: ``file`` object
 
         """
-
         return cPickle.dump(obj, file_obj, protocol=-1)
 
 
@@ -679,7 +673,6 @@ class PickleSerializer(object):
         :rtype: object
 
         """
-
         return pickle.load(file_obj)
 
     @classmethod
@@ -694,7 +687,6 @@ class PickleSerializer(object):
         :type file_obj: ``file`` object
 
         """
-
         return pickle.dump(obj, file_obj, protocol=-1)
 
 
@@ -720,10 +712,7 @@ class Item(object):
                  arg=None, autocomplete=None, valid=False, uid=None,
                  icon=None, icontype=None, type=None, largetext=None,
                  copytext=None, quicklookurl=None):
-        """Arguments the same as for :meth:`Workflow.add_item`.
-
-        """
-
+        """Same arguments as :meth:`Workflow.add_item`."""
         self.title = title
         self.subtitle = subtitle
         self.modifier_subtitles = modifier_subtitles or {}
@@ -746,7 +735,6 @@ class Item(object):
             instance for this :class:`Item` instance.
 
         """
-
         # Attributes on <item> element
         attr = {}
         if self.valid:
@@ -918,6 +906,7 @@ class uninterruptible(object):
     """
 
     def __init__(self, func, class_name=''):
+        """Decorate `func`."""
         self.func = func
         self._caught_signal = None
 
@@ -926,6 +915,7 @@ class uninterruptible(object):
         self._caught_signal = (signum, frame)
 
     def __call__(self, *args, **kwargs):
+        """Trap ``SIGTERM`` and call wrapped function."""
         self._caught_signal = None
         # Register handler for SIGTERM, then call `self.func`
         self.old_signal_handler = signal.getsignal(signal.SIGTERM)
@@ -945,6 +935,7 @@ class uninterruptible(object):
                 sys.exit(0)
 
     def __get__(self, obj=None, klass=None):
+        """Decorator API."""
         return self.__class__(self.func.__get__(obj, klass),
                               klass.__name__)
 
@@ -969,7 +960,6 @@ class Settings(dict):
 
     def __init__(self, filepath, defaults=None):
         """Create new :class:`Settings` object."""
-
         super(Settings, self).__init__()
         self._filepath = filepath
         self._nosave = False
@@ -1013,11 +1003,13 @@ class Settings(dict):
 
     # dict methods
     def __setitem__(self, key, value):
+        """Implement :class:`dict` interface."""
         if self._original.get(key) != value:
             super(Settings, self).__setitem__(key, value)
             self.save()
 
     def __delitem__(self, key):
+        """Implement :class:`dict` interface."""
         super(Settings, self).__delitem__(key)
         self.save()
 
@@ -1137,7 +1129,7 @@ class Workflow(object):
 
     @property
     def alfred_env(self):
-        """Alfred's environmental variables minus the ``alfred_`` prefix.
+        """Dict of Alfred's environmental variables minus ``alfred_`` prefix.
 
         .. versionadded:: 1.7
 
@@ -1443,7 +1435,9 @@ class Workflow(object):
         return self._workflowdir
 
     def cachefile(self, filename):
-        """Return full path to ``filename`` within your workflow's
+        """Path to ``filename`` in workflow's cache directory.
+
+        Return absolute path to ``filename`` within your workflow's
         :attr:`cache directory <Workflow.cachedir>`.
 
         :param filename: basename of file
@@ -1455,7 +1449,9 @@ class Workflow(object):
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
-        """Return full path to ``filename`` within your workflow's
+        """Path to ``filename`` in workflow's data directory.
+
+        Return absolute path to ``filename`` within your workflow's
         :attr:`data directory <Workflow.datadir>`.
 
         :param filename: basename of file
@@ -1585,7 +1581,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         return self._cache_serializer
 
     @cache_serializer.setter
@@ -1630,7 +1625,6 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
-
         return self._data_serializer
 
     @data_serializer.setter
@@ -1649,7 +1643,6 @@ class Workflow(object):
         :param serializer_name: Name of serializer to use by default.
 
         """
-
         if manager.serializer(serializer_name) is None:
             raise ValueError(
                 'Unknown serializer : `{0}`. Register your serializer '
@@ -1661,8 +1654,9 @@ class Workflow(object):
         self._data_serializer = serializer_name
 
     def stored_data(self, name):
-        """Retrieve data from data directory. Returns ``None`` if there
-        are no data stored.
+        """Retrieve data from data directory.
+
+        Returns ``None`` if there are no data stored under ``name``.
 
         .. versionadded:: 1.8
 
@@ -1774,7 +1768,9 @@ class Workflow(object):
         self.logger.debug('Stored data saved at : {0}'.format(data_path))
 
     def cached_data(self, name, data_func=None, max_age=60):
-        """Retrieve data from cache or re-generate and re-cache data if
+        """Return cached data if younger than ``max_age`` seconds.
+
+        Retrieve data from cache or re-generate and re-cache data if
         stale/non-existant. If ``max_age`` is 0, return cached data no
         matter how old.
 
@@ -2290,7 +2286,6 @@ class Workflow(object):
         Raises a :class:`ValueError` if :attr:`version` isn't set.
 
         """
-
         if not self.version:
             raise ValueError('No workflow version set')
 
@@ -2438,7 +2433,7 @@ class Workflow(object):
             self.logger.debug('Update check not due')
 
     def start_update(self):
-        """Check for update and download and install new workflow file
+        """Check for update and download and install new workflow file.
 
         .. versionadded:: 1.9
 
@@ -2674,7 +2669,7 @@ class Workflow(object):
                 return 'This workflow has no version number'
 
         def list_magic():
-            """Display all available magic args in Alfred"""
+            """Display all available magic args in Alfred."""
             isatty = sys.stderr.isatty()
             for name in sorted(self.magic_arguments.keys()):
                 if name == 'magic':
@@ -2723,8 +2718,10 @@ class Workflow(object):
             self.logger.debug('Deleted : %r', self.settings_path)
 
     def reset(self):
-        """Delete :attr:`settings <settings_path>`, :attr:`cache <cachedir>`
-        and :attr:`data <datadir>`
+        """Delete workflow settings, cache and data.
+
+        File :attr:`settings <settings_path>` and directories
+        :attr:`cache <cachedir>` and :attr:`data <datadir>` are deleted.
 
         """
         self.clear_cache()
@@ -2749,7 +2746,6 @@ class Workflow(object):
 
     def open_terminal(self):
         """Open a Terminal window at workflow's :attr:`workflowdir`."""
-
         subprocess.call(['open', '-a', 'Terminal',
                         self.workflowdir])
 

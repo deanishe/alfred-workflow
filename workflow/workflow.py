@@ -2126,11 +2126,15 @@ class Workflow(object):
         self._search_pattern_cache[query] = search
         return search
 
-    def run(self, func):
+    def run(self, func, plaintext_exceptions=False):
         """Call ``func`` to run your workflow.
 
         :param func: Callable to call with ``self`` (i.e. the :class:`Workflow`
             instance) as first argument.
+        :param plaintext_exceptions: Determines whether raised exceptions
+            should be sent to Alfred as plain text or as feedback items (the
+            default). Enable when output is intended for a notification, large
+            text, or other Alfred action that shows the query as text.
 
         ``func`` will be called with :class:`Workflow` instance as first
         argument.
@@ -2173,16 +2177,19 @@ class Workflow(object):
                     'For assistance, see: {0}'.format(self.help_url))
 
             if not sys.stdout.isatty():  # Show error in Alfred
-                self._items = []
-                if self._name:
-                    name = self._name
-                elif self._bundleid:
-                    name = self._bundleid
-                else:  # pragma: no cover
-                    name = os.path.dirname(__file__)
-                self.add_item("Error in workflow '%s'" % name, unicode(err),
-                              icon=ICON_ERROR)
-                self.send_feedback()
+                if plaintext_exceptions:
+                    sys.stdout.write(unicode(err).encode('utf-8'))
+                else:
+                    self._items = []
+                    if self._name:
+                        name = self._name
+                    elif self._bundleid:
+                        name = self._bundleid
+                    else:  # pragma: no cover
+                        name = os.path.dirname(__file__)
+                    self.add_item("Error in workflow '%s'" % name, unicode(err),
+                                  icon=ICON_ERROR)
+                    self.send_feedback()
             return 1
 
         finally:

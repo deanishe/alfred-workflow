@@ -1,5 +1,9 @@
-language:
-  - objective-c
+# language:
+#   - objective-c
+
+os: osx
+
+osx_image: beta-xcode6.2
 
 env:
   # - TOX_ENV=py26

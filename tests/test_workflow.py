@@ -834,6 +834,50 @@ class WorkflowTests(unittest.TestCase):
         ret = self.wf.run(cb)
         self.assertEqual(ret, 1)
 
+    def test_run_fails_with_xml_output(self):
+        """Run fails with XML output"""
+        error_text = 'Have an error'
+        def cb(wf):
+            self.assertEqual(wf, self.wf)
+            raise ValueError(error_text)
+        # named after bundleid
+        self.wf = Workflow()
+        self.wf.bundleid
+
+        stdout = sys.stdout
+        sio = StringIO()
+        sys.stdout = sio
+        ret = self.wf.run(cb)
+        sys.stdout = stdout
+        output = sio.getvalue()
+        sio.close()
+
+        self.assertEqual(ret, 1)
+        self.assertTrue(error_text in output)
+        self.assertTrue('<?xml' in output)
+
+    def test_run_fails_with_plain_text_output(self):
+        """Run fails with plain text output"""
+        error_text = 'Have an error'
+        def cb(wf):
+            self.assertEqual(wf, self.wf)
+            raise ValueError(error_text)
+        # named after bundleid
+        self.wf = Workflow()
+        self.wf.bundleid
+
+        stdout = sys.stdout
+        sio = StringIO()
+        sys.stdout = sio
+        ret = self.wf.run(cb, plaintext_exceptions=True)
+        sys.stdout = stdout
+        output = sio.getvalue()
+        sio.close()
+
+        self.assertEqual(ret, 1)
+        self.assertTrue(error_text in output)
+        self.assertTrue('<?xml' not in output)
+
     def test_run_fails_borked_settings(self):
         """Run fails with borked settings.json"""
 

@@ -194,3 +194,47 @@ def test_default_directories(info3):
     wf3 = Workflow3()
     assert 'Alfred 3' in wf3.datadir
     assert 'Alfred-3' in wf3.cachedir
+
+
+def test_run_fails_with_json_output():
+    """Run fails with JSON output"""
+    error_text = 'Have an error'
+    def cb(wf):
+        raise ValueError(error_text)
+    # named after bundleid
+    wf = Workflow3()
+    wf.bundleid
+
+    stdout = sys.stdout
+    sio = StringIO()
+    sys.stdout = sio
+    ret = wf.run(cb)
+    sys.stdout = stdout
+    output = sio.getvalue()
+    sio.close()
+
+    assert ret == 1
+    assert error_text in output
+    assert '{' in output
+
+
+def test_run_fails_with_plain_text_output():
+    """Run fails with plain text output"""
+    error_text = 'Have an error'
+    def cb(wf):
+        raise ValueError(error_text)
+    # named after bundleid
+    wf = Workflow3()
+    wf.bundleid
+
+    stdout = sys.stdout
+    sio = StringIO()
+    sys.stdout = sio
+    ret = wf.run(cb, plaintext_exceptions=True)
+    sys.stdout = stdout
+    output = sio.getvalue()
+    sio.close()
+
+    assert ret == 1
+    assert error_text in output
+    assert '{' not in output

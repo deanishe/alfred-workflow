@@ -230,7 +230,7 @@ def test_run_fails_with_plain_text_output():
     stdout = sys.stdout
     sio = StringIO()
     sys.stdout = sio
-    ret = wf.run(cb, plaintext_exceptions=True)
+    ret = wf.run(cb, text_errors=True)
     sys.stdout = stdout
     output = sio.getvalue()
     sio.close()

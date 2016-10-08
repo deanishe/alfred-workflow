@@ -2126,15 +2126,16 @@ class Workflow(object):
         self._search_pattern_cache[query] = search
         return search
 
-    def run(self, func, plaintext_exceptions=False):
+    def run(self, func, text_errors=False):
         """Call ``func`` to run your workflow.
 
         :param func: Callable to call with ``self`` (i.e. the :class:`Workflow`
             instance) as first argument.
-        :param plaintext_exceptions: Determines whether raised exceptions
-            should be sent to Alfred as plain text or as feedback items (the
-            default). Enable when output is intended for a notification, large
-            text, or other Alfred action that shows the query as text.
+        :param text_errors: Emit error messages in plain text, not in
+            Alfred's XML/JSON feedback format. Use this when you're not
+            running Alfred-Workflow in a Script Filter and would like
+            to pass the error message to, say, a notification.
+        :type text_errors: ``Boolean``
 
         ``func`` will be called with :class:`Workflow` instance as first
         argument.
@@ -2177,8 +2178,8 @@ class Workflow(object):
                     'For assistance, see: {0}'.format(self.help_url))
 
             if not sys.stdout.isatty():  # Show error in Alfred
-                if plaintext_exceptions:
-                    sys.stdout.write(unicode(err).encode('utf-8'))
+                if text_errors:
+                    print(unicode(err).encode('utf-8'), end='')
                 else:
                     self._items = []
                     if self._name:

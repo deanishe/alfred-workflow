@@ -7,10 +7,7 @@
 #
 # Created on 2014-03-01
 #
-"""
-test_workflow.py
-
-"""
+"""test_workflow.py"""
 
 from __future__ import print_function, unicode_literals
 
@@ -869,7 +866,7 @@ class WorkflowTests(unittest.TestCase):
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio
-        ret = self.wf.run(cb, plaintext_exceptions=True)
+        ret = self.wf.run(cb, text_errors=True)
         sys.stdout = stdout
         output = sio.getvalue()
         sio.close()

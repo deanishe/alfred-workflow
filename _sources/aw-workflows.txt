@@ -33,6 +33,9 @@ section in the `GitHub README`_.
 - `Alfred Soundboard <http://www.packal.org/workflow/alfred-soundboard>`__
   by `Steffen <http://www.packal.org/users/steffen>`__.
   A soundboard for alfred at your fingertips.
+- `Alfred Today <http://www.packal.org/workflow/alfred-today>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Loads a daily list of events from Google and/or Exchange calendars.
 - `Alfred-Drive-Workflow <http://www.packal.org/workflow/alfred-drive-workflow>`__
   by `azai91 <http://www.packal.org/users/azai91>`__.
   Browse, search and open Google Drive files from within Alfred.
@@ -78,6 +81,9 @@ section in the `GitHub README`_.
 - `Calendar <http://www.packal.org/workflow/calendar>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   Displays a monthly calendar with Alfred Workflow.
+- `Capital Weather Gang <http://www.packal.org/workflow/capital-weather-gang>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Pulls the Capital Weather Gang RSS Feed.
 - `CDN <http://www.packal.org/workflow/alfred-cdn-workflow>`__
   by `azai91 <http://www.packal.org/users/azai91>`__.
   Find CDNs quick with Alfred.
@@ -117,6 +123,9 @@ section in the `GitHub README`_.
 - `Ekşi Sözlük Search <http://www.packal.org/workflow/eksi-sozluk-search>`__
   by `ttuygun <http://www.packal.org/users/ttuygun>`__.
   Search Turkey's eksisozluk.com.
+- `Emoji Taco <http://www.packal.org/workflow/emoji-taco>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Always up to date - Unicode Emoji workflow includes Taco!.
 - `Fabric for Alfred <http://www.packal.org/workflow/fabric-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Quickly execute Fabric tasks.
@@ -216,6 +225,9 @@ section in the `GitHub README`_.
 - `MangaEden Search <http://www.packal.org/workflow/mangaeden-search>`__
   by `emamuna <http://www.packal.org/users/emamuna>`__.
   Search, read and download manga from mangaeden.com.
+- `Mathematica <http://www.packal.org/workflow/mathematica>`__
+  by `sam-marsh <http://www.packal.org/users/sam-marsh>`__.
+  Runs commands using the Mathematica kernel.
 - `Mianliao <http://www.packal.org/workflow/mianliao>`__
   by `whtsky <http://www.packal.org/users/whtsky>`__.
   Help you log into Mianliao Network.
@@ -228,9 +240,6 @@ section in the `GitHub README`_.
 - `Movie Ratings <http://www.packal.org/workflow/movie-ratings>`__
   by `mattsson <http://www.packal.org/users/mattsson>`__.
   Search for a movie and see its IMDb, Rotten Tomatoes and Metacritic ratings.
-- `Myinstants <http://www.packal.org/workflow/myinstants>`__
-  by `flipxfx <http://www.packal.org/users/flipxfx>`__.
-  A workflow to search Myinstants.com.
 - `Naver Korean-English Dictionary <http://www.packal.org/workflow/naver-korean-english-dictionary>`__
   by `pjvandehaar <http://www.packal.org/users/pjvandehaar>`__.
   Access the Naver Korean-English dictionary (in both directions) with autocomplete suggestions and a hotkey to use the current selection.
@@ -312,6 +321,9 @@ section in the `GitHub README`_.
 - `Rotten Search <http://www.packal.org/workflow/rotten-search>`__
   by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Search movie from RottenTomatoes.com.
+- `Say it with GIFs <http://www.packal.org/workflow/say-it-gifs>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  Browse your horde of GIFs and get their URLs.
 - `Search Omnifocus <http://www.packal.org/workflow/search-omnifocus>`__
   by `rhyd <http://www.packal.org/users/rhyd>`__.
   This is a workflow that performs free text searches on OmniFocus data.
@@ -342,6 +354,9 @@ section in the `GitHub README`_.
 - `slackfred <http://www.packal.org/workflow/slackfred>`__
   by `frankspin <http://www.packal.org/users/frankspin>`__.
   Interact with the chat service Slack via Alfred (multi-org supported).
+- `Smart Folders <http://www.packal.org/workflow/smart-folders>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  View and explore your Smart Folders (Saved Searches).
 - `Snippets <http://www.packal.org/workflow/snippets>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Simple, document-specific text snippets.
@@ -375,9 +390,6 @@ section in the `GitHub README`_.
 - `TeXdoc <http://www.packal.org/workflow/texdoc>`__
   by `Egon Geerardyn <http://www.packal.org/users/egon-geerardyn>`__.
   Searches your LaTeX documentation using texdoc.
-- `Today Menu <http://www.packal.org/workflow/today-menu>`__
-  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
-  Loads a daily list of events from Google and/or Exchange calendars.
 - `TodoList <https://github.com/ecmadao/Alfred-TodoList>`__
   by `ecmadao <https://github.com/ecmadao>`__.
   A simple todo-workflow lets you add, complete or delete todo in to-do lists.
@@ -408,6 +420,9 @@ section in the `GitHub README`_.
 - `Wikify <http://www.packal.org/workflow/wikify>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Your little Evernote Wiki-Helper.
+- `Workflow Directory - Open in Finder or Terminal <http://www.packal.org/workflow/workflow-directory-open-finder-or-terminal>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Same behavior as the right click menu on a workflow.  Saves you time if you are developing workflows.
 - `Workon Virtualenv <http://www.packal.org/workflow/workon-virtualenv>`__
   by `johnnycakes79 <http://www.packal.org/users/johnnycakes79>`__.
   Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).

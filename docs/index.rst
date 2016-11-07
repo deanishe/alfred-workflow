@@ -133,7 +133,7 @@ Pinboard item in Alfred to open it in your browser.
 Supported software
 ==================
 
-Alfred-Workflow supports all versions of Alfred 2 and all versions of OS X
+Alfred-Workflow supports all versions of Alfred 2 & 3 and all versions of OS X
 supported by Alfred 2. It works with Python 2.6 and 2.7, but *not* Python 3.
 
 Some features are not available on older versions of OS X.

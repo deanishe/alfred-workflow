@@ -35,6 +35,7 @@ Alfred 3-only features
 * Set `workflow variables`_ from code
 * Advanced modifiers
 * Alfred 3-only updates (won't break Alfred 2 installs)
+* Re-running Script Filters
 
 
 Quick Example

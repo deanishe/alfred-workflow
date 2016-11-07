@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Self-Updating &mdash; Alfred-Workflow 1.21 documentation</title>
+    <title>Self-Updating &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Serialization" href="serialization.html" />
     <link rel="prev" title="Notifications" href="notify.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="notify.html" title="Notifications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -86,7 +86,7 @@ notify the user that an update is available.</p>
 on how to enable automatic updates in your workflow.</p>
 <div class="section" id="module-workflow.update">
 <span id="api"></span><h2>API<a class="headerlink" href="#module-workflow.update" title="Permalink to this headline">¶</a></h2>
-<p>Self-updating from GitHub</p>
+<p>Self-updating from GitHub.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
@@ -123,6 +123,54 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="workflow.update.Version.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__ge__">
+<code class="descname">__ge__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__ge__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__gt__">
+<code class="descname">__gt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__gt__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__le__">
+<code class="descname">__le__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__le__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__lt__">
+<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__lt__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__ne__">
+<code class="descname">__ne__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__ne__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement comparison.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return &#8216;code&#8217; representation of <cite>Version</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.update.Version.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return semantic version string.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="workflow.update.Version.match_version">
 <code class="descname">match_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.match_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Match version and pre-release/build information in version strings</p>
@@ -155,7 +203,7 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 <dl class="function">
 <dt id="workflow.update.check_update">
 <code class="descclassname">workflow.update.</code><code class="descname">check_update</code><span class="sig-paren">(</span><em>github_slug</em>, <em>current_version</em>, <em>prereleases=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.check_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check whether a newer release is available on GitHub</p>
+<dd><p>Check whether a newer release is available on GitHub.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -180,7 +228,7 @@ be cached.</p>
 <dl class="function">
 <dt id="workflow.update.download_workflow">
 <code class="descclassname">workflow.update.</code><code class="descname">download_workflow</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.download_workflow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download workflow at <code class="docutils literal"><span class="pre">url</span></code> to a local temporary file</p>
+<dd><p>Download workflow at <code class="docutils literal"><span class="pre">url</span></code> to a local temporary file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -221,22 +269,8 @@ be cached.</p>
 
 <dl class="function">
 <dt id="workflow.update.install_update">
-<code class="descclassname">workflow.update.</code><code class="descname">install_update</code><span class="sig-paren">(</span><em>github_slug</em>, <em>current_version</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.install_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>If a newer release is available, download and install it</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>github_slug</strong> &#8211; <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow&#8217;s GitHub repo</li>
-<li><strong>current_version</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; the currently installed version of the
-workflow. <a class="reference internal" href="../user-manual/versioning.html#semver"><span>Semantic versioning</span></a> is required.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>If an update is available, it will be downloaded and installed.</p>
+<code class="descclassname">workflow.update.</code><code class="descname">install_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.install_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>If a newer release is available, download and install it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -250,7 +284,8 @@ workflow. <a class="reference internal" href="../user-manual/versioning.html#sem
 <dl class="function">
 <dt id="workflow.update.wf">
 <code class="descclassname">workflow.update.</code><code class="descname">wf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.wf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Lazy <cite>Workflow</cite> object.</p>
+</dd></dl>
 
 </div>
 </div>

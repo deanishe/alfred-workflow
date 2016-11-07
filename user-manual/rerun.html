@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Notifications &mdash; Alfred-Workflow 1.23 documentation</title>
+    <title>Re-running a Script Filter &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
-    <link rel="next" title="Background processes" href="background.html" />
-    <link rel="prev" title="Retrieving data from the web" href="web.html" />
+    <link rel="next" title="Encoded strings and Unicode" href="text-encoding.html" />
+    <link rel="prev" title="Serialization of stored/cached data" href="serialization.html" />
 
    
   
@@ -52,10 +52,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="background.html" title="Background processes"
+          <a href="text-encoding.html" title="Encoded strings and Unicode"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="web.html" title="Retrieving data from the web"
+          <a href="serialization.html" title="Serialization of stored/cached data"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
@@ -67,62 +67,73 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="notifications">
-<span id="id1"></span><h1>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="re-running-a-script-filter">
+<span id="manual-rerun"></span><h1>Re-running a Script Filter<a class="headerlink" href="#re-running-a-script-filter" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.15.</span></p>
+<p><span class="versionmodified">New in version 1.23.</span></p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Notifications are only available on Mountain Lion (10.8) and later. Calling
-<a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on earlier systems will silently fail.</p>
-</div>
-<p>Alfred 2 allows you to post notifications, but only at the end of
-a workflow, and only with its own icon.</p>
-<p>Alfred-Workflow&#8217;s <a class="reference internal" href="../api/notify.html#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> module lets you post notifications
-whenever you want, and with your workflow&#8217;s icon.</p>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow.notify</span> <span class="kn">import</span> <span class="n">notify</span>
+<p>Alfred 3.2 introduced an new &#8220;rerun&#8221; feature. Emitting a <code class="docutils literal"><span class="pre">rerun</span></code> value
+from a Script Filter tells Alfred to run that script again after the
+specified number of seconds. Alfred will also pass back any variables
+set at the top-level of your feedback, i.e. via the
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow3.setvar()</span></code> method.</p>
+<p>Set <code class="xref py py-attr docutils literal"><span class="pre">Workflow3.rerun</span></code> to instruct
+Alfred to re-run your Script Filter.</p>
+<p>This could be used, for example, to provide a seamless (to the user) status
+update in a workflow that reports on the status of a download client like
+<a class="reference external" href="https://aria2.github.io">aria2</a> via its API.</p>
+<p>The refresh is invisible to the user, as Alfred doesn&#8217;t update its UI unless
+the Script Filter output changes.</p>
+<p>In terms of Alfred-Workflow more generally, you might use this feature to
+re-run your Script Filter if its data are still being updated in the background.
+For example:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow3</span>
+<span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">is_running</span><span class="p">,</span> <span class="n">run_in_background</span>
 
-<span class="n">notify</span><span class="p">(</span><span class="s1">&#39;My Title&#39;</span><span class="p">,</span> <span class="s1">&#39;My Text&#39;</span><span class="p">)</span>
+<span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow3</span><span class="p">()</span>
+
+<span class="c1"># Unconditionally load data from cache</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Update cached data if they&#39;re stale</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">run_in_background</span><span class="p">(</span><span class="s1">&#39;update_cache&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Tell Alfred to re-run the Script Filter if the cache is</span>
+<span class="c1"># currently being updated.</span>
+<span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s1">&#39;update_cache&#39;</span><span class="p">):</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">rerun</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Show (stale) cached data</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+
+<span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>This is the full API:</p>
-<dl class="function">
-<dt id="workflow.notify.notify">
-<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Post notification via Notify.app helper.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>str, optional</em>) &#8211; Notification title.</li>
-<li><strong>text</strong> (<em>str, optional</em>) &#8211; Notification body text.</li>
-<li><strong>sound</strong> (<em>str, optional</em>) &#8211; Name of sound to play.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
-Raised if both <cite>title</cite> and <cite>text</cite> are empty.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>True</cite> if notification was posted, else <cite>False</cite>.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>See the <a class="reference internal" href="../api/notify.html#api-notifications"><span>API documentation</span></a> for details of the other
-functions.</p>
-</div>
+<p>In this way, the results shown to the user will be updated only if the
+background update changes the cached data.</p>
 </div>
 
 
@@ -171,7 +182,7 @@ functions.</p>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
@@ -179,7 +190,7 @@ functions.</p>
 <li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
@@ -202,8 +213,8 @@ functions.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html">User Manual</a><ul>
-      <li>Previous: <a href="web.html" title="previous chapter">Retrieving data from the web</a></li>
-      <li>Next: <a href="background.html" title="next chapter">Background processes</a></li>
+      <li>Previous: <a href="serialization.html" title="previous chapter">Serialization of stored/cached data</a></li>
+      <li>Next: <a href="text-encoding.html" title="next chapter">Encoded strings and Unicode</a></li>
   </ul></li>
   </ul></li>
 </ul>

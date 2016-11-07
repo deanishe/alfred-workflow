@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>“Magic” arguments &mdash; Alfred-Workflow 1.21 documentation</title>
+    <title>“Magic” arguments &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Workflow variables" href="workflow-variables.html" />
     <link rel="prev" title="System icons" href="icons.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="icons.html" title="System icons"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -141,14 +141,14 @@ perhaps assigning your own keywords within your Workflow:</p>
 <div class="section" id="customising-magic-arguments">
 <span id="custom-magic"></span><h2><a class="toc-backref" href="#id2">Customising magic arguments</a><a class="headerlink" href="#customising-magic-arguments" title="Permalink to this headline">¶</a></h2>
 <p>The default prefix for magic arguments (<code class="docutils literal"><span class="pre">workflow:</span></code>) is contained in the
-<a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.magic_prefix" title="workflow.workflow.Workflow.magic_prefix"><code class="xref py py-attr docutils literal"><span class="pre">magic_prefix</span></code></a> attribute of
+<code class="xref py py-attr docutils literal"><span class="pre">magic_prefix</span></code> attribute of
 <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>. If you want to change it to, say,
 <code class="docutils literal"><span class="pre">wf:</span></code> (which will become the default in v2 of Alfred-Workflow), simply
 reassign it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">magic_prefix</span> <span class="o">=</span> <span class="s1">&#39;wf:&#39;</span>
 </pre></div>
 </div>
-<p>The magic arguments are defined in the <a class="reference internal" href="../api/workflow.html#workflow.workflow.Workflow.magic_arguments" title="workflow.workflow.Workflow.magic_arguments"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.magic_arguments</span></code></a> dictionary.
+<p>The magic arguments are defined in the <code class="xref py py-attr docutils literal"><span class="pre">Workflow.magic_arguments</span></code> dictionary.
 The dictionary keys are the keywords for the arguments (without the
 prefix) and the values are functions that should be called when the magic
 argument is entered. You can show a message in Alfred by returning a
@@ -231,6 +231,7 @@ open <code class="docutils literal"><span class="pre">settings.json</span></code
 <li class="toctree-l2 current"><a class="current reference internal" href="">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>

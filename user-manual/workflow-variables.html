@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow variables &mdash; Alfred-Workflow 1.21 documentation</title>
+    <title>Workflow variables &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Serialization of stored/cached data" href="serialization.html" />
     <link rel="prev" title="“Magic” arguments" href="magic-arguments.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="magic-arguments.html" title="“Magic” arguments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -77,14 +77,29 @@ API for getting and setting workflow variables via Script Filter feedback
 output.</p>
 <p>Variables can be set at the Workflow, Item or Modifier level using their
 respective <code class="docutils literal"><span class="pre">setvar(name,</span> <span class="pre">value)</span></code> methods.</p>
-<p>Items and Modifiers inherit any variables set on their parent Workflow or Item
-objects <em>at the time of their creation</em>.</p>
+<p>Variables set on the <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object are
+&#8220;global&#8221;, as they are emitted as part of the top-level feedback object sent to
+Alfred. They are always passed to downstream workflow objects regardless of
+which item the user actions (and indeed, even if the user doesn&#8217;t action any
+result: they are also used by Alfred for its <a class="reference internal" href="rerun.html#manual-rerun"><span>rerun</span></a>
+feature).</p>
+<p>Variables set at the
+<a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a>/<a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
+level are only applied if the user actions that item (and modifier).</p>
+<div class="section" id="inheritance">
+<h2>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifiers</span></code></a> inherit any variables set on
+their parent <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> objects <em>at the time of their
+creation</em>. Any variables set on an <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> object
+<em>after</em> a <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> was added are <em>not</em> inherited
+by the modifier.</p>
 <p>This way, you can have some variables inherited and others not.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">Alfred-Workflow does not automatically import any variables. All getters
-only consider variables you have set, not those passed to your script by
-Alfred.</p>
+only consider variables you have set on the objects yourself, not those
+set by upstream workflow elements or the configuration sheet.</p>
+</div>
 </div>
 <div class="section" id="example-usage">
 <h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
@@ -164,7 +179,7 @@ like this:</p>
 <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow3</span><span class="p">()</span>
 
 <span class="c1"># Username will be needed in every case. Set at the workflow level</span>
-<span class="c1"># to ensure all items inherit it</span>
+<span class="c1"># to ensure it is always passed to downstream workflow objects</span>
 <span class="n">wf</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;WF_USERNAME&#39;</span><span class="p">,</span> <span class="s1">&#39;deanishe&#39;</span><span class="p">)</span>
 
 <span class="c1"># Some example actions. We&#39;ve set username above as the main</span>
@@ -283,6 +298,7 @@ saving workflow variables.</p>
 <li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Background Tasks &mdash; Alfred-Workflow 1.21 documentation</title>
+    <title>Background Tasks &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Notifications" href="notify.html" />
     <link rel="prev" title="Fetching Data from the Web" href="web.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="web.html" title="Fetching Data from the Web"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -142,8 +142,7 @@ relevant webservice, and call it from your main workflow script:</p>
 <dl class="function">
 <dt id="workflow.background.run_in_background">
 <code class="descclassname">workflow.background.</code><code class="descname">run_in_background</code><span class="sig-paren">(</span><em>name</em>, <em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.run_in_background" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pickle arguments to cache file, then call this script again via
-<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>.</p>
+<dd><p>Cache arguments then call this script again via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -178,7 +177,7 @@ return immediately and will not run the specified command.</p>
 <dl class="function">
 <dt id="workflow.background.is_running">
 <code class="descclassname">workflow.background.</code><code class="descname">is_running</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.background.is_running" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether task is running under <code class="docutils literal"><span class="pre">name</span></code></p>
+<dd><p>Test whether task is running under <code class="docutils literal"><span class="pre">name</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

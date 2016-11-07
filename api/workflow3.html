@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.21 documentation</title>
+    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.23 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.21 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.23 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Fetching Data from the Web" href="web.html" />
     <link rel="prev" title="The Workflow class for Alfred 2 and 3" href="workflow.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="workflow.html" title="The Workflow class for Alfred 2 and 3"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -84,6 +84,20 @@ you call <a class="reference internal" href="#workflow.workflow3.Workflow3.send_
 <dt id="workflow.workflow3.Workflow3">
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Workflow3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow class that generates Alfred 3 feedback.</p>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.item_class">
+<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>class</em></p>
+<p>Class used to generate feedback items.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.variables">
+<code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Workflow3.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em></p>
+<p>Top level workflow variables.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.add_item">
 <code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.add_item" title="Permalink to this definition">¶</a></dt>
@@ -127,9 +141,31 @@ method instead on the returned item instead.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="workflow.workflow3.Workflow3.item_class">
-<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">item_class</code></dt>
 <dd><p>alias of <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.obj">
+<code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Workflow3.obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feedback formatted for JSON serialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data suitable for Alfred 3 feedback.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.rerun">
+<code class="descname">rerun</code><a class="headerlink" href="#workflow.workflow3.Workflow3.rerun" title="Permalink to this definition">¶</a></dt>
+<dd><p>How often (in seconds) Alfred should re-run the Script Filter.</p>
 </dd></dl>
 
 <dl class="method">
@@ -141,7 +177,10 @@ method instead on the returned item instead.</p>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.setvar">
 <code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a workflow variable that will be inherited by all new items.</p>
+<dd><p>Set a &#8220;global&#8221; workflow variable.</p>
+<p>These variables are always passed to downstream workflow objects.</p>
+<p>If you have set <a class="reference internal" href="#workflow.workflow3.Workflow3.rerun" title="workflow.workflow3.Workflow3.rerun"><code class="xref py py-attr docutils literal"><span class="pre">rerun</span></code></a>, these variables are also passed
+back to the script when Alfred runs it again.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -216,7 +255,7 @@ for details of arguments.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Item3.obj">
 <code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Item3.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return Modifier formatted for JSON serialization.</p>
+<dd><p>Item formatted for JSON serialization.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -322,7 +361,7 @@ for details of arguments.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.obj">
 <code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Modifier.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return modifier formatted for JSON serialization for Alfred 3.</p>
+<dd><p>Modifier formatted for JSON serialization for Alfred 3.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

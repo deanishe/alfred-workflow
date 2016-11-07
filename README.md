@@ -39,6 +39,7 @@ Features
 - Set workflow variables from code
 - Advanced modifiers
 - Alfred 3-only updates (won't break Alfred 2 installs)
+- Re-running of Script Filters
 
 
 Contents
@@ -298,6 +299,7 @@ Workflows using Alfred-Workflow
 
 These are some of the Alfred workflows that use this library.
 
+Already up-to-date.
 - [17Track](http://www.packal.org/workflow/17track) by [emamuna](http://www.packal.org/users/emamuna).
   Workflow used to track your shipments on 17Track.net.
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) ([GitHub repo](https://github.com/XedMada/alfred-backblaze)) by [XedMada](http://www.packal.org/users/xedmada) ([on GitHub](https://github.com/XedMada/)).
@@ -308,6 +310,8 @@ These are some of the Alfred workflows that use this library.
   Show and filter available keywords.
 - [Alfred Soundboard](http://www.packal.org/workflow/alfred-soundboard) by [Steffen](http://www.packal.org/users/steffen).
   A soundboard for alfred at your fingertips.
+- [Alfred Today](http://www.packal.org/workflow/alfred-today) ([GitHub repo](https://github.com/jeeftor/alfredToday)) by [jeffsui](http://www.packal.org/users/jeffsui) ([on GitHub](https://github.com/jeeftor/)).
+  Loads a daily list of events from Google and/or Exchange calendars.
 - [Alfred-Drive-Workflow](http://www.packal.org/workflow/alfred-drive-workflow) ([GitHub repo](https://github.com/azai91/alfred-drive-workflow)) by [azai91](http://www.packal.org/users/azai91) ([on GitHub](https://github.com/azai91/)).
   Browse, search and open Google Drive files from within Alfred.
 - [Alfred-Flixsearch](http://www.packal.org/workflow/alfred-flixsearch) ([GitHub repo](https://github.com/deanishe/alfred-flixsearch)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -338,6 +342,8 @@ These are some of the Alfred workflows that use this library.
   Set Alfred's background blur radius.
 - [Calendar](http://www.packal.org/workflow/calendar) ([GitHub repo](https://github.com/owenwater/alfred-cal)) by [owenwater](http://www.packal.org/users/owenwater) ([on GitHub](https://github.com/owenwater/)).
   Displays a monthly calendar with Alfred Workflow.
+- [Capital Weather Gang](http://www.packal.org/workflow/capital-weather-gang) by [jeffsui](http://www.packal.org/users/jeffsui).
+  Pulls the Capital Weather Gang RSS Feed.
 - [CDN](http://www.packal.org/workflow/alfred-cdn-workflow) ([GitHub repo](https://github.com/azai91/alfred-cdn-workflow)) by [azai91](http://www.packal.org/users/azai91) ([on GitHub](https://github.com/azai91/)).
   Find CDNs quick with Alfred.
 - [Code Case](http://www.packal.org/workflow/code-case) by [dfay](http://www.packal.org/users/dfay).
@@ -364,6 +370,8 @@ These are some of the Alfred workflows that use this library.
   Search duden.de German dictionary (with auto-suggest).
 - [Ekşi Sözlük Search](http://www.packal.org/workflow/eksi-sozluk-search) ([GitHub repo](https://github.com/ttuygun/alfred-eksi-sozluk-workflow)) by [ttuygun](http://www.packal.org/users/ttuygun) ([on GitHub](https://github.com/ttuygun/)).
   Search Turkey's eksisozluk.com.
+- [Emoji Taco](http://www.packal.org/workflow/emoji-taco) ([GitHub repo](https://github.com/jeeftor/EmojiTaco/)) by [jeffsui](http://www.packal.org/users/jeffsui) ([on GitHub](https://github.com/jeeftor/)).
+  Always up to date - Unicode Emoji workflow includes Taco!.
 - [Fabric for Alfred](http://www.packal.org/workflow/fabric-alfred) by [fniephaus](http://www.packal.org/users/fniephaus).
   Quickly execute Fabric tasks.
 - [Fakeum](http://www.packal.org/workflow/fakeum) ([GitHub repo](https://github.com/deanishe/alfred-fakeum/releases)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -430,6 +438,8 @@ These are some of the Alfred workflows that use this library.
   Send mail to contacts and groups from your Address Book.
 - [MangaEden Search](http://www.packal.org/workflow/mangaeden-search) by [emamuna](http://www.packal.org/users/emamuna).
   Search, read and download manga from mangaeden.com.
+- [Mathematica](http://www.packal.org/workflow/mathematica) by [sam-marsh](http://www.packal.org/users/sam-marsh).
+  Runs commands using the Mathematica kernel.
 - [Mianliao](http://www.packal.org/workflow/mianliao) ([GitHub repo](https://github.com/whtsky/Alfred-Mianliao)) by [whtsky](http://www.packal.org/users/whtsky) ([on GitHub](https://github.com/whtsky/)).
   Help you log into Mianliao Network.
 - [moment](http://www.packal.org/workflow/moment) ([GitHub repo](https://github.com/perfectworks/alfred-workflow-moment)) by [perfectworks](http://www.packal.org/users/perfectworks) ([on GitHub](https://github.com/perfectworks/)).
@@ -438,8 +448,6 @@ These are some of the Alfred workflows that use this library.
   Search for movies and tv shows to find ratings from a few sites.
 - [Movie Ratings](http://www.packal.org/workflow/movie-ratings) ([GitHub repo](https://github.com/mattsson/movies-ratings-alfred)) by [mattsson](http://www.packal.org/users/mattsson) ([on GitHub](https://github.com/mattsson/)).
   Search for a movie and see its IMDb, Rotten Tomatoes and Metacritic ratings.
-- [Myinstants](http://www.packal.org/workflow/myinstants) ([GitHub repo](https://github.com/flipxfx/alfred-myinstants)) by [flipxfx](http://www.packal.org/users/flipxfx) ([on GitHub](https://github.com/flipxfx/)).
-  A workflow to search Myinstants.com.
 - [Naver Korean-English Dictionary](http://www.packal.org/workflow/naver-korean-english-dictionary) ([GitHub repo](https://github.com/pjvandehaar/alfred-workflow-naver-korean-english-dictionary)) by [pjvandehaar](http://www.packal.org/users/pjvandehaar) ([on GitHub](https://github.com/pjvandehaar/)).
   Access the Naver Korean-English dictionary (in both directions) with autocomplete suggestions and a hotkey to use the current selection.
 - [Network Location](http://www.packal.org/workflow/network-location) ([GitHub repo](https://github.com/deanishe/alfred-network-location)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -494,6 +502,8 @@ These are some of the Alfred workflows that use this library.
   Convert RGB values of a color to a hexadecimal string.
 - [Rotten Search](http://www.packal.org/workflow/rotten-search) ([GitHub repo](https://github.com/mrz1277/alfred-workflows/tree/master/net.yakiyama.alfred.rotten)) by [yakiyama](http://www.packal.org/users/yakiyama) ([on GitHub](https://github.com/mrz1277/)).
   Search movie from RottenTomatoes.com.
+- [Say it with GIFs](http://www.packal.org/workflow/say-it-gifs) ([GitHub repo](https://github.com/deanishe/alfred-gifs)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
+  Browse your horde of GIFs and get their URLs.
 - [Search Omnifocus](http://www.packal.org/workflow/search-omnifocus) ([GitHub repo](https://github.com/rhydlewis/search-omnifocus)) by [rhyd](http://www.packal.org/users/rhyd) ([on GitHub](https://github.com/rhydlewis/)).
   This is a workflow that performs free text searches on OmniFocus data.
 - [Search Terminal history](http://www.packal.org/workflow/search-terminal-history) by [N00bDaan](http://www.packal.org/users/n00bdaan).
@@ -514,6 +524,8 @@ These are some of the Alfred workflows that use this library.
   Actions for PDF viewer Skim.
 - [slackfred](http://www.packal.org/workflow/slackfred) ([GitHub repo](https://github.com/fspinillo/slackfred)) by [frankspin](http://www.packal.org/users/frankspin) ([on GitHub](https://github.com/fspinillo/)).
   Interact with the chat service Slack via Alfred (multi-org supported).
+- [Smart Folders](http://www.packal.org/workflow/smart-folders) ([GitHub repo](https://github.com/deanishe/alfred-smartfolders)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
+  View and explore your Smart Folders (Saved Searches).
 - [Snippets](http://www.packal.org/workflow/snippets) ([GitHub repo](https://github.com/smargh/alfred_snippets)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Simple, document-specific text snippets.
 - [Sourcegraph](http://www.packal.org/workflow/sourcegraph) ([GitHub repo](https://github.com/sourcegraph/sourcegraph-alfred)) by [rohanpai](http://www.packal.org/users/rohanpai) ([on GitHub](https://github.com/sourcegraph/)).
@@ -536,8 +548,6 @@ These are some of the Alfred workflows that use this library.
   View, filter and open your Sublime Text (2 and 3) project files.
 - [TeXdoc](http://www.packal.org/workflow/texdoc) ([GitHub repo](https://github.com/egeerardyn/alfred-texdoc)) by [Egon Geerardyn](http://www.packal.org/users/egon-geerardyn) ([on GitHub](https://github.com/egeerardyn/)).
   Searches your LaTeX documentation using texdoc.
-- [Today Menu](http://www.packal.org/workflow/today-menu) ([GitHub repo](https://github.com/jeeftor/alfredToday)) by [jeffsui](http://www.packal.org/users/jeffsui) ([on GitHub](https://github.com/jeeftor/)).
-  Loads a daily list of events from Google and/or Exchange calendars.
 - [TodoList](https://github.com/ecmadao/Alfred-TodoList) by [ecmadao](https://github.com/ecmadao) ([on GitHub](https://github.com/ecmadao/)).
   A simple todo-workflow lets you add, complete or delete todo in to-do lists.
 - [Torrent](http://www.packal.org/workflow/torrent) ([GitHub repo](https://github.com/bfw/alfred-torrent)) by [bfw](http://www.packal.org/users/bfw) ([on GitHub](https://github.com/bfw/)).
@@ -558,6 +568,8 @@ These are some of the Alfred workflows that use this library.
   Switch VPN on/off.
 - [Wikify](http://www.packal.org/workflow/wikify) ([GitHub repo](https://github.com/smargh/alfred_EN-Wikify)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Your little Evernote Wiki-Helper.
+- [Workflow Directory - Open in Finder or Terminal](http://www.packal.org/workflow/workflow-directory-open-finder-or-terminal) ([GitHub repo](https://github.com/jeeftor/AlfredWorkflowDirectory)) by [jeffsui](http://www.packal.org/users/jeffsui) ([on GitHub](https://github.com/jeeftor/)).
+  Same behavior as the right click menu on a workflow.  Saves you time if you are developing workflows.
 - [Workon Virtualenv](http://www.packal.org/workflow/workon-virtualenv) ([GitHub repo](https://github.com/johnnycakes79/alfred-workon-virtualenv)) by [johnnycakes79](http://www.packal.org/users/johnnycakes79) ([on GitHub](https://github.com/johnnycakes79/)).
   Workflow to list and start python virtualenvs (assumes you and have virtualenv and virtualenvwrapper installed).
 - [Wowhead](http://www.packal.org/workflow/wowhead) ([GitHub repo](https://github.com/owenwater/alfred-wowhead)) by [owenwater](http://www.packal.org/users/owenwater) ([on GitHub](https://github.com/owenwater/)).
@@ -574,6 +586,7 @@ These are some of the Alfred workflows that use this library.
   Alfred worflow for Zebra interaction.
 - [ZotQuery](http://www.packal.org/workflow/zotquery) ([GitHub repo](https://github.com/smargh/alfred_zotquery)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Search Zotero. From the Comfort of Your Keyboard.
+
 
 
 

@@ -80,6 +80,7 @@ Alfred 3-only features
 - Set :ref:`workflows variables <workflow-variables>` from code
 - Advanced modifiers
 - Alfred 3-only updates (won't break Alfred 2 installs)
+- :ref:`Automatic re-running of Script Filters <manual-rerun>`.
 
 
 Quick example

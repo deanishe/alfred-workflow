@@ -80,7 +80,7 @@ def test_feedback(info3):
     """Workflow3: Feedback."""
     wf = Workflow3()
     for i in range(10):
-        wf.add_item('Title {0:2d}'.format(i+1))
+        wf.add_item('Title {0:2d}'.format(i + 1))
 
     orig = sys.stdout
     stdout = StringIO()
@@ -102,7 +102,7 @@ def test_feedback(info3):
 
     assert len(items) == 10
     for i in range(10):
-        assert items[i]['title'] == 'Title {0:2d}'.format(i+1)
+        assert items[i]['title'] == 'Title {0:2d}'.format(i + 1)
 
 
 def test_arg_variables(info3):
@@ -118,37 +118,55 @@ def test_arg_variables(info3):
     assert 'config' not in r
 
 
-def test_variable_inheritance(info3):
-    """Workflow3: Variables are inherited."""
+def test_feedback_variables(info3):
+    """Workflow3: feedback variables."""
     wf = Workflow3()
-    wf.setvar('prevar', 'preval')
+
+    o = wf.obj
+    assert 'variables' not in o
+
+    wf.setvar('var', 'val')
     it = wf.add_item('Title', arg='something')
-    wf.setvar('postvar', 'postval')
 
-    assert wf.getvar('prevar') == 'preval'
-    assert wf.getvar('postvar') == 'postval'
+    assert wf.getvar('var') == 'val'
+    assert it.getvar('var') is None
 
-    assert it.getvar('prevar') == 'preval'
-    assert it.getvar('postvar') is None
+    o = wf.obj
+    assert 'variables' in o
+    assert o['variables']['var'] == 'val'
 
-    o = it.obj
-    r = json.loads(o['arg'])['alfredworkflow']
-    assert r['variables']['prevar'] == 'preval'
-    assert r['variables'].get('postvar') is None
-    assert r['arg'] == 'something'
+
+def test_rerun(info3):
+    """Workflow3: rerun."""
+    wf = Workflow3()
+    o = wf.obj
+    assert 'rerun' not in o
+    assert wf.rerun == 0
+
+    wf.rerun = 1
+
+    o = wf.obj
+    assert 'rerun' in o
+    assert o['rerun'] == 1
+    assert wf.rerun == 1
 
 
 def test_modifiers(info3):
     """Item3: Modifiers."""
     wf = Workflow3()
-    wf.setvar('prevar', 'preval')
     it = wf.add_item('Title', 'Subtitle', arg='value', valid=False)
-    mod = it.add_modifier('cmd', subtitle='Subtitle2', arg='value2', valid=True)
+    it.setvar('prevar', 'preval')
+    mod = it.add_modifier('cmd', subtitle='Subtitle2',
+                          arg='value2', valid=True)
+    it.setvar('postvar', 'postval')
     mod.setvar('modvar', 'hello')
 
-    assert wf.getvar('prevar') == 'preval'
+    # assert wf.getvar('prevar') == 'preval'
+    # Test variable inheritance
     assert it.getvar('prevar') == 'preval'
     assert mod.getvar('prevar') == 'preval'
+    assert it.getvar('postvar') == 'postval'
+    assert mod.getvar('postvar') is None
 
     o = it.obj
     assert 'mods' in o
@@ -199,8 +217,10 @@ def test_default_directories(info3):
 def test_run_fails_with_json_output():
     """Run fails with JSON output"""
     error_text = 'Have an error'
+
     def cb(wf):
         raise ValueError(error_text)
+
     # named after bundleid
     wf = Workflow3()
     wf.bundleid
@@ -221,8 +241,10 @@ def test_run_fails_with_json_output():
 def test_run_fails_with_plain_text_output():
     """Run fails with plain text output"""
     error_text = 'Have an error'
+
     def cb(wf):
         raise ValueError(error_text)
+
     # named after bundleid
     wf = Workflow3()
     wf.bundleid

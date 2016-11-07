@@ -17,8 +17,26 @@ output.
 Variables can be set at the Workflow, Item or Modifier level using their
 respective ``setvar(name, value)`` methods.
 
-Items and Modifiers inherit any variables set on their parent Workflow or Item
-objects *at the time of their creation*.
+Variables set on the :class:`~workflow.workflow3.Workflow3` object are
+"global", as they are emitted as part of the top-level feedback object sent to
+Alfred. They are always passed to downstream workflow objects regardless of
+which item the user actions (and indeed, even if the user doesn't action any
+result: they are also used by Alfred for its :ref:`rerun <manual-rerun>`
+feature).
+
+Variables set at the
+:class:`Item <workflow.workflow3.Item3>`/:class:`~workflow.workflow3.Modifier`
+level are only applied if the user actions that item (and modifier).
+
+
+Inheritance
+-----------
+
+:class:`Modifiers <workflow.workflow3.Modifier>` inherit any variables set on
+their parent :class:`~workflow.workflow3.Item3` objects *at the time of their
+creation*. Any variables set on an :class:`~workflow.workflow3.Item3` object
+*after* a :class:`~workflow.workflow3.Modifier` was added are *not* inherited
+by the modifier.
 
 This way, you can have some variables inherited and others not.
 
@@ -26,8 +44,8 @@ This way, you can have some variables inherited and others not.
 .. important::
 
     Alfred-Workflow does not automatically import any variables. All getters
-    only consider variables you have set, not those passed to your script by
-    Alfred.
+    only consider variables you have set on the objects yourself, not those
+    set by upstream workflow elements or the configuration sheet.
 
 
 Example usage
@@ -74,7 +92,7 @@ like this:
     wf = Workflow3()
 
     # Username will be needed in every case. Set at the workflow level
-    # to ensure all items inherit it
+    # to ensure it is always passed to downstream workflow objects
     wf.setvar('WF_USERNAME', 'deanishe')
 
     # Some example actions. We've set username above as the main

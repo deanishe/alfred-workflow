@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.23.1 documentation</title>
+    <title>The Workflow class for Alfred 2 and 3 &mdash; Alfred-Workflow 1.24 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.23.1',
+        VERSION:     '1.24',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.23.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.24 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="The Workflow3 class for Alfred 3" href="workflow3.html" />
     <link rel="prev" title="API Documentation" href="index.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="index.html" title="API Documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.23.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.24 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -249,54 +249,58 @@ edit it or do something with it other than send it to Alfred.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>alfred_preferences</td>
+<tr class="row-even"><td>alfred_debug</td>
+<td>Set to <code class="docutils literal"><span class="pre">1</span></code> if Alfred&#8217;s debugger is
+open, otherwise unset.</td>
+</tr>
+<tr class="row-odd"><td>alfred_preferences</td>
 <td>Path to Alfred.alfredpreferences
 (where your workflows and settings are
 stored).</td>
 </tr>
-<tr class="row-odd"><td>alfred_preferences_localhash</td>
+<tr class="row-even"><td>alfred_preferences_localhash</td>
 <td>Machine-specific preferences are stored
 in <code class="docutils literal"><span class="pre">Alfred.alfredpreferences/preferences/local/&lt;hash&gt;</span></code>
 (see <code class="docutils literal"><span class="pre">alfred_preferences</span></code> above for
 the path to <code class="docutils literal"><span class="pre">Alfred.alfredpreferences</span></code>)</td>
 </tr>
-<tr class="row-even"><td>alfred_theme</td>
+<tr class="row-odd"><td>alfred_theme</td>
 <td>ID of selected theme</td>
 </tr>
-<tr class="row-odd"><td>alfred_theme_background</td>
+<tr class="row-even"><td>alfred_theme_background</td>
 <td>Background colour of selected theme in
 format <code class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_theme_subtext</td>
+<tr class="row-odd"><td>alfred_theme_subtext</td>
 <td>Show result subtext.
 <code class="docutils literal"><span class="pre">0</span></code> = Always,
 <code class="docutils literal"><span class="pre">1</span></code> = Alternative actions only,
 <code class="docutils literal"><span class="pre">2</span></code> = Selected result only,
 <code class="docutils literal"><span class="pre">3</span></code> = Never</td>
 </tr>
-<tr class="row-odd"><td>alfred_version</td>
+<tr class="row-even"><td>alfred_version</td>
 <td>Alfred version number, e.g. <code class="docutils literal"><span class="pre">'2.4'</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_version_build</td>
+<tr class="row-odd"><td>alfred_version_build</td>
 <td>Alfred build number, e.g. <code class="docutils literal"><span class="pre">277</span></code></td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_bundleid</td>
+<tr class="row-even"><td>alfred_workflow_bundleid</td>
 <td>Bundle ID, e.g.
 <code class="docutils literal"><span class="pre">net.deanishe.alfred-mailto</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_cache</td>
+<tr class="row-odd"><td>alfred_workflow_cache</td>
 <td>Path to workflow&#8217;s cache directory</td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_data</td>
+<tr class="row-even"><td>alfred_workflow_data</td>
 <td>Path to workflow&#8217;s data directory</td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_name</td>
+<tr class="row-odd"><td>alfred_workflow_name</td>
 <td>Name of current workflow</td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_uid</td>
+<tr class="row-even"><td>alfred_workflow_uid</td>
 <td>UID of workflow</td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_version</td>
+<tr class="row-odd"><td>alfred_workflow_version</td>
 <td>The version number specified in the
 workflow configuration sheet/info.plist</td>
 </tr>
@@ -625,6 +629,22 @@ By default, <em>all</em> files will be deleted.</td>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.debugging">
+<code class="descname">debugging</code><a class="headerlink" href="#workflow.workflow.Workflow.debugging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether Alfred&#8217;s debugger is open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if Alfred&#8217;s debugger is open.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">bool</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="workflow.workflow.Workflow.decode">
 <code class="descname">decode</code><span class="sig-paren">(</span><em>text</em>, <em>encoding=None</em>, <em>normalization=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.decode" title="Permalink to this definition">¶</a></dt>
@@ -936,6 +956,8 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dt id="workflow.workflow.Workflow.logger">
 <code class="descname">logger</code><a class="headerlink" href="#workflow.workflow.Workflow.logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logger that logs to both console and a log file.</p>
+<p>If Alfred&#8217;s debugger is open, log level will be <code class="docutils literal"><span class="pre">DEBUG</span></code>,
+else it will be <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
 <p>Use <a class="reference internal" href="#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><code class="xref py py-meth docutils literal"><span class="pre">open_log()</span></code></a> to open the log file in Console.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

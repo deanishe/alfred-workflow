@@ -1086,6 +1086,7 @@ class Workflow(object):
         self._settings_path = None
         self._settings = None
         self._bundleid = None
+        self._debugging = None
         self._name = None
         self._cache_serializer = 'cpickle'
         self._data_serializer = 'cpickle'
@@ -1143,6 +1144,8 @@ class Workflow(object):
         ============================  =========================================
         Variable                      Description
         ============================  =========================================
+        alfred_debug                  Set to ``1`` if Alfred's debugger is
+                                      open, otherwise unset.
         alfred_preferences            Path to Alfred.alfredpreferences
                                       (where your workflows and settings are
                                       stored).
@@ -1183,6 +1186,7 @@ class Workflow(object):
         data = {}
 
         for key in (
+                'alfred_debug',
                 'alfred_preferences',
                 'alfred_preferences_localhash',
                 'alfred_theme',
@@ -1200,7 +1204,8 @@ class Workflow(object):
             value = os.getenv(key)
 
             if isinstance(value, str):
-                if key in ('alfred_version_build', 'alfred_theme_subtext'):
+                if key in ('alfred_debug', 'alfred_version_build',
+                           'alfred_theme_subtext'):
                     value = int(value)
                 else:
                     value = self.decode(value)
@@ -1233,6 +1238,21 @@ class Workflow(object):
                 self._bundleid = unicode(self.info['bundleid'], 'utf-8')
 
         return self._bundleid
+
+    @property
+    def debugging(self):
+        """Whether Alfred's debugger is open.
+
+        :returns: ``True`` if Alfred's debugger is open.
+        :rtype: ``bool``
+
+        """
+        if self._debugging is None:
+            if self.alfred_env.get('debug') == 1:
+                self._debugging = True
+            else:
+                self._debugging = False
+        return self._debugging
 
     @property
     def name(self):
@@ -1492,6 +1512,9 @@ class Workflow(object):
     def logger(self):
         """Logger that logs to both console and a log file.
 
+        If Alfred's debugger is open, log level will be ``DEBUG``,
+        else it will be ``INFO``.
+
         Use :meth:`open_log` to open the log file in Console.
 
         :returns: an initialised :class:`~logging.Logger`
@@ -1521,7 +1544,11 @@ class Workflow(object):
             console.setFormatter(fmt)
             logger.addHandler(console)
 
-        logger.setLevel(logging.DEBUG)
+        if self.debugging:
+            logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
+
         self._logger = logger
 
         return self._logger

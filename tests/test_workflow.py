@@ -51,14 +51,6 @@ BUNDLE_ID = 'net.deanishe.alfred-workflow'
 WORKFLOW_NAME = 'Alfred-Workflow Test'
 
 
-def setUp():
-    pass
-
-
-def tearDown():
-    pass
-
-
 class SerializerTests(unittest.TestCase):
     """Test workflow.manager serialisation API."""
 
@@ -182,8 +174,9 @@ class WorkflowTests(unittest.TestCase):
         ]
 
         self.env_data = {
+            'alfred_debug': b'1',
             'alfred_preferences':
-            os.path.expanduser('~/Dropbox/Alfred/Alfred.alfredpreferences'),
+            os.path.expanduser(b'~/Dropbox/Alfred/Alfred.alfredpreferences'),
             'alfred_preferences_localhash':
             b'adbd4f66bc3ae8493832af61a41ee609b20d8705',
             'alfred_theme': b'alfred.theme.yosemite',
@@ -229,13 +222,14 @@ class WorkflowTests(unittest.TestCase):
 
     def test_item_creation(self):
         """XML generation"""
-        self.wf.add_item('title', 'subtitle', arg='arg',
-                         autocomplete='autocomplete',
-                         valid=True, uid='uid', icon='icon.png',
-                         icontype='fileicon',
-                         type='file', largetext='largetext',
-                         copytext='copytext',
-                         quicklookurl='http://www.deanishe.net/alfred-workflow')
+        self.wf.add_item(
+            'title', 'subtitle', arg='arg',
+            autocomplete='autocomplete',
+            valid=True, uid='uid', icon='icon.png',
+            icontype='fileicon',
+            type='file', largetext='largetext',
+            copytext='copytext',
+            quicklookurl='http://www.deanishe.net/alfred-workflow')
         stdout = sys.stdout
         sio = StringIO()
         sys.stdout = sio
@@ -389,13 +383,10 @@ class WorkflowTests(unittest.TestCase):
 
     def test_alfred_env_vars(self):
         """Alfred environmental variables"""
-
-        self._setup_env()
-
         for key in self.env_data:
             value = self.env_data[key]
             key = key.replace('alfred_', '')
-            if key in ('version_build', 'theme_subtext'):
+            if key in ('debug', 'version_build', 'theme_subtext'):
                 self.assertEqual(int(value), self.wf.alfred_env[key])
             else:
                 self.assertEqual(unicode(value), self.wf.alfred_env[key])
@@ -410,7 +401,20 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.wf.name,
                          self.env_data['alfred_workflow_name'])
 
+    def test_alfred_debugger(self):
+        """Alfred debugger status"""
+        wf = Workflow()
+        self.assertTrue(wf.debugging)  # Alfred's debugger is open
+        self.assertEqual(wf.logger.getEffectiveLevel(), logging.DEBUG)
+
+        # With debugger off
         self._teardown_env()
+        data = self.env_data.copy()
+        del data['alfred_debug']
+        self._setup_env(data)
+        wf = Workflow()
+        self.assertFalse(wf.debugging)  # Alfred's debugger is closed
+        self.assertEqual(wf.logger.getEffectiveLevel(), logging.INFO)
 
     ####################################################################
     # ARGV
@@ -834,9 +838,11 @@ class WorkflowTests(unittest.TestCase):
     def test_run_fails_with_xml_output(self):
         """Run fails with XML output"""
         error_text = 'Have an error'
+
         def cb(wf):
             self.assertEqual(wf, self.wf)
             raise ValueError(error_text)
+
         # named after bundleid
         self.wf = Workflow()
         self.wf.bundleid
@@ -856,9 +862,11 @@ class WorkflowTests(unittest.TestCase):
     def test_run_fails_with_plain_text_output(self):
         """Run fails with plain text output"""
         error_text = 'Have an error'
+
         def cb(wf):
             self.assertEqual(wf, self.wf)
             raise ValueError(error_text)
+
         # named after bundleid
         self.wf = Workflow()
         self.wf.bundleid
@@ -1228,16 +1236,16 @@ class WorkflowTests(unittest.TestCase):
         datapath = self.wf.datafile('{0}.{1}'.format(name, serializer))
         return [metadata, datapath]
 
-    def _setup_env(self):
+    def _setup_env(self, data=None):
         """Add Alfred env variables to environment."""
-        for key in self.env_data:
-            os.environ[key] = self.env_data[key]
+        self._original_env = os.environ.copy()
+        data = data or self.env_data
+        for key in data:
+            os.environ[key] = data[key]
 
     def _teardown_env(self):
         """Remove Alfred env variables from environment."""
-        for key in self.env_data:
-            if key in os.environ:
-                del os.environ[key]
+        os.environ = self._original_env
 
 
 class MagicArgsTests(unittest.TestCase):

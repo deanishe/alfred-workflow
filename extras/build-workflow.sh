@@ -67,7 +67,18 @@ else
 	mode=
 fi
 
-zip $mode -r ${zipfile} ${sourcedir} -i $patterns
+# If there are Workflow Environment Variables with "Don't Export", make copy of workflow first and empty variables before packaging
+if /usr/libexec/PlistBuddy -c 'Print variablesdontexport' "${sourcedir}/info.plist" &> /dev/null; then
+	dirtopackage="$(mktemp -d)"
+	cp -R "${sourcedir}/"* "${dirtopackage}"
+
+	tmpinfoplist="${dirtopackage}/info.plist"
+	/usr/libexec/PlistBuddy -c 'Print variablesdontexport' "${tmpinfoplist}" | grep '    ' | sed -E 's/ {4}//' | xargs -I {} /usr/libexec/PlistBuddy -c "Set variables:'{}' ''" "${tmpinfoplist}"
+else
+	dirtopackage="${sourcedir}"
+fi
+
+zip $mode -r ${zipfile} ${dirtopackage} -i $patterns
 
 log "Created ${zipfile}"
 popd &> /dev/null

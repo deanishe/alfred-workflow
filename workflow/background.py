@@ -16,6 +16,7 @@ import sys
 import os
 import subprocess
 import pickle
+from time import sleep
 
 from workflow import Workflow
 
@@ -125,6 +126,7 @@ def _background(stdin='/dev/null', stdout='/dev/null',
     try:
         pid = os.fork()
         if pid > 0:
+            sleep(0.25)  # Avoid hung subprocess on macOS 10.12.4
             sys.exit(0)  # Exit second parent.
     except OSError as e:
         wf().logger.critical("fork #2 failed: ({0:d}) {1}".format(

@@ -140,6 +140,37 @@ or more simply:
     wf.clear_cache(lambda f: f.endswith('.zip'))
 
 
+.. _session-cache:
+
+Session-scoped cache
+====================
+
+.. versionadded:: 1.25
+
+.. note:: This feature requires Alfred 3.2 or newer.
+
+The :meth:`~workflow.workflow3.Workflow3.cache_data` and
+:meth:`~workflow.workflow3.Workflow3.cached_data` methods of
+:class:`~workflow.workflow3.Workflow3` have an additional ``session``
+parameter.
+
+If set to ``True``, the cache name is prefixed with the
+:attr:`~workflow.workflow.Workflow3.session_id`, so the cache expires
+as soon as the user closes Alfred or uses a different workflow.
+
+This is useful for workflows that use data that become invalid as soon
+as the user switches away, such as a list of current tabs in Chrome.
+
+.. important::
+
+    Alfred-Workflow doesn't automatically clear up stale session data;
+    you have to do that yourself.
+
+    The :meth:`~workflow.workflow3.Workflow3.clear_session_cache`
+    method deletes *all* cached session data (including any current
+    session).
+
+
 .. _storing-data:
 
 Storing data

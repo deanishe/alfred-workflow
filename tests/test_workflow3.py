@@ -170,7 +170,50 @@ def test_session_id(info3):
     sid = 'thisisatest'
     os.environ['_WF_SESSION_ID'] = sid
     wf = Workflow3()
-    assert wf.session_id == sid
+    try:
+        assert wf.session_id == sid
+    finally:
+        del os.environ['_WF_SESSION_ID']
+
+
+def test_session_cache(info3):
+    """Workflow3: session-scoped caching."""
+    wf1 = Workflow3()
+    wf2 = Workflow3()
+    data1 = {'foo': 'bar'}
+    data2 = {'bar': 'foo'}
+    # sid = wf.session_id
+    wf1.cache_data('data', data1, session=True)
+    wf2.cache_data('data', data2, session=True)
+    assert wf1.cached_data('data', session=True) == data1
+    assert wf2.cached_data('data', session=True) == data2
+
+
+def test_clear_session_cache(info3):
+    """Workflow3: session-scoped caching."""
+    wf = Workflow3()
+    data = {'foo': 'bar'}
+    wf.clear_cache()
+
+    assert len(os.listdir(wf.cachedir)) == 0
+
+    # save session and non-session data
+    wf.cache_data('data', data, session=True)
+    wf.cache_data('data', data, session=False)
+
+    def _sessfiles():
+        return [n for n in os.listdir(wf.cachedir)
+                if n.startswith('_wfsess-')]
+
+    assert len(_sessfiles()) > 0
+
+    wf.clear_session_cache()
+
+    # sessions files are gone, but other cache files are not
+    assert len(_sessfiles()) == 0
+    assert len(os.listdir(wf.cachedir)) > 0
+    assert wf.cached_data('data', session=True) is None
+    assert wf.cached_data('data', session=False) == data
 
 
 def test_modifiers(info3):

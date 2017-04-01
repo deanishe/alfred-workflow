@@ -40,6 +40,11 @@ by the modifier.
 
 This way, you can have some variables inherited and others not.
 
+Modifiers also inherit the validity of their parent item (so you only
+need to supply a ``valid`` parameter to override the parent).
+
+They *do not* inherit their parent item's ``arg``.
+
 
 .. important::
 
@@ -76,7 +81,9 @@ The Run Script action behind the ``pages == 1`` Filter Utility might then
 read:
 
 .. code-block:: bash
+
     /usr/bin/python myscript.py pages
+
 
 The other options (``--view``, ``--edit``, ``--share``) are set via the
 corresponding environment variables (``WF_VIEW``, ``WF_EDIT`` and ``WF_SHARE``

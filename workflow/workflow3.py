@@ -378,6 +378,8 @@ class Workflow3(Workflow):
     def session_id(self):
         """A unique session ID every time the user uses the workflow.
 
+        .. versionadded:: 1.25
+
         The session ID persists while the user is using this workflow.
         It expires when the user runs a different workflow or closes
         Alfred.
@@ -441,6 +443,70 @@ class Workflow3(Workflow):
 
         self._items.append(item)
         return item
+
+    def _mk_session_name(self, name):
+        """New cache name/key based on session ID."""
+        return '_wfsess-{0}-{1}'.format(self.session_id, name)
+
+    def cache_data(self, name, data, session=False):
+        """Cache API with session-scoped expiry.
+
+        .. versionadded:: 1.25
+
+        Args:
+            name (str): Cache key
+            data (object): Data to cache
+            session (bool, optional): Whether to scope the cache
+                to the current session.
+
+        ``name`` and ``data`` are as for the
+        :meth:`~workflow.workflow.Workflow.cache_data` on
+        :class:`~workflow.workflow.Workflow`.
+
+        If ``session`` is ``True``, the ``name`` variable is prefixed
+        with :attr:`session_id`.
+
+        """
+        if session:
+            name = self._mk_session_name(name)
+
+        return super(Workflow3, self).cache_data(name, data)
+
+    def cached_data(self, name, data_func=None, max_age=60, session=False):
+        """Cache API with session-scoped expiry.
+
+        .. versionadded:: 1.25
+
+        Args:
+            name (str): Cache key
+            data_func (callable): Callable that returns fresh data. It
+                is called if the cache has expired or doesn't exist.
+            max_age (int): Maximum allowable age of cache in seconds.
+            session (bool, optional): Whether to scope the cache
+                to the current session.
+
+        ``name``, ``data_func`` and ``max_age`` are as for the
+        :meth:`~workflow.workflow.Workflow.cached_data` on
+        :class:`~workflow.workflow.Workflow`.
+
+        If ``session`` is ``True``, the ``name`` variable is prefixed
+        with :attr:`session_id`.
+
+        """
+        if session:
+            name = self._mk_session_name(name)
+
+        return super(Workflow3, self).cached_data(name, data_func, max_age)
+
+    def clear_session_cache(self):
+        """Remove *all* session data from the cache.
+
+        .. versionadded:: 1.25
+        """
+        def _is_session_file(filename):
+            return filename.startswith('_wfsess-')
+
+        self.clear_cache(_is_session_file)
 
     @property
     def obj(self):

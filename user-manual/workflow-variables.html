@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow variables &mdash; Alfred-Workflow 1.24 documentation</title>
+    <title>Workflow variables &mdash; Alfred-Workflow 1.25 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.24',
+        VERSION:     '1.25',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.24 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.25 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Serialization of stored/cached data" href="serialization.html" />
     <link rel="prev" title="“Magic” arguments" href="magic-arguments.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="magic-arguments.html" title="“Magic” arguments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.24 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -94,6 +94,9 @@ creation</em>. Any variables set on an <a class="reference internal" href="../ap
 <em>after</em> a <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> was added are <em>not</em> inherited
 by the modifier.</p>
 <p>This way, you can have some variables inherited and others not.</p>
+<p>Modifiers also inherit the validity of their parent item (so you only
+need to supply a <code class="docutils literal"><span class="pre">valid</span></code> parameter to override the parent).</p>
+<p>They <em>do not</em> inherit their parent item&#8217;s <code class="docutils literal"><span class="pre">arg</span></code>.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">Alfred-Workflow does not automatically import any variables. All getters
@@ -122,6 +125,9 @@ each of <code class="docutils literal"><span class="pre">profile</span></code>, 
 before each Run Script that checks for <code class="docutils literal"><span class="pre">pages</span> <span class="pre">==</span> <span class="pre">1</span></code>, <code class="docutils literal"><span class="pre">profile</span> <span class="pre">==</span> <span class="pre">1</span></code> etc.</p>
 <p>The Run Script action behind the <code class="docutils literal"><span class="pre">pages</span> <span class="pre">==</span> <span class="pre">1</span></code> Filter Utility might then
 read:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>/usr/bin/python myscript.py pages
+</pre></div>
+</div>
 <p>The other options (<code class="docutils literal"><span class="pre">--view</span></code>, <code class="docutils literal"><span class="pre">--edit</span></code>, <code class="docutils literal"><span class="pre">--share</span></code>) are set via the
 corresponding environment variables (<code class="docutils literal"><span class="pre">WF_VIEW</span></code>, <code class="docutils literal"><span class="pre">WF_EDIT</span></code> and <code class="docutils literal"><span class="pre">WF_SHARE</span></code>
 respectively).</p>

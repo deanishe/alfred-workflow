@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.24 documentation</title>
+    <title>The Workflow3 class for Alfred 3 &mdash; Alfred-Workflow 1.25 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.24',
+        VERSION:     '1.25',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.24 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.25 documentation" href="../index.html" />
     <link rel="up" title="API Documentation" href="index.html" />
     <link rel="next" title="Fetching Data from the Web" href="web.html" />
     <link rel="prev" title="The Workflow class for Alfred 2 and 3" href="workflow.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="workflow.html" title="The Workflow class for Alfred 2 and 3"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.24 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">API Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -120,6 +120,73 @@ method instead on the returned item instead.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="workflow.workflow3.Workflow3.cache_data">
+<code class="descname">cache_data</code><span class="sig-paren">(</span><em>name</em>, <em>data</em>, <em>session=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.cache_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache API with session-scoped expiry.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Cache key</li>
+<li><strong>data</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) &#8211; Data to cache</li>
+<li><strong>session</strong> (<em>bool, optional</em>) &#8211; Whether to scope the cache
+to the current session.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">data</span></code> are as for the
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cache_data" title="workflow.workflow.Workflow.cache_data"><code class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></code></a> on
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, the <code class="docutils literal"><span class="pre">name</span></code> variable is prefixed
+with <a class="reference internal" href="#workflow.workflow3.Workflow3.session_id" title="workflow.workflow3.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.cached_data">
+<code class="descname">cached_data</code><span class="sig-paren">(</span><em>name</em>, <em>data_func=None</em>, <em>max_age=60</em>, <em>session=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.cached_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache API with session-scoped expiry.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Cache key</li>
+<li><strong>data_func</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) &#8211; Callable that returns fresh data. It
+is called if the cache has expired or doesn&#8217;t exist.</li>
+<li><strong>max_age</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Maximum allowable age of cache in seconds.</li>
+<li><strong>session</strong> (<em>bool, optional</em>) &#8211; Whether to scope the cache
+to the current session.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">data_func</span></code> and <code class="docutils literal"><span class="pre">max_age</span></code> are as for the
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> on
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, the <code class="docutils literal"><span class="pre">name</span></code> variable is prefixed
+with <a class="reference internal" href="#workflow.workflow3.Workflow3.session_id" title="workflow.workflow3.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.clear_session_cache">
+<code class="descname">clear_session_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.clear_session_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove <em>all</em> session data from the cache.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="workflow.workflow3.Workflow3.getvar">
 <code class="descname">getvar</code><span class="sig-paren">(</span><em>name</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.getvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value of workflow variable for <code class="docutils literal"><span class="pre">name</span></code> or <code class="docutils literal"><span class="pre">default</span></code>.</p>
@@ -172,6 +239,18 @@ method instead on the returned item instead.</p>
 <dt id="workflow.workflow3.Workflow3.send_feedback">
 <code class="descname">send_feedback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.send_feedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print stored items to console/Alfred as JSON.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.session_id">
+<code class="descname">session_id</code><a class="headerlink" href="#workflow.workflow3.Workflow3.session_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique session ID every time the user uses the workflow.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<p>The session ID persists while the user is using this workflow.
+It expires when the user runs a different workflow or closes
+Alfred.</p>
 </dd></dl>
 
 <dl class="method">

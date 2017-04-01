@@ -342,6 +342,7 @@ class Workflow3(Workflow):
         Workflow.__init__(self, **kwargs)
         self.variables = {}
         self._rerun = 0
+        self._session_id = None
 
     @property
     def _default_cachedir(self):
@@ -372,6 +373,26 @@ class Workflow3(Workflow):
             seconds (int): Interval between runs.
         """
         self._rerun = seconds
+
+    @property
+    def session_id(self):
+        """A unique session ID every time the user uses the workflow.
+
+        The session ID persists while the user is using this workflow.
+        It expires when the user runs a different workflow or closes
+        Alfred.
+
+        """
+        if not self._session_id:
+            sid = os.getenv('_WF_SESSION_ID')
+            if not sid:
+                from uuid import uuid4
+                sid = uuid4().hex
+                self.setvar('_WF_SESSION_ID', sid)
+
+            self._session_id = sid
+
+        return self._session_id
 
     def setvar(self, name, value):
         """Set a "global" workflow variable.

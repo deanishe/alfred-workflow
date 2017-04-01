@@ -13,9 +13,11 @@
 from __future__ import print_function, unicode_literals
 
 import json
-import pytest
+import os
 from StringIO import StringIO
 import sys
+
+import pytest
 
 from util import create_info_plist, delete_info_plist, INFO_PLIST_TEST3
 
@@ -149,6 +151,26 @@ def test_rerun(info3):
     assert 'rerun' in o
     assert o['rerun'] == 1
     assert wf.rerun == 1
+
+
+def test_session_id(info3):
+    """Workflow3: session_id."""
+    wf = Workflow3()
+    o = wf.obj
+    assert 'variables' not in o
+
+    sid = wf.session_id
+    assert sid
+
+    o = wf.obj
+    assert 'variables' in o
+    assert '_WF_SESSION_ID' in o['variables']
+    assert o['variables']['_WF_SESSION_ID'] == sid
+
+    sid = 'thisisatest'
+    os.environ['_WF_SESSION_ID'] = sid
+    wf = Workflow3()
+    assert wf.session_id == sid
 
 
 def test_modifiers(info3):

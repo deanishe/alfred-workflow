@@ -24,10 +24,6 @@ import pytest
 from workflow.workflow import AcquisitionError, LockFile, Settings
 
 
-TEMPFILE = 'tempfile.{0}.txt'.format(os.getpid())
-LOCKFILE = TEMPFILE + '.lock'
-
-
 Paths = namedtuple('Paths', 'testfile lockfile')
 
 

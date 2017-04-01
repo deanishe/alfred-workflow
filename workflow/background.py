@@ -108,33 +108,31 @@ def _background(stdin='/dev/null', stdout='/dev/null',
     :type stderr: filepath
 
     """
+    def _fork_and_exit_parent(errmsg):
+        try:
+            pid = os.fork()
+            if pid > 0:
+                os._exit(0)
+        except OSError as err:
+            wf().logger.critical('%s: (%d) %s', errmsg, err.errno,
+                                 err.strerror)
+            raise err
+
     # Do first fork.
-    try:
-        pid = os.fork()
-        if pid > 0:
-            sys.exit(0)  # Exit first parent.
-    except OSError as e:
-        wf().logger.critical("fork #1 failed: ({0:d}) {1}".format(
-                             e.errno, e.strerror))
-        sys.exit(1)
+    _fork_and_exit_parent('fork #1 failed')
+
     # Decouple from parent environment.
     os.chdir(wf().workflowdir)
-    os.umask(0)
     os.setsid()
+
     # Do second fork.
-    try:
-        pid = os.fork()
-        if pid > 0:
-            sys.exit(0)  # Exit second parent.
-    except OSError as e:
-        wf().logger.critical("fork #2 failed: ({0:d}) {1}".format(
-                             e.errno, e.strerror))
-        sys.exit(1)
+    _fork_and_exit_parent('fork #2 failed')
+
     # Now I am a daemon!
     # Redirect standard file descriptors.
-    si = file(stdin, 'r', 0)
-    so = file(stdout, 'a+', 0)
-    se = file(stderr, 'a+', 0)
+    si = open(stdin, 'r', 0)
+    so = open(stdout, 'a+', 0)
+    se = open(stderr, 'a+', 0)
     if hasattr(sys.stdin, 'fileno'):
         os.dup2(si.fileno(), sys.stdin.fileno())
     if hasattr(sys.stdout, 'fileno'):

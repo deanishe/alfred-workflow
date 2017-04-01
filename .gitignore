@@ -1,5 +1,6 @@
 *.log
 .coverage
+.coverage.*
 _build/
 *.pyc
 temp_*.py

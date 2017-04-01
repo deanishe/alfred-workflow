@@ -226,16 +226,33 @@ def start_daemon():
         log.info('[daemon] exiting')
 
 
+def show_help():
+    """Print help."""
+    print("""daemon.py (--run|--daemon|--kill)
+
+Run/stop a very simple daemon.
+
+Options:
+    --run        start daemon as a subprocess
+    --daemon     start daemon directly
+    --kill       send SIGTERM to daemon
+""")
+
+
 def main():
     """Run runner or daemon."""
+    cmd = None
+    commands = {
+        '--daemon': start_daemon,
+        '--kill': stop_daemon,
+        '--run': start_runner,
+    }
     args = sys.argv[1:]
     if args:
-        if args[0] == '--daemon':
-            return start_daemon()
-        elif args[0] == '--stop':
-            return stop_daemon()
+        cmd = args[0]
 
-    return start_runner()
+    func = commands.get(cmd, show_help)
+    return func()
 
 
 if __name__ == '__main__':

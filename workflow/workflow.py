@@ -21,6 +21,7 @@ up your Python script to best utilise the :class:`Workflow` object.
 
 from __future__ import print_function, unicode_literals
 
+import atexit
 import binascii
 from contextlib import contextmanager
 import cPickle
@@ -804,6 +805,7 @@ class LockFile(object):
         self.timeout = timeout
         self.delay = delay
         self._locked = False
+        atexit.register(self.release)
 
     @property
     def locked(self):
@@ -817,11 +819,14 @@ class LockFile(object):
         ``False``.
 
         Otherwise, check every `self.delay` seconds until it acquires
-        lock or exceeds `self.timeout` and raises an exception.
+        lock or exceeds `self.timeout` and raises an `~AcquisitionError`.
 
         """
         start = time.time()
         while True:
+
+            self._validate_lockfile()
+
             try:
                 fd = os.open(self.lockfile, os.O_CREAT | os.O_EXCL | os.O_RDWR)
                 with os.fdopen(fd, 'w') as fd:
@@ -830,6 +835,7 @@ class LockFile(object):
             except OSError as err:
                 if err.errno != errno.EEXIST:  # pragma: no cover
                     raise
+
                 if self.timeout and (time.time() - start) >= self.timeout:
                     raise AcquisitionError('Lock acquisition timed out.')
                 if not blocking:
@@ -839,10 +845,36 @@ class LockFile(object):
         self._locked = True
         return True
 
+    def _validate_lockfile(self):
+        """Check existence and validity of lockfile.
+
+        If the lockfile exists, but contains an invalid PID
+        or the PID of a non-existant process, it is removed.
+
+        """
+        try:
+            with open(self.lockfile) as fp:
+                s = fp.read()
+        except Exception:
+            return
+
+        try:
+            pid = int(s)
+        except ValueError:
+            return self.release()
+
+        from background import _process_exists
+        if not _process_exists(pid):
+            self.release()
+
     def release(self):
         """Release the lock by deleting `self.lockfile`."""
         self._locked = False
-        os.unlink(self.lockfile)
+        try:
+            os.unlink(self.lockfile)
+        except (OSError, IOError) as err:  # pragma: no cover
+            if err.errno != 2:
+                raise err
 
     def __enter__(self):
         """Acquire lock."""

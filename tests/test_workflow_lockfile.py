@@ -1,119 +1,195 @@
 #!/usr/bin/env python
 # encoding: utf-8
+#
+# Copyright (c) 2017 Dean Jackson <deanishe@deanishe.net>
+#
+# MIT Licence. See http://opensource.org/licenses/MIT
+#
+# Created on 2017-04-01
+#
 
-"""
-test_workflow_lockfile.py
+"""Test LockFile functionality."""
 
-Created by deanishe@deanishe.net on 2015-08-15.
-Copyright (c) 2015 deanishe@deanishe.net
+from __future__ import print_function
 
-MIT Licence. See http://opensource.org/licenses/MIT
-
-"""
-
-from __future__ import print_function, unicode_literals, absolute_import
-
-import functools
+from collections import namedtuple
+from multiprocessing import Pool
 import os
 import shutil
+import subprocess
 import tempfile
-import threading
-import unittest
 
-from workflow.workflow import Settings, LockFile, AcquisitionError
+import pytest
 
-
-class LockFileTests(unittest.TestCase):
-
-    def setUp(self):
-        self.tempdir = tempfile.mkdtemp()
-        self.protected_path = os.path.join(self.tempdir, 'testfile.txt')
-
-    def tearDown(self):
-        shutil.rmtree(self.tempdir)
-
-    def testSequentialAccess(self):
-        """Lockfile: sequential access"""
-        lock = LockFile(self.protected_path, 0.5)
-
-        with lock:
-            self.assertTrue(lock.locked)
-            self.assertFalse(lock.acquire(False))
-            self.assertRaises(AcquisitionError, lock.acquire, True)
-
-        self.assertFalse(os.path.exists(lock.lockfile))
-
-    def testConcurrentAccess(self):
-        """Lockfile: Concurrent access"""
-        lock = LockFile(self.protected_path, 0.5)
-
-        def write_data(data, times=10):
-            for i in range(times):
-                with lock:
-                    self.assertTrue(lock.locked)
-                    with open(self.protected_path, 'a') as fp:
-                        fp.write(data + '\n')
-                        fp.flush()
-
-                # time.sleep(0.05)
-
-        threads = []
-        for i in range(1, 5):
-            t = threading.Thread(target=functools.partial(write_data,
-                                 str(i) * 20))
-            threads.append(t)
-
-        for t in threads:
-            t.start()
-
-        for t in threads:
-            t.join()
-
-        self.assertFalse(lock.locked)
-        self.assertFalse(os.path.exists(lock.lockfile))
-
-        # Check that every line consists of only one character
-        with open(self.protected_path, 'rb') as fp:
-            lines = [l.strip() for l in fp.readlines()]
-
-        for line in lines:
-            self.assertEquals(len(set(line)), 1)
-        # print(lines)
+from workflow.workflow import AcquisitionError, LockFile, Settings
 
 
-class LockedSettingsTests(unittest.TestCase):
+TEMPFILE = 'tempfile.{0}.txt'.format(os.getpid())
+LOCKFILE = TEMPFILE + '.lock'
 
-    def setUp(self):
-        self.tempdir = tempfile.mkdtemp()
-        self.settings_path = os.path.join(self.tempdir, 'settings.json')
-        self.defaults = {'foo': 'bar'}
-        Settings(self.settings_path, self.defaults)
 
-    def tearDown(self):
-        shutil.rmtree(self.tempdir)
+Paths = namedtuple('Paths', 'testfile lockfile')
 
-    def testConcurrentAccess(self):
-        """Locked Settings: Concurrent access"""
 
-        def save_data(key, value):
-            settings = Settings(self.settings_path, self.defaults)
-            settings[key] = value
+@pytest.fixture(scope='function')
+def paths(request):
+    """Ensure `info.plist` exists in the working directory."""
+    tempdir = tempfile.mkdtemp()
+    testfile = os.path.join(tempdir, 'myfile.txt')
 
-        threads = []
-        for i in range(1, 5):
-            t = threading.Thread(target=functools.partial(save_data,
-                                 'thread_{0}'.format(i),
-                                 'value_{0}'.format(i)))
-            threads.append(t)
+    def rm():
+        shutil.rmtree(tempdir)
 
-        for t in threads:
-            t.start()
+    request.addfinalizer(rm)
 
-        for t in threads:
-            t.join()
+    return Paths(testfile, testfile + '.lock')
 
-        settings = Settings(self.settings_path)
-        print(settings)
 
-if __name__ == '__main__':
-    unittest.main()
+def test_lockfile_created(paths):
+    """Lock file created and deleted."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    with LockFile(paths.testfile, timeout=0.2) as lock:
+        assert lock.locked
+        assert os.path.exists(paths.lockfile)
+
+    assert not os.path.exists(paths.lockfile)
+
+
+def test_lockfile_contains_pid(paths):
+    """Lockfile contains process PID."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    with LockFile(paths.testfile, timeout=0.2):
+        with open(paths.lockfile) as fp:
+            s = fp.read()
+
+    assert s == str(os.getpid())
+
+
+def test_invalid_lockfile_removed(paths):
+    """Invalid lockfile removed."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    # create invalid lock file
+    with open(paths.lockfile, 'wb') as fp:
+        fp.write("dean woz 'ere!")
+
+    # the above invalid lockfile should be removed and
+    # replaced with one containing this process's PID
+    with LockFile(paths.testfile, timeout=0.2):
+        with open(paths.lockfile) as fp:
+            s = fp.read()
+
+    assert s == str(os.getpid())
+
+
+def test_stale_lockfile_removed(paths):
+    """Stale lockfile removed."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    p = subprocess.Popen('true')
+    pid = p.pid
+    p.wait()
+    # create invalid lock file
+    with open(paths.lockfile, 'wb') as fp:
+        fp.write(str(pid))
+
+    # the above invalid lockfile should be removed and
+    # replaced with one containing this process's PID
+    with LockFile(paths.testfile, timeout=0.2):
+        with open(paths.lockfile) as fp:
+            s = fp.read()
+
+    assert s == str(os.getpid())
+
+
+def test_sequential_access(paths):
+    """Sequential access to locked file."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    lock = LockFile(paths.testfile, 0.2)
+
+    with lock:
+        assert lock.locked
+        assert not lock.acquire(False)
+        with pytest.raises(AcquisitionError):
+            lock.acquire(True)
+
+    assert not os.path.exists(paths.lockfile)
+
+
+def _write_test_data(args):
+    """Write 10 lines to the test file."""
+    paths, data = args
+    for i in range(10):
+        with LockFile(paths.testfile, 0.5) as lock:
+            assert lock.locked
+            with open(paths.testfile, 'a') as fp:
+                fp.write(data + '\n')
+
+
+def test_concurrent_access(paths):
+    """Concurrent access to locked file is serialised."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    # Create a pool of threads that each write a line
+    # of 20 digits to the locked file.
+    # Then verify that each line of the file only
+    # consists of one character (i.e. writes do no overlap)
+    lock = LockFile(paths.testfile, 0.5)
+
+    pool = Pool(5)
+    pool.map(_write_test_data, [(paths, str(i) * 20) for i in range(1, 6)])
+
+    assert not lock.locked
+    assert not os.path.exists(paths.lockfile)
+
+    with open(paths.testfile) as fp:
+        lines = [l.strip() for l in fp.readlines()]
+
+    for line in lines:
+        assert len(set(line)) == 1
+
+
+def _write_settings(args):
+    """Write a new value to the Settings."""
+    paths, key, value = args
+    s = Settings(paths.testfile)
+    s[key] = value
+    print('Settings[{0}] = {1}'.format(key, value))
+
+
+def test_concurrent_settings(paths):
+    """Concurrent access to Settings is serialised."""
+    assert not os.path.exists(paths.testfile)
+    assert not os.path.exists(paths.lockfile)
+
+    defaults = {'foo': 'bar'}
+    # initialise file
+    Settings(paths.testfile, defaults)
+
+    data = [(paths, 'thread_{0}'.format(i), 'value_{0}'.format(i))
+            for i in range(1, 6)]
+
+    pool = Pool(5)
+    pool.map(_write_settings, data)
+
+    # Check settings file is still valid JSON
+    # and that *something* was added to it.
+    # The writing processes will have trampled
+    # over each other, so there's no way to know
+    # which one won and wrote its value.
+    s = Settings(paths.testfile)
+    assert s['foo'] == 'bar'
+    assert len(s) > 1
+
+
+if __name__ == '__main__':  # pragma: no cover
+    pytest.main([__file__])

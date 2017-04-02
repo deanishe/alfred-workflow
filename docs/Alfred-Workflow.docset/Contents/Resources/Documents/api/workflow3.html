@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>The Workflow3 class for Alfred 3 — Alfred-Workflow 1.21 documentation</title>
+<title>The Workflow3 class for Alfred 3 — Alfred-Workflow 1.25.1 documentation</title>
 <link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.25.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -18,7 +18,7 @@
 <script src="../_static/underscore.js" type="text/javascript"></script>
 <script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.21 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.25.1 documentation"/>
 <link href="index.html" rel="up" title="API Documentation"/>
 <link href="web.html" rel="next" title="Fetching Data from the Web"/>
 <link href="workflow.html" rel="prev" title="The Workflow class for Alfred 2 and 3"/>
@@ -40,7 +40,7 @@
 <a accesskey="N" href="web.html" title="Fetching Data from the Web">next</a> |</li>
 <li class="right">
 <a accesskey="P" href="workflow.html" title="The Workflow class for Alfred 2 and 3">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> »</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25.1 documentation</a> »</li>
 <li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
@@ -65,6 +65,18 @@ you call <a class="reference internal" href="#workflow.workflow3.Workflow3.send_
 <dt id="workflow.workflow3.Workflow3"><a name="//apple_ref/cpp/Class/workflow.workflow3.Workflow3"></a>
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Workflow3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Workflow class that generates Alfred 3 feedback.</p>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.item_class"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.item_class"></a>
+<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>class</em></p>
+<p>Class used to generate feedback items.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.variables"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.variables"></a>
+<code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Workflow3.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em></p>
+<p>Top level workflow variables.</p>
+</dd></dl>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.add_item"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.add_item"></a>
 <code class="descname">add_item</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.add_item" title="Permalink to this definition">¶</a></dt>
@@ -84,6 +96,70 @@ method instead on the returned item instead.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.cache_data"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.cache_data"></a>
+<code class="descname">cache_data</code><span class="sig-paren">(</span><em>name</em>, <em>data</em>, <em>session=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.cache_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache API with session-scoped expiry.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Cache key</li>
+<li><strong>data</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – Data to cache</li>
+<li><strong>session</strong> (<em>bool, optional</em>) – Whether to scope the cache
+to the current session.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">name</span></code> and <code class="docutils literal"><span class="pre">data</span></code> are as for the
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cache_data" title="workflow.workflow.Workflow.cache_data"><code class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></code></a> on
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, the <code class="docutils literal"><span class="pre">name</span></code> variable is prefixed
+with <a class="reference internal" href="#workflow.workflow3.Workflow3.session_id" title="workflow.workflow3.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.cached_data"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.cached_data"></a>
+<code class="descname">cached_data</code><span class="sig-paren">(</span><em>name</em>, <em>data_func=None</em>, <em>max_age=60</em>, <em>session=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.cached_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache API with session-scoped expiry.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Cache key</li>
+<li><strong>data_func</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Callable that returns fresh data. It
+is called if the cache has expired or doesn’t exist.</li>
+<li><strong>max_age</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Maximum allowable age of cache in seconds.</li>
+<li><strong>session</strong> (<em>bool, optional</em>) – Whether to scope the cache
+to the current session.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">data_func</span></code> and <code class="docutils literal"><span class="pre">max_age</span></code> are as for the
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> on
+<a class="reference internal" href="workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
+<p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, the <code class="docutils literal"><span class="pre">name</span></code> variable is prefixed
+with <a class="reference internal" href="#workflow.workflow3.Workflow3.session_id" title="workflow.workflow3.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="workflow.workflow3.Workflow3.clear_session_cache"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.clear_session_cache"></a>
+<code class="descname">clear_session_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.clear_session_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove <em>all</em> session data from the cache.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.getvar"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.getvar"></a>
@@ -106,19 +182,53 @@ method instead on the returned item instead.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
-<dt id="workflow.workflow3.Workflow3.item_class"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.item_class"></a>
-<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">item_class</code></dt>
 <dd><p>alias of <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.obj"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.obj"></a>
+<code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Workflow3.obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feedback formatted for JSON serialization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data suitable for Alfred 3 feedback.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.rerun"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.rerun"></a>
+<code class="descname">rerun</code><a class="headerlink" href="#workflow.workflow3.Workflow3.rerun" title="Permalink to this definition">¶</a></dt>
+<dd><p>How often (in seconds) Alfred should re-run the Script Filter.</p>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.send_feedback"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.send_feedback"></a>
 <code class="descname">send_feedback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.send_feedback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print stored items to console/Alfred as JSON.</p>
 </dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow3.Workflow3.session_id"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Workflow3.session_id"></a>
+<code class="descname">session_id</code><a class="headerlink" href="#workflow.workflow3.Workflow3.session_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique session ID every time the user uses the workflow.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.25.</span></p>
+</div>
+<p>The session ID persists while the user is using this workflow.
+It expires when the user runs a different workflow or closes
+Alfred.</p>
+</dd></dl>
 <dl class="method">
 <dt id="workflow.workflow3.Workflow3.setvar"><a name="//apple_ref/cpp/Method/workflow.workflow3.Workflow3.setvar"></a>
 <code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a workflow variable that will be inherited by all new items.</p>
+<dd><p>Set a “global” workflow variable.</p>
+<p>These variables are always passed to downstream workflow objects.</p>
+<p>If you have set <a class="reference internal" href="#workflow.workflow3.Workflow3.rerun" title="workflow.workflow3.Workflow3.rerun"><code class="xref py py-attr docutils literal"><span class="pre">rerun</span></code></a>, these variables are also passed
+back to the script when Alfred runs it again.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
@@ -189,7 +299,7 @@ for details of arguments.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Item3.obj"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Item3.obj"></a>
 <code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Item3.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return Modifier formatted for JSON serialization.</p>
+<dd><p>Item formatted for JSON serialization.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
@@ -286,7 +396,7 @@ for details of arguments.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.obj"><a name="//apple_ref/cpp/Attribute/workflow.workflow3.Modifier.obj"></a>
 <code class="descname">obj</code><a class="headerlink" href="#workflow.workflow3.Modifier.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return modifier formatted for JSON serialization for Alfred 3.</p>
+<dd><p>Modifier formatted for JSON serialization for Alfred 3.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>

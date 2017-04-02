@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>The Workflow class for Alfred 2 and 3 — Alfred-Workflow 1.21 documentation</title>
+<title>The Workflow class for Alfred 2 and 3 — Alfred-Workflow 1.25.1 documentation</title>
 <link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.25.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -18,7 +18,7 @@
 <script src="../_static/underscore.js" type="text/javascript"></script>
 <script src="../_static/doctools.js" type="text/javascript"></script>
 <link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.21 documentation"/>
+<link href="../index.html" rel="top" title="Alfred-Workflow 1.25.1 documentation"/>
 <link href="index.html" rel="up" title="API Documentation"/>
 <link href="workflow3.html" rel="next" title="The Workflow3 class for Alfred 3"/>
 <link href="index.html" rel="prev" title="API Documentation"/>
@@ -40,7 +40,7 @@
 <a accesskey="N" href="workflow3.html" title="The Workflow3 class for Alfred 3">next</a> |</li>
 <li class="right">
 <a accesskey="P" href="index.html" title="API Documentation">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> »</li>
+<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25.1 documentation</a> »</li>
 <li class="nav-item nav-item-1"><a accesskey="U" href="index.html">API Documentation</a> »</li>
 </ul>
 </div>
@@ -51,6 +51,10 @@
 <div class="section" id="module-workflow">
 <span id="the-workflow-class-for-alfred-2-and-3"></span><span id="workflow"></span><h1>The Workflow class for Alfred 2 and 3<a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-workflow.workflow"></span><p>The <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object is the main interface to this library.</p>
+<p><a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> is targeted at Alfred 2. Use
+<a class="reference internal" href="workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> if you want to use Alfred 3’s new
+features, such as <a class="reference internal" href="../user-manual/workflow-variables.html#workflow-variables"><span>workflow variables</span></a> or
+more powerful modifiers.</p>
 <p>See <a class="reference internal" href="../user-manual/setup.html#setup"><span>Workflow setup and skeleton</span></a> in the <a class="reference internal" href="../user-manual/index.html#user-manual"><span>User Manual</span></a> for an example of how to set
 up your Python script to best utilise the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object.</p>
 <dl class="class">
@@ -199,7 +203,7 @@ edit it or do something with it other than send it to Alfred.</p>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.alfred_env"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.alfred_env"></a>
 <code class="descname">alfred_env</code><a class="headerlink" href="#workflow.workflow.Workflow.alfred_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alfred’s environmental variables minus the <code class="docutils literal"><span class="pre">alfred_</span></code> prefix.</p>
+<dd><p>Dict of Alfred’s environmental variables minus <code class="docutils literal"><span class="pre">alfred_</span></code> prefix.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.7.</span></p>
 </div>
@@ -215,54 +219,58 @@ edit it or do something with it other than send it to Alfred.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>alfred_preferences</td>
+<tr class="row-even"><td>alfred_debug</td>
+<td>Set to <code class="docutils literal"><span class="pre">1</span></code> if Alfred’s debugger is
+open, otherwise unset.</td>
+</tr>
+<tr class="row-odd"><td>alfred_preferences</td>
 <td>Path to Alfred.alfredpreferences
 (where your workflows and settings are
 stored).</td>
 </tr>
-<tr class="row-odd"><td>alfred_preferences_localhash</td>
+<tr class="row-even"><td>alfred_preferences_localhash</td>
 <td>Machine-specific preferences are stored
 in <code class="docutils literal"><span class="pre">Alfred.alfredpreferences/preferences/local/&lt;hash&gt;</span></code>
 (see <code class="docutils literal"><span class="pre">alfred_preferences</span></code> above for
 the path to <code class="docutils literal"><span class="pre">Alfred.alfredpreferences</span></code>)</td>
 </tr>
-<tr class="row-even"><td>alfred_theme</td>
+<tr class="row-odd"><td>alfred_theme</td>
 <td>ID of selected theme</td>
 </tr>
-<tr class="row-odd"><td>alfred_theme_background</td>
+<tr class="row-even"><td>alfred_theme_background</td>
 <td>Background colour of selected theme in
 format <code class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_theme_subtext</td>
+<tr class="row-odd"><td>alfred_theme_subtext</td>
 <td>Show result subtext.
 <code class="docutils literal"><span class="pre">0</span></code> = Always,
 <code class="docutils literal"><span class="pre">1</span></code> = Alternative actions only,
 <code class="docutils literal"><span class="pre">2</span></code> = Selected result only,
 <code class="docutils literal"><span class="pre">3</span></code> = Never</td>
 </tr>
-<tr class="row-odd"><td>alfred_version</td>
+<tr class="row-even"><td>alfred_version</td>
 <td>Alfred version number, e.g. <code class="docutils literal"><span class="pre">'2.4'</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_version_build</td>
+<tr class="row-odd"><td>alfred_version_build</td>
 <td>Alfred build number, e.g. <code class="docutils literal"><span class="pre">277</span></code></td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_bundleid</td>
+<tr class="row-even"><td>alfred_workflow_bundleid</td>
 <td>Bundle ID, e.g.
 <code class="docutils literal"><span class="pre">net.deanishe.alfred-mailto</span></code></td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_cache</td>
+<tr class="row-odd"><td>alfred_workflow_cache</td>
 <td>Path to workflow’s cache directory</td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_data</td>
+<tr class="row-even"><td>alfred_workflow_data</td>
 <td>Path to workflow’s data directory</td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_name</td>
+<tr class="row-odd"><td>alfred_workflow_name</td>
 <td>Name of current workflow</td>
 </tr>
-<tr class="row-odd"><td>alfred_workflow_uid</td>
+<tr class="row-even"><td>alfred_workflow_uid</td>
 <td>UID of workflow</td>
 </tr>
-<tr class="row-even"><td>alfred_workflow_version</td>
+<tr class="row-odd"><td>alfred_workflow_version</td>
 <td>The version number specified in the
 workflow configuration sheet/info.plist</td>
 </tr>
@@ -358,7 +366,8 @@ the cache serializer</li>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cached_data"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.cached_data"></a>
 <code class="descname">cached_data</code><span class="sig-paren">(</span><em>name</em>, <em>data_func=None</em>, <em>max_age=60</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.cached_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve data from cache or re-generate and re-cache data if
+<dd><p>Return cached data if younger than <code class="docutils literal"><span class="pre">max_age</span></code> seconds.</p>
+<p>Retrieve data from cache or re-generate and re-cache data if
 stale/non-existant. If <code class="docutils literal"><span class="pre">max_age</span></code> is 0, return cached data no
 matter how old.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -439,7 +448,8 @@ in <code class="docutils literal"><span class="pre">~/Library/Caches</span></cod
 <dl class="method">
 <dt id="workflow.workflow.Workflow.cachefile"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.cachefile"></a>
 <code class="descname">cachefile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.cachefile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
+<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow’s cache directory.</p>
+<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
 <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cache</span> <span class="pre">directory</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
@@ -555,7 +565,8 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.datafile"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.datafile"></a>
 <code class="descname">datafile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.datafile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
+<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow’s data directory.</p>
+<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
 <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">data</span> <span class="pre">directory</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
@@ -566,6 +577,21 @@ By default, <em>all</em> files will be deleted.</td>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">full path to file within data directory</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">unicode</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="workflow.workflow.Workflow.debugging"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.debugging"></a>
+<code class="descname">debugging</code><a class="headerlink" href="#workflow.workflow.Workflow.debugging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether Alfred’s debugger is open.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if Alfred’s debugger is open.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">bool</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -694,54 +720,64 @@ characters if <code class="docutils literal"><span class="pre">query</span></cod
 <code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code>). The tests are always run in the given order:</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Item search key startswith</span></dt>
-<dd><p class="first last"><a href="#id1"><span class="problematic" id="id2">``</span></a>query``(case-insensitive).</p>
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></code></dt>
+<dd><p class="first last">Item search key starts with <code class="docutils literal"><span class="pre">query</span></code> (case-insensitive).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">The list of capital letters in item</span></dt>
-<dd><p class="first last">search key starts with <code class="docutils literal"><span class="pre">query</span></code> (<code class="docutils literal"><span class="pre">query</span></code> may be
-lower-case). E.g., <code class="docutils literal"><span class="pre">of</span></code> would match <code class="docutils literal"><span class="pre">OmniFocus</span></code>,
-<code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code>.</p>
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></code></dt>
+<dd><p class="first last">The list of capital letters in item search key starts with
+<code class="docutils literal"><span class="pre">query</span></code> (<code class="docutils literal"><span class="pre">query</span></code> may be lower-case). E.g., <code class="docutils literal"><span class="pre">of</span></code>
+would match <code class="docutils literal"><span class="pre">OmniFocus</span></code>, <code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code>.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Search key is split into “atoms” on</span></dt>
-<dd><p class="first last">non-word characters (.,-,’ etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is
-one of these atoms (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Initials are the first</span></dt>
-<dd><p class="first last">characters of the above-described “atoms” (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></code> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">query</span></code> is a substring of</span></dt>
-<dd><p class="first last">the above-described initials.</p>
-</dd>
-</dl>
-</li>
-<li><p class="first"><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></code> : Combination of (4) and (5).</p>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Match if <code class="docutils literal"><span class="pre">query</span></code> is a substring</span></dt>
-<dd><p class="first last">of item search key (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Matches if all characters in</span></dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> appear in item search key in the same order
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></code></dt>
+<dd><p class="first last">Search key is split into “atoms” on non-word characters
+(.,-,’ etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is one of these atoms
 (case-insensitive).</p>
 </dd>
 </dl>
 </li>
-<li><p class="first"><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code> : Combination of all the above.</p>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></code></dt>
+<dd><p class="first last">Initials are the first characters of the above-described
+“atoms” (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> is a substring of the above-described initials.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></code></dt>
+<dd><p class="first last">Combination of (4) and (5).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> is a substring of item search key (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code></dt>
+<dd><p class="first last">All characters in <code class="docutils literal"><span class="pre">query</span></code> appear in item search key in
+the same order (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code></dt>
+<dd><p class="first last">Combination of all the above.</p>
+</dd>
+</dl>
 </li>
 </ol>
 <p><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> is considerably slower than the other
@@ -854,7 +890,7 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.logfile"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.logfile"></a>
 <code class="descname">logfile</code><a class="headerlink" href="#workflow.workflow.Workflow.logfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return path to logfile.</p>
+<dd><p>Path to logfile.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
@@ -869,7 +905,9 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.logger"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.logger"></a>
 <code class="descname">logger</code><a class="headerlink" href="#workflow.workflow.Workflow.logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return a logger that logs to both console and a log file.</p>
+<dd><p>Logger that logs to both console and a log file.</p>
+<p>If Alfred’s debugger is open, log level will be <code class="docutils literal"><span class="pre">DEBUG</span></code>,
+else it will be <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
 <p>Use <a class="reference internal" href="#workflow.workflow.Workflow.open_log" title="workflow.workflow.Workflow.open_log"><code class="xref py py-meth docutils literal"><span class="pre">open_log()</span></code></a> to open the log file in Console.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
@@ -879,24 +917,6 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-<dl class="attribute">
-<dt id="workflow.workflow.Workflow.magic_arguments"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.magic_arguments"></a>
-<code class="descname">magic_arguments</code><em class="property"> = None</em><a class="headerlink" href="#workflow.workflow.Workflow.magic_arguments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mapping of available magic arguments. The built-in magic
-arguments are registered by default. To add your own magic arguments
-(or override built-ins), add a key:value pair where the key is
-what the user should enter (prefixed with <a class="reference internal" href="#workflow.workflow.Workflow.magic_prefix" title="workflow.workflow.Workflow.magic_prefix"><code class="xref py py-attr docutils literal"><span class="pre">magic_prefix</span></code></a>)
-and the value is a callable that will be called when the argument
-is entered. If you would like to display a message in Alfred, the
-function should return a <code class="docutils literal"><span class="pre">unicode</span></code> string.</p>
-<p>By default, the magic arguments documented
-<a class="reference internal" href="../user-manual/magic-arguments.html#magic-arguments"><span>here</span></a> are registered.</p>
-</dd></dl>
-<dl class="attribute">
-<dt id="workflow.workflow.Workflow.magic_prefix"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.magic_prefix"></a>
-<code class="descname">magic_prefix</code><em class="property"> = None</em><a class="headerlink" href="#workflow.workflow.Workflow.magic_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>The prefix for all magic arguments. Default is <code class="docutils literal"><span class="pre">workflow:</span></code></p>
 </dd></dl>
 <dl class="attribute">
 <dt id="workflow.workflow.Workflow.name"><a name="//apple_ref/cpp/Attribute/workflow.workflow.Workflow.name"></a>
@@ -964,19 +984,27 @@ argument</span></a> or the <code class="docutils literal"><span class="pre">upda
 <dl class="method">
 <dt id="workflow.workflow.Workflow.reset"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.reset"></a>
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a>, <a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cache</span></code></a>
-and <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">data</span></code></a></p>
+<dd><p>Delete workflow settings, cache and data.</p>
+<p>File <a class="reference internal" href="#workflow.workflow.Workflow.settings_path" title="workflow.workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a> and directories
+<a class="reference internal" href="#workflow.workflow.Workflow.cachedir" title="workflow.workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cache</span></code></a> and <a class="reference internal" href="#workflow.workflow.Workflow.datadir" title="workflow.workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">data</span></code></a> are deleted.</p>
 </dd></dl>
 <dl class="method">
 <dt id="workflow.workflow.Workflow.run"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.run"></a>
-<code class="descname">run</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>func</em>, <em>text_errors=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call <code class="docutils literal"><span class="pre">func</span></code> to run your workflow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"></col>
 <col class="field-body"></col>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – Callable to call with <code class="docutils literal"><span class="pre">self</span></code> (i.e. the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
-instance) as first argument.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> – Callable to call with <code class="docutils literal"><span class="pre">self</span></code> (i.e. the <a class="reference internal" href="#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
+instance) as first argument.</li>
+<li><strong>text_errors</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Emit error messages in plain text, not in
+Alfred’s XML/JSON feedback format. Use this when you’re not
+running Alfred-Workflow in a Script Filter and would like
+to pass the error message to, say, a notification.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1074,7 +1102,7 @@ initialised from the data in JSON file at
 <dl class="method">
 <dt id="workflow.workflow.Workflow.start_update"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.start_update"></a>
 <code class="descname">start_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.start_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check for update and download and install new workflow file</p>
+<dd><p>Check for update and download and install new workflow file.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
@@ -1122,8 +1150,8 @@ is specified, the default will be used. See
 <dl class="method">
 <dt id="workflow.workflow.Workflow.stored_data"><a name="//apple_ref/cpp/Method/workflow.workflow.Workflow.stored_data"></a>
 <code class="descname">stored_data</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Workflow.stored_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve data from data directory. Returns <code class="docutils literal"><span class="pre">None</span></code> if there
-are no data stored.</p>
+<dd><p>Retrieve data from data directory.</p>
+<p>Returns <code class="docutils literal"><span class="pre">None</span></code> if there are no data stored under <code class="docutils literal"><span class="pre">name</span></code>.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
@@ -1287,7 +1315,8 @@ when <code class="docutils literal"><span class="pre">security</span></code> CLI
 <dl class="class">
 <dt id="workflow.workflow.PasswordNotFound"><a name="//apple_ref/cpp/Class/workflow.workflow.PasswordNotFound"></a>
 <em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">PasswordNotFound</code><a class="headerlink" href="#workflow.workflow.PasswordNotFound" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised by method <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code></a> when <code class="docutils literal"><span class="pre">account</span></code>
+<dd><p>Password not in Keychain.</p>
+<p>Raised by method <a class="reference internal" href="#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code></a> when <code class="docutils literal"><span class="pre">account</span></code>
 is unknown to the Keychain.</p>
 </dd></dl>
 <dl class="class">

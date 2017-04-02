@@ -35,4 +35,5 @@ If you're new to writing workflows or coding in general, start with the
    magic-arguments
    workflow-variables
    serialization
+   rerun
    text-encoding

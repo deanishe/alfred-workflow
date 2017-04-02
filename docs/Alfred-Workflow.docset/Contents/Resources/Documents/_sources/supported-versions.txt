@@ -16,7 +16,7 @@ Alfred-Workflow works with all versions of Alfred 2 and 3, but you must own the
 `Powerpack`_ to use Alfred's workflow feature.
 
 All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred 3
-as of v3.1 are supported in the latest version of Alfred-Workflow.
+as of v3.2 are supported in the latest version of Alfred-Workflow.
 
 The :class:`~workflow.workflow.Workflow` class is compatible with both Alfred 2
 and Alfred 3. The :class:`~workflow.workflow3.Workflow3` class is only

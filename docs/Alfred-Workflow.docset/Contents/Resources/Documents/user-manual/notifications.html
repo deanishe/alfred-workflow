@@ -1,54 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>Notifications — Alfred-Workflow 1.21 documentation</title>
-<link href="../_static/alabaster.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Notifications &mdash; Alfred-Workflow 1.25.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.21',
+        VERSION:     '1.25.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-<script src="../_static/jquery.js" type="text/javascript"></script>
-<script src="../_static/underscore.js" type="text/javascript"></script>
-<script src="../_static/doctools.js" type="text/javascript"></script>
-<link href="../_static/favicon.ico" rel="shortcut icon"/>
-<link href="../index.html" rel="top" title="Alfred-Workflow 1.21 documentation"/>
-<link href="index.html" rel="up" title="User Manual"/>
-<link href="background.html" rel="next" title="Background processes"/>
-<link href="web.html" rel="prev" title="Retrieving data from the web"/>
-<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Alfred-Workflow 1.25.1 documentation" href="../index.html" />
+    <link rel="up" title="User Manual" href="index.html" />
+    <link rel="next" title="Background processes" href="background.html" />
+    <link rel="prev" title="Retrieving data from the web" href="web.html" />
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
 <!--[if lt IE 9]>
   <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
 <![endif]-->
-<link href="../_static/custom.css" rel="stylesheet"/>
-</head>
-<body role="document">
-<div aria-label="related navigation" class="related" role="navigation">
-<h3>Navigation</h3>
-<ul>
-<li class="right" style="margin-right: 10px">
-<a accesskey="I" href="../genindex.html" title="General Index">index</a></li>
-<li class="right">
-<a href="../py-modindex.html" title="Python Module Index">modules</a> |</li>
-<li class="right">
-<a accesskey="N" href="background.html" title="Background processes">next</a> |</li>
-<li class="right">
-<a accesskey="P" href="web.html" title="Retrieving data from the web">previous</a> |</li>
-<li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.21 documentation</a> »</li>
-<li class="nav-item nav-item-1"><a accesskey="U" href="index.html">User Manual</a> »</li>
-</ul>
-</div>
-<div class="document">
-<div class="documentwrapper">
-<div class="bodywrapper">
-<div class="body" role="main">
-<div class="section" id="notifications">
+<link rel="stylesheet" href="../_static/custom.css">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="background.html" title="Background processes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="web.html" title="Retrieving data from the web"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="notifications">
 <span id="id1"></span><h1>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.15.</span></p>
@@ -56,38 +75,38 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Notifications are only available on Mountain Lion (10.8) and later. Calling
-<a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on earlier systems will silently fail.</p>
+<a class="reference internal" href="../api/notify.html#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on earlier systems will silently fail.</p>
 </div>
 <p>Alfred 2 allows you to post notifications, but only at the end of
 a workflow, and only with its own icon.</p>
-<p>Alfred-Workflow’s <a class="reference internal" href="../api/notify.html#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> module lets you post notifications
-whenever you want, and with your workflow’s icon.</p>
+<p>Alfred-Workflow&#8217;s <a class="reference internal" href="../api/notify.html#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> module lets you post notifications
+whenever you want, and with your workflow&#8217;s icon.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">workflow.notify</span> <span class="kn">import</span> <span class="n">notify</span>
 
-<span class="n">notify</span><span class="p">(</span><span class="s1">'My Title'</span><span class="p">,</span> <span class="s1">'My Text'</span><span class="p">)</span>
+<span class="n">notify</span><span class="p">(</span><span class="s1">&#39;My Title&#39;</span><span class="p">,</span> <span class="s1">&#39;My Text&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>This is the full API:</p>
 <dl class="function">
-<dt id="workflow.notify.notify"><a name="//apple_ref/cpp/Function/workflow.notify.notify"></a>
-<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.notify.notify" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Post notification via Notify.app helper.</p>
 <table class="docutils field-list" frame="void" rules="none">
-<col class="field-name"></col>
-<col class="field-body"></col>
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>str, optional</em>) – Notification title.</li>
-<li><strong>text</strong> (<em>str, optional</em>) – Notification body text.</li>
-<li><strong>sound</strong> (<em>str, optional</em>) – Name of sound to play.</li>
+<li><strong>title</strong> (<em>str, optional</em>) &#8211; Notification title.</li>
+<li><strong>text</strong> (<em>str, optional</em>) &#8211; Notification body text.</li>
+<li><strong>sound</strong> (<em>str, optional</em>) &#8211; Name of sound to play.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> –
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
 Raised if both <cite>title</cite> and <cite>text</cite> are empty.</p>
 </td>
 </tr>
@@ -100,25 +119,41 @@ Raised if both <cite>title</cite> and <cite>text</cite> are empty.</p>
 </tbody>
 </table>
 </dd></dl>
+
 <p>See the <a class="reference internal" href="../api/notify.html#api-notifications"><span>API documentation</span></a> for details of the other
 functions.</p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
-<div class="sphinxsidebarwrapper">
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
 <p class="logo">
-<a href="../index.html">
-<img alt="Logo" class="logo" src="../_static/icon_256.png"/>
-<h1 class="logo logo-name">Alfred-Workflow</h1>
-</a>
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
 </p>
+
+
+
 <p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
 <p>
-<iframe allowtransparency="true" frameborder="0" height="35px" scrolling="0" src="https://ghbtns.com/github-btn.html?user=deanishe&amp;repo=alfred-workflow&amp;type=watch&amp;count=true&amp;size=large" width="200px"></iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
+
+
+
+
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
@@ -141,9 +176,10 @@ functions.</p>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
@@ -160,46 +196,62 @@ functions.</p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../quickindex.html">Quick Index</a></li>
 </ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-<li><a href="../index.html">Documentation overview</a><ul>
-<li><a href="index.html">User Manual</a><ul>
-<li>Previous: <a href="web.html" title="previous chapter">Retrieving data from the web</a></li>
-<li>Next: <a href="background.html" title="next chapter">Background processes</a></li>
-</ul></li>
-</ul></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Manual</a><ul>
+      <li>Previous: <a href="web.html" title="previous chapter">Retrieving data from the web</a></li>
+      <li>Next: <a href="background.html" title="next chapter">Background processes</a></li>
+  </ul></li>
+  </ul></li>
 </ul>
 </div>
-<div id="searchbox" role="search" style="display: none">
-<h3>Quick search</h3>
-<form action="../search.html" class="search" method="get">
-<input name="q" type="text"/>
-<input type="submit" value="Go"/>
-<input name="check_keywords" type="hidden" value="yes"/>
-<input name="area" type="hidden" value="default"/>
-</form>
-<p class="searchtip" style="font-size: 90%">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
     Enter search terms or a module, class or function name.
     </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-<h3>Donate</h3>
-<p>
+	<h3>Donate</h3>
+	
+	<p>
 	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
-	<script data-gratipay-username="deanishe" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
-</p>
-</div>
-</div>
-<div class="clearer"></div>
-</div>
-<div class="footer">
-      ©2016, Dean Jackson.
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    <div class="footer">
+      &copy;2016, Dean Jackson.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
-</div>
+      
+    </div>
+
+    
+
+    
+
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
@@ -213,7 +265,9 @@ functions.</p>
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
-<noscript><p><img alt="" src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;"/></p></noscript>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-</body>
+
+
+  </body>
 </html>

@@ -772,54 +772,64 @@ characters if <code class="docutils literal"><span class="pre">query</span></cod
 <code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code>). The tests are always run in the given order:</p>
 <ol class="arabic">
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Item search key startswith</span></dt>
-<dd><p class="first last"><a href="#id1"><span class="problematic" id="id2">``</span></a>query``(case-insensitive).</p>
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_STARTSWITH</span></code></dt>
+<dd><p class="first last">Item search key starts with <code class="docutils literal"><span class="pre">query</span></code> (case-insensitive).</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">The list of capital letters in item</span></dt>
-<dd><p class="first last">search key starts with <code class="docutils literal"><span class="pre">query</span></code> (<code class="docutils literal"><span class="pre">query</span></code> may be
-lower-case). E.g., <code class="docutils literal"><span class="pre">of</span></code> would match <code class="docutils literal"><span class="pre">OmniFocus</span></code>,
-<code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code>.</p>
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_CAPITALS</span></code></dt>
+<dd><p class="first last">The list of capital letters in item search key starts with
+<code class="docutils literal"><span class="pre">query</span></code> (<code class="docutils literal"><span class="pre">query</span></code> may be lower-case). E.g., <code class="docutils literal"><span class="pre">of</span></code>
+would match <code class="docutils literal"><span class="pre">OmniFocus</span></code>, <code class="docutils literal"><span class="pre">gc</span></code> would match <code class="docutils literal"><span class="pre">Google</span> <span class="pre">Chrome</span></code>.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Search key is split into &#8220;atoms&#8221; on</span></dt>
-<dd><p class="first last">non-word characters (.,-,&#8217; etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is
-one of these atoms (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Initials are the first</span></dt>
-<dd><p class="first last">characters of the above-described &#8220;atoms&#8221; (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></code> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">query</span></code> is a substring of</span></dt>
-<dd><p class="first last">the above-described initials.</p>
-</dd>
-</dl>
-</li>
-<li><p class="first"><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></code> : Combination of (4) and (5).</p>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Match if <code class="docutils literal"><span class="pre">query</span></code> is a substring</span></dt>
-<dd><p class="first last">of item search key (case-insensitive).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">Matches if all characters in</span></dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> appear in item search key in the same order
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></code></dt>
+<dd><p class="first last">Search key is split into &#8220;atoms&#8221; on non-word characters
+(.,-,&#8217; etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is one of these atoms
 (case-insensitive).</p>
 </dd>
 </dl>
 </li>
-<li><p class="first"><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code> : Combination of all the above.</p>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></code></dt>
+<dd><p class="first last">Initials are the first characters of the above-described
+&#8220;atoms&#8221; (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_CONTAIN</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> is a substring of the above-described initials.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS</span></code></dt>
+<dd><p class="first last">Combination of (4) and (5).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_SUBSTRING</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">query</span></code> is a substring of item search key (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code></dt>
+<dd><p class="first last">All characters in <code class="docutils literal"><span class="pre">query</span></code> appear in item search key in
+the same order (case-insensitive).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALL</span></code></dt>
+<dd><p class="first last">Combination of all the above.</p>
+</dd>
+</dl>
 </li>
 </ol>
 <p><code class="xref py py-const docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> is considerably slower than the other

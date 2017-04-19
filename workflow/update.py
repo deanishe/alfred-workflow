@@ -203,8 +203,8 @@ def download_workflow(url):
     """
     filename = url.split("/")[-1]
 
-    if (not url.endswith('.alfredworkflow') or
-            not filename.endswith('.alfredworkflow')):
+    if (not filename.endswith('.alfredworkflow') and
+            not filename.endswith('.alfred3workflow')):
         raise ValueError('Attachment `{0}` not a workflow'.format(filename))
 
     local_path = os.path.join(tempfile.gettempdir(), filename)

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Publish documentation to gh-pages branch using ghp-import
 
 if [[ -z "$1" ]]; then
@@ -17,7 +19,7 @@ command -v ghp-import > /dev/null 2>&1 || {
 basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
 builddir="${docdir}/_build/html"
-buildscript="${basedir}/extras/build-docs.sh"
+buildscript="${basedir}/bin/build-docs.sh"
 
 echo "\$basedir  : ${basedir}"
 echo "\$docdir   : ${docdir}"

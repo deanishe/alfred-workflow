@@ -4,7 +4,7 @@ set -e
 
 basedir=$(cd $(dirname $0)/../; pwd)
 docdir="${basedir}/docs"
-docset="${docdir}/Alfred-Workflow.docset"
+docset="Alfred-Workflow.docset"
 zipfile="${docset}.zip"
 icon="${basedir}/icon.png"
 

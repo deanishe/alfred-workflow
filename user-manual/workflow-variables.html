@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow variables &mdash; Alfred-Workflow 1.25.1 documentation</title>
+    <title>Workflow variables &mdash; Alfred-Workflow 1.26 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.25.1',
+        VERSION:     '1.26',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.25.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.26 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Serialization of stored/cached data" href="serialization.html" />
     <link rel="prev" title="“Magic” arguments" href="magic-arguments.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="magic-arguments.html" title="“Magic” arguments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.25.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Manual</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,12 +69,87 @@
             
   <div class="section" id="workflow-variables">
 <span id="id1"></span><h1>Workflow variables<a class="headerlink" href="#workflow-variables" title="Permalink to this headline">¶</a></h1>
+<p><strong>Alfred 3 only</strong></p>
 <p>An extremely powerful new feature in Alfred 3 is <a class="reference external" href="https://www.alfredapp.com/help/workflows/utilities/argument/">its workflow variables</a>.</p>
 <p>You can set and manipulate these not only in Alfred&#8217;s own UI elements, but
-also via script output or Script Filter results.</p>
-<p>The Alfred 3-only <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> class provides an
-API for getting and setting workflow variables via Script Filter feedback
-output.</p>
+also via the output from a Run Script action or Script Filter results.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>You must use the correct mechanism for setting variables. Alfred requires
+different output formats from Script Filters and Run Script actions.</p>
+<p class="last">If you try to use the <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> class in a
+Script Filter or the <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> variables API
+in a Run Script action, <strong>it will not work</strong>!</p>
+</div>
+<p>There two different mechanisms for setting workflow variables are:</p>
+<ul class="simple">
+<li>The <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> class, which is for
+use in Run Script actions, and</li>
+<li>The <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> class provides an
+API for getting and setting workflow variables via Script Filter feedback.</li>
+</ul>
+<div class="section" id="setting-variables-from-run-script-actions">
+<h2>Setting variables from Run Script actions<a class="headerlink" href="#setting-variables-from-run-script-actions" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> is a subclass of <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that
+serialises (prints) to an <code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object (or plain text if no
+variables are set).</p>
+<p>Set workflow variables using the standard <a class="reference external" href="http://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> API or as keyword
+arguments on instantiation.</p>
+<div class="section" id="example-usage">
+<h3>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Variables</span>
+
+<span class="c1"># set arg on instantiation</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">(</span><span class="s1">u&#39;this is arg&#39;</span><span class="p">)</span>
+
+<span class="c1"># set workflow variables on instantiation</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">(</span><span class="n">var1</span><span class="o">=</span><span class="s1">u&#39;value 1&#39;</span><span class="p">,</span> <span class="n">var2</span><span class="o">=</span><span class="s1">u&#39;value 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># set arg via attribute</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">()</span>
+<span class="n">v</span><span class="o">.</span><span class="n">arg</span> <span class="o">=</span> <span class="s1">u&#39;this is arg&#39;</span>
+
+<span class="c1"># set workflow variables via dict API</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">()</span>
+<span class="n">v</span><span class="p">[</span><span class="s1">&#39;variable_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">u&#39;variable value&#39;</span>
+
+<span class="c1"># set config for downstream element</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">()</span>
+<span class="n">v</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">u&#39;value&#39;</span>
+
+<span class="c1"># send to Alfred</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">(</span><span class="s1">u&#39;arg&#39;</span><span class="p">,</span> <span class="n">var1</span><span class="o">=</span><span class="s1">&#39;val1&#39;</span><span class="p">,</span> <span class="n">var2</span><span class="o">=</span><span class="s1">&#39;var2&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="setting-variables-in-script-filters">
+<h2>Setting variables in Script Filters<a class="headerlink" href="#setting-variables-in-script-filters" title="Permalink to this headline">¶</a></h2>
 <p>Variables can be set at the Workflow, Item or Modifier level using their
 respective <code class="docutils literal"><span class="pre">setvar(name,</span> <span class="pre">value)</span></code> methods.</p>
 <p>Variables set on the <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Workflow3" title="workflow.workflow3.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object are
@@ -85,9 +160,9 @@ result: they are also used by Alfred for its <a class="reference internal" href=
 feature).</p>
 <p>Variables set at the
 <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a>/<a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
-level are only applied if the user actions that item (and modifier).</p>
+level are only set if the user actions that item (and modifier).</p>
 <div class="section" id="inheritance">
-<h2>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifiers</span></code></a> inherit any variables set on
 their parent <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> objects <em>at the time of their
 creation</em>. Any variables set on an <a class="reference internal" href="../api/workflow3.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> object
@@ -104,8 +179,8 @@ only consider variables you have set on the objects yourself, not those
 set by upstream workflow elements or the configuration sheet.</p>
 </div>
 </div>
-<div class="section" id="example-usage">
-<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Example usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>As Alfred passes workflow variables to scripts as environment variables,
 combining <code class="docutils literal"><span class="pre">var=1</span></code> style flags with a command-line library that can
 map environment variables to command-line options (such as <a class="reference external" href="http://click.pocoo.org/">Click</a>) is
@@ -243,10 +318,11 @@ workflow very hard to follow for people wanting to hack on it.</p>
 </div>
 </div>
 <div class="section" id="more-information">
-<h2>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<h3>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h3>
 <p>Alfred&#8217;s own help has a <a class="reference external" href="https://www.alfredapp.com/help/workflows/utilities/argument/">few</a> <a class="reference external" href="https://www.alfredapp.com/help/workflows/advanced/variables/">pages</a> on workflow variables.</p>
 <p><a class="reference external" href="http://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/">Here</a> is a post I wrote on the Alfred forums about getting, setting and
 saving workflow variables.</p>
+</div>
 </div>
 </div>
 
@@ -365,7 +441,7 @@ saving workflow variables.</p>
 
 
     <div class="footer">
-      &copy;2016, Dean Jackson.
+      &copy; 2013–2017 Dean Jackson.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>

@@ -18,9 +18,15 @@ If you'd like your own workflow added to the list, please see the corresponding
 section in the `GitHub README`_.
 
 
+- `10.000ft Scripts <http://www.packal.org/workflow/10000ft-scripts>`__
+  by `jceelen <http://www.packal.org/users/jceelen>`__.
+  The aim is to make working with 10.000ft faster.
 - `17Track <http://www.packal.org/workflow/17track>`__
   by `emamuna <http://www.packal.org/users/emamuna>`__.
   Workflow used to track your shipments on 17Track.net.
+- `Airmail-to-Todoist <http://www.packal.org/workflow/airmail-todoist>`__
+  by `mgroves <http://www.packal.org/users/mgroves>`__.
+  Simple way to create a task in Todoist based on a mail in Airmail 3.
 - `Alfred Backblaze <http://www.packal.org/workflow/alfred-backblaze>`__
   by `XedMada <http://www.packal.org/users/xedmada>`__.
   Pause and Start Backblaze online backups.
@@ -39,9 +45,6 @@ section in the `GitHub README`_.
 - `Alfred-Drive-Workflow <http://www.packal.org/workflow/alfred-drive-workflow>`__
   by `azai91 <http://www.packal.org/users/azai91>`__.
   Browse, search and open Google Drive files from within Alfred.
-- `Alfred-Flixsearch <http://www.packal.org/workflow/alfred-flixsearch>`__
-  by `deanishe <http://www.packal.org/users/deanishe>`__.
-  What's available on Netflix and in which countries.
 - `Alfred-HipChat <http://www.packal.org/workflow/alfred-hipchat>`__
   by `zsprackett <http://www.packal.org/users/zsprackett>`__.
   Allows you to navigate HipChat rooms and IM's from within Alfred.
@@ -63,6 +66,9 @@ section in the `GitHub README`_.
 - `Atmos <http://www.packal.org/workflow/atmos>`__
   by `therockmandolinist <http://www.packal.org/users/therockmandolinist>`__.
   An Alfred workflow to find temperature, speed of sound, pressure, and density at queried altitude, according on International Standard Atmosphere model.
+- `aws-alfred-workflow <http://www.packal.org/workflow/aws-alfred-workflow>`__
+  by `twang <http://www.packal.org/users/twang>`__.
+  Workflow for searching AWS.
 - `Base Converter <http://www.packal.org/workflow/base-converter>`__
   by `ahalbert <http://www.packal.org/users/ahalbert>`__.
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
@@ -81,6 +87,9 @@ section in the `GitHub README`_.
 - `Calendar <http://www.packal.org/workflow/calendar>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   Displays a monthly calendar with Alfred Workflow.
+- `Call or SMS contact <http://www.packal.org/workflow/call-or-sms-contact>`__
+  by `amoose136 <http://www.packal.org/users/amoose136>`__.
+  Searches through contacts and calls or texts them depending on input. .
 - `Capital Weather Gang <http://www.packal.org/workflow/capital-weather-gang>`__
   by `jeffsui <http://www.packal.org/users/jeffsui>`__.
   Pulls the Capital Weather Gang RSS Feed.
@@ -102,6 +111,9 @@ section in the `GitHub README`_.
 - `Date Calculator <http://www.packal.org/workflow/date-calculator>`__
   by `MuppetGate <http://www.packal.org/users/muppetgate>`__.
   A basic date calculator.
+- `Default Folder X <http://www.packal.org/workflow/default-folder-x>`__
+  by `deanishe <http://www.packal.org/users/deanishe>`__.
+  Show and search Default Folder X favourites and recent items.
 - `Dict.cc for Alfred <http://www.packal.org/workflow/dictcc-alfred>`__
   by `PhilippN <http://www.packal.org/users/philippn>`__.
   This Alfred workflow uses the offline translation databases provided by dict.cc.
@@ -165,6 +177,9 @@ section in the `GitHub README`_.
 - `Goo Japanese Translater <http://www.packal.org/workflow/goo-japanese-translater>`__
   by `rorvte <http://www.packal.org/users/rorvte>`__.
   A workflow for searching the definitive Japanese dictionary at http://dictionary.goo.ne.jp.
+- `GoToMeeting Tools <http://www.packal.org/workflow/gotomeeting-tools>`__
+  by `tony_et <http://www.packal.org/users/tony_et>`__.
+  GoToMeeting phonebook and launcher.
 - `HackerNews for Alfred <http://www.packal.org/workflow/hackernews-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Read Hacker News with Alfred.
@@ -189,6 +204,9 @@ section in the `GitHub README`_.
 - `IPython Notebooks <http://www.packal.org/workflow/ipython-notebooks>`__
   by `nkeim <http://www.packal.org/users/nkeim>`__.
   Search notebook titles on your IPython notebook server.
+- `ironmq <http://www.packal.org/workflow/ironmq>`__
+  by `eldardamari <http://www.packal.org/users/eldardamari>`__.
+  Quick productive access to your ironMQ queues .
 - `Jenkins <http://www.packal.org/workflow/jenkins>`__
   by `Amwam <http://www.packal.org/users/amwam>`__.
   Show and search through jobs on Jenkins.
@@ -198,15 +216,27 @@ section in the `GitHub README`_.
 - `Jisho v1.0 <http://www.packal.org/workflow/jisho-v10>`__
   by `kylesezhi <http://www.packal.org/users/kylesezhi>`__.
   Translate English and Japanese words with Jisho.org.
+- `Jisho: Japanese-English Dictionary <http://www.packal.org/workflow/jisho-japanese-english-dictionary>`__
+  by `janclarin <http://www.packal.org/users/janclarin>`__.
+  Easily and quickly search Jisho.org, a powerful Japanese-English dictionary.
+- `jQueryApiCN <http://www.packal.org/workflow/jqueryapicn>`__
+  by `kennylee <http://www.packal.org/users/kennylee>`__.
+  jQuery中文API手册.
 - `Julian Date calculator <http://www.packal.org/workflow/julian-date-calculator>`__
   by `Tam-Lin <http://www.packal.org/users/tam-lin>`__.
   Converts dates to/from Julian dates, as well as some date math.
 - `KA Torrents <http://www.packal.org/workflow/ka-torrents>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search and download torrents from kickass.so.
+- `Karabiner Elements Profile Switcher <http://www.packal.org/workflow/karabiner-elements-profile-switcher>`__
+  by `awinecki <http://www.packal.org/users/awinecki>`__.
+  Easily switch selected profile as configured in ~/.config/karabiner/karabiner.json.
 - `KAT Search <http://www.packal.org/workflow/kat-search>`__
   by `emamuna <http://www.packal.org/users/emamuna>`__.
   Just a workflow used to search on KAT (KickAssTorrent) website.
+- `KAT search to Transmission <http://www.packal.org/workflow/kat-search-transmission>`__
+  by `auino <http://www.packal.org/users/auino>`__.
+  Workflow used to search torrent files on KAT mirrors and download chosen files through a remote Transmission server.
 - `Kitap Metre <http://www.packal.org/workflow/kitap-metre>`__
   by `ttuygun <http://www.packal.org/users/ttuygun>`__.
   This alfred workflow shows kitapmetre.com's (the best book price search engine) results.
@@ -219,6 +249,9 @@ section in the `GitHub README`_.
 - `LibGen <http://www.packal.org/workflow/libgen>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search and Download pdfs and ebooks from Library Genesis.
+- `logtivly <http://www.packal.org/workflow/logtivly>`__
+  by `abbood <http://www.packal.org/users/abbood>`__.
+  log your hours on google sheets using alfred! see https://www.youtube.com/watch?v=XAAXoTbIZ5E.
 - `MailTo <http://www.packal.org/workflow/mailto>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Send mail to contacts and groups from your Address Book.
@@ -249,6 +282,9 @@ section in the `GitHub README`_.
 - `NyaaSearch <http://www.packal.org/workflow/nyaasearch>`__
   by `Ankirama <http://www.packal.org/users/ankirama>`__.
   Search torrents on nyaa and download/copy it.
+- `Openhab <http://www.packal.org/workflow/openhab>`__
+  by `DigitalBird <http://www.packal.org/users/digitalbird>`__.
+  Control your Openhab Smart Home with Alfred.
 - `Order of Magnituce <http://www.packal.org/workflow/order-magnitude>`__
   by `tdhopper <http://www.packal.org/users/tdhopper>`__.
   Convert a number to natural language (rounded to any number of places).
@@ -276,12 +312,18 @@ section in the `GitHub README`_.
 - `Pocket for Alfred <http://www.packal.org/workflow/pocket-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Pocket list with Alfred.
+- `Powerthesaurus Search <http://www.packal.org/workflow/powerthesaurus-search>`__
+  by `clarencecastillo <http://www.packal.org/users/clarencecastillo>`__.
+  Search Powerthesaurus synonyms and antonyms from Alfred.
 - `Product Hunt <http://www.packal.org/workflow/product-hunt>`__
   by `loris <http://www.packal.org/users/loris>`__.
   List Product Hunt today's hunts.
 - `ProductHunt <http://www.packal.org/workflow/producthunt>`__
   by `chiefy <http://www.packal.org/users/chiefy>`__.
   Read ProductHunt in Alfred.
+- `Progress Bar <http://www.packal.org/workflow/progress-bar>`__
+  by `jeffsui <http://www.packal.org/users/jeffsui>`__.
+  Sample progress bar workflow.
 - `PWS History <http://www.packal.org/workflow/pws-history>`__
   by `hrbrmstr <http://www.packal.org/users/hrbrmstr>`__.
   Retrieve personal weather station history from Weather Underground.
@@ -303,6 +345,9 @@ section in the `GitHub README`_.
 - `Rates <http://www.packal.org/workflow/rates>`__
   by `Kennedy Oliveira <http://www.packal.org/users/kennedy-oliveira>`__.
   Simple exchange rates for alfred.
+- `raywenderlich <http://www.packal.org/workflow/raywenderlich>`__
+  by `softdevstory <http://www.packal.org/users/softdevstory>`__.
+  Display the recent ariticles from raywenderlich.com.
 - `Readability for Alfred <http://www.packal.org/workflow/readability-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Readability list with Alfred.
@@ -360,6 +405,9 @@ section in the `GitHub README`_.
 - `Snippets <http://www.packal.org/workflow/snippets>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Simple, document-specific text snippets.
+- `SONOS Controller <http://www.packal.org/workflow/sonos-controller>`__
+  by `fns720 <http://www.packal.org/users/fns720>`__.
+  Basic controls for SONOS speakers.
 - `Sourcegraph <http://www.packal.org/workflow/sourcegraph>`__
   by `rohanpai <http://www.packal.org/users/rohanpai>`__.
   Sourcegraph Alfred Workflow.
@@ -387,6 +435,9 @@ section in the `GitHub README`_.
 - `Sublime Text Projects <http://www.packal.org/workflow/sublime-text-projects>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   View, filter and open your Sublime Text (2 and 3) project files.
+- `SwitchHosts! <http://www.packal.org/workflow/switchhosts>`__
+  by `oldj <http://www.packal.org/users/oldj>`__.
+  The workflow for SwitchHosts! app.
 - `TeXdoc <http://www.packal.org/workflow/texdoc>`__
   by `Egon Geerardyn <http://www.packal.org/users/egon-geerardyn>`__.
   Searches your LaTeX documentation using texdoc.
@@ -396,12 +447,15 @@ section in the `GitHub README`_.
 - `Torrent <http://www.packal.org/workflow/torrent>`__
   by `bfw <http://www.packal.org/users/bfw>`__.
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
+- `Translate Workflow - use Google or Microsoft Translate <http://www.packal.org/workflow/translate-workflow-use-google-or-microsoft-translate>`__
+  by `rustycamper <http://www.packal.org/users/rustycamper>`__.
+  Translate words or phrases using Google or Microsoft Translate.
 - `Travis CI for Alfred <http://www.packal.org/workflow/travis-ci-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Quickly check build statuses on travis-ci.org.
-- `UberTime <http://www.packal.org/workflow/ubertime>`__
-  by `frankspin <http://www.packal.org/users/frankspin>`__.
-  Check estimated pick up time for Uber based on inputted address.
+- `Ulysses <http://www.packal.org/workflow/ulysses>`__
+  by `robwalton <http://www.packal.org/users/robwalton>`__.
+  Open groups or sheets in Ulysses.
 - `URL craft <http://www.packal.org/workflow/url-craft>`__
   by `takanabe <http://www.packal.org/users/takanabe>`__.
   A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.

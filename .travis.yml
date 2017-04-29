@@ -1,6 +1,6 @@
 os: osx
 
-osx_image: beta-xcode6.2
+osx_image: xcode8.3
 
 env:
   matrix:

@@ -22,32 +22,32 @@ log() {
 
 help() {
 cat > /dev/stderr << EOS
-zip-workflow.sh
+build-workflow.sh
 
 Create distributable, useable ZIP archive of workflow in repo root.
 
 Resulting file will be called workflow-1.n.n.zip
 
 Usage:
-	zip-workflow.sh [-s]
-	zip-workflow.sh (-h|--help)
+	build-workflow.sh [-n]
+	build-workflow.sh (-h|--help)
 
 Options:
-  zip-workflow.sh -s, --show	Only show what would be done.
-  zip-workflow.sh -h, --help	Show this message and exit.
+  -n, --nothing   Only show what would be done.
+  -h, --help      Show this message and exit.
 
 EOS
 }
 
-show=0
+dryrun=0
 
 case "$1" in
 	-h|--help)
 		help
 		exit 0
 		;;
-	-s|--show)
-		show=1
+	-n|--nothing)
+		dryrun=1
 		;;
 	*)
 		;;
@@ -55,16 +55,14 @@ esac
 
 pushd "${rootdir}" &> /dev/null
 
-if [[ -f "${zipfile}" ]] && [[ $show -eq 0 ]]; then
+if [[ -f "${zipfile}" ]] && [[ $dryrun -eq 0 ]]; then
 	log "Deleting existing zip archive"
 	rm -f "${zipfile}"
 fi
 
-
-if [[ $show -eq 1 ]]; then
+mode=
+if [[ $dryrun -eq 1 ]]; then
 	mode="-sf"
-else
-	mode=
 fi
 
 zip $mode -r ${zipfile} ${sourcedir} -i $patterns

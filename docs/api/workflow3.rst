@@ -11,6 +11,9 @@ The Workflow3 class for Alfred 3
 .. autoclass:: Workflow3
     :members:
 
+.. autoclass:: Variables
+    :members:
+
 .. autoclass:: Item3
     :members:
 

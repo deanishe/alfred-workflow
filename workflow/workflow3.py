@@ -33,6 +33,79 @@ import sys
 from .workflow import Workflow
 
 
+class Variables(dict):
+    """Workflow variables for Run Script actions.
+
+    .. versionadded: 1.26
+
+    This class allows you to set workflow variables from
+    Run Script actions.
+
+    It is a subclass of `dict`.
+
+    >>> v = Variables(username='deanishe', password='hunter2')
+    >>> v.arg = u'output value'
+    >>> print(v)
+
+    Attributes:
+        arg (unicode): Output value (``{query}``).
+        config (dict): Configuration for downstream workflow element.
+
+    """
+
+    def __init__(self, arg=None, **variables):
+        """Create a new `Variables` object.
+
+        Args:
+            arg (unicode, optional): Main output/``{query}``.
+            **variables: Workflow variables to set.
+
+        """
+        self.arg = arg
+        self.config = {}
+        super(Variables, self).__init__(**variables)
+
+    @property
+    def obj(self):
+        """Return ``alfredworkflow`` `dict`."""
+        o = {}
+        if self:
+            d2 = {}
+            for k, v in self.items():
+                d2[k] = v
+            o['variables'] = d2
+
+        if self.config:
+            o['config'] = self.config
+
+        if self.arg is not None:
+            o['arg'] = self.arg
+
+        return {'alfredworkflow': o}
+
+    def __unicode__(self):
+        """Convert to ``alfredworkflow`` JSON object.
+
+        Returns:
+            unicode: ``alfredworkflow`` JSON object
+        """
+        if not self and not self.config:
+            if self.arg:
+                return self.arg
+            else:
+                return u''
+
+        return json.dumps(self.obj)
+
+    def __str__(self):
+        """Convert to ``alfredworkflow`` JSON object.
+
+        Returns:
+            str: UTF-8 encoded ``alfredworkflow`` JSON object
+        """
+        return unicode(self).encode('utf-8')
+
+
 class Modifier(object):
     """Modify ``Item3`` values for when specified modifier keys are pressed.
 
@@ -213,7 +286,7 @@ class Item3(object):
         Returns:
             dict: Data suitable for Alfred 3 feedback.
         """
-        # Basic values
+        # Required values
         o = {'title': self.title,
              'subtitle': self.subtitle,
              'valid': self.valid}
@@ -221,8 +294,13 @@ class Item3(object):
         icon = {}
 
         # Optional values
-        if self.arg is not None:
-            o['arg'] = self.arg
+
+        # arg & variables
+        v = Variables(self.arg, **self.variables)
+        v.config = self.config
+        arg = unicode(v)
+        if arg:
+            o['arg'] = arg
 
         if self.autocomplete is not None:
             o['autocomplete'] = self.autocomplete
@@ -244,11 +322,6 @@ class Item3(object):
         icon = self._icon()
         if icon:
             o['icon'] = icon
-
-        # Variables and config
-        js = self._vars_and_config()
-        if js:
-            o['arg'] = js
 
         # Modifiers
         mods = self._modifiers()
@@ -286,27 +359,6 @@ class Item3(object):
             text['copy'] = self.copytext
 
         return text
-
-    def _vars_and_config(self):
-        """Build `arg` including workflow variables and configuration.
-
-        Returns:
-            str: JSON string value for `arg` (or `None`)
-        """
-        if self.variables or self.config:
-            d = {}
-            if self.variables:
-                d['variables'] = self.variables
-
-            if self.config:
-                d['config'] = self.config
-
-            if self.arg is not None:
-                d['arg'] = self.arg
-
-            return json.dumps({'alfredworkflow': d})
-
-        return None
 
     def _modifiers(self):
         """Build `mods` dictionary for JSON feedback.

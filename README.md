@@ -227,6 +227,8 @@ Documentation
 
 The full documentation, including API docs and a tutorial, can be found at [deanishe.net][docs].
 
+The documentation is also available as a [Dash docset][dash].
+
 
 Licensing, thanks
 -----------------
@@ -299,9 +301,12 @@ Workflows using Alfred-Workflow
 
 These are some of the Alfred workflows that use this library.
 
-Already up-to-date.
+- [10.000ft Scripts](http://www.packal.org/workflow/10000ft-scripts) ([GitHub repo](https://github.com/jceelen/alfred-10000ft-scripts)) by [jceelen](http://www.packal.org/users/jceelen) ([on GitHub](https://github.com/jceelen/)).
+  The aim is to make working with 10.000ft faster.
 - [17Track](http://www.packal.org/workflow/17track) by [emamuna](http://www.packal.org/users/emamuna).
   Workflow used to track your shipments on 17Track.net.
+- [Airmail-to-Todoist](http://www.packal.org/workflow/airmail-todoist) ([GitHub repo](https://github.com/markgrovs/alfred-airmail-to-todoist)) by [mgroves](http://www.packal.org/users/mgroves) ([on GitHub](https://github.com/markgrovs/)).
+  Simple way to create a task in Todoist based on a mail in Airmail 3.
 - [Alfred Backblaze](http://www.packal.org/workflow/alfred-backblaze) ([GitHub repo](https://github.com/XedMada/alfred-backblaze)) by [XedMada](http://www.packal.org/users/xedmada) ([on GitHub](https://github.com/XedMada/)).
   Pause and Start Backblaze online backups.
 - [Alfred Dependency Bundler Demo (Python)](http://www.packal.org/workflow/alfred-dependency-bundler-demo-python) ([GitHub repo](https://github.com/deanishe/alfred-bundler-python-demo)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -314,8 +319,6 @@ Already up-to-date.
   Loads a daily list of events from Google and/or Exchange calendars.
 - [Alfred-Drive-Workflow](http://www.packal.org/workflow/alfred-drive-workflow) ([GitHub repo](https://github.com/azai91/alfred-drive-workflow)) by [azai91](http://www.packal.org/users/azai91) ([on GitHub](https://github.com/azai91/)).
   Browse, search and open Google Drive files from within Alfred.
-- [Alfred-Flixsearch](http://www.packal.org/workflow/alfred-flixsearch) ([GitHub repo](https://github.com/deanishe/alfred-flixsearch)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
-  What's available on Netflix and in which countries.
 - [Alfred-HipChat](http://www.packal.org/workflow/alfred-hipchat) ([GitHub repo](https://github.com/zsprackett/alfred-hipchat)) by [zsprackett](http://www.packal.org/users/zsprackett) ([on GitHub](https://github.com/zsprackett/)).
   Allows you to navigate HipChat rooms and IM's from within Alfred.
 - [Alfred-Venmo-Workflow](http://www.packal.org/workflow/alfred-venmo-workflow) ([GitHub repo](https://github.com/azai91/alfred-venmo-workflow)) by [azai91](http://www.packal.org/users/azai91) ([on GitHub](https://github.com/azai91/)).
@@ -330,6 +333,8 @@ Already up-to-date.
   Manage Aria2 downloads directly in Alfred, with background notification.
 - [Atmos](http://www.packal.org/workflow/atmos) ([GitHub repo](https://github.com/therockmandolinist/alfred-atmos)) by [therockmandolinist](http://www.packal.org/users/therockmandolinist) ([on GitHub](https://github.com/therockmandolinist/)).
   An Alfred workflow to find temperature, speed of sound, pressure, and density at queried altitude, according on International Standard Atmosphere model.
+- [aws-alfred-workflow](http://www.packal.org/workflow/aws-alfred-workflow) ([GitHub repo](https://github.com/twang817/aws-alfred-workflow)) by [twang](http://www.packal.org/users/twang) ([on GitHub](https://github.com/twang817/)).
+  Workflow for searching AWS.
 - [Base Converter](http://www.packal.org/workflow/base-converter) ([GitHub repo](https://github.com/ahalbert/alfred-baseconverter)) by [ahalbert](http://www.packal.org/users/ahalbert) ([on GitHub](https://github.com/ahalbert/)).
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
 - [BeautifulRatio](http://www.packal.org/workflow/beautifulratio) ([GitHub repo](https://github.com/yusuga/alfred-beautifulratio-workflow)) by [yusuga](http://www.packal.org/users/yusuga) ([on GitHub](https://github.com/yusuga/)).
@@ -342,6 +347,8 @@ Already up-to-date.
   Set Alfred's background blur radius.
 - [Calendar](http://www.packal.org/workflow/calendar) ([GitHub repo](https://github.com/owenwater/alfred-cal)) by [owenwater](http://www.packal.org/users/owenwater) ([on GitHub](https://github.com/owenwater/)).
   Displays a monthly calendar with Alfred Workflow.
+- [Call or SMS contact](http://www.packal.org/workflow/call-or-sms-contact) ([GitHub repo](https://github.com/amoose136/call_or_sms_contact)) by [amoose136](http://www.packal.org/users/amoose136) ([on GitHub](https://github.com/amoose136/)).
+  Searches through contacts and calls or texts them depending on input. .
 - [Capital Weather Gang](http://www.packal.org/workflow/capital-weather-gang) by [jeffsui](http://www.packal.org/users/jeffsui).
   Pulls the Capital Weather Gang RSS Feed.
 - [CDN](http://www.packal.org/workflow/alfred-cdn-workflow) ([GitHub repo](https://github.com/azai91/alfred-cdn-workflow)) by [azai91](http://www.packal.org/users/azai91) ([on GitHub](https://github.com/azai91/)).
@@ -356,6 +363,8 @@ Already up-to-date.
   Convert between different units. No Internet connection required.
 - [Date Calculator](http://www.packal.org/workflow/date-calculator) ([GitHub repo](https://github.com/MuppetGate/Alfred-Workflows-DateCalculator)) by [MuppetGate](http://www.packal.org/users/muppetgate) ([on GitHub](https://github.com/MuppetGate/)).
   A basic date calculator.
+- [Default Folder X](http://www.packal.org/workflow/default-folder-x) ([GitHub repo](https://github.com/deanishe/alfred-default-folder-x)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
+  Show and search Default Folder X favourites and recent items.
 - [Dict.cc for Alfred](http://www.packal.org/workflow/dictcc-alfred) ([GitHub repo](https://github.com/Kavakuo/Dict.cc-Alfred-Workflow)) by [PhilippN](http://www.packal.org/users/philippn) ([on GitHub](https://github.com/Kavakuo/)).
   This Alfred workflow uses the offline translation databases provided by dict.cc.
 - [Digital Ocean status](http://www.packal.org/workflow/digital-ocean-status) ([GitHub repo](https://github.com/fspinillo/alfred-digital-ocean)) by [frankspin](http://www.packal.org/users/frankspin) ([on GitHub](https://github.com/fspinillo/)).
@@ -398,6 +407,8 @@ Already up-to-date.
   Manage your Gmail inbox with Alfred.
 - [Goo Japanese Translater](http://www.packal.org/workflow/goo-japanese-translater) ([GitHub repo](https://github.com/rorvte/alfred-goodict)) by [rorvte](http://www.packal.org/users/rorvte) ([on GitHub](https://github.com/rorvte/)).
   A workflow for searching the definitive Japanese dictionary at http://dictionary.goo.ne.jp.
+- [GoToMeeting Tools](http://www.packal.org/workflow/gotomeeting-tools) ([GitHub repo](https://github.com/plongitudes/GoToMeetingTools)) by [tony_et](http://www.packal.org/users/tony_et) ([on GitHub](https://github.com/plongitudes/)).
+  GoToMeeting phonebook and launcher.
 - [HackerNews for Alfred](http://www.packal.org/workflow/hackernews-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-hackernews)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Read Hacker News with Alfred.
 - [Hayaku](http://www.packal.org/workflow/hayaku) ([GitHub repo](https://github.com/hayaku/hayaku.alfredworkflow)) by [kizu](http://www.packal.org/users/kizu) ([on GitHub](https://github.com/hayaku/)).
@@ -414,18 +425,28 @@ Already up-to-date.
   Workflow for finding simulator app data folders, erasing apps and more.
 - [IPython Notebooks](http://www.packal.org/workflow/ipython-notebooks) ([GitHub repo](https://github.com/nkeim/alfred-ipython-notebook)) by [nkeim](http://www.packal.org/users/nkeim) ([on GitHub](https://github.com/nkeim/)).
   Search notebook titles on your IPython notebook server.
+- [ironmq](http://www.packal.org/workflow/ironmq) by [eldardamari](http://www.packal.org/users/eldardamari).
+  Quick productive access to your ironMQ queues .
 - [Jenkins](http://www.packal.org/workflow/jenkins) ([GitHub repo](https://github.com/Amwam/Jenkins-Alfred-Workflow/)) by [Amwam](http://www.packal.org/users/amwam) ([on GitHub](https://github.com/Amwam/)).
   Show and search through jobs on Jenkins.
 - [Jira Task Manager](http://www.packal.org/workflow/jira-task-manager) ([GitHub repo](https://github.com/miguelpuyol/Jira-Alfred-Workflow)) by [miguelpuyol](http://www.packal.org/users/miguelpuyol) ([on GitHub](https://github.com/miguelpuyol/)).
   A Jira Task Manager for Alfred.
 - [Jisho v1.0](http://www.packal.org/workflow/jisho-v10) ([GitHub repo](http://github.com/kylesezhi/alfred-jisho)) by [kylesezhi](http://www.packal.org/users/kylesezhi) ([on GitHub](https://github.com/kylesezhi/)).
   Translate English and Japanese words with Jisho.org.
+- [Jisho: Japanese-English Dictionary](http://www.packal.org/workflow/jisho-japanese-english-dictionary) ([GitHub repo](https://github.com/janclarin/jisho-alfred-workflow)) by [janclarin](http://www.packal.org/users/janclarin) ([on GitHub](https://github.com/janclarin/)).
+  Easily and quickly search Jisho.org, a powerful Japanese-English dictionary.
+- [jQueryApiCN](http://www.packal.org/workflow/jqueryapicn) ([GitHub repo](https://github.com/kennylee26/alfred-jquery-api-cn)) by [kennylee](http://www.packal.org/users/kennylee) ([on GitHub](https://github.com/kennylee26/)).
+  jQuery中文API手册.
 - [Julian Date calculator](http://www.packal.org/workflow/julian-date-calculator) ([GitHub repo](https://github.com/Tam-Lin/julian_date)) by [Tam-Lin](http://www.packal.org/users/tam-lin) ([on GitHub](https://github.com/Tam-Lin/)).
   Converts dates to/from Julian dates, as well as some date math.
 - [KA Torrents](http://www.packal.org/workflow/ka-torrents) by [hackademic](http://www.packal.org/users/hackademic).
   Search and download torrents from kickass.so.
+- [Karabiner Elements Profile Switcher](http://www.packal.org/workflow/karabiner-elements-profile-switcher) ([GitHub repo](https://github.com/awinecki/karabiner-elements-profile-switcher)) by [awinecki](http://www.packal.org/users/awinecki) ([on GitHub](https://github.com/awinecki/)).
+  Easily switch selected profile as configured in ~/.config/karabiner/karabiner.json.
 - [KAT Search](http://www.packal.org/workflow/kat-search) by [emamuna](http://www.packal.org/users/emamuna).
   Just a workflow used to search on KAT (KickAssTorrent) website.
+- [KAT search to Transmission](http://www.packal.org/workflow/kat-search-transmission) by [auino](http://www.packal.org/users/auino).
+  Workflow used to search torrent files on KAT mirrors and download chosen files through a remote Transmission server.
 - [Kitap Metre](http://www.packal.org/workflow/kitap-metre) ([GitHub repo](https://github.com/ttuygun/alfred-kitap-metre-workflow)) by [ttuygun](http://www.packal.org/users/ttuygun) ([on GitHub](https://github.com/ttuygun/)).
   This alfred workflow shows kitapmetre.com's (the best book price search engine) results.
 - [Laser SSH](http://www.packal.org/workflow/laser-ssh) by [paperElectron](http://www.packal.org/users/paperelectron).
@@ -434,6 +455,8 @@ Already up-to-date.
   A workflow to interact with a LastPass vault.
 - [LibGen](http://www.packal.org/workflow/libgen) ([GitHub repo](https://github.com/smargh/alfred_libgen)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Search and Download pdfs and ebooks from Library Genesis.
+- [logtivly](http://www.packal.org/workflow/logtivly) ([GitHub repo](https://github.com/lobolabs/logtivly-alfred)) by [abbood](http://www.packal.org/users/abbood) ([on GitHub](https://github.com/lobolabs/)).
+  log your hours on google sheets using alfred! see https://www.youtube.com/watch?v=XAAXoTbIZ5E.
 - [MailTo](http://www.packal.org/workflow/mailto) ([GitHub repo](https://github.com/deanishe/alfred-mailto)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   Send mail to contacts and groups from your Address Book.
 - [MangaEden Search](http://www.packal.org/workflow/mangaeden-search) by [emamuna](http://www.packal.org/users/emamuna).
@@ -454,6 +477,8 @@ Already up-to-date.
   List, filter and activate network locations from within Alfred.
 - [NyaaSearch](http://www.packal.org/workflow/nyaasearch) ([GitHub repo](https://github.com/Ankirama/alfred-workflows/tree/master/NyaaSearch)) by [Ankirama](http://www.packal.org/users/ankirama) ([on GitHub](https://github.com/Ankirama/)).
   Search torrents on nyaa and download/copy it.
+- [Openhab](http://www.packal.org/workflow/openhab) ([GitHub repo](https://github.com/digitalbirdo/alfred-openhab-workflow)) by [DigitalBird](http://www.packal.org/users/digitalbird) ([on GitHub](https://github.com/digitalbirdo/)).
+  Control your Openhab Smart Home with Alfred.
 - [Order of Magnituce](http://www.packal.org/workflow/order-magnitude) by [tdhopper](http://www.packal.org/users/tdhopper).
   Convert a number to natural language (rounded to any number of places).
 - [Packal Workflow Search](http://www.packal.org/workflow/packal-workflow-search) ([GitHub repo](https://github.com/deanishe/alfred-packal-search)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -472,10 +497,14 @@ Already up-to-date.
   PHPStorm project opener.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-pocket)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Manage your Pocket list with Alfred.
+- [Powerthesaurus Search](http://www.packal.org/workflow/powerthesaurus-search) ([GitHub repo](https://github.com/clarencecastillo/alfred-powerthesaurus)) by [clarencecastillo](http://www.packal.org/users/clarencecastillo) ([on GitHub](https://github.com/clarencecastillo/)).
+  Search Powerthesaurus synonyms and antonyms from Alfred.
 - [Product Hunt](http://www.packal.org/workflow/product-hunt) ([GitHub repo](https://github.com/loris/alfred-producthunt-workflow)) by [loris](http://www.packal.org/users/loris) ([on GitHub](https://github.com/loris/)).
   List Product Hunt today's hunts.
 - [ProductHunt](http://www.packal.org/workflow/producthunt) ([GitHub repo](https://github.com/chiefy/ph-workflow)) by [chiefy](http://www.packal.org/users/chiefy) ([on GitHub](https://github.com/chiefy/)).
   Read ProductHunt in Alfred.
+- [Progress Bar](http://www.packal.org/workflow/progress-bar) ([GitHub repo](https://github.com/jeeftor/ProgressBar)) by [jeffsui](http://www.packal.org/users/jeffsui) ([on GitHub](https://github.com/jeeftor/)).
+  Sample progress bar workflow.
 - [PWS History](http://www.packal.org/workflow/pws-history) ([GitHub repo](https://github.com/hrbrmstr/alfred-pws)) by [hrbrmstr](http://www.packal.org/users/hrbrmstr) ([on GitHub](https://github.com/hrbrmstr/)).
   Retrieve personal weather station history from Weather Underground.
 - [Python Interpreter](http://www.packal.org/workflow/python-interpreter) ([GitHub repo](https://github.com/altre/alfred_python_interpreter)) by [altre](http://www.packal.org/users/altre) ([on GitHub](https://github.com/altre/)).
@@ -490,6 +519,8 @@ Already up-to-date.
   Search Ramda documentation.
 - [Rates](http://www.packal.org/workflow/rates) ([GitHub repo](https://github.com/kennedyoliveira/alfred-rates)) by [Kennedy Oliveira](http://www.packal.org/users/kennedy-oliveira) ([on GitHub](https://github.com/kennedyoliveira/)).
   Simple exchange rates for alfred.
+- [raywenderlich](http://www.packal.org/workflow/raywenderlich) ([GitHub repo](https://github.com/softdevstory/alfred-workflows/tree/master/raywenderlich)) by [softdevstory](http://www.packal.org/users/softdevstory) ([on GitHub](https://github.com/softdevstory/)).
+  Display the recent ariticles from raywenderlich.com.
 - [Readability for Alfred](http://www.packal.org/workflow/readability-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-readability/)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Manage your Readability list with Alfred.
 - [Reddit](http://www.packal.org/workflow/reddit) ([GitHub repo](https://github.com/deanishe/alfred-reddit)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
@@ -528,6 +559,8 @@ Already up-to-date.
   View and explore your Smart Folders (Saved Searches).
 - [Snippets](http://www.packal.org/workflow/snippets) ([GitHub repo](https://github.com/smargh/alfred_snippets)) by [hackademic](http://www.packal.org/users/hackademic) ([on GitHub](https://github.com/smargh/)).
   Simple, document-specific text snippets.
+- [SONOS Controller](http://www.packal.org/workflow/sonos-controller) by [fns720](http://www.packal.org/users/fns720).
+  Basic controls for SONOS speakers.
 - [Sourcegraph](http://www.packal.org/workflow/sourcegraph) ([GitHub repo](https://github.com/sourcegraph/sourcegraph-alfred)) by [rohanpai](http://www.packal.org/users/rohanpai) ([on GitHub](https://github.com/sourcegraph/)).
   Sourcegraph Alfred Workflow.
 - [Splatoon](http://www.packal.org/workflow/splatoon) ([GitHub repo](https://github.com/flipxfx/alfred-splatoon)) by [flipxfx](http://www.packal.org/users/flipxfx) ([on GitHub](https://github.com/flipxfx/)).
@@ -546,16 +579,20 @@ Already up-to-date.
   Activate your Steam codes & launch steam games with a quick keystroke or keyword.
 - [Sublime Text Projects](http://www.packal.org/workflow/sublime-text-projects) ([GitHub repo](https://github.com/deanishe/alfred-sublime-text)) by [deanishe](http://www.packal.org/users/deanishe) ([on GitHub](https://github.com/deanishe/)).
   View, filter and open your Sublime Text (2 and 3) project files.
+- [SwitchHosts!](http://www.packal.org/workflow/switchhosts) ([GitHub repo](https://github.com/oldj/SwitchHosts)) by [oldj](http://www.packal.org/users/oldj) ([on GitHub](https://github.com/oldj/)).
+  The workflow for SwitchHosts! app.
 - [TeXdoc](http://www.packal.org/workflow/texdoc) ([GitHub repo](https://github.com/egeerardyn/alfred-texdoc)) by [Egon Geerardyn](http://www.packal.org/users/egon-geerardyn) ([on GitHub](https://github.com/egeerardyn/)).
   Searches your LaTeX documentation using texdoc.
 - [TodoList](https://github.com/ecmadao/Alfred-TodoList) by [ecmadao](https://github.com/ecmadao) ([on GitHub](https://github.com/ecmadao/)).
   A simple todo-workflow lets you add, complete or delete todo in to-do lists.
 - [Torrent](http://www.packal.org/workflow/torrent) ([GitHub repo](https://github.com/bfw/alfred-torrent)) by [bfw](http://www.packal.org/users/bfw) ([on GitHub](https://github.com/bfw/)).
   Search for torrents, choose among the results in Alfred and start the download in uTorrent.
+- [Translate Workflow - use Google or Microsoft Translate](http://www.packal.org/workflow/translate-workflow-use-google-or-microsoft-translate) ([GitHub repo](https://github.com/pbojkov/alfred-workflow-google-translate)) by [rustycamper](http://www.packal.org/users/rustycamper) ([on GitHub](https://github.com/pbojkov/)).
+  Translate words or phrases using Google or Microsoft Translate.
 - [Travis CI for Alfred](http://www.packal.org/workflow/travis-ci-alfred) by [fniephaus](http://www.packal.org/users/fniephaus).
   Quickly check build statuses on travis-ci.org.
-- [UberTime](http://www.packal.org/workflow/ubertime) ([GitHub repo](https://github.com/fspinillo/alfred-uber)) by [frankspin](http://www.packal.org/users/frankspin) ([on GitHub](https://github.com/fspinillo/)).
-  Check estimated pick up time for Uber based on inputted address.
+- [Ulysses](http://www.packal.org/workflow/ulysses) ([GitHub repo](https://github.com/robwalton/alfred-ulysses-workflow)) by [robwalton](http://www.packal.org/users/robwalton) ([on GitHub](https://github.com/robwalton/)).
+  Open groups or sheets in Ulysses.
 - [URL craft](http://www.packal.org/workflow/url-craft) by [takanabe](http://www.packal.org/users/takanabe).
   A workflow that transforms a url into new one that allows some formats such as "Github Flavored Markdown link" or "shorten url" and so on.
 - [VagrantUP](http://www.packal.org/workflow/vagrantup) ([GitHub repo](https://github.com/m1keil/alfred-vagrant-workflow)) by [m1keil](http://www.packal.org/users/m1keil) ([on GitHub](https://github.com/m1keil/)).
@@ -592,6 +629,7 @@ Already up-to-date.
 
 
 
+
 [alfred]: http://www.alfredapp.com/
 [awv2]: https://github.com/deanishe/alfred-workflow/tree/v2
 [alabaster]: https://github.com/bitprophet/alabaster
@@ -602,6 +640,7 @@ Already up-to-date.
 [docs-api]: http://www.deanishe.net/alfred-workflow/#api-documentation
 [docs-rtd]: https://alfredworkflow.readthedocs.org/
 [docs]: http://www.deanishe.net/alfred-workflow/
+[dash]: https://github.com/deanishe/alfred-workflow/raw/master/docs/Alfred-Workflow.docset.zip
 [fniephaus]: https://github.com/fniephaus
 [owenwater]: https://github.com/owenwater
 [issues]: https://github.com/deanishe/alfred-workflow/issues

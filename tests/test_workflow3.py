@@ -21,7 +21,7 @@ import pytest
 
 from util import create_info_plist, delete_info_plist, INFO_PLIST_TEST3
 
-from workflow.workflow3 import Workflow3
+from workflow.workflow3 import Variables, Workflow3
 
 
 @pytest.fixture(scope='module')
@@ -325,3 +325,48 @@ def test_run_fails_with_plain_text_output():
     assert ret == 1
     assert error_text in output
     assert '{' not in output
+
+
+def test_variables_plain_arg():
+    """Arg-only returns string, not JSON."""
+    v = Variables(arg=u'test')
+    assert unicode(v) == u'test'
+    assert str(v) == 'test'
+
+
+def test_variables_empty():
+    """Empty Variables returns empty string."""
+    v = Variables()
+    assert unicode(v) == u''
+    assert str(v) == ''
+
+
+def test_variables():
+    """Set variables correctly."""
+    v = Variables(a=1, b=2)
+    assert v.obj == {'alfredworkflow': {'variables': {'a': 1, 'b': 2}}}
+
+
+def test_variables_config():
+    """Set config correctly."""
+    v = Variables()
+    v.config['var'] = 'val'
+    assert v.obj == {'alfredworkflow': {'config': {'var': 'val'}}}
+
+
+def test_variables_unicode():
+    """Unicode handled correctly."""
+    v = Variables(arg=u'fübar', englisch='englisch')
+    v['französisch'] = u'französisch'
+    v.config['über'] = 'über'
+    assert v.obj == {
+        'alfredworkflow':
+            {
+                'arg': u'fübar',
+                'variables': {
+                    'englisch': u'englisch',
+                    u'französisch': u'französisch',
+                },
+                'config': {u'über': u'über'}
+            }
+    }

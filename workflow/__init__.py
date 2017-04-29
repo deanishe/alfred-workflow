@@ -14,7 +14,7 @@ import os
 
 # Workflow objects
 from .workflow import Workflow, manager
-from .workflow3 import Workflow3
+from .workflow3 import Variables, Workflow3
 
 # Exceptions
 from .workflow import PasswordNotFound, KeychainError
@@ -67,6 +67,7 @@ __licence__ = 'MIT'
 __copyright__ = 'Copyright 2014 Dean Jackson'
 
 __all__ = [
+    'Variables',
     'Workflow',
     'Workflow3',
     'manager',

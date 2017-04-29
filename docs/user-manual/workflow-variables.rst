@@ -5,14 +5,77 @@
 Workflow variables
 ==================
 
+**Alfred 3 only**
+
 An extremely powerful new feature in Alfred 3 is `its workflow variables`_.
 
 You can set and manipulate these not only in Alfred's own UI elements, but
-also via script output or Script Filter results.
+also via the output from a Run Script action or Script Filter results.
 
-The Alfred 3-only :class:`~workflow.workflow3.Workflow3` class provides an
-API for getting and setting workflow variables via Script Filter feedback
-output.
+
+.. important::
+
+    You must use the correct mechanism for setting variables. Alfred requires
+    different output formats from Script Filters and Run Script actions.
+
+    If you try to use the :class:`~workflow.workflow3.Variables` class in a
+    Script Filter or the :class:`~workflow.workflow3.Workflow3` variables API
+    in a Run Script action, **it will not work**!
+
+
+There two different mechanisms for setting workflow variables are:
+
+* The :class:`~workflow.workflow3.Variables` class, which is for
+  use in Run Script actions, and
+* The :class:`~workflow.workflow3.Workflow3` class provides an
+  API for getting and setting workflow variables via Script Filter feedback.
+
+
+Setting variables from Run Script actions
+=========================================
+
+:class:`~workflow.workflow3.Variables` is a subclass of :class:`dict` that
+serialises (prints) to an ``alfredworkflow`` JSON object (or plain text if no
+variables are set).
+
+Set workflow variables using the standard :class:`dict` API or as keyword
+arguments on instantiation.
+
+
+Example usage
+-------------
+
+.. code-block:: python
+    :linenos:
+
+    from __future__ import print_function
+    from workflow import Variables
+
+    # set arg on instantiation
+    v = Variables(u'this is arg')
+
+    # set workflow variables on instantiation
+    v = Variables(var1=u'value 1', var2=u'value 2')
+
+    # set arg via attribute
+    v = Variables()
+    v.arg = u'this is arg'
+
+    # set workflow variables via dict API
+    v = Variables()
+    v['variable_name'] = u'variable value'
+
+    # set config for downstream element
+    v = Variables()
+    v.config['key'] = u'value'
+
+    # send to Alfred
+    v = Variables(u'arg', var1='val1', var2='var2')
+    print(v)
+
+
+Setting variables in Script Filters
+===================================
 
 Variables can be set at the Workflow, Item or Modifier level using their
 respective ``setvar(name, value)`` methods.
@@ -26,7 +89,7 @@ feature).
 
 Variables set at the
 :class:`Item <workflow.workflow3.Item3>`/:class:`~workflow.workflow3.Modifier`
-level are only applied if the user actions that item (and modifier).
+level are only set if the user actions that item (and modifier).
 
 
 Inheritance

@@ -23,7 +23,7 @@ fi
 
 doc2dash -f -n 'Alfred-Workflow' -i "${icon}" -I "quickindex.html" _build/html
 zip -rq "$zipfile" "$docset"
-command rm -rf "$docset"
+# command rm -rf "$docset"
 
 cd - &>/dev/null
 

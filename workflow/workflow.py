@@ -830,14 +830,14 @@ class LockFile(object):
             try:
                 fd = os.open(self.lockfile, os.O_CREAT | os.O_EXCL | os.O_RDWR)
                 with os.fdopen(fd, 'w') as fd:
-                    fd.write('{0}'.format(os.getpid()))
+                    fd.write(str(os.getpid()))
                 break
             except OSError as err:
                 if err.errno != errno.EEXIST:  # pragma: no cover
                     raise
 
                 if self.timeout and (time.time() - start) >= self.timeout:
-                    raise AcquisitionError('Lock acquisition timed out.')
+                    raise AcquisitionError('lock acquisition timed out')
                 if not blocking:
                     return False
                 time.sleep(self.delay)
@@ -1624,8 +1624,7 @@ class Workflow(object):
 
         """
         if not self._settings:
-            self.logger.debug('Reading settings from `{0}` ...'.format(
-                              self.settings_path))
+            self.logger.debug('reading settings from %s', self.settings_path)
             self._settings = Settings(self.settings_path,
                                       self._default_settings)
         return self._settings
@@ -1669,8 +1668,7 @@ class Workflow(object):
                 'Unknown serializer : `{0}`. Register your serializer '
                 'with `manager` first.'.format(serializer_name))
 
-        self.logger.debug(
-            'default cache serializer set to `{0}`'.format(serializer_name))
+        self.logger.debug('default cache serializer: %s', serializer_name)
 
         self._cache_serializer = serializer_name
 
@@ -1712,8 +1710,7 @@ class Workflow(object):
                 'Unknown serializer : `{0}`. Register your serializer '
                 'with `manager` first.'.format(serializer_name))
 
-        self.logger.debug(
-            'default data serializer set to `{0}`'.format(serializer_name))
+        self.logger.debug('default data serializer: %s', serializer_name)
 
         self._data_serializer = serializer_name
 
@@ -1730,7 +1727,7 @@ class Workflow(object):
         metadata_path = self.datafile('.{0}.alfred-workflow'.format(name))
 
         if not os.path.exists(metadata_path):
-            self.logger.debug('No data stored for `{0}`'.format(name))
+            self.logger.debug('no data stored for `%s`', name)
             return None
 
         with open(metadata_path, 'rb') as file_obj:
@@ -1744,14 +1741,13 @@ class Workflow(object):
                 'serializer with `manager.register()` '
                 'to load this data.'.format(serializer_name))
 
-        self.logger.debug('Data `{0}` stored in `{1}` format'.format(
-            name, serializer_name))
+        self.logger.debug('data `%s` stored as `%s`', name, serializer_name)
 
         filename = '{0}.{1}'.format(name, serializer_name)
         data_path = self.datafile(filename)
 
         if not os.path.exists(data_path):
-            self.logger.debug('No data stored for `{0}`'.format(name))
+            self.logger.debug('no data stored: %s', name)
             if os.path.exists(metadata_path):
                 os.unlink(metadata_path)
 
@@ -1760,7 +1756,7 @@ class Workflow(object):
         with open(data_path, 'rb') as file_obj:
             data = serializer.load(file_obj)
 
-        self.logger.debug('Stored data loaded from : {0}'.format(data_path))
+        self.logger.debug('stored data loaded: %s', data_path)
 
         return data
 
@@ -1789,7 +1785,7 @@ class Workflow(object):
             for path in paths:
                 if os.path.exists(path):
                     os.unlink(path)
-                    self.logger.debug('Deleted data file : {0}'.format(path))
+                    self.logger.debug('deleted data file: %s', path)
 
         serializer_name = serializer or self.data_serializer
 
@@ -1829,7 +1825,7 @@ class Workflow(object):
 
         _store()
 
-        self.logger.debug('Stored data saved at : {0}'.format(data_path))
+        self.logger.debug('saved data: %s', data_path)
 
     def cached_data(self, name, data_func=None, max_age=60):
         """Return cached data if younger than ``max_age`` seconds.
@@ -1855,8 +1851,7 @@ class Workflow(object):
         if (age < max_age or max_age == 0) and os.path.exists(cache_path):
 
             with open(cache_path, 'rb') as file_obj:
-                self.logger.debug('Loading cached data from : %s',
-                                  cache_path)
+                self.logger.debug('loading cached data: %s', cache_path)
                 return serializer.load(file_obj)
 
         if not data_func:
@@ -1885,13 +1880,13 @@ class Workflow(object):
         if data is None:
             if os.path.exists(cache_path):
                 os.unlink(cache_path)
-                self.logger.debug('Deleted cache file : %s', cache_path)
+                self.logger.debug('deleted cache file: %s', cache_path)
             return
 
         with atomic_writer(cache_path, 'wb') as file_obj:
             serializer.dump(data, file_obj)
 
-        self.logger.debug('Cached data saved at : %s', cache_path)
+        self.logger.debug('cached data: %s', cache_path)
 
     def cached_data_fresh(self, name, max_age):
         """Whether cache `name` is less than `max_age` seconds old.
@@ -2221,8 +2216,7 @@ class Workflow(object):
         try:
 
             if self.version:
-                self.logger.debug(
-                    'Workflow version : {0}'.format(self.version))
+                self.logger.debug('workflow version: %s', self.version)
 
             # Run update check if configured for self-updates.
             # This call has to go in the `run` try-except block, as it will
@@ -2242,8 +2236,7 @@ class Workflow(object):
         except Exception as err:
             self.logger.exception(err)
             if self.help_url:
-                self.logger.info(
-                    'For assistance, see: {0}'.format(self.help_url))
+                self.logger.info('for assistance, see: %s', self.help_url)
 
             if not sys.stdout.isatty():  # Show error in Alfred
                 if text_errors:
@@ -2263,8 +2256,8 @@ class Workflow(object):
             return 1
 
         finally:
-            self.logger.debug('Workflow finished in {0:0.3f} seconds.'.format(
-                time.time() - start))
+            self.logger.debug('workflow finished in %0.3f seconds',
+                              time.time() - start)
 
         return 0
 
@@ -2390,8 +2383,7 @@ class Workflow(object):
 
             self._last_version_run = version
 
-        self.logger.debug('Last run version : {0}'.format(
-                          self._last_version_run))
+        self.logger.debug('last run version: %s', self._last_version_run)
 
         return self._last_version_run
 
@@ -2420,7 +2412,7 @@ class Workflow(object):
 
         self.settings['__workflow_last_version'] = str(version)
 
-        self.logger.debug('Set last run version : {0}'.format(version))
+        self.logger.debug('set last run version: %s', version)
 
         return True
 
@@ -2441,7 +2433,7 @@ class Workflow(object):
         update_data = Workflow().cached_data('__workflow_update_status',
                                              max_age=0)
 
-        self.logger.debug('update_data : {0}'.format(update_data))
+        self.logger.debug('update_data: %r', update_data)
 
         if not update_data or not update_data.get('available'):
             return False

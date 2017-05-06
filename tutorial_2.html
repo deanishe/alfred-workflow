@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &mdash; Alfred-Workflow 1.26 documentation</title>
+    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &mdash; Alfred-Workflow 1.26.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.26',
+        VERSION:     '1.26.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,9 +25,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="index.html" />
     <link rel="up" title="Tutorial" href="tutorial.html" />
-    <link rel="next" title="User Manual" href="user-manual/index.html" />
+    <link rel="next" title="User Guide" href="guide/index.html" />
     <link rel="prev" title="Tutorial Part 1: Creating a Basic Pinboard Workflow" href="tutorial_1.html" />
 
    
@@ -52,12 +52,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="user-manual/index.html" title="User Manual"
+          <a href="guide/index.html" title="User Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="tutorial_1.html" title="Tutorial Part 1: Creating a Basic Pinboard Workflow"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.26 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
       </ul>
     </div>  
@@ -109,7 +109,7 @@ API keys.</p>
 <p>What&#8217;s more, an update to the workflow would overwrite their changes.</p>
 <p>So now we&#8217;re going to edit the workflow so users can add their API key from the
 comfort of Alfred&#8217;s friendly query box and use
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>
+<code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code>
 to save it in the workflow&#8217;s data directory where it won&#8217;t get overwritten.</p>
 <div class="section" id="performing-multiple-actions-from-one-script">
 <h2><a class="toc-backref" href="#id4">Performing multiple actions from one script</a><a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
@@ -264,7 +264,7 @@ arguments passed to it by Alfred.</p>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
-     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -339,7 +339,7 @@ arguments passed to it by Alfred.</p>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -347,22 +347,22 @@ arguments passed to it by Alfred.</p>
 <p>Quite a lot has happened here: at the top in line 5, we&#8217;re importing a couple
 more icons that we use in <code class="docutils literal"><span class="pre">main()</span></code> to notify the user that their API key is
 missing and that they should set it (lines 65–72).</p>
-<p>(You can see a list of all supported icons <a class="reference internal" href="user-manual/icons.html#icon-list"><span>here</span></a>.)</p>
+<p>(You can see a list of all supported icons <a class="reference internal" href="guide/icons.html#icon-list"><span>here</span></a>.)</p>
 <p>We&#8217;ve adapted <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> to accept an <code class="docutils literal"><span class="pre">api_key</span></code> argument. We <em>could</em>
 continue to use the <code class="docutils literal"><span class="pre">API_KEY</span></code> global variable, but that&#8217;d be bad form.</p>
 <p>As a result of this, we&#8217;ve had to alter the way
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a> is
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> is
 called. It can&#8217;t call a function that requires any arguments, so we&#8217;ve added a
 <code class="docutils literal"><span class="pre">wrapper()</span></code> function within <code class="docutils literal"><span class="pre">main()</span></code> (lines 82–87) that calls
 <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> with the necessary <code class="docutils literal"><span class="pre">api_key</span></code> arguments, and we pass
 this <code class="docutils literal"><span class="pre">wrapper()</span></code> function (which needs no arguments) to
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a> instead
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> instead
 (line 89).</p>
 <p>At the top of <code class="docutils literal"><span class="pre">main()</span></code> (lines 39–49), we&#8217;ve added an argument parser using
 <a class="reference external" href="http://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> that can take an optional <code class="docutils literal"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></code> argument
 and an optional <code class="docutils literal"><span class="pre">query</span></code> argument (remember the script doesn&#8217;t require a query).</p>
 <p>Then, in lines 55–59, we check if an API key was passed using <code class="docutils literal"><span class="pre">--apikey</span></code>.
-If it was, we save it using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.settings" title="workflow.workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a>
+If it was, we save it using <code class="xref py py-attr docutils literal"><span class="pre">settings</span></code>
 (see <a class="reference internal" href="#settings"><span>below</span></a>).</p>
 <p>Once this is done, we exit the script.</p>
 <p>If no API key was specified with <code class="docutils literal"><span class="pre">--apikey</span></code>, we try to show/filter Pinboard
@@ -416,7 +416,7 @@ notification that it was saved.</p>
 </div>
 <div class="section" id="saving-settings">
 <span id="settings"></span><h2><a class="toc-backref" href="#id6">Saving settings</a><a class="headerlink" href="#saving-settings" title="Permalink to this headline">¶</a></h2>
-<p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="api/workflow.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a>
+<p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a>
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
 values must be serializable to JSON as the settings are saved as a JSON file in
@@ -425,9 +425,9 @@ the workflow&#8217;s data directory.</p>
 in the user&#8217;s Keychain. Let&#8217;s do that.</p>
 <div class="section" id="saving-settings-securely">
 <span id="secure-settings"></span><h3><a class="toc-backref" href="#id7">Saving settings securely</a><a class="headerlink" href="#saving-settings-securely" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> provides three methods for managing data
-saved in OS X&#8217;s Keychain: <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code></a>,
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.save_password" title="workflow.workflow.Workflow.save_password"><code class="xref py py-meth docutils literal"><span class="pre">save_password()</span></code></a> and <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.delete_password" title="workflow.workflow.Workflow.delete_password"><code class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></code></a>.</p>
+<p><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> provides three methods for managing data
+saved in macOS&#8217;s Keychain: <code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code>,
+<code class="xref py py-meth docutils literal"><span class="pre">save_password()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></code>.</p>
 <p>They are all called with an <code class="docutils literal"><span class="pre">account</span></code> name and an optional <code class="docutils literal"><span class="pre">service</span></code> name
 (by default, this is your workflow&#8217;s <code class="docutils literal"><span class="pre">bundle</span> <span class="pre">ID</span></code>).</p>
 <p>Change your <code class="docutils literal"><span class="pre">pinboard.py</span></code> script as follows to use Keychain instead of a JSON
@@ -576,7 +576,7 @@ file to store your API key:</p>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
-     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -652,14 +652,14 @@ file to store your API key:</p>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code></a> raises a
-<a class="reference internal" href="api/workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> exception if the requested
-password isn&#8217;t in your Keychain, so we import <a class="reference internal" href="api/workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a>
+<p><code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code> raises a
+<code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code> exception if the requested
+password isn&#8217;t in your Keychain, so we import <code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code>
 and change <code class="docutils literal"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">api_key:</span></code> to a <code class="docutils literal"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code> clause (lines 65–72).</p>
 <p>Try running your workflow again. It will complain that you haven&#8217;t saved your
 API key (it&#8217;s looking in Keychain now, not the settings), so set your API key
@@ -685,12 +685,12 @@ following message:</p>
 the corresponding action, logged it to the log file, notified the user via
 Alfred and exited the workflow.</p>
 <p>Magic arguments are designed to help coders develop and debug workflows. See
-<a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a> for more details.</p>
+<a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a> for more details.</p>
 </div>
 <div class="section" id="logging">
 <h2><a class="toc-backref" href="#id9">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
 <p>There&#8217;s a log, you say? Yup. There&#8217;s a <a class="reference external" href="http://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></code></a>
-instance at <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code></a>
+instance at <code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code>
 configured to output to both the Terminal (in case you&#8217;re running your workflow
 script in Terminal) and your workflow&#8217;s log file. Normally, I use it like this:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -712,13 +712,13 @@ script in Terminal) and your workflow&#8217;s log file. Normally, I use it like 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
      <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Started&#39;</span><span class="p">)</span>
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">log</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">logger</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>Assigning <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.logger" title="workflow.workflow.Workflow.logger"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code></a> to the
+<p>Assigning <code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code> to the
 module global <code class="docutils literal"><span class="pre">log</span></code> is just a convenience. You could use <code class="docutils literal"><span class="pre">wf.logger</span></code> in
 its place.</p>
 </div>
@@ -913,7 +913,7 @@ show a message indicating that no results were found.</p>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
-     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -994,7 +994,7 @@ show a message indicating that no results were found.</p>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -1022,16 +1022,16 @@ but that doesn&#8217;t necessarily work quite as you might expect in Alfred: it
 treats your workflow as still running till the subprocess has finished,
 too, so it won&#8217;t call your workflow with a new query till the update is done.
 Which is exactly what happens now and the behaviour we want to avoid.</p>
-<p>Fortunately, Alfred-Workflow provides the <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module
+<p>Fortunately, Alfred-Workflow provides the <a class="reference internal" href="guide/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module
 to solve this problem.</p>
-<p>Using the <a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
-and <a class="reference internal" href="api/background.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> functions,
+<p>Using the <a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
+and <a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> functions,
 we can easily run a script in the background while our workflow remains
 responsive to Alfred&#8217;s queries.</p>
-<p>Alfred-Workflow&#8217;s <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module is based on, and uses the
+<p>Alfred-Workflow&#8217;s <a class="reference internal" href="guide/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module is based on, and uses the
 same API as <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>, but it runs the command as a background
 daemon process (consequently, it won&#8217;t return anything). So, our updater script
-will be called from our main workflow script, but <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
+will be called from our main workflow script, but <a class="reference internal" href="guide/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
 will run it as a background process. This way, it will appear to exit
 immediately, so Alfred will keep on calling our workflow every time the query
 changes.</p>
@@ -1142,7 +1142,7 @@ contents:</p>
          <span class="c1"># Nothing we can do about this, so just log it</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No API key saved&#39;</span><span class="p">)</span>
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
@@ -1152,8 +1152,8 @@ function from <code class="docutils literal"><span class="pre">pinboard.py</span
 <p>The contents of the <code class="docutils literal"><span class="pre">try</span></code> block in <code class="docutils literal"><span class="pre">main()</span></code> (lines 29–44) are once again
 copied straight from <code class="docutils literal"><span class="pre">pinboard.py</span></code> (where we won&#8217;t be needing them any more).</p>
 <p>The <code class="docutils literal"><span class="pre">except</span></code> clause (lines 46–48) is to trap the
-<a class="reference internal" href="api/workflow.html#workflow.workflow.PasswordNotFound" title="workflow.workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a>
-error that <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code></a>
+<code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code>
+error that <code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code>
 will raise if the user hasn&#8217;t set their API key via Alfred yet. <code class="docutils literal"><span class="pre">update.py</span></code>
 can quietly die if no API key has been set because <code class="docutils literal"><span class="pre">pinboard.py</span></code> takes care
 of notifying the user to set their API key.</p>
@@ -1166,10 +1166,10 @@ and run the following:</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> 21:59:59 workflow.py:855 DEBUG    get_password : net.deanishe.alfred-pinboard-recent:pinboard_api_key
- 21:59:59 workflow.py:544 DEBUG    Loading cached data from : /Users/dean/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/net.deanishe.alfred-pinboard-recent/posts.cache
-<span class="hll"> 21:59:59 update.py:111 DEBUG    <span class="m">100</span> Pinboard posts cached
-</span> 22:19:25 workflow.py:371 INFO     Opening workflow log file
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="m">21</span>:59:59 workflow.py:855 DEBUG    get_password : net.deanishe.alfred-pinboard-recent:pinboard_api_key
+ <span class="m">21</span>:59:59 workflow.py:544 DEBUG    Loading cached data from : /Users/dean/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/net.deanishe.alfred-pinboard-recent/posts.cache
+<span class="hll"> <span class="m">21</span>:59:59 update.py:111 DEBUG    <span class="m">100</span> Pinboard posts cached
+</span> <span class="m">22</span>:19:25 workflow.py:371 INFO     Opening workflow log file
 </pre></div>
 </td></tr></table></div>
 <p>As you can see in the 3rd line, <code class="docutils literal"><span class="pre">update.py</span></code> did its job.</p>
@@ -1296,7 +1296,7 @@ update itself:</p>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
      <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
-     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+     <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -1382,34 +1382,34 @@ update itself:</p>
      <span class="k">return</span> <span class="mi">0</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 <p>First of all, we&#8217;ve changed the imports a bit. We no longer need
-<a class="reference internal" href="api/web.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a>, because we&#8217;ll use the functions
-<a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> from <a class="reference internal" href="api/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></code></a>
+<a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a>, because we&#8217;ll use the functions
+<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> from <a class="reference internal" href="guide/background.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></code></a>
 to call <code class="docutils literal"><span class="pre">update.py</span></code> instead, and we&#8217;ve also imported another icon
 (<code class="docutils literal"><span class="pre">ICON_INFO</span></code>) to show our update message.</p>
 <p>As noted before, <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> has now moved to <code class="docutils literal"><span class="pre">update.py</span></code>, as has
 the <code class="docutils literal"><span class="pre">wrapper()</span></code> function inside <code class="docutils literal"><span class="pre">main()</span></code>.</p>
 <p>Also in <code class="docutils literal"><span class="pre">main()</span></code>, we no longer need <code class="docutils literal"><span class="pre">api_key</span></code>. However, we still want to
 know if it has been saved, so we can show a warning if not, so we still call
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.get_password" title="workflow.workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code></a>, but
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code>, but
 without saving the result.</p>
 <p>Most importantly, we&#8217;ve now expanded the update code to check if our cached
 data is fresh with
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code></a>
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code>
 and to run the <code class="docutils literal"><span class="pre">update.py</span></code> script via
-<a class="reference internal" href="api/background.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
-if not (<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.workflowfile" title="workflow.workflow.Workflow.workflowfile"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></code></a>
+<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
+if not (<code class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></code>
 returns the full path to a file in the workflow&#8217;s root directory).</p>
 <p>Then we check if the update process is running via
-<a class="reference internal" href="api/background.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> using the
+<a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> using the
 name we assigned to the process (<code class="docutils literal"><span class="pre">update</span></code>), and notify the user via Alfred&#8217;s
 results if it is.</p>
-<p>Finally, we call <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>
+<p>Finally, we call <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code>
 with <code class="docutils literal"><span class="pre">None</span></code> as the data-retrieval function (line 66) because we don&#8217;t want to
 run an update from this script, blocking Alfred. As a consequence, it&#8217;s
 possible that we&#8217;ll get back <code class="docutils literal"><span class="pre">None</span></code> instead of a list of posts if there are
@@ -1426,9 +1426,9 @@ typing a query. You should see the &#8220;Getting new posts from Pinboard&#8221;
 appear. Unfortunately, we won&#8217;t see any results at the moment because we just
 deleted the cached data.</p>
 <p>To see our background updater weave its magic, we can change the <code class="docutils literal"><span class="pre">max_age</span></code> parameter
-passed to <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>
+passed to <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code>
 in <code class="docutils literal"><span class="pre">update.py</span></code> on line 42 and to
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data_fresh" title="workflow.workflow.Workflow.cached_data_fresh"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code></a>
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code>
 in <code class="docutils literal"><span class="pre">pinboard.py</span></code> on line 69 to <code class="docutils literal"><span class="pre">60</span></code>. Open up Alfred, enter <code class="docutils literal"><span class="pre">pbrecent</span></code> and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the &#8220;Getting new posts…&#8221; message <em>and</em> search
@@ -1474,16 +1474,16 @@ disadvantage of this method is it only works if a user installs and uses the
 <h4><a class="toc-backref" href="#id20">GitHub releases</a><a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h4>
 <p>A <em>slightly</em> more complex to implement method is to use Alfred-Workflow&#8217;s
 built-in support for updates via <a class="reference external" href="https://help.github.com/articles/about-releases">GitHub releases</a>. If you tell your
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object the name of your GitHub repo and
+<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> object the name of your GitHub repo and
 the installed workflow&#8217;s version number, Alfred-Workflow will automatically
 check for a new version every day.</p>
 <p>By default, Alfred-Workflow won&#8217;t inform the user of the new version or
 update the workflow unless the user explicitly uses the <code class="docutils literal"><span class="pre">workflow:update</span></code>
-<a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><span>&#8220;magic&#8221; argument</span></a>, but you can check the
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.update_available" title="workflow.workflow.Workflow.update_available"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></code></a>
+<a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span>&#8220;magic&#8221; argument</span></a>, but you can check the
+<code class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></code>
 attribute and inform the user of the availability of an update if it&#8217;s
 <code class="docutils literal"><span class="pre">True</span></code>.</p>
-<p>See <a class="reference internal" href="user-manual/update.html#manual-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="user-manual/index.html#user-manual"><span>User Manual</span></a> for information on how to
+<p>See <a class="reference internal" href="guide/update.html#guide-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span>User Guide</span></a> for information on how to
 enable your workflow to update itself from GitHub.</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -1527,33 +1527,23 @@ run on Snow Leopard (10.6).</td></tr>
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-</ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API documentation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dash.html">Dash docset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
 </ul>
 
 <div class="relations">
@@ -1562,7 +1552,7 @@ run on Snow Leopard (10.6).</td></tr>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="tutorial.html">Tutorial</a><ul>
       <li>Previous: <a href="tutorial_1.html" title="previous chapter">Tutorial Part 1: Creating a Basic Pinboard Workflow</a></li>
-      <li>Next: <a href="user-manual/index.html" title="next chapter">User Manual</a></li>
+      <li>Next: <a href="guide/index.html" title="next chapter">User Guide</a></li>
   </ul></li>
   </ul></li>
 </ul>

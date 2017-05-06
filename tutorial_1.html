@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &mdash; Alfred-Workflow 1.26 documentation</title>
+    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &mdash; Alfred-Workflow 1.26.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.26',
+        VERSION:     '1.26.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26 documentation" href="index.html" />
+    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="index.html" />
     <link rel="up" title="Tutorial" href="tutorial.html" />
     <link rel="next" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow" href="tutorial_2.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.26 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
       </ul>
     </div>  
@@ -233,7 +233,7 @@ your pinboard API key. You can find it on the <a class="reference external" href
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -328,7 +328,7 @@ will be opened in your browser).</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -354,7 +354,7 @@ posts method to <a class="reference external" href="https://pinboard.in/api#limi
 likely you&#8217;ll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 Alfred-Workflow makes this a doddle with its
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> method.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> method.</p>
 <p>Go back to <code class="docutils literal"><span class="pre">pinboard.py</span></code> and make the following changes:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -449,9 +449,9 @@ Alfred-Workflow makes this a doddle with its
 </td></tr></table></div>
 <p>We&#8217;ve moved the code that retrieves the data from the API to a separate
 function (<code class="docutils literal"><span class="pre">get_recent_posts()</span></code>, line 9) and instead we ask
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a> (line 33)
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> (line 33)
 for the data cached under the name <code class="docutils literal"><span class="pre">posts</span></code> (the first argument).
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.cached_data" title="workflow.workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> will first check its cache for
+<code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> will first check its cache for
 data saved under <code class="docutils literal"><span class="pre">posts</span></code> and return those data
 if they&#8217;re less than <code class="docutils literal"><span class="pre">max_age</span></code> seconds old. If the data are older or don&#8217;t
 exist, it will call the <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> function passed as the second
@@ -583,7 +583,7 @@ seconds for 5 minutes if you&#8217;re a heavy Pinboardista):</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
@@ -692,7 +692,7 @@ posts based on it:</p>
 </span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>  <span class="c1"># title of post</span>
 </span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])</span>  <span class="c1"># post tags</span>
 </span><span class="hll">     <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s1">&#39;extended&#39;</span><span class="p">])</span>  <span class="c1"># description</span>
-</span><span class="hll">     <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+</span><span class="hll">     <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 </span>
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -724,23 +724,23 @@ posts based on it:</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
 
- <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">u&quot;__main__&quot;</span><span class="p">:</span>
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa">u</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
      <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 <p>Looking at <code class="docutils literal"><span class="pre">main()</span></code> first, we add a <code class="docutils literal"><span class="pre">query</span></code> variable (lines 40–44).
 Because our Script Filter can run with or without an argument, we test to see
-if any were passed to the script using via <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><code class="xref py py-attr docutils literal"><span class="pre">args</span></code></a>
-attribute of <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow" title="workflow.workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>, and grab the first one if there were
+if any were passed to the script using via <code class="xref py py-attr docutils literal"><span class="pre">args</span></code>
+attribute of <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code>, and grab the first one if there were
 (this will be the contents of <code class="docutils literal"><span class="pre">{query}</span></code> from the Script Filter).</p>
-<p>Using <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.args" title="workflow.workflow.Workflow.args"><code class="xref py py-attr docutils literal"><span class="pre">args</span></code></a> is similar to accessing
+<p>Using <code class="xref py py-attr docutils literal"><span class="pre">args</span></code> is similar to accessing
 <code class="docutils literal"><span class="pre">sys.argv[1:]</span></code> directly, but additionally decodes the arguments to Unicode
-and normalizes them. It also enables <a class="reference internal" href="user-manual/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a>.</p>
+and normalizes them. It also enables <a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
-using the <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> method
+using the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> method
 if there is a <code class="docutils literal"><span class="pre">query</span></code> (lines 51–52).</p>
-<p><a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> implements an
+<p><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> implements an
 Alfred-like search algorithm (e.g. &#8220;am&#8221; will match &#8220;Activity Monitor&#8221; as well
 as &#8220;I Am Legend&#8221;), but it needs a string to search. Therefore, we write the
 <code class="docutils literal"><span class="pre">search_key_for_post()</span></code> (line 29) function that will build a searchable string
@@ -749,7 +749,7 @@ for each post, comprising its title, tags and description (in that order).</p>
 <p class="first admonition-title">Important</p>
 <p>In the last line of <code class="docutils literal"><span class="pre">search_key_for_post()</span></code>, we join the elements with
 <code class="docutils literal"><span class="pre">u'</span> <span class="pre">'</span></code> (a Unicode space), not <code class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></code> (a byte-string space). The
-<a class="reference internal" href="api/web.html#workflow.web.Response.json" title="workflow.web.Response.json"><code class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></code></a> method returns
+<a class="reference internal" href="api/index.html#workflow.web.Response.json" title="workflow.web.Response.json"><code class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></code></a> method returns
 Unicode (as do most Alfred-Workflow methods and functions), and mixing
 Unicode and byte-strings will cause a fatal error if the byte-string
 contains non-ASCII characters. In this particular situation, using a
@@ -762,19 +762,19 @@ internally and decode all text to Unicode when it arrives in your workflow
 <p>Alfred-Workflow&#8217;s APIs use Unicode and it works hard to hide as much of
 the complexity of working with byte-strings and Unicode as possible, but
 you still need to manually decode encoded byte-strings from other sources
-with <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.decode" title="workflow.workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> to avoid
+with <code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code> to avoid
 fatal encoding errors.</p>
-<p class="last">See <a class="reference internal" href="user-manual/text-encoding.html#text-encoding"><span>Encoded strings and Unicode</span></a> in the <a class="reference internal" href="user-manual/index.html#user-manual"><span>User Manual</span></a> for more information on
+<p class="last">See <a class="reference internal" href="guide/text-encoding.html#text-encoding"><span>Encoded strings and Unicode</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span>User Guide</span></a> for more information on
 dealing with encoded (byte) strings and Unicode in workflows.</p>
 </div>
 <div class="section" id="improving-the-search-results">
 <h3><a class="toc-backref" href="#id10">Improving the search results</a><a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
 <p>If you&#8217;ve been trying out the workflow, you&#8217;ve probably noticed that your queries
 match a lot of posts they really shouldn&#8217;t. The reason for this is that,
-by default, <a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> matches
+by default, <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> matches
 <em>anything</em> that contains all the characters of <code class="docutils literal"><span class="pre">query</span></code> in the same order,
 regardless of case. To fix this, we&#8217;ll add a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
-<a class="reference internal" href="api/workflow.html#workflow.workflow.Workflow.filter" title="workflow.workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>. Change the line:</p>
+<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>. Change the line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -815,11 +815,11 @@ rather excellent, in fact.</li>
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><strong>Do not</strong> use TextEdit to edit code. By default it uses &#8220;smart&#8221; quotes,
-which will break code. If you have OS X 10.7 or later,
+which will break code. If you have macOS 10.7 or later,
 <a class="reference external" href="https://github.com/textmate/textmate/releases">TextMate</a> is an
 excellent and free editor.
 <a class="reference external" href="http://www.barebones.com/products/textwrangler/">TextWrangler</a> is
-another good, free editor for OS X (supports 10.6).</td></tr>
+another good, free editor for macOS (supports 10.6).</td></tr>
 </tbody>
 </table>
 </div>
@@ -856,33 +856,23 @@ another good, free editor for OS X (supports 10.6).</td></tr>
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-</ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="tutorial.html#part-1-a-basic-pinboard-workflow">Part 1: A Basic Pinboard Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#part-2-a-distribution-ready-pinboard-workflow">Part 2: A Distribution-Ready Pinboard Workflow</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API documentation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual/index.html">User Manual</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="xml_format.html">Script Filter Results and the XML Format</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows using Alfred-Workflow</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickindex.html">Quick Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dash.html">Dash docset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aw-workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indices.html">Indices</a></li>
 </ul>
 
 <div class="relations">

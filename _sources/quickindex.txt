@@ -11,7 +11,7 @@ Quick links to the important parts of the documentation.
     :maxdepth: 3
 
     installation.rst
-    user-manual/index.rst
-    api/index.rst
+    guide/index.rst
+    api/index
     tutorial_1.rst
     tutorial_2.rst

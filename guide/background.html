@@ -1,0 +1,295 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Background processes &mdash; Alfred-Workflow 1.26.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.26.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="../index.html" />
+    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="next" title="Self-updating" href="update.html" />
+    <link rel="prev" title="Notifications" href="notifications.html" />
+
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+<!--[if lt IE 9]>
+  <link rel="stylesheet" href="_static/gh-fork-ribbon.ie.css">
+<![endif]-->
+<link rel="stylesheet" href="../_static/custom.css">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="update.html" title="Self-updating"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="notifications.html" title="Notifications"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-workflow.background">
+<span id="id1"></span><span id="background-processes"></span><h1>Background processes<a class="headerlink" href="#module-workflow.background" title="Permalink to this headline">¶</a></h1>
+<p>Many workflows provide a convenient interface to applications and/or web services.</p>
+<p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
+updating this cache typically takes a few seconds, making your workflow
+unresponsive while an update is occurring, which is very un-Alfred-like.</p>
+<p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
+module to allow you to easily run scripts in the background.</p>
+<p>There are two functions, <a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">is_running()</span></code></a>,
+that provide the interface. The processes started are full daemon
+processes, so you can start real servers as easily as simple scripts.</p>
+<p>Here&#8217;s an example of a common usage pattern (updating cached data in the
+background). What we&#8217;re doing is:</p>
+<ol class="arabic simple">
+<li>Checking the age of the cached data and running the update script via
+<a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> if the cached data are too old or don&#8217;t exist.</li>
+<li>(Optionally) informing the user that data are being updated.</li>
+<li>Loading the cached data regardless of age.</li>
+<li>Displaying the cached data (if any).</li>
+</ol>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+ <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
+
+ <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+     <span class="c1"># Is cache over 1 hour old or non-existent?</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s1">&#39;exchange-rates&#39;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">):</span>
+         <span class="n">run_in_background</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span>
+                           <span class="p">[</span><span class="s1">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
+                            <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s1">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
+
+     <span class="c1"># Add a notification if the script is running</span>
+     <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">):</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
+
+     <span class="c1"># max_age=0 will load any cached data regardless of age</span>
+     <span class="n">exchange_rates</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;exchage-rates&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+     <span class="c1"># Display (possibly stale) cache data</span>
+     <span class="k">if</span> <span class="n">exchange_rates</span><span class="p">:</span>
+         <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">exchange_rates</span><span class="p">:</span>
+             <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+
+     <span class="c1"># Send results to Alfred</span>
+     <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
+
+ <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>For a working example, see
+<a class="reference internal" href="../tutorial_2.html#background-updates"><span>Part 2 of the Tutorial</span></a> or the
+<a class="reference external" href="https://github.com/deanishe/alfred-repos/blob/master/src/repos.py">source code</a>
+of my <a class="reference external" href="https://github.com/deanishe/alfred-repos">Git Repos</a> workflow,
+which is a bit smarter about showing the user update information.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/icon_256.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">Alfred-Workflow</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Background processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dash.html">Dash docset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../licence.html">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aw-workflows.html">Workflows</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../indices.html">Indices</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../indices.html#quick-index">Quick Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indices.html#full-index">Full Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indices.html#module-index">Module Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indices.html#search">Search</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Guide</a><ul>
+      <li>Previous: <a href="notifications.html" title="previous chapter">Notifications</a></li>
+      <li>Next: <a href="update.html" title="next chapter">Self-updating</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+	<h3>Donate</h3>
+	
+	<p>
+	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
+	<script data-gratipay-username="deanishe"
+	        data-gratipay-widget="button"
+	        src="//gttp.co/v1.js"></script>
+	</p>
+	
+	
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+    <div class="footer">
+      &copy; 2013–2017 Dean Jackson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//deanishe.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//deanishe.net/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+  </body>
+</html>

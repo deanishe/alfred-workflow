@@ -282,7 +282,7 @@ Saving settings securely
 ------------------------
 
 :class:`~workflow.workflow.Workflow` provides three methods for managing data
-saved in OS X's Keychain: :meth:`~workflow.workflow.Workflow.get_password`,
+saved in macOS's Keychain: :meth:`~workflow.workflow.Workflow.get_password`,
 :meth:`~workflow.workflow.Workflow.save_password` and :meth:`~workflow.workflow.Workflow.delete_password`.
 
 They are all called with an ``account`` name and an optional ``service`` name
@@ -1048,7 +1048,7 @@ update the workflow unless the user explicitly uses the ``workflow:update``
 attribute and inform the user of the availability of an update if it's
 ``True``.
 
-See :ref:`manual-updates` in the :ref:`user-manual` for information on how to
+See :ref:`guide-updates` in the :ref:`user-manual` for information on how to
 enable your workflow to update itself from GitHub.
 
 

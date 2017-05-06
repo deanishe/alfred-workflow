@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: fileencoding=utf-8
+# encoding:utf-8
+
 """
-test_encoding.py
+test_web_http_encoding.py
 
 Created by deanishe@deanishe.net on 2014-08-17.
 Copyright (c) 2014 deanishe@deanishe.net

@@ -10,7 +10,7 @@
 
 """Test Workflow3 feedback."""
 
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, absolute_import
 
 import json
 import os
@@ -19,16 +19,7 @@ import sys
 
 import pytest
 
-from util import create_info_plist, delete_info_plist, INFO_PLIST_TEST3
-
 from workflow.workflow3 import Variables, Workflow3
-
-
-@pytest.fixture(scope='module')
-def info3(request):
-    """Ensure `info.plist` exists in the working directory."""
-    create_info_plist(INFO_PLIST_TEST3)
-    request.addfinalizer(delete_info_plist)
 
 
 def test_required_optional(info3):
@@ -357,8 +348,8 @@ def test_variables_config():
 def test_variables_unicode():
     """Unicode handled correctly."""
     v = Variables(arg=u'fübar', englisch='englisch')
-    v['französisch'] = u'französisch'
-    v.config['über'] = 'über'
+    v[u'französisch'] = u'französisch'
+    v.config[u'über'] = u'über'
     assert v.obj == {
         'alfredworkflow':
             {
@@ -370,3 +361,7 @@ def test_variables_unicode():
                 'config': {u'über': u'über'}
             }
     }
+
+
+if __name__ == '__main__':  # pragma: no cover
+    pytest.main([__file__])

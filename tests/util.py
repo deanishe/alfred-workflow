@@ -101,6 +101,8 @@ class WorkflowMock(object):
             self.stderr_orig = sys.stderr
             sys.stderr = StringIO()
 
+        return self
+
     def __exit__(self, *args):
         if self.call_orig:
             subprocess.call = self.call_orig
@@ -168,31 +170,35 @@ class FakePrograms(object):
 
 
 class InfoPlist(object):
-    """Context manager to create and delete `info.plist` out of the way."""
+    """Context manager to create and delete ``info.plist``."""
 
     def __init__(self, path=None, dest_path=None, present=True):
-
+        """Create new `InfoPlist` with paths."""
         self.path = path or INFO_PLIST_TEST
         self.dest_path = dest_path or INFO_PLIST_PATH
         # Whether or not Info.plist should be created or deleted
         self.present = present
 
     def __enter__(self):
+        """Create or delete ``info.plist``."""
         if self.present:
             create_info_plist(self.path, self.dest_path)
         else:
             delete_info_plist(self.dest_path)
 
     def __exit__(self, *args):
+        """Create or delete ``info.plist``."""
         if self.present:
             delete_info_plist(self.dest_path)
 
 
 def create_info_plist(source=INFO_PLIST_TEST, dest=INFO_PLIST_PATH):
+    """Symlink ``source`` to ``dest``."""
     if os.path.exists(source) and not os.path.exists(dest):
         os.symlink(source, dest)
 
 
 def delete_info_plist(path=INFO_PLIST_PATH):
+    """Delete ``path`` if it exists."""
     if os.path.exists(path) and os.path.islink(path):
         os.unlink(path)

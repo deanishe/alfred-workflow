@@ -7,7 +7,8 @@
 #
 # Created on 2014-03-01
 #
-"""test_workflow.py"""
+
+"""Unit tests for :mod:`workflow.Workflow`."""
 
 from __future__ import print_function, unicode_literals
 
@@ -15,26 +16,19 @@ import json
 import logging
 import os
 import shutil
-import signal
 from StringIO import StringIO
 import sys
-import tempfile
 import time
 import unittest
 
-from xml.etree import ElementTree as ET
 from unicodedata import normalize
 
 from util import (
-    # create_info_plist, delete_info_plist,
-    WorkflowMock,
     VersionFile,
     InfoPlist,
-    INFO_PLIST_TEST,
     INFO_PLIST_PATH,
     create_info_plist,
     delete_info_plist,
-    DEFAULT_SETTINGS,
 )
 
 from workflow.workflow import (Workflow, PasswordNotFound,
@@ -42,92 +36,13 @@ from workflow.workflow import (Workflow, PasswordNotFound,
                                MATCH_ATOM, MATCH_CAPITALS, MATCH_STARTSWITH,
                                MATCH_SUBSTRING, MATCH_INITIALS_CONTAIN,
                                MATCH_INITIALS_STARTSWITH,
-                               manager, atomic_writer, uninterruptible)
+                               manager)
 
 from workflow.update import Version
 
 # info.plist settings
 BUNDLE_ID = 'net.deanishe.alfred-workflow'
 WORKFLOW_NAME = 'Alfred-Workflow Test'
-
-
-class SerializerTests(unittest.TestCase):
-    """Test workflow.manager serialisation API."""
-
-    def setUp(self):
-        self.serializers = ['json', 'cpickle', 'pickle']
-        self.tempdir = tempfile.mkdtemp()
-
-    def tearDown(self):
-        if os.path.exists(self.tempdir):
-            shutil.rmtree(self.tempdir)
-
-    def _is_serializer(self, obj):
-        """Does `obj` implement the serializer API?"""
-        self.assertTrue(hasattr(obj, 'load'))
-        self.assertTrue(hasattr(obj, 'dump'))
-
-    def test_default_serializers(self):
-        """Default serializers."""
-        for name in self.serializers:
-            self._is_serializer(manager.serializer(name))
-
-        self.assertEqual(set(self.serializers), set(manager.serializers))
-
-    def test_serialization(self):
-        """Dump/load data."""
-        data = {'arg1': 'value1', 'arg2': 'value2'}
-
-        for name in self.serializers:
-            serializer = manager.serializer(name)
-            path = os.path.join(self.tempdir, 'test.{0}'.format(name))
-            self.assertFalse(os.path.exists(path))
-
-            with open(path, 'wb') as file_obj:
-                serializer.dump(data, file_obj)
-
-            self.assertTrue(os.path.exists(path))
-
-            with open(path, 'rb') as file_obj:
-                data2 = serializer.load(file_obj)
-
-            self.assertEqual(data, data2)
-
-            os.unlink(path)
-
-    def test_register_unregister(self):
-        """Register/unregister serializers."""
-        serializers = {}
-        for name in self.serializers:
-            serializer = manager.serializer(name)
-            self._is_serializer(serializer)
-
-        for name in self.serializers:
-            serializer = manager.unregister(name)
-            self._is_serializer(serializer)
-            serializers[name] = serializer
-
-        for name in self.serializers:
-            self.assertEqual(manager.serializer(name), None)
-
-        for name in self.serializers:
-            self.assertRaises(ValueError, manager.unregister, name)
-
-        for name in self.serializers:
-            serializer = serializers[name]
-            manager.register(name, serializer)
-
-    def test_register_invalid(self):
-        """Register invalid serializer."""
-        class Thing(object):
-            """Bad serializer."""
-            pass
-        invalid1 = Thing()
-        invalid2 = Thing()
-        setattr(invalid2, 'load', lambda x: x)
-
-        self.assertRaises(AttributeError, manager.register, 'bork', invalid1)
-        self.assertRaises(AttributeError, manager.register, 'bork', invalid2)
 
 
 class WorkflowTests(unittest.TestCase):
@@ -215,139 +130,6 @@ class WorkflowTests(unittest.TestCase):
 
         self._teardown_env()
         delete_info_plist()
-
-    ####################################################################
-    # Result item generation
-    ####################################################################
-
-    def test_item_creation(self):
-        """XML generation"""
-        self.wf.add_item(
-            'title', 'subtitle', arg='arg',
-            autocomplete='autocomplete',
-            valid=True, uid='uid', icon='icon.png',
-            icontype='fileicon',
-            type='file', largetext='largetext',
-            copytext='copytext',
-            quicklookurl='http://www.deanishe.net/alfred-workflow')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        from pprint import pprint
-        pprint(output)
-
-        root = ET.fromstring(output)
-        item = list(root)[0]
-
-        self.assertEqual(item.attrib['uid'], 'uid')
-        self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
-        self.assertEqual(item.attrib['valid'], 'yes')
-        self.assertEqual(item.attrib['uid'], 'uid')
-
-        title, subtitle, arg, icon, \
-            largetext, copytext, quicklookurl = list(item)
-
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-
-        self.assertEqual(subtitle.text, 'subtitle')
-        self.assertEqual(subtitle.tag, 'subtitle')
-
-        self.assertEqual(arg.text, 'arg')
-        self.assertEqual(arg.tag, 'arg')
-
-        self.assertEqual(largetext.tag, 'text')
-        self.assertEqual(largetext.text, 'largetext')
-        self.assertEqual(largetext.attrib['type'], 'largetype')
-
-        self.assertEqual(copytext.tag, 'text')
-        self.assertEqual(copytext.text, 'copytext')
-        self.assertEqual(copytext.attrib['type'], 'copy')
-
-        self.assertEqual(icon.text, 'icon.png')
-        self.assertEqual(icon.tag, 'icon')
-        self.assertEqual(icon.attrib['type'], 'fileicon')
-
-        self.assertEqual(quicklookurl.tag, 'quicklookurl')
-        self.assertEqual(quicklookurl.text,
-                         'http://www.deanishe.net/alfred-workflow')
-
-    def test_item_creation_with_modifiers(self):
-        """XML generation (with modifiers)."""
-        mod_subs = {}
-        for mod in ('cmd', 'ctrl', 'alt', 'shift', 'fn'):
-            mod_subs[mod] = mod
-        self.wf.add_item('title', 'subtitle',
-                         mod_subs,
-                         arg='arg',
-                         autocomplete='autocomplete',
-                         valid=True, uid='uid', icon='icon.png',
-                         icontype='fileicon',
-                         type='file')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        from pprint import pprint
-        pprint(output)
-        root = ET.fromstring(output)
-        item = list(root)[0]
-        self.assertEqual(item.attrib['uid'], 'uid')
-        self.assertEqual(item.attrib['autocomplete'], 'autocomplete')
-        self.assertEqual(item.attrib['valid'], 'yes')
-        self.assertEqual(item.attrib['uid'], 'uid')
-        (title, subtitle, sub_cmd, sub_ctrl, sub_alt, sub_shift, sub_fn, arg,
-         icon) = list(item)
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-        self.assertEqual(subtitle.text, 'subtitle')
-        self.assertEqual(sub_cmd.text, 'cmd')
-        self.assertEqual(sub_cmd.attrib['mod'], 'cmd')
-        self.assertEqual(sub_ctrl.text, 'ctrl')
-        self.assertEqual(sub_ctrl.attrib['mod'], 'ctrl')
-        self.assertEqual(sub_alt.text, 'alt')
-        self.assertEqual(sub_alt.attrib['mod'], 'alt')
-        self.assertEqual(sub_shift.text, 'shift')
-        self.assertEqual(sub_shift.attrib['mod'], 'shift')
-        self.assertEqual(sub_fn.text, 'fn')
-        self.assertEqual(sub_fn.attrib['mod'], 'fn')
-        self.assertEqual(subtitle.tag, 'subtitle')
-        self.assertEqual(arg.text, 'arg')
-        self.assertEqual(arg.tag, 'arg')
-        self.assertEqual(icon.text, 'icon.png')
-        self.assertEqual(icon.tag, 'icon')
-        self.assertEqual(icon.attrib['type'], 'fileicon')
-
-    def test_item_creation_no_optionals(self):
-        """XML generation (no optionals)"""
-        self.wf.add_item('title')
-        stdout = sys.stdout
-        sio = StringIO()
-        sys.stdout = sio
-        self.wf.send_feedback()
-        sys.stdout = stdout
-        output = sio.getvalue()
-        sio.close()
-        # pprint(output)
-        root = ET.fromstring(output)
-        item = list(root)[0]
-        for key in ['uid', 'arg', 'autocomplete']:
-            self.assertFalse(key in item.attrib)
-        self.assertEqual(item.attrib['valid'], 'no')
-        title, subtitle = list(item)
-        self.assertEqual(title.text, 'title')
-        self.assertEqual(title.tag, 'title')
-        self.assertEqual(subtitle.text, None)
-        tags = [elem.tag for elem in list(item)]
-        for tag in ['icon', 'arg']:
-            self.assert_(tag not in tags)
 
     ####################################################################
     # Environment
@@ -653,11 +435,14 @@ class WorkflowTests(unittest.TestCase):
                 return json.dump(obj, file_obj, indent=2)
 
         manager.register('spoons', MySerializer)
-        self.assertFalse(os.path.exists(self.wf.cachefile('test.spoons')))
-        self.wf.cache_serializer = 'spoons'
-        self.wf.cache_data('test', data)
-        self.assertTrue(os.path.exists(self.wf.cachefile('test.spoons')))
-        self.assertEqual(data, self.wf.cached_data('test'))
+        try:
+            self.assertFalse(os.path.exists(self.wf.cachefile('test.spoons')))
+            self.wf.cache_serializer = 'spoons'
+            self.wf.cache_data('test', data)
+            self.assertTrue(os.path.exists(self.wf.cachefile('test.spoons')))
+            self.assertEqual(data, self.wf.cached_data('test'))
+        finally:
+            manager.unregister('spoons')
 
     def test_data_serializer(self):
         """Data serializer"""
@@ -1246,382 +1031,6 @@ class WorkflowTests(unittest.TestCase):
     def _teardown_env(self):
         """Remove Alfred env variables from environment."""
         os.environ = self._original_env
-
-
-class MagicArgsTests(unittest.TestCase):
-    """Test magic arguments"""
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def test_list_magic(self):
-        """Magic: list magic"""
-        # TODO: Verify output somehow
-        c = WorkflowMock(['script', 'workflow:magic'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
-            wf.logger.debug('STDERR : {0}'.format(c.stderr))
-
-    def test_version_magic(self):
-        """Magic: version magic"""
-        # TODO: Verify output somehow
-
-        vstr = '1.9.7'
-
-        # Versioned
-        c = WorkflowMock(['script', 'workflow:version'])
-        with InfoPlist():
-            with c:
-                with VersionFile(vstr):
-                    wf = Workflow()
-                    # Process magic arguments
-                    wf.args
-            self.assertEquals(len(c.cmd), 0)
-            wf.logger.debug('STDERR : {0}'.format(c.stderr))
-
-            # Unversioned
-            c = WorkflowMock(['script', 'workflow:version'])
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
-
-    def test_openhelp(self):
-        """Magic: open help URL"""
-        url = 'http://www.deanishe.net/alfred-workflow/'
-        c = WorkflowMock(['script', 'workflow:help'])
-        with InfoPlist():
-            with c:
-                wf = Workflow(help_url=url)
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], url)
-
-    def test_openhelp_no_url(self):
-        """Magic: no help URL"""
-        c = WorkflowMock(['script', 'workflow:help'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(len(c.cmd), 0)
-
-    def test_openlog(self):
-        """Magic: open logfile"""
-        c = WorkflowMock(['script', 'workflow:openlog'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.logfile)
-
-    def test_cachedir(self):
-        """Magic: open cachedir"""
-        c = WorkflowMock(['script', 'workflow:opencache'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.cachedir)
-
-    def test_datadir(self):
-        """Magic: open datadir"""
-        c = WorkflowMock(['script', 'workflow:opendata'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.datadir)
-
-    def test_workflowdir(self):
-        """Magic: open workflowdir"""
-        c = WorkflowMock(['script', 'workflow:openworkflow'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd[0], 'open')
-            self.assertEquals(c.cmd[1], wf.workflowdir)
-
-    def test_open_term(self):
-        """Magic: open Terminal"""
-        c = WorkflowMock(['script', 'workflow:openterm'])
-        with InfoPlist():
-            with c:
-                wf = Workflow()
-                # Process magic arguments
-                wf.args
-            self.assertEquals(c.cmd, ['open', '-a', 'Terminal', wf.workflowdir])
-
-    def test_delete_data(self):
-        """Magic: delete data"""
-        c = WorkflowMock(['script', 'workflow:deldata'])
-        with InfoPlist():
-            wf = Workflow()
-            testpath = wf.datafile('file.test')
-            with open(testpath, 'wb') as file_obj:
-                file_obj.write('test!')
-            with c:
-                self.assertTrue(os.path.exists(testpath))
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(testpath))
-
-    def test_delete_cache(self):
-        """Magic: delete cache"""
-        c = WorkflowMock(['script', 'workflow:delcache'])
-        with InfoPlist():
-            wf = Workflow()
-            testpath = wf.cachefile('file.test')
-            with open(testpath, 'wb') as file_obj:
-                file_obj.write('test!')
-            with c:
-                self.assertTrue(os.path.exists(testpath))
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(testpath))
-
-    def test_reset(self):
-        """Magic: reset"""
-        with InfoPlist():
-            wf = Workflow()
-            wf.settings['key'] = 'value'
-            datatest = wf.datafile('data.test')
-            cachetest = wf.cachefile('cache.test')
-            settings_path = wf.datafile('settings.json')
-
-            for p in (datatest, cachetest):
-                with open(p, 'wb') as file_obj:
-                    file_obj.write('test!')
-
-            for p in (datatest, cachetest, settings_path):
-                self.assertTrue(os.path.exists(p))
-
-            c = WorkflowMock(['script', 'workflow:reset'])
-            with c:
-                wf.args
-
-            for p in (datatest, cachetest, settings_path):
-                self.assertFalse(os.path.exists(p))
-
-    def test_delete_settings(self):
-        """Magic: delete settings"""
-        c = WorkflowMock(['script', 'workflow:delsettings'])
-        with InfoPlist():
-            wf = Workflow()
-            wf.settings['key'] = 'value'
-            filepath = wf.datafile('settings.json')
-            with c:
-                self.assertTrue(os.path.exists(filepath))
-                wf2 = Workflow()
-                self.assertEquals(wf2.settings.get('key'), 'value')
-                # Process magic arguments
-                wf.args
-                self.assertFalse(os.path.exists(filepath))
-                wf3 = Workflow()
-                self.assertFalse('key' in wf3.settings)
-
-    def test_folding(self):
-        """Magic: folding"""
-        with InfoPlist():
-            wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingdefault'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding')
-                            is None)
-
-            wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingon'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding'))
-
-            wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingdefault'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_diacritic_folding') is
-                            None)
-
-            wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:foldingoff'])
-            with c:
-                wf.args
-            self.assertFalse(wf.settings.get('__workflow_diacritic_folding'))
-
-    def test_prereleases(self):
-        """Magic: prereleases"""
-        with InfoPlist():
-            wf = Workflow()
-
-            c = WorkflowMock(['script', 'workflow:prereleases'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_prereleases'))
-            self.assertTrue(wf.prereleases)
-
-            wf = Workflow()
-            c = WorkflowMock(['script', 'workflow:noprereleases'])
-            with c:
-                wf.args
-            self.assertFalse(wf.settings.get('__workflow_prereleases'))
-            self.assertFalse(wf.prereleases)
-
-    def test_update_settings_override_magic_prereleases(self):
-        """Magic: pre-release updates can be overridden by `True` value for `prereleases` key in `update_settings`"""
-        with InfoPlist():
-            d = {'prereleases': True}
-            wf = Workflow(update_settings=d)
-
-            c = WorkflowMock(['script', 'workflow:prereleases'])
-            with c:
-                wf.args
-            self.assertTrue(wf.settings.get('__workflow_prereleases'))
-            self.assertTrue(wf.prereleases)
-
-            wf = Workflow(update_settings=d)
-            c = WorkflowMock(['script', 'workflow:noprereleases'])
-            with c:
-                wf.args
-            self.assertFalse(wf.settings.get('__workflow_prereleases'))
-            self.assertTrue(wf.prereleases)
-
-class AtomicWriterTests(unittest.TestCase):
-    """Tests for atomic writer"""
-
-    def setUp(self):
-        self.tempdir = tempfile.mkdtemp()
-        self.settings_file = os.path.join(self.tempdir, 'settings.json')
-
-    def tearDown(self):
-        if os.path.exists(self.tempdir):
-            shutil.rmtree(self.tempdir)
-
-    def test_write_file_succeed(self):
-        """AtomicWriter: Succeed, no temp file left"""
-        with atomic_writer(self.settings_file, 'wb') as file_obj:
-            json.dump(DEFAULT_SETTINGS, file_obj)
-        self.assertEqual(len(os.listdir(self.tempdir)), 1)
-        self.assertTrue(os.path.exists(self.settings_file))
-
-    def test_failed_before_writing(self):
-        """AtomicWriter: Exception before writing"""
-        def write_function():
-            with atomic_writer(self.settings_file, 'wb'):
-                raise Exception()
-
-        self.assertRaises(Exception, write_function)
-        self.assertEqual(len(os.listdir(self.tempdir)), 0)
-
-    def test_failed_after_writing(self):
-        """AtomicWriter: Exception after writing"""
-        def write_function():
-            with atomic_writer(self.settings_file, 'wb') as file_obj:
-                json.dump(DEFAULT_SETTINGS, file_obj)
-                raise Exception()
-
-        self.assertRaises(Exception, write_function)
-        self.assertEqual(len(os.listdir(self.tempdir)), 0)
-
-    def test_failed_without_overwriting(self):
-        """AtomicWriter: Exception after writing won't overwrite the old file"""
-        mockSettings = {}
-
-        def write_function():
-            with atomic_writer(self.settings_file, 'wb') as file_obj:
-                json.dump(mockSettings, file_obj)
-                raise Exception()
-
-        with atomic_writer(self.settings_file, 'wb') as file_obj:
-            json.dump(DEFAULT_SETTINGS, file_obj)
-        self.assertEqual(len(os.listdir(self.tempdir)), 1)
-        self.assertTrue(os.path.exists(self.settings_file))
-
-        self.assertRaises(Exception, write_function)
-        self.assertEqual(len(os.listdir(self.tempdir)), 1)
-        self.assertTrue(os.path.exists(self.settings_file))
-
-        with open(self.settings_file, 'rb') as file_obj:
-            real_settings = json.load(file_obj)
-            self.assertEqual(DEFAULT_SETTINGS, real_settings)
-
-
-class UninterruptibleTests(unittest.TestCase):
-    """Test for multiple files atomic writer"""
-
-    @uninterruptible
-    def _mock_write_function(self):
-        if self.kill_flag:
-            self.kill_flag = False
-            self._kill()
-        self.result_flag = True
-
-    def _old_signal_handler(self, s, f):
-            self.old_signal_flag = True
-
-    def _kill(self):
-        os.kill(os.getpid(), signal.SIGTERM)
-
-    def setUp(self):
-        signal.signal(signal.SIGTERM, signal.SIG_DFL)
-
-        self.result_flag = False  # True if the write_function is executed
-        self.old_signal_flag = False  # True if old signal handler is executed
-        self.kill_flag = True  # True if process should be killed
-
-    def test_normal(self):
-        """Uninterruptible: Normal writing operator"""
-        self.kill_flag = False
-
-        self._mock_write_function()
-
-        self.assertTrue(self.result_flag)
-
-    def test_sigterm_signal(self):
-        """Uninterruptible: Process is killed"""
-        self.assertRaises(SystemExit, self._mock_write_function)
-
-        self.assertTrue(self.result_flag)
-        self.assertFalse(self.kill_flag)
-
-    def test_old_signal_handler(self):
-        """Uninterruptible: Process killed with some other signal handler"""
-        signal.signal(signal.SIGTERM, self._old_signal_handler)
-
-        self._mock_write_function()
-
-        self.assertTrue(self.result_flag)
-        self.assertTrue(self.old_signal_flag)
-        self.assertFalse(self.kill_flag)
-
-    def test_old_signal_handler_restore(self):
-        """Uninterruptible: Previous signal handler is restored after write"""
-        signal.signal(signal.SIGTERM, self._old_signal_handler)
-        self.kill_flag = False
-
-        self._mock_write_function()
-
-        self.assertTrue(self.result_flag)
-        self.assertEqual(signal.getsignal(signal.SIGTERM),
-                         self._old_signal_handler)
 
 
 if __name__ == '__main__':  # pragma: no cover

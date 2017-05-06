@@ -7,7 +7,7 @@
 #
 # Created on 2016-02-23
 #
-"""Unit tests for workflow.web."""
+"""Unit tests for :mod:`workflow.web`"""
 
 from __future__ import print_function, unicode_literals
 
@@ -34,6 +34,7 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 
 class CaseInsensitiveDictTests(unittest.TestCase):
+    """Unit tests for CaseInsensitiveDict"""
 
     def setUp(self):
         self.data_list = [('Aardvark', 'a'), ('Booty', 'b'), ('Clown', 'c')]
@@ -115,6 +116,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
 
 @pytest_httpbin.use_class_based_httpbin
 class WebTests(unittest.TestCase):
+    """Unit tests for workflow.web."""
 
     def setUp(self):
         self.data = {'name': 'My name is Jürgen!',
@@ -204,17 +206,6 @@ class WebTests(unittest.TestCase):
         self.assertEqual(r.encoding, None)
         self.assert_(isinstance(r.text, str))
 
-    def test_xml_encoding(self):
-        """XML is decoded"""
-        # Why doesn't this work with a local httpbin?
-        # url = self.httpbin.url + '/response-headers'
-        url = 'http://httpbin.org/response-headers'
-        params = {'Content-Type': 'text/xml;charset=UTF-8'}
-        r = web.get(url, params)
-        r.raise_for_status()
-        self.assertEqual(r.encoding, 'utf-8')
-        self.assert_(isinstance(r.text, unicode))
-
     def test_html_encoding(self):
         """HTML is decoded"""
         url = self.httpbin.url + '/html'
@@ -223,17 +214,23 @@ class WebTests(unittest.TestCase):
         self.assert_(isinstance(r.text, unicode))
 
     def test_default_encoding(self):
-        """Default encodings for mimetypes"""
-        # Why doesn't this work with a local httpbin?
-        # url = self.httpbin.url + '/response-headers'
-        url = 'http://httpbin.org/response-headers'
-        # params = {'Content-Type': 'application/json'}
-        # httpbin returns JSON by default. web.py should automatically
-        # set `encoding` to UTF-8 when mimetype = 'application/json'
+        """Default encodings for mimetypes."""
+        url = self.httpbin.url + '/response-headers'
         r = web.get(url)
         r.raise_for_status()
-        self.assertEqual(r.encoding, 'utf-8')
-        self.assert_(isinstance(r.text, unicode))
+        # httpbin returns JSON by default. web.py should automatically
+        # set `encoding` to UTF-8 when mimetype = 'application/json'
+        assert r.encoding == 'utf-8'
+        assert isinstance(r.text, unicode)
+
+    def test_xml_encoding(self):
+        """XML is decoded."""
+        url = self.httpbin.url + '/response-headers'
+        params = {'Content-Type': 'text/xml; charset=UTF-8'}
+        r = web.get(url, params)
+        r.raise_for_status()
+        assert r.encoding == 'utf-8'
+        assert isinstance(r.text, unicode)
 
     def test_get_vars(self):
         """GET vars"""
@@ -343,12 +340,12 @@ class WebTests(unittest.TestCase):
         self.assertEqual(args.get('extra'), 'two')
 
 
-#                        dP                       dP
-#                        88                       88
-# 88d888b. dP    dP    d8888P .d8888b. .d8888b. d8888P
-# 88'  `88 88    88      88   88ooood8 Y8ooooo.   88
-# 88.  .88 88.  .88 dP   88   88.  ...       88   88
-# 88Y888P' `8888P88 88   dP   `88888P' `88888P'   dP
+#                     dP                       dP
+#                     88                       88
+# 88d888b. dP    dP d8888P .d8888b. .d8888b. d8888P
+# 88'  `88 88    88   88   88ooood8 Y8ooooo.   88
+# 88.  .88 88.  .88   88   88.  ...       88   88
+# 88Y888P' `8888P88   dP   `88888P' `88888P'   dP
 # 88            .88
 # dP        d8888P
 
@@ -464,7 +461,7 @@ def test_iter_content_nosniff(httpserver):
     it = r.iter_content(decode_unicode=True)
     for chunk in it:
         pass
-    assert r.encoding == None
+    assert r.encoding is None
 
     # Encoding read from HTTP header
     httpserver.serve_content(
@@ -547,7 +544,6 @@ def test_gzipped_content(httpserver):
     for chunk in r.iter_content():
         content += chunk
     assert content == gifbytes
-
 
 if __name__ == '__main__':  # pragma: no cover
     pytest.main([__file__])

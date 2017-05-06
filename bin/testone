@@ -44,7 +44,7 @@ shift
 
 # export PYTEST_ADDOPTS="--cov-report=term"
 
-py.test --cov="${package}" "$@"
+pytest --cov="${package}" "$@"
 # ret1=$?
 ret1=${PIPESTATUS[0]}
 

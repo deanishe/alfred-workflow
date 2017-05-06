@@ -16,7 +16,7 @@ export PYTEST_ADDOPTS="--cov-report=html"
 
 log "Running tests..."
 
-py.test --cov=workflow tests
+pytest --cov=workflow tests
 ret1=${PIPESTATUS[0]}
 
 echo

@@ -41,7 +41,7 @@ class Variables(dict):
     This class allows you to set workflow variables from
     Run Script actions.
 
-    It is a subclass of `dict`.
+    It is a subclass of :class:`dict`.
 
     >>> v = Variables(username='deanishe', password='hunter2')
     >>> v.arg = u'output value'

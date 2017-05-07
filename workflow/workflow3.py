@@ -8,9 +8,8 @@
 #
 
 """
-:class:`Workflow3` supports Alfred 3's new features.
-
-It is an Alfred 3-only version of :class:`~workflow.workflow.Workflow`.
+:class:`Workflow3` is an Alfred 3-only version of
+:class:`~workflow.Workflow` that supports Alfred 3's new features.
 
 It supports setting :ref:`workflow-variables` and
 :class:`the more advanced modifiers <Modifier>` supported by Alfred 3.
@@ -19,9 +18,10 @@ In order for the feedback mechanism to work correctly, it's important
 to create :class:`Item3` and :class:`Modifier` objects via the
 :meth:`Workflow3.add_item()` and :meth:`Item3.add_modifier()` methods
 respectively. If you instantiate :class:`Item3` or :class:`Modifier`
-objects directly, the current :class:`~workflow.workflow3.Workflow3`
-object won't be aware of them, and they won't be sent to Alfred when
-you call :meth:`~workflow.workflow3.Workflow3.send_feedback()`.
+objects directly, the current :class:`Workflow3` object won't be aware
+of them, and they won't be sent to Alfred when you call
+:meth:`Workflow3.send_feedback()`.
+
 """
 
 from __future__ import print_function, unicode_literals, absolute_import
@@ -47,6 +47,14 @@ class Variables(dict):
     >>> v.arg = u'output value'
     >>> print(v)
 
+    See :ref:`variables-run-script` in the User Guide for more
+    information.
+
+    Args:
+        arg (unicode, optional): Main output/``{query}``.
+        **variables: Workflow variables to set.
+
+
     Attributes:
         arg (unicode): Output value (``{query}``).
         config (dict): Configuration for downstream workflow element.
@@ -54,13 +62,7 @@ class Variables(dict):
     """
 
     def __init__(self, arg=None, **variables):
-        """Create a new `Variables` object.
-
-        Args:
-            arg (unicode, optional): Main output/``{query}``.
-            **variables: Workflow variables to set.
-
-        """
+        """Create a new `Variables` object."""
         self.arg = arg
         self.config = {}
         super(Variables, self).__init__(**variables)
@@ -107,15 +109,26 @@ class Variables(dict):
 
 
 class Modifier(object):
-    """Modify ``Item3`` values for when specified modifier keys are pressed.
+    """Modify ``Item3`` arg and variables when modifier keys are pressed.
 
-    Valid modifiers (i.e. values for ``key``) are:
+    You probably don't want to use this class directly, but rather
+    use :meth:`Item3.add_modifier()` to add modifiers to results.
 
-     * cmd
-     * alt
-     * shift
-     * ctrl
-     * fn
+    >>> it = wf.add_item('Title', 'Subtitle', valid=True)
+    >>> it.setvar('name', 'default')
+    >>> m = it.add_modifier('cmd')
+    >>> m.setvar('name', 'alternate')
+
+    See :ref:`workflow-variables` in the User Guide for more information
+    and :ref:`example usage <example-variables>`.
+
+    Args:
+        key (unicode): Modifier key, e.g. ``"cmd"``, ``"alt"`` etc.
+            Valid modifiers (i.e. values for ``key``) are:
+            ``cmd``, ``alt``, ``shift``, ``ctrl``, ``fn``.
+        subtitle (unicode, optional): Override default subtitle.
+        arg (unicode, optional): Argument to pass for this modifier.
+        valid (bool, optional): Override item's validity.
 
     Attributes:
         arg (unicode): Arg to pass to following action.
@@ -126,17 +139,7 @@ class Modifier(object):
     """
 
     def __init__(self, key, subtitle=None, arg=None, valid=None):
-        """Create a new :class:`Modifier`.
-
-        You probably don't want to use this class directly, but rather
-        use :meth:`Item3.add_modifier()` to add modifiers to results.
-
-        Args:
-            key (unicode): Modifier key, e.g. ``"cmd"``, ``"alt"`` etc.
-            subtitle (unicode, optional): Override default subtitle.
-            arg (unicode, optional): Argument to pass for this modifier.
-            valid (bool, optional): Override item's validity.
-        """
+        """Create a new :class:`Modifier`."""
         self.key = key
         self.subtitle = subtitle
         self.arg = arg
@@ -207,17 +210,21 @@ class Item3(object):
     Generates Alfred-compliant JSON for a single item.
 
     You probably shouldn't use this class directly, but via
-    :meth:`Workflow3.add_item`. See :meth:`~Workflow3.add_item`
-    for details of arguments.
+    :meth:`Workflow3.add_item() <workflow.Workflow3.add_item>`.
+    See :meth:`~workflow.Workflow3.add_item` for details of arguments.
+
+    Arguments are the same as for
+    :meth:`Workflow.add_item() <workflow.Workflow.add_item>`, except
+    ``subtitle_modifiers`` is not supported.
+
+    Use :meth:`Item3.add_modifier` instead.
+
     """
 
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None, largetext=None, copytext=None, quicklookurl=None):
-        """Use same arguments as for :meth:`Workflow.add_item`.
-
-        Argument ``subtitle_modifiers`` is not supported.
-        """
+        """Create a new :class:`Item3` object."""
         self.title = title
         self.subtitle = subtitle
         self.arg = arg
@@ -378,6 +385,9 @@ class Item3(object):
 
 class Workflow3(Workflow):
     """Workflow class that generates Alfred 3 feedback.
+
+    ``Workflow3`` is a subclass of :class:`~workflow.Workflow` and
+    most of its methods are documented there.
 
     Attributes:
         item_class (class): Class used to generate feedback items.

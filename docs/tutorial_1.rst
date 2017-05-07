@@ -611,8 +611,8 @@ To learn more about coding in Python, try these resources:
 
 
 .. [#] **Do not** use TextEdit to edit code. By default it uses "smart" quotes,
-       which will break code. If you have OS X 10.7 or later,
+       which will break code. If you have macOS 10.7 or later,
        `TextMate <https://github.com/textmate/textmate/releases>`_ is an
        excellent and free editor.
        `TextWrangler <http://www.barebones.com/products/textwrangler/>`_ is
-       another good, free editor for OS X (supports 10.6).
+       another good, free editor for macOS (supports 10.6).

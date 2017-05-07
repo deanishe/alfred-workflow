@@ -8,7 +8,14 @@
 # Created on 2014-04-06
 #
 
-"""Run background tasks."""
+"""
+This module provides an API to run commands in background processes.
+Combine with the :ref:`caching API <caching-data>` to work from cached data
+while you fetch fresh data in the background.
+
+See :ref:`the User Manual <background-processes>` for more information
+and examples.
+"""
 
 from __future__ import print_function, unicode_literals
 
@@ -79,9 +86,9 @@ def is_running(name):
     """Test whether task ``name`` is currently running.
 
     :param name: name of task
-    :type name: ``unicode``
+    :type name: unicode
     :returns: ``True`` if task with name ``name`` is running, else ``False``
-    :rtype: ``Boolean``
+    :rtype: bool
 
     """
     pidfile = _pid_file(name)
@@ -148,11 +155,11 @@ def run_in_background(name, args, **kwargs):
     r"""Cache arguments then call this script again via :func:`subprocess.call`.
 
     :param name: name of task
-    :type name: ``unicode``
+    :type name: unicode
     :param args: arguments passed as first argument to :func:`subprocess.call`
     :param \**kwargs: keyword arguments to :func:`subprocess.call`
     :returns: exit code of sub-process
-    :rtype: ``int``
+    :rtype: int
 
     When you call this function, it caches its arguments and then calls
     ``background.py`` in a subprocess. The Python subprocess will load the

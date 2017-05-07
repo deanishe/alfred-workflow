@@ -11,7 +11,7 @@
 # TODO: Exclude this module from test and code coverage in py2.6
 
 """
-Post notifications via the OS X Notification Center. This feature
+Post notifications via the macOS Notification Center. This feature
 is only available on Mountain Lion (10.8) and later. It will
 silently fail on older systems.
 
@@ -166,7 +166,7 @@ def validate_sound(sound):
 
     # Case-insensitive comparison of `sound`
     if sound.lower() in [s.lower() for s in SOUNDS]:
-        # Title-case is correct for all system sounds as of OS X 10.11
+        # Title-case is correct for all system sounds as of macOS 10.11
         return sound.title()
     return None
 
@@ -237,7 +237,7 @@ def png_to_icns(png_path, icns_path):
     """Convert PNG file to ICNS using ``iconutil``.
 
     Create an iconset from the source PNG file. Generate PNG files
-    in each size required by OS X, then call ``iconutil`` to turn
+    in each size required by macOS, then call ``iconutil`` to turn
     them into a single ICNS file.
 
     Args:

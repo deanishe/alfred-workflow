@@ -1,7 +1,7 @@
 
 A helper library for writing `Alfred 2 and 3`_ workflows.
 
-Supports OS X 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
+Supports macOS 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
 
 Alfred-Workflow is designed to take the grunt work out of writing a workflow.
 

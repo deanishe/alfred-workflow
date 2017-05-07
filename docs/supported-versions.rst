@@ -5,6 +5,12 @@
 Supported software
 ==================
 
+Alfred-Workflow supports all versions of Alfred 2 & 3 and all versions
+of macOS supported by Alfred 2. It works with Python 2.6 and 2.7,
+but *not* Python 3.
+
+Some features are not available on older versions of macOS.
+
 .. contents::
    :local:
 
@@ -12,37 +18,37 @@ Supported software
 Alfred versions
 ===============
 
-Alfred-Workflow works with all versions of Alfred 2 and 3, but you must own the
-`Powerpack`_ to use Alfred's workflow feature.
+Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
+own the `Powerpack`_ to use Alfred's workflow feature.
 
-All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred 3
-as of v3.2 are supported in the latest version of Alfred-Workflow.
+All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
+3 as of v3.2 are supported in the latest version of Alfred-Workflow.
 
-The :class:`~workflow.workflow.Workflow` class is compatible with both Alfred 2
-and Alfred 3. The :class:`~workflow.workflow3.Workflow3` class is only
-compatible with Alfred 3.
+The :class:`~workflow.workflow.Workflow` class is compatible with both
+Alfred 2 and Alfred 3. The :class:`~workflow.workflow3.Workflow3` class
+is only compatible with Alfred 3.
 
-:class:`~workflow.workflow3.Workflow3` uses Alfred 3's JSON feedback format.
-It supports :ref:`workflow variables <workflow-variables>` and more advanced
-modifiers than :class:`~workflow.workflow.Workflow`/Alfred 2.
+:class:`~workflow.workflow3.Workflow3` uses Alfred 3's JSON feedback
+format. It supports :ref:`workflow variables <workflow-variables>` and
+more advanced modifiers than :class:`~workflow.workflow.Workflow`/Alfred 2.
 
 
-OS X versions
-=============
+macOS versions
+==============
 
-Alfred-Workflow supports the same OS X versions as Alfred 2 and 3,
+Alfred-Workflow supports the same macOS versions as Alfred 2 and 3,
 namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).
 
 .. note::
 
-    :ref:`Notifications`, added in version 1.15 of Alfred-Workflow, are only
-    available on Mountain Lion (10.8) and above.
+    :ref:`Notifications`, added in version 1.15 of Alfred-Workflow, are
+    only available on Mountain Lion (10.8) and above.
 
 
 Python versions
 ===============
 
-Alfred-Workflow only supports the system Pythons that come with OS X
+Alfred-Workflow only supports the system Pythons that come with macOS
 (i.e. ``/usr/bin/python``), which is 2.6 on 10.6/Snow Leopard and 2.7
 on later versions.
 
@@ -65,8 +71,8 @@ Leopard/Python 2.6 are:
 
 - :mod:`argparse` is not available in 2.6. Use :mod:`getopt` or
   `include argparse in your workflow`_. Personally, I'm a big fan of
-  `docopt`_ for parsing command-line arguments, but :mod:`argparse` is better
-  for certain use cases.
+  `docopt`_ for parsing command-line arguments, but :mod:`argparse`
+  is better for certain use cases.
 - You must specify field numbers for :meth:`str.format`, i.e.
   ``'{0}.{1}'.format(first, second)`` not just
   ``'{}.{}'.format(first, second)``.
@@ -76,39 +82,41 @@ Leopard/Python 2.6 are:
 - No set literals.
 - No dictionary or set comprehensions.
 
-Python 2.6 is still included in later versions of OS X (up to and including El
-Capitan), so run your Python scripts with ``/usr/bin/python2.6`` in addition to
-``/usr/bin/python`` (2.7) to make sure they will run on Snow Leopard.
+Python 2.6 is still included in later versions of macOS (up to and
+including El Capitan), so run your Python scripts with
+``/usr/bin/python2.6`` in addition to ``/usr/bin/python`` (2.7) to
+make sure they will run on Snow Leopard.
 
 
 Why no Python 3 support?
 ------------------------
 
-Alfred-Workflow is targeted at the system Python on OS X. It's goal is to
+Alfred-Workflow is targeted at the system Python on macOS. It's goal is to
 enable developers to build workflows that will "just work" for users on any
-vanilla installation of OS X since Snow Leopard.
+vanilla installation of macOS since Snow Leopard.
 
-As such, it :ref:`strongly discourages developers <thirdparty>` from requiring
-users of their workflows to bugger about with their OSes in order to get a
-workflow to work. This naturally includes requiring the installation of some
-non-default Python.
+As such, it :ref:`strongly discourages developers <thirdparty>` from
+requiring users of their workflows to bugger about with their OSes in
+order to get a workflow to work. This naturally includes requiring the
+installation of some non-default Python.
 
-Alfred-Workflow is also precisely the kind of project that's hard to make 2-
-and 3-compatible. Python 2.6 support is a hard requirement.
-:mod:`workflow.web`, as an HTTP library, is all about working with strings of
-non-specific encoding, which Python 3 `deliberately turned into a complete shit
-show`_ (though it's slowly getting better).
+Alfred-Workflow is also precisely the kind of project that's hard to make
+2- and 3-compatible. Python 2.6 support is a hard requirement.
+:mod:`workflow.web`, as an HTTP library, is all about working with strings
+of non-specific encoding, which Python 3
+`deliberately turned into a complete shit show`_ (though it's slowly
+getting better).
 
-I don't use Python 3 (when I can avoid it), and it's not part of OS X, so I
-consider the huge effort required to write 2.6- and 3.x-compatible code a waste
-of *my* time. If someone else wants to contribute Python 3 support, it will be
-gratefully accepted.
+I don't use Python 3 (when I can avoid it), and it's not part of macOS, so
+I consider the huge effort required to write 2.6- and 3.x-compatible code
+a waste of *my* time. If someone else wants to contribute Python 3
+support, it will be gratefully accepted.
 
 I realise that Python 3 solves many of the string-handling issues that
 catch out novice Pythonistas, but as stated, support for non-system
 Pythons is simply not a goal of this project.
 
-Python 3 will be supported when it ships with OS X by default, and never
+Python 3 will be supported when it ships with macOS by default, and never
 in version 1 of Alfred-Workflow, which must continue to support Python 2.6
 and Alfred 2 (which doesn't get along with Python 3 [1]_).
 

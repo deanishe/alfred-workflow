@@ -1,12 +1,12 @@
 
 .. _aw-workflows:
 
-===============================
-Workflows using Alfred-Workflow
-===============================
+=========
+Workflows
+=========
 
-Here are some workflows that are made with Alfred-Workflow. Have a poke around
-in their repos for inspiration.
+Here are some workflows that are made with Alfred-Workflow. Have a poke
+around in their repos for inspiration.
 
 
 .. _add-to-list:
@@ -14,8 +14,8 @@ in their repos for inspiration.
 Adding your own workflow to the list
 ====================================
 
-If you'd like your own workflow added to the list, please see the corresponding
-section in the `GitHub README`_.
+If you'd like your own workflow added to the list, please see the
+corresponding section in the `GitHub README`_.
 
 
 - `10.000ft Scripts <http://www.packal.org/workflow/10000ft-scripts>`__

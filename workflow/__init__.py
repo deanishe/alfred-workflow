@@ -64,7 +64,7 @@ __title__ = 'Alfred-Workflow'
 __version__ = open(os.path.join(os.path.dirname(__file__), 'version')).read()
 __author__ = 'Dean Jackson'
 __licence__ = 'MIT'
-__copyright__ = 'Copyright 2014 Dean Jackson'
+__copyright__ = 'Copyright 2014-2017 Dean Jackson'
 
 __all__ = [
     'Variables',

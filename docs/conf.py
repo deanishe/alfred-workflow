@@ -107,6 +107,8 @@ modindex_common_prefix = ['workflow.']
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
+autoclass_content = 'class'
+# autodoc_default_flags = ['no-private-members', 'no-undoc-members']
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -403,7 +405,3 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 #epub_use_index = True
-
-
-# Example configuration for intersphinx: refer to the Python standard library.
-# intersphinx_mapping = {'http://docs.python.org/': None}

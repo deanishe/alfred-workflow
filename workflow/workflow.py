@@ -24,7 +24,7 @@ from __future__ import print_function, unicode_literals
 import atexit
 import binascii
 from contextlib import contextmanager
-import cPickle
+from six.moves import cPickle
 from copy import deepcopy
 import errno
 import json

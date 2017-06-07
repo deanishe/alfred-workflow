@@ -2346,8 +2346,18 @@ class Workflow(object):
         root = ET.Element('items')
         for item in self._items:
             root.append(item.elem)
-        sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        sys.stdout.write(ET.tostring(root).encode('utf-8'))
+
+        out = '<?xml version="1.0" encoding="utf-8"?>\n'
+        if sys.stdout.isatty():  # Show pretty printed XML in the shell
+            out += ET.tostring(root).encode('utf-8')
+
+            from xml.dom.minidom import parseString
+            dom = parseString(out)
+            sys.stdout.write(dom.toprettyxml())
+        else:
+            sys.stdout.write(out)
+            sys.stdout.write(ET.tostring(root).encode('utf-8'))
+
         sys.stdout.flush()
 
     ####################################################################

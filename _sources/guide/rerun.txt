@@ -11,9 +11,9 @@ Alfred 3.2 introduced an new "rerun" feature. Emitting a ``rerun`` value
 from a Script Filter tells Alfred to run that script again after the
 specified number of seconds. Alfred will also pass back any variables
 set at the top-level of your feedback, i.e. via the
-:meth:`Workflow3.setvar() <~workflow.workflow3.Workflow3>` method.
+:meth:`Workflow3.setvar() <~workflow.Workflow3>` method.
 
-Set :attr:`Workflow3.rerun <~workflow.workflow3.Workflow3.rerun>` to instruct
+Set :attr:`Workflow3.rerun <~workflow.Workflow3.rerun>` to instruct
 Alfred to re-run your Script Filter.
 
 This could be used, for example, to provide a seamless (to the user) status

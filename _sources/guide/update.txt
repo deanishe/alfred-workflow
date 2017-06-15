@@ -6,7 +6,7 @@
 Self-updating
 =============
 
-.. module:: workflow.workflow
+.. currentmodule:: workflow.workflow
 
 .. versionadded:: 1.9
 

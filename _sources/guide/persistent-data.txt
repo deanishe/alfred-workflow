@@ -1,11 +1,12 @@
 
-.. module:: workflow.workflow
-
 .. _guide-persistent-data:
 
 ===============
 Persistent data
 ===============
+
+.. currentmodule:: workflow
+
 
 .. contents::
    :local:
@@ -14,9 +15,8 @@ Persistent data
 
 .. tip::
 
-    If you are writing your own files without using the
-    :class:`Workflow` APIs, see
-    :ref:`script-behaviour`.
+    If you are writing your own files without using the :class:`Workflow`
+    APIs, see :ref:`script-behaviour`.
 
 Alfred provides special data and cache directories for each Workflow (in
 ``~/Library/Application Support`` and ``~/Library/Caches`` respectively).
@@ -30,9 +30,9 @@ attributes/methods to make it easier to access these directories:
 
 The cache directory may be deleted during system maintenance, and is thus only
 suitable for temporary data or data that are easily recreated.
-:class:`Workflow`'s cache methods reflect this,
-and make it easy to replace cached data that are too old.
-See :ref:`Caching data <caching-data>` for details of the data caching API.
+:class:`Workflow`'s cache methods reflect this, and make it easy to replace
+cached data that are too old. See :ref:`Caching data <caching-data>` for
+details of the data caching API.
 
 The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See :ref:`Storing data <storing-data>`
@@ -146,29 +146,30 @@ Session-scoped cache
 ====================
 
 .. versionadded:: 1.25
+.. versionchanged:: 1.27
 
 .. note:: This feature requires Alfred 3.2 or newer.
 
-The :meth:`~workflow.workflow3.Workflow3.cache_data` and
-:meth:`~workflow.workflow3.Workflow3.cached_data` methods of
-:class:`~workflow.workflow3.Workflow3` have an additional ``session``
+The :meth:`~workflow.Workflow3.cache_data` and
+:meth:`~workflow.Workflow3.cached_data` methods of
+:class:`~workflow.Workflow3` have an additional ``session``
 parameter.
 
 If set to ``True``, the cache name is prefixed with the
-:attr:`~workflow.workflow.Workflow3.session_id`, so the cache expires
+:attr:`~workflow.Workflow3.session_id`, so the cache expires
 as soon as the user closes Alfred or uses a different workflow.
 
 This is useful for workflows that use data that become invalid as soon
-as the user switches away, such as a list of current tabs in Chrome.
+as the user switches away, such as a list of current browser tabs.
 
 .. important::
 
     Alfred-Workflow doesn't automatically clear up stale session data;
     you have to do that yourself.
 
-    The :meth:`~workflow.workflow3.Workflow3.clear_session_cache`
-    method deletes *all* cached session data (including any current
-    session).
+    Use :meth:`~workflow.Workflow3.clear_session_cache` to delete stale
+    cached session data. Pass ``current=True`` to also delete data for
+    the current session.
 
 
 .. _storing-data:
@@ -265,9 +266,8 @@ Keychain access
 Methods :meth:`Workflow.save_password(account, password) <Workflow.save_password>`,
 :meth:`Workflow.get_password(account) <Workflow.get_password>`
 and :meth:`Workflow.delete_password(account) <Workflow.delete_password>`
-allow access to the Keychain. They may raise
-:class:`~Workflow.PasswordNotFound` if no password is set for
-the given ``account`` or :class:`~Workflow.KeychainError` if
+allow access to the Keychain. They may raise :exc:`PasswordNotFound` if no
+password is set for the given ``account`` or :exc:`KeychainError` if
 there is a problem accessing the Keychain. Passwords are stored in the user's
 default Keychain. By default, the Workflow's Bundle ID will be used as the
 service name, but this can be overridden by passing the ``service`` argument
@@ -282,14 +282,14 @@ Example usage:
 
     wf = Workflow()
 
-    wf.save_password('hotmail-password', 'password1lolz')
+    wf.save_password('aol', 'hunter2')
 
-    password = wf.get_password('hotmail-password')
+    password = wf.get_password('aol')
 
-    wf.delete_password('hotmail-password')
+    wf.delete_password('aol')
 
     # raises PasswordNotFound exception
-    password = wf.get_password('hotmail-password')
+    password = wf.get_password('aol')
 
 
 See :ref:`the relevant part of the tutorial <secure-settings>` for a full example.

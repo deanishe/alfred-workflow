@@ -8,7 +8,7 @@ Serialization of stored/cached data
 .. contents::
    :local:
 
-.. module:: workflow
+.. currentmodule:: workflow
 
 By default, both cache and data files (created using the APIs described in
 :ref:`guide-persistent-data`) are cached using :mod:`cPickle`. This provides
@@ -141,5 +141,5 @@ A serializer **must** conform to this interface (like :mod:`json` and
     serializer.dump(obj, file_obj)
 
 
-See the :ref:`api-serialization` section of the API documentation for more
+See the :ref:`api-serializers` section of the API documentation for more
 information.

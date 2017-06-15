@@ -8,7 +8,7 @@ Encoded strings and Unicode
 .. contents::
    :local:
 
-.. module:: workflow.workflow
+.. currentmodule:: workflow
 
 This is a brief guide to Unicode and encoded strings aimed at Alfred-Workflow
 users (and Python coders in general) who are unfamiliar with them.
@@ -190,7 +190,7 @@ your workflow gets its data from.
     with ``u`` to mark it as a Unicode string, add
     ``from __future__ import unicode_literals`` at the top of your Python
     scripts. This makes all unprefixed strings Unicode by default (use ``b''``
-    to create an encoded string). Add ``#encoding: utf-8`` to the top of your
+    to create an encoded string). Add ``# encoding: utf-8`` to the top of your
     source files to tell Python that the source code is UTF-8.
 
     Encoded strings by default:
@@ -312,31 +312,49 @@ strings).
 If your workflow works with data from the system (via :mod:`subprocess`,
 :func:`os.listdir` etc.), you should probably be NFC-normalizing those
 strings or changing the default normalization to ``NFD``, which is (more or
-less) what macOS uses. :meth:`Workflow.decode()` can help with this.
+less) what macOS and Alfred use. :meth:`Workflow.decode()` can help with this.
 
-Unfortunately, there is no bulletproof solution, as the query from Alfred can
-have different normalization forms.
-
-If you pass a Unicode string to :meth:`Workflow.decode`,
-it will be normalized using the form passed in the ``normalization`` argument
+If you pass a Unicode string to :meth:`Workflow.decode`, it will be normalized
+using the form passed in the ``normalization`` argument
 to :meth:`Workflow.decode` or to :class:`Workflow` on instantiation.
 
 If you pass an encoded string, it will be decoded to Unicode with the encoding
-passed in the ``encoding`` argument to :meth:`Workflow.decode`
-or the ``input_encoding`` argument to :class:`Workflow` on
-instantiation and then normalized as above.
+passed in the ``encoding`` argument to :meth:`Workflow.decode` or the
+``input_encoding`` argument to :class:`Workflow` on instantiation and then
+normalized as above.
 
 
 Other Gotchas
 =============
 
-Well, only one big gotcha. Namely, your shell probably has a sensible encoding
-(i.e. UTF-8) set via the ``LANG`` environmental variable (execute ``echo
-$LANG`` to check). Although this won't affect Python 2's auto-promotion of
-encoded strings (``str`` objects) to Unicode (it always uses ASCII), it *does*
+Well, only one big gotcha: locale.
+
+.. note:: This is only really important in Alfred 2.
+
+
+POSIX software, like your shell, Python, Ruby and other command-line
+tools, use the encoding specified in your environment.
+
+Your shell probably has a sensible encoding set via ``$LANG`` or another
+environment variable:
+
+.. code-block:: bash
+
+  $ echo $LANG
+  en_GB.UTF-8
+
+This tells software that wants to decode input that it should use UTF-8,
+which is the encoding that Alfred uses.
+
+Alfred 3 runs your scripts in a UTF-8 environment, but Alfred 2 runs them in
+an empty environment. This tells Python (and other POSIX software) by omission
+that encoding is ASCII.
+
+Although this won't affect Python 2's auto-promotion of encoded strings
+(``str`` objects) to Unicode (it always uses ASCII), it *does*
 affect the printing of Unicode strings, so using :func:`print` may work
 perfectly in your shell where the environmental encoding is UTF-8 but not in
-Alfred, where encoding is ASCII by default.
+Alfred 2, where encoding is ASCII by default.
 
 Be sure to print Unicode strings with
 ``print(my_unicode_string.encode('utf-8'))`` (e.g. when passing an argument to

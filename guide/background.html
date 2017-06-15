@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Background processes &mdash; Alfred-Workflow 1.26.1 documentation</title>
+    <title>Background processes &mdash; Alfred-Workflow 1.27 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.26.1',
+        VERSION:     '1.27',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Self-updating" href="update.html" />
     <link rel="prev" title="Notifications" href="notifications.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="notifications.html" title="Notifications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -67,13 +67,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-workflow.background">
-<span id="id1"></span><span id="background-processes"></span><h1>Background processes<a class="headerlink" href="#module-workflow.background" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="background-processes">
+<span id="id1"></span><h1>Background processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h1>
 <p>Many workflows provide a convenient interface to applications and/or web services.</p>
 <p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
 updating this cache typically takes a few seconds, making your workflow
 unresponsive while an update is occurring, which is very un-Alfred-like.</p>
-<p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
+<p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="../api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
 module to allow you to easily run scripts in the background.</p>
 <p>There are two functions, <a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">is_running()</span></code></a>,
 that provide the interface. The processes started are full daemon
@@ -168,7 +168,7 @@ which is a bit smarter about showing the user update information.</p>
 
 
 
-<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+<p class="blurb">A helper library for creating Alfred 2 & 3 workflows.</p>
 
 
 
@@ -182,7 +182,7 @@ which is a bit smarter about showing the user update information.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">

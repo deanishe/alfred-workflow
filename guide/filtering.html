@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Searching/filtering data &mdash; Alfred-Workflow 1.26.1 documentation</title>
+    <title>Searching/filtering data &mdash; Alfred-Workflow 1.27 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.26.1',
+        VERSION:     '1.27',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Retrieving data from the web" href="web.html" />
     <link rel="prev" title="Persistent data" href="persistent-data.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="persistent-data.html" title="Persistent data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -79,26 +79,23 @@
 <li><a class="reference internal" href="#matching-rules" id="id7">Matching rules</a></li>
 </ul>
 </div>
-<p><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> provides an
-Alfred-like search algorithm for filtering your workflow&#8217;s data. By default,
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> will try to match
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> provides an Alfred-like search algorithm for filtering
+your workflow&#8217;s data. By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> will try to match
 your search query via CamelCase, substring, initials and all characters,
 applying different weightings to the various kind of matches (see
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> for a detailed
-description of the algorithm and match flags).</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> for a detailed description of the algorithm and match
+flags).</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>Check <code class="docutils literal"><span class="pre">query</span></code> before calling
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>. <code class="docutils literal"><span class="pre">query</span></code>
+<p>Check <code class="docutils literal"><span class="pre">query</span></code> before calling <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>. <code class="docutils literal"><span class="pre">query</span></code>
 may not be empty or contain only whitespace. This will raise a
-<code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code>.</p>
-<p><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> is not a
-&#8220;little sister&#8221; of a Script Filter and won&#8217;t return a list of all results
-if <code class="docutils literal"><span class="pre">query</span></code> is empty. <code class="docutils literal"><span class="pre">query</span></code> is <em>not</em> an optional argument and trying
-to filter data against a meaningless query is treated as an error.</p>
-<p class="last"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> won&#8217;t
-complain if <code class="docutils literal"><span class="pre">items</span></code> is an empty list, but it <em>will</em> raise a
-<code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if <code class="docutils literal"><span class="pre">query</span></code> is empty.</p>
+<code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code>.</p>
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> is not a &#8220;little sister&#8221; of a Script Filter and
+won&#8217;t return a list of all results if <code class="docutils literal"><span class="pre">query</span></code> is empty.
+<code class="docutils literal"><span class="pre">query</span></code> is <em>not</em> an optional argument and trying to filter data against
+a meaningless query is treated as an error.</p>
+<p class="last"><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> won&#8217;t complain if <code class="docutils literal"><span class="pre">items</span></code> is an empty list,
+but it <em>will</em> raise a <code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> if <code class="docutils literal"><span class="pre">query</span></code> is empty.</p>
 </div>
 <p>Best practice is to do the following:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -157,17 +154,16 @@ work from the command line unless called with an empty string
 dealing with unset/empty variables.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>By default, <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>
+<p>By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>
 will match and return anything that contains all the characters in
 <code class="docutils literal"><span class="pre">query</span></code> in the same order, regardless of case. Not only can this lead to
 unacceptable performance when working with thousands of items, but it&#8217;s
 also very likely that you&#8217;ll want to set the standard a little higher.</p>
 <p class="last">See <a class="reference internal" href="#restricting-results"><span>Restricting results</span></a> for info on how to do that.</p>
 </div>
-<p>To use <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>, pass it
-a query, a list of items to filter and sort, and if your list contains items
-other than strings, a <code class="docutils literal"><span class="pre">key</span></code> function that generates a string search key for
-each item:</p>
+<p>To use <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>, pass it a query, a list of items to filter and
+sort, and if your list contains items other than strings, a <code class="docutils literal"><span class="pre">key</span></code> function
+that generates a string search key for each item:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -249,7 +245,7 @@ which matches if all the characters in <code class="docutils literal"><span clas
 key, regardless of case).</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last"><code class="docutils literal"><span class="pre">rules</span></code> in <code class="xref py py-meth docutils literal"><span class="pre">filter()</span></code> results are
+<p class="last"><code class="docutils literal"><span class="pre">rules</span></code> in <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">filter()</span></code></a> results are
 returned as integers. To see the name of the corresponding rule, see
 <a class="reference internal" href="#matching-rules"><span>Matching rules</span></a>.</p>
 </div>
@@ -263,7 +259,7 @@ would want to match <code class="docutils literal"><span class="pre">bot</span><
 <p>(The ranking would be reversed if <code class="docutils literal"><span class="pre">key_for_book()</span></code> returned <code class="docutils literal"><span class="pre">author</span> <span class="pre">title</span></code>
 instead of <code class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></code>.)</p>
 <p>So in all likelihood, you&#8217;ll want to pass a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>:</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -296,17 +292,17 @@ instead of <code class="docutils literal"><span class="pre">title</span> <span c
 <p class="first admonition-title">Warning</p>
 <p class="last"><code class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> is particularly slow and provides the
 worst matches. You should consider excluding it, especially if you&#8217;re calling
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> with more than a
+<a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> with more than a
 few hundred items or expect multi-word queries.</p>
 </div>
 </div>
 <div class="section" id="diacritic-folding">
 <span id="folding"></span><h2><a class="toc-backref" href="#id5">Diacritic folding</a><a class="headerlink" href="#diacritic-folding" title="Permalink to this headline">¶</a></h2>
-<p>By default, <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>
+<p>By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>
 will fold non-ASCII characters to approximate ASCII equivalents (e.g. <em>é</em> &gt;
 <em>e</em>, <em>ü</em> &gt; <em>u</em>) if <code class="docutils literal"><span class="pre">query</span></code> contains only ASCII characters. This behaviour
 can be turned off by passing <code class="docutils literal"><span class="pre">fold_diacritics=False</span></code> to
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>.</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To keep the library small, only a subset of European languages are
@@ -319,16 +315,15 @@ should be used for comprehensive support of non-European alphabets.</p>
 <span id="id2"></span><h3><a class="toc-backref" href="#id6">&#8220;Smart&#8221; punctuation</a><a class="headerlink" href="#smart-punctuation" title="Permalink to this headline">¶</a></h3>
 <p>The default diacritic folding only alters letters, not punctuation. If your
 workflow also works with text that contains so-called &#8220;smart&#8221; (i.e. curly)
-quotes or n- and m-dashes, you can use the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.dumbify_punctuation()</span></code>
+quotes or n- and m-dashes, you can use the <a class="reference internal" href="../api/index.html#workflow.Workflow.dumbify_punctuation" title="workflow.Workflow.dumbify_punctuation"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.dumbify_punctuation()</span></code></a>
 method to replace smart quotes and dashes with normal quotes and hyphens
 respectively.</p>
 </div>
 </div>
 <div class="section" id="matching-rules">
 <span id="id3"></span><h2><a class="toc-backref" href="#id7">Matching rules</a><a class="headerlink" href="#matching-rules" title="Permalink to this headline">¶</a></h2>
-<p>Here are the <code class="docutils literal"><span class="pre">MATCH_*</span></code> constants from <a class="reference internal" href="serialization.html#module-workflow" title="workflow"><code class="xref py py-mod docutils literal"><span class="pre">workflow</span></code></a> and their numeric values.</p>
-<p>For a detailed description of the rules see
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>.</p>
+<p>Here are the <code class="docutils literal"><span class="pre">MATCH_*</span></code> constants from <a class="reference internal" href="../api/index.html#module-workflow" title="workflow"><code class="xref py py-mod docutils literal"><span class="pre">workflow</span></code></a> and their numeric values.</p>
+<p>For a detailed description of the rules see <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="50%" />
@@ -389,7 +384,7 @@ respectively.</p>
 
 
 
-<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+<p class="blurb">A helper library for creating Alfred 2 & 3 workflows.</p>
 
 
 
@@ -403,7 +398,7 @@ respectively.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">

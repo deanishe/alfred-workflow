@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>API documentation &mdash; Alfred-Workflow 1.26.1 documentation</title>
+    <title>API documentation &mdash; Alfred-Workflow 1.27 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.26.1',
+        VERSION:     '1.27',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
     <link rel="next" title="Contributing" href="../contributing.html" />
     <link rel="prev" title="Encoded strings and Unicode" href="../guide/text-encoding.html" />
 
@@ -56,7 +56,7 @@
         <li class="right" >
           <a href="../guide/text-encoding.html" title="Encoded strings and Unicode"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -141,7 +141,7 @@ is the encoding Alfred uses.</li>
 See <a class="reference internal" href="#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> for more details.</li>
 <li><strong>capture_args</strong> (<code class="xref py py-class docutils literal"><span class="pre">Boolean</span></code>) &#8211; Capture and act on <code class="docutils literal"><span class="pre">workflow:*</span></code> arguments. See
 <a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span>Magic arguments</span></a> for details.</li>
-<li><strong>libraries</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> or <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a>) &#8211; sequence of paths to directories containing
+<li><strong>libraries</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) &#8211; sequence of paths to directories containing
 libraries. These paths will be prepended to <code class="docutils literal"><span class="pre">sys.path</span></code>.</li>
 <li><strong>help_url</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code> or <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; URL to webpage where a user can ask for help with
 the workflow, report bugs, etc. This could be the GitHub repo
@@ -1890,11 +1890,25 @@ with <code class="xref py py-attr docutils literal"><span class="pre">session_id
 
 <dl class="method">
 <dt id="workflow.Workflow3.clear_session_cache">
-<code class="descname">clear_session_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.clear_session_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove <em>all</em> session data from the cache.</p>
+<code class="descname">clear_session_cache</code><span class="sig-paren">(</span><em>current=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.clear_session_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove session data from the cache.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.25.</span></p>
 </div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.27.</span></p>
+</div>
+<p>By default, data belonging to the current session won&#8217;t be
+deleted. Set <code class="docutils literal"><span class="pre">current=True</span></code> to also clear current session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>current</strong> (<em>bool, optional</em>) &#8211; If <code class="docutils literal"><span class="pre">True</span></code>, also remove data for
+current session.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2921,7 +2935,7 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 
 
 
-<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+<p class="blurb">A helper library for creating Alfred 2 & 3 workflows.</p>
 
 
 
@@ -2935,7 +2949,7 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User Guide</a></li>

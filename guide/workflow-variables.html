@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow variables &mdash; Alfred-Workflow 1.26.1 documentation</title>
+    <title>Workflow variables &mdash; Alfred-Workflow 1.27 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.26.1',
+        VERSION:     '1.27',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.26.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Serialization of stored/cached data" href="serialization.html" />
     <link rel="prev" title="“Magic” arguments" href="magic-arguments.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="magic-arguments.html" title="“Magic” arguments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.26.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -83,7 +83,7 @@ actions, and if you use the wrong one, it won&#8217;t work.</p>
 <ul class="simple">
 <li>The <a class="reference internal" href="../api/index.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> class, which is for use in
 <strong>Run Script</strong> actions, and</li>
-<li>The <code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code> class provides an
+<li>The <a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> class provides an
 API for getting and setting workflow variables via <strong>Script Filter</strong>
 feedback.</li>
 </ul>
@@ -151,7 +151,7 @@ arguments on instantiation.</p>
 <h2>Setting variables in Script Filters<a class="headerlink" href="#setting-variables-in-script-filters" title="Permalink to this headline">¶</a></h2>
 <p>Variables can be set at the Workflow, Item or Modifier level using their
 respective <code class="docutils literal"><span class="pre">setvar(name,</span> <span class="pre">value)</span></code> methods.</p>
-<p>Variables set on the <code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code> object are
+<p>Variables set on the <a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object are
 &#8220;global&#8221;, as they are emitted as part of the top-level feedback object sent to
 Alfred. They are always passed to downstream workflow objects regardless of
 which item the user actions (and indeed, even if the user doesn&#8217;t action any
@@ -342,7 +342,7 @@ saving workflow variables.</p>
 
 
 
-<p class="blurb">A helper library for creating Alfred 2 workflows.</p>
+<p class="blurb">A helper library for creating Alfred 2 & 3 workflows.</p>
 
 
 
@@ -356,7 +356,7 @@ saving workflow variables.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">

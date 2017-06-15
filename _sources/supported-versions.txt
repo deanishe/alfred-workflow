@@ -2,7 +2,7 @@
 .. _supported-versions:
 
 ==================
-Supported software
+Supported versions
 ==================
 
 Alfred-Workflow supports all versions of Alfred 2 & 3 and all versions
@@ -22,15 +22,15 @@ Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
 own the `Powerpack`_ to use Alfred's workflow feature.
 
 All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-3 as of v3.2 are supported in the latest version of Alfred-Workflow.
+3 as of v3.3 are supported in the latest version of Alfred-Workflow.
 
-The :class:`~workflow.workflow.Workflow` class is compatible with both
-Alfred 2 and Alfred 3. The :class:`~workflow.workflow3.Workflow3` class
+The :class:`~workflow.Workflow` class is compatible with both
+Alfred 2 and Alfred 3. The :class:`~workflow.Workflow3` class
 is only compatible with Alfred 3.
 
-:class:`~workflow.workflow3.Workflow3` uses Alfred 3's JSON feedback
+:class:`~workflow.Workflow3` uses Alfred 3's JSON feedback
 format. It supports :ref:`workflow variables <workflow-variables>` and
-more advanced modifiers than :class:`~workflow.workflow.Workflow`/Alfred 2.
+more advanced modifiers than :class:`~workflow.Workflow`/Alfred 2.
 
 
 macOS versions
@@ -48,8 +48,8 @@ namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).
 Python versions
 ===============
 
-Alfred-Workflow only supports the system Pythons that come with macOS
-(i.e. ``/usr/bin/python``), which is 2.6 on 10.6/Snow Leopard and 2.7
+Alfred-Workflow only officially supports the system Pythons that come with
+macOS (i.e. ``/usr/bin/python``), which is 2.6 on 10.6/Snow Leopard and 2.7
 on later versions.
 
 .. important::
@@ -91,24 +91,28 @@ make sure they will run on Snow Leopard.
 Why no Python 3 support?
 ------------------------
 
-Alfred-Workflow is targeted at the system Python on macOS. It's goal is to
+Alfred-Workflow is targeted at the system Python on macOS. Its goal is to
 enable developers to build workflows that will "just work" for users on any
 vanilla installation of macOS since Snow Leopard.
 
 As such, it :ref:`strongly discourages developers <thirdparty>` from
-requiring users of their workflows to bugger about with their OSes in
+requiring users of their workflows to bugger about with their OS in
 order to get a workflow to work. This naturally includes requiring the
 installation of some non-default Python.
 
 Alfred-Workflow is also precisely the kind of project that's hard to make
-2- and 3-compatible. Python 2.6 support is a hard requirement.
-:mod:`workflow.web`, as an HTTP library, is all about working with strings
-of non-specific encoding, which Python 3
-`deliberately turned into a complete shit show`_ (though it's slowly
-getting better).
+2- and 3-compatible for a few reasons.
 
-I don't use Python 3 (when I can avoid it), and it's not part of macOS, so
-I consider the huge effort required to write 2.6- and 3.x-compatible code
+- Python 2.6 support is a hard requirement.
+- Alfred-Workflow's APIs are thin wrappers around I/O, and it is very much
+  a POSIX/command-line oriented library.
+- :mod:`workflow.web`, as an HTTP library, is all about working with strings
+  of non-specific encoding, which Python 3 `turned into a shit show`_
+  (though it's slowly getting better).
+
+Personally, I don't use Python 3 very much (Python 2 is a much better fit for
+command-line tools, which is what I usually write), and it's not part of macOS,
+so I consider the huge effort required to write 2.6- and 3.x-compatible code
 a waste of *my* time. If someone else wants to contribute Python 3
 support, it will be gratefully accepted.
 
@@ -121,12 +125,13 @@ in version 1 of Alfred-Workflow, which must continue to support Python 2.6
 and Alfred 2 (which doesn't get along with Python 3 [1]_).
 
 
-.. [1] Alfred 2 doesn't specify an encoding in the workflow environment, so
-    Python 3 goes all POSIX and assumes ASCII, not UTF-8, and therefore
+.. [1] Alfred uses UTF-8, but Alfred 2 doesn't specify an encoding in the
+    workflow environment. POSIX-compliant software, like Python, therefore
+    assumes ASCII. Python 2 can handle this misconfiguration, but Python 3
     dies in flames.
 
 .. _full list of new features in Python 2.7: https://docs.python.org/3/whatsnew/2.7.html
 .. _include argparse in your workflow: https://pypi.python.org/pypi/argparse
 .. _docopt: http://docopt.org/
 .. _Powerpack: https://buy.alfredapp.com/
-.. _deliberately turned into a complete shit show: http://lucumr.pocoo.org/2014/1/5/unicode-in-2-and-3/
+.. _turned into a shit show: http://lucumr.pocoo.org/2014/1/5/unicode-in-2-and-3/

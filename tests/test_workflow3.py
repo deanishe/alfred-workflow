@@ -200,6 +200,15 @@ def test_clear_session_cache(info3):
 
     wf.clear_session_cache()
 
+    # current session files kept
+    assert len(_sessfiles()) == 1
+    assert len(os.listdir(wf.cachedir)) > 0
+    assert wf.cached_data('data', session=True) == data
+    assert wf.cached_data('data', session=False) == data
+
+    # also clear data for current session
+    wf.clear_session_cache(True)
+
     # sessions files are gone, but other cache files are not
     assert len(_sessfiles()) == 0
     assert len(os.listdir(wf.cachedir)) > 0

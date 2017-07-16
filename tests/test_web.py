@@ -545,5 +545,6 @@ def test_gzipped_content(httpserver):
         content += chunk
     assert content == gifbytes
 
+
 if __name__ == '__main__':  # pragma: no cover
     pytest.main([__file__])

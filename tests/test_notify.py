@@ -8,11 +8,7 @@
 # Created on 2016-02-22
 #
 
-"""
-test_notify.py
-
-Unit tests for notify.py
-"""
+"""Unit tests for notifications."""
 
 from __future__ import print_function
 
@@ -24,6 +20,9 @@ import unittest
 import shutil
 import stat
 import tempfile
+
+import pytest
+
 from workflow import notify
 from workflow.workflow import Workflow
 
@@ -163,3 +162,7 @@ class NotifyTests(unittest.TestCase):
             with open(ICON_PATH, 'rb') as fp:
                 h2 = hashlib.md5(fp.read())
             self.assertEqual(h1.digest(), h2.digest())
+
+
+if __name__ == '__main__':  # pragma: no cover
+    pytest.main([__file__])

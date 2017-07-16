@@ -24,7 +24,7 @@ The two different mechanisms for setting workflow variables are:
 
 * The :class:`~workflow.workflow3.Variables` class, which is for use in
   **Run Script** actions, and
-* The :class:`~workflow.workflow3.Workflow3` class provides an
+* The :class:`~workflow.Workflow3` class provides an
   API for getting and setting workflow variables via **Script Filter**
   feedback.
 
@@ -80,7 +80,7 @@ Setting variables in Script Filters
 Variables can be set at the Workflow, Item or Modifier level using their
 respective ``setvar(name, value)`` methods.
 
-Variables set on the :class:`~workflow.workflow3.Workflow3` object are
+Variables set on the :class:`~workflow.Workflow3` object are
 "global", as they are emitted as part of the top-level feedback object sent to
 Alfred. They are always passed to downstream workflow objects regardless of
 which item the user actions (and indeed, even if the user doesn't action any

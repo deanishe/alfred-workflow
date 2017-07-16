@@ -1,15 +1,14 @@
 #!/usr/bin/env python
-# encoding:utf-8
+# encoding: utf-8
+#
+# Copyright (c) 2014 Dean Jackson <deanishe@deanishe.net>
+#
+# MIT Licence. See http://opensource.org/licenses/MIT
+#
+# Created on 2014-08-17
+#
 
-"""
-test_web_http_encoding.py
-
-Created by deanishe@deanishe.net on 2014-08-17.
-Copyright (c) 2014 deanishe@deanishe.net
-
-MIT Licence. See http://opensource.org/licenses/MIT
-
-"""
+"""HTTP unit tests."""
 
 from __future__ import print_function
 

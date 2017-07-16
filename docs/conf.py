@@ -152,7 +152,7 @@ if not on_rtd:
         'gittip_user': 'deanishe',
         'logo_name': True,
         'logo_text_align': 'center',
-        'description': "A helper library for creating Alfred 2 workflows.",
+        'description': "A helper library for creating Alfred 2 & 3 workflows.",
     }
 
 # Theme options are theme-specific and customize the look and feel of a theme

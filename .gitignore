@@ -14,3 +14,7 @@ temp_*.py
 /coverage_report
 .tags
 .tags1
+
+.python-version
+.autoenv.zsh
+.autoenv_leave.zsh

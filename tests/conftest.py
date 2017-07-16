@@ -37,12 +37,16 @@ def tempdir():
 @pytest.fixture(scope='module')
 def info2():
     """Ensure ``info.plist`` exists in the working directory."""
+    os.environ['alfred_version'] = '2.4'
     with InfoPlist(INFO_PLIST_TEST):
         yield
+    del os.environ['alfred_version']
 
 
 @pytest.fixture(scope='module')
 def info3():
     """Ensure ``info.plist`` exists in the working directory."""
+    os.environ['alfred_version'] = '3.2'
     with InfoPlist(INFO_PLIST_TEST3):
         yield
+    del os.environ['alfred_version']

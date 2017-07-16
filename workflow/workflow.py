@@ -10,7 +10,7 @@
 """The :class:`Workflow` object is the main interface to this library.
 
 :class:`Workflow` is targeted at Alfred 2. Use
-:class:`~workflow.workflow3.Workflow3` if you want to use Alfred 3's new
+:class:`~workflow.Workflow3` if you want to use Alfred 3's new
 features, such as :ref:`workflow variables <workflow-variables>` or
 more powerful modifiers.
 

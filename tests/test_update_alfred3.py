@@ -9,11 +9,7 @@
 # Created on 2014-08-16
 #
 
-# TODO: Offline tests using pytest_localserver
-
-"""
-test_update_alfred3.py
-"""
+"""Unit tests for Alfred 3 updates."""
 
 from __future__ import print_function
 

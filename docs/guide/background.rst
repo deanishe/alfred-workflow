@@ -5,7 +5,7 @@
 Background processes
 ====================
 
-.. module:: workflow.background
+.. currentmodule:: workflow.background
 
 Many workflows provide a convenient interface to applications and/or web services.
 

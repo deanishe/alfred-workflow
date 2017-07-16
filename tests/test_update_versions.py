@@ -13,10 +13,14 @@
 from __future__ import print_function
 
 import unittest
+
+import pytest
+
 from workflow.update import Version
 
 
 class VersionTests(unittest.TestCase):
+    """Unit tests for Version."""
 
     def setUp(self):
         self.invalid_versions = [
@@ -126,4 +130,4 @@ class VersionTests(unittest.TestCase):
 
 
 if __name__ == '__main__':  # pragma: no cover
-    unittest.main()
+    pytest.main([__file__])

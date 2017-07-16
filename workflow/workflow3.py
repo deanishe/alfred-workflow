@@ -7,11 +7,10 @@
 # Created on 2016-06-25
 #
 
-"""
-:class:`Workflow3` is an Alfred 3-only version of
-:class:`~workflow.Workflow` that supports Alfred 3's new features.
+"""An Alfred 3-only version of :class:`~workflow.Workflow`.
 
-It supports setting :ref:`workflow-variables` and
+:class:`~workflow.Workflow3` supports Alfred 3's new features, such as
+setting :ref:`workflow-variables` and
 :class:`the more advanced modifiers <Modifier>` supported by Alfred 3.
 
 In order for the feedback mechanism to work correctly, it's important
@@ -506,9 +505,14 @@ class Workflow3(Workflow):
         self._items.append(item)
         return item
 
+    @property
+    def _session_prefix(self):
+        """Filename prefix for current session."""
+        return '_wfsess-{0}-'.format(self.session_id)
+
     def _mk_session_name(self, name):
         """New cache name/key based on session ID."""
-        return '_wfsess-{0}-{1}'.format(self.session_id, name)
+        return '{0}{1}'.format(self._session_prefix, name)
 
     def cache_data(self, name, data, session=False):
         """Cache API with session-scoped expiry.
@@ -560,13 +564,24 @@ class Workflow3(Workflow):
 
         return super(Workflow3, self).cached_data(name, data_func, max_age)
 
-    def clear_session_cache(self):
-        """Remove *all* session data from the cache.
+    def clear_session_cache(self, current=False):
+        """Remove session data from the cache.
 
         .. versionadded:: 1.25
+        .. versionchanged:: 1.27
+
+        By default, data belonging to the current session won't be
+        deleted. Set ``current=True`` to also clear current session.
+
+        Args:
+            current (bool, optional): If ``True``, also remove data for
+                current session.
         """
         def _is_session_file(filename):
-            return filename.startswith('_wfsess-')
+            if current:
+                return filename.startswith('_wfsess-')
+            return filename.startswith('_wfsess-') \
+                and not filename.startswith(self._session_prefix)
 
         self.clear_cache(_is_session_file)
 

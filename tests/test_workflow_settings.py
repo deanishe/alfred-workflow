@@ -19,7 +19,7 @@ import unittest
 
 from workflow.workflow import Settings
 
-from .util import DEFAULT_SETTINGS
+from tests.util import DEFAULT_SETTINGS
 
 
 class SettingsTests(unittest.TestCase):
@@ -96,5 +96,5 @@ class SettingsTests(unittest.TestCase):
         self.assertTrue('another string' in s2['mutable1'])
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     unittest.main()

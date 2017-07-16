@@ -9,11 +9,7 @@
 # Created on 2014-08-16
 #
 
-# TODO: Offline tests using pytest_localserver
-
-"""
-test_update.py
-"""
+"""Unit tests for update mechanism."""
 
 from __future__ import print_function
 
@@ -24,8 +20,7 @@ import pytest
 import pytest_localserver
 
 from util import WorkflowMock, create_info_plist, delete_info_plist
-from workflow import Workflow, update
-from workflow import web
+from workflow import Workflow, update, web
 
 # Where test data is
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')

@@ -5,32 +5,31 @@
 Searching/filtering data
 ========================
 
+.. currentmodule:: workflow
+
 .. contents::
    :local:
 
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` provides an
-Alfred-like search algorithm for filtering your workflow's data. By default,
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` will try to match
+:meth:`Workflow.filter` provides an Alfred-like search algorithm for filtering
+your workflow's data. By default, :meth:`Workflow.filter` will try to match
 your search query via CamelCase, substring, initials and all characters,
 applying different weightings to the various kind of matches (see
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` for a detailed
-description of the algorithm and match flags).
+:meth:`Workflow.filter` for a detailed description of the algorithm and match
+flags).
 
 .. warning::
 
-    Check ``query`` before calling
-    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`. ``query``
+    Check ``query`` before calling :meth:`Workflow.filter`. ``query``
     may not be empty or contain only whitespace. This will raise a
-    :class:`ValueError`.
+    :exc:`ValueError`.
 
-    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` is not a
-    "little sister" of a Script Filter and won't return a list of all results
-    if ``query`` is empty. ``query`` is *not* an optional argument and trying
-    to filter data against a meaningless query is treated as an error.
+    :meth:`Workflow.filter` is not a "little sister" of a Script Filter and
+    won't return a list of all results if ``query`` is empty.
+    ``query`` is *not* an optional argument and trying to filter data against
+    a meaningless query is treated as an error.
 
-    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` won't
-    complain if ``items`` is an empty list, but it *will* raise a
-    :class:`ValueError` if ``query`` is empty.
+    :meth:`Workflow.filter` won't complain if ``items`` is an empty list,
+    but it *will* raise a :exc:`ValueError` if ``query`` is empty.
 
 Best practice is to do the following:
 
@@ -71,7 +70,7 @@ dealing with unset/empty variables.
 
 .. note::
 
-    By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
+    By default, :meth:`Workflow.filter`
     will match and return anything that contains all the characters in
     ``query`` in the same order, regardless of case. Not only can this lead to
     unacceptable performance when working with thousands of items, but it's
@@ -79,10 +78,9 @@ dealing with unset/empty variables.
 
     See :ref:`restricting-results` for info on how to do that.
 
-To use :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`, pass it
-a query, a list of items to filter and sort, and if your list contains items
-other than strings, a ``key`` function that generates a string search key for
-each item:
+To use :meth:`Workflow.filter`, pass it a query, a list of items to filter and
+sort, and if your list contains items other than strings, a ``key`` function
+that generates a string search key for each item:
 
 .. code-block:: python
     :linenos:
@@ -153,13 +151,13 @@ produces::
       64),
      ({'author': 'Sam Butterkeks', 'title': 'The horrors of Tuesdays'}, 3.125, 64)]
 
-(``64`` is the rule that matched, :const:`~workflow.workflow.MATCH_ALLCHARS`,
+(``64`` is the rule that matched, :const:`~workflow.MATCH_ALLCHARS`,
 which matches if all the characters in ``query`` appear in order in the search
 key, regardless of case).
 
 .. tip::
 
-    ``rules`` in :meth:`~workflow.workflow.Workflow.filter` results are
+    ``rules`` in :meth:`~Workflow.filter` results are
     returned as integers. To see the name of the corresponding rule, see
     :ref:`matching-rules`.
 
@@ -174,7 +172,7 @@ would want to match ``bot``, we get::
 instead of ``title author``.)
 
 So in all likelihood, you'll want to pass a ``min_score`` argument to
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`:
+:meth:`Workflow.filter`:
 
 .. code-block:: python
 
@@ -207,7 +205,7 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 
     ``MATCH_ALLCHARS`` is particularly slow and provides the
     worst matches. You should consider excluding it, especially if you're calling
-    :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>` with more than a
+    :meth:`Workflow.filter` with more than a
     few hundred items or expect multi-word queries.
 
 
@@ -216,11 +214,11 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 Diacritic folding
 =================
 
-By default, :meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`
+By default, :meth:`Workflow.filter`
 will fold non-ASCII characters to approximate ASCII equivalents (e.g. *é* >
 *e*, *ü* > *u*) if ``query`` contains only ASCII characters. This behaviour
 can be turned off by passing ``fold_diacritics=False`` to
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
+:meth:`Workflow.filter`.
 
 .. note::
 
@@ -239,7 +237,7 @@ Users may override a Workflow's default settings via ``workflow:folding…``
 
 The default diacritic folding only alters letters, not punctuation. If your
 workflow also works with text that contains so-called "smart" (i.e. curly)
-quotes or n- and m-dashes, you can use the :meth:`Workflow.dumbify_punctuation() <workflow.workflow.Workflow.dumbify_punctuation>`
+quotes or n- and m-dashes, you can use the :meth:`Workflow.dumbify_punctuation`
 method to replace smart quotes and dashes with normal quotes and hyphens
 respectively.
 
@@ -251,8 +249,7 @@ Matching rules
 
 Here are the ``MATCH_*`` constants from :mod:`workflow` and their numeric values.
 
-For a detailed description of the rules see
-:meth:`Workflow.filter() <workflow.workflow.Workflow.filter>`.
+For a detailed description of the rules see :meth:`Workflow.filter`.
 
 
 ============================= =============================

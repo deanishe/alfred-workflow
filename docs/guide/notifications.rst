@@ -34,5 +34,5 @@ This is the full API:
 .. autofunction:: workflow.notify.notify
     :noindex:
 
-See the :ref:`API documentation <api-notifications>` for details of the other
+See the :ref:`API documentation <api-notify>` for details of the other
 functions.

@@ -11,7 +11,6 @@
 from __future__ import print_function
 
 from contextlib import contextmanager
-import time
 
 import pytest
 import pytest_localserver
@@ -32,6 +31,7 @@ UPDATE_SETTINGS = {
 
 @contextmanager
 def dummy(*args, **kwargs):
+    """Do-nothing context manager."""
     yield None
 
 
@@ -56,7 +56,6 @@ def ctx(args=None, update_settings=None, clear=True):
 
 def test_auto_update():
     """Auto-update toggle active"""
-
     def fake(wf):
         return
 
@@ -76,7 +75,6 @@ def test_auto_update():
 
 def test_update(httpserver):
     """Auto-update installs update"""
-
     def fake(wf):
         return
 
@@ -104,7 +102,6 @@ def test_update(httpserver):
 
 def test_update_with_prereleases(httpserver):
     """Auto-update installs update with pre-releases enabled"""
-
     def fake(wf):
         return
 
@@ -146,7 +143,6 @@ def test_update_available(httpserver):
 
 def test_update_turned_off():
     """Auto-update turned off"""
-
     # Check update isn't performed if user has turned off
     # auto-update
 
@@ -158,5 +154,5 @@ def test_update_turned_off():
         assert wf.check_update() is None
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     pytest.main([__file__])

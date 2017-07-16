@@ -56,9 +56,13 @@ Advanced modifiers
 ^^^^^^^^^^^^^^^^^^
 
 .. versionadded:: 1.18
+.. versionchanged:: 1.27
 
 You can specify alternate ``arg``, ``subtitle`` and variables if a
 Script Filter result is actioned while holding down a modifier key.
+
+As of Alfred-Workflow version 1.27 and Alfred version 3.4.1, you can also
+specify an alternative icon for a modifier.
 
 Add a modifier to an item using :meth:`Item3.add_modifier`, and configure
 the :class:`Modifier` via its attributes and :meth:`~Modifier.setvar`

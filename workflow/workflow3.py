@@ -110,10 +110,11 @@ class Variables(dict):
 
 
 class Modifier(object):
-    """Modify ``Item3`` arg and variables when modifier keys are pressed.
+    """Modify :class:`Item3` arg/icon/variables when modifier key is pressed.
 
-    You probably don't want to use this class directly, but rather
-    use :meth:`Item3.add_modifier()` to add modifiers to results.
+    Don't use this class directly (as it won't be associated with any
+    :class:`Item3`), but rather use :meth:`Item3.add_modifier()`
+    to add modifiers to results.
 
     >>> it = wf.add_item('Title', 'Subtitle', valid=True)
     >>> it.setvar('name', 'default')
@@ -125,31 +126,36 @@ class Modifier(object):
 
     Args:
         key (unicode): Modifier key, e.g. ``"cmd"``, ``"alt"`` etc.
-            Valid modifiers (i.e. values for ``key``) are:
-            ``cmd``, ``alt``, ``shift``, ``ctrl``, ``fn``.
         subtitle (unicode, optional): Override default subtitle.
         arg (unicode, optional): Argument to pass for this modifier.
         valid (bool, optional): Override item's validity.
+        icon (unicode, optional): Filepath/UTI of icon to use
+        icontype (unicode, optional): Type of icon. See
+            :meth:`Workflow.add_item() <workflow.Workflow.add_item>`
+            for valid values.
 
     Attributes:
         arg (unicode): Arg to pass to following action.
-        config (dict): Description
+        config (dict): Configuration for a downstream element, such as
+            a File Filter.
         icon (unicode): Filepath/UTI of icon.
         icontype (unicode): Type of icon. See
-            :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+            :meth:`Workflow.add_item() <workflow.Workflow.add_item>`
             for valid values.
         key (unicode): Modifier key (see above).
         subtitle (unicode): Override item subtitle.
         valid (bool): Override item validity.
         variables (dict): Workflow variables set by this modifier.
+
     """
 
     def __init__(self, key, subtitle=None, arg=None, valid=None, icon=None,
                  icontype=None):
         """Create a new :class:`Modifier`.
 
-        You probably don't want to use this class directly, but rather
-        use :meth:`Item3.add_modifier()` to add modifiers to results.
+        Don't use this class directly (as it won't be associated with any
+        :class:`Item3`), but rather use :meth:`Item3.add_modifier()`
+        to add modifiers to results.
 
         Args:
             key (unicode): Modifier key, e.g. ``"cmd"``, ``"alt"`` etc.
@@ -158,11 +164,10 @@ class Modifier(object):
             valid (bool, optional): Override item's validity.
             icon (unicode, optional): Filepath/UTI of icon to use
             icontype (unicode, optional): Type of icon. See
-                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                :meth:`Workflow.add_item() <workflow.Workflow.add_item>`
                 for valid values.
 
         """
-
         self.key = key
         self.subtitle = subtitle
         self.arg = arg
@@ -249,13 +254,10 @@ class Item3(object):
 
     Generates Alfred-compliant JSON for a single item.
 
-    You probably shouldn't use this class directly, but via
+    Don't use this class directly (as it then won't be associated with
+    any :class:`Workflow3` object), but rather use
     :meth:`Workflow3.add_item() <workflow.Workflow3.add_item>`.
     See :meth:`~workflow.Workflow3.add_item` for details of arguments.
-
-    Arguments are the same as for
-    :meth:`Workflow.add_item() <workflow.Workflow.add_item>`, except
-    ``subtitle_modifiers`` is not supported.
 
     """
 
@@ -265,7 +267,7 @@ class Item3(object):
         """Create a new :class:`Item3` object.
 
         Use same arguments as for
-        :class:`Workflow.Item <workflow.workflow.Workflow.Item>`.
+        :class:`Workflow.Item <workflow.Workflow.Item>`.
 
         Argument ``subtitle_modifiers`` is not supported.
 
@@ -322,7 +324,7 @@ class Item3(object):
             valid (bool, optional): Override item validity.
             icon (unicode, optional): Filepath/UTI of icon.
             icontype (unicode, optional): Type of icon.  See
-                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                :meth:`Workflow.add_item() <workflow.Workflow.add_item>`
                 for valid values.
 
         Returns:
@@ -457,7 +459,7 @@ class Workflow3(Workflow):
     def __init__(self, **kwargs):
         """Create a new :class:`Workflow3` object.
 
-        See :class:`~workflow.workflow.Workflow` for documentation.
+        See :class:`~workflow.Workflow` for documentation.
 
         """
         Workflow.__init__(self, **kwargs)
@@ -550,8 +552,8 @@ class Workflow3(Workflow):
                  type=None, largetext=None, copytext=None, quicklookurl=None):
         """Add an item to be output to Alfred.
 
-        See :meth:`~workflow.workflow.Workflow.add_item` for the main
-        documentation.
+        See :meth:`Workflow.add_item() <workflow.Workflow.add_item>` for the
+        main documentation.
 
         The key difference is that this method does not support the
         ``modifier_subtitles`` argument. Use the :meth:`~Item3.add_modifier()`
@@ -588,11 +590,11 @@ class Workflow3(Workflow):
             session (bool, optional): Whether to scope the cache
                 to the current session.
 
-        ``name`` and ``data`` are as for the
-        :meth:`~workflow.workflow.Workflow.cache_data` on
-        :class:`~workflow.workflow.Workflow`.
+        ``name`` and ``data`` are the same as for the
+        :meth:`~workflow.Workflow.cache_data` method on
+        :class:`~workflow.Workflow`.
 
-        If ``session`` is ``True``, the ``name`` variable is prefixed
+        If ``session`` is ``True``, then ``name`` is prefixed
         with :attr:`session_id`.
 
         """
@@ -614,11 +616,11 @@ class Workflow3(Workflow):
             session (bool, optional): Whether to scope the cache
                 to the current session.
 
-        ``name``, ``data_func`` and ``max_age`` are as for the
-        :meth:`~workflow.workflow.Workflow.cached_data` on
-        :class:`~workflow.workflow.Workflow`.
+        ``name``, ``data_func`` and ``max_age`` are the same as for the
+        :meth:`~workflow.Workflow.cached_data` method on
+        :class:`~workflow.Workflow`.
 
-        If ``session`` is ``True``, the ``name`` variable is prefixed
+        If ``session`` is ``True``, then ``name`` is prefixed
         with :attr:`session_id`.
 
         """

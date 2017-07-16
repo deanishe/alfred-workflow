@@ -122,7 +122,8 @@ class Modifier(object):
         config (dict): Description
         icon (unicode): Filepath/UTI of icon.
         icontype (unicode): Type of icon. See
-            :meth:`Workflow.add_item` for valid values.
+            :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+            for valid values.
         key (unicode): Modifier key (see above).
         subtitle (unicode): Override item subtitle.
         valid (bool): Override item validity.
@@ -143,7 +144,8 @@ class Modifier(object):
             valid (bool, optional): Override item's validity.
             icon (unicode, optional): Filepath/UTI of icon to use
             icontype (unicode, optional): Type of icon. See
-                :meth:`Workflow.add_item` for valid values.
+                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                for valid values.
 
         """
         self.key = key
@@ -241,7 +243,8 @@ class Item3(object):
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None, largetext=None, copytext=None, quicklookurl=None):
-        """Use same arguments as for :meth:`Workflow.add_item`.
+        """Use same arguments as for
+        :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`.
 
         Argument ``subtitle_modifiers`` is not supported.
 
@@ -298,7 +301,8 @@ class Item3(object):
             valid (bool, optional): Override item validity.
             icon (unicode, optional): Filepath/UTI of icon.
             icontype (unicode, optional): Type of icon.  See
-                :meth:`Workflow.add_item` for valid values.
+                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                for valid values.
 
         Returns:
             Modifier: Configured :class:`Modifier`.

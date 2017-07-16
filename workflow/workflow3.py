@@ -89,6 +89,7 @@ class Variables(dict):
 
         Returns:
             unicode: ``alfredworkflow`` JSON object
+
         """
         if not self and not self.config:
             if self.arg:
@@ -103,6 +104,7 @@ class Variables(dict):
 
         Returns:
             str: UTF-8 encoded ``alfredworkflow`` JSON object
+
         """
         return unicode(self).encode('utf-8')
 
@@ -131,18 +133,42 @@ class Modifier(object):
 
     Attributes:
         arg (unicode): Arg to pass to following action.
+        config (dict): Description
+        icon (unicode): Filepath/UTI of icon.
+        icontype (unicode): Type of icon. See
+            :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+            for valid values.
         key (unicode): Modifier key (see above).
         subtitle (unicode): Override item subtitle.
         valid (bool): Override item validity.
         variables (dict): Workflow variables set by this modifier.
     """
 
-    def __init__(self, key, subtitle=None, arg=None, valid=None):
-        """Create a new :class:`Modifier`."""
+    def __init__(self, key, subtitle=None, arg=None, valid=None, icon=None,
+                 icontype=None):
+        """Create a new :class:`Modifier`.
+
+        You probably don't want to use this class directly, but rather
+        use :meth:`Item3.add_modifier()` to add modifiers to results.
+
+        Args:
+            key (unicode): Modifier key, e.g. ``"cmd"``, ``"alt"`` etc.
+            subtitle (unicode, optional): Override default subtitle.
+            arg (unicode, optional): Argument to pass for this modifier.
+            valid (bool, optional): Override item's validity.
+            icon (unicode, optional): Filepath/UTI of icon to use
+            icontype (unicode, optional): Type of icon. See
+                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                for valid values.
+
+        """
+
         self.key = key
         self.subtitle = subtitle
         self.arg = arg
         self.valid = valid
+        self.icon = icon
+        self.icontype = icontype
 
         self.config = {}
         self.variables = {}
@@ -153,6 +179,7 @@ class Modifier(object):
         Args:
             name (unicode): Name of variable.
             value (unicode): Value of variable.
+
         """
         self.variables[name] = value
 
@@ -165,6 +192,7 @@ class Modifier(object):
 
         Returns:
             unicode or ``default``: Value of variable if set or ``default``.
+
         """
         return self.variables.get(name, default)
 
@@ -174,6 +202,7 @@ class Modifier(object):
 
         Returns:
             dict: Modifier for serializing to JSON.
+
         """
         o = {}
 
@@ -186,21 +215,33 @@ class Modifier(object):
         if self.valid is not None:
             o['valid'] = self.valid
 
-        # Variables and config
-        if self.variables or self.config:
-            d = {}
-            if self.variables:
-                d['variables'] = self.variables
+        if self.variables:
+            o['variables'] = self.variables
 
-            if self.config:
-                d['config'] = self.config
+        if self.config:
+            o['config'] = self.config
 
-            if self.arg is not None:
-                d['arg'] = self.arg
-
-            o['arg'] = json.dumps({'alfredworkflow': d})
+        icon = self._icon()
+        if icon:
+            o['icon'] = icon
 
         return o
+
+    def _icon(self):
+        """Return `icon` object for item.
+
+        Returns:
+            dict: Mapping for item `icon` (may be empty).
+
+        """
+        icon = {}
+        if self.icon is not None:
+            icon['path'] = self.icon
+
+        if self.icontype is not None:
+            icon['type'] = self.icontype
+
+        return icon
 
 
 class Item3(object):
@@ -216,14 +257,19 @@ class Item3(object):
     :meth:`Workflow.add_item() <workflow.Workflow.add_item>`, except
     ``subtitle_modifiers`` is not supported.
 
-    Use :meth:`Item3.add_modifier` instead.
-
     """
 
     def __init__(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None,
                  type=None, largetext=None, copytext=None, quicklookurl=None):
-        """Create a new :class:`Item3` object."""
+        """Create a new :class:`Item3` object.
+
+        Use same arguments as for
+        :class:`Workflow.Item <workflow.workflow.Workflow.Item>`.
+
+        Argument ``subtitle_modifiers`` is not supported.
+
+        """
         self.title = title
         self.subtitle = subtitle
         self.arg = arg
@@ -261,10 +307,12 @@ class Item3(object):
 
         Returns:
             unicode or ``default``: Value of variable if set or ``default``.
+
         """
         return self.variables.get(name, default)
 
-    def add_modifier(self, key, subtitle=None, arg=None, valid=None):
+    def add_modifier(self, key, subtitle=None, arg=None, valid=None, icon=None,
+                     icontype=None):
         """Add alternative values for a modifier key.
 
         Args:
@@ -272,11 +320,16 @@ class Item3(object):
             subtitle (unicode, optional): Override item subtitle.
             arg (unicode, optional): Input for following action.
             valid (bool, optional): Override item validity.
+            icon (unicode, optional): Filepath/UTI of icon.
+            icontype (unicode, optional): Type of icon.  See
+                :meth:`Workflow.add_item() <workflow.workflow.Workflow.add_item>`
+                for valid values.
 
         Returns:
             Modifier: Configured :class:`Modifier`.
+
         """
-        mod = Modifier(key, subtitle, arg, valid)
+        mod = Modifier(key, subtitle, arg, valid, icon, icontype)
 
         for k in self.variables:
             mod.setvar(k, self.variables[k])
@@ -291,22 +344,18 @@ class Item3(object):
 
         Returns:
             dict: Data suitable for Alfred 3 feedback.
+
         """
         # Required values
-        o = {'title': self.title,
-             'subtitle': self.subtitle,
-             'valid': self.valid}
-
-        icon = {}
+        o = {
+            'title': self.title,
+            'subtitle': self.subtitle,
+            'valid': self.valid,
+        }
 
         # Optional values
-
-        # arg & variables
-        v = Variables(self.arg, **self.variables)
-        v.config = self.config
-        arg = unicode(v)
-        if arg:
-            o['arg'] = arg
+        if self.arg is not None:
+            o['arg'] = self.arg
 
         if self.autocomplete is not None:
             o['autocomplete'] = self.autocomplete
@@ -319,6 +368,12 @@ class Item3(object):
 
         if self.quicklookurl is not None:
             o['quicklookurl'] = self.quicklookurl
+
+        if self.variables:
+            o['variables'] = self.variables
+
+        if self.config:
+            o['config'] = self.config
 
         # Largetype and copytext
         text = self._text()
@@ -341,6 +396,7 @@ class Item3(object):
 
         Returns:
             dict: Mapping for item `icon` (may be empty).
+
         """
         icon = {}
         if self.icon is not None:
@@ -356,6 +412,7 @@ class Item3(object):
 
         Returns:
             dict: `text` mapping (may be empty)
+
         """
         text = {}
         if self.largetext is not None:
@@ -371,6 +428,7 @@ class Item3(object):
 
         Returns:
             dict: Modifier mapping or `None`.
+
         """
         if self.modifiers:
             mods = {}
@@ -391,6 +449,7 @@ class Workflow3(Workflow):
     Attributes:
         item_class (class): Class used to generate feedback items.
         variables (dict): Top level workflow variables.
+
     """
 
     item_class = Item3
@@ -399,6 +458,7 @@ class Workflow3(Workflow):
         """Create a new :class:`Workflow3` object.
 
         See :class:`~workflow.workflow.Workflow` for documentation.
+
         """
         Workflow.__init__(self, **kwargs)
         self.variables = {}
@@ -468,6 +528,7 @@ class Workflow3(Workflow):
         Args:
             name (unicode): Name of variable.
             value (unicode): Value of variable.
+
         """
         self.variables[name] = value
 
@@ -480,6 +541,7 @@ class Workflow3(Workflow):
 
         Returns:
             unicode or ``default``: Value of variable if set or ``default``.
+
         """
         return self.variables.get(name, default)
 
@@ -497,6 +559,7 @@ class Workflow3(Workflow):
 
         Returns:
             Item3: Alfred feedback item.
+
         """
         item = self.item_class(title, subtitle, arg,
                                autocomplete, valid, uid, icon, icontype, type,
@@ -576,6 +639,7 @@ class Workflow3(Workflow):
         Args:
             current (bool, optional): If ``True``, also remove data for
                 current session.
+
         """
         def _is_session_file(filename):
             if current:
@@ -591,6 +655,7 @@ class Workflow3(Workflow):
 
         Returns:
             dict: Data suitable for Alfred 3 feedback.
+
         """
         items = []
         for item in self._items:

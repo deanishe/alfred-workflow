@@ -113,11 +113,14 @@ def test_arg_variables(info3):
     it = wf.add_item('Title')
     it.setvar('key1', 'value1')
     o = it.obj
-    o2 = json.loads(o['arg'])
-    assert 'alfredworkflow' in o2
-    r = o2['alfredworkflow']
-    assert r['variables']['key1'] == 'value1'
-    assert 'config' not in r
+    assert 'variables' in o
+    assert 'config' not in o
+    assert o['variables']['key1'] == 'value1'
+    # o2 = json.loads(o['arg'])
+    # assert 'alfredworkflow' in o2
+    # r = o2['alfredworkflow']
+    # assert r['variables']['key1'] == 'value1'
+    # assert 'config' not in r
 
 
 def test_feedback_variables(info3):
@@ -241,10 +244,30 @@ def test_modifiers(info3):
     assert m['valid'] is True
     assert m['subtitle'] == 'Subtitle2'
 
-    r = json.loads(m['arg'])['alfredworkflow']
-    assert r['arg'] == 'value2'
-    assert r['variables']['prevar'] == 'preval'
-    assert r['variables']['modvar'] == 'hello'
+    assert m['arg'] == 'value2'
+    assert m['variables']['prevar'] == 'preval'
+    assert m['variables']['modvar'] == 'hello'
+
+
+def test_modifier_icon(info3):
+    """Item3: Modifier icon."""
+    wf = Workflow3()
+    it = wf.add_item('Title', 'Subtitle')
+    mod = it.add_modifier('cmd', subtitle='Subtitle2',
+                          icon='icon.png')
+    o = mod.obj
+    assert 'icon' in o
+    assert o['icon'] == {'path': 'icon.png'}
+
+    mod = it.add_modifier('cmd', subtitle='Subtitle2',
+                          icon='/Applications/Safari.app',
+                          icontype='fileicon')
+    o = mod.obj
+    assert 'icon' in o
+    assert o['icon'] == {
+        'path': '/Applications/Safari.app',
+        'type': 'fileicon',
+    }
 
 
 def test_item_config(info3):
@@ -257,18 +280,19 @@ def test_item_config(info3):
     m.config['var1'] = 'val2'
 
     o = it.obj
-    r = json.loads(o['arg'])['alfredworkflow']
+    # r = json.loads(o['arg'])['alfredworkflow']
 
-    assert 'config' in r
-    assert set(r['config'].keys()) == set(['var1'])
-    assert r['config']['var1'] == 'val1'
+    assert 'config' in o
+    assert set(o['config'].keys()) == set(['var1'])
+    assert o['config']['var1'] == 'val1'
 
     assert 'mods' in o
     assert 'cmd' in o['mods']
-    r = json.loads(o['mods']['cmd']['arg'])['alfredworkflow']
-    assert 'config' in r
+    # r = json.loads(o['mods']['cmd']['arg'])['alfredworkflow']
+    assert 'config' in o['mods']['cmd']
 
-    c = r['config']
+    o2 = m.obj
+    c = o2['config']
     assert c['var1'] == 'val2'
 
 
@@ -359,7 +383,7 @@ def test_variables_unicode():
     v = Variables(arg=u'fübar', englisch='englisch')
     v['französisch'] = u'französisch'
     v.config['über'] = 'über'
-    assert v.obj == {
+    d = {
         'alfredworkflow':
             {
                 'arg': u'fübar',
@@ -370,3 +394,8 @@ def test_variables_unicode():
                 'config': {u'über': u'über'}
             }
     }
+    assert v.obj == d
+
+    # Round-trip to JSON and back
+    d2 = json.loads(unicode(v))
+    assert d2 == d

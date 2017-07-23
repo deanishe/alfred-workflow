@@ -5,3 +5,4 @@ pytest-cov==2.4.0
 pytest-httpbin==0.2.3
 pytest-localserver==0.3.7
 tox==2.7.0
+twine==1.9.1

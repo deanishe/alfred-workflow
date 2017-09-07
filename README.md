@@ -1,5 +1,5 @@
 
-<img src="./icon.png" width="128" height="128">
+<img src="./icon.png" width="200" height="200">
 
 Alfred-Workflow
 ===============
@@ -26,14 +26,14 @@ Features
 - Super-simple data caching
 - Fuzzy, Alfred-like search/filtering with diacritic folding
 - Keychain support for secure storage of passwords, API keys etc.
-- Simple generation of Alfred feedback (XML output)
+- Simple generation of Alfred feedback (JSON/XML output)
 - Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests][requests]-like interface
 - Pre-configured logging
 - Painlessly add directories to `sys.path`
 - Easily launch background tasks (daemons) to keep your workflow responsive
-- Check for new versions and update workflows hosted on GitHub.
-- Post notifications via Notification Center.
+- Check for new versions and update workflows hosted on GitHub
+- Post notifications via Notification Center
 
 
 ### Alfred 3-only features ###

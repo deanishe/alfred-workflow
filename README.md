@@ -12,28 +12,27 @@ A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred]
 
 Supports OS X 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
 
-Alfred-Workflow takes the grunt work out of writing a workflow.
+Alfred-Workflow takes the grunt work out of writing a workflow by giving you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
 
-It gives you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
-
+The only library, in any language, that *always* supports all current Alfred features.
 
 Features
 --------
 
-- Catches and logs workflow errors for easier development and support
-- "Magic" arguments to help development/debugging
-- Auto-saves settings
+- Auto-saved settings API for your workflow
 - Super-simple data caching
-- Fuzzy, Alfred-like search/filtering with diacritic folding
+- Fuzzy filtering (with smart diacritic folding)
 - Keychain support for secure storage of passwords, API keys etc.
 - Simple generation of Alfred feedback (JSON/XML output)
 - Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests][requests]-like interface
+- Catches and logs workflow errors for easier development and support
+- "Magic" arguments to help development/debugging
 - Pre-configured logging
-- Painlessly add directories to `sys.path`
 - Easily launch background tasks (daemons) to keep your workflow responsive
-- Check for new versions and update workflows hosted on GitHub
+- Automatically check for workflow updates via GitHub releases
 - Post notifications via Notification Center
+- Painlessly add directories to `sys.path`
 
 
 ### Alfred 3-only features ###

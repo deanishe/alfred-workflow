@@ -1,6 +1,6 @@
 
-![](./icon.png "Alfred-Workflow icon") Alfred-Workflow
-======================================================
+<img src="./icon.png" width="64" height="64"> Alfred-Workflow
+=============================================================
 
 A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred].
 

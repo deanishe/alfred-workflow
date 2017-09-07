@@ -1,6 +1,6 @@
 
-Alfred-Workflow
-===============
+![](./icon.png "Alfred-Workflow icon") Alfred-Workflow
+======================================================
 
 A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred].
 

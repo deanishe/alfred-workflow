@@ -702,7 +702,7 @@ class WorkflowTests(unittest.TestCase):
                                  include_score=True, match_on=MATCH_ALL)
         self.assertEqual(len(results), 8)
         for item, score, rule in results:
-            self.wf.logger.debug('{0} : {1}'.format(item, score))
+            self.wf.logger.debug('%s : %s', item, score)
             for value, r in self.search_items:
                 if value == item[0]:
                     self.assertEqual(rule, r)

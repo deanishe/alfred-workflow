@@ -1959,10 +1959,8 @@ class Workflow(object):
         ``query`` is case-insensitive. Any item that does not contain the
         entirety of ``query`` is rejected.
 
-        .. warning::
-
-            If ``query`` is an empty string or contains only whitespace,
-            a :class:`ValueError` will be raised.
+        If ``query`` is an empty string or contains only whitespace,
+        all items will match.
 
         :param query: query to test items against
         :type query: ``unicode``
@@ -2055,13 +2053,13 @@ class Workflow(object):
 
         """
         if not query:
-            raise ValueError('Empty `query`')
+            return items
 
         # Remove preceding/trailing spaces
         query = query.strip()
 
         if not query:
-            raise ValueError('`query` contains only whitespace')
+            return items
 
         # Use user override if there is one
         fold_diacritics = self.settings.get('__workflow_diacritic_folding',
@@ -2773,7 +2771,7 @@ class Workflow(object):
             for name in sorted(self.magic_arguments.keys()):
                 if name == 'magic':
                     continue
-                arg = '{0}{1}'.format(self.magic_prefix, name)
+                arg = self.magic_prefix + name
                 self.logger.debug(arg)
 
                 if not isatty:

@@ -42,6 +42,7 @@ def test_optional(info3):
                      uid='uid',
                      valid=True,
                      autocomplete='auto',
+                     match='match',
                      largetext='large',
                      copytext='copy',
                      quicklookurl='http://www.deanishe.net/alfred-workflow',
@@ -52,6 +53,7 @@ def test_optional(info3):
     assert o['title'] == 'Title'
     assert o['valid'] is True
     assert o['autocomplete'] == 'auto'
+    assert o['match'] == 'match'
     assert o['uid'] == 'uid'
     assert o['text']['copy'] == 'copy'
     assert o['text']['largetype'] == 'large'

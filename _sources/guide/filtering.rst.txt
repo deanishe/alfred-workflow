@@ -10,26 +10,49 @@ Searching/filtering data
 .. contents::
    :local:
 
-:meth:`Workflow.filter` provides an Alfred-like search algorithm for filtering
+Alfred gives you the option of letting it filter your results against the
+user's query. Alfred uses "word starts with" matching, and can handle many
+tens of thousands of results.
+
+:meth:`Workflow.filter` provides a more sophisticated algorithm, similar to the
+way Alfred matches applications with its default search (e.g. ``of`` will match
+``OmniFocus``, which doesn't work with "Alfred filters results"). However, due
+to being written in Python (a much slower language than Objective-C) and the
+more complex algorithm, :meth:`Workflow.filter` becomes noticeably sluggish
+with 1500–2500 items, depending on which options you've specified and the
+speed of the Mac running the worklow.
+
+If you have a very large dataset (20,000+ items) and/or need more sophisticated
+matching than Alfred offers, I *strongly* recommend using
+`sqlite and its fulltext search capability`_ to store and search your data.
+It is smarter than :meth:`Workflow.filter` and *much* faster than "Alfred
+filters results", handling hundreds of thousands of items with ease.
+
+
+.. _alfred-filters-results:
+
+Using "Alfred filters results"
+==============================
+
+"Alfred filters results" filters items based on their ``title`` field.
+Alfred 3.5 introduced the ``match`` field, which if present, will be used
+for filtering instead of ``title``.
+
+You can set this field via the ``match`` parameter of the
+:meth:`Workflow3.add_item()` method.
+
+
+.. _fuzzy-filtering:
+
+Fuzzy filtering with Alfred-Workflow
+====================================
+
+:meth:`Workflow.filter` provides a "fuzzy" search algorithm for filtering
 your workflow's data. By default, :meth:`Workflow.filter` will try to match
 your search query via CamelCase, substring, initials and all characters,
 applying different weightings to the various kind of matches (see
 :meth:`Workflow.filter` for a detailed description of the algorithm and match
 flags).
-
-.. warning::
-
-    Check ``query`` before calling :meth:`Workflow.filter`. ``query``
-    may not be empty or contain only whitespace. This will raise a
-    :exc:`ValueError`.
-
-    :meth:`Workflow.filter` is not a "little sister" of a Script Filter and
-    won't return a list of all results if ``query`` is empty.
-    ``query`` is *not* an optional argument and trying to filter data against
-    a meaningless query is treated as an error.
-
-    :meth:`Workflow.filter` won't complain if ``items`` is an empty list,
-    but it *will* raise a :exc:`ValueError` if ``query`` is empty.
 
 Best practice is to do the following:
 
@@ -46,23 +69,22 @@ Best practice is to do the following:
 
         items = load_my_items_from_somewhere()  # Load data from blah
 
-        if query:  # Only call `filter()` if there's a `query`
-            items = wf.filter(query, items)
+        # If `query` is `None` or an empty string, all items are returned
+        items = wf.filter(query, items)
 
         # Show error if there are no results. Otherwise, Alfred will show
         # its fallback searches (i.e. "Search Google for 'XYZ'")
         if not items:
-            wf.add_item('No items', icon=ICON_WARNING)
+            wf.add_item('No matches', icon=ICON_WARNING)
 
-        # Generate list of results. If `items` is an empty list,
-        # nothing will happen
+        # Generate list of results. If `items` is an empty list nothing happens
         for item in items:
             wf.add_item(item['title'], ...)
 
         wf.send_feedback()  # Send results to Alfred via STDOUT
 
 This is by no means essential (``wf.args[0]`` will always be set if the script
-is called from Alfred via ``python thescript.py "{query}"``), but it *won't*
+is called from Alfred via ``python thescript.py "$1"``), but it *won't*
 work from the command line unless called with an empty string
 (``python thescript.py ""``), and it's good to be aware of when you're
 dealing with unset/empty variables.
@@ -132,7 +154,7 @@ Which returns::
 .. _restricting-results:
 
 Restricting results
-===================
+-------------------
 
 Chances are, you would not want ``bot`` to match ``Bob Smith A damn fine afternoon``
 at all, or indeed any of the other books. Indeed, they have very low scores:
@@ -212,7 +234,7 @@ You can set match rules using bitwise operators, so ``|`` to combine them or
 .. _folding:
 
 Diacritic folding
-=================
+-----------------
 
 By default, :meth:`Workflow.filter`
 will fold non-ASCII characters to approximate ASCII equivalents (e.g. *é* >
@@ -233,7 +255,7 @@ Users may override a Workflow's default settings via ``workflow:folding…``
 .. _smart-punctuation:
 
 "Smart" punctuation
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 The default diacritic folding only alters letters, not punctuation. If your
 workflow also works with text that contains so-called "smart" (i.e. curly)
@@ -245,7 +267,7 @@ respectively.
 .. _matching-rules:
 
 Matching rules
-==============
+--------------
 
 Here are the ``MATCH_*`` constants from :mod:`workflow` and their numeric values.
 
@@ -265,3 +287,6 @@ Name                          Value
 ``MATCH_ALLCHARS``            64
 ``MATCH_ALL``                 127
 ============================= =============================
+
+
+.. _sqlite and its fulltext search capability: https://github.com/deanishe/alfred-index-demo

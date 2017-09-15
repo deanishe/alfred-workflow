@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contributing &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Contributing &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,17 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Dash docset" href="dash.html" />
     <link rel="prev" title="API documentation" href="api/index.html" />
 
@@ -40,7 +42,7 @@
 <link rel="stylesheet" href="_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="api/index.html" title="API documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -72,7 +74,7 @@
 <p class="first admonition-title">Important</p>
 <p><strong>Do not submit a feature request for Python 3 support</strong></p>
 <p>Alfred-Workflow is targeted at the system Python installed on macOS.
-I will not consider adding Python 3 support until it&#8217;s installed
+I will not consider adding Python 3 support until it’s installed
 by default on macOS.</p>
 <p class="last">A <em>pull request</em> with Python 3 support, however, would be gratefully
 accepted.</p>
@@ -84,14 +86,14 @@ accepted.</p>
 </div>
 <div class="section" id="pull-requests">
 <span id="id2"></span><h2>Pull requests<a class="headerlink" href="#pull-requests" title="Permalink to this headline">¶</a></h2>
-<p>If you&#8217;d like to submit a pull request, please observe the following:</p>
+<p>If you’d like to submit a pull request, please observe the following:</p>
 <ul class="simple">
 <li>Please open pull requests against the <code class="docutils literal"><span class="pre">develop</span></code> branch. I try to keep
 <code class="docutils literal"><span class="pre">master</span></code> in sync with the latest release (at least regarding any files
 included in releases). <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">develop</span></code> are <em>usually</em> in sync,
-but if I&#8217;m working on new features, they&#8217;ll be in <code class="docutils literal"><span class="pre">develop</span></code> and won&#8217;t
-be pushed to <code class="docutils literal"><span class="pre">master</span></code> until they&#8217;re ready for release.</li>
-<li>Alfred-Workflow has very close to 100% test coverage. &#8220;Proof-of-concept&#8221;
+but if I’m working on new features, they’ll be in <code class="docutils literal"><span class="pre">develop</span></code> and won’t
+be pushed to <code class="docutils literal"><span class="pre">master</span></code> until they’re ready for release.</li>
+<li>Alfred-Workflow has very close to 100% test coverage. “Proof-of-concept”
 pull requests without tests are more than welcome. However, please be to
 add the appropriate tests if you want your pull request to be ultimately
 accepted.</li>
@@ -104,11 +106,11 @@ editor has a PEP8 plugin that will warn you of potential transgressions.</li>
 <li>Please choose your function, method and argument names carefully, with an
 eye to the existing names. Obviousness is more important than brevity.</li>
 <li>Document your code using the <a class="reference external" href="http://sphinx-doc.org/">Sphinx ReST format</a>. Even if your
-function/method isn&#8217;t user-facing, some other developer will be looking at
-it. Even if it&#8217;s only a one-liner, the developer may be looking at
-<a class="reference internal" href="api/index.html#api"><span>the API docs</span></a> in a browser, not at the source code.
-If you don&#8217;t feel comfortable writing English, I&#8217;d be happy to write the
-docs for you, but please ensure the code is easily understandable (i.e. comment the code if it&#8217;s not totally obvious).</li>
+function/method isn’t user-facing, some other developer will be looking at
+it. Even if it’s only a one-liner, the developer may be looking at
+<a class="reference internal" href="api/index.html#api"><span class="std std-ref">the API docs</span></a> in a browser, not at the source code.
+If you don’t feel comfortable writing English, I’d be happy to write the
+docs for you, but please ensure the code is easily understandable (i.e. comment the code if it’s not totally obvious).</li>
 <li>Performance counts. By default, Alfred will try to run a workflow anew on
 every keypress. As a rule, 0.3 seconds execution time is decent, 0.2
 seconds or less is smooth. Alfred-Workflow should do its utmost to
@@ -161,7 +163,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API documentation</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Contributing</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#feature-requests-and-bugs">Feature requests and bugs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#questions-and-help">Questions and help</a></li>
@@ -185,14 +187,11 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -217,7 +216,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

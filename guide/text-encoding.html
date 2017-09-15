@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Encoded strings and Unicode &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Encoded strings and Unicode &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,18 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API documentation" href="../api/index.html" />
     <link rel="prev" title="Re-running a Script Filter" href="rerun.html" />
 
@@ -41,7 +42,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,8 +58,8 @@
         <li class="right" >
           <a href="rerun.html" title="Re-running a Script Filter"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -87,7 +88,7 @@
 <p>This is a brief guide to Unicode and encoded strings aimed at Alfred-Workflow
 users (and Python coders in general) who are unfamiliar with them.</p>
 <p>Encoding errors are <em>by far</em> the most common group of bugs in Python workflows
-in the wild (they&#8217;re so easy for developers to miss).</p>
+in the wild (they’re so easy for developers to miss).</p>
 <p>This guide should give you an idea of what Unicode and encoded strings are,
 and why and how you as a workflow developer should deal with them.</p>
 <div class="admonition important">
@@ -95,16 +96,16 @@ and why and how you as a workflow developer should deal with them.</p>
 <p>String encoding is something Python 2 will let you largely ignore. It will
 happily let you mix strings of different encodings without complaint
 (although the result will most likely be garbage) and if you mix Unicode and
-encoded strings, Python will silently &#8220;promote&#8221; the encoded string to
+encoded strings, Python will silently “promote” the encoded string to
 Unicode by decoding it as ASCII. If your workflow only ever uses ASCII, you
 need never worry about Unicode or string encoding.</p>
 <p>But make no mistake: if you distribute your workflow, somebody <em>will</em> feed
-your workflow non-ASCII text. Although Alfred is English-only, it&#8217;s not used
-exclusively by monolingual English speakers. What&#8217;s more, standard
+your workflow non-ASCII text. Although Alfred is English-only, it’s not used
+exclusively by monolingual English speakers. What’s more, standard
 English-language characters, like £ or €, are also non-ASCII.</p>
 <p><strong>If you intend to distribute your workflow, you should make sure it works
 with non-ASCII text.</strong></p>
-<p class="last">If you don&#8217;t, I guarantee a text-encoding issue will be one of the first
+<p class="last">If you don’t, I guarantee a text-encoding issue will be one of the first
 bug reports.</p>
 </div>
 <div class="section" id="tl-dr">
@@ -114,14 +115,14 @@ all text input and encode all text output at IO boundaries (i.e. right where
 it enters/leaves your program). On macOS, UTF-8 is almost always the right
 encoding.</p>
 <p>Be sure to decode all input from and encode all output to the system
-(in particular via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">subprocess</span></code></a> and when passing a <code class="docutils literal"><span class="pre">{query}</span></code> to a
+(in particular via <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">subprocess</span></code></a> and when passing a <code class="docutils literal"><span class="pre">{query}</span></code> to a
 subsequent workflow action).</p>
-<p>If you don&#8217;t, your workflow <em>will</em> break or, at best, not work as intended
+<p>If you don’t, your workflow <em>will</em> break or, at best, not work as intended
 when someone feeds it non-ASCII text.</p>
 <p>Alfred-Workflow will almost always give you Unicode strings. (The exception is
 <a class="reference internal" href="../api/index.html#workflow.web.Response" title="workflow.web.Response"><code class="xref py py-class docutils literal"><span class="pre">web.Response</span></code></a>, whose
 <a class="reference internal" href="../api/index.html#workflow.web.Response.text" title="workflow.web.Response.text"><code class="xref py py-meth docutils literal"><span class="pre">text()</span></code></a> method will return an encoded string
-if it couldn&#8217;t determine the encoding.)</p>
+if it couldn’t determine the encoding.)</p>
 <p>Use <a class="reference internal" href="../api/index.html#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> to decode input and
 <code class="docutils literal"><span class="pre">u'My</span> <span class="pre">unicode</span> <span class="pre">string'.encode('utf-8')</span></code> to encode output, e.g.:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -220,7 +221,7 @@ representation (e.g. UTF-8 or ASCII).</p>
 on disk, passed into or out of a program or transmitted over a network <em>must</em>
 be encoded. On macOS, almost all text (e.g. filenames, most text output from
 programs) is encoded with UTF-8.</p>
-<p>In order for your program to work properly, it&#8217;s important to ensure that all
+<p>In order for your program to work properly, it’s important to ensure that all
 text is of the same type/encoding:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;Fahrvergnügen&#39;</span>  <span class="c1"># This is a Unicode string</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">enc1</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># macOS default encoding</span>
@@ -237,25 +238,25 @@ text is of the same type/encoding:</p>
 <p>The correct way to do this in Python is to decode all text input to Unicode
 as soon as it enters your program. In particular, this means:</p>
 <ul class="simple">
-<li>Command-line arguments (via <a class="reference external" href="http://docs.python.org/2.7/library/sys.html#sys.argv" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">sys.argv</span></code></a>)</li>
-<li>Environmental variables (via <a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.environ" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">os.environ</span></code></a>)</li>
-<li>The contents of text files (via <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a>)</li>
-<li>Data retrieved from the web (via <a class="reference external" href="http://docs.python.org/2.7/library/urllib.html#urllib.urlopen" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">urllib.urlopen()</span></code></a>)</li>
-<li>The output of subprocesses (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.check_output" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.check_output()</span></code></a> or
-<a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></code></a> etc.)</li>
-<li>Filepaths (via <a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></code></a> etc.). Sometimes. Basically, if you
-pass a Unicode string to a filesystem function, you&#8217;ll get Unicode back. If
-you pass an encoded string, you&#8217;ll get an encoded (UTF-8) string back.</li>
+<li>Command-line arguments (via <a class="reference external" href="https://docs.python.org/2.7/library/sys.html#sys.argv" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">sys.argv</span></code></a>)</li>
+<li>Environmental variables (via <a class="reference external" href="https://docs.python.org/2.7/library/os.html#os.environ" title="(in Python v2.7)"><code class="xref py py-data docutils literal"><span class="pre">os.environ</span></code></a>)</li>
+<li>The contents of text files (via <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a>)</li>
+<li>Data retrieved from the web (via <a class="reference external" href="https://docs.python.org/2.7/library/urllib.html#urllib.urlopen" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">urllib.urlopen()</span></code></a>)</li>
+<li>The output of subprocesses (via <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.check_output" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.check_output()</span></code></a> or
+<a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></code></a> etc.)</li>
+<li>Filepaths (via <a class="reference external" href="https://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></code></a> etc.). Sometimes. Basically, if you
+pass a Unicode string to a filesystem function, you’ll get Unicode back. If
+you pass an encoded string, you’ll get an encoded (UTF-8) string back.</li>
 </ul>
 <p>Alfred-Workflow uses Unicode throughout, and any command-line arguments
 (<a class="reference internal" href="../api/index.html#workflow.Workflow.args" title="workflow.Workflow.args"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.args</span></code></a>), environmental variables (<a class="reference internal" href="../api/index.html#workflow.Workflow.alfred_env" title="workflow.Workflow.alfred_env"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.alfred_env</span></code></a>),
 or data from the web (e.g. <a class="reference internal" href="../api/index.html#workflow.web.Response.text" title="workflow.web.Response.text"><code class="xref py py-func docutils literal"><span class="pre">web.Response.text</span></code></a>)
 will be decoded to Unicode for you.</p>
-<p>As a result of this, it&#8217;s important that you also decode any text your workflow
+<p>As a result of this, it’s important that you also decode any text your workflow
 pulls in from other sources. When you combine Unicode and encoded strings in
-Python 2, Python will &#8220;promote&#8221; the encoded string to Unicode by attempting
+Python 2, Python will “promote” the encoded string to Unicode by attempting
 to decode it as ASCII. In many cases this will work, but if the encoded string
-contains characters that aren&#8217;t in ASCII (e.g. £ or ü or —), your workflow
+contains characters that aren’t in ASCII (e.g. £ or ü or —), your workflow
 will die in flames.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -268,7 +269,7 @@ strings and it will return normalized Unicode. You can specify the encoding
 and normalization form with the <code class="docutils literal"><span class="pre">input_encoding</span></code> and <code class="docutils literal"><span class="pre">normalization</span></code>
 arguments to <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> or with the <code class="docutils literal"><span class="pre">encoding</span></code> and
 <code class="docutils literal"><span class="pre">normalization</span></code> arguments to <a class="reference internal" href="../api/index.html#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a>. Generally,
-you shouldn&#8217;t need to change the default encoding of UTF-8, which is what
+you shouldn’t need to change the default encoding of UTF-8, which is what
 macOS uses, but you may need to alter the normalization depending on where
 your workflow gets its data from.</p>
 <div class="admonition tip">
@@ -311,21 +312,21 @@ represented in the same way.</p>
 system (filepaths, output of command-line programs), you should instantiate
 <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> with the <code class="docutils literal"><span class="pre">normalization='NFD'</span></code> argument.</p>
 <p>If your workflow uses data from the Web (via native Python libraries, including
-<a class="reference internal" href="../api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">web</span></code></a>), you probably don&#8217;t need to do anything
+<a class="reference internal" href="../api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">web</span></code></a>), you probably don’t need to do anything
 (everything will be NFC-normalized).</p>
-<p>If you&#8217;re mixing both kinds of data, the simplest solution is probably to run
+<p>If you’re mixing both kinds of data, the simplest solution is probably to run
 all data from the system through <a class="reference internal" href="../api/index.html#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> to ensure it is
 normalized in the same way as data from the Web.</p>
 </div>
 <div class="section" id="why-does-normalization-matter">
 <h3><a class="toc-backref" href="#id7">Why does normalization matter?</a><a class="headerlink" href="#why-does-normalization-matter" title="Permalink to this headline">¶</a></h3>
 <p>In Unicode, accented characters can be represented in different ways, e.g. <code class="docutils literal"><span class="pre">ü</span></code>
-can be represented as <code class="docutils literal"><span class="pre">ü</span></code> or as <code class="docutils literal"><span class="pre">u+¨</span></code>. Unfortunately, Python doesn&#8217;t ensure
+can be represented as <code class="docutils literal"><span class="pre">ü</span></code> or as <code class="docutils literal"><span class="pre">u+¨</span></code>. Unfortunately, Python doesn’t ensure
 that all Unicode strings are normalized to use the same representations when
 comparing them.</p>
-<p>Therefore, if you&#8217;re comparing a string containing <code class="docutils literal"><span class="pre">ü</span></code> that came from a
+<p>Therefore, if you’re comparing a string containing <code class="docutils literal"><span class="pre">ü</span></code> that came from a
 JSON file (which will typically be NFC-normalized) with an ostensibly identical
-string that came from macOS&#8217;s filesystem (which is NFD-normalized), Python won&#8217;t
+string that came from macOS’s filesystem (which is NFD-normalized), Python won’t
 recognise them as being the same:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
@@ -352,7 +353,7 @@ recognise them as being the same:</p>
 <span class="go">Match : München.txt (u&#39;M\xfcnchen.txt&#39;) == München.txt (u&#39;M\xfcnchen.txt&#39;)</span>
 </pre></div>
 </div>
-<p>As a result of this Unicode quirk, it&#8217;s important to ensure that all input is
+<p>As a result of this Unicode quirk, it’s important to ensure that all input is
 normalized in the same way or, for example, a user-provided query
 (which may be NFC- or NFD-normalized) may not match JSON data pulled from an API
 (which is probably NFC-normalized) even though they are ostensibly the same.</p>
@@ -375,8 +376,8 @@ NFC-normalized Unicode strings.</p>
 keyword to <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> (this will, however, not affect
 <a class="reference internal" href="../api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">web</span></code></a>, which <em>always</em> returns NFC-encoded Unicode
 strings).</p>
-<p>If your workflow works with data from the system (via <a class="reference external" href="http://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">subprocess</span></code></a>,
-<a class="reference external" href="http://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></code></a> etc.), you should probably be NFC-normalizing those
+<p>If your workflow works with data from the system (via <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">subprocess</span></code></a>,
+<a class="reference external" href="https://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></code></a> etc.), you should probably be NFC-normalizing those
 strings or changing the default normalization to <code class="docutils literal"><span class="pre">NFD</span></code>, which is (more or
 less) what macOS and Alfred use. <a class="reference internal" href="../api/index.html#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> can help with this.</p>
 <p>If you pass a Unicode string to <a class="reference internal" href="../api/index.html#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a>, it will be normalized
@@ -408,9 +409,9 @@ which is the encoding that Alfred uses.</p>
 <p>Alfred 3 runs your scripts in a UTF-8 environment, but Alfred 2 runs them in
 an empty environment. This tells Python (and other POSIX software) by omission
 that encoding is ASCII.</p>
-<p>Although this won&#8217;t affect Python 2&#8217;s auto-promotion of encoded strings
+<p>Although this won’t affect Python 2’s auto-promotion of encoded strings
 (<code class="docutils literal"><span class="pre">str</span></code> objects) to Unicode (it always uses ASCII), it <em>does</em>
-affect the printing of Unicode strings, so using <a class="reference external" href="http://docs.python.org/2.7/library/functions.html#print" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">print()</span></code></a> may work
+affect the printing of Unicode strings, so using <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#print" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">print()</span></code></a> may work
 perfectly in your shell where the environmental encoding is UTF-8 but not in
 Alfred 2, where encoding is ASCII by default.</p>
 <p>Be sure to print Unicode strings with
@@ -419,7 +420,7 @@ an <strong>Open URL</strong> Action or <strong>Post Notification</strong> Output
 </div>
 <div class="section" id="further-information">
 <h2><a class="toc-backref" href="#id10">Further information</a><a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
-<p>If you&#8217;re unfamiliar with using Unicode in Python, have a look at the official
+<p>If you’re unfamiliar with using Unicode in Python, have a look at the official
 Python <a class="reference external" href="https://docs.python.org/2/howto/unicode.html">Unicode HOWTO</a>.</p>
 </div>
 </div>
@@ -469,11 +470,11 @@ Python <a class="reference external" href="https://docs.python.org/2/howto/unico
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Encoded strings and Unicode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Encoded strings and Unicode</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API documentation</a></li>
@@ -506,14 +507,11 @@ Python <a class="reference external" href="https://docs.python.org/2/howto/unico
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -538,7 +536,7 @@ Python <a class="reference external" href="https://docs.python.org/2/howto/unico
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

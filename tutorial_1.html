@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,18 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="index.html" />
-    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow" href="tutorial_2.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" />
 
@@ -41,7 +42,7 @@
 <link rel="stylesheet" href="_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,8 +58,8 @@
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="tutorial.html" accesskey="U">Tutorial</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -72,7 +73,7 @@
 <p>In which we build an Alfred workflow to view recent posts to <a class="reference external" href="https://pinboard.in/">Pinboard.in</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To use workflows, you must own Alfred&#8217;s <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a>.</p>
+<p class="last">To use workflows, you must own Alfred’s <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a>.</p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -94,7 +95,7 @@
 </div>
 <div class="section" id="creating-a-new-workflow">
 <h2><a class="toc-backref" href="#id3">Creating a new Workflow</a><a class="headerlink" href="#creating-a-new-workflow" title="Permalink to this headline">¶</a></h2>
-<p>First, create a new, blank workflow in Alfred 2&#8217;s Preferences, under the
+<p>First, create a new, blank workflow in Alfred 2’s Preferences, under the
 <strong>Workflows</strong> tab:</p>
 <img alt="_images/screen1_blank_workflow.png" src="_images/screen1_blank_workflow.png" />
 </div>
@@ -104,9 +105,9 @@
 and possibly a description.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">The <strong>Bundle Id</strong> is essential: it&#8217;s the unique name used by Alfred and
+<p class="last">The <strong>Bundle Id</strong> is essential: it’s the unique name used by Alfred and
 Alfred-Workflow internally to identify your workflow. Alfred-Workflow
-won&#8217;t work without it.</p>
+won’t work without it.</p>
 </div>
 <p>You can also drag an image to the icon field to the left to make your workflow
 pretty (Alfred will use this icon to show your workflow actions in its action
@@ -120,32 +121,32 @@ list). I grabbed a <a class="reference external" href="http://www.iconarchive.co
 as quickly as possible because Alfred will try to call the Script Filter for
 every character typed into its query box:</p>
 <img alt="_images/screen3_add_script_filter.png" src="_images/screen3_add_script_filter.png" />
-<p>And enter the details for this action (the <strong>Escaping</strong> options don&#8217;t matter at
-the moment because our script currently doesn&#8217;t accept a query):</p>
+<p>And enter the details for this action (the <strong>Escaping</strong> options don’t matter at
+the moment because our script currently doesn’t accept a query):</p>
 <img alt="_images/screen5_script_filter_details.png" src="_images/screen5_script_filter_details.png" />
 <p>Choose a <strong>Keyword</strong>, which you will enter in Alfred to activate your workflow.
-At the moment, our Script Filter won&#8217;t take any arguments, so choose
+At the moment, our Script Filter won’t take any arguments, so choose
 <strong>No Argument</strong>. The <strong>Placeholder Title</strong> and <strong>Subtext</strong> are what Alfred
 will show when you type the <strong>Keyword</strong>:</p>
 <img alt="_images/screen4_alfred_list.png" src="_images/screen4_alfred_list.png" />
-<p>The <strong>&#8220;Please Wait&#8221; Subtext</strong> is what is shown when your workflow is working,
+<p>The <strong>“Please Wait” Subtext</strong> is what is shown when your workflow is working,
 which in our case means fetching data from pinboard.in.</p>
 <p>Very importantly, set the <strong>Language</strong> to <code class="docutils literal"><span class="pre">/bin/bash</span></code>.
 The <strong>Script</strong> field should contain:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python pinboard.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>We&#8217;re going to create the <code class="docutils literal"><span class="pre">pinboard.py</span></code> script in a second. The <strong>Escaping</strong>
-options don&#8217;t matter for now because our Script Filter doesn&#8217;t accept an
+<p>We’re going to create the <code class="docutils literal"><span class="pre">pinboard.py</span></code> script in a second. The <strong>Escaping</strong>
+options don’t matter for now because our Script Filter doesn’t accept an
 argument.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>You <em>can</em> choose <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> as the <strong>Language</strong> and paste
-your Python code into the <strong>Script</strong> box, but this isn&#8217;t the best idea.</p>
-<p class="last">If you do this, you can&#8217;t run the script from the Terminal (which can be
-helpful when developing/debugging), and you can&#8217;t as easily use a proper
+your Python code into the <strong>Script</strong> box, but this isn’t the best idea.</p>
+<p class="last">If you do this, you can’t run the script from the Terminal (which can be
+helpful when developing/debugging), and you can’t as easily use a proper
 code editor, which makes debugging difficult: Python always tells you which
-line an error occurred on, but the <strong>Script</strong> field doesn&#8217;t show line
+line an error occurred on, but the <strong>Script</strong> field doesn’t show line
 numbers, so lots of counting is involved.</p>
 </div>
 <p>Now Alfred has created the workflow, we can open it up and add our script.
@@ -156,7 +157,7 @@ Right-click on your workflow in the list on the left and choose
 chose an icon):</p>
 <img alt="_images/screen7_finder.png" src="_images/screen7_finder.png" />
 <p>At this point, download <a class="reference external" href="https://github.com/deanishe/alfred-workflow/releases/latest">the latest release of Alfred-Workflow</a> from GitHub,
-extract it and copy the <code class="docutils literal"><span class="pre">workflow</span></code> directory into your workflow&#8217;s directory:</p>
+extract it and copy the <code class="docutils literal"><span class="pre">workflow</span></code> directory into your workflow’s directory:</p>
 <img alt="_images/screen8_finder_with_workflow.png" src="_images/screen8_finder_with_workflow.png" />
 <p>Now we can start coding.</p>
 </div>
@@ -244,17 +245,17 @@ keyword and hit <strong>ENTER</strong>. You should see something like this:</p>
 <p>If something went wrong (e.g. an incorrect API key, as in the screenshot),
 you should see an error like this:</p>
 <img alt="_images/screen10_workflow_error.png" src="_images/screen10_workflow_error.png" />
-<p>If Alfred shows nothing at all, it probably couldn&#8217;t run your Python script at
-all. You&#8217;ll have to <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
+<p>If Alfred shows nothing at all, it probably couldn’t run your Python script at
+all. You’ll have to <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
 and run the script by hand to see the error:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python pinboard.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="adding-workflow-actions">
 <h2><a class="toc-backref" href="#id7">Adding workflow actions</a><a class="headerlink" href="#adding-workflow-actions" title="Permalink to this headline">¶</a></h2>
-<p>So now we can see a list of recent posts in Alfred, but can&#8217;t do anything with
-them. We&#8217;re going to change that and make the items &#8220;actionable&#8221; (i.e. you
+<p>So now we can see a list of recent posts in Alfred, but can’t do anything with
+them. We’re going to change that and make the items “actionable” (i.e. you
 can hit <strong>ENTER</strong> on them and something happens, in this case, the page
 will be opened in your browser).</p>
 <p>Add the highlighted lines (27–28) to your <code class="docutils literal"><span class="pre">pinboard.py</span></code> file:</p>
@@ -335,23 +336,23 @@ will be opened in your browser).</p>
 </td></tr></table></div>
 <p><code class="docutils literal"><span class="pre">valid=True</span></code> tells Alfred that the item is actionable and <code class="docutils literal"><span class="pre">arg</span></code> is the
 value it will pass to the next action (in this case a URL).</p>
-<p>Go back to Alfred&#8217;s Preferences and add an <strong>Open URL</strong> action:</p>
+<p>Go back to Alfred’s Preferences and add an <strong>Open URL</strong> action:</p>
 <img alt="_images/screen11_add_open_url.png" src="_images/screen11_add_open_url.png" />
 <p>Then enter <code class="docutils literal"><span class="pre">{query}</span></code> as the URL:</p>
 <img alt="_images/screen12_url_query.png" src="_images/screen12_url_query.png" />
-<p>When you hover your mouse over the Script Filter, you&#8217;ll notice a small &#8220;nub&#8221;
+<p>When you hover your mouse over the Script Filter, you’ll notice a small “nub”
 appears on the right-hand side:</p>
 <img alt="_images/screen12_5_nub.png" src="_images/screen12_5_nub.png" />
 <p>Click and hold on this, and drag a connection to the <strong>Open URL</strong> action:</p>
 <img alt="_images/screen13_connection.png" src="_images/screen13_connection.png" />
 <p>Now run your workflow again in Alfred, select one of the results and hit
-<strong>ENTER</strong>. The post&#8217;s webpage should open in your default browser.</p>
+<strong>ENTER</strong>. The post’s webpage should open in your default browser.</p>
 </div>
 <div class="section" id="improving-performance-and-not-getting-banned">
 <h2><a class="toc-backref" href="#id8">Improving performance and not getting banned</a><a class="headerlink" href="#improving-performance-and-not-getting-banned" title="Permalink to this headline">¶</a></h2>
 <p>The terms of use of the Pinboard API specifically limit calls to the recent
-posts method to <a class="reference external" href="https://pinboard.in/api#limits">1 call/minute</a>. As it&#8217;s
-likely you&#8217;ll call your workflow more often than that, we need to cache the
+posts method to <a class="reference external" href="https://pinboard.in/api#limits">1 call/minute</a>. As it’s
+likely you’ll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 Alfred-Workflow makes this a doddle with its
 <code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> method.</p>
@@ -447,32 +448,32 @@ Alfred-Workflow makes this a doddle with its
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
-<p>We&#8217;ve moved the code that retrieves the data from the API to a separate
+<p>We’ve moved the code that retrieves the data from the API to a separate
 function (<code class="docutils literal"><span class="pre">get_recent_posts()</span></code>, line 9) and instead we ask
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> (line 33)
 for the data cached under the name <code class="docutils literal"><span class="pre">posts</span></code> (the first argument).
 <code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> will first check its cache for
 data saved under <code class="docutils literal"><span class="pre">posts</span></code> and return those data
-if they&#8217;re less than <code class="docutils literal"><span class="pre">max_age</span></code> seconds old. If the data are older or don&#8217;t
+if they’re less than <code class="docutils literal"><span class="pre">max_age</span></code> seconds old. If the data are older or don’t
 exist, it will call the <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> function passed as the second
 parameter, cache the data returned by that function under the name <code class="docutils literal"><span class="pre">posts</span></code>
 and return it.</p>
-<p>So now we won&#8217;t get banned by Pinboard for hammering the API, and as a bonus,
+<p>So now we won’t get banned by Pinboard for hammering the API, and as a bonus,
 the workflow is now <em>blazingly</em> fast when the data are in its cache. For this
-reason, it&#8217;s probably a good idea to increase <code class="docutils literal"><span class="pre">max_age</span></code> to 300 or 600 seconds
+reason, it’s probably a good idea to increase <code class="docutils literal"><span class="pre">max_age</span></code> to 300 or 600 seconds
 (5 or 10 minutes) or even more—depending on how often you add new posts
 to Pinboard—to get super-fast results more often.</p>
 </div>
 <div class="section" id="making-the-posts-searchable">
 <h2><a class="toc-backref" href="#id9">Making the posts searchable</a><a class="headerlink" href="#making-the-posts-searchable" title="Permalink to this headline">¶</a></h2>
-<p>What if you&#8217;re looking for a specific post? Who&#8217;s got time to scroll through
-a list of 20 results? Let&#8217;s make them searchable.</p>
+<p>What if you’re looking for a specific post? Who’s got time to scroll through
+a list of 20 results? Let’s make them searchable.</p>
 <p>First, update the Script Filter settings. Next to <strong>Keyword</strong>, change
 <strong>No Argument</strong> to <strong>Argument Optional</strong> and select <strong>with space</strong>.
 <strong>with space</strong> means that when you hit <strong>ENTER</strong> or <strong>TAB</strong> on your workflow
 action, Alfred will add a space after it, so you can start typing your query
 immediately. Then add <code class="docutils literal"><span class="pre">&quot;{query}&quot;</span></code> in the <strong>Script</strong> text field. <code class="docutils literal"><span class="pre">{query}</span></code>
-will be replaced by Alfred with whatever you&#8217;ve typed after the keyword. Finally,
+will be replaced by Alfred with whatever you’ve typed after the keyword. Finally,
 set the <strong>Escaping</strong> options to:</p>
 <ul class="simple">
 <li>Backquotes</li>
@@ -484,9 +485,9 @@ set the <strong>Escaping</strong> options to:</p>
 unmolested by <code class="docutils literal"><span class="pre">bash</span></code>. Your <strong>Script Filter</strong> settings should now look like
 this:</p>
 <img alt="_images/screen14_script_filter_details.png" src="_images/screen14_script_filter_details.png" />
-<p>First, we&#8217;ll set the script to get 100 recent posts from Pinboard (the maximum
+<p>First, we’ll set the script to get 100 recent posts from Pinboard (the maximum
 allowed)  in line 16 and to cache them for 10 minutes in line 33 (or use 300
-seconds for 5 minutes if you&#8217;re a heavy Pinboardista):</p>
+seconds for 5 minutes if you’re a heavy Pinboardista):</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -736,13 +737,13 @@ attribute of <code class="xref py py-class docutils literal"><span class="pre">W
 (this will be the contents of <code class="docutils literal"><span class="pre">{query}</span></code> from the Script Filter).</p>
 <p>Using <code class="xref py py-attr docutils literal"><span class="pre">args</span></code> is similar to accessing
 <code class="docutils literal"><span class="pre">sys.argv[1:]</span></code> directly, but additionally decodes the arguments to Unicode
-and normalizes them. It also enables <a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a>.</p>
+and normalizes them. It also enables <a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span class="std std-ref">“Magic” arguments</span></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
 using the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> method
 if there is a <code class="docutils literal"><span class="pre">query</span></code> (lines 51–52).</p>
 <p><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> implements an
-Alfred-like search algorithm (e.g. &#8220;am&#8221; will match &#8220;Activity Monitor&#8221; as well
-as &#8220;I Am Legend&#8221;), but it needs a string to search. Therefore, we write the
+Alfred-like search algorithm (e.g. “am” will match “Activity Monitor” as well
+as “I Am Legend”), but it needs a string to search. Therefore, we write the
 <code class="docutils literal"><span class="pre">search_key_for_post()</span></code> (line 29) function that will build a searchable string
 for each post, comprising its title, tags and description (in that order).</p>
 <div class="admonition important">
@@ -753,27 +754,27 @@ for each post, comprising its title, tags and description (in that order).</p>
 Unicode (as do most Alfred-Workflow methods and functions), and mixing
 Unicode and byte-strings will cause a fatal error if the byte-string
 contains non-ASCII characters. In this particular situation, using a
-byte-string space wouldn&#8217;t cause any problems (a space is ASCII), but
+byte-string space wouldn’t cause any problems (a space is ASCII), but
 avoiding mixing byte-strings and Unicode is a very good habit to get into.</p>
 <p>When coding in Python 2, you have to be aware of which strings are Unicode
 and which are encoded  (byte) strings. Best practice is to use Unicode
 internally and decode all text to Unicode when it arrives in your workflow
 (from the Web, system etc.).</p>
-<p>Alfred-Workflow&#8217;s APIs use Unicode and it works hard to hide as much of
+<p>Alfred-Workflow’s APIs use Unicode and it works hard to hide as much of
 the complexity of working with byte-strings and Unicode as possible, but
 you still need to manually decode encoded byte-strings from other sources
 with <code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code> to avoid
 fatal encoding errors.</p>
-<p class="last">See <a class="reference internal" href="guide/text-encoding.html#text-encoding"><span>Encoded strings and Unicode</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span>User Guide</span></a> for more information on
+<p class="last">See <a class="reference internal" href="guide/text-encoding.html#text-encoding"><span class="std std-ref">Encoded strings and Unicode</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for more information on
 dealing with encoded (byte) strings and Unicode in workflows.</p>
 </div>
 <div class="section" id="improving-the-search-results">
 <h3><a class="toc-backref" href="#id10">Improving the search results</a><a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
-<p>If you&#8217;ve been trying out the workflow, you&#8217;ve probably noticed that your queries
-match a lot of posts they really shouldn&#8217;t. The reason for this is that,
+<p>If you’ve been trying out the workflow, you’ve probably noticed that your queries
+match a lot of posts they really shouldn’t. The reason for this is that,
 by default, <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> matches
 <em>anything</em> that contains all the characters of <code class="docutils literal"><span class="pre">query</span></code> in the same order,
-regardless of case. To fix this, we&#8217;ll add a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
+regardless of case. To fix this, we’ll add a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>. Change the line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </pre></div>
@@ -788,17 +789,17 @@ regardless of case. To fix this, we&#8217;ll add a <code class="docutils literal
 </div>
 <div class="section" id="what-now">
 <h2><a class="toc-backref" href="#id11">What now?</a><a class="headerlink" href="#what-now" title="Permalink to this headline">¶</a></h2>
-<p>So we&#8217;ve got a working workflow, but it&#8217;s not yet ready to be distributed to
-other users (we can&#8217;t reasonably ask users to edit the code to enter their API
-key, especially as they&#8217;d have to do it again after updating the workflow to a
-new version). We&#8217;ll turn what we&#8217;ve got into a distribution-ready workflow in
-the <a class="reference internal" href="tutorial_2.html#tutorial-2"><span>second part of the tutorial</span></a>.</p>
+<p>So we’ve got a working workflow, but it’s not yet ready to be distributed to
+other users (we can’t reasonably ask users to edit the code to enter their API
+key, especially as they’d have to do it again after updating the workflow to a
+new version). We’ll turn what we’ve got into a distribution-ready workflow in
+the <a class="reference internal" href="tutorial_2.html#tutorial-2"><span class="std std-ref">second part of the tutorial</span></a>.</p>
 <div class="section" id="further-reading">
 <h3><a class="toc-backref" href="#id12">Further reading</a><a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
 <p>For more information about writing Alfred workflows, try the following:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://computers.tutsplus.com/tutorials/alfred-workflows-for-beginners--mac-55446">A good tutorial on Alfred workflows for beginners</a> by <a class="reference external" href="http://customct.com/">Richard Guay</a></li>
-<li><a class="reference external" href="http://www.alfredforum.com/">The Alfred Forum</a>. It&#8217;s a good place to find workflows and the
+<li><a class="reference external" href="http://www.alfredforum.com/">The Alfred Forum</a>. It’s a good place to find workflows and the
 <a class="reference external" href="http://www.alfredforum.com/forum/13-workflow-help-questions/">Workflow Help &amp; Questions forum</a> forum is the best place to get help with
 writing workflows.</li>
 </ul>
@@ -808,13 +809,13 @@ writing workflows.</li>
 programming.</li>
 <li><a class="reference external" href="http://www.diveintopython.net/toc/index.html">Dive into Python</a> by the dearly departed (from the Web) Mark Pilgrim is
 a wonderful (and free) book.</li>
-<li><a class="reference external" href="http://learnpythonthehardway.org/book/">Learn Python the Hard Way</a> isn&#8217;t as hard as it sounds. It&#8217;s actually
+<li><a class="reference external" href="http://learnpythonthehardway.org/book/">Learn Python the Hard Way</a> isn’t as hard as it sounds. It’s actually
 rather excellent, in fact.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><strong>Do not</strong> use TextEdit to edit code. By default it uses &#8220;smart&#8221; quotes,
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><strong>Do not</strong> use TextEdit to edit code. By default it uses “smart” quotes,
 which will break code. If you have macOS 10.7 or later,
 <a class="reference external" href="https://github.com/textmate/textmate/releases">TextMate</a> is an
 excellent and free editor.
@@ -889,14 +890,11 @@ another good, free editor for macOS (supports 10.6).</td></tr>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -921,7 +919,7 @@ another good, free editor for macOS (supports 10.6).</td></tr>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

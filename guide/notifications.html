@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Notifications &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Notifications &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,18 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Background processes" href="background.html" />
     <link rel="prev" title="Retrieving data from the web" href="web.html" />
 
@@ -41,7 +42,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,8 +58,8 @@
         <li class="right" >
           <a href="web.html" title="Retrieving data from the web"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -79,8 +80,8 @@
 </div>
 <p>Alfred 2 allows you to post notifications, but only at the end of
 a workflow, and only with its own icon.</p>
-<p>Alfred-Workflow&#8217;s <a class="reference internal" href="../api/index.html#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> module lets you post notifications
-whenever you want, and with your workflow&#8217;s icon.</p>
+<p>Alfred-Workflow’s <a class="reference internal" href="../api/index.html#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> module lets you post notifications
+whenever you want, and with your workflow’s icon.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -93,34 +94,33 @@ whenever you want, and with your workflow&#8217;s icon.</p>
 <p>This is the full API:</p>
 <dl class="function">
 <dt>
-<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u''</em>, <em>text=u''</em>, <em>sound=None</em><span class="sig-paren">)</span></dt>
+<code class="descclassname">workflow.notify.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>title=u”</em>, <em>text=u”</em>, <em>sound=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Post notification via Notify.app helper.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>str, optional</em>) &#8211; Notification title.</li>
-<li><strong>text</strong> (<em>str, optional</em>) &#8211; Notification body text.</li>
-<li><strong>sound</strong> (<em>str, optional</em>) &#8211; Name of sound to play.</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Notification title.</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Notification body text.</li>
+<li><strong>sound</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Name of sound to play.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
-Raised if both <code class="docutils literal"><span class="pre">title</span></code> and <code class="docutils literal"><span class="pre">text</span></code> are empty.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – Raised if both <code class="docutils literal"><span class="pre">title</span></code> and <code class="docutils literal"><span class="pre">text</span></code> are empty.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">True</span></code> if notification was posted, else <code class="docutils literal"><span class="pre">False</span></code>.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<p>See the <a class="reference internal" href="../api/index.html#api-notify"><span>API documentation</span></a> for details of the other
+<p>See the <a class="reference internal" href="../api/index.html#api-notify"><span class="std std-ref">API documentation</span></a> for details of the other
 functions.</p>
 </div>
 </div>
@@ -165,13 +165,13 @@ functions.</p>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Notifications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Notifications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
@@ -207,14 +207,11 @@ functions.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -239,7 +236,7 @@ functions.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

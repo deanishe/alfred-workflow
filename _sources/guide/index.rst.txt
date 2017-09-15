@@ -16,7 +16,7 @@ If you're new to writing workflows or coding in general, start with the
     (e.g. from files/the filesystem or via command-line programs
     called via :mod:`subprocess`), please read :ref:`text-encoding`,
     which describes how to handle data from sources other than
-    Alfred-Workflow's libraries.
+    Alfred-Workflow's APIs.
 
 
 .. toctree::
@@ -33,7 +33,7 @@ If you're new to writing workflows or coding in general, start with the
    versioning
    icons
    magic-arguments
-   workflow-variables
+   variables
    serialization
    rerun
    text-encoding

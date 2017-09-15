@@ -115,6 +115,16 @@ They *do not* inherit their parent item's ``arg``.
     only consider variables you have set on the objects yourself, not those
     set by upstream workflow elements or the configuration sheet.
 
+    The reason for this is that Alfred-Workflow cannot distinguish between
+    workflow variables and real environment variables.
+
+    For example, if you call ``os.getenv('HOME')``, you will get the user's
+    home directory, but ``{var:HOME}`` will not work in Alfred elements.
+
+    By restricting its scope to variables it has set itself, Alfred-Workflow
+    can guarantee that if ``getvar('xyz')`` works, ``{var:xyz}`` will also
+    work in downstream Alfred elements.
+
 
 .. _example-variables:
 

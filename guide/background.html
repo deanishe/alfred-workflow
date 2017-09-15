@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Background processes &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Background processes &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,18 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Self-updating" href="update.html" />
     <link rel="prev" title="Notifications" href="notifications.html" />
 
@@ -41,7 +42,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,8 +58,8 @@
         <li class="right" >
           <a href="notifications.html" title="Notifications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -70,7 +71,7 @@
   <div class="section" id="background-processes">
 <span id="id1"></span><h1>Background processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h1>
 <p>Many workflows provide a convenient interface to applications and/or web services.</p>
-<p>For performance reasons, it&#8217;s common for workflows to cache data locally, but
+<p>For performance reasons, it’s common for workflows to cache data locally, but
 updating this cache typically takes a few seconds, making your workflow
 unresponsive while an update is occurring, which is very un-Alfred-like.</p>
 <p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="../api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
@@ -78,11 +79,11 @@ module to allow you to easily run scripts in the background.</p>
 <p>There are two functions, <a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">is_running()</span></code></a>,
 that provide the interface. The processes started are full daemon
 processes, so you can start real servers as easily as simple scripts.</p>
-<p>Here&#8217;s an example of a common usage pattern (updating cached data in the
-background). What we&#8217;re doing is:</p>
+<p>Here’s an example of a common usage pattern (updating cached data in the
+background). What we’re doing is:</p>
 <ol class="arabic simple">
 <li>Checking the age of the cached data and running the update script via
-<a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> if the cached data are too old or don&#8217;t exist.</li>
+<a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> if the cached data are too old or don’t exist.</li>
 <li>(Optionally) informing the user that data are being updated.</li>
 <li>Loading the cached data regardless of age.</li>
 <li>Displaying the cached data (if any).</li>
@@ -145,7 +146,7 @@ background). What we&#8217;re doing is:</p>
 </pre></div>
 </td></tr></table></div>
 <p>For a working example, see
-<a class="reference internal" href="../tutorial_2.html#background-updates"><span>Part 2 of the Tutorial</span></a> or the
+<a class="reference internal" href="../tutorial_2.html#background-updates"><span class="std std-ref">Part 2 of the Tutorial</span></a> or the
 <a class="reference external" href="https://github.com/deanishe/alfred-repos/blob/master/src/repos.py">source code</a>
 of my <a class="reference external" href="https://github.com/deanishe/alfred-repos">Git Repos</a> workflow,
 which is a bit smarter about showing the user update information.</p>
@@ -192,12 +193,12 @@ which is a bit smarter about showing the user update information.</p>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Background processes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
@@ -233,14 +234,11 @@ which is a bit smarter about showing the user update information.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -265,7 +263,7 @@ which is a bit smarter about showing the user update information.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

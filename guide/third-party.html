@@ -1,13 +1,13 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Including 3rd party libraries &mdash; Alfred-Workflow 1.27 documentation</title>
+    <title>Including 3rd party libraries &#8212; Alfred-Workflow 1.28 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,18 +15,19 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.27',
+        VERSION:     '1.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.27 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Persistent data" href="persistent-data.html" />
     <link rel="prev" title="Workflow setup and skeleton" href="setup.html" />
 
@@ -41,7 +42,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,8 +58,8 @@
         <li class="right" >
           <a href="setup.html" title="Workflow setup and skeleton"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.27 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -69,26 +70,26 @@
             
   <div class="section" id="including-3rd-party-libraries">
 <span id="thirdparty"></span><h1>Including 3rd party libraries<a class="headerlink" href="#including-3rd-party-libraries" title="Permalink to this headline">¶</a></h1>
-<p>It&#8217;s a Very Bad Idea™ to install (or ask users to install) 3rd-party
+<p>It’s a Very Bad Idea™ to install (or ask users to install) 3rd-party
 libraries in the macOS system Python. Alfred-Workflow makes it easy to
 include them in your Workflow.</p>
-<p>Simply create a <code class="docutils literal"><span class="pre">lib</span></code> subdirectory under your Workflow&#8217;s root directory
+<p>Simply create a <code class="docutils literal"><span class="pre">lib</span></code> subdirectory under your Workflow’s root directory
 and install your dependencies there. You can call the directory whatever you
-want, but in the following explanation, I&#8217;ll assume you used <code class="docutils literal"><span class="pre">lib</span></code>.</p>
+want, but in the following explanation, I’ll assume you used <code class="docutils literal"><span class="pre">lib</span></code>.</p>
 <p>To install libraries in your dependencies directory, use:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>path/to/my/workflow/lib python-lib-name
 </pre></div>
 </div>
 <p>The path you pass as the <code class="docutils literal"><span class="pre">--target</span></code> argument should be the path to
-the directory under your Workflow&#8217;s root directory in which you want to install
-your libraries. <code class="docutils literal"><span class="pre">python-lib-name</span></code> should be the &#8220;pip name&#8221; (i.e. the name the
+the directory under your Workflow’s root directory in which you want to install
+your libraries. <code class="docutils literal"><span class="pre">python-lib-name</span></code> should be the “pip name” (i.e. the name the
 library has on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>) of the library you want
 to install, e.g. <code class="docutils literal"><span class="pre">requests</span></code> or <code class="docutils literal"><span class="pre">feedparser</span></code>.</p>
 <p>This name is usually, but not always, the same as the name you use with <code class="docutils literal"><span class="pre">import</span></code>.</p>
 <p>For example, to install Alfred-Workflow, you would run
 <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></code> but use <code class="docutils literal"><span class="pre">import</span> <span class="pre">workflow</span></code> to import it.</p>
-<p><strong>An example:</strong> You&#8217;re in a shell in Terminal.app in the Workflow&#8217;s root directory
-and you&#8217;re using <code class="docutils literal"><span class="pre">lib</span></code> as the directory for your Python libraries. You want to
+<p><strong>An example:</strong> You’re in a shell in Terminal.app in the Workflow’s root directory
+and you’re using <code class="docutils literal"><span class="pre">lib</span></code> as the directory for your Python libraries. You want to
 install <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>. You would run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>lib requests
 </pre></div>
@@ -165,7 +166,7 @@ installed therein using:</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Including 3rd party libraries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
@@ -174,8 +175,8 @@ installed therein using:</p>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow-variables.html">Workflow variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
@@ -211,14 +212,11 @@ installed therein using:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -243,7 +241,7 @@ installed therein using:</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

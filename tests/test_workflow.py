@@ -791,11 +791,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(len(results), 0)
 
     def test_filter_empty_query_words(self):
-        """Filter: empty query raises error"""
+        """Filter: empty query returns all results"""
         data = ['bob', 'sue', 'henry']
-        self.assertRaises(ValueError, self.wf.filter, '   ', data)
-
-        self.assertRaises(ValueError, self.wf.filter, '', data)
+        self.assertEquals(self.wf.filter('   ', data), data)
+        self.assertEquals(self.wf.filter('', data), data)
 
     def test_filter_empty_query_words_ignored(self):
         """Filter: empty query words ignored"""

@@ -469,7 +469,10 @@ class Workflow3(Workflow):
         Workflow.__init__(self, **kwargs)
         self.variables = {}
         self._rerun = 0
-        self._session_id = None
+        # Get session ID from environment if present
+        self._session_id = os.getenv('_WF_SESSION_ID') or None
+        if self._session_id:
+            self.setvar('_WF_SESSION_ID', self._session_id)
 
     @property
     def _default_cachedir(self):
@@ -513,13 +516,9 @@ class Workflow3(Workflow):
 
         """
         if not self._session_id:
-            sid = os.getenv('_WF_SESSION_ID')
-            if not sid:
-                from uuid import uuid4
-                sid = uuid4().hex
-                self.setvar('_WF_SESSION_ID', sid)
-
-            self._session_id = sid
+            from uuid import uuid4
+            self._session_id = uuid4().hex
+            self.setvar('_WF_SESSION_ID', self._session_id)
 
         return self._session_id
 

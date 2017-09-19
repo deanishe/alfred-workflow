@@ -162,6 +162,10 @@ def test_session_id(info3):
     os.environ['_WF_SESSION_ID'] = sid
     wf = Workflow3()
     try:
+        o = wf.obj
+        assert 'variables' in o
+        assert '_WF_SESSION_ID' in o['variables']
+        assert o['variables']['_WF_SESSION_ID'] == sid
         assert wf.session_id == sid
     finally:
         del os.environ['_WF_SESSION_ID']

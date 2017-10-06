@@ -48,7 +48,7 @@ Contents
 
 - [Installation](#installation)
     - [With pip](#with-pip)
-    - [ From source](#from-source)
+    - [From source](#from-source)
 - [Usage](#usage)
     - [Workflow script skeleton](#workflow-script-skeleton)
     - [Examples](#examples)

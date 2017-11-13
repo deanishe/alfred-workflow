@@ -702,7 +702,7 @@ class WorkflowTests(unittest.TestCase):
                                  include_score=True, match_on=MATCH_ALL)
         self.assertEqual(len(results), 8)
         for item, score, rule in results:
-            self.wf.logger.debug('{0} : {1}'.format(item, score))
+            self.wf.logger.debug('%s : %s', item, score)
             for value, r in self.search_items:
                 if value == item[0]:
                     self.assertEqual(rule, r)
@@ -791,11 +791,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertEquals(len(results), 0)
 
     def test_filter_empty_query_words(self):
-        """Filter: empty query raises error"""
+        """Filter: empty query returns all results"""
         data = ['bob', 'sue', 'henry']
-        self.assertRaises(ValueError, self.wf.filter, '   ', data)
-
-        self.assertRaises(ValueError, self.wf.filter, '', data)
+        self.assertEquals(self.wf.filter('   ', data), data)
+        self.assertEquals(self.wf.filter('', data), data)
 
     def test_filter_empty_query_words_ignored(self):
         """Filter: empty query words ignored"""

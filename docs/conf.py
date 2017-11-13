@@ -42,7 +42,7 @@ extensions = [
     'sphinx.ext.napoleon',
 ]
 
-intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None)}
+intersphinx_mapping = {'python': ('https://docs.python.org/2.7', None)}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -150,9 +150,11 @@ if not on_rtd:
         'github_user': 'deanishe',
         'github_repo': 'alfred-workflow',
         'gittip_user': 'deanishe',
+        'github_type': 'star',
         'logo_name': True,
         'logo_text_align': 'center',
         'description': "A helper library for creating Alfred 2 & 3 workflows.",
+        'font_family': "Georgia, 'goudy old style', 'minion pro', 'bell mt', 'Hiragino Mincho Pro', serif",
     }
 
 # Theme options are theme-specific and customize the look and feel of a theme

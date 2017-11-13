@@ -5,7 +5,8 @@ osx_image: xcode8.3
 env:
   matrix:
     - VERSION=2.7.10 SOURCE=macpython
-    - VERSION=2.6.9 SOURCE=macports
+    # Turn off 2.6 as it's no longer supported
+    # - VERSION=2.6.9 SOURCE=macports
 
 before_install:
   # - brew update

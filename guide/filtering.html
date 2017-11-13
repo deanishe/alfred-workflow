@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Searching/filtering data &#8212; Alfred-Workflow 1.28.1 documentation</title>
+    <title>Searching/filtering data &mdash; Alfred-Workflow 1.28.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,16 +18,15 @@
         VERSION:     '1.28.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Alfred-Workflow 1.28.1 documentation" href="../index.html" />
+    <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Retrieving data from the web" href="web.html" />
     <link rel="prev" title="Persistent data" href="persistent-data.html" />
 
@@ -42,7 +41,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -58,8 +57,8 @@
         <li class="right" >
           <a href="persistent-data.html" title="Persistent data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -72,11 +71,11 @@
 <span id="filtering"></span><h1>Searching/filtering data<a class="headerlink" href="#searching-filtering-data" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#using-alfred-filters-results" id="id4">Using “Alfred filters results”</a></li>
+<li><a class="reference internal" href="#using-alfred-filters-results" id="id4">Using &#8220;Alfred filters results&#8221;</a></li>
 <li><a class="reference internal" href="#fuzzy-filtering-with-alfred-workflow" id="id5">Fuzzy filtering with Alfred-Workflow</a><ul>
 <li><a class="reference internal" href="#restricting-results" id="id6">Restricting results</a></li>
 <li><a class="reference internal" href="#diacritic-folding" id="id7">Diacritic folding</a><ul>
-<li><a class="reference internal" href="#smart-punctuation" id="id8">“Smart” punctuation</a></li>
+<li><a class="reference internal" href="#smart-punctuation" id="id8">&#8220;Smart&#8221; punctuation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#matching-rules" id="id9">Matching rules</a></li>
@@ -85,23 +84,23 @@
 </ul>
 </div>
 <p>Alfred gives you the option of letting it filter your results against the
-user’s query. Alfred uses “word starts with” matching, and can handle many
+user&#8217;s query. Alfred uses &#8220;word starts with&#8221; matching, and can handle many
 tens of thousands of results.</p>
 <p><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> provides a more sophisticated algorithm, similar to the
 way Alfred matches applications with its default search (e.g. <code class="docutils literal"><span class="pre">of</span></code> will match
-<code class="docutils literal"><span class="pre">OmniFocus</span></code>, which doesn’t work with “Alfred filters results”). However, due
+<code class="docutils literal"><span class="pre">OmniFocus</span></code>, which doesn&#8217;t work with &#8220;Alfred filters results&#8221;). However, due
 to being written in Python (a much slower language than Objective-C) and the
 more complex algorithm, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> becomes noticeably sluggish
-with 1500–2500 items, depending on which options you’ve specified and the
+with 1500–2500 items, depending on which options you&#8217;ve specified and the
 speed of the Mac running the worklow.</p>
 <p>If you have a very large dataset (20,000+ items) and/or need more sophisticated
 matching than Alfred offers, I <em>strongly</em> recommend using
 <a class="reference external" href="https://github.com/deanishe/alfred-index-demo">sqlite and its fulltext search capability</a> to store and search your data.
-It is smarter than <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> and <em>much</em> faster than “Alfred
-filters results”, handling hundreds of thousands of items with ease.</p>
+It is smarter than <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> and <em>much</em> faster than &#8220;Alfred
+filters results&#8221;, handling hundreds of thousands of items with ease.</p>
 <div class="section" id="using-alfred-filters-results">
-<span id="alfred-filters-results"></span><h2><a class="toc-backref" href="#id4">Using “Alfred filters results”</a><a class="headerlink" href="#using-alfred-filters-results" title="Permalink to this headline">¶</a></h2>
-<p>“Alfred filters results” filters items based on their <code class="docutils literal"><span class="pre">title</span></code> field.
+<span id="alfred-filters-results"></span><h2><a class="toc-backref" href="#id4">Using &#8220;Alfred filters results&#8221;</a><a class="headerlink" href="#using-alfred-filters-results" title="Permalink to this headline">¶</a></h2>
+<p>&#8220;Alfred filters results&#8221; filters items based on their <code class="docutils literal"><span class="pre">title</span></code> field.
 Alfred 3.5 introduced the <code class="docutils literal"><span class="pre">match</span></code> field, which if present, will be used
 for filtering instead of <code class="docutils literal"><span class="pre">title</span></code>.</p>
 <p>You can set this field via the <code class="docutils literal"><span class="pre">match</span></code> parameter of the
@@ -109,8 +108,8 @@ for filtering instead of <code class="docutils literal"><span class="pre">title<
 </div>
 <div class="section" id="fuzzy-filtering-with-alfred-workflow">
 <span id="fuzzy-filtering"></span><h2><a class="toc-backref" href="#id5">Fuzzy filtering with Alfred-Workflow</a><a class="headerlink" href="#fuzzy-filtering-with-alfred-workflow" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> provides a “fuzzy” search algorithm for filtering
-your workflow’s data. By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> will try to match
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> provides a &#8220;fuzzy&#8221; search algorithm for filtering
+your workflow&#8217;s data. By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> will try to match
 your search query via CamelCase, substring, initials and all characters,
 applying different weightings to the various kind of matches (see
 <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> for a detailed description of the algorithm and match
@@ -164,18 +163,18 @@ flags).</p>
 </pre></div>
 </td></tr></table></div>
 <p>This is by no means essential (<code class="docutils literal"><span class="pre">wf.args[0]</span></code> will always be set if the script
-is called from Alfred via <code class="docutils literal"><span class="pre">python</span> <span class="pre">thescript.py</span> <span class="pre">&quot;$1&quot;</span></code>), but it <em>won’t</em>
+is called from Alfred via <code class="docutils literal"><span class="pre">python</span> <span class="pre">thescript.py</span> <span class="pre">&quot;$1&quot;</span></code>), but it <em>won&#8217;t</em>
 work from the command line unless called with an empty string
-(<code class="docutils literal"><span class="pre">python</span> <span class="pre">thescript.py</span> <span class="pre">&quot;&quot;</span></code>), and it’s good to be aware of when you’re
+(<code class="docutils literal"><span class="pre">python</span> <span class="pre">thescript.py</span> <span class="pre">&quot;&quot;</span></code>), and it&#8217;s good to be aware of when you&#8217;re
 dealing with unset/empty variables.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>
 will match and return anything that contains all the characters in
 <code class="docutils literal"><span class="pre">query</span></code> in the same order, regardless of case. Not only can this lead to
-unacceptable performance when working with thousands of items, but it’s
-also very likely that you’ll want to set the standard a little higher.</p>
-<p class="last">See <a class="reference internal" href="#restricting-results"><span class="std std-ref">Restricting results</span></a> for info on how to do that.</p>
+unacceptable performance when working with thousands of items, but it&#8217;s
+also very likely that you&#8217;ll want to set the standard a little higher.</p>
+<p class="last">See <a class="reference internal" href="#restricting-results"><span>Restricting results</span></a> for info on how to do that.</p>
 </div>
 <p>To use <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>, pass it a query, a list of items to filter and
 sort, and if your list contains items other than strings, a <code class="docutils literal"><span class="pre">key</span></code> function
@@ -196,10 +195,10 @@ that generates a string search key for each item:</p>
 </pre></div>
 </td></tr></table></div>
 <p>Which returns:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Sam Butterkeks&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>(<code class="docutils literal"><span class="pre">bs</span></code> are Bob Smith’s initials and <code class="docutils literal"><span class="pre">Butterkeks</span></code> contains both letters in that order.)</p>
+<p>(<code class="docutils literal"><span class="pre">bs</span></code> are Bob Smith&#8217;s initials and <code class="docutils literal"><span class="pre">Butterkeks</span></code> contains both letters in that order.)</p>
 <p>If your data are not strings:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -235,7 +234,7 @@ that generates a string search key for each item:</p>
 </span></pre></div>
 </td></tr></table></div>
 <p>Which returns:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
  <span class="p">{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">}]</span>
 </pre></div>
 </div>
@@ -247,7 +246,7 @@ at all, or indeed any of the other books. Indeed, they have very low scores:</p>
 </pre></div>
 </div>
 <p>produces:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;A damn fine afternoon&#39;</span><span class="p">},</span>
   <span class="mf">11.11111111111111</span><span class="p">,</span>
   <span class="mi">64</span><span class="p">),</span>
  <span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Harry Johnson&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Bollards and other street treasures&#39;</span><span class="p">},</span>
@@ -263,18 +262,18 @@ key, regardless of case).</p>
 <p class="first admonition-title">Tip</p>
 <p class="last"><code class="docutils literal"><span class="pre">rules</span></code> in <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">filter()</span></code></a> results are
 returned as integers. To see the name of the corresponding rule, see
-<a class="reference internal" href="#matching-rules"><span class="std std-ref">Matching rules</span></a>.</p>
+<a class="reference internal" href="#matching-rules"><span>Matching rules</span></a>.</p>
 </div>
 <p>If we filter <code class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Brienne</span> <span class="pre">of</span> <span class="pre">Tarth',</span> <span class="pre">'title':</span> <span class="pre">'How</span> <span class="pre">to</span> <span class="pre">beat</span> <span class="pre">up</span> <span class="pre">men'}</span></code> and
 <code class="docutils literal"><span class="pre">{'author':</span> <span class="pre">'Zoltar',</span> <span class="pre">'title':</span> <span class="pre">'Battle</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Planets'}</span></code>, which we probably
 would want to match <code class="docutils literal"><span class="pre">bot</span></code>, we get:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Zoltar&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Battle of the Planets&#39;</span><span class="p">},</span> <span class="mf">98.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
  <span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Brienne of Tarth&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;How to beat up men&#39;</span><span class="p">},</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p>(The ranking would be reversed if <code class="docutils literal"><span class="pre">key_for_book()</span></code> returned <code class="docutils literal"><span class="pre">author</span> <span class="pre">title</span></code>
 instead of <code class="docutils literal"><span class="pre">title</span> <span class="pre">author</span></code>.)</p>
-<p>So in all likelihood, you’ll want to pass a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
+<p>So in all likelihood, you&#8217;ll want to pass a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
 <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">books</span><span class="p">,</span> <span class="n">key_for_book</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
@@ -307,7 +306,7 @@ instead of <code class="docutils literal"><span class="pre">title</span> <span c
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last"><code class="docutils literal"><span class="pre">MATCH_ALLCHARS</span></code> is particularly slow and provides the
-worst matches. You should consider excluding it, especially if you’re calling
+worst matches. You should consider excluding it, especially if you&#8217;re calling
 <a class="reference internal" href="../api/index.html#workflow.Workflow.filter" title="workflow.Workflow.filter"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code></a> with more than a
 few hundred items or expect multi-word queries.</p>
 </div>
@@ -325,12 +324,12 @@ can be turned off by passing <code class="docutils literal"><span class="pre">fo
 supported. The <a class="reference external" href="https://pypi.python.org/pypi/Unidecode">Unidecode</a> library
 should be used for comprehensive support of non-European alphabets.</p>
 </div>
-<p>Users may override a Workflow’s default settings via <code class="docutils literal"><span class="pre">workflow:folding…</span></code>
-<a class="reference internal" href="magic-arguments.html#magic-arguments"><span class="std std-ref">magic arguments</span></a>.</p>
+<p>Users may override a Workflow&#8217;s default settings via <code class="docutils literal"><span class="pre">workflow:folding…</span></code>
+<a class="reference internal" href="magic-arguments.html#magic-arguments"><span>magic arguments</span></a>.</p>
 <div class="section" id="smart-punctuation">
-<span id="id2"></span><h4><a class="toc-backref" href="#id8">“Smart” punctuation</a><a class="headerlink" href="#smart-punctuation" title="Permalink to this headline">¶</a></h4>
+<span id="id2"></span><h4><a class="toc-backref" href="#id8">&#8220;Smart&#8221; punctuation</a><a class="headerlink" href="#smart-punctuation" title="Permalink to this headline">¶</a></h4>
 <p>The default diacritic folding only alters letters, not punctuation. If your
-workflow also works with text that contains so-called “smart” (i.e. curly)
+workflow also works with text that contains so-called &#8220;smart&#8221; (i.e. curly)
 quotes or n- and m-dashes, you can use the <a class="reference internal" href="../api/index.html#workflow.Workflow.dumbify_punctuation" title="workflow.Workflow.dumbify_punctuation"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.dumbify_punctuation()</span></code></a>
 method to replace smart quotes and dashes with normal quotes and hyphens
 respectively.</p>
@@ -422,14 +421,14 @@ respectively.</p>
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Workflow setup and skeleton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Searching/filtering data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Searching/filtering data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web.html">Retrieving data from the web</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notifications.html">Notifications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="background.html">Background processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
@@ -466,11 +465,14 @@ respectively.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -495,7 +497,7 @@ respectively.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

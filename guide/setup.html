@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Workflow setup and skeleton &#8212; Alfred-Workflow 1.28.1 documentation</title>
+    <title>Workflow setup and skeleton &mdash; Alfred-Workflow 1.28.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,16 +18,15 @@
         VERSION:     '1.28.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Alfred-Workflow 1.28.1 documentation" href="../index.html" />
+    <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Including 3rd party libraries" href="third-party.html" />
     <link rel="prev" title="User Guide" href="index.html" />
 
@@ -42,7 +41,7 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -58,8 +57,8 @@
         <li class="right" >
           <a href="index.html" title="User Guide"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -83,7 +82,7 @@ following (and only the following) <strong>Escaping</strong> options:</p>
 <li>Backslashes</li>
 </ul>
 <p>The <strong>Script</strong> field should contain the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="n">yourscript</span><span class="o">.</span><span class="n">py</span> <span class="s2">&quot;</span><span class="si">{query}</span><span class="s2">&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/usr/bin/python yourscript.py &quot;{query}&quot;
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">yourscript.py</span></code> is the name of your script <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
@@ -163,7 +162,7 @@ to capture any errors thrown by your scripts:</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It’s better to specify <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> over just <code class="docutils literal"><span class="pre">python</span></code>. This
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It&#8217;s better to specify <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> over just <code class="docutils literal"><span class="pre">python</span></code>. This
 ensures that the script will always be run with the system default
 Python regardless of what <code class="docutils literal"><span class="pre">PATH</span></code> might be.</td></tr>
 </tbody>
@@ -205,7 +204,7 @@ Python regardless of what <code class="docutils literal"><span class="pre">PATH<
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Workflow setup and skeleton</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Workflow setup and skeleton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="third-party.html">Including 3rd party libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persistent-data.html">Persistent data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filtering.html">Searching/filtering data</a></li>
@@ -215,7 +214,7 @@ Python regardless of what <code class="docutils literal"><span class="pre">PATH<
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
@@ -252,11 +251,14 @@ Python regardless of what <code class="docutils literal"><span class="pre">PATH<
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 	<h3>Donate</h3>
@@ -281,7 +283,7 @@ Python regardless of what <code class="docutils literal"><span class="pre">PATH<
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>

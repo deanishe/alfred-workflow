@@ -34,7 +34,7 @@ PACKAL_REPO_DIR = os.path.expanduser('~/Temp/Packal-Repository')
 CACHE_PATH = os.path.expanduser('~/.packal_repo_cache.json')
 COOKIE_PATH = os.path.expanduser('~/.packal_repo_cookies.txt')
 
-USER_AGENT = 'Alfred-Workflow/1.12 (www.deanishe.net/alfred-workflow/)'
+USER_AGENT = 'Alfred-Workflow/1.27 (www.deanishe.net/alfred-workflow/)'
 
 MAX_CACHE_AGE = 7  # days
 

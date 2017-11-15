@@ -345,6 +345,9 @@ corresponding section in the `GitHub README`_.
 - `Pocket for Alfred <http://www.packal.org/workflow/pocket-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Manage your Pocket list with Alfred.
+- `Pomodoro Alfred <https://github.com/ecbrodie/pomodoro-alfred>`__
+  by `Evan Brodie <https://github.com/ecbrodie>`__.
+  Track Pomodoros through Alfred.
 - `Powerthesaurus Search <http://www.packal.org/workflow/powerthesaurus-search>`__
   by `clarencecastillo <http://www.packal.org/users/clarencecastillo>`__.
   Search Powerthesaurus synonyms and antonyms from Alfred.
@@ -546,5 +549,7 @@ corresponding section in the `GitHub README`_.
 - `彩云天气 <http://www.packal.org/workflow/cai-yun-tian-qi>`__
   by `Marvin <http://www.packal.org/users/marvin>`__.
   通过彩云天气API接口获取天气预报.
+
+
 
 .. _GitHub README: https://github.com/deanishe/alfred-workflow#contributing

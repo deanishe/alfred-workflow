@@ -520,6 +520,8 @@ These are some of the Alfred workflows that use this library.
   PHPStorm project opener.
 - [Pocket for Alfred](http://www.packal.org/workflow/pocket-alfred) ([GitHub repo](https://github.com/fniephaus/alfred-pocket)) by [fniephaus](http://www.packal.org/users/fniephaus) ([on GitHub](https://github.com/fniephaus/)).
   Manage your Pocket list with Alfred.
+- [Pomodoro Alfred](https://github.com/ecbrodie/pomodoro-alfred) by [Evan Brodie](https://github.com/ecbrodie) ([on GitHub](https://github.com/ecbrodie/)).
+  Track Pomodoros through Alfred.
 - [Powerthesaurus Search](http://www.packal.org/workflow/powerthesaurus-search) ([GitHub repo](https://github.com/clarencecastillo/alfred-powerthesaurus)) by [clarencecastillo](http://www.packal.org/users/clarencecastillo) ([on GitHub](https://github.com/clarencecastillo/)).
   Search Powerthesaurus synonyms and antonyms from Alfred.
 - [Product Hunt](http://www.packal.org/workflow/product-hunt) ([GitHub repo](https://github.com/loris/alfred-producthunt-workflow)) by [loris](http://www.packal.org/users/loris) ([on GitHub](https://github.com/loris/)).
@@ -654,6 +656,7 @@ These are some of the Alfred workflows that use this library.
   Search Zotero. From the Comfort of Your Keyboard.
 - [彩云天气](http://www.packal.org/workflow/cai-yun-tian-qi) ([GitHub repo](https://github.com/wangkezun/cytq)) by [Marvin](http://www.packal.org/users/marvin) ([on GitHub](https://github.com/wangkezun/)).
   通过彩云天气API接口获取天气预报.
+
 
 
 

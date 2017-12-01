@@ -19,6 +19,7 @@ and examples.
 
 from __future__ import print_function, unicode_literals
 
+import signal
 import sys
 import os
 import subprocess
@@ -82,6 +83,31 @@ def _process_exists(pid):
     return True
 
 
+def _job_pid(name):
+    """Get PID of job or `None` if job does not exist.
+
+    Args:
+        name (str): Name of job.
+
+    Returns:
+        int: PID of job process (or `None` if job doesn't exist).
+    """
+    pidfile = _pid_file(name)
+    if not os.path.exists(pidfile):
+        return
+
+    with open(pidfile, 'rb') as fp:
+        pid = int(fp.read())
+
+        if _process_exists(pid):
+            return pid
+
+    try:
+        os.unlink(pidfile)
+    except Exception:  # pragma: no cover
+        pass
+
+
 def is_running(name):
     """Test whether task ``name`` is currently running.
 
@@ -91,26 +117,18 @@ def is_running(name):
     :rtype: bool
 
     """
-    pidfile = _pid_file(name)
-    if not os.path.exists(pidfile):
-        return False
-
-    with open(pidfile, 'rb') as file_obj:
-        pid = int(file_obj.read().strip())
-
-    if _process_exists(pid):
+    if _job_pid(name) is not None:
         return True
-
-    elif os.path.exists(pidfile):
-        os.unlink(pidfile)
 
     return False
 
 
-def _background(stdin='/dev/null', stdout='/dev/null',
+def _background(pidfile, stdin='/dev/null', stdout='/dev/null',
                 stderr='/dev/null'):  # pragma: no cover
     """Fork the current process into a background daemon.
 
+    :param pidfile: file to write PID of daemon process to.
+    :type pidfile: filepath
     :param stdin: where to read input
     :type stdin: filepath
     :param stdout: where to write stdout output
@@ -119,24 +137,31 @@ def _background(stdin='/dev/null', stdout='/dev/null',
     :type stderr: filepath
 
     """
-    def _fork_and_exit_parent(errmsg):
+    def _fork_and_exit_parent(errmsg, wait=False, write=False):
         try:
             pid = os.fork()
             if pid > 0:
+                if write:  # write PID of child process to `pidfile`
+                    tmp = pidfile + '.tmp'
+                    with open(tmp, 'wb') as fp:
+                        fp.write(str(pid))
+                    os.rename(tmp, pidfile)
+                if wait:  # wait for child process to exit
+                    os.waitpid(pid, 0)
                 os._exit(0)
         except OSError as err:
             _log().critical('%s: (%d) %s', errmsg, err.errno, err.strerror)
             raise err
 
-    # Do first fork.
-    _fork_and_exit_parent('fork #1 failed')
+    # Do first fork and wait for second fork to finish.
+    _fork_and_exit_parent('fork #1 failed', wait=True)
 
     # Decouple from parent environment.
     os.chdir(wf().workflowdir)
     os.setsid()
 
-    # Do second fork.
-    _fork_and_exit_parent('fork #2 failed')
+    # Do second fork and write PID to pidfile.
+    _fork_and_exit_parent('fork #2 failed', write=True)
 
     # Now I am a daemon!
     # Redirect standard file descriptors.
@@ -151,10 +176,30 @@ def _background(stdin='/dev/null', stdout='/dev/null',
         os.dup2(se.fileno(), sys.stderr.fileno())
 
 
+def kill(name, sig=signal.SIGTERM):
+    """Send a signal to job ``name`` via :func:`os.kill`.
+
+    .. versionadded:: 1.29
+
+    Args:
+        name (str): Name of the job
+        sig (int, optional): Signal to send (default: SIGTERM)
+
+    Returns:
+        bool: `False` if job isn't running, `True` if signal was sent.
+    """
+    pid = _job_pid(name)
+    if pid is None:
+        return False
+
+    os.kill(pid, sig)
+    return True
+
+
 def run_in_background(name, args, **kwargs):
     r"""Cache arguments then call this script again via :func:`subprocess.call`.
 
-    :param name: name of task
+    :param name: name of job
     :type name: unicode
     :param args: arguments passed as first argument to :func:`subprocess.call`
     :param \**kwargs: keyword arguments to :func:`subprocess.call`
@@ -183,18 +228,20 @@ def run_in_background(name, args, **kwargs):
     argcache = _arg_cache(name)
 
     # Cache arguments
-    with open(argcache, 'wb') as file_obj:
-        pickle.dump({'args': args, 'kwargs': kwargs}, file_obj)
+    with open(argcache, 'wb') as fp:
+        pickle.dump({'args': args, 'kwargs': kwargs}, fp)
         _log().debug('[%s] command cached: %s', name, argcache)
 
     # Call this script
     cmd = ['/usr/bin/python', __file__, name]
     _log().debug('[%s] passing job to background runner: %r', name, cmd)
     retcode = subprocess.call(cmd)
+
     if retcode:  # pragma: no cover
-        _log().error('[%s] background runner failed with %d', retcode)
+        _log().error('[%s] background runner failed with %d', name, retcode)
     else:
         _log().debug('[%s] background job started', name)
+
     return retcode
 
 
@@ -209,12 +256,17 @@ def main(wf):  # pragma: no cover
     name = wf.args[0]
     argcache = _arg_cache(name)
     if not os.path.exists(argcache):
-        log.critical('[%s] command cache not found: %r', name, argcache)
-        return 1
+        msg = '[{0}] command cache not found: {1}'.format(name, argcache)
+        log.critical(msg)
+        raise IOError(msg)
+
+    # Fork to background and run command
+    pidfile = _pid_file(name)
+    _background(pidfile)
 
     # Load cached arguments
-    with open(argcache, 'rb') as file_obj:
-        data = pickle.load(file_obj)
+    with open(argcache, 'rb') as fp:
+        data = pickle.load(fp)
 
     # Cached arguments
     args = data['args']
@@ -223,28 +275,18 @@ def main(wf):  # pragma: no cover
     # Delete argument cache file
     os.unlink(argcache)
 
-    pidfile = _pid_file(name)
-
-    # Fork to background
-    _background()
-
-    # Write PID to file
-    with open(pidfile, 'wb') as file_obj:
-        file_obj.write(str(os.getpid()))
-
-    # Run the command
     try:
+        # Run the command
         log.debug('[%s] running command: %r', name, args)
 
         retcode = subprocess.call(args, **kwargs)
 
         if retcode:
             log.error('[%s] command failed with status %d', name, retcode)
-
     finally:
-        if os.path.exists(pidfile):
-            os.unlink(pidfile)
-        log.debug('[%s] job complete', name)
+        os.unlink(pidfile)
+
+    log.debug('[%s] job complete', name)
 
 
 if __name__ == '__main__':  # pragma: no cover

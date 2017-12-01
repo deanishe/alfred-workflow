@@ -18,7 +18,7 @@ from time import sleep
 import pytest
 
 from workflow import Workflow
-from workflow.background import is_running, run_in_background
+from workflow.background import is_running, kill, run_in_background
 
 
 def _pidfile(name):
@@ -42,7 +42,7 @@ class TestBackground(object):
     """Unit tests for background jobs."""
 
     def test_no_pidfile(self):
-        """no PID file for non-existent job."""
+        """No PID file for non-existent job"""
         assert not is_running('boomstick')
 
     def test_non_existent_process(self):
@@ -62,16 +62,25 @@ class TestBackground(object):
 
     def test_run_in_background(self):
         """Run in background"""
-        assert os.path.exists('info.plist')
         cmd = ['sleep', '1']
-        run_in_background('test', cmd)
-        sleep(0.6)
+        assert run_in_background('test', cmd) == 0
         assert is_running('test')
         assert os.path.exists(_pidfile('test'))
+        # Already running
         assert run_in_background('test', cmd) is None
-        sleep(0.6)
+        sleep(1.1)  # wait for job to finish
         assert not is_running('test')
         assert not os.path.exists(_pidfile('test'))
+
+    def test_kill(self):
+        """Kill"""
+        assert kill('test') is False
+        cmd = ['sleep', '1']
+        assert run_in_background('test', cmd) == 0
+        assert is_running('test')
+        assert kill('test') is True
+        sleep(0.3)  # give process time to exit
+        assert not is_running('test')
 
 
 if __name__ == '__main__':  # pragma: no cover

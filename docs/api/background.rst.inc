@@ -17,3 +17,4 @@ or application) in a background process.
 
 .. autofunction:: run_in_background
 .. autofunction:: is_running
+.. autofunction:: kill

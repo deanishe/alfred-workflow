@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Background processes &mdash; Alfred-Workflow 1.28.1 documentation</title>
+    <title>Background processes &mdash; Alfred-Workflow 1.29 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.28.1',
+        VERSION:     '1.29',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.28.1 documentation" href="../index.html" />
+    <link rel="top" title="Alfred-Workflow 1.29 documentation" href="../index.html" />
     <link rel="up" title="User Guide" href="index.html" />
     <link rel="next" title="Self-updating" href="update.html" />
     <link rel="prev" title="Notifications" href="notifications.html" />
@@ -57,7 +57,7 @@
         <li class="right" >
           <a href="notifications.html" title="Notifications"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.28.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.29 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
       </ul>
     </div>  
@@ -76,7 +76,7 @@ unresponsive while an update is occurring, which is very un-Alfred-like.</p>
 <p>To avoid such delays, Alfred-Workflow provides the <a class="reference internal" href="../api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
 module to allow you to easily run scripts in the background.</p>
 <p>There are two functions, <a class="reference internal" href="../api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">is_running()</span></code></a>,
-that provide the interface. The processes started are full daemon
+that provide the main interface. The processes started are full daemon
 processes, so you can start real servers as easily as simple scripts.</p>
 <p>Here&#8217;s an example of a common usage pattern (updating cached data in the
 background). What we&#8217;re doing is:</p>
@@ -114,7 +114,12 @@ background). What we&#8217;re doing is:</p>
 25
 26
 27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">ICON_INFO</span>
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">workflow</span> <span class="kn">import</span> <span class="n">Workflow3</span><span class="p">,</span> <span class="n">ICON_INFO</span>
  <span class="kn">from</span> <span class="nn">workflow.background</span> <span class="kn">import</span> <span class="n">run_in_background</span><span class="p">,</span> <span class="n">is_running</span>
 
  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
@@ -124,8 +129,12 @@ background). What we&#8217;re doing is:</p>
                            <span class="p">[</span><span class="s1">&#39;/usr/bin/python&#39;</span><span class="p">,</span>
                             <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s1">&#39;update_exchange_rates.py&#39;</span><span class="p">)])</span>
 
-     <span class="c1"># Add a notification if the script is running</span>
      <span class="k">if</span> <span class="n">is_running</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">):</span>
+         <span class="c1"># Tell Alfred to run the script again every 0.5 seconds</span>
+         <span class="c1"># until the `update` job is complete (and Alfred is</span>
+         <span class="c1"># showing results based on the newly-retrieved data)</span>
+         <span class="n">wf</span><span class="o">.</span><span class="n">rerun</span> <span class="o">=</span> <span class="mf">0.5</span>
+         <span class="c1"># Add a notification if the script is running</span>
          <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Updating exchange rates...&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">ICON_INFO</span><span class="p">)</span>
 
      <span class="c1"># max_age=0 will load any cached data regardless of age</span>
@@ -140,13 +149,14 @@ background). What we&#8217;re doing is:</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">send_feedback</span><span class="p">()</span>
 
  <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
+    <span class="c1"># Use Workflow3 so we can use Alfred 3&#39;s awesome `rerun` feature</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow3</span><span class="p">()</span>
     <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
 <p>For a working example, see
 <a class="reference internal" href="../tutorial_2.html#background-updates"><span>Part 2 of the Tutorial</span></a> or the
-<a class="reference external" href="https://github.com/deanishe/alfred-repos/blob/master/src/repos.py">source code</a>
+<a class="reference external" href="https://github.com/deanishe/alfred-repos/blob/88b6128a2a9214412d26707d09e65875b1964918/src/repos.py#L409">source code</a>
 of my <a class="reference external" href="https://github.com/deanishe/alfred-repos">Git Repos</a> workflow,
 which is a bit smarter about showing the user update information.</p>
 </div>

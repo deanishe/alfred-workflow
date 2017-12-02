@@ -1,8 +1,8 @@
-pyobjc-core==3.2.1
-pyobjc-framework-Cocoa==3.2.1
-pytest==3.0.7
-pytest-cov==2.4.0
-pytest-httpbin==0.2.3
-pytest-localserver==0.3.7
-tox==2.7.0
+pyobjc-core==4.0.1
+pyobjc-framework-Cocoa==4.0.1
+pytest==3.3.0
+pytest-cov==2.5.1
+pytest-httpbin==0.3.0
+pytest-localserver==0.4.1
+tox==2.9.1
 twine==1.9.1

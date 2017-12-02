@@ -116,17 +116,10 @@ autoclass_content = 'class'
 # a list of builtin themes.
 # html_theme = 'jdoctest'
 
-# html_theme = 'bootstrap'
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+on_rtd = os.environ.get('READTHEDOCS') == 'True'
 dash_docset = os.environ.get('DASH_DOCSET') == 'true'
 
 if not on_rtd:
-    # import sphinx_rtd_theme
-    # html_theme = 'sphinx_rtd_theme'
-    # html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-    # import sphinx_readable_theme
-    # html_theme = 'readable'
-    # html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
     import alabaster
     html_theme_path = [alabaster.get_path()]
     extensions += ['alabaster']
@@ -149,43 +142,18 @@ if not on_rtd:
         'github_button': True,
         'github_user': 'deanishe',
         'github_repo': 'alfred-workflow',
-        'gittip_user': 'deanishe',
+        'paypal_user': 'deanishe',
         'github_type': 'star',
+        'travis_button': True,
+        # 'codecov_button': True,
+        'coveralls_button': True,
+        'pypi_button': True,
+        'patreon_user_number': '890395',
         'logo_name': True,
         'logo_text_align': 'center',
         'description': "A helper library for creating Alfred 2 & 3 workflows.",
-        'font_family': "Georgia, 'goudy old style', 'minion pro', 'bell mt', 'Hiragino Mincho Pro', serif",
+        # 'font_family': "Georgia, 'goudy old style', 'minion pro', 'bell mt', 'Hiragino Mincho Pro', serif",
     }
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-# html_theme_options = {'github_fork': 'deanishe/alfred-workflow'}
-
-# html_theme_options = {
-#     'navbar_site_name': 'Documentation',
-#     'navbar_pagenav': True,  # Current page TOC in navbar
-#     'globaltoc_depth': -1,
-#     'navbar_sidebarrel': False,  # next/previous links in navbar
-#     'source_link_position': 'footer',
-#     'bootstrap_version': '3',
-#     # 'bootswatch_theme': 'readable',
-#     'bootswatch_theme': 'simplex',
-
-# }
-
-# html_sidebars = {
-#     'howto': ['localtoc.html'],
-#     'index': ['localtoc.html'],
-#     'tutorial': ['localtoc.html'],
-#     'tutorial2': ['localtoc.html'],
-# }
-
-# Add any paths that contain custom themes here, relative to this directory.
-# html_theme_path = ['_themes']
-# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".

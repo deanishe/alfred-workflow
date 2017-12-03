@@ -1,35 +1,36 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>API documentation &mdash; Alfred-Workflow 1.29 documentation</title>
-    
+    <title>API documentation &#8212; Alfred-Workflow 1.29 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '1.29',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.29 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributing" href="../contributing.html" />
     <link rel="prev" title="Encoded strings and Unicode" href="../guide/text-encoding.html" />
 
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -40,25 +41,8 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../contributing.html" title="Contributing"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../guide/text-encoding.html" title="Encoded strings and Unicode"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.29 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -67,10 +51,10 @@
             
   <div class="section" id="api-documentation">
 <span id="api"></span><h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Documentation for Alfred-Workflow&#8217;s classes and methods.</p>
-<p>See <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for documentation focussed on performing specific
+<p>Documentation for Alfred-Workflow’s classes and methods.</p>
+<p>See <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for documentation focussed on performing specific
 tasks.</p>
-<p>See the <a class="reference internal" href="../genindex.html"><span>main index</span></a> for a list of all classes and methods.</p>
+<p>See the <a class="reference internal" href="../genindex.html"><span class="std std-ref">main index</span></a> for a list of all classes and methods.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#module-workflow" id="id1">Workflow objects</a><ul>
@@ -104,10 +88,10 @@ tasks.</p>
 <span id="workflow-objects"></span><span id="api-workflow"></span><h2><a class="toc-backref" href="#id1">Workflow objects</a><a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object is the main interface to this library.</p>
 <p><a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> is targeted at Alfred 2. Use <a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> if
-you want to use Alfred 3&#8217;s new features, such as
-<a class="reference internal" href="../guide/variables.html#workflow-variables"><span>workflow variables</span></a> or
-<a class="reference internal" href="#api-modifiers"><span>more powerful modifiers</span></a>.</p>
-<p>See <a class="reference internal" href="../guide/setup.html#setup"><span>Workflow setup and skeleton</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for an example of how to set
+you want to use Alfred 3’s new features, such as
+<a class="reference internal" href="../guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> or
+<a class="reference internal" href="#api-modifiers"><span class="std std-ref">more powerful modifiers</span></a>.</p>
+<p>See <a class="reference internal" href="../guide/setup.html#setup"><span class="std std-ref">Workflow setup and skeleton</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for an example of how to set
 up your Python script to best utilise the <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object.</p>
 <dl class="class">
 <dt id="workflow.Workflow">
@@ -124,31 +108,31 @@ Alfred 3-only features, such as workflow variables.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>default_settings</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) &#8211; default workflow settings. If no settings file
+<li><strong>default_settings</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – default workflow settings. If no settings file
 exists, <a class="reference internal" href="#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-class docutils literal"><span class="pre">Workflow.settings</span></code></a> will be pre-populated with
 <code class="docutils literal"><span class="pre">default_settings</span></code>.</li>
-<li><strong>update_settings</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) &#8211; settings for updating your workflow from
+<li><strong>update_settings</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – settings for updating your workflow from
 GitHub releases. The only required key is <code class="docutils literal"><span class="pre">github_slug</span></code>,
 whose value must take the form of <code class="docutils literal"><span class="pre">username/repo</span></code>.
-If specified, <code class="docutils literal"><span class="pre">Workflow</span></code> will check the repo&#8217;s releases
+If specified, <code class="docutils literal"><span class="pre">Workflow</span></code> will check the repo’s releases
 for updates. Your workflow must also have a semantic version
-number. Please see the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Manual</span></a> and
+number. Please see the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Manual</span></a> and
 <cite>update API docs &lt;api-updates&gt;</cite> for more information.</li>
-<li><strong>input_encoding</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) &#8211; encoding of command line arguments. You
+<li><strong>input_encoding</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – encoding of command line arguments. You
 should probably leave this as the default (<code class="docutils literal"><span class="pre">utf-8</span></code>), which
 is the encoding Alfred uses.</li>
-<li><strong>normalization</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) &#8211; normalisation to apply to CLI args.
+<li><strong>normalization</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – normalisation to apply to CLI args.
 See <a class="reference internal" href="#workflow.Workflow.decode" title="workflow.Workflow.decode"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code></a> for more details.</li>
-<li><strong>capture_args</strong> (<code class="xref py py-class docutils literal"><span class="pre">Boolean</span></code>) &#8211; Capture and act on <code class="docutils literal"><span class="pre">workflow:*</span></code> arguments. See
-<a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span>Magic arguments</span></a> for details.</li>
-<li><strong>libraries</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) &#8211; sequence of paths to directories containing
+<li><strong>capture_args</strong> (<code class="xref py py-class docutils literal"><span class="pre">Boolean</span></code>) – Capture and act on <code class="docutils literal"><span class="pre">workflow:*</span></code> arguments. See
+<a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span class="std std-ref">Magic arguments</span></a> for details.</li>
+<li><strong>libraries</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) – sequence of paths to directories containing
 libraries. These paths will be prepended to <code class="docutils literal"><span class="pre">sys.path</span></code>.</li>
-<li><strong>help_url</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; URL to webpage where a user can ask for help with
+<li><strong>help_url</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – URL to webpage where a user can ask for help with
 the workflow, report bugs, etc. This could be the GitHub repo
 or a page on AlfredForum.com. If your workflow throws an error,
-this URL will be displayed in the log and Alfred&#8217;s debugger. It can
+this URL will be displayed in the log and Alfred’s debugger. It can
 also be opened directly in a web browser with the <code class="docutils literal"><span class="pre">workflow:help</span></code>
-<a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span>magic argument</span></a>.</li>
+<a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span class="std std-ref">magic argument</span></a>.</li>
 </ul>
 </td>
 </tr>
@@ -163,32 +147,32 @@ also be opened directly in a web browser with the <code class="docutils literal"
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Title shown in Alfred</li>
-<li><strong>subtitle</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Subtitle shown in Alfred</li>
-<li><strong>modifier_subtitles</strong> (<code class="docutils literal"><span class="pre">dict</span></code>) &#8211; Subtitles shown when modifier
+<li><strong>title</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Title shown in Alfred</li>
+<li><strong>subtitle</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Subtitle shown in Alfred</li>
+<li><strong>modifier_subtitles</strong> (<code class="docutils literal"><span class="pre">dict</span></code>) – Subtitles shown when modifier
 (CMD, OPT etc.) is pressed. Use a <code class="docutils literal"><span class="pre">dict</span></code> with the lowercase
 keys <code class="docutils literal"><span class="pre">cmd</span></code>, <code class="docutils literal"><span class="pre">ctrl</span></code>, <code class="docutils literal"><span class="pre">shift</span></code>, <code class="docutils literal"><span class="pre">alt</span></code> and <code class="docutils literal"><span class="pre">fn</span></code></li>
-<li><strong>arg</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Argument passed by Alfred as <code class="docutils literal"><span class="pre">{query}</span></code> when item is
+<li><strong>arg</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Argument passed by Alfred as <code class="docutils literal"><span class="pre">{query}</span></code> when item is
 actioned</li>
-<li><strong>autocomplete</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Text expanded in Alfred when item is TABbed</li>
-<li><strong>valid</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; Whether or not item can be actioned</li>
-<li><strong>uid</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Used by Alfred to remember/sort items</li>
-<li><strong>icon</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Filename of icon to use</li>
-<li><strong>icontype</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Type of icon. Must be one of <code class="docutils literal"><span class="pre">None</span></code> , <code class="docutils literal"><span class="pre">'filetype'</span></code>
+<li><strong>autocomplete</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Text expanded in Alfred when item is TABbed</li>
+<li><strong>valid</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Whether or not item can be actioned</li>
+<li><strong>uid</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Used by Alfred to remember/sort items</li>
+<li><strong>icon</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Filename of icon to use</li>
+<li><strong>icontype</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Type of icon. Must be one of <code class="docutils literal"><span class="pre">None</span></code> , <code class="docutils literal"><span class="pre">'filetype'</span></code>
 or <code class="docutils literal"><span class="pre">'fileicon'</span></code>. Use <code class="docutils literal"><span class="pre">'filetype'</span></code> when <code class="docutils literal"><span class="pre">icon</span></code> is a filetype
 such as <code class="docutils literal"><span class="pre">'public.folder'</span></code>. Use <code class="docutils literal"><span class="pre">'fileicon'</span></code> when you wish to
 use the icon of the file specified as <code class="docutils literal"><span class="pre">icon</span></code>, e.g.
 <code class="docutils literal"><span class="pre">icon='/Applications/Safari.app',</span> <span class="pre">icontype='fileicon'</span></code>.
 Leave as <cite>None</cite> if <code class="docutils literal"><span class="pre">icon</span></code> points to an actual
 icon file.</li>
-<li><strong>type</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Result type. Currently only <code class="docutils literal"><span class="pre">'file'</span></code> is supported
+<li><strong>type</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Result type. Currently only <code class="docutils literal"><span class="pre">'file'</span></code> is supported
 (by Alfred). This will tell Alfred to enable file actions for
 this item.</li>
-<li><strong>largetext</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Text to be displayed in Alfred&#8217;s large text box
+<li><strong>largetext</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Text to be displayed in Alfred’s large text box
 if user presses CMD+L on item.</li>
-<li><strong>copytext</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Text to be copied to pasteboard if user presses
+<li><strong>copytext</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Text to be copied to pasteboard if user presses
 CMD+C on item.</li>
-<li><strong>quicklookurl</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; URL to be displayed using Alfred&#8217;s Quick Look
+<li><strong>quicklookurl</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – URL to be displayed using Alfred’s Quick Look
 feature (tapping <code class="docutils literal"><span class="pre">SHIFT</span></code> or <code class="docutils literal"><span class="pre">⌘+Y</span></code> on a result).</li>
 </ul>
 </td>
@@ -198,10 +182,10 @@ feature (tapping <code class="docutils literal"><span class="pre">SHIFT</span></
 </tr>
 </tbody>
 </table>
-<p>See <a class="reference internal" href="../guide/icons.html#icons"><span>System icons</span></a> for a list of the supported system icons.</p>
+<p>See <a class="reference internal" href="../guide/icons.html#icons"><span class="std std-ref">System icons</span></a> for a list of the supported system icons.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Although this method returns an <code class="xref py py-class docutils literal"><span class="pre">Item</span></code> instance, you don&#8217;t
+<p>Although this method returns an <code class="xref py py-class docutils literal"><span class="pre">Item</span></code> instance, you don’t
 need to hold onto it or worry about it. All generated <code class="xref py py-class docutils literal"><span class="pre">Item</span></code>
 instances are also collected internally and sent to Alfred when
 <a class="reference internal" href="#workflow.Workflow.send_feedback" title="workflow.Workflow.send_feedback"><code class="xref py py-meth docutils literal"><span class="pre">send_feedback()</span></code></a> is called.</p>
@@ -213,7 +197,7 @@ edit it or do something with it other than send it to Alfred.</p>
 <dl class="attribute">
 <dt id="workflow.Workflow.alfred_env">
 <code class="descname">alfred_env</code><a class="headerlink" href="#workflow.Workflow.alfred_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dict of Alfred&#8217;s environmental variables minus <code class="docutils literal"><span class="pre">alfred_</span></code> prefix.</p>
+<dd><p>Dict of Alfred’s environmental variables minus <code class="docutils literal"><span class="pre">alfred_</span></code> prefix.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.7.</span></p>
 </div>
@@ -230,7 +214,7 @@ edit it or do something with it other than send it to Alfred.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>debug</td>
-<td>Set to <code class="docutils literal"><span class="pre">1</span></code> if Alfred&#8217;s debugger is
+<td>Set to <code class="docutils literal"><span class="pre">1</span></code> if Alfred’s debugger is
 open, otherwise unset.</td>
 </tr>
 <tr class="row-odd"><td>preferences</td>
@@ -269,10 +253,10 @@ format <code class="docutils literal"><span class="pre">rgba(r,g,b,a)</span></co
 <code class="docutils literal"><span class="pre">net.deanishe.alfred-mailto</span></code></td>
 </tr>
 <tr class="row-odd"><td>workflow_cache</td>
-<td>Path to workflow&#8217;s cache directory</td>
+<td>Path to workflow’s cache directory</td>
 </tr>
 <tr class="row-even"><td>workflow_data</td>
-<td>Path to workflow&#8217;s data directory</td>
+<td>Path to workflow’s data directory</td>
 </tr>
 <tr class="row-odd"><td>workflow_name</td>
 <td>Name of current workflow</td>
@@ -292,7 +276,7 @@ workflow configuration sheet/info.plist</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">dict</span></code> of Alfred&#8217;s environmental variables without the
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">dict</span></code> of Alfred’s environmental variables without the
 <code class="docutils literal"><span class="pre">alfred_</span></code> prefix, e.g. <code class="docutils literal"><span class="pre">preferences</span></code>, <code class="docutils literal"><span class="pre">workflow_data</span></code>.</td>
 </tr>
 </tbody>
@@ -317,7 +301,7 @@ and <code class="docutils literal"><span class="pre">NFC</span></code> are the d
 (the default), <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> will look for certain
 <code class="docutils literal"><span class="pre">workflow:*</span></code> args and, if found, perform the corresponding
 actions and exit the workflow.</p>
-<p>See <a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span>Magic arguments</span></a> for details.</p>
+<p>See <a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span class="std std-ref">Magic arguments</span></a> for details.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -347,8 +331,8 @@ deleted.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> &#8211; name of datastore</li>
-<li><strong>data</strong> &#8211; data to store. This may be any object supported by
+<li><strong>name</strong> – name of datastore</li>
+<li><strong>data</strong> – data to store. This may be any object supported by
 the cache serializer</li>
 </ul>
 </td>
@@ -391,9 +375,9 @@ matter how old.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; name of datastore</li>
-<li><strong>data_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) &#8211; function to (re-)generate data.</li>
-<li><strong>max_age</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; maximum age of cached data in seconds</li>
+<li><strong>name</strong> – name of datastore</li>
+<li><strong>data_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) – function to (re-)generate data.</li>
+<li><strong>max_age</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – maximum age of cached data in seconds</li>
 </ul>
 </td>
 </tr>
@@ -408,12 +392,12 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <dl class="method">
 <dt id="workflow.Workflow.cached_data_age">
 <code class="descname">cached_data_age</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.cached_data_age" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return age in seconds of cache <cite>name</cite> or 0 if cache doesn&#8217;t exist.</p>
+<dd><p>Return age in seconds of cache <cite>name</cite> or 0 if cache doesn’t exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of datastore</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of datastore</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">age of datastore in seconds</td>
 </tr>
@@ -432,8 +416,8 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; name of datastore</li>
-<li><strong>max_age</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; maximum age of data in seconds</li>
+<li><strong>name</strong> – name of datastore</li>
+<li><strong>max_age</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – maximum age of data in seconds</li>
 </ul>
 </td>
 </tr>
@@ -448,8 +432,8 @@ if <code class="docutils literal"><span class="pre">data_func</span></code> is n
 <dl class="attribute">
 <dt id="workflow.Workflow.cachedir">
 <code class="descname">cachedir</code><a class="headerlink" href="#workflow.Workflow.cachedir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to workflow&#8217;s cache directory.</p>
-<p>The cache directory is a subdirectory of Alfred&#8217;s own cache directory
+<dd><p>Path to workflow’s cache directory.</p>
+<p>The cache directory is a subdirectory of Alfred’s own cache directory
 in <code class="docutils literal"><span class="pre">~/Library/Caches</span></code>. The full path is:</p>
 <p><code class="docutils literal"><span class="pre">~/Library/Caches/com.runningwithcrayons.Alfred-X/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></code></p>
 <p><code class="docutils literal"><span class="pre">Alfred-X</span></code> may be <code class="docutils literal"><span class="pre">Alfred-2</span></code> or <code class="docutils literal"><span class="pre">Alfred-3</span></code>.</p>
@@ -457,7 +441,7 @@ in <code class="docutils literal"><span class="pre">~/Library/Caches</span></cod
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">full path to workflow&#8217;s cache directory</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">full path to workflow’s cache directory</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">unicode</span></code></td>
 </tr>
@@ -468,14 +452,14 @@ in <code class="docutils literal"><span class="pre">~/Library/Caches</span></cod
 <dl class="method">
 <dt id="workflow.Workflow.cachefile">
 <code class="descname">cachefile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.cachefile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow&#8217;s cache directory.</p>
-<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow&#8217;s
+<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow’s cache directory.</p>
+<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
 <a class="reference internal" href="#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cache</span> <span class="pre">directory</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; basename of file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – basename of file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">full path to file within cache directory</td>
 </tr>
@@ -488,19 +472,19 @@ in <code class="docutils literal"><span class="pre">~/Library/Caches</span></cod
 <dl class="method">
 <dt id="workflow.Workflow.check_update">
 <code class="descname">check_update</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.check_update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call update script if it&#8217;s time to check for a new release.</p>
+<dd><p>Call update script if it’s time to check for a new release.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
-<p>The update script will be run in the background, so it won&#8217;t
+<p>The update script will be run in the background, so it won’t
 interfere in the execution of your workflow.</p>
-<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for detailed
+<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span class="std std-ref">Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for detailed
 information on how to enable your workflow to update itself.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>force</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; Force update check</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>force</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Force update check</td>
 </tr>
 </tbody>
 </table>
@@ -509,12 +493,12 @@ information on how to enable your workflow to update itself.</p>
 <dl class="method">
 <dt id="workflow.Workflow.clear_cache">
 <code class="descname">clear_cache</code><span class="sig-paren">(</span><em>filter_func=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.clear_cache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a>.</p>
+<dd><p>Delete all files in workflow’s <a class="reference internal" href="#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) &#8211; Callable to determine whether a file should be
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) – Callable to determine whether a file should be
 deleted or not. <code class="docutils literal"><span class="pre">filter_func</span></code> is called with the filename
 of each file in the data directory. If it returns <code class="docutils literal"><span class="pre">True</span></code>,
 the file will be deleted.
@@ -527,12 +511,12 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="method">
 <dt id="workflow.Workflow.clear_data">
 <code class="descname">clear_data</code><span class="sig-paren">(</span><em>filter_func=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.clear_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all files in workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a>.</p>
+<dd><p>Delete all files in workflow’s <a class="reference internal" href="#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) &#8211; Callable to determine whether a file should be
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filter_func</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) – Callable to determine whether a file should be
 deleted or not. <code class="docutils literal"><span class="pre">filter_func</span></code> is called with the filename
 of each file in the data directory. If it returns <code class="docutils literal"><span class="pre">True</span></code>,
 the file will be deleted.
@@ -545,7 +529,7 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="method">
 <dt id="workflow.Workflow.clear_settings">
 <code class="descname">clear_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.clear_settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.settings_path" title="workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings_path</span></code></a>.</p>
+<dd><p>Delete workflow’s <a class="reference internal" href="#workflow.Workflow.settings_path" title="workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings_path</span></code></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -573,8 +557,8 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="attribute">
 <dt id="workflow.Workflow.datadir">
 <code class="descname">datadir</code><a class="headerlink" href="#workflow.Workflow.datadir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to workflow&#8217;s data directory.</p>
-<p>The data directory is a subdirectory of Alfred&#8217;s own data directory in
+<dd><p>Path to workflow’s data directory.</p>
+<p>The data directory is a subdirectory of Alfred’s own data directory in
 <code class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></code>. The full path is:</p>
 <p><code class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support/Alfred</span> <span class="pre">2/Workflow</span> <span class="pre">Data/&lt;bundle</span> <span class="pre">id&gt;</span></code></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -592,14 +576,14 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="method">
 <dt id="workflow.Workflow.datafile">
 <code class="descname">datafile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.datafile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow&#8217;s data directory.</p>
-<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow&#8217;s
+<dd><p>Path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow’s data directory.</p>
+<p>Return absolute path to <code class="docutils literal"><span class="pre">filename</span></code> within your workflow’s
 <a class="reference internal" href="#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">data</span> <span class="pre">directory</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; basename of file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – basename of file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">full path to file within data directory</td>
 </tr>
@@ -612,12 +596,12 @@ By default, <em>all</em> files will be deleted.</td>
 <dl class="attribute">
 <dt id="workflow.Workflow.debugging">
 <code class="descname">debugging</code><a class="headerlink" href="#workflow.Workflow.debugging" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether Alfred&#8217;s debugger is open.</p>
+<dd><p>Whether Alfred’s debugger is open.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if Alfred&#8217;s debugger is open.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if Alfred’s debugger is open.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">bool</span></code></td>
 </tr>
@@ -638,10 +622,10 @@ By default, <em>all</em> files will be deleted.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>text</strong> (encoded or Unicode string. If <code class="docutils literal"><span class="pre">text</span></code> is already a
-Unicode string, it will only be normalised.) &#8211; string</li>
-<li><strong>encoding</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">None</span></code>) &#8211; The text encoding to use to decode <code class="docutils literal"><span class="pre">text</span></code> to
+Unicode string, it will only be normalised.) – string</li>
+<li><strong>encoding</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">None</span></code>) – The text encoding to use to decode <code class="docutils literal"><span class="pre">text</span></code> to
 Unicode.</li>
-<li><strong>normalization</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">None</span></code>) &#8211; The nomalisation form to apply to <code class="docutils literal"><span class="pre">text</span></code>.</li>
+<li><strong>normalization</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">None</span></code>) – The nomalisation form to apply to <code class="docutils literal"><span class="pre">text</span></code>.</li>
 </ul>
 </td>
 </tr>
@@ -650,10 +634,10 @@ Unicode.</li>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> uses &#8220;NFC&#8221; normalisation by default. This is the
+<p><a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> uses “NFC” normalisation by default. This is the
 standard for Python and will work well with data from the web (via
 <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">web</span></code></a> or <a class="reference external" href="https://docs.python.org/2.7/library/json.html#module-json" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">json</span></code></a>).</p>
-<p>macOS, on the other hand, uses &#8220;NFD&#8221; normalisation (nearly), so data
+<p>macOS, on the other hand, uses “NFD” normalisation (nearly), so data
 coming from the system (e.g. via <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#module-subprocess" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">subprocess</span></code></a> or
 <a class="reference external" href="https://docs.python.org/2.7/library/os.html#os.listdir" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">os.listdir()</span></code></a>/<a class="reference external" href="https://docs.python.org/2.7/library/os.path.html#module-os.path" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">os.path</span></code></a>) may not match. You should either
 normalise this data, too, or change the default normalisation used by
@@ -670,9 +654,9 @@ normalise this data, too, or change the default normalisation used by
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of the account the password is for, e.g.
-&#8220;Pinboard&#8221;</li>
-<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Name of the service. By default, this is the workflow&#8217;s
+<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of the account the password is for, e.g.
+“Pinboard”</li>
+<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Name of the service. By default, this is the workflow’s
 bundle ID</li>
 </ul>
 </td>
@@ -685,14 +669,14 @@ bundle ID</li>
 <dt id="workflow.Workflow.dumbify_punctuation">
 <code class="descname">dumbify_punctuation</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.dumbify_punctuation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert non-ASCII punctuation to closest ASCII equivalent.</p>
-<p>This method replaces &#8220;smart&#8221; quotes and n- or m-dashes with their
+<p>This method replaces “smart” quotes and n- or m-dashes with their
 workaday ASCII equivalents. This method is currently not used
 internally, but exists as a helper method for workflow authors.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; text to convert</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – text to convert</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">text with only ASCII punctuation</td>
 </tr>
@@ -715,21 +699,21 @@ all items will match.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; query to test items against</li>
-<li><strong>items</strong> (<code class="docutils literal"><span class="pre">list</span></code> or <code class="docutils literal"><span class="pre">tuple</span></code>) &#8211; iterable of items to test</li>
-<li><strong>key</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) &#8211; function to get comparison key from <code class="docutils literal"><span class="pre">items</span></code>.
+<li><strong>query</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – query to test items against</li>
+<li><strong>items</strong> (<code class="docutils literal"><span class="pre">list</span></code> or <code class="docutils literal"><span class="pre">tuple</span></code>) – iterable of items to test</li>
+<li><strong>key</strong> (<code class="docutils literal"><span class="pre">callable</span></code>) – function to get comparison key from <code class="docutils literal"><span class="pre">items</span></code>.
 Must return a <code class="docutils literal"><span class="pre">unicode</span></code> string. The default simply returns
 the item.</li>
-<li><strong>ascending</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; set to <code class="docutils literal"><span class="pre">True</span></code> to get worst matches first</li>
-<li><strong>include_score</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; Useful for debugging the scoring algorithm.
+<li><strong>ascending</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – set to <code class="docutils literal"><span class="pre">True</span></code> to get worst matches first</li>
+<li><strong>include_score</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Useful for debugging the scoring algorithm.
 If <code class="docutils literal"><span class="pre">True</span></code>, results will be a list of tuples
 <code class="docutils literal"><span class="pre">(item,</span> <span class="pre">score,</span> <span class="pre">rule)</span></code>.</li>
-<li><strong>min_score</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; If non-zero, ignore results with a score lower
+<li><strong>min_score</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – If non-zero, ignore results with a score lower
 than this.</li>
-<li><strong>max_results</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; If non-zero, prune results list to this length.</li>
-<li><strong>match_on</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; Filter option flags. Bitwise-combined list of
+<li><strong>max_results</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – If non-zero, prune results list to this length.</li>
+<li><strong>match_on</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – Filter option flags. Bitwise-combined list of
 <code class="docutils literal"><span class="pre">MATCH_*</span></code> constants (see below).</li>
-<li><strong>fold_diacritics</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; Convert search keys to ASCII-only
+<li><strong>fold_diacritics</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Convert search keys to ASCII-only
 characters if <code class="docutils literal"><span class="pre">query</span></code> only contains ASCII characters.</li>
 </ul>
 </td>
@@ -762,15 +746,15 @@ would match <code class="docutils literal"><span class="pre">OmniFocus</span></c
 </li>
 <li><dl class="first docutils">
 <dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_ATOM</span></code></dt>
-<dd>Search key is split into &#8220;atoms&#8221; on non-word characters
-(.,-,&#8217; etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is one of these atoms
+<dd>Search key is split into “atoms” on non-word characters
+(.,-,’ etc.). Matches if <code class="docutils literal"><span class="pre">query</span></code> is one of these atoms
 (case-insensitive).</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><code class="xref py py-const docutils literal"><span class="pre">MATCH_INITIALS_STARTSWITH</span></code></dt>
 <dd>Initials are the first characters of the above-described
-&#8220;atoms&#8221; (case-insensitive).</dd>
+“atoms” (case-insensitive).</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -825,11 +809,11 @@ altered.</p>
 <dl class="attribute">
 <dt id="workflow.Workflow.first_run">
 <code class="descname">first_run</code><a class="headerlink" href="#workflow.Workflow.first_run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if it&#8217;s the first time this version has run.</p>
+<dd><p>Return <code class="docutils literal"><span class="pre">True</span></code> if it’s the first time this version has run.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.10.</span></p>
 </div>
-<p>Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if <a class="reference internal" href="#workflow.Workflow.version" title="workflow.Workflow.version"><code class="xref py py-attr docutils literal"><span class="pre">version</span></code></a> isn&#8217;t set.</p>
+<p>Raises a <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if <a class="reference internal" href="#workflow.Workflow.version" title="workflow.Workflow.version"><code class="xref py py-attr docutils literal"><span class="pre">version</span></code></a> isn’t set.</p>
 </dd></dl>
 
 <dl class="method">
@@ -847,7 +831,7 @@ altered.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; text to convert</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – text to convert</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">text containing only ASCII characters</td>
 </tr>
@@ -861,15 +845,15 @@ altered.</p>
 <dt id="workflow.Workflow.get_password">
 <code class="descname">get_password</code><span class="sig-paren">(</span><em>account</em>, <em>service=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.get_password" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the password saved at <code class="docutils literal"><span class="pre">service/account</span></code>.</p>
-<p>Raise <a class="reference internal" href="#workflow.PasswordNotFound" title="workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> exception if password doesn&#8217;t exist.</p>
+<p>Raise <a class="reference internal" href="#workflow.PasswordNotFound" title="workflow.PasswordNotFound"><code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code></a> exception if password doesn’t exist.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of the account the password is for, e.g.
-&#8220;Pinboard&#8221;</li>
-<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Name of the service. By default, this is the workflow&#8217;s
+<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of the account the password is for, e.g.
+“Pinboard”</li>
+<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Name of the service. By default, this is the workflow’s
 bundle ID</li>
 </ul>
 </td>
@@ -922,7 +906,7 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">path to logfile within workflow&#8217;s cache directory</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">path to logfile within workflow’s cache directory</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">unicode</span></code></td>
 </tr>
@@ -934,7 +918,7 @@ or <code class="docutils literal"><span class="pre">None</span></code></td>
 <dt id="workflow.Workflow.logger">
 <code class="descname">logger</code><a class="headerlink" href="#workflow.Workflow.logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logger that logs to both console and a log file.</p>
-<p>If Alfred&#8217;s debugger is open, log level will be <code class="docutils literal"><span class="pre">DEBUG</span></code>,
+<p>If Alfred’s debugger is open, log level will be <code class="docutils literal"><span class="pre">DEBUG</span></code>,
 else it will be <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
 <p>Use <a class="reference internal" href="#workflow.Workflow.open_log" title="workflow.Workflow.open_log"><code class="xref py py-meth docutils literal"><span class="pre">open_log()</span></code></a> to open the log file in Console.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -950,7 +934,7 @@ else it will be <code class="docutils literal"><span class="pre">INFO</span></co
 <dl class="attribute">
 <dt id="workflow.Workflow.name">
 <code class="descname">name</code><a class="headerlink" href="#workflow.Workflow.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Workflow name from Alfred&#8217;s environmental vars or <code class="docutils literal"><span class="pre">info.plist</span></code>.</p>
+<dd><p>Workflow name from Alfred’s environmental vars or <code class="docutils literal"><span class="pre">info.plist</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -966,13 +950,13 @@ else it will be <code class="docutils literal"><span class="pre">INFO</span></co
 <dl class="method">
 <dt id="workflow.Workflow.open_cachedir">
 <code class="descname">open_cachedir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.open_cachedir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a> in Finder.</p>
+<dd><p>Open the workflow’s <a class="reference internal" href="#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a> in Finder.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.Workflow.open_datadir">
 <code class="descname">open_datadir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.open_datadir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a> in Finder.</p>
+<dd><p>Open the workflow’s <a class="reference internal" href="#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a> in Finder.</p>
 </dd></dl>
 
 <dl class="method">
@@ -990,13 +974,13 @@ else it will be <code class="docutils literal"><span class="pre">INFO</span></co
 <dl class="method">
 <dt id="workflow.Workflow.open_terminal">
 <code class="descname">open_terminal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.open_terminal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open a Terminal window at workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a>.</p>
+<dd><p>Open a Terminal window at workflow’s <a class="reference internal" href="#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="workflow.Workflow.open_workflowdir">
 <code class="descname">open_workflowdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.open_workflowdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open the workflow&#8217;s <a class="reference internal" href="#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a> in Finder.</p>
+<dd><p>Open the workflow’s <a class="reference internal" href="#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a> in Finder.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1010,7 +994,7 @@ else it will be <code class="docutils literal"><span class="pre">INFO</span></co
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if pre-releases are enabled with the <a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span>magic
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if pre-releases are enabled with the <a class="reference internal" href="../guide/magic-arguments.html#magic-arguments"><span class="std std-ref">magic
 argument</span></a> or the <code class="docutils literal"><span class="pre">update_settings</span></code> dict, else
 <code class="docutils literal"><span class="pre">False</span></code>.</td>
 </tr>
@@ -1035,10 +1019,10 @@ argument</span></a> or the <code class="docutils literal"><span class="pre">upda
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>func</strong> &#8211; Callable to call with <code class="docutils literal"><span class="pre">self</span></code> (i.e. the <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
+<li><strong>func</strong> – Callable to call with <code class="docutils literal"><span class="pre">self</span></code> (i.e. the <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
 instance) as first argument.</li>
-<li><strong>text_errors</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) &#8211; Emit error messages in plain text, not in
-Alfred&#8217;s XML/JSON feedback format. Use this when you&#8217;re not
+<li><strong>text_errors</strong> (<code class="docutils literal"><span class="pre">Boolean</span></code>) – Emit error messages in plain text, not in
+Alfred’s XML/JSON feedback format. Use this when you’re not
 running Alfred-Workflow in a Script Filter and would like
 to pass the error message to, say, a notification.</li>
 </ul>
@@ -1066,11 +1050,11 @@ be raised.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; name of the account the password is for, e.g.
-&#8220;Pinboard&#8221;</li>
-<li><strong>password</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; the password to secure</li>
-<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; Name of the service. By default, this is the
-workflow&#8217;s bundle ID</li>
+<li><strong>account</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – name of the account the password is for, e.g.
+“Pinboard”</li>
+<li><strong>password</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – the password to secure</li>
+<li><strong>service</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – Name of the service. By default, this is the
+workflow’s bundle ID</li>
 </ul>
 </td>
 </tr>
@@ -1096,7 +1080,7 @@ workflow&#8217;s bundle ID</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>version</strong> (<a class="reference internal" href="#workflow.update.Version" title="workflow.update.Version"><code class="xref py py-class docutils literal"><span class="pre">Version</span></code></a> instance
-or <code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; version to store (default is current version)</td>
+or <code class="docutils literal"><span class="pre">unicode</span></code>) – version to store (default is current version)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if version is saved, else <code class="docutils literal"><span class="pre">False</span></code></td>
 </tr>
@@ -1108,7 +1092,7 @@ or <code class="docutils literal"><span class="pre">unicode</span></code>) &#821
 <dt id="workflow.Workflow.settings">
 <code class="descname">settings</code><a class="headerlink" href="#workflow.Workflow.settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dictionary subclass that saves itself when changed.</p>
-<p>See <a class="reference internal" href="../guide/persistent-data.html#guide-settings"><span>Settings</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for more
+<p>See <a class="reference internal" href="../guide/persistent-data.html#guide-settings"><span class="std std-ref">Settings</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for more
 information on how to use <a class="reference internal" href="#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a> and <strong>important
 limitations</strong> on what it can do.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1117,7 +1101,7 @@ limitations</strong> on what it can do.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> instance
 initialised from the data in JSON file at
-<a class="reference internal" href="#workflow.Workflow.settings_path" title="workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings_path</span></code></a> or if that doesn&#8217;t exist, with the
+<a class="reference internal" href="#workflow.Workflow.settings_path" title="workflow.Workflow.settings_path"><code class="xref py py-attr docutils literal"><span class="pre">settings_path</span></code></a> or if that doesn’t exist, with the
 <code class="docutils literal"><span class="pre">default_settings</span></code> <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> passed to
 <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> on instantiation.</td>
 </tr>
@@ -1130,7 +1114,7 @@ initialised from the data in JSON file at
 <dl class="attribute">
 <dt id="workflow.Workflow.settings_path">
 <code class="descname">settings_path</code><a class="headerlink" href="#workflow.Workflow.settings_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to settings file within workflow&#8217;s data directory.</p>
+<dd><p>Path to settings file within workflow’s data directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1150,7 +1134,7 @@ initialised from the data in JSON file at
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
-<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for detailed
+<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span class="std std-ref">Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for detailed
 information on how to enable your workflow to update itself.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1177,10 +1161,10 @@ installed, else <code class="docutils literal"><span class="pre">False</span></c
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; name of datastore</li>
-<li><strong>data</strong> &#8211; object(s) to store. <strong>Note:</strong> some serializers
+<li><strong>name</strong> – name of datastore</li>
+<li><strong>data</strong> – object(s) to store. <strong>Note:</strong> some serializers
 can only handled certain types of data.</li>
-<li><strong>serializer</strong> &#8211; name of serializer to use. If no serializer
+<li><strong>serializer</strong> – name of serializer to use. If no serializer
 is specified, the default will be used. See
 <code class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></code> for more information.</li>
 </ul>
@@ -1205,7 +1189,7 @@ is specified, the default will be used. See
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; name of datastore</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – name of datastore</td>
 </tr>
 </tbody>
 </table>
@@ -1218,7 +1202,7 @@ is specified, the default will be used. See
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.9.</span></p>
 </div>
-<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for detailed
+<p>See <a class="reference internal" href="../guide/update.html#guide-updates"><span class="std std-ref">Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for detailed
 information on how to enable your workflow to update itself.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1239,7 +1223,7 @@ information on how to enable your workflow to update itself.</p>
 </div>
 <p>Get the workflow version from environment variable,
 the <code class="docutils literal"><span class="pre">update_settings</span></code> dict passed on
-instantiation, the <code class="docutils literal"><span class="pre">version</span></code> file located in the workflow&#8217;s
+instantiation, the <code class="docutils literal"><span class="pre">version</span></code> file located in the workflow’s
 root directory or <code class="docutils literal"><span class="pre">info.plist</span></code>. Return <code class="docutils literal"><span class="pre">None</span></code> if none
 exists or <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> if the version number is invalid
 (i.e. not semantic).</p>
@@ -1258,7 +1242,7 @@ exists or <code class="xref py py-class docutils literal"><span class="pre">Valu
 <dl class="attribute">
 <dt id="workflow.Workflow.workflowdir">
 <code class="descname">workflowdir</code><a class="headerlink" href="#workflow.Workflow.workflowdir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to workflow&#8217;s root directory (where <code class="docutils literal"><span class="pre">info.plist</span></code> is).</p>
+<dd><p>Path to workflow’s root directory (where <code class="docutils literal"><span class="pre">info.plist</span></code> is).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1274,12 +1258,12 @@ exists or <code class="xref py py-class docutils literal"><span class="pre">Valu
 <dl class="method">
 <dt id="workflow.Workflow.workflowfile">
 <code class="descname">workflowfile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow.workflowfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow&#8217;s root directory.</p>
+<dd><p>Return full path to <code class="docutils literal"><span class="pre">filename</span></code> in workflow’s root directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; basename of file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – basename of file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">full path to file within data directory</td>
 </tr>
@@ -1307,27 +1291,15 @@ at <code class="docutils literal"><span class="pre">filepath</span></code>. If t
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>filepath</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) &#8211; where to save the settings</li>
-<li><strong>defaults</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) &#8211; dict of default settings</li>
+<li><strong>filepath</strong> (<code class="xref py py-class docutils literal"><span class="pre">unicode</span></code>) – where to save the settings</li>
+<li><strong>defaults</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – dict of default settings</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>An appropriate instance is provided by <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> instances at
-<a class="reference internal" href="#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>.</p>
-<dl class="method">
-<dt id="workflow.workflow.Settings.__delitem__">
-<code class="descname">__delitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Settings.__delitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> interface.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.Settings.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Settings.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> interface.</p>
-</dd></dl>
-
+<p>An appropriate instance is provided by <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> instances at
+<code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code>.</p>
 <dl class="method">
 <dt id="workflow.workflow.Settings.setdefault">
 <code class="descname">setdefault</code><span class="sig-paren">(</span><em>key</em>, <em>value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.Settings.setdefault" title="Permalink to this definition">¶</a></dt>
@@ -1362,7 +1334,7 @@ You can register your own serializers on a manager.</p>
 <p>Use <a class="reference internal" href="#workflow.workflow.SerializerManager.register" title="workflow.workflow.SerializerManager.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a> to register new (or replace
 existing) serializers, which you can specify by name when calling
 <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> data storage methods.</p>
-<p>See <a class="reference internal" href="../guide/serialization.html#guide-serialization"><span>Serialization of stored/cached data</span></a> and <a class="reference internal" href="../guide/persistent-data.html#guide-persistent-data"><span>Persistent data</span></a>
+<p>See <a class="reference internal" href="../guide/serialization.html#guide-serialization"><span class="std std-ref">Serialization of stored/cached data</span></a> and <a class="reference internal" href="../guide/persistent-data.html#guide-persistent-data"><span class="std std-ref">Persistent data</span></a>
 for further information.</p>
 <dl class="method">
 <dt id="workflow.workflow.SerializerManager.register">
@@ -1378,8 +1350,8 @@ for further information.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name to register <code class="docutils literal"><span class="pre">serializer</span></code> under</li>
-<li><strong>serializer</strong> &#8211; object with <code class="docutils literal"><span class="pre">load()</span></code> and <code class="docutils literal"><span class="pre">dump()</span></code>
+<li><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) – Name to register <code class="docutils literal"><span class="pre">serializer</span></code> under</li>
+<li><strong>serializer</strong> – object with <code class="docutils literal"><span class="pre">load()</span></code> and <code class="docutils literal"><span class="pre">dump()</span></code>
 methods</li>
 </ul>
 </td>
@@ -1396,7 +1368,7 @@ methods</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of serializer to return</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) – Name of serializer to return</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object or <code class="docutils literal"><span class="pre">None</span></code> if no such serializer
 is registered.</td>
@@ -1421,7 +1393,7 @@ serializer.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of serializer to remove</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="docutils literal"><span class="pre">unicode</span></code> or <code class="docutils literal"><span class="pre">str</span></code>) – Name of serializer to remove</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">serializer object</td>
 </tr>
@@ -1438,7 +1410,7 @@ serializer.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.8.</span></p>
 </div>
-<p>Use this serializer if you need readable data files. JSON doesn&#8217;t
+<p>Use this serializer if you need readable data files. JSON doesn’t
 support Python objects as well as <code class="docutils literal"><span class="pre">cPickle</span></code>/<code class="docutils literal"><span class="pre">pickle</span></code>, so be
 careful which data you try to serialize as JSON.</p>
 <dl class="classmethod">
@@ -1453,8 +1425,8 @@ careful which data you try to serialize as JSON.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>obj</strong> (<em>JSON-serializable data structure</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
+<li><strong>obj</strong> (<em>JSON-serializable data structure</em>) – Python object to serialize</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</li>
 </ul>
 </td>
 </tr>
@@ -1473,7 +1445,7 @@ careful which data you try to serialize as JSON.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from JSON file</td>
 </tr>
@@ -1506,8 +1478,8 @@ flexibility.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>obj</strong> (<em>Python object</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
+<li><strong>obj</strong> (<em>Python object</em>) – Python object to serialize</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</li>
 </ul>
 </td>
 </tr>
@@ -1526,7 +1498,7 @@ flexibility.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from pickle file</td>
 </tr>
@@ -1558,8 +1530,8 @@ flexibility.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>obj</strong> (<em>Python object</em>) &#8211; Python object to serialize</li>
-<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</li>
+<li><strong>obj</strong> (<em>Python object</em>) – Python object to serialize</li>
+<li><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</li>
 </ul>
 </td>
 </tr>
@@ -1578,7 +1550,7 @@ flexibility.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) &#8211; file handle</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_obj</strong> (<code class="docutils literal"><span class="pre">file</span></code> object) – file handle</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object loaded from pickle file</td>
 </tr>
@@ -1617,7 +1589,7 @@ is unknown to the Keychain.</p>
 <em class="property">exception </em><code class="descclassname">workflow.workflow.</code><code class="descname">PasswordExists</code><a class="headerlink" href="#workflow.workflow.PasswordExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised when trying to overwrite an existing account password.</p>
 <p>You should never receive this error: it is used internally
-by the <a class="reference internal" href="#workflow.Workflow.save_password" title="workflow.Workflow.save_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></code></a> method to know if it needs
+by the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></code> method to know if it needs
 to delete the old password first (a Keychain implementation detail).</p>
 </dd></dl>
 
@@ -1641,7 +1613,7 @@ but may also be useful in your workflow.</p>
 </div>
 <p>Creates a lockfile alongside <code class="docutils literal"><span class="pre">protected_path</span></code>. Other <code class="docutils literal"><span class="pre">LockFile</span></code>
 instances will refuse to lock the same path.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/file&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/file&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">LockFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -1652,35 +1624,17 @@ instances will refuse to lock the same path.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>protected_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; File to protect with a lockfile</li>
-<li><strong>timeout</strong> (<em>int, optional</em>) &#8211; Raises an <a class="reference internal" href="#workflow.workflow.AcquisitionError" title="workflow.workflow.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>
+<li><strong>protected_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – File to protect with a lockfile</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – Raises an <a class="reference internal" href="#workflow.workflow.AcquisitionError" title="workflow.workflow.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>
 if lock cannot be acquired within this number of seconds.
 If <code class="docutils literal"><span class="pre">timeout</span></code> is 0 (the default), wait forever.</li>
-<li><strong>delay</strong> (<em>float, optional</em>) &#8211; How often to check (in seconds) if
+<li><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – How often to check (in seconds) if
 lock has been released.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="workflow.workflow.LockFile.__del__">
-<code class="descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.__del__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear up <cite>self.lockfile</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.LockFile.__enter__">
-<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.__enter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Acquire lock.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.LockFile.__exit__">
-<code class="descname">__exit__</code><span class="sig-paren">(</span><em>typ</em>, <em>value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.__exit__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Release lock.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="workflow.workflow.LockFile.acquire">
 <code class="descname">acquire</code><span class="sig-paren">(</span><em>blocking=True</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.acquire" title="Permalink to this definition">¶</a></dt>
@@ -1718,25 +1672,13 @@ lock or exceeds <cite>self.timeout</cite> and raises an <cite>~AcquisitionError<
 </div>
 <p>As of version 2.7, Alfred allows Script Filters to be killed. If
 your workflow is killed in the middle of critical code (e.g.
-writing data to disk), this may corrupt your workflow&#8217;s data.</p>
+writing data to disk), this may corrupt your workflow’s data.</p>
 <p>Use this decorator to wrap critical functions that <em>must</em> complete.
 If the script is killed while a wrapped function is executing,
 the SIGTERM will be caught and handled after your function has
 finished executing.</p>
 <p>Alfred-Workflow uses this internally to ensure its settings, data
 and cache writes complete.</p>
-<dl class="method">
-<dt id="workflow.workflow.uninterruptible.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.uninterruptible.__call__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trap <code class="docutils literal"><span class="pre">SIGTERM</span></code> and call wrapped function.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.uninterruptible.__get__">
-<code class="descname">__get__</code><span class="sig-paren">(</span><em>obj=None</em>, <em>klass=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.uninterruptible.__get__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator API.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="workflow.workflow.uninterruptible.signal_handler">
 <code class="descname">signal_handler</code><span class="sig-paren">(</span><em>signum</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.uninterruptible.signal_handler" title="Permalink to this definition">¶</a></dt>
@@ -1759,8 +1701,8 @@ succeeds. The data is first written to a temporary file.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>file_path</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; path of file to write to.</li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; sames as for <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a></li>
+<li><strong>file_path</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – path of file to write to.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – sames as for <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a></li>
 </ul>
 </td>
 </tr>
@@ -1776,15 +1718,15 @@ succeeds. The data is first written to a temporary file.</p>
 <p><span class="versionmodified">New in version 1.18.</span></p>
 </div>
 <p><a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> is an Alfred 3-only version of
-<a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> that supports Alfred 3&#8217;s new features.</p>
-<p>It supports setting <a class="reference internal" href="../guide/variables.html#workflow-variables"><span>Workflow variables</span></a> and
+<a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> that supports Alfred 3’s new features.</p>
+<p>It supports setting <a class="reference internal" href="../guide/variables.html#workflow-variables"><span class="std std-ref">Workflow variables</span></a> and
 <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">the</span> <span class="pre">more</span> <span class="pre">advanced</span> <span class="pre">modifiers</span></code></a> supported by Alfred 3.</p>
-<p>In order for the feedback mechanism to work correctly, it&#8217;s important
+<p>In order for the feedback mechanism to work correctly, it’s important
 to create <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> objects via the
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code> and <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a> methods
 respectively. If you instantiate <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> or <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
-objects directly, the current <code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code> object won&#8217;t be aware
-of them, and they won&#8217;t be sent to Alfred when you call
+objects directly, the current <code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code> object won’t be aware
+of them, and they won’t be sent to Alfred when you call
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow3.send_feedback()</span></code>.</p>
 <dl class="class">
 <dt id="workflow.Workflow3">
@@ -1793,17 +1735,15 @@ of them, and they won&#8217;t be sent to Alfred when you call
 <p><code class="docutils literal"><span class="pre">Workflow3</span></code> is a subclass of <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> and
 most of its methods are documented there.</p>
 <dl class="attribute">
-<dt id="workflow.workflow3.Workflow3.item_class">
-<code class="descname">item_class</code><a class="headerlink" href="#workflow.workflow3.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>class</em></p>
-<p>Class used to generate feedback items.</p>
+<dt id="workflow.Workflow3.item_class">
+<code class="descname">item_class</code><a class="headerlink" href="#workflow.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>class</em> – Class used to generate feedback items.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="workflow.workflow3.Workflow3.variables">
-<code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Workflow3.variables" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em></p>
-<p>Top level workflow variables.</p>
+<dt id="workflow.Workflow3.variables">
+<code class="descname">variables</code><a class="headerlink" href="#workflow.Workflow3.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> – Top level workflow variables.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1814,7 +1754,7 @@ most of its methods are documented there.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>match</strong> (<em>unicode, optional</em>) &#8211; If you have &#8220;Alfred filters results&#8221;
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>match</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – If you have “Alfred filters results”
 turned on for your Script Filter, Alfred (version 3.5 and
 above) will filter against this field, not <code class="docutils literal"><span class="pre">title</span></code>.</td>
 </tr>
@@ -1823,7 +1763,7 @@ above) will filter against this field, not <code class="docutils literal"><span 
 <p>See <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a> for
 the main documentation and other parameters.</p>
 <p>The key difference is that this method does not support the
-<code class="docutils literal"><span class="pre">modifier_subtitles</span></code> argument. Use the <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">add_modifier()</span></code></a>
+<code class="docutils literal"><span class="pre">modifier_subtitles</span></code> argument. Use the <code class="xref py py-meth docutils literal"><span class="pre">add_modifier()</span></code>
 method instead on the returned item instead.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1849,9 +1789,9 @@ method instead on the returned item instead.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Cache key</li>
-<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) &#8211; Data to cache</li>
-<li><strong>session</strong> (<em>bool, optional</em>) &#8211; Whether to scope the cache
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Cache key</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – Data to cache</li>
+<li><strong>session</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to scope the cache
 to the current session.</li>
 </ul>
 </td>
@@ -1862,7 +1802,7 @@ to the current session.</li>
 <a class="reference internal" href="#workflow.Workflow.cache_data" title="workflow.Workflow.cache_data"><code class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></code></a> method on
 <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
 <p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then <code class="docutils literal"><span class="pre">name</span></code> is prefixed
-with <code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code>.</p>
+with <a class="reference internal" href="#workflow.Workflow3.session_id" title="workflow.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1877,11 +1817,11 @@ with <code class="xref py py-attr docutils literal"><span class="pre">session_id
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Cache key</li>
-<li><strong>data_func</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) &#8211; Callable that returns fresh data. It
-is called if the cache has expired or doesn&#8217;t exist.</li>
-<li><strong>max_age</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Maximum allowable age of cache in seconds.</li>
-<li><strong>session</strong> (<em>bool, optional</em>) &#8211; Whether to scope the cache
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Cache key</li>
+<li><strong>data_func</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Callable that returns fresh data. It
+is called if the cache has expired or doesn’t exist.</li>
+<li><strong>max_age</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Maximum allowable age of cache in seconds.</li>
+<li><strong>session</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to scope the cache
 to the current session.</li>
 </ul>
 </td>
@@ -1892,7 +1832,7 @@ to the current session.</li>
 <a class="reference internal" href="#workflow.Workflow.cached_data" title="workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> method on
 <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>.</p>
 <p>If <code class="docutils literal"><span class="pre">session</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then <code class="docutils literal"><span class="pre">name</span></code> is prefixed
-with <code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code>.</p>
+with <a class="reference internal" href="#workflow.Workflow3.session_id" title="workflow.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1905,13 +1845,13 @@ with <code class="xref py py-attr docutils literal"><span class="pre">session_id
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 1.27.</span></p>
 </div>
-<p>By default, data belonging to the current session won&#8217;t be
+<p>By default, data belonging to the current session won’t be
 deleted. Set <code class="docutils literal"><span class="pre">current=True</span></code> to also clear current session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>current</strong> (<em>bool, optional</em>) &#8211; If <code class="docutils literal"><span class="pre">True</span></code>, also remove data for
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>current</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal"><span class="pre">True</span></code>, also remove data for
 current session.</td>
 </tr>
 </tbody>
@@ -1927,12 +1867,15 @@ current session.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
-<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Variable name.</li>
+<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Value to return if variable is unset.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -1940,9 +1883,9 @@ current session.</td>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="workflow.Workflow3.item_class">
-<code class="descname">item_class</code><a class="headerlink" href="#workflow.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a></p>
+<dt>
+<code class="descname">item_class</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1988,17 +1931,17 @@ Alfred.</p>
 <dl class="method">
 <dt id="workflow.Workflow3.setvar">
 <code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a &#8220;global&#8221; workflow variable.</p>
+<dd><p>Set a “global” workflow variable.</p>
 <p>These variables are always passed to downstream workflow objects.</p>
-<p>If you have set <code class="xref py py-attr docutils literal"><span class="pre">rerun</span></code>, these variables are also passed
+<p>If you have set <a class="reference internal" href="#workflow.Workflow3.rerun" title="workflow.Workflow3.rerun"><code class="xref py py-attr docutils literal"><span class="pre">rerun</span></code></a>, these variables are also passed
 back to the script when Alfred runs it again.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
-<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Value of variable.</li>
 </ul>
 </td>
 </tr>
@@ -2019,9 +1962,9 @@ these to your scripts as environment variables (access them with
 <p>In Script Filters, use the <code class="docutils literal"><span class="pre">setvar()</span></code> methods on <code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code>,
 <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>.</p>
 <p>In Run Script actions, use the <a class="reference internal" href="#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a>.</p>
-<p>See <a class="reference internal" href="../guide/variables.html#workflow-variables"><span>Workflow variables</span></a> in the User Guide for more information.</p>
+<p>See <a class="reference internal" href="../guide/variables.html#workflow-variables"><span class="std std-ref">Workflow variables</span></a> in the User Guide for more information.</p>
 <p><a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> are documented below, in the
-<a class="reference internal" href="#api-modifiers"><span>Advanced modifiers</span></a> section.</p>
+<a class="reference internal" href="#api-modifiers"><span class="std std-ref">Advanced modifiers</span></a> section.</p>
 <dl class="class">
 <dt id="workflow.workflow3.Variables">
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Variables</code><span class="sig-paren">(</span><em>arg=None</em>, <em>**variables</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Variables" title="Permalink to this definition">¶</a></dt>
@@ -2029,20 +1972,20 @@ these to your scripts as environment variables (access them with
 <p>This class allows you to set workflow variables from
 Run Script actions.</p>
 <p>It is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;deanishe&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;hunter2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Variables</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;deanishe&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;hunter2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">arg</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;output value&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../guide/variables.html#variables-run-script"><span>Setting variables from Run Script actions</span></a> in the User Guide for more
+<p>See <a class="reference internal" href="../guide/variables.html#variables-run-script"><span class="std std-ref">Setting variables from Run Script actions</span></a> in the User Guide for more
 information.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>arg</strong> (<em>unicode, optional</em>) &#8211; Main output/<code class="docutils literal"><span class="pre">{query}</span></code>.</li>
-<li><strong>**variables</strong> &#8211; Workflow variables to set.</li>
+<li><strong>arg</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Main output/<code class="docutils literal"><span class="pre">{query}</span></code>.</li>
+<li><strong>**variables</strong> – Workflow variables to set.</li>
 </ul>
 </td>
 </tr>
@@ -2051,47 +1994,13 @@ information.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Variables.arg">
 <code class="descname">arg</code><a class="headerlink" href="#workflow.workflow3.Variables.arg" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Output value (<code class="docutils literal"><span class="pre">{query}</span></code>).</p>
+<dd><p><em>unicode</em> – Output value (<code class="docutils literal"><span class="pre">{query}</span></code>).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Variables.config">
 <code class="descname">config</code><a class="headerlink" href="#workflow.workflow3.Variables.config" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em></p>
-<p>Configuration for downstream workflow element.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow3.Variables.__str__">
-<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Variables.__str__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to <code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">UTF-8 encoded <code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow3.Variables.__unicode__">
-<code class="descname">__unicode__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Variables.__unicode__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to <code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>dict</em> – Configuration for downstream workflow element.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2123,7 +2032,7 @@ method.</p>
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Item3</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>arg=None</em>, <em>autocomplete=None</em>, <em>match=None</em>, <em>valid=False</em>, <em>uid=None</em>, <em>icon=None</em>, <em>icontype=None</em>, <em>type=None</em>, <em>largetext=None</em>, <em>copytext=None</em>, <em>quicklookurl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Item3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a feedback item for Alfred 3.</p>
 <p>Generates Alfred-compliant JSON for a single item.</p>
-<p>Don&#8217;t use this class directly (as it then won&#8217;t be associated with
+<p>Don’t use this class directly (as it then won’t be associated with
 any <a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object), but rather use
 <a class="reference internal" href="#workflow.Workflow3.add_item" title="workflow.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a>.
 See <a class="reference internal" href="#workflow.Workflow3.add_item" title="workflow.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">add_item()</span></code></a> for details of arguments.</p>
@@ -2136,12 +2045,12 @@ See <a class="reference internal" href="#workflow.Workflow3.add_item" title="wor
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Modifier key, e.g. <code class="docutils literal"><span class="pre">&quot;cmd&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;alt&quot;</span></code></li>
-<li><strong>subtitle</strong> (<em>unicode, optional</em>) &#8211; Override item subtitle.</li>
-<li><strong>arg</strong> (<em>unicode, optional</em>) &#8211; Input for following action.</li>
-<li><strong>valid</strong> (<em>bool, optional</em>) &#8211; Override item validity.</li>
-<li><strong>icon</strong> (<em>unicode, optional</em>) &#8211; Filepath/UTI of icon.</li>
-<li><strong>icontype</strong> (<em>unicode, optional</em>) &#8211; Type of icon.  See
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Modifier key, e.g. <code class="docutils literal"><span class="pre">&quot;cmd&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;alt&quot;</span></code></li>
+<li><strong>subtitle</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Override item subtitle.</li>
+<li><strong>arg</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Input for following action.</li>
+<li><strong>valid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Override item validity.</li>
+<li><strong>icon</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Filepath/UTI of icon.</li>
+<li><strong>icontype</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Type of icon.  See
 <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a>
 for valid values.</li>
 </ul>
@@ -2166,12 +2075,15 @@ for valid values.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
-<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Variable name.</li>
+<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Value to return if variable is unset.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -2203,8 +2115,8 @@ for valid values.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
-<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Value of variable.</li>
 </ul>
 </td>
 </tr>
@@ -2218,28 +2130,28 @@ for valid values.</li>
 <dt id="workflow.workflow3.Modifier">
 <em class="property">class </em><code class="descclassname">workflow.workflow3.</code><code class="descname">Modifier</code><span class="sig-paren">(</span><em>key</em>, <em>subtitle=None</em>, <em>arg=None</em>, <em>valid=None</em>, <em>icon=None</em>, <em>icontype=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow3.Modifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modify <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> arg/icon/variables when modifier key is pressed.</p>
-<p>Don&#8217;t use this class directly (as it won&#8217;t be associated with any
+<p>Don’t use this class directly (as it won’t be associated with any
 <a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a>), but rather use <a class="reference internal" href="#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a>
 to add modifiers to results.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">it</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Subtitle&#39;</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">it</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Subtitle&#39;</span><span class="p">,</span> <span class="n">valid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">it</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">add_modifier</span><span class="p">(</span><span class="s1">&#39;cmd&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">setvar</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;alternate&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../guide/variables.html#workflow-variables"><span>Workflow variables</span></a> in the User Guide for more information
-and <a class="reference internal" href="../guide/variables.html#example-variables"><span>example usage</span></a>.</p>
+<p>See <a class="reference internal" href="../guide/variables.html#workflow-variables"><span class="std std-ref">Workflow variables</span></a> in the User Guide for more information
+and <a class="reference internal" href="../guide/variables.html#example-variables"><span class="std std-ref">example usage</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Modifier key, e.g. <code class="docutils literal"><span class="pre">&quot;cmd&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;alt&quot;</span></code> etc.</li>
-<li><strong>subtitle</strong> (<em>unicode, optional</em>) &#8211; Override default subtitle.</li>
-<li><strong>arg</strong> (<em>unicode, optional</em>) &#8211; Argument to pass for this modifier.</li>
-<li><strong>valid</strong> (<em>bool, optional</em>) &#8211; Override item&#8217;s validity.</li>
-<li><strong>icon</strong> (<em>unicode, optional</em>) &#8211; Filepath/UTI of icon to use</li>
-<li><strong>icontype</strong> (<em>unicode, optional</em>) &#8211; Type of icon. See
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Modifier key, e.g. <code class="docutils literal"><span class="pre">&quot;cmd&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;alt&quot;</span></code> etc.</li>
+<li><strong>subtitle</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Override default subtitle.</li>
+<li><strong>arg</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Argument to pass for this modifier.</li>
+<li><strong>valid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Override item’s validity.</li>
+<li><strong>icon</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Filepath/UTI of icon to use</li>
+<li><strong>icontype</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Type of icon. See
 <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a>
 for valid values.</li>
 </ul>
@@ -2250,30 +2162,26 @@ for valid values.</li>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.arg">
 <code class="descname">arg</code><a class="headerlink" href="#workflow.workflow3.Modifier.arg" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Arg to pass to following action.</p>
+<dd><p><em>unicode</em> – Arg to pass to following action.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.config">
 <code class="descname">config</code><a class="headerlink" href="#workflow.workflow3.Modifier.config" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em></p>
-<p>Configuration for a downstream element, such as
+<dd><p><em>dict</em> – Configuration for a downstream element, such as
 a File Filter.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.icon">
 <code class="descname">icon</code><a class="headerlink" href="#workflow.workflow3.Modifier.icon" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Filepath/UTI of icon.</p>
+<dd><p><em>unicode</em> – Filepath/UTI of icon.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.icontype">
 <code class="descname">icontype</code><a class="headerlink" href="#workflow.workflow3.Modifier.icontype" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Type of icon. See
+<dd><p><em>unicode</em> – Type of icon. See
 <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.add_item()</span></code></a>
 for valid values.</p>
 </dd></dl>
@@ -2281,29 +2189,25 @@ for valid values.</p>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.key">
 <code class="descname">key</code><a class="headerlink" href="#workflow.workflow3.Modifier.key" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Modifier key (see above).</p>
+<dd><p><em>unicode</em> – Modifier key (see above).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.subtitle">
 <code class="descname">subtitle</code><a class="headerlink" href="#workflow.workflow3.Modifier.subtitle" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em></p>
-<p>Override item subtitle.</p>
+<dd><p><em>unicode</em> – Override item subtitle.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.valid">
 <code class="descname">valid</code><a class="headerlink" href="#workflow.workflow3.Modifier.valid" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em></p>
-<p>Override item validity.</p>
+<dd><p><em>bool</em> – Override item validity.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.variables">
 <code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Modifier.variables" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em></p>
-<p>Workflow variables set by this modifier.</p>
+<dd><p><em>dict</em> – Workflow variables set by this modifier.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2315,12 +2219,15 @@ for valid values.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Variable name.</li>
-<li><strong>default</strong> (<em>None, optional</em>) &#8211; Value to return if variable is unset.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Variable name.</li>
+<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Value to return if variable is unset.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code>: Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Value of variable if set or <code class="docutils literal"><span class="pre">default</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unicode or <code class="docutils literal"><span class="pre">default</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -2352,8 +2259,8 @@ for valid values.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Name of variable.</li>
-<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; Value of variable.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Name of variable.</li>
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Value of variable.</li>
 </ul>
 </td>
 </tr>
@@ -2370,13 +2277,13 @@ for valid values.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.4.</span></p>
 </div>
-<p>As Alfred may try to run your workflow on every keypress, it&#8217;s a good idea
+<p>As Alfred may try to run your workflow on every keypress, it’s a good idea
 to execute longer-running tasks (e.g. fetching data from the a webservice
 or application) in a background process.</p>
 <p>This module provides an API to run commands in background processes.
-Combine with the <a class="reference internal" href="../guide/persistent-data.html#caching-data"><span>caching API</span></a> to work from cached data
+Combine with the <a class="reference internal" href="../guide/persistent-data.html#caching-data"><span class="std std-ref">caching API</span></a> to work from cached data
 while you fetch fresh data in the background.</p>
-<p>See <a class="reference internal" href="../guide/background.html#background-processes"><span>the User Manual</span></a> for more information
+<p>See <a class="reference internal" href="../guide/background.html#background-processes"><span class="std std-ref">the User Manual</span></a> for more information
 and examples.</p>
 <dl class="function">
 <dt id="workflow.background.run_in_background">
@@ -2387,9 +2294,9 @@ and examples.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; name of job</li>
-<li><strong>args</strong> &#8211; arguments passed as first argument to <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
-<li><strong>**kwargs</strong> &#8211; keyword arguments to <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – name of job</li>
+<li><strong>args</strong> – arguments passed as first argument to <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
+<li><strong>**kwargs</strong> – keyword arguments to <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a></li>
 </ul>
 </td>
 </tr>
@@ -2407,7 +2314,7 @@ cached arguments, fork into the background, and then run the command you
 specified.</p>
 <p>This function will return as soon as the <code class="docutils literal"><span class="pre">background.py</span></code> subprocess has
 forked, returning the exit code of <em>that</em> process (i.e. not of the command
-you&#8217;re trying to run).</p>
+you’re trying to run).</p>
 <p>If that process fails, an error will be written to the log file.</p>
 <p>If a process is already running under the same name, this function will
 return immediately and will not run the specified command.</p>
@@ -2421,7 +2328,7 @@ return immediately and will not run the specified command.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; name of task</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – name of task</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">True</span></code> if task with name <code class="docutils literal"><span class="pre">name</span></code> is running, else <code class="docutils literal"><span class="pre">False</span></code></td>
 </tr>
@@ -2443,12 +2350,12 @@ return immediately and will not run the specified command.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Name of the job</li>
-<li><strong>sig</strong> (<em>int, optional</em>) &#8211; Signal to send (default: SIGTERM)</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of the job</li>
+<li><strong>sig</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – Signal to send (default: SIGTERM)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>False</cite> if job isn&#8217;t running, <cite>True</cite> if signal was sent.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>False</cite> if job isn’t running, <cite>True</cite> if signal was sent.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
@@ -2467,11 +2374,11 @@ modelled on the excellent <a class="reference external" href="http://docs.python
 the size of <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>As <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is based on Python 2&#8217;s standard HTTP libraries,
+<p>As <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is based on Python 2’s standard HTTP libraries,
 it <strong>does not</strong> verify SSL certificates when establishing HTTPS
 connections on Python versions older than 2.7.9 (i.e. pre-Yosemite).</p>
 <p class="last">As a result, you <strong>must not</strong> use this module for sensitive
-connections unless you&#8217;re certain it will only run on 2.7.9/Yosemite
+connections unless you’re certain it will only run on 2.7.9/Yosemite
 and later. If your workflow is Alfred 3-only, this requirement is met.</p>
 </div>
 <dl class="function">
@@ -2511,18 +2418,18 @@ and later. If your workflow is Alfred 3-only, this requirement is met.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; &#8216;GET&#8217; or &#8216;POST&#8217;</li>
-<li><strong>url</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; URL to open</li>
-<li><strong>params</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; mapping of URL parameters</li>
-<li><strong>data</strong> (<em>dict or str</em>) &#8211; mapping of form data <code class="docutils literal"><span class="pre">{'field_name':</span> <span class="pre">'value'}</span></code> or
+<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – ‘GET’ or ‘POST’</li>
+<li><strong>url</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – URL to open</li>
+<li><strong>params</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – mapping of URL parameters</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – mapping of form data <code class="docutils literal"><span class="pre">{'field_name':</span> <span class="pre">'value'}</span></code> or
 <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></li>
-<li><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; HTTP headers</li>
-<li><strong>cookies</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; cookies to send to server</li>
-<li><strong>files</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; files to upload (see below).</li>
-<li><strong>auth</strong> (<a class="reference internal" href="#workflow.update.Version.tuple" title="workflow.update.Version.tuple"><em>tuple</em></a>) &#8211; username, password</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; connection timeout limit in seconds</li>
-<li><strong>allow_redirects</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; follow redirections</li>
-<li><strong>stream</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Stream content instead of fetching it all at once.</li>
+<li><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – HTTP headers</li>
+<li><strong>cookies</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – cookies to send to server</li>
+<li><strong>files</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – files to upload (see below).</li>
+<li><strong>auth</strong> (<a class="reference internal" href="#workflow.update.Version.tuple" title="workflow.update.Version.tuple"><em>tuple</em></a>) – username, password</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – connection timeout limit in seconds</li>
+<li><strong>allow_redirects</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – follow redirections</li>
+<li><strong>stream</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Stream content instead of fetching it all at once.</li>
 </ul>
 </td>
 </tr>
@@ -2535,7 +2442,7 @@ and later. If your workflow is Alfred 3-only, this requirement is met.</p>
 </tbody>
 </table>
 <p>The <code class="docutils literal"><span class="pre">files</span></code> argument is a dictionary:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;fieldname&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;blah.txt&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;fieldname&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;blah.txt&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;binary data&gt;&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;mimetype&#39;</span><span class="p">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">}</span>
 <span class="p">}</span>
@@ -2556,7 +2463,7 @@ will be used.</li>
 <em class="property">class </em><code class="descclassname">workflow.web.</code><code class="descname">Response</code><span class="sig-paren">(</span><em>request</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.web.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returned by <a class="reference internal" href="#workflow.web.request" title="workflow.web.request"><code class="xref py py-func docutils literal"><span class="pre">request()</span></code></a> / <a class="reference internal" href="#workflow.web.get" title="workflow.web.get"><code class="xref py py-func docutils literal"><span class="pre">get()</span></code></a> / <a class="reference internal" href="#workflow.web.post" title="workflow.web.post"><code class="xref py py-func docutils literal"><span class="pre">post()</span></code></a> functions.</p>
 <p>Simplified version of the <code class="docutils literal"><span class="pre">Response</span></code> object in the <code class="docutils literal"><span class="pre">requests</span></code> library.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
 <span class="go">200</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">encoding</span>
@@ -2612,8 +2519,8 @@ will be used.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>chunk_size</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Number of bytes to read into memory</li>
-<li><strong>decode_unicode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Decode to Unicode using detected encoding</li>
+<li><strong>chunk_size</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of bytes to read into memory</li>
+<li><strong>decode_unicode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Decode to Unicode using detected encoding</li>
 </ul>
 </td>
 </tr>
@@ -2634,7 +2541,7 @@ will be used.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">object decoded from JSON</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list, dict or unicode</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list, <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a></td>
 </tr>
 </tbody>
 </table>
@@ -2655,7 +2562,7 @@ will be used.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> &#8211; Path to save retrieved data.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> – Path to save retrieved data.</td>
 </tr>
 </tbody>
 </table>
@@ -2689,7 +2596,7 @@ itself, the encoded response body will be returned instead.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Body of HTTP response</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode or str</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -2715,7 +2622,7 @@ nor notify the user that an update is available.</p>
 <p>Normally, you would not use <a class="reference internal" href="#module-workflow.update" title="workflow.update"><code class="xref py py-mod docutils literal"><span class="pre">workflow.update</span></code></a> directly, but use the
 corresponding methods on <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> and
 <a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a>.</p>
-<p>Please see <a class="reference internal" href="../guide/update.html#guide-updates"><span>Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span>User Guide</span></a> for information
+<p>Please see <a class="reference internal" href="../guide/update.html#guide-updates"><span class="std std-ref">Self-updating</span></a> in the <a class="reference internal" href="../guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for information
 on how to enable automatic updates in your workflow.</p>
 <dl class="function">
 <dt id="workflow.update.check_update">
@@ -2726,10 +2633,10 @@ on how to enable automatic updates in your workflow.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>github_slug</strong> &#8211; <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow&#8217;s GitHub repo</li>
-<li><strong>current_version</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) &#8211; the currently installed version of the
-workflow. <a class="reference internal" href="../guide/versioning.html#semver"><span>Semantic versioning</span></a> is required.</li>
-<li><strong>prereleases</strong> &#8211; Whether to include pre-releases.</li>
+<li><strong>github_slug</strong> – <code class="docutils literal"><span class="pre">username/repo</span></code> for workflow’s GitHub repo</li>
+<li><strong>current_version</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – the currently installed version of the
+workflow. <a class="reference internal" href="../guide/versioning.html#semver"><span class="std std-ref">Semantic versioning</span></a> is required.</li>
+<li><strong>prereleases</strong> – Whether to include pre-releases.</li>
 </ul>
 </td>
 </tr>
@@ -2762,75 +2669,27 @@ be cached.</p>
 <dt id="workflow.update.Version">
 <em class="property">class </em><code class="descclassname">workflow.update.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>vstr</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mostly semantic versioning.</p>
-<p>The main difference to proper <a class="reference internal" href="../guide/versioning.html#semver"><span>semantic versioning</span></a>
-is that this implementation doesn&#8217;t require a minor or patch version.</p>
-<p>Version strings may also be prefixed with &#8220;v&#8221;, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;v1.1.1&#39;</span><span class="p">)</span>
+<p>The main difference to proper <a class="reference internal" href="../guide/versioning.html#semver"><span class="std std-ref">semantic versioning</span></a>
+is that this implementation doesn’t require a minor or patch version.</p>
+<p>Version strings may also be prefixed with “v”, e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;v1.1.1&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">tuple</span>
 <span class="go">(1, 1, 1, &#39;&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;2.0&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;2.0&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">tuple</span>
 <span class="go">(2, 0, 0, &#39;&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;3.1-beta&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tuple</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;3.1-beta&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tuple</span>
 <span class="go">(3, 1, 0, &#39;beta&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0.1&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.0.1&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Version</span><span class="p">(</span><span class="s1">&#39;1.0.1&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;0.0.1&#39;</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="workflow.update.Version.__eq__">
-<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__eq__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__ge__">
-<code class="descname">__ge__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__ge__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__gt__">
-<code class="descname">__gt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__gt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__le__">
-<code class="descname">__le__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__le__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__lt__">
-<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__lt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__ne__">
-<code class="descname">__ne__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__ne__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implement comparison.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return &#8216;code&#8217; representation of <cite>Version</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.update.Version.__str__">
-<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.__str__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return semantic version string.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="workflow.update.Version.match_version">
 <code class="descname">match_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.update.Version.match_version" title="Permalink to this definition">¶</a></dt>
@@ -2853,7 +2712,7 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> &#8211; URL to .alfredworkflow file in GitHub repo</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> – URL to .alfredworkflow file in GitHub repo</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">path to downloaded file</td>
 </tr>
@@ -2870,16 +2729,16 @@ is that this implementation doesn&#8217;t require a minor or patch version.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Notifications aren&#8217;t available in version of macOS older than
+<p class="last">Notifications aren’t available in version of macOS older than
 10.8/Mountain Lion. Calling <a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a> on these systems will
 silently do nothing.</p>
 </div>
-<p><a class="reference internal" href="#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> allows you to post notifications via macOS&#8217;s
+<p><a class="reference internal" href="#module-workflow.notify" title="workflow.notify"><code class="xref py py-mod docutils literal"><span class="pre">notify</span></code></a> allows you to post notifications via macOS’s
 Notification Center at any time, not just at the end of your script.
-Furthermore, it uses your workflow&#8217;s icon, not Alfred&#8217;s.</p>
+Furthermore, it uses your workflow’s icon, not Alfred’s.</p>
 <p>The main API is a single function, <a class="reference internal" href="#workflow.notify.notify" title="workflow.notify.notify"><code class="xref py py-func docutils literal"><span class="pre">notify()</span></code></a>.</p>
-<p>It works by copying a simple application to your workflow&#8217;s data
-directory. It replaces the application&#8217;s icon with your workflow&#8217;s
+<p>It works by copying a simple application to your workflow’s data
+directory. It replaces the application’s icon with your workflow’s
 icon and then calls the application to post notifications.</p>
 <dl class="function">
 <dt id="workflow.notify.notify">
@@ -2890,14 +2749,13 @@ icon and then calls the application to post notifications.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>title</strong> (<em>str, optional</em>) &#8211; Notification title.</li>
-<li><strong>text</strong> (<em>str, optional</em>) &#8211; Notification body text.</li>
-<li><strong>sound</strong> (<em>str, optional</em>) &#8211; Name of sound to play.</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Notification title.</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Notification body text.</li>
+<li><strong>sound</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Name of sound to play.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
-Raised if both <code class="docutils literal"><span class="pre">title</span></code> and <code class="docutils literal"><span class="pre">text</span></code> are empty.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – Raised if both <code class="docutils literal"><span class="pre">title</span></code> and <code class="docutils literal"><span class="pre">text</span></code> are empty.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">True</span></code> if notification was posted, else <code class="docutils literal"><span class="pre">False</span></code>.</p>
@@ -2922,14 +2780,13 @@ Raised if both <code class="docutils literal"><span class="pre">title</span></co
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>inpath</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Path of source file.</li>
-<li><strong>outpath</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Path to destination file.</li>
-<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Width and height of destination image in pixels.</li>
+<li><strong>inpath</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path of source file.</li>
+<li><strong>outpath</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to destination file.</li>
+<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Width and height of destination image in pixels.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> &#8211;
-Raised if <code class="docutils literal"><span class="pre">sips</span></code> exits with non-zero status.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> – Raised if <code class="docutils literal"><span class="pre">sips</span></code> exits with non-zero status.</p>
 </td>
 </tr>
 </tbody>
@@ -2948,13 +2805,12 @@ them into a single ICNS file.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>png_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Path to source PNG file.</li>
-<li><strong>icns_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Path to destination ICNS file.</li>
+<li><strong>png_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to source PNG file.</li>
+<li><strong>icns_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to destination ICNS file.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> &#8211;
-Raised if <code class="docutils literal"><span class="pre">iconutil</span></code> or <code class="docutils literal"><span class="pre">sips</span></code> fail.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">RuntimeError</span></code> – Raised if <code class="docutils literal"><span class="pre">iconutil</span></code> or <code class="docutils literal"><span class="pre">sips</span></code> fail.</p>
 </td>
 </tr>
 </tbody>
@@ -2971,7 +2827,7 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sound</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Name of system sound.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sound</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of system sound.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Proper name of sound or <code class="docutils literal"><span class="pre">None</span></code>.</td>
 </tr>
@@ -3006,21 +2862,62 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 
 
 
+
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large"
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
 
 
 
+
+    
+
+<p>
+<a href="https://travis-ci.org/deanishe/alfred-workflow">
+    <img
+        alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+        src="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://coveralls.io/github/deanishe/alfred-workflow">
+    <img
+    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    />
+</a>
+
+
+
+
+
+
+
+    
+
+<p>
+<a href="https://pypi.python.org/pypi/Alfred-Workflow">
+    <img
+    alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    />
+</a>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">User Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">API documentation</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow">Workflow objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow.workflow3">Workflow3 objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow.background">Background processes</a></li>
@@ -3056,27 +2953,23 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-	<h3>Donate</h3>
+<h3>Donate</h3>
+<p>Consider supporting the authors</p>
+<ul class="donations">
 	
-	<p>
-	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
-	<script data-gratipay-username="deanishe"
-	        data-gratipay-widget="button"
-	        src="//gttp.co/v1.js"></script>
-	</p>
+	<li class="donate"><a href="https://paypal.me/deanishe"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" title="PayPal"></a></li>
 	
 	
-
+	<li class="donate"><a href="https://www.patreon.com/bePatron?u=890395"><img src="../_static/patreon.png" alt="Patreon" title="Patreon"></a></li>
+	
+</ul>
 
         </div>
       </div>
@@ -3088,8 +2981,8 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

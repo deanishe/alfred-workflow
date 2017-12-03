@@ -5,23 +5,6 @@
 Welcome to Alfred-Workflow
 ==========================
 
-.. image:: https://img.shields.io/travis/deanishe/alfred-workflow/master.svg?style=flat
-    :target: https://travis-ci.org/deanishe/alfred-workflow
-    :alt: Build Status
-.. image:: https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat
-    :target: https://coveralls.io/github/deanishe/alfred-workflow
-    :alt: Code Coverage
-.. image:: https://img.shields.io/pypi/status/Alfred-Workflow.svg?style=flat
-    :target: https://pypi.python.org/pypi/Alfred-Workflow/
-    :alt: Development Status
-.. image:: https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat
-    :target: https://pypi.python.org/pypi/Alfred-Workflow/
-    :alt: Latest Version
-.. image:: https://img.shields.io/pypi/pyversions/Alfred-Workflow.svg?style=flat
-    :target: https://pypi.python.org/pypi/Alfred-Workflow/
-    :alt: Supported Python Versions
-
-
 Go to :ref:`quickindex`.
 
 

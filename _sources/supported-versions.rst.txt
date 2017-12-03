@@ -22,11 +22,20 @@ Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
 own the `Powerpack`_ to use Alfred's workflow feature.
 
 All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-3 as of v3.3 are supported in the latest version of Alfred-Workflow.
+3 as of v3.5.1 are supported in the latest version of Alfred-Workflow.
 
 The :class:`~workflow.Workflow` class is compatible with both
 Alfred 2 and Alfred 3. The :class:`~workflow.Workflow3` class
 is only compatible with Alfred 3.
+
+.. important::
+
+    Versions 3.4.1 altered the way :ref:`workflow variables <workflow-variables>`
+    are set via Script Filter feedback, and :class:`~workflow.Workflow3` as of
+    version 1.27 of Alfred-Workflow uses the new mechanism.
+
+    As a result, versions 1.27+ of Alfred-Workflow are not compatible with
+    versions of Alfred older than 3.4.1.
 
 :class:`~workflow.Workflow3` uses Alfred 3's JSON feedback
 format. It supports :ref:`workflow variables <workflow-variables>` and
@@ -53,6 +62,7 @@ macOS (i.e. ``/usr/bin/python``), which is 2.6 on 10.6/Snow Leopard and 2.7
 on later versions.
 
 .. important::
+
     Other Pythons (e.g. Homebrew, conda, pyenv etc.) are *not* supported.
 
     This is a deliberate design choice, so please do not submit feature

@@ -70,10 +70,18 @@ but <em>not</em> Python 3.</p>
 <p>Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
 own the <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a> to use Alfred’s workflow feature.</p>
 <p>All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-3 as of v3.3 are supported in the latest version of Alfred-Workflow.</p>
+3 as of v3.5.1 are supported in the latest version of Alfred-Workflow.</p>
 <p>The <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> class is compatible with both
 Alfred 2 and Alfred 3. The <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> class
 is only compatible with Alfred 3.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>Versions 3.4.1 altered the way <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a>
+are set via Script Filter feedback, and <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> as of
+version 1.27 of Alfred-Workflow uses the new mechanism.</p>
+<p class="last">As a result, versions 1.27+ of Alfred-Workflow are not compatible with
+versions of Alfred older than 3.4.1.</p>
+</div>
 <p><a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> uses Alfred 3’s JSON feedback
 format. It supports <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> and
 more advanced modifiers than <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>/Alfred 2.</p>

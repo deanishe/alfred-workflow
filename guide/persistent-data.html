@@ -248,14 +248,15 @@ for details on how <code class="docutils literal"><span class="pre">filter_func<
 </div>
 <div class="section" id="settings">
 <span id="guide-settings"></span><h2><a class="toc-backref" href="#id6">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a> is a subclass
-of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that automatically saves its contents to the <code class="docutils literal"><span class="pre">settings.json</span></code>
-file in your Workflow’s data directory when it is changed.</p>
-<p><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code> can be used just like a normal <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>
-with the caveat that all keys and values must be serializable to JSON.</p>
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that automatically
+saves its contents to the <code class="docutils literal"><span class="pre">settings.json</span></code> file in your Workflow’s data
+directory when it is changed.</p>
+<p><a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> can be used just like a normal
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with the caveat that all keys and values must be serializable
+to JSON.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">A <code class="xref py py-class docutils literal"><span class="pre">Settings</span></code> instance can only automatically
+<p class="last">A <a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> instance can only automatically
 recognise when you directly alter the values of its own keys:</p>
 </div>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -266,9 +267,10 @@ recognise when you directly alter the values of its own keys:</p>
 </pre></div>
 </td></tr></table></div>
 <p>If you’ve altered a data structure stored within your workflow’s
-<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>, you need to
-explicitly call <code class="xref py py-meth docutils literal"><span class="pre">Workflow.settings.save()</span></code>.</p>
-<p>If you need to store arbitrary data, you can use the <a class="reference internal" href="#caching-data"><span class="std std-ref">cached data API</span></a>.</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>, you need to explicitly call
+<a class="reference internal" href="../api/index.html#workflow.workflow.Settings.save" title="workflow.workflow.Settings.save"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.settings.save()</span></code></a>.</p>
+<p>If you need to store arbitrary data, you can use the
+<a class="reference internal" href="#caching-data"><span class="std std-ref">cached data API</span></a>.</p>
 <p>If you need to store data securely (such as passwords and API keys),
 <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> also provides <a class="reference internal" href="#keychain"><span class="std std-ref">simple access to
 the macOS Keychain</span></a>.</p>

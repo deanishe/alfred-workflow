@@ -63,21 +63,35 @@ actions, and if you use the wrong one, it won’t work.</p>
 </div>
 <p>The two different mechanisms for setting workflow variables are:</p>
 <ul class="simple">
-<li>The <a class="reference internal" href="../api/index.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> class, which is for use in
+<li>The <a class="reference internal" href="../api/index.html#workflow.Variables" title="workflow.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> class, which is for use in
 <strong>Run Script</strong> actions, and</li>
 <li>The <a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> class provides an
 API for getting and setting workflow variables via <strong>Script Filter</strong>
 feedback.</li>
 </ul>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#setting-variables-from-run-script-actions" id="id3">Setting variables from Run Script actions</a><ul>
+<li><a class="reference internal" href="#example-usage" id="id4">Example usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-variables-in-script-filters" id="id5">Setting variables in Script Filters</a><ul>
+<li><a class="reference internal" href="#getting-variables" id="id6">Getting variables</a></li>
+<li><a class="reference internal" href="#example-variables" id="id7">Example usage</a></li>
+<li><a class="reference internal" href="#more-information" id="id8">More information</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="setting-variables-from-run-script-actions">
-<span id="variables-run-script"></span><h2>Setting variables from Run Script actions<a class="headerlink" href="#setting-variables-from-run-script-actions" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/index.html#workflow.workflow3.Variables" title="workflow.workflow3.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that
+<span id="variables-run-script"></span><h2><a class="toc-backref" href="#id3">Setting variables from Run Script actions</a><a class="headerlink" href="#setting-variables-from-run-script-actions" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../api/index.html#workflow.Variables" title="workflow.Variables"><code class="xref py py-class docutils literal"><span class="pre">Variables</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that
 serialises (prints) to an <code class="docutils literal"><span class="pre">alfredworkflow</span></code> JSON object (or plain text if no
 variables are set).</p>
 <p>Set workflow variables using the standard <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> API or as keyword
 arguments on instantiation.</p>
 <div class="section" id="example-usage">
-<h3>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Example usage</a><a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -130,31 +144,41 @@ arguments on instantiation.</p>
 </div>
 </div>
 <div class="section" id="setting-variables-in-script-filters">
-<h2>Setting variables in Script Filters<a class="headerlink" href="#setting-variables-in-script-filters" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Setting variables in Script Filters</a><a class="headerlink" href="#setting-variables-in-script-filters" title="Permalink to this headline">¶</a></h2>
 <p>Variables can be set at the Workflow, Item or Modifier level using their
-respective <code class="docutils literal"><span class="pre">setvar(name,</span> <span class="pre">value)</span></code> methods.</p>
-<p>Variables set on the <a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object are
-“global”, as they are emitted as part of the top-level feedback object sent to
-Alfred. They are always passed to downstream workflow objects regardless of
-which item the user actions (and indeed, even if the user doesn’t action any
-result: they are also used by Alfred for its <a class="reference internal" href="rerun.html#guide-rerun"><span class="std std-ref">rerun</span></a>
-feature).</p>
-<p>Variables set at the
-<a class="reference internal" href="../api/index.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item</span></code></a>/<a class="reference internal" href="../api/index.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a>
-level are only set if the user actions that item (and modifier).</p>
-<div class="section" id="inheritance">
-<h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="../api/index.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifiers</span></code></a> inherit any variables set on
-their parent <a class="reference internal" href="../api/index.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> objects <em>at the time of their
-creation</em>. Any variables set on an <a class="reference internal" href="../api/index.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> object
-<em>after</em> a <a class="reference internal" href="../api/index.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> was added are <em>not</em> inherited
-by the modifier.</p>
-<p>This way, you can have some variables inherited and others not.</p>
-<p>Modifiers also inherit the validity of their parent item (so you only
-need to supply a <code class="docutils literal"><span class="pre">valid</span></code> parameter to override the parent).</p>
-<p>They <em>do not</em> inherit their parent item’s <code class="docutils literal"><span class="pre">arg</span></code>.</p>
+respective <code class="docutils literal"><span class="pre">setvar(name,</span> <span class="pre">value)</span></code> methods. Variables set on the
+<a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> object are hereafter referred to as “top-level”
+variables.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Top-level variables are also passed back to your Script Filter when you’re
+using Alfred’s <a class="reference internal" href="rerun.html#guide-rerun"><span class="std std-ref">rerun</span></a> feature. This is extremely handy
+for creating timers or progress bars.</p>
+</div>
+<p>Alfred-Workflow imposes its own logic for setting variables that differs
+from the way Alfred handles them.</p>
+<p><a class="reference internal" href="../api/index.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal"><span class="pre">Modifier</span></code></a> objects inherit any variables
+set on their parent object (<a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> and <a class="reference internal" href="../api/index.html#workflow.workflow3.Item3" title="workflow.workflow3.Item3"><code class="xref py py-class docutils literal"><span class="pre">Item3</span></code></a>
+respectively) <em>at the time of their creation</em> via
+<a class="reference internal" href="../api/index.html#workflow.Workflow3.add_item" title="workflow.Workflow3.add_item"><code class="xref py py-meth docutils literal"><span class="pre">Workflow3.add_item()</span></code></a> and
+<a class="reference internal" href="../api/index.html#workflow.workflow3.Item3.add_modifier" title="workflow.workflow3.Item3.add_modifier"><code class="xref py py-meth docutils literal"><span class="pre">Item3.add_modifier()</span></code></a>.</p>
+<p>This way, you can have some variables inherited and some not.</p>
+<p>The validity and <code class="docutils literal"><span class="pre">arg</span></code> of the modifier will be the same as the parent
+item’s, so you only need to specify <code class="docutils literal"><span class="pre">valid</span></code> or <code class="docutils literal"><span class="pre">arg</span></code> if you wish to
+override the parent item’s value.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
+<p>The way Alfred handles variables is somewhat arbitrary. Top-level
+variables are also passed downstream with any item-level variables,
+regardless of whether the item sets its own variables.</p>
+<p>If a modifier sets any variables, however, Alfred ignores any top-
+and item-level variables completely.</p>
+<p class="last">The upshot for Alfred-Workflow is that top-level variables will also
+be passed along with items created <em>before</em> the variables were set,
+but <em>not</em> with modifiers created before the variables were set.</p>
+</div>
+<div class="section" id="getting-variables">
+<h3><a class="toc-backref" href="#id6">Getting variables</a><a class="headerlink" href="#getting-variables" title="Permalink to this headline">¶</a></h3>
 <p>Alfred-Workflow does not automatically import any variables. All getters
 only consider variables you have set on the objects yourself, not those
 set by upstream workflow elements or the configuration sheet.</p>
@@ -162,13 +186,12 @@ set by upstream workflow elements or the configuration sheet.</p>
 workflow variables and real environment variables.</p>
 <p>For example, if you call <code class="docutils literal"><span class="pre">os.getenv('HOME')</span></code>, you will get the user’s
 home directory, but <code class="docutils literal"><span class="pre">{var:HOME}</span></code> will not work in Alfred elements.</p>
-<p class="last">By restricting its scope to variables it has set itself, Alfred-Workflow
+<p>By restricting its scope to variables it has set itself, Alfred-Workflow
 can guarantee that if <code class="docutils literal"><span class="pre">getvar('xyz')</span></code> works, <code class="docutils literal"><span class="pre">{var:xyz}</span></code> will also
 work in downstream Alfred elements.</p>
 </div>
-</div>
 <div class="section" id="example-variables">
-<span id="id2"></span><h3>Example usage<a class="headerlink" href="#example-variables" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id7">Example usage</a><a class="headerlink" href="#example-variables" title="Permalink to this headline">¶</a></h3>
 <p>As Alfred passes workflow variables to scripts as environment variables,
 combining <code class="docutils literal"><span class="pre">var=1</span></code> style flags with a command-line library that can
 map environment variables to command-line options (such as <a class="reference external" href="http://click.pocoo.org/">Click</a>) is
@@ -306,7 +329,7 @@ workflow very hard to follow for people wanting to hack on it.</p>
 </div>
 </div>
 <div class="section" id="more-information">
-<h3>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">More information</a><a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h3>
 <p>Alfred’s own help has a <a class="reference external" href="https://www.alfredapp.com/help/workflows/utilities/argument/">few</a> <a class="reference external" href="https://www.alfredapp.com/help/workflows/advanced/variables/">pages</a> on workflow variables.</p>
 <p><a class="reference external" href="http://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/">Here</a> is a post I wrote on the Alfred forums about getting, setting and
 saving workflow variables.</p>

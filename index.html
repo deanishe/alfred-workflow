@@ -1,34 +1,35 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Welcome to Alfred-Workflow &mdash; Alfred-Workflow 1.29 documentation</title>
-    
+    <title>Welcome to Alfred-Workflow &#8212; Alfred-Workflow 1.30 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.29',
+        VERSION:     '1.30',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.29 documentation" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Supported versions" href="supported-versions.html" />
 
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -39,22 +40,8 @@
 <link rel="stylesheet" href="_static/custom.css">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="supported-versions.html" title="Supported versions"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Alfred-Workflow 1.29 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -63,54 +50,49 @@
             
   <div class="section" id="welcome-to-alfred-workflow">
 <span id="overview"></span><h1>Welcome to Alfred-Workflow<a class="headerlink" href="#welcome-to-alfred-workflow" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://travis-ci.org/deanishe/alfred-workflow"><img alt="Build Status" src="https://img.shields.io/travis/deanishe/alfred-workflow/master.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://coveralls.io/github/deanishe/alfred-workflow"><img alt="Code Coverage" src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Development Status" src="https://img.shields.io/pypi/status/Alfred-Workflow.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Latest Version" src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/Alfred-Workflow/"><img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/Alfred-Workflow.svg?style=flat" /></a>
-<p>Go to <a class="reference internal" href="quickindex.html#quickindex"><span>Quick Index</span></a>.</p>
+<p>Go to <a class="reference internal" href="quickindex.html#quickindex"><span class="std std-ref">Quick Index</span></a>.</p>
 <p>Alfred-Workflow is a Python helper library for <a class="reference external" href="https://www.alfredapp.com/">Alfred 2 and 3</a> workflow
 authors, developed and hosted on <a class="reference external" href="https://github.com/deanishe/alfred-workflow/">GitHub</a>.</p>
 <p>Alfred workflows typically take user input, fetch data from the Web or
 elsewhere, filter them and display results to the user. Alfred-Workflow takes
 care of a lot of the details for you, allowing you to concentrate your efforts
-on your workflow&#8217;s functionality.</p>
+on your workflow’s functionality.</p>
 <p>Alfred-Workflow supports macOS 10.6+ (Python 2.6 and 2.7).</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Fuzzy, <a class="reference internal" href="guide/filtering.html#filtering"><span>Alfred-like search/filtering</span></a> with
-<a class="reference internal" href="guide/filtering.html#folding"><span>diacritic folding</span></a></li>
-<li><a class="reference internal" href="guide/persistent-data.html#guide-settings"><span>Simple, persistent settings</span></a></li>
-<li>Simple, auto-expiring <a class="reference internal" href="guide/persistent-data.html#caching-data"><span>data caching</span></a></li>
-<li><a class="reference internal" href="guide/persistent-data.html#keychain"><span>Keychain support</span></a> for secure storage (and syncing) of
+<li>Fuzzy, <a class="reference internal" href="guide/filtering.html#filtering"><span class="std std-ref">Alfred-like search/filtering</span></a> with
+<a class="reference internal" href="guide/filtering.html#folding"><span class="std std-ref">diacritic folding</span></a></li>
+<li><a class="reference internal" href="guide/persistent-data.html#guide-settings"><span class="std std-ref">Simple, persistent settings</span></a></li>
+<li>Simple, auto-expiring <a class="reference internal" href="guide/persistent-data.html#caching-data"><span class="std std-ref">data caching</span></a></li>
+<li><a class="reference internal" href="guide/persistent-data.html#keychain"><span class="std std-ref">Keychain support</span></a> for secure storage (and syncing) of
 passwords, API keys etc.</li>
 <li>Simple generation of Alfred feedback (XML and JSON)</li>
-<li><a class="reference internal" href="guide/web.html#guide-web"><span>Lightweight web</span></a> API with <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>-like interface</li>
-<li>Easily launch <a class="reference internal" href="guide/background.html#background-processes"><span>background tasks</span></a> (daemons) to
+<li><a class="reference internal" href="guide/web.html#guide-web"><span class="std std-ref">Lightweight web</span></a> API with <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>-like interface</li>
+<li>Easily launch <a class="reference internal" href="guide/background.html#background-processes"><span class="std std-ref">background tasks</span></a> (daemons) to
 keep your workflow responsive</li>
-<li><a class="reference internal" href="guide/update.html#guide-updates"><span>Check for and install new workflow versions</span></a> using
+<li><a class="reference internal" href="guide/update.html#guide-updates"><span class="std std-ref">Check for and install new workflow versions</span></a> using
 GitHub releases</li>
-<li><a class="reference internal" href="guide/notifications.html#notifications"><span>Post notifications</span></a> with Notification Center
+<li><a class="reference internal" href="guide/notifications.html#notifications"><span class="std std-ref">Post notifications</span></a> with Notification Center
 (10.8+ only)</li>
 <li>Error handling and logging for easier development and support</li>
-<li><a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span>&#8220;Magic&#8221; arguments</span></a> to help development,
+<li><a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span class="std std-ref">“Magic” arguments</span></a> to help development,
 debugging and management of the workflow</li>
 </ul>
 <div class="section" id="alfred-3-only-features">
 <h3>Alfred 3-only features<a class="headerlink" href="#alfred-3-only-features" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Set <a class="reference internal" href="guide/variables.html#workflow-variables"><span>workflows variables</span></a> from code</li>
+<li>Set <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflows variables</span></a> from code</li>
 <li>Advanced modifiers</li>
-<li>Alfred 3-only updates (won&#8217;t break Alfred 2 installs)</li>
-<li><a class="reference internal" href="guide/rerun.html#guide-rerun"><span>Automatic re-running of Script Filters</span></a>.</li>
+<li>Alfred 3-only updates (won’t break Alfred 2 installs)</li>
+<li><a class="reference internal" href="guide/rerun.html#guide-rerun"><span class="std std-ref">Automatic re-running of Script Filters</span></a>.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="quick-example">
 <h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
-<p>Here&#8217;s how to show recent <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> posts in Alfred.</p>
-<p>Create a new workflow in Alfred&#8217;s preferences. Add a <strong>Script Filter</strong> with
+<p>Here’s how to show recent <a class="reference external" href="https://pinboard.in/">Pinboard.in</a> posts in Alfred.</p>
+<p>Create a new workflow in Alfred’s preferences. Add a <strong>Script Filter</strong> with
 Language <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> and paste the following into the <strong>Script</strong>
 box (changing <code class="docutils literal"><span class="pre">API_KEY</span></code>):</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -162,7 +144,7 @@ Pinboard item in Alfred to open it in your browser.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Using the above example code as a workflow will likely get
-you banned by the Pinboard API. See the <a class="reference internal" href="tutorial.html#tutorial"><span>Tutorial</span></a> if you want to
+you banned by the Pinboard API. See the <a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Tutorial</span></a> if you want to
 build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 </div>
 </div>
@@ -197,7 +179,7 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 <li class="toctree-l2"><a class="reference internal" href="guide/update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="guide/versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="guide/icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guide/magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide/magic-arguments.html">“Magic” arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="guide/variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="guide/serialization.html">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="guide/rerun.html">Re-running a Script Filter</a></li>
@@ -269,14 +251,55 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 
 
 
+
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large"
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
 
 
 
+
+    
+
+<p>
+<a href="https://travis-ci.org/deanishe/alfred-workflow">
+    <img
+        alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+        src="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://coveralls.io/github/deanishe/alfred-workflow">
+    <img
+    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    />
+</a>
+
+
+
+
+
+
+
+    
+
+<p>
+<a href="https://pypi.python.org/pypi/Alfred-Workflow">
+    <img
+    alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    />
+</a>
 <h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="supported-versions.html">Supported versions</a></li>
@@ -304,27 +327,23 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-	<h3>Donate</h3>
+<h3>Donate</h3>
+<p>Consider supporting the authors</p>
+<ul class="donations">
 	
-	<p>
-	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
-	<script data-gratipay-username="deanishe"
-	        data-gratipay-widget="button"
-	        src="//gttp.co/v1.js"></script>
-	</p>
+	<li class="donate"><a href="https://paypal.me/deanishe"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" title="PayPal"></a></li>
 	
 	
-
+	<li class="donate"><a href="https://www.patreon.com/bePatron?u=890395"><img src="_static/patreon.png" alt="Patreon" title="Patreon"></a></li>
+	
+</ul>
 
         </div>
       </div>
@@ -336,8 +355,8 @@ build an API terms-compliant (and super-fast) Pinboard workflow.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

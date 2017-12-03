@@ -7,6 +7,8 @@ Workflow variables
 
 **Alfred 3 only**
 
+.. currentmodule:: workflow.workflow3
+
 An extremely powerful new feature in Alfred 3 is `its workflow variables`_.
 
 You can set and manipulate these not only in Alfred's own UI elements, but
@@ -22,19 +24,22 @@ also via the output from a Run Script action or Script Filter results.
 
 The two different mechanisms for setting workflow variables are:
 
-* The :class:`~workflow.workflow3.Variables` class, which is for use in
+* The :class:`~workflow.Variables` class, which is for use in
   **Run Script** actions, and
 * The :class:`~workflow.Workflow3` class provides an
   API for getting and setting workflow variables via **Script Filter**
   feedback.
 
 
+.. contents::
+   :local:
+
 .. _variables-run-script:
 
 Setting variables from Run Script actions
 =========================================
 
-:class:`~workflow.workflow3.Variables` is a subclass of :class:`dict` that
+:class:`~workflow.Variables` is a subclass of :class:`dict` that
 serialises (prints) to an ``alfredworkflow`` JSON object (or plain text if no
 variables are set).
 
@@ -78,52 +83,61 @@ Setting variables in Script Filters
 ===================================
 
 Variables can be set at the Workflow, Item or Modifier level using their
-respective ``setvar(name, value)`` methods.
+respective ``setvar(name, value)`` methods. Variables set on the
+:class:`~workflow.Workflow3` object are hereafter referred to as "top-level"
+variables.
 
-Variables set on the :class:`~workflow.Workflow3` object are
-"global", as they are emitted as part of the top-level feedback object sent to
-Alfred. They are always passed to downstream workflow objects regardless of
-which item the user actions (and indeed, even if the user doesn't action any
-result: they are also used by Alfred for its :ref:`rerun <guide-rerun>`
-feature).
+.. note::
 
-Variables set at the
-:class:`Item <workflow.workflow3.Item3>`/:class:`~workflow.workflow3.Modifier`
-level are only set if the user actions that item (and modifier).
+    Top-level variables are also passed back to your Script Filter when you're
+    using Alfred's :ref:`rerun <guide-rerun>` feature. This is extremely handy
+    for creating timers or progress bars.
 
+Alfred-Workflow imposes its own logic for setting variables that differs
+from the way Alfred handles them.
 
-Inheritance
------------
+:class:`Item3` and :class:`Modifier` objects inherit any variables
+set on their parent object (:class:`~workflow.Workflow3` and :class:`Item3`
+respectively) *at the time of their creation* via
+:meth:`Workflow3.add_item() <workflow.Workflow3.add_item>` and
+:meth:`Item3.add_modifier`.
 
-:class:`Modifiers <workflow.workflow3.Modifier>` inherit any variables set on
-their parent :class:`~workflow.workflow3.Item3` objects *at the time of their
-creation*. Any variables set on an :class:`~workflow.workflow3.Item3` object
-*after* a :class:`~workflow.workflow3.Modifier` was added are *not* inherited
-by the modifier.
+This way, you can have some variables inherited and some not.
 
-This way, you can have some variables inherited and others not.
-
-Modifiers also inherit the validity of their parent item (so you only
-need to supply a ``valid`` parameter to override the parent).
-
-They *do not* inherit their parent item's ``arg``.
-
+The validity and ``arg`` of the modifier will be the same as the parent
+item's, so you only need to specify ``valid`` or ``arg`` if you wish to
+override the parent item's value.
 
 .. important::
 
-    Alfred-Workflow does not automatically import any variables. All getters
-    only consider variables you have set on the objects yourself, not those
-    set by upstream workflow elements or the configuration sheet.
+    The way Alfred handles variables is somewhat arbitrary. Top-level
+    variables are also passed downstream with any item-level variables,
+    regardless of whether the item sets its own variables.
 
-    The reason for this is that Alfred-Workflow cannot distinguish between
-    workflow variables and real environment variables.
+    If a modifier sets any variables, however, Alfred ignores any top-
+    and item-level variables completely.
 
-    For example, if you call ``os.getenv('HOME')``, you will get the user's
-    home directory, but ``{var:HOME}`` will not work in Alfred elements.
+    The upshot for Alfred-Workflow is that top-level variables will also
+    be passed along with items created *before* the variables were set,
+    but *not* with modifiers created before the variables were set.
 
-    By restricting its scope to variables it has set itself, Alfred-Workflow
-    can guarantee that if ``getvar('xyz')`` works, ``{var:xyz}`` will also
-    work in downstream Alfred elements.
+
+Getting variables
+-----------------
+
+Alfred-Workflow does not automatically import any variables. All getters
+only consider variables you have set on the objects yourself, not those
+set by upstream workflow elements or the configuration sheet.
+
+The reason for this is that Alfred-Workflow cannot distinguish between
+workflow variables and real environment variables.
+
+For example, if you call ``os.getenv('HOME')``, you will get the user's
+home directory, but ``{var:HOME}`` will not work in Alfred elements.
+
+By restricting its scope to variables it has set itself, Alfred-Workflow
+can guarantee that if ``getvar('xyz')`` works, ``{var:xyz}`` will also
+work in downstream Alfred elements.
 
 
 .. _example-variables:

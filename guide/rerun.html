@@ -1,36 +1,36 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Re-running a Script Filter &mdash; Alfred-Workflow 1.29 documentation</title>
-    
+    <title>Re-running a Script Filter &#8212; Alfred-Workflow 1.30 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.29',
+        VERSION:     '1.30',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.29 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Encoded strings and Unicode" href="text-encoding.html" />
     <link rel="prev" title="Serialization of stored/cached data" href="serialization.html" />
 
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -41,26 +41,8 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="text-encoding.html" title="Encoded strings and Unicode"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="serialization.html" title="Serialization of stored/cached data"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.29 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -72,7 +54,7 @@
 <div class="versionadded">
 <p><span class="versionmodified">New in version 1.23.</span></p>
 </div>
-<p>Alfred 3.2 introduced an new &#8220;rerun&#8221; feature. Emitting a <code class="docutils literal"><span class="pre">rerun</span></code> value
+<p>Alfred 3.2 introduced an new “rerun” feature. Emitting a <code class="docutils literal"><span class="pre">rerun</span></code> value
 from a Script Filter tells Alfred to run that script again after the
 specified number of seconds. Alfred will also pass back any variables
 set at the top-level of your feedback, i.e. via the
@@ -82,7 +64,7 @@ Alfred to re-run your Script Filter.</p>
 <p>This could be used, for example, to provide a seamless (to the user) status
 update in a workflow that reports on the status of a download client like
 <a class="reference external" href="https://aria2.github.io">aria2</a> via its API.</p>
-<p>The refresh is invisible to the user, as Alfred doesn&#8217;t update its UI unless
+<p>The refresh is invisible to the user, as Alfred doesn’t update its UI unless
 the Script Filter output changes.</p>
 <p>In terms of Alfred-Workflow more generally, you might use this feature to
 re-run your Script Filter if its data are still being updated in the background.
@@ -157,14 +139,55 @@ background update changes the cached data.</p>
 
 
 
+
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large"
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
 
 
 
+
+    
+
+<p>
+<a href="https://travis-ci.org/deanishe/alfred-workflow">
+    <img
+        alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+        src="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://coveralls.io/github/deanishe/alfred-workflow">
+    <img
+    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    />
+</a>
+
+
+
+
+
+
+
+    
+
+<p>
+<a href="https://pypi.python.org/pypi/Alfred-Workflow">
+    <img
+    alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    />
+</a>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
@@ -181,10 +204,10 @@ background update changes the cached data.</p>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="serialization.html">Serialization of stored/cached data</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Re-running a Script Filter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
 </li>
@@ -218,27 +241,23 @@ background update changes the cached data.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-	<h3>Donate</h3>
+<h3>Donate</h3>
+<p>Consider supporting the authors</p>
+<ul class="donations">
 	
-	<p>
-	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
-	<script data-gratipay-username="deanishe"
-	        data-gratipay-widget="button"
-	        src="//gttp.co/v1.js"></script>
-	</p>
+	<li class="donate"><a href="https://paypal.me/deanishe"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" title="PayPal"></a></li>
 	
 	
-
+	<li class="donate"><a href="https://www.patreon.com/bePatron?u=890395"><img src="../_static/patreon.png" alt="Patreon" title="Patreon"></a></li>
+	
+</ul>
 
         </div>
       </div>
@@ -250,8 +269,8 @@ background update changes the cached data.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

@@ -1,36 +1,36 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Serialization of stored/cached data &mdash; Alfred-Workflow 1.29 documentation</title>
-    
+    <title>Serialization of stored/cached data &#8212; Alfred-Workflow 1.30 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.29',
+        VERSION:     '1.30',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="top" title="Alfred-Workflow 1.29 documentation" href="../index.html" />
-    <link rel="up" title="User Guide" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Re-running a Script Filter" href="rerun.html" />
     <link rel="prev" title="Workflow variables" href="variables.html" />
 
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -41,26 +41,8 @@
 <link rel="stylesheet" href="../_static/custom.css">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="rerun.html" title="Re-running a Script Filter"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="variables.html" title="Workflow variables"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Alfred-Workflow 1.29 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">User Guide</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -77,10 +59,10 @@
 </ul>
 </div>
 <p>By default, both cache and data files (created using the APIs described in
-<a class="reference internal" href="persistent-data.html#guide-persistent-data"><span>Persistent data</span></a>) are cached using <a class="reference external" href="https://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">cPickle</span></code></a>. This provides
+<a class="reference internal" href="persistent-data.html#guide-persistent-data"><span class="std std-ref">Persistent data</span></a>) are cached using <a class="reference external" href="https://docs.python.org/2.7/library/pickle.html#module-cPickle" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">cPickle</span></code></a>. This provides
 a great compromise in terms of speed and the ability to store arbitrary objects.</p>
 <p>When changing or specifying a serializer, use the name under which the
-serializer is registered with the <a class="reference internal" href="#managing-serializers"><span>workflow.manager</span></a>
+serializer is registered with the <a class="reference internal" href="#managing-serializers"><span class="std std-ref">workflow.manager</span></a>
 object.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -94,7 +76,7 @@ default cache serialization format to <a class="reference external" href="https:
 <span class="n">wf</span><span class="o">.</span><span class="n">cache_serializer</span> <span class="o">=</span> <span class="s1">&#39;pickle&#39;</span>
 </pre></div>
 </td></tr></table></div>
-<p class="last">Unlike the stored data API, the cached data API can&#8217;t determine the format
+<p class="last">Unlike the stored data API, the cached data API can’t determine the format
 of the cached data. If you change the serializer without clearing the
 cache, errors will probably result as the serializer tries to load data
 in a foreign format.</p>
@@ -119,7 +101,7 @@ by other software. The generated JSON is formatted to make it readable.</p>
 <p>The <code class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></code> method can
 automatically determine the serialization of the stored data (based on the file
 extension, which is the same as the name the serializer is registered under),
-provided the corresponding serializer is registered. If it isn&#8217;t, a
+provided the corresponding serializer is registered. If it isn’t, a
 <code class="xref py py-class docutils literal"><span class="pre">ValueError</span></code> will be raised.</p>
 <div class="section" id="built-in-serializers">
 <h2><a class="toc-backref" href="#id2">Built-in serializers</a><a class="headerlink" href="#built-in-serializers" title="Permalink to this headline">¶</a></h2>
@@ -200,7 +182,7 @@ stored files.</p>
 <span class="n">serializer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>See the <a class="reference internal" href="../api/index.html#api-serializers"><span>Serializers</span></a> section of the API documentation for more
+<p>See the <a class="reference internal" href="../api/index.html#api-serializers"><span class="std std-ref">Serializers</span></a> section of the API documentation for more
 information.</p>
 </div>
 </div>
@@ -226,14 +208,55 @@ information.</p>
 
 
 
+
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large"
+<iframe src="https://ghbtns.com/github-btn.html?user=deanishe&repo=alfred-workflow&type=star&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
 
 
 
+
+    
+
+<p>
+<a href="https://travis-ci.org/deanishe/alfred-workflow">
+    <img
+        alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+        src="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://coveralls.io/github/deanishe/alfred-workflow">
+    <img
+    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    />
+</a>
+
+
+
+
+
+
+
+    
+
+<p>
+<a href="https://pypi.python.org/pypi/Alfred-Workflow">
+    <img
+    alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    src="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"
+    />
+</a>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../supported-versions.html">Supported versions</a></li>
@@ -250,9 +273,9 @@ information.</p>
 <li class="toctree-l2"><a class="reference internal" href="update.html">Self-updating</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning and migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="icons.html">System icons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">&#8220;Magic&#8221; arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magic-arguments.html">“Magic” arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="variables.html">Workflow variables</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Serialization of stored/cached data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Serialization of stored/cached data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rerun.html">Re-running a Script Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text-encoding.html">Encoded strings and Unicode</a></li>
 </ul>
@@ -287,27 +310,23 @@ information.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-	<h3>Donate</h3>
+<h3>Donate</h3>
+<p>Consider supporting the authors</p>
+<ul class="donations">
 	
-	<p>
-	Consider supporting the author on <a href="https://www.gratipay.com/">Gratipay</a>:
-	<script data-gratipay-username="deanishe"
-	        data-gratipay-widget="button"
-	        src="//gttp.co/v1.js"></script>
-	</p>
+	<li class="donate"><a href="https://paypal.me/deanishe"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" title="PayPal"></a></li>
 	
 	
-
+	<li class="donate"><a href="https://www.patreon.com/bePatron?u=890395"><img src="../_static/patreon.png" alt="Patreon" title="Patreon"></a></li>
+	
+</ul>
 
         </div>
       </div>
@@ -319,8 +338,8 @@ information.</p>
       &copy; 2013–2017 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

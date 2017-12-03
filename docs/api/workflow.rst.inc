@@ -28,11 +28,14 @@ Settings
 
 .. currentmodule:: workflow
 
-:class:`Workflow` and :class:`Workflow3` objects each have a :attr:`~Workflow.settings` attribute that provides a simple API for storing
+:class:`Workflow` and :class:`Workflow3` objects each have a
+:attr:`~Workflow.settings` attribute that provides a simple API for storing
 workflow settings.
 
 .. autoclass:: workflow.workflow.Settings
   :members:
+
+  .. automethod:: save(self)
 
 
 .. _api-serializers:

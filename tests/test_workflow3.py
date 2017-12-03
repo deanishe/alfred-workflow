@@ -118,15 +118,24 @@ def test_feedback_variables(info3):
     o = wf.obj
     assert 'variables' not in o
 
-    wf.setvar('var', 'val')
+    wf.setvar('prevar', 'preval')
     it = wf.add_item('Title', arg='something')
+    wf.setvar('postvar', 'postval')
 
-    assert wf.getvar('var') == 'val'
-    assert it.getvar('var') is None
+    assert wf.getvar('prevar') == 'preval'
+    assert wf.getvar('postvar') == 'postval'
+    assert it.getvar('prevar') == 'preval'
+    assert it.getvar('postvar') is None
 
     o = wf.obj
     assert 'variables' in o
-    assert o['variables']['var'] == 'val'
+    assert o['variables']['prevar'] == 'preval'
+    assert o['variables']['postvar'] == 'postval'
+
+    o = it.obj
+    assert 'variables' in o
+    assert o['variables']['prevar'] == 'preval'
+    assert 'postval' not in o['variables']
 
 
 def test_rerun(info3):
@@ -223,11 +232,14 @@ def test_clear_session_cache(info3):
 def test_modifiers(info3):
     """Item3: Modifiers."""
     wf = Workflow3()
+    wf.setvar('wfprevar', 'wfpreval')
+
     it = wf.add_item('Title', 'Subtitle', arg='value', valid=False)
     it.setvar('prevar', 'preval')
     mod = it.add_modifier('cmd', subtitle='Subtitle2',
                           arg='value2', valid=True)
     it.setvar('postvar', 'postval')
+    wf.setvar('wfpostvar', 'wfpostval')
     mod.setvar('modvar', 'hello')
 
     # assert wf.getvar('prevar') == 'preval'
@@ -236,6 +248,11 @@ def test_modifiers(info3):
     assert mod.getvar('prevar') == 'preval'
     assert it.getvar('postvar') == 'postval'
     assert mod.getvar('postvar') is None
+
+    assert it.getvar('wfprevar') == 'wfpreval'
+    assert mod.getvar('wfprevar') == 'wfpreval'
+    assert it.getvar('wfpostvar') is None
+    assert mod.getvar('wfpostvar') is None
 
     o = it.obj
     assert 'mods' in o

@@ -15,11 +15,11 @@ It supports setting :ref:`workflow-variables` and
 
 In order for the feedback mechanism to work correctly, it's important
 to create :class:`Item3` and :class:`Modifier` objects via the
-:meth:`Workflow3.add_item()` and :meth:`Item3.add_modifier()` methods
-respectively. If you instantiate :class:`Item3` or :class:`Modifier`
-objects directly, the current :class:`Workflow3` object won't be aware
-of them, and they won't be sent to Alfred when you call
-:meth:`Workflow3.send_feedback()`.
+:meth:`~workflow.Workflow3.add_item` and :meth:`Item3.add_modifier()` methods
+respectively. If you instantiate :class:`Item3` or :class:`Modifier` objects
+directly, the current :class:`~workflow.Workflow3` object won't be aware of
+them, and they won't be sent to Alfred when you call
+:meth:`~workflow.Workflow3.send_feedback`.
 
 .. autoclass:: workflow.Workflow3
    :members:
@@ -36,17 +36,17 @@ Alfred 3 allows you to pass around variables in your workflows. It passes
 these to your scripts as environment variables (access them with
 :func:`os.getenv`), and you can pass variables back to Alfred via JSON.
 
-In Script Filters, use the ``setvar()`` methods on :class:`Workflow3`,
+In Script Filters, use the ``setvar()`` methods on :class:`~workflow.Workflow3`,
 :class:`Item3` and :class:`Modifier`.
 
-In Run Script actions, use the :class:`Variables`.
+In Run Script actions, use the :class:`~workflow.Variables`.
 
 See :ref:`workflow-variables` in the User Guide for more information.
 
 :class:`Item3` and :class:`Modifier` are documented below, in the
 :ref:`api-modifiers` section.
 
-.. autoclass:: Variables
+.. autoclass:: workflow.Variables
    :members:
 
 

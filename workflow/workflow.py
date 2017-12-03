@@ -27,6 +27,7 @@ from contextlib import contextmanager
 import cPickle
 from copy import deepcopy
 import errno
+import functools
 import json
 import logging
 import logging.handlers
@@ -814,15 +815,21 @@ class LockFile(object):
 
     Args:
         protected_path (unicode): File to protect with a lockfile
-        timeout (int, optional): Raises an :class:`AcquisitionError`
+        timeout (float, optional): Raises an :class:`AcquisitionError`
             if lock cannot be acquired within this number of seconds.
             If ``timeout`` is 0 (the default), wait forever.
         delay (float, optional): How often to check (in seconds) if
             lock has been released.
 
+    Attributes:
+        delay (float): How often to check (in seconds) whether the lock
+            can be acquired.
+        lockfile (unicode): Path of the lockfile.
+        timeout (float): How long to wait to acquire the lock.
+
     """
 
-    def __init__(self, protected_path, timeout=0, delay=0.05):
+    def __init__(self, protected_path, timeout=0.0, delay=0.05):
         """Create new :class:`LockFile` object."""
         self.lockfile = protected_path + '.lock'
         self.timeout = timeout
@@ -832,7 +839,7 @@ class LockFile(object):
 
     @property
     def locked(self):
-        """`True` if file is locked by this instance."""
+        """``True`` if file is locked by this instance."""
         return self._locked
 
     def acquire(self, blocking=True):
@@ -841,8 +848,8 @@ class LockFile(object):
         If the lock is in use and ``blocking`` is ``False``, return
         ``False``.
 
-        Otherwise, check every `self.delay` seconds until it acquires
-        lock or exceeds `self.timeout` and raises an `~AcquisitionError`.
+        Otherwise, check every :attr:`delay` seconds until it acquires
+        lock or exceeds attr:`timeout` and raises an :class:`AcquisitionError`.
 
         """
         start = time.time()
@@ -931,9 +938,9 @@ def atomic_writer(file_path, mode):
     """
     temp_suffix = '.aw.temp'
     temp_file_path = file_path + temp_suffix
-    with open(temp_file_path, mode) as file_obj:
+    with open(temp_file_path, mode) as fp:
         try:
-            yield file_obj
+            yield fp
             os.rename(temp_file_path, file_path)
         finally:
             try:
@@ -966,6 +973,7 @@ class uninterruptible(object):
     def __init__(self, func, class_name=''):
         """Decorate `func`."""
         self.func = func
+        functools.update_wrapper(self, func)
         self._caught_signal = None
 
     def signal_handler(self, signum, frame):

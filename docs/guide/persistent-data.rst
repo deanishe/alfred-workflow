@@ -228,16 +228,17 @@ for details on how ``filter_func`` works.
 Settings
 ========
 
-:attr:`Workflow.settings <Workflow.settings>` is a subclass
-of :class:`dict` that automatically saves its contents to the ``settings.json``
-file in your Workflow's data directory when it is changed.
+:attr:`Workflow.settings` is a subclass of :class:`dict` that automatically
+saves its contents to the ``settings.json`` file in your Workflow's data
+directory when it is changed.
 
-:class:`Settings` can be used just like a normal :class:`dict`
-with the caveat that all keys and values must be serializable to JSON.
+:class:`~workflow.workflow.Settings` can be used just like a normal
+:class:`dict` with the caveat that all keys and values must be serializable
+to JSON.
 
 .. warning::
 
-    A :class:`Settings` instance can only automatically
+    A :class:`~workflow.workflow.Settings` instance can only automatically
     recognise when you directly alter the values of its own keys:
 
 .. code-block:: python
@@ -248,10 +249,11 @@ with the caveat that all keys and values must be serializable to JSON.
     wf.settings['key']['key2'] = 'value2'  # will *not* be automatically saved
 
 If you've altered a data structure stored within your workflow's
-:attr:`Workflow.settings <Workflow.settings>`, you need to
-explicitly call :meth:`Workflow.settings.save() <Settings.save>`.
+:attr:`Workflow.settings`, you need to explicitly call
+:meth:`Workflow.settings.save() <workflow.workflow.Settings.save>`.
 
-If you need to store arbitrary data, you can use the :ref:`cached data API <caching-data>`.
+If you need to store arbitrary data, you can use the
+:ref:`cached data API <caching-data>`.
 
 If you need to store data securely (such as passwords and API keys),
 :class:`Workflow` also provides :ref:`simple access to

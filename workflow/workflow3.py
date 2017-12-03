@@ -334,8 +334,8 @@ class Item3(object):
         """
         mod = Modifier(key, subtitle, arg, valid, icon, icontype)
 
-        for k in self.variables:
-            mod.setvar(k, self.variables[k])
+        # Add Item variables to Modifier
+        mod.variables.update(self.variables)
 
         self.modifiers[key] = mod
 
@@ -449,8 +449,8 @@ class Item3(object):
 class Workflow3(Workflow):
     """Workflow class that generates Alfred 3 feedback.
 
-    ``Workflow3`` is a subclass of :class:`~workflow.Workflow` and
-    most of its methods are documented there.
+    It is a subclass of :class:`~workflow.Workflow` and most of its
+    methods are documented there.
 
     Attributes:
         item_class (class): Class used to generate feedback items.
@@ -574,6 +574,9 @@ class Workflow3(Workflow):
         item = self.item_class(title, subtitle, arg, autocomplete,
                                match, valid, uid, icon, icontype, type,
                                largetext, copytext, quicklookurl)
+
+        # Add variables to child item
+        item.variables.update(self.variables)
 
         self._items.append(item)
         return item

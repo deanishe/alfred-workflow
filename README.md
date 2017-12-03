@@ -538,6 +538,8 @@ These are some of the Alfred workflows that use this library.
   Copy, run, generate, del your custom commands.
 - [Quick Stocks](http://www.packal.org/workflow/quick-stocks) by [paperElectron](http://www.packal.org/users/paperelectron).
   Add some stock symbols for Alfred to check for you.
+- [Quip](http://www.packal.org/workflow/quip) ([GitHub repo](https://github.com/orf/alfred-quip-workflow)) by [orf](http://www.packal.org/users/orf) ([on GitHub](https://github.com/orf/)).
+  Search Quip documents from within Alfred.
 - [Radar](http://www.packal.org/workflow/radar) ([GitHub repo](https://github.com/amoose136/radar/)) by [amoose136](http://www.packal.org/users/amoose136) ([on GitHub](https://github.com/amoose136/)).
   Show animated doppler radar for local area using quicklook. (US only for now).
 - [Ramda Docs](http://www.packal.org/workflow/ramda-docs) ([GitHub repo](https://github.com/raine/alfred-ramda-workflow)) by [raine](http://www.packal.org/users/raine) ([on GitHub](https://github.com/raine/)).
@@ -656,6 +658,7 @@ These are some of the Alfred workflows that use this library.
   Search Zotero. From the Comfort of Your Keyboard.
 - [彩云天气](http://www.packal.org/workflow/cai-yun-tian-qi) ([GitHub repo](https://github.com/wangkezun/cytq)) by [Marvin](http://www.packal.org/users/marvin) ([on GitHub](https://github.com/wangkezun/)).
   通过彩云天气API接口获取天气预报.
+
 
 
 

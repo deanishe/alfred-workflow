@@ -372,6 +372,9 @@ corresponding section in the `GitHub README`_.
 - `Quick Stocks <http://www.packal.org/workflow/quick-stocks>`__
   by `paperElectron <http://www.packal.org/users/paperelectron>`__.
   Add some stock symbols for Alfred to check for you.
+- `Quip <http://www.packal.org/workflow/quip>`__
+  by `orf <http://www.packal.org/users/orf>`__.
+  Search Quip documents from within Alfred.
 - `Radar <http://www.packal.org/workflow/radar>`__
   by `amoose136 <http://www.packal.org/users/amoose136>`__.
   Show animated doppler radar for local area using quicklook. (US only for now).
@@ -549,7 +552,6 @@ corresponding section in the `GitHub README`_.
 - `彩云天气 <http://www.packal.org/workflow/cai-yun-tian-qi>`__
   by `Marvin <http://www.packal.org/users/marvin>`__.
   通过彩云天气API接口获取天气预报.
-
 
 
 .. _GitHub README: https://github.com/deanishe/alfred-workflow#contributing

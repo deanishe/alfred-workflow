@@ -105,8 +105,8 @@ same way. See the `pip documentation`_ for more information.
 From source
 -----------
 
-Download the ``alfred-workflow-X.X.X.zip`` file from the `GitHub releases`_ page
-and extract the ZIP to the root directory of your workflow (where
+Download the ``alfred-workflow-X.X.X.zip`` file from the `GitHub releases`_
+page and extract the ZIP to the root directory of your workflow (where
 ``info.plist`` is).
 
 Alternatively, you can download `the source code`_ from the `GitHub repository`_

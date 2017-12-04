@@ -46,30 +46,37 @@ Features
 Contents
 --------
 
+<!-- MarkdownTOC autolink="true" bracket="round" depth="3" autoanchor="true" -->
+
 - [Installation](#installation)
-    - [With pip](#with-pip)
-    - [From source](#from-source)
+  - [With pip](#with-pip)
+  - [From source](#from-source)
 - [Usage](#usage)
-    - [Workflow script skeleton](#workflow-script-skeleton)
-    - [Examples](#examples)
-        - [Web](#web)
-        - [Keychain access](#keychain-access)
+  - [Workflow script skeleton](#workflow-script-skeleton)
+  - [Examples](#examples)
+    - [Web](#web)
+    - [Keychain access](#keychain-access)
 - [Documentation](#documentation)
+  - [Dash docset](#dash-docset)
 - [Licensing, thanks](#licensing-thanks)
 - [Contributing](#contributing)
-    - [Adding a workflow to the list](#adding-a-workflow-to-the-list)
-    - [Bug reports, pull requests](#bug-reports-pull-requests)
-    - [Contributors](#contributors)
+  - [Adding a workflow to the list](#adding-a-workflow-to-the-list)
+  - [Bug reports, pull requests](#bug-reports-pull-requests)
+  - [Contributors](#contributors)
 - [Tests](#tests)
 - [Workflows using Alfred-Workflow](#workflows-using-alfred-workflow)
 
+<!-- /MarkdownTOC -->
 
+
+<a name="installation"></a>
 Installation
 ------------
 
 **Note**: If you intend to distribute your workflow to other users, you should include Alfred-Workflow (and other Python libraries your workflow requires) within your workflow's directory as described below. **Do not** ask users to install anything into their system Python. Python installations cannot support multiple versions of the same library, so if you rely on globally-installed libraries, the chances are very good that your workflow will sooner or later break—or be broken by—some other software doing the same naughty thing.
 
 
+<a name="with-pip"></a>
 ### With pip ###
 
 You can install Alfred-Workflow directly into your workflow with:
@@ -84,6 +91,7 @@ You can install any other library available on the [Cheese Shop][cheeseshop] the
 It is highly advisable to bundle all your workflow's dependencies with your workflow in this way. That way, it will "just work".
 
 
+<a name="from-source"></a>
 ### From source ###
 
 1. Download the `alfred-workflow-X.X.X.zip` from the [GitHub releases page][releases].
@@ -109,12 +117,14 @@ Your workflow should look something like this:
 Alternatively, you can clone/download the Alfred-Workflow [repository][repo] and copy the `workflow` subdirectory to your workflow's root directory.
 
 
+<a name="usage"></a>
 Usage
 -----
 
 A few examples of how to use Alfred-Workflow.
 
 
+<a name="workflow-script-skeleton"></a>
 ### Workflow script skeleton ###
 
 Set up your workflow scripts as follows (if you wish to use the built-in error handling or `sys.path` modification):
@@ -125,19 +135,25 @@ Set up your workflow scripts as follows (if you wish to use the built-in error h
 
 import sys
 
-from workflow import Workflow
+# Workflow3 supports Alfred 3's new features. The `Workflow` class
+# is also compatible with Alfred 2.
+from workflow import Workflow3
 
 
 def main(wf):
-    # The Workflow instance will be passed to the function
-    # you call from `Workflow.run`. Not so useful, as
-    # the `wf` object created in `if __name__ ...` below is global.
+    # The Workflow3 instance will be passed to the function
+    # you call from `Workflow3.run`.
+    # Not super useful, as the `wf` object created in
+    # the `if __name__ ...` clause below is global...
     #
-    # Your imports go here if you want to catch import errors (not a bad idea)
-    # or if the modules/packages are in a directory added via `Workflow(libraries=...)`
+    # Your imports go here if you want to catch import errors, which
+    # is not a bad idea, or if the modules/packages are in a directory
+    # added via `Workflow3(libraries=...)`
     import somemodule
     import anothermodule
-    # Get args from Workflow, already in normalized Unicode
+
+    # Get args from Workflow3, already in normalized Unicode.
+    # This is also necessary for "magic" arguments to work.
     args = wf.args
 
     # Do stuff here ...
@@ -146,21 +162,22 @@ def main(wf):
     wf.add_item(u'Item title', u'Item subtitle')
 
     # Send output to Alfred. You can only call this once.
-    # Well, you *can* call it multiple times, but Alfred won't be listening
-    # any more...
+    # Well, you *can* call it multiple times, but subsequent calls
+    # are ignored (otherwise the JSON sent to Alfred would be invalid).
     wf.send_feedback()
 
 
 if __name__ == '__main__':
-    # Create a global `Workflow` object
-    wf = Workflow()
-    # Call your entry function via `Workflow.run()` to enable its helper
-    # functions, like exception catching, ARGV normalization, magic
-    # arguments etc.
+    # Create a global `Workflow3` object
+    wf = Workflow3()
+    # Call your entry function via `Workflow3.run()` to enable its
+    # helper functions, like exception catching, ARGV normalization,
+    # magic arguments etc.
     sys.exit(wf.run(main))
 ```
 
 
+<a name="examples"></a>
 ### Examples ###
 
 Cache data for 30 seconds:
@@ -175,10 +192,12 @@ def main(wf):
     data = wf.cached_data('example', get_web_data, max_age=30)
     for datum in data:
         wf.add_item(datum['title'], datum['author'])
+
     wf.send_feedback()
 ```
 
 
+<a name="web"></a>
 #### Web ####
 
 Grab data from a JSON web API:
@@ -206,6 +225,7 @@ r = web.post('http://www.example.com/upload/', files=files)
 **WARNING**: As this module is based on Python 2's standard HTTP libraries, *on older versions of OS X/Python, it does not validate SSL certificates when making HTTPS connections*. If your workflow uses sensitive passwords/API keys, you should *strongly consider* using the [requests][requests] library upon which the `web.py` API is based.
 
 
+<a name="keychain-access"></a>
 #### Keychain access ####
 
 Save password:
@@ -223,14 +243,20 @@ wf.get_password('name of account')
 ```
 
 
+<a name="documentation"></a>
 Documentation
 -------------
 
 The full documentation, including API docs and a tutorial, can be found at [deanishe.net][docs].
 
+
+<a name="dash-docset"></a>
+### Dash docset ###
+
 The documentation is also available as a [Dash docset][dash].
 
 
+<a name="licensing-thanks"></a>
 Licensing, thanks
 -----------------
 
@@ -243,10 +269,12 @@ Many of the cooler ideas in Alfred-Workflow were inspired by [Alfred2-Ruby-Templ
 The Keychain parser was based on [Python-Keyring][python-keyring] by Jason R. Coombs.
 
 
+<a name="contributing"></a>
 Contributing
 ------------
 
 
+<a name="adding-a-workflow-to-the-list"></a>
 ### Adding a workflow to the list ###
 
 If you want to add a workflow to the [list of workflows using Alfred-Workflow](#workflows-using-alfred-workflow), **don't add it to this README!** The list is machine-generated from [Packal.org][packal] and the [`library_workflows.tsv`](extras/library_workflows.tsv) file. If your workflow is available on [Packal][packal], it will be added automatically. If not, please add it to [`library_workflows.tsv`](extras/library_workflows.tsv), instead of `README.md`, and submit a corresponding pull request.
@@ -254,18 +282,14 @@ If you want to add a workflow to the [list of workflows using Alfred-Workflow](#
 The list is not auto-updated, so if you've released a workflow and are keen to see it in this list, please [open an issue][issues] asking me to update the list.
 
 
+<a name="bug-reports-pull-requests"></a>
 ### Bug reports, pull requests ###
 
 Bug reports, feature suggestions and pull requests are very welcome. Head over to the [issues][issues] if you have a feature request or a bug report.
 
-**Please note:** that the only supported versions of Python are the Apple
-system Pythons installed on OS X 10.6+ (i.e. `/usr/bin/python`). Any pull
-requests that break compatibility with these Pythons will be rejected out of
-hand.
+**Please note:** that the only supported versions of Python are the Apple system Pythons installed on OS X 10.6+ (i.e. `/usr/bin/python`). Any pull requests that break compatibility with these Pythons will be rejected out of hand.
 
-Compatibility with other Pythons is a low priority. Pull requests adding
-compatibility with other Pythons will be rejected if they add significant
-complexity or additional dependencies, such as `six`.
+Compatibility with other Pythons is a very low priority. Pull requests adding compatibility with other Pythons will be rejected if they add significant complexity or additional dependencies, such as `six`.
 
 If you want to make a pull request, do that [here][pulls], but please bear the following in mind:
 
@@ -281,6 +305,7 @@ If you want to make a pull request, do that [here][pulls], but please bear the f
 The main entry point for unit testing is the `run-tests.sh` script in the root directory. This will fail *if code coverage is < 100%*. Travis-CI also uses this script. Add `# pragma: no cover` with care.
 
 
+<a name="contributors"></a>
 ### Contributors ###
 
 - [Dean Jackson][deanishe]
@@ -289,6 +314,7 @@ The main entry point for unit testing is the `run-tests.sh` script in the root d
 - [Owen Min][owenwater]
 
 
+<a name="tests"></a>
 Tests
 -----
 
@@ -297,6 +323,7 @@ Alfred-Workflow includes a full suite of unit tests. Please use the `run-tests.s
 Moreover, `run-tests.sh` checks the coverage of the unit tests and will fail if it is below 100%.
 
 
+<a name="workflows-using-alfred-workflow"></a>
 Workflows using Alfred-Workflow
 -------------------------------
 

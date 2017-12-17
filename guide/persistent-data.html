@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Persistent data &#8212; Alfred-Workflow 1.30 documentation</title>
+    <title>Persistent data &#8212; Alfred-Workflow 1.31 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.30',
+        VERSION:     '1.31',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -321,10 +321,10 @@ Script Filters. This allows you (among other things) to specify that a
 running script should be killed if the user continues typing in Alfred.</p>
 <p>If you enable this setting, it’s possible that Alfred will terminate your
 script in the middle of some critical code (e.g. writing a file).
-Alfred-Workflow provides the <a class="reference internal" href="../api/index.html#workflow.workflow.uninterruptible" title="workflow.workflow.uninterruptible"><code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code></a>
+Alfred-Workflow provides the <code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code>
 decorator to prevent your script being terminated in the middle of a
 critical function.</p>
-<p>Any function wrapped with <a class="reference internal" href="../api/index.html#workflow.workflow.uninterruptible" title="workflow.workflow.uninterruptible"><code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code></a> will
+<p>Any function wrapped with <code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code> will
 be executed fully, and any signal caught during its execution will be
 handled when your function completes.</p>
 <p>For example:</p>
@@ -340,7 +340,7 @@ handled when your function completes.</p>
 </pre></div>
 </td></tr></table></div>
 <p>If you only want to write to a file, you can use the
-<a class="reference internal" href="../api/index.html#workflow.workflow.atomic_writer" title="workflow.workflow.atomic_writer"><code class="xref py py-class docutils literal"><span class="pre">atomic_writer</span></code></a> context manager. This does not
+<code class="xref py py-class docutils literal"><span class="pre">atomic_writer</span></code> context manager. This does not
 guarantee that the file will be written, but does guarantee that it will
 only be written if the write succeeds (the data is first written to a temporary
 file).</p>

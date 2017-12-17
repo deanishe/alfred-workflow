@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API documentation &#8212; Alfred-Workflow 1.30 documentation</title>
+    <title>API documentation &#8212; Alfred-Workflow 1.31 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.30',
+        VERSION:     '1.31',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -57,11 +57,10 @@ tasks.</p>
 <p>See the <a class="reference internal" href="../genindex.html"><span class="std std-ref">main index</span></a> for a list of all classes and methods.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#module-workflow" id="id1">Workflow objects</a><ul>
-<li><a class="reference internal" href="#settings" id="id2">Settings</a></li>
-<li><a class="reference internal" href="#serializers" id="id3">Serializers</a></li>
-<li><a class="reference internal" href="#exceptions" id="id4">Exceptions</a></li>
-<li><a class="reference internal" href="#utilities-helpers" id="id5">Utilities &amp; helpers</a></li>
+<li><a class="reference internal" href="#module-workflow" id="id2">Workflow objects</a><ul>
+<li><a class="reference internal" href="#settings" id="id3">Settings</a></li>
+<li><a class="reference internal" href="#serializers" id="id4">Serializers</a></li>
+<li><a class="reference internal" href="#exceptions" id="id5">Exceptions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-workflow.workflow3" id="id6">Workflow3 objects</a><ul>
@@ -82,10 +81,15 @@ tasks.</p>
 <li><a class="reference internal" href="#helper-functions" id="id15">Helper functions</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#utilities-helpers" id="id16">Utilities &amp; helpers</a><ul>
+<li><a class="reference internal" href="#other-helpers" id="id17">Other helpers</a></li>
+<li><a class="reference internal" href="#api-util-exceptions" id="id18">Exceptions</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="module-workflow">
-<span id="workflow-objects"></span><span id="api-workflow"></span><h2><a class="toc-backref" href="#id1">Workflow objects</a><a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h2>
+<span id="workflow-objects"></span><span id="api-workflow"></span><h2><a class="toc-backref" href="#id2">Workflow objects</a><a class="headerlink" href="#module-workflow" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> object is the main interface to this library.</p>
 <p><a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> is targeted at Alfred 2. Use <a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> if
 you want to use Alfred 3’s new features, such as
@@ -1276,7 +1280,7 @@ exists or <code class="xref py py-class docutils literal"><span class="pre">Valu
 </dd></dl>
 
 <div class="section" id="settings">
-<span id="api-settings"></span><h3><a class="toc-backref" href="#id2">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
+<span id="api-settings"></span><h3><a class="toc-backref" href="#id3">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> and <a class="reference internal" href="#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> objects each have a
 <a class="reference internal" href="#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">settings</span></code></a> attribute that provides a simple API for storing
 workflow settings.</p>
@@ -1335,7 +1339,7 @@ in your workflow’s data directory (see <code class="xref py py-attr docutils l
 
 </div>
 <div class="section" id="serializers">
-<span id="api-serializers"></span><h3><a class="toc-backref" href="#id3">Serializers</a><a class="headerlink" href="#serializers" title="Permalink to this headline">¶</a></h3>
+<span id="api-serializers"></span><h3><a class="toc-backref" href="#id4">Serializers</a><a class="headerlink" href="#serializers" title="Permalink to this headline">¶</a></h3>
 <p>The serialization API provided by <a class="reference internal" href="#workflow.workflow.SerializerManager" title="workflow.workflow.SerializerManager"><code class="xref py py-class docutils literal"><span class="pre">SerializerManager</span></code></a> is used by
 <a class="reference internal" href="#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> to store saved &amp; cached data and settings.
 You can register your own serializers on a manager.</p>
@@ -1583,9 +1587,9 @@ flexibility.</p>
 
 </div>
 <div class="section" id="exceptions">
-<span id="api-exceptions"></span><h3><a class="toc-backref" href="#id4">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
+<span id="api-exceptions"></span><h3><a class="toc-backref" href="#id5">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
 <p>Alfred-Workflow defines the following exceptions, which may be raised
-by the Keychain API or <code class="xref py py-class docutils literal"><span class="pre">LockFile</span></code>.</p>
+by the Keychain API.</p>
 <dl class="exception">
 <dt id="workflow.KeychainError">
 <em class="property">exception </em><code class="descclassname">workflow.</code><code class="descname">KeychainError</code><a class="headerlink" href="#workflow.KeychainError" title="Permalink to this definition">¶</a></dt>
@@ -1610,142 +1614,6 @@ is unknown to the Keychain.</p>
 <p>You should never receive this error: it is used internally
 by the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password()</span></code> method to know if it needs
 to delete the old password first (a Keychain implementation detail).</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="workflow.workflow.AcquisitionError">
-<em class="property">exception </em><code class="descclassname">workflow.workflow.</code><code class="descname">AcquisitionError</code><a class="headerlink" href="#workflow.workflow.AcquisitionError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raised if a lock cannot be acquired.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="utilities-helpers">
-<span id="api-helpers"></span><h3><a class="toc-backref" href="#id5">Utilities &amp; helpers</a><a class="headerlink" href="#utilities-helpers" title="Permalink to this headline">¶</a></h3>
-<p>These utility objects and functions are used internally by Alfred-Workflow,
-but may also be useful in your workflow.</p>
-<dl class="class">
-<dt id="workflow.workflow.LockFile">
-<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">LockFile</code><span class="sig-paren">(</span><em>protected_path</em>, <em>timeout=0.0</em>, <em>delay=0.05</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Context manager to protect filepaths with lockfiles.</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 1.13.</span></p>
-</div>
-<p>Creates a lockfile alongside <code class="docutils literal"><span class="pre">protected_path</span></code>. Other <code class="docutils literal"><span class="pre">LockFile</span></code>
-instances will refuse to lock the same path.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/file&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">LockFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>protected_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – File to protect with a lockfile</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Raises an <a class="reference internal" href="#workflow.workflow.AcquisitionError" title="workflow.workflow.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>
-if lock cannot be acquired within this number of seconds.
-If <code class="docutils literal"><span class="pre">timeout</span></code> is 0 (the default), wait forever.</li>
-<li><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – How often to check (in seconds) if
-lock has been released.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="workflow.workflow.LockFile.delay">
-<code class="descname">delay</code><a class="headerlink" href="#workflow.workflow.LockFile.delay" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – How often to check (in seconds) whether the lock
-can be acquired.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="workflow.workflow.LockFile.lockfile">
-<code class="descname">lockfile</code><a class="headerlink" href="#workflow.workflow.LockFile.lockfile" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em> – Path of the lockfile.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="workflow.workflow.LockFile.timeout">
-<code class="descname">timeout</code><a class="headerlink" href="#workflow.workflow.LockFile.timeout" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em> – How long to wait to acquire the lock.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.LockFile.acquire">
-<code class="descname">acquire</code><span class="sig-paren">(</span><em>blocking=True</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.acquire" title="Permalink to this definition">¶</a></dt>
-<dd><p>Acquire the lock if possible.</p>
-<p>If the lock is in use and <code class="docutils literal"><span class="pre">blocking</span></code> is <code class="docutils literal"><span class="pre">False</span></code>, return
-<code class="docutils literal"><span class="pre">False</span></code>.</p>
-<p>Otherwise, check every <a class="reference internal" href="#workflow.workflow.LockFile.delay" title="workflow.workflow.LockFile.delay"><code class="xref py py-attr docutils literal"><span class="pre">delay</span></code></a> seconds until it acquires
-lock or exceeds attr:<cite>timeout</cite> and raises an <a class="reference internal" href="#workflow.workflow.AcquisitionError" title="workflow.workflow.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="workflow.workflow.LockFile.locked">
-<code class="descname">locked</code><a class="headerlink" href="#workflow.workflow.LockFile.locked" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal"><span class="pre">True</span></code> if file is locked by this instance.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="workflow.workflow.LockFile.release">
-<code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.LockFile.release" title="Permalink to this definition">¶</a></dt>
-<dd><p>Release the lock by deleting <cite>self.lockfile</cite>.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="workflow.workflow.uninterruptible">
-<em class="property">class </em><code class="descclassname">workflow.workflow.</code><code class="descname">uninterruptible</code><span class="sig-paren">(</span><em>func</em>, <em>class_name=u''</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.uninterruptible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator that postpones SIGTERM until wrapped function returns.</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 1.12.</span></p>
-</div>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">This decorator is NOT thread-safe.</p>
-</div>
-<p>As of version 2.7, Alfred allows Script Filters to be killed. If
-your workflow is killed in the middle of critical code (e.g.
-writing data to disk), this may corrupt your workflow’s data.</p>
-<p>Use this decorator to wrap critical functions that <em>must</em> complete.
-If the script is killed while a wrapped function is executing,
-the SIGTERM will be caught and handled after your function has
-finished executing.</p>
-<p>Alfred-Workflow uses this internally to ensure its settings, data
-and cache writes complete.</p>
-<dl class="method">
-<dt id="workflow.workflow.uninterruptible.signal_handler">
-<code class="descname">signal_handler</code><span class="sig-paren">(</span><em>signum</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.uninterruptible.signal_handler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Called when process receives SIGTERM.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="workflow.workflow.atomic_writer">
-<code class="descclassname">workflow.workflow.</code><code class="descname">atomic_writer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.workflow.atomic_writer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Atomic file writer.</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 1.12.</span></p>
-</div>
-<p>Context manager that ensures the file is only written if the write
-succeeds. The data is first written to a temporary file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>file_path</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – path of file to write to.</li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – sames as for <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -1981,6 +1849,39 @@ back to the script when Alfred runs it again.</p>
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Name of variable.</li>
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Value of variable.</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.Workflow3.warn_empty">
+<code class="descname">warn_empty</code><span class="sig-paren">(</span><em>title</em>, <em>subtitle=u''</em>, <em>icon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.warn_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a warning to feedback if there are no items.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>Add a “warning” item to Alfred feedback if no other items
+have been added. This is a handy shortcut to prevent Alfred
+from showing its fallback searches, which is does if no
+items are returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Title of feedback item.</li>
+<li><strong>subtitle</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a><em>, </em><em>optional</em>) – Subtitle of feedback item.</li>
+<li><strong>icon</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Icon for feedback item. If not
+specified, <code class="docutils literal"><span class="pre">ICON_WARNING</span></code> is used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Newly-created item.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.workflow3.Item3" title="workflow.workflow3.Item3">Item3</a></p>
 </td>
 </tr>
 </tbody>
@@ -2877,6 +2778,373 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 
 </div>
 </div>
+<div class="section" id="utilities-helpers">
+<span id="api-util"></span><h2><a class="toc-backref" href="#id16">Utilities &amp; helpers</a><a class="headerlink" href="#utilities-helpers" title="Permalink to this headline">¶</a></h2>
+<p>A collection of functions and classes for common workflow-related tasks, such
+as running AppleScript or JXA code, or calling an External Trigger.</p>
+<dl class="function">
+<dt id="workflow.util.utf8ify">
+<code class="descclassname">workflow.util.</code><code class="descname">utf8ify</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.utf8ify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure string is a bytestring.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>Returns <cite>str</cite> objects unchanced, encodes <cite>unicode</cite> objects to
+UTF-8, and calls <code class="xref py py-func docutils literal"><span class="pre">str()</span></code> on anything else.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – A Python object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">UTF-8 string or string representation of s.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.applescriptify">
+<code class="descclassname">workflow.util.</code><code class="descname">applescriptify</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.applescriptify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Escape string for insertion into an AppleScript string.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>Replaces <code class="docutils literal"><span class="pre">&quot;</span></code> with <cite>“&amp; quote &amp;”</cite>. Use this function if you want</p>
+<dl class="docutils">
+<dt>to insert a string into an AppleScript script:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;tell application &quot;Alfred 3&quot; to search &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;g &quot;python&quot; test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">script</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">applescriptify</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+<span class="go">&#39;tell application &quot;Alfred 3&quot; to search &quot;g &quot; &amp; quote &amp; &quot;python&quot; &amp; quote &amp; &quot;test&quot;&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Unicode string to escape.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Escaped string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)">unicode</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.run_command">
+<code class="descclassname">workflow.util.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a command and return the output.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>A thin wrapper around <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.check_output" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.check_output()</span></code></a> that ensures
+all arguments are encoded to UTF-8 first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cmd</strong> (<em>list</em>) – Command arguments to pass to <code class="docutils literal"><span class="pre">check_output</span></code>.</li>
+<li><strong>**kwargs</strong> – Keyword arguments to pass to <code class="docutils literal"><span class="pre">check_output</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Output returned by <code class="docutils literal"><span class="pre">check_output</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.run_applescript">
+<code class="descclassname">workflow.util.</code><code class="descname">run_applescript</code><span class="sig-paren">(</span><em>script</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.run_applescript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute an AppleScript script and return its output.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>Run AppleScript either by filepath or code. If <code class="docutils literal"><span class="pre">script</span></code> is a valid
+filepath, that script will be run, otherwise <code class="docutils literal"><span class="pre">script</span></code> is treated
+as code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>script</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Filepath of script or code to run.</li>
+<li><strong>*args</strong> – Optional command-line arguments to pass to the script.</li>
+<li><strong>**kwargs</strong> – Pass <code class="docutils literal"><span class="pre">lang</span></code> to run a language other than AppleScript.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Output of run command.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.run_jxa">
+<code class="descclassname">workflow.util.</code><code class="descname">run_jxa</code><span class="sig-paren">(</span><em>script</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.run_jxa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a JXA script and return its output.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>Wrapper around <a class="reference internal" href="#workflow.util.run_applescript" title="workflow.util.run_applescript"><code class="xref py py-func docutils literal"><span class="pre">run_applescript()</span></code></a> that passes <code class="docutils literal"><span class="pre">lang=JavaScript</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>script</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Filepath of script or code to run.</li>
+<li><strong>*args</strong> – Optional command-line arguments to pass to script.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Output of script.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.run_trigger">
+<code class="descclassname">workflow.util.</code><code class="descname">run_trigger</code><span class="sig-paren">(</span><em>name</em>, <em>bundleid=None</em>, <em>arg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.run_trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call an Alfred External Trigger.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<p>If <code class="docutils literal"><span class="pre">bundleid</span></code> is not specified, reads the bundle ID of the current
+workflow from Alfred’s environment variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of External Trigger to call.</li>
+<li><strong>bundleid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Bundle ID of workflow trigger belongs to.</li>
+<li><strong>arg</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Argument to pass to trigger.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.util.AppInfo">
+<em class="property">class </em><code class="descclassname">workflow.util.</code><code class="descname">AppInfo</code><span class="sig-paren">(</span><em>name</em>, <em>path</em>, <em>bundleid</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.AppInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information about an installed application.</p>
+<p>Returned by <a class="reference internal" href="#workflow.util.appinfo" title="workflow.util.appinfo"><code class="xref py py-func docutils literal"><span class="pre">appinfo()</span></code></a>. All attributes are Unicode.</p>
+<dl class="attribute">
+<dt id="workflow.util.AppInfo.name">
+<code class="descname">name</code><a class="headerlink" href="#workflow.util.AppInfo.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the application, e.g. <code class="docutils literal"><span class="pre">u'Safari'</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.util.AppInfo.path">
+<code class="descname">path</code><a class="headerlink" href="#workflow.util.AppInfo.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the application bundle, e.g. <code class="docutils literal"><span class="pre">u'/Applications/Safari.app'</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.util.AppInfo.bundleid">
+<code class="descname">bundleid</code><a class="headerlink" href="#workflow.util.AppInfo.bundleid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Application’s bundle ID, e.g. <code class="docutils literal"><span class="pre">u'com.apple.Safari'</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.appinfo">
+<code class="descclassname">workflow.util.</code><code class="descname">appinfo</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.appinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about an installed application.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.31.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of application to look up.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#workflow.util.AppInfo" title="workflow.util.AppInfo"><code class="xref py py-class docutils literal"><span class="pre">AppInfo</span></code></a> tuple or <code class="docutils literal"><span class="pre">None</span></code> if app isn’t found.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.util.AppInfo" title="workflow.util.AppInfo">AppInfo</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="other-helpers">
+<h3><a class="toc-backref" href="#id17">Other helpers</a><a class="headerlink" href="#other-helpers" title="Permalink to this headline">¶</a></h3>
+<p>These utility classes and functions are used internally by Alfred-Workflow,
+but may also be useful in your workflow.</p>
+<dl class="class">
+<dt id="workflow.util.LockFile">
+<em class="property">class </em><code class="descclassname">workflow.util.</code><code class="descname">LockFile</code><span class="sig-paren">(</span><em>protected_path</em>, <em>timeout=0.0</em>, <em>delay=0.05</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.LockFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager to protect filepaths with lockfiles.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.13.</span></p>
+</div>
+<p>Creates a lockfile alongside <code class="docutils literal"><span class="pre">protected_path</span></code>. Other <code class="docutils literal"><span class="pre">LockFile</span></code>
+instances will refuse to lock the same path.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/file&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">LockFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>protected_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – File to protect with a lockfile</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Raises an <a class="reference internal" href="#workflow.util.AcquisitionError" title="workflow.util.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>
+if lock cannot be acquired within this number of seconds.
+If <code class="docutils literal"><span class="pre">timeout</span></code> is 0 (the default), wait forever.</li>
+<li><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – How often to check (in seconds) if
+lock has been released.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="workflow.util.LockFile.delay">
+<code class="descname">delay</code><a class="headerlink" href="#workflow.util.LockFile.delay" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – How often to check (in seconds) whether the lock
+can be acquired.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.util.LockFile.lockfile">
+<code class="descname">lockfile</code><a class="headerlink" href="#workflow.util.LockFile.lockfile" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> – Path of the lockfile.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.util.LockFile.timeout">
+<code class="descname">timeout</code><a class="headerlink" href="#workflow.util.LockFile.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – How long to wait to acquire the lock.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.util.LockFile.acquire">
+<code class="descname">acquire</code><span class="sig-paren">(</span><em>blocking=True</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.LockFile.acquire" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquire the lock if possible.</p>
+<p>If the lock is in use and <code class="docutils literal"><span class="pre">blocking</span></code> is <code class="docutils literal"><span class="pre">False</span></code>, return
+<code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p>Otherwise, check every <a class="reference internal" href="#workflow.util.LockFile.delay" title="workflow.util.LockFile.delay"><code class="xref py py-attr docutils literal"><span class="pre">delay</span></code></a> seconds until it acquires
+lock or exceeds attr:<cite>timeout</cite> and raises an <a class="reference internal" href="#workflow.util.AcquisitionError" title="workflow.util.AcquisitionError"><code class="xref py py-class docutils literal"><span class="pre">AcquisitionError</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="workflow.util.LockFile.locked">
+<code class="descname">locked</code><a class="headerlink" href="#workflow.util.LockFile.locked" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if file is locked by this instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="workflow.util.LockFile.release">
+<code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.LockFile.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release the lock by deleting <cite>self.lockfile</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="workflow.util.uninterruptible">
+<em class="property">class </em><code class="descclassname">workflow.util.</code><code class="descname">uninterruptible</code><span class="sig-paren">(</span><em>func</em>, <em>class_name=''</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.uninterruptible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator that postpones SIGTERM until wrapped function returns.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.12.</span></p>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This decorator is NOT thread-safe.</p>
+</div>
+<p>As of version 2.7, Alfred allows Script Filters to be killed. If
+your workflow is killed in the middle of critical code (e.g.
+writing data to disk), this may corrupt your workflow’s data.</p>
+<p>Use this decorator to wrap critical functions that <em>must</em> complete.
+If the script is killed while a wrapped function is executing,
+the SIGTERM will be caught and handled after your function has
+finished executing.</p>
+<p>Alfred-Workflow uses this internally to ensure its settings, data
+and cache writes complete.</p>
+<dl class="method">
+<dt id="workflow.util.uninterruptible.signal_handler">
+<code class="descname">signal_handler</code><span class="sig-paren">(</span><em>signum</em>, <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.uninterruptible.signal_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when process receives SIGTERM.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.atomic_writer">
+<code class="descclassname">workflow.util.</code><code class="descname">atomic_writer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.atomic_writer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Atomic file writer.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.12.</span></p>
+</div>
+<p>Context manager that ensures the file is only written if the write
+succeeds. The data is first written to a temporary file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fpath</strong> (<code class="docutils literal"><span class="pre">unicode</span></code>) – path of file to write to.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) – sames as for <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#open" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">open()</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="api-util-exceptions">
+<span id="id1"></span><h3><a class="toc-backref" href="#id18">Exceptions</a><a class="headerlink" href="#api-util-exceptions" title="Permalink to this headline">¶</a></h3>
+<p>The following exceptions, may be raised by utility functions.</p>
+<dl class="exception">
+<dt id="workflow.util.AcquisitionError">
+<em class="property">exception </em><code class="descclassname">workflow.util.</code><code class="descname">AcquisitionError</code><a class="headerlink" href="#workflow.util.AcquisitionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if a lock cannot be acquired.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="subprocess.CalledProcessError">
+<em class="property">exception </em><code class="descclassname">subprocess.</code><code class="descname">CalledProcessError</code><span class="sig-paren">(</span><em>returncode</em>, <em>cmd</em>, <em>output=None</em><span class="sig-paren">)</span><a class="headerlink" href="#subprocess.CalledProcessError" title="Permalink to this definition">¶</a></dt>
+<dd><p>This exception is raised when a process run by check_call() or
+check_output() returns a non-zero exit status.
+The exit status will be stored in the returncode attribute;
+check_output() will also store the output in the output attribute.</p>
+</dd></dl>
+
+</div>
+</div>
 </div>
 
 
@@ -2962,6 +3230,7 @@ in <code class="docutils literal"><span class="pre">System</span> <span class="p
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow.web">HTTP requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow.update">Workflow updates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-workflow.notify">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utilities-helpers">Utilities &amp; helpers</a></li>
 </ul>
 </li>
 </ul>

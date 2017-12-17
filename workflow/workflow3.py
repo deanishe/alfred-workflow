@@ -29,7 +29,7 @@ import json
 import os
 import sys
 
-from .workflow import Workflow
+from .workflow import ICON_WARNING, Workflow
 
 
 class Variables(dict):
@@ -680,6 +680,31 @@ class Workflow3(Workflow):
         if self.rerun:
             o['rerun'] = self.rerun
         return o
+
+    def warn_empty(self, title, subtitle=u'', icon=None):
+        """Add a warning to feedback if there are no items.
+
+        .. versionadded:: 1.31
+
+        Add a "warning" item to Alfred feedback if no other items
+        have been added. This is a handy shortcut to prevent Alfred
+        from showing its fallback searches, which is does if no
+        items are returned.
+
+        Args:
+            title (unicode): Title of feedback item.
+            subtitle (unicode, optional): Subtitle of feedback item.
+            icon (str, optional): Icon for feedback item. If not
+                specified, ``ICON_WARNING`` is used.
+
+        Returns:
+            Item3: Newly-created item.
+        """
+        if len(self._items):
+            return
+
+        icon = icon or ICON_WARNING
+        return self.add_item(title, subtitle, icon=icon)
 
     def send_feedback(self):
         """Print stored items to console/Alfred as JSON."""

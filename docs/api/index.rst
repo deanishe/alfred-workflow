@@ -28,3 +28,4 @@ See the :ref:`main index <genindex>` for a list of all classes and methods.
 
 .. include:: notify.rst.inc
 
+.. include:: util.rst.inc

@@ -19,7 +19,7 @@ import sys
 
 import pytest
 
-from workflow.workflow3 import Variables, Workflow3
+from workflow import ICON_WARNING, Variables, Workflow3
 
 
 def test_required_optional(info3):
@@ -31,7 +31,7 @@ def test_required_optional(info3):
     assert o['title'] == 'Title'
     assert o['valid'] is False
     assert o['subtitle'] == ''
-    assert set(o.keys()) == set(['title', 'valid', 'subtitle'])
+    assert set(o.keys()) == {'title', 'valid', 'subtitle'}
 
 
 def test_optional(info3):
@@ -98,6 +98,33 @@ def test_feedback(info3):
     assert len(items) == 10
     for i in range(10):
         assert items[i]['title'] == 'Title {0:2d}'.format(i + 1)
+
+
+def test_warn_empty(info3):
+    """Workflow3: Warn empty."""
+    wf = Workflow3()
+    it = wf.warn_empty(u'My warning')
+
+    assert it.title == u'My warning'
+    assert it.subtitle == u''
+    assert it.valid is False
+    assert it.icon == ICON_WARNING
+
+    o = wf.obj
+
+    assert len(o['items']) == 1
+    assert o['items'][0] == it.obj
+
+    # Non-empty feedback
+    wf = Workflow3()
+    wf.add_item(u'Real item')
+    it = wf.warn_empty(u'Warning')
+
+    assert it is None
+
+    o = wf.obj
+
+    assert len(o['items']) == 1
 
 
 def test_arg_variables(info3):
@@ -256,7 +283,7 @@ def test_modifiers(info3):
 
     o = it.obj
     assert 'mods' in o
-    assert set(o['mods'].keys()) == set(['cmd'])
+    assert set(o['mods'].keys()) == {'cmd'}
 
     m = o['mods']['cmd']
     assert m['valid'] is True
@@ -300,7 +327,7 @@ def test_item_config(info3):
     o = it.obj
 
     assert 'config' in o
-    assert set(o['config'].keys()) == set(['var1'])
+    assert set(o['config'].keys()) == {'var1'}
     assert o['config']['var1'] == 'val1'
 
     assert 'mods' in o

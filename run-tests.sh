@@ -55,6 +55,8 @@ case "$ret2" in
     *) fail "COVERAGE FAILED" ;;
 esac
 
+coverage erase
+
 if [[ "$ret1" -ne 0 ]]; then
   exit $ret1
 fi

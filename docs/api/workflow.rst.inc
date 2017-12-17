@@ -73,31 +73,10 @@ Exceptions
 .. currentmodule:: workflow
 
 Alfred-Workflow defines the following exceptions, which may be raised
-by the Keychain API or :class:`LockFile`.
+by the Keychain API.
 
 .. autoexception:: KeychainError
 
 .. autoexception:: PasswordNotFound
 
 .. autoexception:: workflow.workflow.PasswordExists
-
-.. autoexception:: workflow.workflow.AcquisitionError
-
-
-.. _api-helpers:
-
-Utilities & helpers
-^^^^^^^^^^^^^^^^^^^
-
-.. currentmodule:: workflow.workflow
-
-These utility objects and functions are used internally by Alfred-Workflow,
-but may also be useful in your workflow.
-
-.. autoclass:: LockFile
-   :members:
-
-.. autoclass:: uninterruptible
-   :members:
-
-.. autofunction:: atomic_writer

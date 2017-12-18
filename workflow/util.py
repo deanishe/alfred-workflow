@@ -232,27 +232,21 @@ def appinfo(name):
     Returns:
         AppInfo: :class:`AppInfo` tuple or ``None`` if app isn't found.
     """
-    cmd = ['/usr/bin/lsappinfo', 'info', name]
-    output = run_command(cmd).strip()
-    if not output:  # Application isn't installed
+    cmd = ['mdfind', '-onlyin', '/',
+           '(kMDItemContentTypeTree == com.apple.application &&'
+           '(kMDItemDisplayName == "{0}" || kMDItemFSName == "{0}.app"))'
+           .format(name)]
+
+    path = run_command(cmd).strip()
+    if not path:
         return None
 
-    path = bid = None
-    for line in output.split('\n'):
-        line = line.strip()
-        if '=' in line:
-            k, v = line.split('=', 1)
-            v = v.strip('"')
+    cmd = ['mdls', '-raw', '-name', 'kMDItemCFBundleIdentifier', path]
+    bid = run_command(cmd).strip()
+    if not bid:  # pragma: no cover
+        return None
 
-            if k == 'bundleID':
-                bid = v
-            elif k == 'bundle path':
-                path = v.rstrip('/')
-
-    if bid and path:
-        return AppInfo(*[unicodify(s) for s in (name, path, bid)])
-
-    return None  # pragma: no cover
+    return AppInfo(unicodify(name), unicodify(path), unicodify(bid))
 
 
 @contextmanager

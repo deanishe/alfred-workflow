@@ -222,17 +222,19 @@ def test_run_trigger():
 
 def test_appinfo():
     """App info for Safari."""
-    name = u'Safari'
-    bundleid = u'com.apple.Safari'
-    path = u'/Applications/Safari.app'
+    for name, bundleid, path in [
+        (u'Safari', u'com.apple.Safari', u'/Applications/Safari.app'),
+        (u'Digital Color Meter', u'com.apple.DigitalColorMeter',
+         u'/Applications/Utilities/Digital Color Meter.app'),
+    ]:
 
-    info = appinfo(name)
-    assert info is not None
-    assert info.name == name
-    assert info.path == path
-    assert info.bundleid == bundleid
-    for s in info:
-        assert isinstance(s, unicode)
+        info = appinfo(name)
+        assert info is not None
+        assert info.name == name
+        assert info.path == path
+        assert info.bundleid == bundleid
+        for s in info:
+            assert isinstance(s, unicode)
 
     # Non-existant app
     info = appinfo("Big, Hairy Man's Special Breakfast Pants")

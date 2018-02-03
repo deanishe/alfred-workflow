@@ -23,13 +23,17 @@ import pytest
 
 from workflow.util import (
     AS_TRIGGER,
+    AS_CONFIG_SET,
+    AS_CONFIG_UNSET,
     appinfo,
     applescriptify,
     run_applescript,
     run_command,
     run_jxa,
     run_trigger,
+    set_config,
     unicodify,
+    unset_config,
     utf8ify,
 )
 
@@ -215,6 +219,76 @@ def test_run_trigger():
         cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
         with MockCall() as m:
             run_trigger(name)
+            assert m.cmd == cmd
+    finally:
+        del os.environ['alfred_workflow_bundleid']
+
+
+def test_set_config():
+    """Set Configuration."""
+    name = 'test'
+    bundleid = 'net.deanishe.alfred-workflow'
+    value = 'test'
+    # argclause = 'with argument "test arg"'
+
+    # With bundle ID
+    script = AS_CONFIG_SET.format(name=name, value=value,
+                                  bundleid=bundleid,
+                                  export='exportable false')
+
+    cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+    with MockCall() as m:
+        set_config(name, value, bundleid)
+        assert m.cmd == cmd
+
+    # With exportable
+    script = AS_CONFIG_SET.format(name=name, value=value,
+                                  bundleid=bundleid,
+                                  export='exportable true')
+
+    cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+    with MockCall() as m:
+        set_config(name, value, bundleid, True)
+        assert m.cmd == cmd
+
+    # With bundle ID from env
+    os.environ['alfred_workflow_bundleid'] = bundleid
+    try:
+        script = AS_CONFIG_SET.format(name=name, value=value,
+                                      bundleid=bundleid,
+                                      export='exportable false')
+
+        cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+        with MockCall() as m:
+            set_config(name, value)
+            assert m.cmd == cmd
+    finally:
+        del os.environ['alfred_workflow_bundleid']
+
+
+def test_unset_config():
+    """Unset Configuration."""
+    name = 'test'
+    bundleid = 'net.deanishe.alfred-workflow'
+    value = 'test'
+    # argclause = 'with argument "test arg"'
+
+    # With bundle ID
+    script = AS_CONFIG_UNSET.format(name=name, bundleid=bundleid)
+
+    cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+    with MockCall() as m:
+        unset_config(name, bundleid)
+        assert m.cmd == cmd
+
+    # With bundle ID from env
+    os.environ['alfred_workflow_bundleid'] = bundleid
+    try:
+        script = AS_CONFIG_UNSET.format(name=name, bundleid=bundleid)
+
+        cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+        with MockCall() as m:
+            unset_config(name)
             assert m.cmd == cmd
     finally:
         del os.environ['alfred_workflow_bundleid']

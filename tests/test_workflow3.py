@@ -21,6 +21,8 @@ import pytest
 
 from workflow import ICON_WARNING, Variables, Workflow3
 
+from .test_util import MockCall, AS_CONFIG_SET
+
 
 def test_required_optional(info3):
     """Item3: Required and optional values."""
@@ -163,6 +165,33 @@ def test_feedback_variables(info3):
     assert 'variables' in o
     assert o['variables']['prevar'] == 'preval'
     assert 'postval' not in o['variables']
+
+
+def test_persistent_variables(info3):
+    """Workflow3: persistent variables."""
+    wf = Workflow3()
+
+    o = wf.obj
+    assert 'variables' not in o
+
+    name = 'testvar'
+    value = 'testval'
+    bundleid = 'net.deanishe.alfred-workflow'
+
+    # Without persistence
+    with MockCall() as m:
+        wf.setvar(name, value)
+        assert m.cmd is None
+
+    # With persistence
+    script = AS_CONFIG_SET.format(name=name, value=value,
+                                  bundleid=bundleid,
+                                  export='exportable false')
+
+    cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+    with MockCall() as m:
+        wf.setvar(name, value, True)
+        assert m.cmd == cmd
 
 
 def test_rerun(info3):

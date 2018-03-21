@@ -140,6 +140,16 @@ def test_arg_variables(info3):
     assert o['variables']['key1'] == 'value1'
 
 
+def test_arg_variables_using_kwards(info3):
+    """Item3: Variables via kwardsarg."""
+    wf = Workflow3()
+    it = wf.add_item('Title', key1='value')
+    o = it.obj
+    assert 'variables' in o
+    assert 'config' not in o
+    assert o['variables']['key1'] == 'value'
+
+
 def test_feedback_variables(info3):
     """Workflow3: feedback variables."""
     wf = Workflow3()
@@ -147,14 +157,27 @@ def test_feedback_variables(info3):
     o = wf.obj
     assert 'variables' not in o
 
+    os.environ['envvar'] = 'envval'
+    os.environ['shadowed_envvar'] = 'shadowed'
+    wf.setvar('shadowed_envvar', None)
     wf.setvar('prevar', 'preval')
-    it = wf.add_item('Title', arg='something')
+    os.environ['prevar'] = 'ignored'
+    it = wf.add_item('Title', arg='something', itemvar='item1val')
+    it2 = wf.add_item('Title2', arg='something2', itemvar='item2val')
     wf.setvar('postvar', 'postval')
 
     assert wf.getvar('prevar') == 'preval'
     assert wf.getvar('postvar') == 'postval'
     assert it.getvar('prevar') == 'preval'
     assert it.getvar('postvar') is None
+
+    assert wf.getvar('envvar') == 'envval'
+    assert it.getvar('envvar') is None
+    assert it2.getvar('envvar') is None
+    assert wf.getvar('shadowed_envvar') is None
+    assert it.getvar('itemvar') == 'item1val'
+    assert it2.getvar('itemvar') == 'item2val'
+    assert wf.getvar('itemvar') is None
 
     o = wf.obj
     assert 'variables' in o

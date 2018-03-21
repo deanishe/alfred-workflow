@@ -556,11 +556,11 @@ class Workflow3(Workflow):
             unicode or ``default``: Value of variable if set or ``default``.
 
         """
-        return self.variables.get(name, default)
+        return self.variables.get(name, os.getenv(name, default))
 
     def add_item(self, title, subtitle='', arg=None, autocomplete=None,
                  valid=False, uid=None, icon=None, icontype=None, type=None,
-                 largetext=None, copytext=None, quicklookurl=None, match=None):
+                 largetext=None, copytext=None, quicklookurl=None, match=None, **kwargs):
         """Add an item to be output to Alfred.
 
         Args:
@@ -585,6 +585,11 @@ class Workflow3(Workflow):
 
         # Add variables to child item
         item.variables.update(self.variables)
+
+        # Copy any extra variables for this item.  These variables are set by Alfred and can
+        # be accessed in downstream actions by using {var:varname}
+        for key, value in kwargs.iteritems():
+            item.setvar(key, value)
 
         self._items.append(item)
         return item

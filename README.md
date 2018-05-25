@@ -79,8 +79,9 @@ Installation
 <a name="with-pip"></a>
 ### With pip ###
 
-You can install Alfred-Workflow directly into your workflow with:
+First, create a new blank workflow in Alfred (or choose an existing one if you wish). To navigate to your workflow directory in Terminal, right-click on your workflow and [click "Open in Terminal"](https://preview.ibb.co/guygvo/Screen_Shot_2018_05_25_at_11_18_35_AM.png).
 
+You can install Alfred-Workflow directly into your workflow with:
 ```bash
 # from your workflow directory
 pip install --target=. Alfred-Workflow
@@ -95,7 +96,7 @@ It is highly advisable to bundle all your workflow's dependencies with your work
 ### From source ###
 
 1. Download the `alfred-workflow-X.X.X.zip` from the [GitHub releases page][releases].
-2. Extract the ZIP archive and place the `workflow` directory in the root folder of your workflow (where `info.plist` is).
+2. Extract the ZIP archive and place the `workflow` directory in the [root folder of your workflow](https://image.ibb.co/iQiWvo/Screen_Shot_2018_05_25_at_11_16_50_AM.png) (where `info.plist` is).
 
 Your workflow should look something like this:
 
@@ -729,3 +730,4 @@ These are some of the Alfred workflows that use this library.
 [pip-docs]: https://pip.pypa.io/en/latest/
 [ruby-template]: http://zhaocai.github.io/alfred2-ruby-template/
 [python-keyring]: https://pypi.python.org/pypi/keyring
+✕

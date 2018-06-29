@@ -18,6 +18,16 @@ if a newer version is available.
 Currently, only updates from `GitHub releases`_ are supported.
 
 
+.. important::
+
+    Updating from GitHub requires (at least) macOS 10.13/High Sierra.
+
+    The extremely outdated version of OpenSSL in 10.12/Sierra and
+    earlier is not compatible with GitHub's SSL configuration, so the
+    system Python (and therefore this library) cannot connect to
+    GitHub's servers.
+
+
 .. contents::
    :local:
 
@@ -137,8 +147,8 @@ workflow alongside ``info.plist``::
             ...
 
 
-The ``version`` file should be plain text with no file extension and contain
-nothing but the version string, e.g.::
+The ``version`` file should be plain text with no file extension and
+contain nothing but the version string, e.g.::
 
     1.2.5
 

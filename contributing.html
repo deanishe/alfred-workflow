@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Contributing &#8212; Alfred-Workflow 1.31 documentation</title>
+    <title>Contributing &#8212; Alfred-Workflow 1.33 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.31',
+        VERSION:     '1.33',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -98,7 +98,16 @@ every keypress. As a rule, 0.3 seconds execution time is decent, 0.2
 seconds or less is smooth. Alfred-Workflow should do its utmost to
 consume as little of that time as possible.</li>
 </ul>
-<p>The main entry point for unit testing is the <code class="docutils literal"><span class="pre">run-tests.sh</span></code> script in the root directory. This will fail <em>if code coverage is &lt; 100%</em>. Travis-CI also uses this script. Add <cite># pragma: no cover</cite> with care.</p>
+<p>The main entry point for unit testing is the <code class="docutils literal"><span class="pre">run-tests.sh</span></code> script in the root directory. This will fail <em>if code coverage is &lt; 100%</em>. Travis-CI also uses this script. Add <code class="docutils literal"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code> with care.</p>
+</div>
+<div class="section" id="unit-tests">
+<span id="id3"></span><h2>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow includes a full suite of unit tests. Please use the
+<code class="docutils literal"><span class="pre">run-tests.sh</span></code> script in the root directory of the repo to run the unit tests:
+it creates the necessary test environment to run the unit tests.
+<code class="docutils literal"><span class="pre">test_workflow.py</span></code> <em>will</em> fail if not run via <code class="docutils literal"><span class="pre">run-scripts.sh</span></code>, but the test
+suites for the other modules may also be run directly.</p>
+<p>Moreover, <code class="docutils literal"><span class="pre">run-tests.sh</span></code> checks the coverage of the unit tests and will fail if it is below 100%.</p>
 </div>
 <div class="section" id="questions-and-help">
 <span id="questions"></span><h2>Questions and help<a class="headerlink" href="#questions-and-help" title="Permalink to this headline">¶</a></h2>
@@ -189,6 +198,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#feature-requests-and-bugs">Feature requests and bugs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-tests">Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#questions-and-help">Questions and help</a></li>
 </ul>
 </li>

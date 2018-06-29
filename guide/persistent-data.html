@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Persistent data &#8212; Alfred-Workflow 1.31 documentation</title>
+    <title>Persistent data &#8212; Alfred-Workflow 1.33 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.31',
+        VERSION:     '1.33',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -248,6 +248,13 @@ for details on how <code class="docutils literal"><span class="pre">filter_func<
 </div>
 <div class="section" id="settings">
 <span id="guide-settings"></span><h2><a class="toc-backref" href="#id6">Settings</a><a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Alfred 3.6 introduced an API to update the workflow variables stored in
+the workflow’s configuration sheet (i.e. the values are persisted
+across workflow runs). See <a class="reference internal" href="variables.html#workflow-variables"><span class="std std-ref">Workflow variables</span></a> if you’d prefer
+to store your workflow’s settings there.</p>
+</div>
 <p><a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that automatically
 saves its contents to the <code class="docutils literal"><span class="pre">settings.json</span></code> file in your Workflow’s data
 directory when it is changed.</p>
@@ -342,7 +349,7 @@ handled when your function completes.</p>
 <p>If you only want to write to a file, you can use the
 <code class="xref py py-class docutils literal"><span class="pre">atomic_writer</span></code> context manager. This does not
 guarantee that the file will be written, but does guarantee that it will
-only be written if the write succeeds (the data is first written to a temporary
+only be written if the write succeeds (the data are first written to a temporary
 file).</p>
 </div>
 </div>

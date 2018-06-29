@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Self-updating &#8212; Alfred-Workflow 1.31 documentation</title>
+    <title>Self-updating &#8212; Alfred-Workflow 1.33 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.31',
+        VERSION:     '1.33',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -59,6 +59,14 @@ by default) fetches the latest releases from the specified GitHub
 repository and then asks the user if they want to update the workflow
 if a newer version is available.</p>
 <p>Currently, only updates from <a class="reference external" href="https://help.github.com/categories/releases/">GitHub releases</a> are supported.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>Updating from GitHub requires (at least) macOS 10.13/High Sierra.</p>
+<p class="last">The extremely outdated version of OpenSSL in 10.12/Sierra and
+earlier is not compatible with GitHub’s SSL configuration, so the
+system Python (and therefore this library) cannot connect to
+GitHub’s servers.</p>
+</div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#github-releases" id="id2">GitHub releases</a><ul>
@@ -201,8 +209,8 @@ workflow alongside <code class="docutils literal"><span class="pre">info.plist</
         <span class="o">...</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">version</span></code> file should be plain text with no file extension and contain
-nothing but the version string, e.g.:</p>
+<p>The <code class="docutils literal"><span class="pre">version</span></code> file should be plain text with no file extension and
+contain nothing but the version string, e.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.2</span><span class="o">.</span><span class="mi">5</span>
 </pre></div>
 </div>

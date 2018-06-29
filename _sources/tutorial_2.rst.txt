@@ -890,7 +890,7 @@ update itself:
         # the cached data regardless of age
         posts = wf.cached_data('posts', None, max_age=0)
 
-        # Start update script if cached data is too old (or doesn't exist)
+        # Start update script if cached data are too old (or doesn't exist)
         if not wf.cached_data_fresh('posts', max_age=600):
             cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
             run_in_background('update', cmd)
@@ -944,7 +944,7 @@ know if it has been saved, so we can show a warning if not, so we still call
 without saving the result.
 
 Most importantly, we've now expanded the update code to check if our cached
-data is fresh with
+data are fresh with
 :meth:`Workflow.cached_data_fresh() <workflow.workflow.Workflow.cached_data_fresh>`
 and to run the ``update.py`` script via
 :func:`background.run_in_background() <workflow.background.run_in_background>`

@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API documentation &#8212; Alfred-Workflow 1.31 documentation</title>
+    <title>API documentation &#8212; Alfred-Workflow 1.33 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.31',
+        VERSION:     '1.33',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -82,8 +82,9 @@ tasks.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#utilities-helpers" id="id16">Utilities &amp; helpers</a><ul>
-<li><a class="reference internal" href="#other-helpers" id="id17">Other helpers</a></li>
-<li><a class="reference internal" href="#api-util-exceptions" id="id18">Exceptions</a></li>
+<li><a class="reference internal" href="#configuration" id="id17">Configuration</a></li>
+<li><a class="reference internal" href="#other-helpers" id="id18">Other helpers</a></li>
+<li><a class="reference internal" href="#api-util-exceptions" id="id19">Exceptions</a></li>
 </ul>
 </li>
 </ul>
@@ -1836,8 +1837,11 @@ Alfred.</p>
 
 <dl class="method">
 <dt id="workflow.Workflow3.setvar">
-<code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setvar</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>persist=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.Workflow3.setvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a “global” workflow variable.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.33.</span></p>
+</div>
 <p>These variables are always passed to downstream workflow objects.</p>
 <p>If you have set <a class="reference internal" href="#workflow.Workflow3.rerun" title="workflow.Workflow3.rerun"><code class="xref py py-attr docutils literal"><span class="pre">rerun</span></code></a>, these variables are also passed
 back to the script when Alfred runs it again.</p>
@@ -1848,6 +1852,7 @@ back to the script when Alfred runs it again.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Name of variable.</li>
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) – Value of variable.</li>
+<li><strong>persist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Also save variable to <code class="docutils literal"><span class="pre">info.plist</span></code>?</li>
 </ul>
 </td>
 </tr>
@@ -2311,14 +2316,22 @@ return immediately and will not run the specified command.</p>
 modelled on the excellent <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a> library.</p>
 <p>The purpose of <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is to cover trivial cases at just 0.5% of
 the size of <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
 <p>As <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> is based on Python 2’s standard HTTP libraries,
-it <strong>does not</strong> verify SSL certificates when establishing HTTPS
-connections on Python versions older than 2.7.9 (i.e. pre-Yosemite).</p>
-<p class="last">As a result, you <strong>must not</strong> use this module for sensitive
+there are two important problems with SSL connections.</p>
+<p>Python versions older than 2.7.9 (i.e. pre-Yosemite) <strong>do not</strong>
+verify SSL certificates when establishing HTTPS connections.</p>
+<p>As a result, you <strong>must not</strong> use this module for sensitive
 connections unless you’re certain it will only run on 2.7.9/Yosemite
 and later. If your workflow is Alfred 3-only, this requirement is met.</p>
+<p>Secondly, versions of macOS older than High Sierra (10.13) have an
+extremely outdated version of OpenSSL, which is incompatible with
+many servers’ SSL configuration.</p>
+<p class="last">Consequently, <a class="reference internal" href="#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> cannot connect to such servers.
+As this includes GitHub’s SSL configuration, the
+<a class="reference internal" href="../guide/update.html#guide-updates"><span class="std std-ref">update mechanism</span></a> only works on High Sierra
+and later.</p>
 </div>
 <dl class="function">
 <dt id="workflow.web.get">
@@ -2995,8 +3008,58 @@ workflow from Alfred’s environment variables.</p>
 </table>
 </dd></dl>
 
+<div class="section" id="configuration">
+<h3><a class="toc-backref" href="#id17">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>Functions for manipulating the values of workflow variables in the
+<a class="reference external" href="https://www.alfredapp.com/help/workflows/advanced/variables/#environment">workflow configuration sheet</a>/<code class="docutils literal"><span class="pre">info.plist</span></code>.</p>
+<dl class="function">
+<dt id="workflow.util.set_config">
+<code class="descclassname">workflow.util.</code><code class="descname">set_config</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>bundleid=None</em>, <em>exportable=False</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.set_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a workflow variable in <code class="docutils literal"><span class="pre">info.plist</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.33.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of variable to set.</li>
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Value to set variable to.</li>
+<li><strong>bundleid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Bundle ID of workflow variable belongs to.</li>
+<li><strong>exportable</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether variable should be marked
+as exportable (Don’t Export checkbox).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="workflow.util.unset_config">
+<code class="descclassname">workflow.util.</code><code class="descname">unset_config</code><span class="sig-paren">(</span><em>name</em>, <em>bundleid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#workflow.util.unset_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a workflow variable from <code class="docutils literal"><span class="pre">info.plist</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.33.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of variable to delete.</li>
+<li><strong>bundleid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Bundle ID of workflow variable belongs to.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="other-helpers">
-<h3><a class="toc-backref" href="#id17">Other helpers</a><a class="headerlink" href="#other-helpers" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Other helpers</a><a class="headerlink" href="#other-helpers" title="Permalink to this headline">¶</a></h3>
 <p>These utility classes and functions are used internally by Alfred-Workflow,
 but may also be useful in your workflow.</p>
 <dl class="class">
@@ -3126,7 +3189,7 @@ succeeds. The data is first written to a temporary file.</p>
 
 </div>
 <div class="section" id="api-util-exceptions">
-<span id="id1"></span><h3><a class="toc-backref" href="#id18">Exceptions</a><a class="headerlink" href="#api-util-exceptions" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3><a class="toc-backref" href="#id19">Exceptions</a><a class="headerlink" href="#api-util-exceptions" title="Permalink to this headline">¶</a></h3>
 <p>The following exceptions, may be raised by utility functions.</p>
 <dl class="exception">
 <dt id="workflow.util.AcquisitionError">

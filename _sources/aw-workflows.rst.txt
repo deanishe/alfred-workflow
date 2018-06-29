@@ -42,6 +42,9 @@ corresponding section in the `GitHub README`_.
 - `Alfred Soundboard <http://www.packal.org/workflow/alfred-soundboard>`__
   by `Steffen <http://www.packal.org/users/steffen>`__.
   A soundboard for alfred at your fingertips.
+- `alfred-can-i-use-search <http://www.packal.org/workflow/alfred-can-i-use-search>`__
+  by `CHARLIE AN <http://www.packal.org/users/charlie-an>`__.
+  Browser support tables for modern web technologies.
 - `Alfred-Drive-Workflow <http://www.packal.org/workflow/alfred-drive-workflow>`__
   by `azai91 <http://www.packal.org/users/azai91>`__.
   Browse, search and open Google Drive files from within Alfred.
@@ -69,6 +72,12 @@ corresponding section in the `GitHub README`_.
 - `aws-alfred-workflow <http://www.packal.org/workflow/aws-alfred-workflow>`__
   by `twang <http://www.packal.org/users/twang>`__.
   Workflow for searching AWS.
+- `Baidu Translate (百度翻译) <http://www.packal.org/workflow/baidu-translate-bai-du-fan-yi>`__
+  by `zer4tul <http://www.packal.org/users/zer4tul>`__.
+  Translate using Baidu's translate service API.
+- `Baidu Translation <http://www.packal.org/workflow/baidu-translation>`__
+  by `niuniu3 <http://www.packal.org/users/niuniu3>`__.
+  Translate words by Baidu Translation Service.
 - `Base Converter <http://www.packal.org/workflow/base-converter>`__
   by `ahalbert <http://www.packal.org/users/ahalbert>`__.
   Convert arbitrary bases(up to base 32) in Alfred 2 and copy them to the clipboard.
@@ -84,6 +93,9 @@ corresponding section in the `GitHub README`_.
 - `BibQuery <http://www.packal.org/workflow/bibquery>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search BibDesk from the comfort of your keyboard.
+- `Bing Search <http://www.packal.org/workflow/bing-search>`__
+  by `gedogdong2010 <http://www.packal.org/users/gedogdong2010>`__.
+  Get bing search results based on your query.
 - `Bitcoin Exchange Rates <http://www.packal.org/workflow/bitcoin-exchange-rates>`__
   by `Benny <http://www.packal.org/users/benny>`__.
   Request current bitcoin exchange rate from blockchain.info.
@@ -108,6 +120,9 @@ corresponding section in the `GitHub README`_.
 - `Cheatsheet <http://www.packal.org/workflow/cheatsheet>`__
   by `mutasem <http://www.packal.org/users/mutasem>`__.
   Get shortcuts for your tools.
+- `ChromeBookmarks <http://www.packal.org/workflow/chromebookmarks>`__
+  by `duanemay <http://www.packal.org/users/duanemay>`__.
+  Search Chrome Bookmarks.
 - `Code Case <http://www.packal.org/workflow/code-case>`__
   by `dfay <http://www.packal.org/users/dfay>`__.
   Case Converter for Code.
@@ -126,6 +141,9 @@ corresponding section in the `GitHub README`_.
 - `CryptoCurrency Price Tracker <http://www.packal.org/workflow/cryptocurrency-price-tracker>`__
   by `rhlsthrm <http://www.packal.org/users/rhlsthrm>`__.
   Quickly check cryptocurrency prices.
+- `Currency Converter <http://www.packal.org/workflow/currency-converter-0>`__
+  by `代战 <http://www.packal.org/users/代战>`__.
+  Currency Exchange include BTC, ETH.
 - `Currency Exchange <http://www.packal.org/workflow/currency-exchange>`__
   by `daninfpj <http://www.packal.org/users/daninfpj>`__.
   Alfred workflow to convert between currencies (including Bitcoin).
@@ -198,6 +216,12 @@ corresponding section in the `GitHub README`_.
 - `GitLab <http://www.packal.org/workflow/gitlab>`__
   by `lwaite <http://www.packal.org/users/lwaite>`__.
   GitLab Project search for Alfred.
+- `Gitmoji <http://www.packal.org/workflow/gitmoji-0>`__
+  by `leolabs <http://www.packal.org/users/leolabs>`__.
+  Search for Gitmojis easily and copy them to your clipboard.
+- `gitmoji <http://www.packal.org/workflow/gitmoji>`__
+  by `o <http://www.packal.org/users/o>`__.
+  This simple Alfred workflow lets you quick search and input gitmoji.
 - `Glosbe Translation <http://www.packal.org/workflow/glosbe-translation>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Translate text using Glosbe.com.
@@ -222,6 +246,9 @@ corresponding section in the `GitHub README`_.
 - `HGNC Search <http://www.packal.org/workflow/hgnc-search>`__
   by `danielecook <http://www.packal.org/users/danielecook>`__.
   Search for human genes.
+- `Home Assistant <http://www.packal.org/workflow/home-assistant>`__
+  by `Skakiz <http://www.packal.org/users/skakiz>`__.
+  You will be able to control you lights, get sensor information, trigger automations and look for your devices in device tracker. All in Home Assistance.
 - `Homebrew and Cask for Alfred <http://www.packal.org/workflow/homebrew-and-cask-alfred>`__
   by `fniephaus <http://www.packal.org/users/fniephaus>`__.
   Easily control Homebrew and Cask with Alfred.
@@ -279,6 +306,9 @@ corresponding section in the `GitHub README`_.
 - `LastPass Vault Manager <http://www.packal.org/workflow/lastpass-vault-manager>`__
   by `bachya <http://www.packal.org/users/bachya>`__.
   A workflow to interact with a LastPass vault.
+- `LeetCode Search <http://www.packal.org/workflow/leetcode-search>`__
+  by `cocoboy027 <http://www.packal.org/users/cocoboy027>`__.
+  LeetCode Search is an Alfred Workflow plugin for searching algorithm problems in LeetCode with custom options.
 - `LibGen <http://www.packal.org/workflow/libgen>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Search and Download pdfs and ebooks from Library Genesis.
@@ -402,6 +432,9 @@ corresponding section in the `GitHub README`_.
 - `RGB to Hex <http://www.packal.org/workflow/rgb-hex>`__
   by `Sonic Wu <http://www.packal.org/users/sonic-wu>`__.
   Convert RGB values of a color to a hexadecimal string.
+- `rockkoca.workflow.figure-fight-sogou <http://www.packal.org/workflow/rockkocaworkflowfigure-fight-sogou>`__
+  by `rockkoca <http://www.packal.org/users/rockkoca>`__.
+  Funny Figures for Chatting.
 - `Rotten Search <http://www.packal.org/workflow/rotten-search>`__
   by `yakiyama <http://www.packal.org/users/yakiyama>`__.
   Search movie from RottenTomatoes.com.
@@ -486,6 +519,12 @@ corresponding section in the `GitHub README`_.
 - `SwitchHosts! <http://www.packal.org/workflow/switchhosts>`__
   by `oldj <http://www.packal.org/users/oldj>`__.
   The workflow for SwitchHosts! app.
+- `Synonyms <http://www.packal.org/workflow/synonyms>`__
+  by `David <http://www.packal.org/users/david>`__.
+  Display synonyms from www.synonyms.net.
+- `Tado <http://www.packal.org/workflow/tado>`__
+  by `auino <http://www.packal.org/users/auino>`__.
+  Access to your Tado from Alfred.
 - `TeXdoc <http://www.packal.org/workflow/texdoc>`__
   by `Egon Geerardyn <http://www.packal.org/users/egon-geerardyn>`__.
   Searches your LaTeX documentation using texdoc.
@@ -522,6 +561,12 @@ corresponding section in the `GitHub README`_.
 - `Wikify <http://www.packal.org/workflow/wikify>`__
   by `hackademic <http://www.packal.org/users/hackademic>`__.
   Your little Evernote Wiki-Helper.
+- `Word Counter App <http://www.packal.org/workflow/word-counter-app>`__
+  by `markwk <http://www.packal.org/users/markwk>`__.
+  Display Latest Typing Word Counts and Export Stats to CSV.
+- `Word Search <http://www.packal.org/workflow/word-search>`__
+  by `isaacpz <http://www.packal.org/users/isaacpz>`__.
+  Finds new words to improve your writing.
 - `Workflow Directory - Open in Finder or Terminal <http://www.packal.org/workflow/workflow-directory-open-finder-or-terminal>`__
   by `jeffsui <http://www.packal.org/users/jeffsui>`__.
   Same behavior as the right click menu on a workflow.  Saves you time if you are developing workflows.

@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &#8212; Alfred-Workflow 1.31 documentation</title>
+    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &#8212; Alfred-Workflow 1.33 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.31',
+        VERSION:     '1.33',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -1330,7 +1330,7 @@ update itself:</p>
      <span class="c1"># the cached data regardless of age</span>
 <span class="hll">     <span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span class="hll">
-</span><span class="hll">     <span class="c1"># Start update script if cached data is too old (or doesn&#39;t exist)</span>
+</span><span class="hll">     <span class="c1"># Start update script if cached data are too old (or doesn&#39;t exist)</span>
 </span><span class="hll">     <span class="k">if</span> <span class="ow">not</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data_fresh</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
 </span><span class="hll">         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/usr/bin/python&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">workflowfile</span><span class="p">(</span><span class="s1">&#39;update.py&#39;</span><span class="p">)]</span>
 </span><span class="hll">         <span class="n">run_in_background</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
@@ -1381,7 +1381,7 @@ know if it has been saved, so we can show a warning if not, so we still call
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code>, but
 without saving the result.</p>
 <p>Most importantly, we’ve now expanded the update code to check if our cached
-data is fresh with
+data are fresh with
 <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code>
 and to run the <code class="docutils literal"><span class="pre">update.py</span></code> script via
 <a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>

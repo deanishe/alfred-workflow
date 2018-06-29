@@ -8,6 +8,11 @@ Installation
 Alfred-Workflow can be installed from the `Python Package Index`_ with
 `pip`_ or from the source code on `GitHub`_.
 
+.. tip::
+
+    If you don't know how to create a new workflow and add files to it,
+    have a look at :ref:`the tutorial <tutorial_1>`.
+
 
 .. _installation-pip:
 

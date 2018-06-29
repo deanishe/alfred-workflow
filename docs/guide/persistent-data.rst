@@ -61,6 +61,7 @@ convenient interface for storing persistent settings with
 See :ref:`Settings <guide-settings>` and :ref:`Keychain access <keychain>` for more
 information on storing settings and sensitive data.
 
+
 .. _caching-data:
 
 Caching data
@@ -228,6 +229,14 @@ for details on how ``filter_func`` works.
 Settings
 ========
 
+.. tip::
+
+    Alfred 3.6 introduced an API to update the workflow variables stored in
+    the workflow's configuration sheet (i.e. the values are persisted
+    across workflow runs). See :ref:`workflow-variables` if you'd prefer
+    to store your workflow's settings there.
+
+
 :attr:`Workflow.settings` is a subclass of :class:`dict` that automatically
 saves its contents to the ``settings.json`` file in your Workflow's data
 directory when it is changed.
@@ -330,5 +339,5 @@ For example:
 If you only want to write to a file, you can use the
 :class:`~workflow.workflow.atomic_writer` context manager. This does not
 guarantee that the file will be written, but does guarantee that it will
-only be written if the write succeeds (the data is first written to a temporary
+only be written if the write succeeds (the data are first written to a temporary
 file).

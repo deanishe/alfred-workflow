@@ -63,7 +63,21 @@ If you'd like to submit a pull request, please observe the following:
   seconds or less is smooth. Alfred-Workflow should do its utmost to
   consume as little of that time as possible.
 
-The main entry point for unit testing is the ``run-tests.sh`` script in the root directory. This will fail *if code coverage is < 100%*. Travis-CI also uses this script. Add `# pragma: no cover` with care.
+The main entry point for unit testing is the ``run-tests.sh`` script in the root directory. This will fail *if code coverage is < 100%*. Travis-CI also uses this script. Add ``# pragma: no cover`` with care.
+
+
+.. _unit-tests:
+
+Unit tests
+==========
+
+Alfred-Workflow includes a full suite of unit tests. Please use the
+``run-tests.sh`` script in the root directory of the repo to run the unit tests:
+it creates the necessary test environment to run the unit tests.
+``test_workflow.py`` *will* fail if not run via ``run-scripts.sh``, but the test
+suites for the other modules may also be run directly.
+
+Moreover, ``run-tests.sh`` checks the coverage of the unit tests and will fail if it is below 100%.
 
 
 .. _questions:

@@ -28,6 +28,17 @@ as running AppleScript or JXA code, or calling an External Trigger.
 .. autofunction:: appinfo
 
 
+Configuration
+^^^^^^^^^^^^^
+
+Functions for manipulating the values of workflow variables in the
+`workflow configuration sheet`_/``info.plist``.
+
+.. autofunction:: set_config
+
+.. autofunction:: unset_config
+
+
 Other helpers
 ^^^^^^^^^^^^^
 
@@ -54,3 +65,6 @@ The following exceptions, may be raised by utility functions.
 .. autoexception:: AcquisitionError
 
 .. autoexception:: subprocess.CalledProcessError
+
+
+.. _workflow configuration sheet: https://www.alfredapp.com/help/workflows/advanced/variables/#environment

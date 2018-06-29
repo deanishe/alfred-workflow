@@ -47,7 +47,6 @@ classifiers = [
     'Operating System :: MacOS :: MacOS X',
     'Intended Audience :: Developers',
     'Natural Language :: English',
-    'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',

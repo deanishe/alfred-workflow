@@ -306,7 +306,7 @@ def appinfo(name):
 
     """
     cmd = ['mdfind', '-onlyin', '/Applications',
-           '-onlyin', os.expanduser('~/Applications'),
+           '-onlyin', os.path.expanduser('~/Applications'),
            '(kMDItemContentTypeTree == com.apple.application &&'
            '(kMDItemDisplayName == "{0}" || kMDItemFSName == "{0}.app"))'
            .format(name)]

@@ -133,8 +133,7 @@ def test_empty_repo(httpserver, info):
     """No releases"""
     # with webget(httpserver.url):
     with fakeresponse(httpserver, DATA_JSON_EMPTY, HTTP_HEADERS_JSON):
-        with pytest.raises(ValueError):
-            update.check_update(EMPTY_REPO_SLUG, '1.0')
+        update.check_update(EMPTY_REPO_SLUG, '1.0')
         assert len(update.get_valid_releases(EMPTY_REPO_SLUG)) == 0
 
 

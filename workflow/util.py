@@ -305,14 +305,17 @@ def appinfo(name):
         AppInfo: :class:`AppInfo` tuple or ``None`` if app isn't found.
 
     """
-    cmd = ['mdfind', '-onlyin', '/',
+    cmd = ['mdfind', '-onlyin', '/Applications',
+           '-onlyin', os.path.expanduser('~/Applications'),
            '(kMDItemContentTypeTree == com.apple.application &&'
            '(kMDItemDisplayName == "{0}" || kMDItemFSName == "{0}.app"))'
            .format(name)]
 
-    path = run_command(cmd).strip()
-    if not path:
+    output = run_command(cmd).strip()
+    if not output:
         return None
+
+    path = output.split('\n')[0]
 
     cmd = ['mdls', '-raw', '-name', 'kMDItemCFBundleIdentifier', path]
     bid = run_command(cmd).strip()

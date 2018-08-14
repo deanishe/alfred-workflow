@@ -55,7 +55,7 @@ case "$ret2" in
     *) fail "COVERAGE FAILED" ;;
 esac
 
-coverage erase
+test -z "$TRAVIS" && coverage erase
 
 if [[ "$ret1" -ne 0 ]]; then
   exit $ret1

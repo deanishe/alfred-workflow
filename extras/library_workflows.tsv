@@ -1,3 +1,5 @@
 name	url	author	author_url	description
 TodoList	https://github.com/ecmadao/Alfred-TodoList	ecmadao	https://github.com/ecmadao	A simple todo-workflow lets you add, complete or delete todo in to-do lists.
 Pomodoro Alfred	https://github.com/ecbrodie/pomodoro-alfred	Evan Brodie	https://github.com/ecbrodie	Track Pomodoros through Alfred.
+CnyTransform https://github.com/Rouwanzi/AlfredWorkflow_CnyTransform Rouwanzi https://github.com/Rouwanzi 货币数字、中文大写和英文相互转换
+YoudaoTranslate https://github.com/Rouwanzi/AlfredWorkflow_YoudaoTranslate Rouwanzi https://github.com/Rouwanzi 有道翻译

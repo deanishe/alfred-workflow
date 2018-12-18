@@ -714,7 +714,7 @@ class Workflow3(Workflow):
         icon = icon or ICON_WARNING
         return self.add_item(title, subtitle, icon=icon)
 
-    def send_feedback(self):
+    def send_feedback(self, indent=None):
         """Print stored items to console/Alfred as JSON."""
-        json.dump(self.obj, sys.stdout)
+        json.dump(self.obj, sys.stdout, indent=indent)
         sys.stdout.flush()

@@ -19,7 +19,7 @@ from workflow import Workflow
 from workflow import update
 
 from util import WorkflowMock, create_info_plist, delete_info_plist
-from test_update import fakeresponse, DATA_JSON, HTTP_HEADERS_JSON
+from test_update import fakeresponse, RELEASES_JSON, HTTP_HEADERS_JSON
 
 
 UPDATE_SETTINGS = {
@@ -80,7 +80,7 @@ def test_update(httpserver):
 
     # Mock subprocess.call etc. so the script doesn't try to
     # update the workflow in Alfred
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
         with ctx(['workflow:update'], clear=False) as (wf, c):
             wf.run(fake)
             wf.args
@@ -91,13 +91,13 @@ def test_update(httpserver):
             assert c.cmd[2] == '__workflow_update_install'
 
         update_settings = UPDATE_SETTINGS.copy()
-        update_settings['version'] = 'v6.0'
+        update_settings['version'] = 'v9.0'
         with ctx(['workflow:update'], update_settings) as (wf, c):
             wf.run(fake)
             wf.args
 
             # Update command wasn't called
-            assert c.cmd == ()
+            assert c.cmd == (), "unexpected command call"
 
 
 def test_update_with_prereleases(httpserver):
@@ -107,7 +107,7 @@ def test_update_with_prereleases(httpserver):
 
     # Mock subprocess.call etc. so the script doesn't try to
     # update the workflow in Alfred
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
         update_settings = UPDATE_SETTINGS.copy()
         update_settings['prereleases'] = True
         with ctx(['workflow:update'], update_settings, clear=False) as (wf, c):
@@ -120,7 +120,7 @@ def test_update_with_prereleases(httpserver):
             assert c.cmd[2] == '__workflow_update_install'
 
         update_settings = UPDATE_SETTINGS.copy()
-        update_settings['version'] = 'v7.1-beta'
+        update_settings['version'] = 'v10.0-beta'
         update_settings['prereleases'] = True
         with ctx(['workflow:update'], update_settings) as (wf, c):
             wf.run(fake)
@@ -134,8 +134,8 @@ def test_update_available(httpserver):
     """update_available property works"""
     slug = UPDATE_SETTINGS['github_slug']
     v = UPDATE_SETTINGS['version']
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        with ctx() as (wf, c):
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
+        with ctx() as (wf, _):
             assert wf.update_available is False
             update.check_update(slug, v)
             assert wf.update_available is True

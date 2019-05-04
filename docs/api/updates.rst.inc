@@ -34,10 +34,13 @@ on how to enable automatic updates in your workflow.
 Helpers
 ^^^^^^^
 
+.. autoclass:: Download
+    :members:
+
 .. autoclass:: Version
     :members:
 
-.. autofunction:: download_workflow
+.. autofunction:: retrieve_download
 
 
 .. _GitHub releases: https://help.github.com/categories/85/articles

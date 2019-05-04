@@ -8,7 +8,7 @@ Welcome to Alfred-Workflow
 Go to :ref:`quickindex`.
 
 
-Alfred-Workflow is a Python helper library for `Alfred 2 and 3`_ workflow
+Alfred-Workflow is a Python helper library for `Alfred 2, 3 and 4`_ workflow
 authors, developed and hosted on `GitHub`_.
 
 Alfred workflows typically take user input, fetch data from the Web or
@@ -16,7 +16,7 @@ elsewhere, filter them and display results to the user. Alfred-Workflow takes
 care of a lot of the details for you, allowing you to concentrate your efforts
 on your workflow's functionality.
 
-Alfred-Workflow supports macOS 10.6+ (Python 2.6 and 2.7).
+Alfred-Workflow supports macOS 10.7+ (Python 2.7).
 
 
 Features
@@ -41,12 +41,12 @@ Features
   debugging and management of the workflow
 
 
-Alfred 3-only features
-----------------------
+Alfred 3+ features
+------------------
 
 - Set :ref:`workflows variables <workflow-variables>` from code
 - Advanced modifiers
-- Alfred 3-only updates (won't break Alfred 2 installs)
+- Alfred version-aware updates (ignores incompatible updates)
 - :ref:`Automatic re-running of Script Filters <guide-rerun>`.
 
 
@@ -65,7 +65,7 @@ box (changing ``API_KEY``):
 
     import sys
     from workflow import Workflow, ICON_WEB, web
-    # To use Alfred 3's feedback mechanism:
+    # To use Alfred 3+ feedback mechanism:
     # from workflow import Workflow3
 
     API_KEY = 'your-pinboard-api-key'
@@ -103,5 +103,4 @@ Pinboard item in Alfred to open it in your browser.
 
 .. _GitHub: https://github.com/deanishe/alfred-workflow/
 .. _requests: http://docs.python-requests.org/en/latest/
-.. _Alfred 2 and 3: https://www.alfredapp.com/
-
+.. _Alfred 2, 3 and 4: https://www.alfredapp.com/

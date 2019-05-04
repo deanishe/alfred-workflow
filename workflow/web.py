@@ -24,7 +24,7 @@ import urlparse
 import zlib
 
 
-USER_AGENT = u'Alfred-Workflow/1.19 (+http://www.deanishe.net/alfred-workflow)'
+USER_AGENT = u'Alfred-Workflow/1.36 (+http://www.deanishe.net/alfred-workflow)'
 
 # Valid characters for multipart form data boundaries
 BOUNDARY_CHARS = string.digits + string.ascii_letters
@@ -240,8 +240,8 @@ class Response(object):
             # Transfer-Encoding appears to not be used in the wild
             # (contrary to the HTTP standard), but no harm in testing
             # for it
-            if ('gzip' in headers.get('content-encoding', '') or
-                    'gzip' in headers.get('transfer-encoding', '')):
+            if 'gzip' in headers.get('content-encoding', '') or \
+                    'gzip' in headers.get('transfer-encoding', ''):
                 self._gzipped = True
 
     @property
@@ -250,6 +250,7 @@ class Response(object):
 
         Returns:
             bool: `True` if response is streamed.
+
         """
         return self._stream
 
@@ -343,20 +344,18 @@ class Response(object):
                 "`content` has already been read from this Response.")
 
         def decode_stream(iterator, r):
-
-            decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
+            dec = codecs.getincrementaldecoder(r.encoding)(errors='replace')
 
             for chunk in iterator:
-                data = decoder.decode(chunk)
+                data = dec.decode(chunk)
                 if data:
                     yield data
 
-            data = decoder.decode(b'', final=True)
+            data = dec.decode(b'', final=True)
             if data:  # pragma: no cover
                 yield data
 
         def generate():
-
             if self._gzipped:
                 decoder = zlib.decompressobj(16 + zlib.MAX_WBITS)
 
@@ -427,7 +426,7 @@ class Response(object):
         if not self.stream:  # Try sniffing response content
             # Encoding declared in document should override HTTP headers
             if self.mimetype == 'text/html':  # sniff HTML headers
-                m = re.search("""<meta.+charset=["']{0,1}(.+?)["'].*>""",
+                m = re.search(r"""<meta.+charset=["']{0,1}(.+?)["'].*>""",
                               self.content)
                 if m:
                     encoding = m.group(1)
@@ -435,7 +434,7 @@ class Response(object):
             elif ((self.mimetype.startswith('application/') or
                    self.mimetype.startswith('text/')) and
                   'xml' in self.mimetype):
-                m = re.search("""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
+                m = re.search(r"""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
                               self.content)
                 if m:
                     encoding = m.group(1)
@@ -628,7 +627,6 @@ def encode_multipart_formdata(fields, files):
         :rtype: str
 
         """
-
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
     boundary = '-----' + ''.join(random.choice(BOUNDARY_CHARS)

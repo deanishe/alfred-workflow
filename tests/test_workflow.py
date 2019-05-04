@@ -715,7 +715,7 @@ class WorkflowTests(unittest.TestCase):
                                  match_on=MATCH_ALL ^ MATCH_CAPITALS,
                                  include_score=True)
         self._print_results(results)
-        for item, score, rule in results:
+        for _, _, rule in results:
             self.assertNotEqual(rule, MATCH_CAPITALS)
         # self.assertEqual(len(results), 7)
 

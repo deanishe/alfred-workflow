@@ -371,8 +371,8 @@ def test_item_config(info3):
 def test_default_directories(info3):
     """Workflow3: Default directories."""
     wf3 = Workflow3()
-    assert 'Alfred 3' in wf3.datadir
-    assert 'Alfred-3' in wf3.cachedir
+    assert '/Alfred/Workflow Data/' in wf3.datadir
+    assert 'com.runningwithcrayons.Alfred/Workflow Data/' in wf3.cachedir
 
 
 def test_run_fails_with_json_output():

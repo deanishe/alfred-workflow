@@ -28,6 +28,9 @@ function success() {
 # Set test options and run tests
 #-------------------------------------------------------------------------
 
+unset alfred_version alfred_workflow_version alfred_workflow_bundleid
+unset alfred_workflow_name alfred_workflow_cache alfred_workflow_data
+
 # More options are in tox.ini
 export PYTEST_ADDOPTS="--cov-report=html"
 pytest --cov=workflow tests

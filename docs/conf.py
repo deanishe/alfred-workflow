@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from datetime import date
 # import sphinx_bootstrap_theme
 # import sphinx_rtd_theme
 import sys
@@ -58,7 +59,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Alfred-Workflow'
-copyright = u' 2013–2017 Dean Jackson'
+copyright = u' 2013–{} Dean Jackson'.format(date.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Persistent data &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>Persistent data &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="../_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -63,59 +55,59 @@
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If you are writing your own files without using the <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>
+<p class="last">If you are writing your own files without using the <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>
 APIs, see <a class="reference internal" href="#script-behaviour"><span class="std std-ref">A note on Script Behaviour</span></a>.</p>
 </div>
 <p>Alfred provides special data and cache directories for each Workflow (in
-<code class="docutils literal"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></code> and <code class="docutils literal"><span class="pre">~/Library/Caches</span></code> respectively).
-<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> provides the following
+<code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support</span></code> and <code class="docutils literal notranslate"><span class="pre">~/Library/Caches</span></code> respectively).
+<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> provides the following
 attributes/methods to make it easier to access these directories:</p>
 <ul class="simple">
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a> — The full path to your Workflow’s data directory.</li>
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a> — The full path to your Workflow’s cache directory.</li>
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.datafile" title="workflow.Workflow.datafile"><code class="xref py py-meth docutils literal"><span class="pre">datafile(filename)</span></code></a> — The full path to <code class="docutils literal"><span class="pre">filename</span></code> under the data directory.</li>
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.cachefile" title="workflow.Workflow.cachefile"><code class="xref py py-meth docutils literal"><span class="pre">cachefile(filename)</span></code></a> — The full path to <code class="docutils literal"><span class="pre">filename</span></code> under the cache directory.</li>
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">datadir</span></code></a> — The full path to your Workflow’s data directory.</li>
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cachedir</span></code></a> — The full path to your Workflow’s cache directory.</li>
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.datafile" title="workflow.Workflow.datafile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datafile(filename)</span></code></a> — The full path to <code class="docutils literal notranslate"><span class="pre">filename</span></code> under the data directory.</li>
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.cachefile" title="workflow.Workflow.cachefile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cachefile(filename)</span></code></a> — The full path to <code class="docutils literal notranslate"><span class="pre">filename</span></code> under the cache directory.</li>
 </ul>
 <p>The cache directory may be deleted during system maintenance, and is thus only
 suitable for temporary data or data that are easily recreated.
-<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a>’s cache methods reflect this, and make it easy to replace
+<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>’s cache methods reflect this, and make it easy to replace
 cached data that are too old. See <a class="reference internal" href="#caching-data"><span class="std std-ref">Caching data</span></a> for
 details of the data caching API.</p>
 <p>The data directory is intended for more permanent, user-generated data, or data
 that cannot be otherwise easily recreated. See <a class="reference internal" href="#storing-data"><span class="std std-ref">Storing data</span></a>
 for details of the data storage API.</p>
 <p>It is easy to specify a custom file format for your stored data
-via the <code class="docutils literal"><span class="pre">serializer</span></code> argument if you want your data to be readable by the user
+via the <code class="docutils literal notranslate"><span class="pre">serializer</span></code> argument if you want your data to be readable by the user
 or by other software. See <a class="reference internal" href="serialization.html#guide-serialization"><span class="std std-ref">Serialization of stored/cached data</span></a> for more details.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>There are also simliar methods related to the root directory of your
-Workflow (where <code class="docutils literal"><span class="pre">info.plist</span></code> and your code are):</p>
+Workflow (where <code class="docutils literal notranslate"><span class="pre">info.plist</span></code> and your code are):</p>
 <ul class="simple">
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal"><span class="pre">workflowdir</span></code></a> — The full path to your
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.workflowdir" title="workflow.Workflow.workflowdir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">workflowdir</span></code></a> — The full path to your
 Workflow’s root directory.</li>
-<li><a class="reference internal" href="../api/index.html#workflow.Workflow.workflowfile" title="workflow.Workflow.workflowfile"><code class="xref py py-meth docutils literal"><span class="pre">workflowfile(filename)</span></code></a>
-— The full path to <code class="docutils literal"><span class="pre">filename</span></code> under your Workflow’s root directory.</li>
+<li><a class="reference internal" href="../api/index.html#workflow.Workflow.workflowfile" title="workflow.Workflow.workflowfile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">workflowfile(filename)</span></code></a>
+— The full path to <code class="docutils literal notranslate"><span class="pre">filename</span></code> under your Workflow’s root directory.</li>
 </ul>
 <p class="last">These are used internally to implement <a class="reference internal" href="magic-arguments.html#magic-arguments"><span class="std std-ref">“Magic” arguments</span></a>, which
 provide assistance with debugging, updating and managing your workflow.</p>
 </div>
-<p>In addition, <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> also provides a
+<p>In addition, <a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> also provides a
 convenient interface for storing persistent settings with
-<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>.
+<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.settings</span></code></a>.
 See <a class="reference internal" href="#guide-settings"><span class="std std-ref">Settings</span></a> and <a class="reference internal" href="#keychain"><span class="std std-ref">Keychain access</span></a> for more
 information on storing settings and sensitive data.</p>
 <div class="section" id="caching-data">
 <span id="id1"></span><h2><a class="toc-backref" href="#id3">Caching data</a><a class="headerlink" href="#caching-data" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> provides a few methods to simplify
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> provides a few methods to simplify
 caching data that are slow to retrieve or expensive to generate (e.g. downloaded
 from a web API). These data are cached in your workflow’s cache directory (see
-<a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a>). The main method is
-<a class="reference internal" href="../api/index.html#workflow.Workflow.cached_data" title="workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code></a>, which
+<a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cachedir</span></code></a>). The main method is
+<a class="reference internal" href="../api/index.html#workflow.Workflow.cached_data" title="workflow.Workflow.cached_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code></a>, which
 takes a name under which the data should be cached, a callable to retrieve
 the data if they aren’t in the cache (or are too old), and a maximum age in seconds
 for the cached data:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -130,14 +122,14 @@ for the cached data:</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">get_data</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>To retrieve data only if they are in the cache, call with <code class="docutils literal"><span class="pre">None</span></code> as the
+<p>To retrieve data only if they are in the cache, call with <code class="docutils literal notranslate"><span class="pre">None</span></code> as the
 data-retrieval function (which is the default):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">cached_data</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This will return <code class="docutils literal"><span class="pre">None</span></code> if there are no corresponding data in the cache.</p>
+<p class="last">This will return <code class="docutils literal notranslate"><span class="pre">None</span></code> if there are no corresponding data in the cache.</p>
 </div>
 <p>This is useful if you want to update your cache in the background, so it doesn’t
 impact your Workflow’s responsiveness in Alfred. (See
@@ -145,23 +137,23 @@ impact your Workflow’s responsiveness in Alfred. (See
 script in the background.)</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Passing <code class="docutils literal"><span class="pre">max_age=0</span></code> will return the cached data regardless of age.</p>
+<p class="last">Passing <code class="docutils literal notranslate"><span class="pre">max_age=0</span></code> will return the cached data regardless of age.</p>
 </div>
 <div class="section" id="clearing-cached-data">
 <span id="clearing-cache"></span><h3>Clearing cached data<a class="headerlink" href="#clearing-cached-data" title="Permalink to this headline">¶</a></h3>
 <p>There is a convenience method for clearing a workflow’s cache directory.</p>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow.clear_cache" title="workflow.Workflow.clear_cache"><code class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></code></a> will by default delete all
-the files contained in <a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal"><span class="pre">cachedir</span></code></a>. This is
-the method called if you use the <code class="docutils literal"><span class="pre">workflow:delcache</span></code> or <code class="docutils literal"><span class="pre">workflow:reset</span></code>
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.clear_cache" title="workflow.Workflow.clear_cache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_cache()</span></code></a> will by default delete all
+the files contained in <a class="reference internal" href="../api/index.html#workflow.Workflow.cachedir" title="workflow.Workflow.cachedir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cachedir</span></code></a>. This is
+the method called if you use the <code class="docutils literal notranslate"><span class="pre">workflow:delcache</span></code> or <code class="docutils literal notranslate"><span class="pre">workflow:reset</span></code>
 <a class="reference internal" href="magic-arguments.html#magic-arguments"><span class="std std-ref">magic arguments</span></a>.</p>
 <p>You can selectively delete files from the cache by passing the optional
-<code class="docutils literal"><span class="pre">filter_func</span></code> argument to <a class="reference internal" href="../api/index.html#workflow.Workflow.clear_cache" title="workflow.Workflow.clear_cache"><code class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></code></a>.
+<code class="docutils literal notranslate"><span class="pre">filter_func</span></code> argument to <a class="reference internal" href="../api/index.html#workflow.Workflow.clear_cache" title="workflow.Workflow.clear_cache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_cache()</span></code></a>.
 This callable will be called with the filename (not path) of each file in the
 workflow’s cache directory.</p>
-<p>If <code class="docutils literal"><span class="pre">filter_func</span></code> returns <code class="docutils literal"><span class="pre">True</span></code>, the file will be deleted, otherwise it
-will be left in the cache. For example, to delete all <code class="docutils literal"><span class="pre">.zip</span></code> files in the
+<p>If <code class="docutils literal notranslate"><span class="pre">filter_func</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>, the file will be deleted, otherwise it
+will be left in the cache. For example, to delete all <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files in the
 cache, use:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myfilter</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -171,7 +163,7 @@ cache, use:</p>
 </pre></div>
 </td></tr></table></div>
 <p>or more simply:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">))</span>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.zip&#39;</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -188,12 +180,12 @@ cache, use:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This feature requires Alfred 3.2 or newer.</p>
 </div>
-<p>The <a class="reference internal" href="../api/index.html#workflow.Workflow3.cache_data" title="workflow.Workflow3.cache_data"><code class="xref py py-meth docutils literal"><span class="pre">cache_data()</span></code></a> and
-<a class="reference internal" href="../api/index.html#workflow.Workflow3.cached_data" title="workflow.Workflow3.cached_data"><code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code></a> methods of
-<a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal"><span class="pre">Workflow3</span></code></a> have an additional <code class="docutils literal"><span class="pre">session</span></code>
+<p>The <a class="reference internal" href="../api/index.html#workflow.Workflow3.cache_data" title="workflow.Workflow3.cache_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cache_data()</span></code></a> and
+<a class="reference internal" href="../api/index.html#workflow.Workflow3.cached_data" title="workflow.Workflow3.cached_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cached_data()</span></code></a> methods of
+<a class="reference internal" href="../api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> have an additional <code class="docutils literal notranslate"><span class="pre">session</span></code>
 parameter.</p>
-<p>If set to <code class="docutils literal"><span class="pre">True</span></code>, the cache name is prefixed with the
-<a class="reference internal" href="../api/index.html#workflow.Workflow3.session_id" title="workflow.Workflow3.session_id"><code class="xref py py-attr docutils literal"><span class="pre">session_id</span></code></a>, so the cache expires
+<p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the cache name is prefixed with the
+<a class="reference internal" href="../api/index.html#workflow.Workflow3.session_id" title="workflow.Workflow3.session_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">session_id</span></code></a>, so the cache expires
 as soon as the user closes Alfred or uses a different workflow.</p>
 <p>This is useful for workflows that use data that become invalid as soon
 as the user switches away, such as a list of current browser tabs.</p>
@@ -201,20 +193,20 @@ as the user switches away, such as a list of current browser tabs.</p>
 <p class="first admonition-title">Important</p>
 <p>Alfred-Workflow doesn’t automatically clear up stale session data;
 you have to do that yourself.</p>
-<p class="last">Use <a class="reference internal" href="../api/index.html#workflow.Workflow3.clear_session_cache" title="workflow.Workflow3.clear_session_cache"><code class="xref py py-meth docutils literal"><span class="pre">clear_session_cache()</span></code></a> to delete stale
-cached session data. Pass <code class="docutils literal"><span class="pre">current=True</span></code> to also delete data for
+<p class="last">Use <a class="reference internal" href="../api/index.html#workflow.Workflow3.clear_session_cache" title="workflow.Workflow3.clear_session_cache"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_session_cache()</span></code></a> to delete stale
+cached session data. Pass <code class="docutils literal notranslate"><span class="pre">current=True</span></code> to also delete data for
 the current session.</p>
 </div>
 </div>
 <div class="section" id="storing-data">
 <span id="id2"></span><h2><a class="toc-backref" href="#id5">Storing data</a><a class="headerlink" href="#storing-data" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> provides two methods to store
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> provides two methods to store
 and retrieve permanent data:
-<a class="reference internal" href="../api/index.html#workflow.Workflow.store_data" title="workflow.Workflow.store_data"><code class="xref py py-meth docutils literal"><span class="pre">store_data()</span></code></a> and
-<a class="reference internal" href="../api/index.html#workflow.Workflow.stored_data" title="workflow.Workflow.stored_data"><code class="xref py py-meth docutils literal"><span class="pre">stored_data()</span></code></a>.</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.store_data" title="workflow.Workflow.store_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">store_data()</span></code></a> and
+<a class="reference internal" href="../api/index.html#workflow.Workflow.stored_data" title="workflow.Workflow.stored_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stored_data()</span></code></a>.</p>
 <p>These data are stored in your workflow’s data directory
-(see <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a>).</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+(see <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">datadir</span></code></a>).</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -237,13 +229,13 @@ are saving should not be deleted as part of system maintenance.</p>
 <div class="section" id="clearing-stored-data">
 <span id="clearing-data"></span><h3>Clearing stored data<a class="headerlink" href="#clearing-stored-data" title="Permalink to this headline">¶</a></h3>
 <p>As with cached data, there is a convenience method for deleting all the files
-stored in your workflow’s <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a>.</p>
-<p>By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.clear_data" title="workflow.Workflow.clear_data"><code class="xref py py-meth docutils literal"><span class="pre">clear_data()</span></code></a> will delete all the
-files stored in <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal"><span class="pre">datadir</span></code></a>. It is used by the
-<code class="docutils literal"><span class="pre">workflow:deldata</span></code> and <code class="docutils literal"><span class="pre">workflow:reset</span></code> <a class="reference internal" href="magic-arguments.html#magic-arguments"><span class="std std-ref">magic arguments</span></a>.</p>
+stored in your workflow’s <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">datadir</span></code></a>.</p>
+<p>By default, <a class="reference internal" href="../api/index.html#workflow.Workflow.clear_data" title="workflow.Workflow.clear_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_data()</span></code></a> will delete all the
+files stored in <a class="reference internal" href="../api/index.html#workflow.Workflow.datadir" title="workflow.Workflow.datadir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">datadir</span></code></a>. It is used by the
+<code class="docutils literal notranslate"><span class="pre">workflow:deldata</span></code> and <code class="docutils literal notranslate"><span class="pre">workflow:reset</span></code> <a class="reference internal" href="magic-arguments.html#magic-arguments"><span class="std std-ref">magic arguments</span></a>.</p>
 <p>It is possible to selectively delete files contained in the data directory by
-supplying the optional <code class="docutils literal"><span class="pre">filter_func</span></code> callable. Please see <a class="reference internal" href="#clearing-cache"><span class="std std-ref">Clearing cached data</span></a>
-for details on how <code class="docutils literal"><span class="pre">filter_func</span></code> works.</p>
+supplying the optional <code class="docutils literal notranslate"><span class="pre">filter_func</span></code> callable. Please see <a class="reference internal" href="#clearing-cache"><span class="std std-ref">Clearing cached data</span></a>
+for details on how <code class="docutils literal notranslate"><span class="pre">filter_func</span></code> works.</p>
 </div>
 </div>
 <div class="section" id="settings">
@@ -255,18 +247,18 @@ the workflow’s configuration sheet (i.e. the values are persisted
 across workflow runs). See <a class="reference internal" href="variables.html#workflow-variables"><span class="std std-ref">Workflow variables</span></a> if you’d prefer
 to store your workflow’s settings there.</p>
 </div>
-<p><a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that automatically
-saves its contents to the <code class="docutils literal"><span class="pre">settings.json</span></code> file in your Workflow’s data
+<p><a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.settings</span></code></a> is a subclass of <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> that automatically
+saves its contents to the <code class="docutils literal notranslate"><span class="pre">settings.json</span></code> file in your Workflow’s data
 directory when it is changed.</p>
-<p><a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> can be used just like a normal
-<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with the caveat that all keys and values must be serializable
+<p><a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> can be used just like a normal
+<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> with the caveat that all keys and values must be serializable
 to JSON.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">A <a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a> instance can only automatically
+<p class="last">A <a class="reference internal" href="../api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a> instance can only automatically
 recognise when you directly alter the values of its own keys:</p>
 </div>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">wf</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">()</span>
 <span class="n">wf</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;key2&#39;</span><span class="p">:</span> <span class="s1">&#39;value&#39;</span><span class="p">}</span>  <span class="c1"># will be automatically saved</span>
@@ -274,27 +266,27 @@ recognise when you directly alter the values of its own keys:</p>
 </pre></div>
 </td></tr></table></div>
 <p>If you’ve altered a data structure stored within your workflow’s
-<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code></a>, you need to explicitly call
-<a class="reference internal" href="../api/index.html#workflow.workflow.Settings.save" title="workflow.workflow.Settings.save"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.settings.save()</span></code></a>.</p>
+<a class="reference internal" href="../api/index.html#workflow.Workflow.settings" title="workflow.Workflow.settings"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.settings</span></code></a>, you need to explicitly call
+<a class="reference internal" href="../api/index.html#workflow.workflow.Settings.save" title="workflow.workflow.Settings.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.settings.save()</span></code></a>.</p>
 <p>If you need to store arbitrary data, you can use the
 <a class="reference internal" href="#caching-data"><span class="std std-ref">cached data API</span></a>.</p>
 <p>If you need to store data securely (such as passwords and API keys),
-<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code></a> also provides <a class="reference internal" href="#keychain"><span class="std std-ref">simple access to
+<a class="reference internal" href="../api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> also provides <a class="reference internal" href="#keychain"><span class="std std-ref">simple access to
 the macOS Keychain</span></a>.</p>
 </div>
 <div class="section" id="keychain-access">
 <span id="keychain"></span><h2><a class="toc-backref" href="#id7">Keychain access</a><a class="headerlink" href="#keychain-access" title="Permalink to this headline">¶</a></h2>
-<p>Methods <a class="reference internal" href="../api/index.html#workflow.Workflow.save_password" title="workflow.Workflow.save_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.save_password(account,</span> <span class="pre">password)</span></code></a>,
-<a class="reference internal" href="../api/index.html#workflow.Workflow.get_password" title="workflow.Workflow.get_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password(account)</span></code></a>
-and <a class="reference internal" href="../api/index.html#workflow.Workflow.delete_password" title="workflow.Workflow.delete_password"><code class="xref py py-meth docutils literal"><span class="pre">Workflow.delete_password(account)</span></code></a>
-allow access to the Keychain. They may raise <a class="reference internal" href="../api/index.html#workflow.PasswordNotFound" title="workflow.PasswordNotFound"><code class="xref py py-exc docutils literal"><span class="pre">PasswordNotFound</span></code></a> if no
-password is set for the given <code class="docutils literal"><span class="pre">account</span></code> or <a class="reference internal" href="../api/index.html#workflow.KeychainError" title="workflow.KeychainError"><code class="xref py py-exc docutils literal"><span class="pre">KeychainError</span></code></a> if
+<p>Methods <a class="reference internal" href="../api/index.html#workflow.Workflow.save_password" title="workflow.Workflow.save_password"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.save_password(account,</span> <span class="pre">password)</span></code></a>,
+<a class="reference internal" href="../api/index.html#workflow.Workflow.get_password" title="workflow.Workflow.get_password"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.get_password(account)</span></code></a>
+and <a class="reference internal" href="../api/index.html#workflow.Workflow.delete_password" title="workflow.Workflow.delete_password"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.delete_password(account)</span></code></a>
+allow access to the Keychain. They may raise <a class="reference internal" href="../api/index.html#workflow.PasswordNotFound" title="workflow.PasswordNotFound"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PasswordNotFound</span></code></a> if no
+password is set for the given <code class="docutils literal notranslate"><span class="pre">account</span></code> or <a class="reference internal" href="../api/index.html#workflow.KeychainError" title="workflow.KeychainError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">KeychainError</span></code></a> if
 there is a problem accessing the Keychain. Passwords are stored in the user’s
 default Keychain. By default, the Workflow’s Bundle ID will be used as the
-service name, but this can be overridden by passing the <code class="docutils literal"><span class="pre">service</span></code> argument
+service name, but this can be overridden by passing the <code class="docutils literal notranslate"><span class="pre">service</span></code> argument
 to the above methods.</p>
 <p>Example usage:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -328,14 +320,14 @@ Script Filters. This allows you (among other things) to specify that a
 running script should be killed if the user continues typing in Alfred.</p>
 <p>If you enable this setting, it’s possible that Alfred will terminate your
 script in the middle of some critical code (e.g. writing a file).
-Alfred-Workflow provides the <code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code>
+Alfred-Workflow provides the <code class="xref py py-class docutils literal notranslate"><span class="pre">uninterruptible</span></code>
 decorator to prevent your script being terminated in the middle of a
 critical function.</p>
-<p>Any function wrapped with <code class="xref py py-class docutils literal"><span class="pre">uninterruptible</span></code> will
+<p>Any function wrapped with <code class="xref py py-class docutils literal notranslate"><span class="pre">uninterruptible</span></code> will
 be executed fully, and any signal caught during its execution will be
 handled when your function completes.</p>
 <p>For example:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -347,7 +339,7 @@ handled when your function completes.</p>
 </pre></div>
 </td></tr></table></div>
 <p>If you only want to write to a file, you can use the
-<code class="xref py py-class docutils literal"><span class="pre">atomic_writer</span></code> context manager. This does not
+<code class="xref py py-class docutils literal notranslate"><span class="pre">atomic_writer</span></code> context manager. This does not
 guarantee that the file will be written, but does guarantee that it will
 only be written if the write succeeds (the data are first written to a temporary
 file).</p>
@@ -404,10 +396,11 @@ file).</p>
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -476,12 +469,14 @@ file).</p>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -502,10 +497,10 @@ file).</p>
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>“Magic” arguments &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>“Magic” arguments &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="../_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -58,86 +50,86 @@
 </div>
 <p>If your Script Filter (or script) accepts a query (or command line arguments),
 you can pass it so-called magic arguments that instruct
-<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> to perform certain actions, such as
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> to perform certain actions, such as
 opening the log file or clearing the cache/settings.</p>
 <p>These can be a big help while developing and debugging and especially when
 debugging problems your Workflow’s users may be having.</p>
-<p>The <code class="xref py py-meth docutils literal"><span class="pre">Workflow.run()</span></code> method
+<p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.run()</span></code> method
 (which you should “wrap” your Workflow’s entry functions in) will catch any
 raised exceptions, log them and display them in Alfred. You can call your
-Workflow with <code class="docutils literal"><span class="pre">workflow:openlog</span></code> as an Alfred query/command line argument
-and <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> will open the Workflow’s log file
+Workflow with <code class="docutils literal notranslate"><span class="pre">workflow:openlog</span></code> as an Alfred query/command line argument
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> will open the Workflow’s log file
 in the default app (usually <strong>Console.app</strong>).</p>
 <p>This makes it easy for you to get at the log file and data and cache directories
-(hidden away in <code class="docutils literal"><span class="pre">~/Library</span></code>), and for your users to send you their logs
+(hidden away in <code class="docutils literal notranslate"><span class="pre">~/Library</span></code>), and for your users to send you their logs
 for debugging.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Magic arguments will only work with scripts that accept arguments <em>and</em> use
-the <code class="xref py py-attr docutils literal"><span class="pre">args</span></code> property (where magic
+the <code class="xref py py-attr docutils literal notranslate"><span class="pre">args</span></code> property (where magic
 arguments are parsed).</p>
 </div>
-<p><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> supports the following magic arguments by default:</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> supports the following magic arguments by default:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">workflow:magic</span></code> — List available magic arguments.</li>
-<li><code class="docutils literal"><span class="pre">workflow:help</span></code> — Open workflow’s help URL in default web browser. This URL is specified in the <code class="docutils literal"><span class="pre">help_url</span></code> argument to <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code>.</li>
-<li><code class="docutils literal"><span class="pre">workflow:version</span></code> — Display the installed version of the workflow (if one is set).</li>
-<li><code class="docutils literal"><span class="pre">workflow:delcache</span></code> — Delete the Workflow’s cache.</li>
-<li><code class="docutils literal"><span class="pre">workflow:deldata</span></code> — Delete the Workflow’s saved data.</li>
-<li><code class="docutils literal"><span class="pre">workflow:delsettings</span></code> — Delete the Workflow’s settings file (which contains the data stored using <code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code>).</li>
-<li><code class="docutils literal"><span class="pre">workflow:foldingdefault</span></code> — Reset diacritic folding to workflow default</li>
-<li><code class="docutils literal"><span class="pre">workflow:foldingoff</span></code> — Never fold diacritics in search keys</li>
-<li><code class="docutils literal"><span class="pre">workflow:foldingon</span></code> — Force diacritic folding in search keys (e.g. convert <em>ü</em> to <em>ue</em>)</li>
-<li><code class="docutils literal"><span class="pre">workflow:opencache</span></code> — Open the Workflow’s cache directory.</li>
-<li><code class="docutils literal"><span class="pre">workflow:opendata</span></code> — Open the Workflow’s data directory.</li>
-<li><code class="docutils literal"><span class="pre">workflow:openlog</span></code> — Open the Workflow’s log file in the default app.</li>
-<li><code class="docutils literal"><span class="pre">workflow:openterm</span></code> — Open a Terminal window in the Workflow’s root directory.</li>
-<li><code class="docutils literal"><span class="pre">workflow:openworkflow</span></code> — Open the Workflow’s root directory (where <code class="docutils literal"><span class="pre">info.plist</span></code> is).</li>
-<li><code class="docutils literal"><span class="pre">workflow:reset</span></code> — Delete the Workflow’s settings, cache and saved data.</li>
-<li><code class="docutils literal"><span class="pre">workflow:update</span></code> — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.</li>
-<li><code class="docutils literal"><span class="pre">workflow:noautoupdate</span></code> — Turn off automatic checks for updates.</li>
-<li><code class="docutils literal"><span class="pre">workflow:autoupdate</span></code> — Turn automatic checks for updates on.</li>
-<li><code class="docutils literal"><span class="pre">workflow:prereleases</span></code> — Enable updating the workflow to pre-release versions.</li>
-<li><code class="docutils literal"><span class="pre">workflow:noprereleases</span></code> — Disable updating the workflow to pre-release versions (default).</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:magic</span></code> — List available magic arguments.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:help</span></code> — Open workflow’s help URL in default web browser. This URL is specified in the <code class="docutils literal notranslate"><span class="pre">help_url</span></code> argument to <code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:version</span></code> — Display the installed version of the workflow (if one is set).</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:delcache</span></code> — Delete the Workflow’s cache.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:deldata</span></code> — Delete the Workflow’s saved data.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:delsettings</span></code> — Delete the Workflow’s settings file (which contains the data stored using <code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.settings</span></code>).</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:foldingdefault</span></code> — Reset diacritic folding to workflow default</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:foldingoff</span></code> — Never fold diacritics in search keys</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:foldingon</span></code> — Force diacritic folding in search keys (e.g. convert <em>ü</em> to <em>ue</em>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:opencache</span></code> — Open the Workflow’s cache directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:opendata</span></code> — Open the Workflow’s data directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:openlog</span></code> — Open the Workflow’s log file in the default app.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:openterm</span></code> — Open a Terminal window in the Workflow’s root directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:openworkflow</span></code> — Open the Workflow’s root directory (where <code class="docutils literal notranslate"><span class="pre">info.plist</span></code> is).</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:reset</span></code> — Delete the Workflow’s settings, cache and saved data.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:update</span></code> — Check for a newer version of the workflow using GitHub releases and install the newer version if one is available.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:noautoupdate</span></code> — Turn off automatic checks for updates.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:autoupdate</span></code> — Turn automatic checks for updates on.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:prereleases</span></code> — Enable updating the workflow to pre-release versions.</li>
+<li><code class="docutils literal notranslate"><span class="pre">workflow:noprereleases</span></code> — Disable updating the workflow to pre-release versions (default).</li>
 </ul>
-<p>The three <code class="docutils literal"><span class="pre">workflow:folding…</span></code> settings allow users to override the diacritic
+<p>The three <code class="docutils literal notranslate"><span class="pre">workflow:folding…</span></code> settings allow users to override the diacritic
 folding set by a workflow’s author. This may be useful if the author’s choice
 does not correspond with a user’s usage pattern.</p>
-<p>You can turn off magic arguments by passing <code class="docutils literal"><span class="pre">capture_args=False</span></code> to
-<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> on instantiation, or call the corresponding methods of <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> directly,
+<p>You can turn off magic arguments by passing <code class="docutils literal notranslate"><span class="pre">capture_args=False</span></code> to
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> on instantiation, or call the corresponding methods of <code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> directly,
 perhaps assigning your own keywords within your Workflow:</p>
 <ul class="simple">
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_help()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_log()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_cachedir()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_datadir()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_workflowdir()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">open_terminal()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">clear_cache()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">clear_data()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">clear_settings()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">reset()</span></code> (a shortcut to call the three previous <code class="docutils literal"><span class="pre">clear_*</span></code> methods)</li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">check_update()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">start_update()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_help()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_log()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_cachedir()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_datadir()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_workflowdir()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_terminal()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_cache()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_data()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">clear_settings()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code> (a shortcut to call the three previous <code class="docutils literal notranslate"><span class="pre">clear_*</span></code> methods)</li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">check_update()</span></code></li>
+<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">start_update()</span></code></li>
 </ul>
 <div class="section" id="customising-magic-arguments">
 <span id="custom-magic"></span><h2><a class="toc-backref" href="#id2">Customising magic arguments</a><a class="headerlink" href="#customising-magic-arguments" title="Permalink to this headline">¶</a></h2>
-<p>The default prefix for magic arguments (<code class="docutils literal"><span class="pre">workflow:</span></code>) is contained in the
-<code class="xref py py-attr docutils literal"><span class="pre">magic_prefix</span></code> attribute of
-<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code>. If you want to change it to, say,
-<code class="docutils literal"><span class="pre">wf:</span></code> (which will become the default in v2 of Alfred-Workflow), simply
+<p>The default prefix for magic arguments (<code class="docutils literal notranslate"><span class="pre">workflow:</span></code>) is contained in the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">magic_prefix</span></code> attribute of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code>. If you want to change it to, say,
+<code class="docutils literal notranslate"><span class="pre">wf:</span></code> (which will become the default in v2 of Alfred-Workflow), simply
 reassign it:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">magic_prefix</span> <span class="o">=</span> <span class="s1">&#39;wf:&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wf</span><span class="o">.</span><span class="n">magic_prefix</span> <span class="o">=</span> <span class="s1">&#39;wf:&#39;</span>
 </pre></div>
 </div>
-<p>The magic arguments are defined in the <code class="xref py py-attr docutils literal"><span class="pre">Workflow.magic_arguments</span></code> dictionary.
+<p>The magic arguments are defined in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.magic_arguments</span></code> dictionary.
 The dictionary keys are the keywords for the arguments (without the
 prefix) and the values are functions that should be called when the magic
 argument is entered. You can show a message in Alfred by returning a
-<code class="docutils literal"><span class="pre">unicode</span></code> string from the function.</p>
+<code class="docutils literal notranslate"><span class="pre">unicode</span></code> string from the function.</p>
 <p>To add a new magic argument that opens the workflow’s settings file, you
 could do:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -154,8 +146,8 @@ could do:</p>
 <span class="n">wf</span><span class="o">.</span><span class="n">magic_arguments</span><span class="p">[</span><span class="s1">&#39;settings&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opensettings</span>
 </pre></div>
 </td></tr></table></div>
-<p>Now entering <code class="docutils literal"><span class="pre">wf:settings</span></code> as your workflow’s query in Alfred will
-open <code class="docutils literal"><span class="pre">settings.json</span></code> in the default application.</p>
+<p>Now entering <code class="docutils literal notranslate"><span class="pre">wf:settings</span></code> as your workflow’s query in Alfred will
+open <code class="docutils literal notranslate"><span class="pre">settings.json</span></code> in the default application.</p>
 </div>
 </div>
 
@@ -209,10 +201,11 @@ open <code class="docutils literal"><span class="pre">settings.json</span></code
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -281,12 +274,14 @@ open <code class="docutils literal"><span class="pre">settings.json</span></code
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -307,10 +302,10 @@ open <code class="docutils literal"><span class="pre">settings.json</span></code
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

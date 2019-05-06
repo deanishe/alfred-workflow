@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Retrieving data from the web &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>Retrieving data from the web &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="../_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -52,7 +44,7 @@
   <div class="section" id="retrieving-data-from-the-web">
 <span id="guide-web"></span><h1>Retrieving data from the web<a class="headerlink" href="#retrieving-data-from-the-web" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference external" href="https://github.com/deanishe/alfred-workflow/blob/fdc7c001c2cb76a41aee3e5a755486a977a36b20/tests/test_web.py">unit tests</a> in the source repository contain examples of pretty
-much everything <a class="reference internal" href="../api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a> can do:</p>
+much everything <a class="reference internal" href="../api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.web</span></code></a> can do:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/deanishe/alfred-workflow/blob/fdc7c001c2cb76a41aee3e5a755486a977a36b20/tests/test_web.py#L128">GET</a> and <a class="reference external" href="https://github.com/deanishe/alfred-workflow/blob/fdc7c001c2cb76a41aee3e5a755486a977a36b20/tests/test_web.py#L76">POST</a> variables</li>
 <li><a class="reference external" href="https://github.com/deanishe/alfred-workflow/blob/fdc7c001c2cb76a41aee3e5a755486a977a36b20/tests/test_web.py#L189">Retrieve and decode JSON</a></li>
@@ -118,10 +110,11 @@ much everything <a class="reference internal" href="../api/index.html#module-wor
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -190,12 +183,14 @@ much everything <a class="reference internal" href="../api/index.html#module-wor
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -216,10 +211,10 @@ much everything <a class="reference internal" href="../api/index.html#module-wor
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

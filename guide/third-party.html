@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Including 3rd party libraries &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>Including 3rd party libraries &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="../_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -54,32 +46,32 @@
 <p>It’s a Very Bad Idea™ to install (or ask users to install) 3rd-party
 libraries in the macOS system Python. Alfred-Workflow makes it easy to
 include them in your Workflow.</p>
-<p>Simply create a <code class="docutils literal"><span class="pre">lib</span></code> subdirectory under your Workflow’s root directory
+<p>Simply create a <code class="docutils literal notranslate"><span class="pre">lib</span></code> subdirectory under your Workflow’s root directory
 and install your dependencies there. You can call the directory whatever you
-want, but in the following explanation, I’ll assume you used <code class="docutils literal"><span class="pre">lib</span></code>.</p>
+want, but in the following explanation, I’ll assume you used <code class="docutils literal notranslate"><span class="pre">lib</span></code>.</p>
 <p>To install libraries in your dependencies directory, use:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>path/to/my/workflow/lib python-lib-name
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>path/to/my/workflow/lib python-lib-name
 </pre></div>
 </div>
-<p>The path you pass as the <code class="docutils literal"><span class="pre">--target</span></code> argument should be the path to
+<p>The path you pass as the <code class="docutils literal notranslate"><span class="pre">--target</span></code> argument should be the path to
 the directory under your Workflow’s root directory in which you want to install
-your libraries. <code class="docutils literal"><span class="pre">python-lib-name</span></code> should be the “pip name” (i.e. the name the
+your libraries. <code class="docutils literal notranslate"><span class="pre">python-lib-name</span></code> should be the “pip name” (i.e. the name the
 library has on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>) of the library you want
-to install, e.g. <code class="docutils literal"><span class="pre">requests</span></code> or <code class="docutils literal"><span class="pre">feedparser</span></code>.</p>
-<p>This name is usually, but not always, the same as the name you use with <code class="docutils literal"><span class="pre">import</span></code>.</p>
+to install, e.g. <code class="docutils literal notranslate"><span class="pre">requests</span></code> or <code class="docutils literal notranslate"><span class="pre">feedparser</span></code>.</p>
+<p>This name is usually, but not always, the same as the name you use with <code class="docutils literal notranslate"><span class="pre">import</span></code>.</p>
 <p>For example, to install Alfred-Workflow, you would run
-<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></code> but use <code class="docutils literal"><span class="pre">import</span> <span class="pre">workflow</span></code> to import it.</p>
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Alfred-Workflow</span></code> but use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">workflow</span></code> to import it.</p>
 <p><strong>An example:</strong> You’re in a shell in Terminal.app in the Workflow’s root directory
-and you’re using <code class="docutils literal"><span class="pre">lib</span></code> as the directory for your Python libraries. You want to
+and you’re using <code class="docutils literal notranslate"><span class="pre">lib</span></code> as the directory for your Python libraries. You want to
 install <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a>. You would run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>lib requests
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --target<span class="o">=</span>lib requests
 </pre></div>
 </div>
-<p>This will install the <code class="docutils literal"><span class="pre">requests</span></code> library into the <code class="docutils literal"><span class="pre">lib</span></code> subdirectory of the
+<p>This will install the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library into the <code class="docutils literal notranslate"><span class="pre">lib</span></code> subdirectory of the
 current working directory.</p>
-<p>Then you instantiate <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code>
-with the <code class="docutils literal"><span class="pre">libraries</span></code> argument:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<p>Then you instantiate <code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code>
+with the <code class="docutils literal notranslate"><span class="pre">libraries</span></code> argument:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -96,17 +88,17 @@ with the <code class="docutils literal"><span class="pre">libraries</span></code
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p>When using this feature you <strong>do not</strong> need to create an <code class="docutils literal"><span class="pre">__init__.py</span></code> file in
-the <code class="docutils literal"><span class="pre">lib</span></code> subdirectory. <code class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code> and creating
-<code class="docutils literal"><span class="pre">./lib/__init__.py</span></code> are effectively equal alternatives.</p>
-<p>Instead of using <code class="docutils literal"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code>, you can add an empty
-<code class="docutils literal"><span class="pre">__init__.py</span></code> file to your <code class="docutils literal"><span class="pre">lib</span></code> subdirectory and import the libraries
+<p>When using this feature you <strong>do not</strong> need to create an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file in
+the <code class="docutils literal notranslate"><span class="pre">lib</span></code> subdirectory. <code class="docutils literal notranslate"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code> and creating
+<code class="docutils literal notranslate"><span class="pre">./lib/__init__.py</span></code> are effectively equal alternatives.</p>
+<p>Instead of using <code class="docutils literal notranslate"><span class="pre">Workflow(…,</span> <span class="pre">libraries=['./lib'])</span></code>, you can add an empty
+<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file to your <code class="docutils literal notranslate"><span class="pre">lib</span></code> subdirectory and import the libraries
 installed therein using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lib</span> <span class="kn">import</span> <span class="n">requests</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lib</span> <span class="kn">import</span> <span class="n">requests</span>
 </pre></div>
 </div>
 <p>instead of simply:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 </pre></div>
 </div>
 </div>
@@ -161,10 +153,11 @@ installed therein using:</p>
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -233,12 +226,14 @@ installed therein using:</p>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -259,10 +254,10 @@ installed therein using:</p>
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

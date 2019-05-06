@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>Tutorial Part 2: Creating a Distribution-Ready Pinboard Workflow &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -67,7 +59,7 @@
 <li><a class="reference internal" href="#notifying-the-user-if-there-are-no-results" id="id12">Notifying the user if there are no results</a></li>
 <li><a class="reference internal" href="#greased-lightning-background-updates" id="id13">Greased lightning: background updates</a><ul>
 <li><a class="reference internal" href="#background-updater-script" id="id14">Background updater script</a></li>
-<li><a class="reference internal" href="#running-update-py-from-pinboard-py" id="id15">Running <code class="docutils literal"><span class="pre">update.py</span></code> from <code class="docutils literal"><span class="pre">pinboard.py</span></code></a></li>
+<li><a class="reference internal" href="#running-update-py-from-pinboard-py" id="id15">Running <code class="docutils literal notranslate"><span class="pre">update.py</span></code> from <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -91,7 +83,7 @@ API keys.</p>
 <p>What’s more, an update to the workflow would overwrite their changes.</p>
 <p>So now we’re going to edit the workflow so users can add their API key from the
 comfort of Alfred’s friendly query box and use
-<code class="xref py py-attr docutils literal"><span class="pre">Workflow.settings</span></code>
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.settings</span></code>
 to save it in the workflow’s data directory where it won’t get overwritten.</p>
 <div class="section" id="performing-multiple-actions-from-one-script">
 <h2><a class="toc-backref" href="#id4">Performing multiple actions from one script</a><a class="headerlink" href="#performing-multiple-actions-from-one-script" title="Permalink to this headline">¶</a></h2>
@@ -100,10 +92,10 @@ second script to do this, but we’re going to stick with one script and make it
 smart enough to do two things, instead. The advantage of using one script is
 that if you build a workflow with lots of actions, you don’t have a dozen or
 more scripts to manage.</p>
-<p>We’ll start by adding an argument parser (using <a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> <a class="footnote-reference" href="#id3" id="id1">[1]</a>) to
-<code class="docutils literal"><span class="pre">main()</span></code> and some if-clauses to alter the script’s behaviour depending on the
+<p>We’ll start by adding an argument parser (using <a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a> <a class="footnote-reference" href="#id3" id="id1">[1]</a>) to
+<code class="docutils literal notranslate"><span class="pre">main()</span></code> and some if-clauses to alter the script’s behaviour depending on the
 arguments passed to it by Alfred.</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
   4
@@ -327,27 +319,27 @@ arguments passed to it by Alfred.</p>
 </pre></div>
 </td></tr></table></div>
 <p>Quite a lot has happened here: at the top in line 5, we’re importing a couple
-more icons that we use in <code class="docutils literal"><span class="pre">main()</span></code> to notify the user that their API key is
+more icons that we use in <code class="docutils literal notranslate"><span class="pre">main()</span></code> to notify the user that their API key is
 missing and that they should set it (lines 65–72).</p>
 <p>(You can see a list of all supported icons <a class="reference internal" href="guide/icons.html#icon-list"><span class="std std-ref">here</span></a>.)</p>
-<p>We’ve adapted <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> to accept an <code class="docutils literal"><span class="pre">api_key</span></code> argument. We <em>could</em>
-continue to use the <code class="docutils literal"><span class="pre">API_KEY</span></code> global variable, but that’d be bad form.</p>
+<p>We’ve adapted <code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code> to accept an <code class="docutils literal notranslate"><span class="pre">api_key</span></code> argument. We <em>could</em>
+continue to use the <code class="docutils literal notranslate"><span class="pre">API_KEY</span></code> global variable, but that’d be bad form.</p>
 <p>As a result of this, we’ve had to alter the way
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> is
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code> is
 called. It can’t call a function that requires any arguments, so we’ve added a
-<code class="docutils literal"><span class="pre">wrapper()</span></code> function within <code class="docutils literal"><span class="pre">main()</span></code> (lines 82–87) that calls
-<code class="docutils literal"><span class="pre">get_recent_posts()</span></code> with the necessary <code class="docutils literal"><span class="pre">api_key</span></code> arguments, and we pass
-this <code class="docutils literal"><span class="pre">wrapper()</span></code> function (which needs no arguments) to
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> instead
+<code class="docutils literal notranslate"><span class="pre">wrapper()</span></code> function within <code class="docutils literal notranslate"><span class="pre">main()</span></code> (lines 82–87) that calls
+<code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code> with the necessary <code class="docutils literal notranslate"><span class="pre">api_key</span></code> arguments, and we pass
+this <code class="docutils literal notranslate"><span class="pre">wrapper()</span></code> function (which needs no arguments) to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code> instead
 (line 89).</p>
-<p>At the top of <code class="docutils literal"><span class="pre">main()</span></code> (lines 39–49), we’ve added an argument parser using
-<a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> that can take an optional <code class="docutils literal"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></code> argument
-and an optional <code class="docutils literal"><span class="pre">query</span></code> argument (remember the script doesn’t require a query).</p>
-<p>Then, in lines 55–59, we check if an API key was passed using <code class="docutils literal"><span class="pre">--apikey</span></code>.
-If it was, we save it using <code class="xref py py-attr docutils literal"><span class="pre">settings</span></code>
+<p>At the top of <code class="docutils literal notranslate"><span class="pre">main()</span></code> (lines 39–49), we’ve added an argument parser using
+<a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a> that can take an optional <code class="docutils literal notranslate"><span class="pre">--apikey</span> <span class="pre">APIKEY</span></code> argument
+and an optional <code class="docutils literal notranslate"><span class="pre">query</span></code> argument (remember the script doesn’t require a query).</p>
+<p>Then, in lines 55–59, we check if an API key was passed using <code class="docutils literal notranslate"><span class="pre">--apikey</span></code>.
+If it was, we save it using <code class="xref py py-attr docutils literal notranslate"><span class="pre">settings</span></code>
 (see <a class="reference internal" href="#settings"><span class="std std-ref">below</span></a>).</p>
 <p>Once this is done, we exit the script.</p>
-<p>If no API key was specified with <code class="docutils literal"><span class="pre">--apikey</span></code>, we try to show/filter Pinboard
+<p>If no API key was specified with <code class="docutils literal notranslate"><span class="pre">--apikey</span></code>, we try to show/filter Pinboard
 posts as before. But first of all, we now have to check to see if we already
 have an API key saved (lines 65–72). If not, we show the user a warning
 (No API key set) and exit the script.</p>
@@ -370,20 +362,20 @@ run it, and you’ll see the warning we just implemented:</p>
 This time, we just want to get some data, so we’ll use a <strong>Keyword</strong> input instead.</p>
 <p>Go back to your workflow in Alfred’s Preferences and add a <strong>Keyword</strong> input:</p>
 <img alt="_images/screen16_keyword.png" src="_images/screen16_keyword.png" />
-<p>And set it up as follows (we’ll use the keyword <code class="docutils literal"><span class="pre">pbsetkey</span></code> because that’s what we told the user to use
+<p>And set it up as follows (we’ll use the keyword <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> because that’s what we told the user to use
 in the above warning message):</p>
 <img alt="_images/screen17_set_apikey_keyword.png" src="_images/screen17_set_apikey_keyword.png" />
-<p>You can now enter <code class="docutils literal"><span class="pre">pbsetkey</span></code> in Alfred and see the following:</p>
+<p>You can now enter <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> in Alfred and see the following:</p>
 <img alt="_images/screen18_pbsetkey.png" src="_images/screen18_pbsetkey.png" />
 <p>It won’t do anything yet, though, as we haven’t connected its output to anything.</p>
 <p>Back in Alfred’s Preferences, add a <strong>Run Script</strong> action:</p>
 <img alt="_images/screen19_runscript.png" src="_images/screen19_runscript.png" />
-<p>and point it at our <code class="docutils literal"><span class="pre">pinboard.py</span></code> script with the <code class="docutils literal"><span class="pre">--setkey</span></code> argument:</p>
+<p>and point it at our <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> script with the <code class="docutils literal notranslate"><span class="pre">--setkey</span></code> argument:</p>
 <img alt="_images/screen20_runscript_settings.png" src="_images/screen20_runscript_settings.png" />
-<p>Finally, connect the <code class="docutils literal"><span class="pre">pbsetkey</span></code> <strong>Keyword</strong> to the new <strong>Run Script</strong> action:</p>
+<p>Finally, connect the <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> <strong>Keyword</strong> to the new <strong>Run Script</strong> action:</p>
 <img alt="_images/screen21_connection.png" src="_images/screen21_connection.png" />
-<p>Now you can call <code class="docutils literal"><span class="pre">pbsetkey</span></code> in Alfred, paste in your Pinboard API key and hit
-<strong>ENTER</strong>. It will be saved by the workflow and <code class="docutils literal"><span class="pre">pbrecent</span></code> will once again
+<p>Now you can call <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> in Alfred, paste in your Pinboard API key and hit
+<strong>ENTER</strong>. It will be saved by the workflow and <code class="docutils literal notranslate"><span class="pre">pbrecent</span></code> will once again
 work as expected. Try it.</p>
 <p>It’s a little confusing receiving no feedback on whether the key was saved or not,
 so go back into Alfred’s Preferences, and add an <strong>Output &gt; Post Notification</strong>
@@ -393,12 +385,12 @@ action to your workflow:</p>
 <img alt="_images/screen22_notification_settings.png" src="_images/screen22_notification_settings.png" />
 <p>and connect the <strong>Run Script</strong> we just added to it:</p>
 <img alt="_images/screen23_three_way.png" src="_images/screen23_three_way.png" />
-<p>Try setting your API key again with <code class="docutils literal"><span class="pre">pbsetkey</span></code> and this time you’ll get a
+<p>Try setting your API key again with <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> and this time you’ll get a
 notification that it was saved.</p>
 </div>
 <div class="section" id="saving-settings">
 <span id="settings"></span><h2><a class="toc-backref" href="#id6">Saving settings</a><a class="headerlink" href="#saving-settings" title="Permalink to this headline">¶</a></h2>
-<p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal"><span class="pre">Settings</span></code></a>
+<p>Saving the API key was pretty easy (1 line of code). <a class="reference internal" href="api/index.html#workflow.workflow.Settings" title="workflow.workflow.Settings"><code class="xref py py-class docutils literal notranslate"><span class="pre">Settings</span></code></a>
 is a special dictionary that automatically saves itself when you change its
 contents. It can be used much like a normal dictionary with the caveat that all
 values must be serializable to JSON as the settings are saved as a JSON file in
@@ -407,14 +399,14 @@ the workflow’s data directory.</p>
 in the user’s Keychain. Let’s do that.</p>
 <div class="section" id="saving-settings-securely">
 <span id="secure-settings"></span><h3><a class="toc-backref" href="#id7">Saving settings securely</a><a class="headerlink" href="#saving-settings-securely" title="Permalink to this headline">¶</a></h3>
-<p><code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> provides three methods for managing data
-saved in macOS’s Keychain: <code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code>,
-<code class="xref py py-meth docutils literal"><span class="pre">save_password()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">delete_password()</span></code>.</p>
-<p>They are all called with an <code class="docutils literal"><span class="pre">account</span></code> name and an optional <code class="docutils literal"><span class="pre">service</span></code> name
-(by default, this is your workflow’s <code class="docutils literal"><span class="pre">bundle</span> <span class="pre">ID</span></code>).</p>
-<p>Change your <code class="docutils literal"><span class="pre">pinboard.py</span></code> script as follows to use Keychain instead of a JSON
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> provides three methods for managing data
+saved in macOS’s Keychain: <code class="xref py py-meth docutils literal notranslate"><span class="pre">get_password()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">save_password()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_password()</span></code>.</p>
+<p>They are all called with an <code class="docutils literal notranslate"><span class="pre">account</span></code> name and an optional <code class="docutils literal notranslate"><span class="pre">service</span></code> name
+(by default, this is your workflow’s <code class="docutils literal notranslate"><span class="pre">bundle</span> <span class="pre">ID</span></code>).</p>
+<p>Change your <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> script as follows to use Keychain instead of a JSON
 file to store your API key:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
   4
@@ -639,10 +631,10 @@ file to store your API key:</p>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p><code class="xref py py-meth docutils literal"><span class="pre">get_password()</span></code> raises a
-<code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code> exception if the requested
-password isn’t in your Keychain, so we import <code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code>
-and change <code class="docutils literal"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">api_key:</span></code> to a <code class="docutils literal"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code> clause (lines 65–72).</p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_password()</span></code> raises a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordNotFound</span></code> exception if the requested
+password isn’t in your Keychain, so we import <code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordNotFound</span></code>
+and change <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">api_key:</span></code> to a <code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></code> clause (lines 65–72).</p>
 <p>Try running your workflow again. It will complain that you haven’t saved your
 API key (it’s looking in Keychain now, not the settings), so set your API key
 once again, and you should be able to browse your recent posts in Alfred once more.</p>
@@ -659,8 +651,8 @@ workflow multiple times.</p>
 <p>Now that the API key is stored in Keychain, we don’t need it saved in the
 workflow’s settings any more (and having it there that kind of defeats the
 purpose of using Keychain). To get rid of it, we can use one of Alfred-Workflow’s
-“magic” arguments: <code class="docutils literal"><span class="pre">workflow:delsettings</span></code>.</p>
-<p>Open up Alfred, and enter <code class="docutils literal"><span class="pre">pbrecent</span> <span class="pre">workflow:delsettings</span></code>. You should see the
+“magic” arguments: <code class="docutils literal notranslate"><span class="pre">workflow:delsettings</span></code>.</p>
+<p>Open up Alfred, and enter <code class="docutils literal notranslate"><span class="pre">pbrecent</span> <span class="pre">workflow:delsettings</span></code>. You should see the
 following message:</p>
 <img alt="_images/screen25_magic.png" src="_images/screen25_magic.png" />
 <p>Alfred-Workflow has recognised one of its “magic” arguments, performed
@@ -671,11 +663,11 @@ Alfred and exited the workflow.</p>
 </div>
 <div class="section" id="logging">
 <h2><a class="toc-backref" href="#id9">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
-<p>There’s a log, you say? Yup. There’s a <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></code></a>
-instance at <code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code>
+<p>There’s a log, you say? Yup. There’s a <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></a>
+instance at <code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.logger</span></code>
 configured to output to both the Terminal (in case you’re running your workflow
 script in Terminal) and your workflow’s log file. Normally, I use it like this:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -700,8 +692,8 @@ script in Terminal) and your workflow’s log file. Normally, I use it like this
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>Assigning <code class="xref py py-attr docutils literal"><span class="pre">Workflow.logger</span></code> to the
-module global <code class="docutils literal"><span class="pre">log</span></code> is just a convenience. You could use <code class="docutils literal"><span class="pre">wf.logger</span></code> in
+<p>Assigning <code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.logger</span></code> to the
+module global <code class="docutils literal notranslate"><span class="pre">log</span></code> is just a convenience. You could use <code class="docutils literal notranslate"><span class="pre">wf.logger</span></code> in
 its place.</p>
 </div>
 <div class="section" id="spit-and-polish">
@@ -719,13 +711,13 @@ we show what we have and update in the background?</p>
 <div class="section" id="two-actions-one-keyword">
 <h3><a class="toc-backref" href="#id11">Two actions, one keyword</a><a class="headerlink" href="#two-actions-one-keyword" title="Permalink to this headline">¶</a></h3>
 <p>To solve the first issue (Pinboard API keys being hard to find), we’ll add a
-second <strong>Keyword</strong> input that responds to the same <code class="docutils literal"><span class="pre">pbsetkey</span></code> keyword as our
+second <strong>Keyword</strong> input that responds to the same <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> keyword as our
 other action, but this one will just send the user to the Pinboard
 <a class="reference external" href="https://pinboard.in/settings/password">password settings page</a> where the API keys are kept.</p>
 <p>Go back to your workflow in Alfred’s Preferences and add a new <strong>Keyword</strong> with
 the following settings:</p>
 <img alt="_images/screen26_keyword2.png" src="_images/screen26_keyword2.png" />
-<p>Now when you type <code class="docutils literal"><span class="pre">pbsetkey</span></code> into Alfred, you should see two options:</p>
+<p>Now when you type <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> into Alfred, you should see two options:</p>
 <img alt="_images/screen27_1_keyword_2_actions.png" src="_images/screen27_1_keyword_2_actions.png" />
 <p>The second action doesn’t do anything yet, of course, because we haven’t
 connected it to anything. So add an <strong>Open URL</strong> action in Alfred, enter this
@@ -735,7 +727,7 @@ URL:</p>
 <img alt="_images/screen28_open_url.png" src="_images/screen28_open_url.png" />
 <p>Finally, connect your new <strong>Keyword</strong> to the new <strong>Open URL</strong> action:</p>
 <img alt="_images/screen29_link.png" src="_images/screen29_link.png" />
-<p>Enter <code class="docutils literal"><span class="pre">pbsetkey</span></code> into Alfred once more and try out the new action. Pinboard
+<p>Enter <code class="docutils literal notranslate"><span class="pre">pbsetkey</span></code> into Alfred once more and try out the new action. Pinboard
 should open in your default browser.</p>
 <p>Easy peasy.</p>
 </div>
@@ -745,8 +737,8 @@ should open in your default browser.</p>
 its fallback searches. This is also what it does if a workflow crashes. So,
 the best thing to do when a user is explicitly using your workflow is to
 show a message indicating that no results were found.</p>
-<p>Change <code class="docutils literal"><span class="pre">pinboard.py</span></code> to the following:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+<p>Change <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> to the following:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
   4
@@ -994,26 +986,26 @@ likes of us. As long as we have some posts saved in the cache, we can show
 those while grabbing an updated list in the background (and notifying the user
 of the update, of course).</p>
 <p>Now, there are a few different ways to start a background process. We could ask
-the user to set up a <code class="docutils literal"><span class="pre">cron</span></code> job, but <code class="docutils literal"><span class="pre">cron</span></code> isn’t the easiest software to
+the user to set up a <code class="docutils literal notranslate"><span class="pre">cron</span></code> job, but <code class="docutils literal notranslate"><span class="pre">cron</span></code> isn’t the easiest software to
 use. We could add and load a <a class="reference external" href="http://robots.thoughtbot.com/example-writing-a-launch-agent-for-apples-launchd">Launch Agent</a>, but that’d run indefinitely,
 whether or not the workflow is being used, and even if the workflow were
 uninstalled. So we’d best start our background process from within the workflow
 itself.</p>
-<p>Normally, you’d use <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></code></a> to start a background process,
+<p>Normally, you’d use <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">subprocess.Popen</span></code></a> to start a background process,
 but that doesn’t necessarily work quite as you might expect in Alfred: it
 treats your workflow as still running till the subprocess has finished,
 too, so it won’t call your workflow with a new query till the update is done.
 Which is exactly what happens now and the behaviour we want to avoid.</p>
-<p>Fortunately, Alfred-Workflow provides the <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module
+<p>Fortunately, Alfred-Workflow provides the <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal notranslate"><span class="pre">background</span></code></a> module
 to solve this problem.</p>
-<p>Using the <a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
-and <a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> functions,
+<p>Using the <a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal notranslate"><span class="pre">background.run_in_background()</span></code></a>
+and <a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal notranslate"><span class="pre">background.is_running()</span></code></a> functions,
 we can easily run a script in the background while our workflow remains
 responsive to Alfred’s queries.</p>
-<p>Alfred-Workflow’s <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a> module is based on, and uses the
-same API as <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">subprocess.call()</span></code></a>, but it runs the command as a background
+<p>Alfred-Workflow’s <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal notranslate"><span class="pre">background</span></code></a> module is based on, and uses the
+same API as <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.call" title="(in Python v2.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">subprocess.call()</span></code></a>, but it runs the command as a background
 daemon process (consequently, it won’t return anything). So, our updater script
-will be called from our main workflow script, but <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">background</span></code></a>
+will be called from our main workflow script, but <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal notranslate"><span class="pre">background</span></code></a>
 will run it as a background process. This way, it will appear to exit
 immediately, so Alfred will keep on calling our workflow every time the query
 changes.</p>
@@ -1022,9 +1014,9 @@ running and post a useful, friendly notification if it is.</p>
 <p>Let’s have at it.</p>
 <div class="section" id="background-updater-script">
 <h4><a class="toc-backref" href="#id14">Background updater script</a><a class="headerlink" href="#background-updater-script" title="Permalink to this headline">¶</a></h4>
-<p>Create a new file in the workflow root directory called <code class="docutils literal"><span class="pre">update.py</span></code> with these
+<p>Create a new file in the workflow root directory called <code class="docutils literal notranslate"><span class="pre">update.py</span></code> with these
 contents:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -1129,23 +1121,23 @@ contents:</p>
      <span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>At the top of the file (line 7), we’ve copied the <code class="docutils literal"><span class="pre">get_recent_posts()</span></code>
-function from <code class="docutils literal"><span class="pre">pinboard.py</span></code> (we won’t need it there any more).</p>
-<p>The contents of the <code class="docutils literal"><span class="pre">try</span></code> block in <code class="docutils literal"><span class="pre">main()</span></code> (lines 29–44) are once again
-copied straight from <code class="docutils literal"><span class="pre">pinboard.py</span></code> (where we won’t be needing them any more).</p>
-<p>The <code class="docutils literal"><span class="pre">except</span></code> clause (lines 46–48) is to trap the
-<code class="xref py py-class docutils literal"><span class="pre">PasswordNotFound</span></code>
-error that <code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code>
-will raise if the user hasn’t set their API key via Alfred yet. <code class="docutils literal"><span class="pre">update.py</span></code>
-can quietly die if no API key has been set because <code class="docutils literal"><span class="pre">pinboard.py</span></code> takes care
+<p>At the top of the file (line 7), we’ve copied the <code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code>
+function from <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> (we won’t need it there any more).</p>
+<p>The contents of the <code class="docutils literal notranslate"><span class="pre">try</span></code> block in <code class="docutils literal notranslate"><span class="pre">main()</span></code> (lines 29–44) are once again
+copied straight from <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> (where we won’t be needing them any more).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">except</span></code> clause (lines 46–48) is to trap the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordNotFound</span></code>
+error that <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.get_password()</span></code>
+will raise if the user hasn’t set their API key via Alfred yet. <code class="docutils literal notranslate"><span class="pre">update.py</span></code>
+can quietly die if no API key has been set because <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> takes care
 of notifying the user to set their API key.</p>
-<p>Let’s try out <code class="docutils literal"><span class="pre">update.py</span></code>. <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the workflow root directory</a>
+<p>Let’s try out <code class="docutils literal notranslate"><span class="pre">update.py</span></code>. <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">Open a Terminal window at the workflow root directory</a>
 and run the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">update</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">update</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>If it works, you should see something like this:</p>
-<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="m">21</span>:59:59 workflow.py:855 DEBUG    get_password : net.deanishe.alfred-pinboard-recent:pinboard_api_key
@@ -1154,13 +1146,13 @@ and run the following:</p>
 </span> <span class="m">22</span>:19:25 workflow.py:371 INFO     Opening workflow log file
 </pre></div>
 </td></tr></table></div>
-<p>As you can see in the 3rd line, <code class="docutils literal"><span class="pre">update.py</span></code> did its job.</p>
+<p>As you can see in the 3rd line, <code class="docutils literal notranslate"><span class="pre">update.py</span></code> did its job.</p>
 </div>
 <div class="section" id="running-update-py-from-pinboard-py">
-<h4><a class="toc-backref" href="#id15">Running <code class="docutils literal"><span class="pre">update.py</span></code> from <code class="docutils literal"><span class="pre">pinboard.py</span></code></a><a class="headerlink" href="#running-update-py-from-pinboard-py" title="Permalink to this headline">¶</a></h4>
-<p>So now let’s update <code class="docutils literal"><span class="pre">pinboard.py</span></code> to call <code class="docutils literal"><span class="pre">update.py</span></code> instead of doing the
+<h4><a class="toc-backref" href="#id15">Running <code class="docutils literal notranslate"><span class="pre">update.py</span></code> from <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code></a><a class="headerlink" href="#running-update-py-from-pinboard-py" title="Permalink to this headline">¶</a></h4>
+<p>So now let’s update <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> to call <code class="docutils literal notranslate"><span class="pre">update.py</span></code> instead of doing the
 update itself:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
   4
@@ -1370,48 +1362,48 @@ update itself:</p>
 </pre></div>
 </td></tr></table></div>
 <p>First of all, we’ve changed the imports a bit. We no longer need
-<a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal"><span class="pre">workflow.web</span></code></a>, because we’ll use the functions
-<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">run_in_background()</span></code></a> from <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal"><span class="pre">workflow.background</span></code></a>
-to call <code class="docutils literal"><span class="pre">update.py</span></code> instead, and we’ve also imported another icon
-(<code class="docutils literal"><span class="pre">ICON_INFO</span></code>) to show our update message.</p>
-<p>As noted before, <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> has now moved to <code class="docutils literal"><span class="pre">update.py</span></code>, as has
-the <code class="docutils literal"><span class="pre">wrapper()</span></code> function inside <code class="docutils literal"><span class="pre">main()</span></code>.</p>
-<p>Also in <code class="docutils literal"><span class="pre">main()</span></code>, we no longer need <code class="docutils literal"><span class="pre">api_key</span></code>. However, we still want to
+<a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.web</span></code></a>, because we’ll use the functions
+<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_in_background()</span></code></a> from <a class="reference internal" href="api/index.html#module-workflow.background" title="workflow.background"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.background</span></code></a>
+to call <code class="docutils literal notranslate"><span class="pre">update.py</span></code> instead, and we’ve also imported another icon
+(<code class="docutils literal notranslate"><span class="pre">ICON_INFO</span></code>) to show our update message.</p>
+<p>As noted before, <code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code> has now moved to <code class="docutils literal notranslate"><span class="pre">update.py</span></code>, as has
+the <code class="docutils literal notranslate"><span class="pre">wrapper()</span></code> function inside <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+<p>Also in <code class="docutils literal notranslate"><span class="pre">main()</span></code>, we no longer need <code class="docutils literal notranslate"><span class="pre">api_key</span></code>. However, we still want to
 know if it has been saved, so we can show a warning if not, so we still call
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.get_password()</span></code>, but
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.get_password()</span></code>, but
 without saving the result.</p>
 <p>Most importantly, we’ve now expanded the update code to check if our cached
 data are fresh with
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code>
-and to run the <code class="docutils literal"><span class="pre">update.py</span></code> script via
-<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal"><span class="pre">background.run_in_background()</span></code></a>
-if not (<code class="xref py py-meth docutils literal"><span class="pre">Workflow.workflowfile()</span></code>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data_fresh()</span></code>
+and to run the <code class="docutils literal notranslate"><span class="pre">update.py</span></code> script via
+<a class="reference internal" href="api/index.html#workflow.background.run_in_background" title="workflow.background.run_in_background"><code class="xref py py-func docutils literal notranslate"><span class="pre">background.run_in_background()</span></code></a>
+if not (<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.workflowfile()</span></code>
 returns the full path to a file in the workflow’s root directory).</p>
 <p>Then we check if the update process is running via
-<a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal"><span class="pre">background.is_running()</span></code></a> using the
-name we assigned to the process (<code class="docutils literal"><span class="pre">update</span></code>), and notify the user via Alfred’s
+<a class="reference internal" href="api/index.html#workflow.background.is_running" title="workflow.background.is_running"><code class="xref py py-func docutils literal notranslate"><span class="pre">background.is_running()</span></code></a> using the
+name we assigned to the process (<code class="docutils literal notranslate"><span class="pre">update</span></code>), and notify the user via Alfred’s
 results if it is.</p>
-<p>Finally, we call <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code>
-with <code class="docutils literal"><span class="pre">None</span></code> as the data-retrieval function (line 66) because we don’t want to
+<p>Finally, we call <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code>
+with <code class="docutils literal notranslate"><span class="pre">None</span></code> as the data-retrieval function (line 66) because we don’t want to
 run an update from this script, blocking Alfred. As a consequence, it’s
-possible that we’ll get back <code class="docutils literal"><span class="pre">None</span></code> instead of a list of posts if there are
-no cached data, so we check for this before trying to filter <code class="docutils literal"><span class="pre">None</span></code> in line
+possible that we’ll get back <code class="docutils literal notranslate"><span class="pre">None</span></code> instead of a list of posts if there are
+no cached data, so we check for this before trying to filter <code class="docutils literal notranslate"><span class="pre">None</span></code> in line
 80.</p>
 </div>
 </div>
 </div>
 <div class="section" id="the-fruits-of-your-labour">
 <h2><a class="toc-backref" href="#id16">The fruits of your labour</a><a class="headerlink" href="#the-fruits-of-your-labour" title="Permalink to this headline">¶</a></h2>
-<p>Now let’s give it a spin. Open up Alfred and enter <code class="docutils literal"><span class="pre">pbrecent</span>
-<span class="pre">workflow:delcache</span></code> to clear the cached data. Then enter <code class="docutils literal"><span class="pre">pbrecent</span></code> and start
+<p>Now let’s give it a spin. Open up Alfred and enter <code class="docutils literal notranslate"><span class="pre">pbrecent</span>
+<span class="pre">workflow:delcache</span></code> to clear the cached data. Then enter <code class="docutils literal notranslate"><span class="pre">pbrecent</span></code> and start
 typing a query. You should see the “Getting new posts from Pinboard” message
 appear. Unfortunately, we won’t see any results at the moment because we just
 deleted the cached data.</p>
-<p>To see our background updater weave its magic, we can change the <code class="docutils literal"><span class="pre">max_age</span></code> parameter
-passed to <code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code>
-in <code class="docutils literal"><span class="pre">update.py</span></code> on line 42 and to
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data_fresh()</span></code>
-in <code class="docutils literal"><span class="pre">pinboard.py</span></code> on line 69 to <code class="docutils literal"><span class="pre">60</span></code>. Open up Alfred, enter <code class="docutils literal"><span class="pre">pbrecent</span></code> and
+<p>To see our background updater weave its magic, we can change the <code class="docutils literal notranslate"><span class="pre">max_age</span></code> parameter
+passed to <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code>
+in <code class="docutils literal notranslate"><span class="pre">update.py</span></code> on line 42 and to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data_fresh()</span></code>
+in <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> on line 69 to <code class="docutils literal notranslate"><span class="pre">60</span></code>. Open up Alfred, enter <code class="docutils literal notranslate"><span class="pre">pbrecent</span></code> and
 a couple of letters, then twiddle your thumbs for ~55 seconds. Type another letter
 or two and you should see the “Getting new posts…” message <em>and</em> search
 results. Cool, huh?</p>
@@ -1420,10 +1412,10 @@ results. Cool, huh?</p>
 <p>Now you’ve produced a technical marvel, it’s time to tell the world and enjoy
 the well-earned plaudits. To build your workflow, open it up in Alfred’s
 Preferences, right-click on the workflow’s name in the list on the left-hand
-side, and choose <strong>Export…</strong>. This will save a <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> file that
-you can share with other people. <code class="docutils literal"><span class="pre">.alfredworkflow</span></code> files are just ZIP files
+side, and choose <strong>Export…</strong>. This will save a <code class="docutils literal notranslate"><span class="pre">.alfredworkflow</span></code> file that
+you can share with other people. <code class="docutils literal notranslate"><span class="pre">.alfredworkflow</span></code> files are just ZIP files
 with a different extension. If you want to have a poke around inside one, just
-change the extension to <code class="docutils literal"><span class="pre">.zip</span></code> and extract it in the normal way.</p>
+change the extension to <code class="docutils literal notranslate"><span class="pre">.zip</span></code> and extract it in the normal way.</p>
 <p>And how do you share your Workflow with the world?</p>
 <p>There’s a <a class="reference external" href="http://www.alfredforum.com/forum/3-share-your-workflows/">Share your Workflows thread</a> on <a class="reference external" href="http://www.alfredforum.com/">the official Alfred forum</a>, but
 being a forum, it’s less than ideal as a directory for workflows. Also, you’d
@@ -1456,21 +1448,21 @@ disadvantage of this method is it only works if a user installs and uses the
 <h4><a class="toc-backref" href="#id20">GitHub releases</a><a class="headerlink" href="#github-releases" title="Permalink to this headline">¶</a></h4>
 <p>A <em>slightly</em> more complex to implement method is to use Alfred-Workflow’s
 built-in support for updates via <a class="reference external" href="https://help.github.com/articles/about-releases">GitHub releases</a>. If you tell your
-<code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code> object the name of your GitHub repo and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code> object the name of your GitHub repo and
 the installed workflow’s version number, Alfred-Workflow will automatically
 check for a new version every day.</p>
 <p>By default, Alfred-Workflow won’t inform the user of the new version or
-update the workflow unless the user explicitly uses the <code class="docutils literal"><span class="pre">workflow:update</span></code>
+update the workflow unless the user explicitly uses the <code class="docutils literal notranslate"><span class="pre">workflow:update</span></code>
 <a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span class="std std-ref">“magic” argument</span></a>, but you can check the
-<code class="xref py py-attr docutils literal"><span class="pre">Workflow.update_available</span></code>
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">Workflow.update_available</span></code>
 attribute and inform the user of the availability of an update if it’s
-<code class="docutils literal"><span class="pre">True</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>See <a class="reference internal" href="guide/update.html#guide-updates"><span class="std std-ref">Self-updating</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for information on how to
 enable your workflow to update itself from GitHub.</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">argparse</span></code></a> isn’t available in Python 2.6, so this workflow won’t
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a> isn’t available in Python 2.6, so this workflow won’t
 run on Snow Leopard (10.6).</td></tr>
 </tbody>
 </table>
@@ -1529,10 +1521,11 @@ run on Snow Leopard (10.6).</td></tr>
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -1582,12 +1575,14 @@ run on Snow Leopard (10.6).</td></tr>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -1608,10 +1603,10 @@ run on Snow Leopard (10.6).</td></tr>
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

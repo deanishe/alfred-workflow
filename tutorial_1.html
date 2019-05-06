@@ -5,23 +5,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &#8212; Alfred-Workflow 1.33 documentation</title>
+    <title>Tutorial Part 1: Creating a Basic Pinboard Workflow &#8212; Alfred-Workflow 1.37 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.33',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -40,8 +33,7 @@
 <![endif]-->
 <link rel="stylesheet" href="_static/custom.css">
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -112,17 +104,17 @@ will show when you type the <strong>Keyword</strong>:</p>
 <img alt="_images/screen4_alfred_list.png" src="_images/screen4_alfred_list.png" />
 <p>The <strong>“Please Wait” Subtext</strong> is what is shown when your workflow is working,
 which in our case means fetching data from pinboard.in.</p>
-<p>Very importantly, set the <strong>Language</strong> to <code class="docutils literal"><span class="pre">/bin/bash</span></code>.
+<p>Very importantly, set the <strong>Language</strong> to <code class="docutils literal notranslate"><span class="pre">/bin/bash</span></code>.
 The <strong>Script</strong> field should contain:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>We’re going to create the <code class="docutils literal"><span class="pre">pinboard.py</span></code> script in a second. The <strong>Escaping</strong>
+<p>We’re going to create the <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> script in a second. The <strong>Escaping</strong>
 options don’t matter for now because our Script Filter doesn’t accept an
 argument.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>You <em>can</em> choose <code class="docutils literal"><span class="pre">/usr/bin/python</span></code> as the <strong>Language</strong> and paste
+<p>You <em>can</em> choose <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> as the <strong>Language</strong> and paste
 your Python code into the <strong>Script</strong> box, but this isn’t the best idea.</p>
 <p class="last">If you do this, you can’t run the script from the Terminal (which can be
 helpful when developing/debugging), and you can’t as easily use a proper
@@ -138,18 +130,18 @@ Right-click on your workflow in the list on the left and choose
 chose an icon):</p>
 <img alt="_images/screen7_finder.png" src="_images/screen7_finder.png" />
 <p>At this point, download <a class="reference external" href="https://github.com/deanishe/alfred-workflow/releases/latest">the latest release of Alfred-Workflow</a> from GitHub,
-extract it and copy the <code class="docutils literal"><span class="pre">workflow</span></code> directory into your workflow’s directory:</p>
+extract it and copy the <code class="docutils literal notranslate"><span class="pre">workflow</span></code> directory into your workflow’s directory:</p>
 <img alt="_images/screen8_finder_with_workflow.png" src="_images/screen8_finder_with_workflow.png" />
 <p>Now we can start coding.</p>
 </div>
 <div class="section" id="writing-your-python-script">
 <span id="writing-script"></span><h2><a class="toc-backref" href="#id6">Writing your Python script</a><a class="headerlink" href="#writing-your-python-script" title="Permalink to this headline">¶</a></h2>
 <p>Using your text editor of choice <a class="footnote-reference" href="#id2" id="id1">[1]</a>, create a new text file and save it in your
-workflow directory as <code class="docutils literal"><span class="pre">pinboard.py</span></code> (the name we used when setting up the
+workflow directory as <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> (the name we used when setting up the
 Script Filter).</p>
-<p>Add the following code to <code class="docutils literal"><span class="pre">pinboard.py</span></code> (be sure to change <code class="docutils literal"><span class="pre">API_KEY</span></code> to
+<p>Add the following code to <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> (be sure to change <code class="docutils literal notranslate"><span class="pre">API_KEY</span></code> to
 your pinboard API key. You can find it on the <a class="reference external" href="https://pinboard.in/settings/password">settings/password page</a>):</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -229,7 +221,7 @@ you should see an error like this:</p>
 <p>If Alfred shows nothing at all, it probably couldn’t run your Python script at
 all. You’ll have to <a class="reference external" href="https://www.youtube.com/watch?v=xsCCgITrrWI">open the workflow directory in Terminal</a>
 and run the script by hand to see the error:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">pinboard</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
@@ -239,8 +231,8 @@ and run the script by hand to see the error:</p>
 them. We’re going to change that and make the items “actionable” (i.e. you
 can hit <strong>ENTER</strong> on them and something happens, in this case, the page
 will be opened in your browser).</p>
-<p>Add the highlighted lines (27–28) to your <code class="docutils literal"><span class="pre">pinboard.py</span></code> file:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<p>Add the highlighted lines (27–28) to your <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> file:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -315,11 +307,11 @@ will be opened in your browser).</p>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p><code class="docutils literal"><span class="pre">valid=True</span></code> tells Alfred that the item is actionable and <code class="docutils literal"><span class="pre">arg</span></code> is the
+<p><code class="docutils literal notranslate"><span class="pre">valid=True</span></code> tells Alfred that the item is actionable and <code class="docutils literal notranslate"><span class="pre">arg</span></code> is the
 value it will pass to the next action (in this case a URL).</p>
 <p>Go back to Alfred’s Preferences and add an <strong>Open URL</strong> action:</p>
 <img alt="_images/screen11_add_open_url.png" src="_images/screen11_add_open_url.png" />
-<p>Then enter <code class="docutils literal"><span class="pre">{query}</span></code> as the URL:</p>
+<p>Then enter <code class="docutils literal notranslate"><span class="pre">{query}</span></code> as the URL:</p>
 <img alt="_images/screen12_url_query.png" src="_images/screen12_url_query.png" />
 <p>When you hover your mouse over the Script Filter, you’ll notice a small “nub”
 appears on the right-hand side:</p>
@@ -336,9 +328,9 @@ posts method to <a class="reference external" href="https://pinboard.in/api#limi
 likely you’ll call your workflow more often than that, we need to cache the
 results from the API and use the cached data for at least a minute.
 Alfred-Workflow makes this a doddle with its
-<code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> method.</p>
-<p>Go back to <code class="docutils literal"><span class="pre">pinboard.py</span></code> and make the following changes:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">cached_data()</span></code> method.</p>
+<p>Go back to <code class="docutils literal notranslate"><span class="pre">pinboard.py</span></code> and make the following changes:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -430,18 +422,18 @@ Alfred-Workflow makes this a doddle with its
 </pre></div>
 </td></tr></table></div>
 <p>We’ve moved the code that retrieves the data from the API to a separate
-function (<code class="docutils literal"><span class="pre">get_recent_posts()</span></code>, line 9) and instead we ask
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.cached_data()</span></code> (line 33)
-for the data cached under the name <code class="docutils literal"><span class="pre">posts</span></code> (the first argument).
-<code class="xref py py-meth docutils literal"><span class="pre">cached_data()</span></code> will first check its cache for
-data saved under <code class="docutils literal"><span class="pre">posts</span></code> and return those data
-if they’re less than <code class="docutils literal"><span class="pre">max_age</span></code> seconds old. If the data are older or don’t
-exist, it will call the <code class="docutils literal"><span class="pre">get_recent_posts()</span></code> function passed as the second
-parameter, cache the data returned by that function under the name <code class="docutils literal"><span class="pre">posts</span></code>
+function (<code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code>, line 9) and instead we ask
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.cached_data()</span></code> (line 33)
+for the data cached under the name <code class="docutils literal notranslate"><span class="pre">posts</span></code> (the first argument).
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">cached_data()</span></code> will first check its cache for
+data saved under <code class="docutils literal notranslate"><span class="pre">posts</span></code> and return those data
+if they’re less than <code class="docutils literal notranslate"><span class="pre">max_age</span></code> seconds old. If the data are older or don’t
+exist, it will call the <code class="docutils literal notranslate"><span class="pre">get_recent_posts()</span></code> function passed as the second
+parameter, cache the data returned by that function under the name <code class="docutils literal notranslate"><span class="pre">posts</span></code>
 and return it.</p>
 <p>So now we won’t get banned by Pinboard for hammering the API, and as a bonus,
 the workflow is now <em>blazingly</em> fast when the data are in its cache. For this
-reason, it’s probably a good idea to increase <code class="docutils literal"><span class="pre">max_age</span></code> to 300 or 600 seconds
+reason, it’s probably a good idea to increase <code class="docutils literal notranslate"><span class="pre">max_age</span></code> to 300 or 600 seconds
 (5 or 10 minutes) or even more—depending on how often you add new posts
 to Pinboard—to get super-fast results more often.</p>
 </div>
@@ -453,7 +445,7 @@ a list of 20 results? Let’s make them searchable.</p>
 <strong>No Argument</strong> to <strong>Argument Optional</strong> and select <strong>with space</strong>.
 <strong>with space</strong> means that when you hit <strong>ENTER</strong> or <strong>TAB</strong> on your workflow
 action, Alfred will add a space after it, so you can start typing your query
-immediately. Then add <code class="docutils literal"><span class="pre">&quot;{query}&quot;</span></code> in the <strong>Script</strong> text field. <code class="docutils literal"><span class="pre">{query}</span></code>
+immediately. Then add <code class="docutils literal notranslate"><span class="pre">&quot;{query}&quot;</span></code> in the <strong>Script</strong> text field. <code class="docutils literal notranslate"><span class="pre">{query}</span></code>
 will be replaced by Alfred with whatever you’ve typed after the keyword. Finally,
 set the <strong>Escaping</strong> options to:</p>
 <ul class="simple">
@@ -463,13 +455,13 @@ set the <strong>Escaping</strong> options to:</p>
 <li>Backslashes</li>
 </ul>
 <p>and <strong>nothing</strong> else. This ensures that the query reaches your Python script
-unmolested by <code class="docutils literal"><span class="pre">bash</span></code>. Your <strong>Script Filter</strong> settings should now look like
+unmolested by <code class="docutils literal notranslate"><span class="pre">bash</span></code>. Your <strong>Script Filter</strong> settings should now look like
 this:</p>
 <img alt="_images/screen14_script_filter_details.png" src="_images/screen14_script_filter_details.png" />
 <p>First, we’ll set the script to get 100 recent posts from Pinboard (the maximum
 allowed)  in line 16 and to cache them for 10 minutes in line 33 (or use 300
 seconds for 5 minutes if you’re a heavy Pinboardista):</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -572,7 +564,7 @@ seconds for 5 minutes if you’re a heavy Pinboardista):</p>
 </td></tr></table></div>
 <p>Then we need to add the ability to receive the query from Alfred and filter our
 posts based on it:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -711,27 +703,27 @@ posts based on it:</p>
      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">wf</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
-<p>Looking at <code class="docutils literal"><span class="pre">main()</span></code> first, we add a <code class="docutils literal"><span class="pre">query</span></code> variable (lines 40–44).
+<p>Looking at <code class="docutils literal notranslate"><span class="pre">main()</span></code> first, we add a <code class="docutils literal notranslate"><span class="pre">query</span></code> variable (lines 40–44).
 Because our Script Filter can run with or without an argument, we test to see
-if any were passed to the script using via <code class="xref py py-attr docutils literal"><span class="pre">args</span></code>
-attribute of <code class="xref py py-class docutils literal"><span class="pre">Workflow</span></code>, and grab the first one if there were
-(this will be the contents of <code class="docutils literal"><span class="pre">{query}</span></code> from the Script Filter).</p>
-<p>Using <code class="xref py py-attr docutils literal"><span class="pre">args</span></code> is similar to accessing
-<code class="docutils literal"><span class="pre">sys.argv[1:]</span></code> directly, but additionally decodes the arguments to Unicode
+if any were passed to the script using via <code class="xref py py-attr docutils literal notranslate"><span class="pre">args</span></code>
+attribute of <code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code>, and grab the first one if there were
+(this will be the contents of <code class="docutils literal notranslate"><span class="pre">{query}</span></code> from the Script Filter).</p>
+<p>Using <code class="xref py py-attr docutils literal notranslate"><span class="pre">args</span></code> is similar to accessing
+<code class="docutils literal notranslate"><span class="pre">sys.argv[1:]</span></code> directly, but additionally decodes the arguments to Unicode
 and normalizes them. It also enables <a class="reference internal" href="guide/magic-arguments.html#magic-arguments"><span class="std std-ref">“Magic” arguments</span></a>.</p>
 <p>After getting all the posts from the cache or Pinboard, we then filter them
-using the <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> method
-if there is a <code class="docutils literal"><span class="pre">query</span></code> (lines 51–52).</p>
-<p><code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> implements an
+using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.filter()</span></code> method
+if there is a <code class="docutils literal notranslate"><span class="pre">query</span></code> (lines 51–52).</p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.filter()</span></code> implements an
 Alfred-like search algorithm (e.g. “am” will match “Activity Monitor” as well
 as “I Am Legend”), but it needs a string to search. Therefore, we write the
-<code class="docutils literal"><span class="pre">search_key_for_post()</span></code> (line 29) function that will build a searchable string
+<code class="docutils literal notranslate"><span class="pre">search_key_for_post()</span></code> (line 29) function that will build a searchable string
 for each post, comprising its title, tags and description (in that order).</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p>In the last line of <code class="docutils literal"><span class="pre">search_key_for_post()</span></code>, we join the elements with
-<code class="docutils literal"><span class="pre">u'</span> <span class="pre">'</span></code> (a Unicode space), not <code class="docutils literal"><span class="pre">'</span> <span class="pre">'</span></code> (a byte-string space). The
-<a class="reference internal" href="api/index.html#workflow.web.Response.json" title="workflow.web.Response.json"><code class="xref py py-meth docutils literal"><span class="pre">web.Response.json()</span></code></a> method returns
+<p>In the last line of <code class="docutils literal notranslate"><span class="pre">search_key_for_post()</span></code>, we join the elements with
+<code class="docutils literal notranslate"><span class="pre">u'</span> <span class="pre">'</span></code> (a Unicode space), not <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code> (a byte-string space). The
+<a class="reference internal" href="api/index.html#workflow.web.Response.json" title="workflow.web.Response.json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">web.Response.json()</span></code></a> method returns
 Unicode (as do most Alfred-Workflow methods and functions), and mixing
 Unicode and byte-strings will cause a fatal error if the byte-string
 contains non-ASCII characters. In this particular situation, using a
@@ -744,7 +736,7 @@ internally and decode all text to Unicode when it arrives in your workflow
 <p>Alfred-Workflow’s APIs use Unicode and it works hard to hide as much of
 the complexity of working with byte-strings and Unicode as possible, but
 you still need to manually decode encoded byte-strings from other sources
-with <code class="xref py py-meth docutils literal"><span class="pre">Workflow.decode()</span></code> to avoid
+with <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.decode()</span></code> to avoid
 fatal encoding errors.</p>
 <p class="last">See <a class="reference internal" href="guide/text-encoding.html#text-encoding"><span class="std std-ref">Encoded strings and Unicode</span></a> in the <a class="reference internal" href="guide/index.html#user-manual"><span class="std std-ref">User Guide</span></a> for more information on
 dealing with encoded (byte) strings and Unicode in workflows.</p>
@@ -753,19 +745,19 @@ dealing with encoded (byte) strings and Unicode in workflows.</p>
 <h3><a class="toc-backref" href="#id10">Improving the search results</a><a class="headerlink" href="#improving-the-search-results" title="Permalink to this headline">¶</a></h3>
 <p>If you’ve been trying out the workflow, you’ve probably noticed that your queries
 match a lot of posts they really shouldn’t. The reason for this is that,
-by default, <code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code> matches
-<em>anything</em> that contains all the characters of <code class="docutils literal"><span class="pre">query</span></code> in the same order,
-regardless of case. To fix this, we’ll add a <code class="docutils literal"><span class="pre">min_score</span></code> argument to
-<code class="xref py py-meth docutils literal"><span class="pre">Workflow.filter()</span></code>. Change the line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
+by default, <code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.filter()</span></code> matches
+<em>anything</em> that contains all the characters of <code class="docutils literal notranslate"><span class="pre">query</span></code> in the same order,
+regardless of case. To fix this, we’ll add a <code class="docutils literal notranslate"><span class="pre">min_score</span></code> argument to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.filter()</span></code>. Change the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">posts</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">search_key_for_post</span><span class="p">,</span> <span class="n">min_score</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and try the workflow again. The junk results should be gone. You can adjust
-<code class="docutils literal"><span class="pre">min_score</span></code> up or down depending on how strict you want to be with the results.</p>
+<code class="docutils literal notranslate"><span class="pre">min_score</span></code> up or down depending on how strict you want to be with the results.</p>
 </div>
 </div>
 <div class="section" id="what-now">
@@ -858,10 +850,11 @@ another good, free editor for macOS (supports 10.6).</td></tr>
 <p>
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
-    alt="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
-    src="https://img.shields.io/coveralls/deanishe/alfred-workflow/master.svg?style=flat"
+    alt="coverage icon"
+    src="https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master"
     />
 </a>
+
 
 
 
@@ -911,12 +904,14 @@ another good, free editor for macOS (supports 10.6).</td></tr>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
 <h3>Donate</h3>
@@ -937,10 +932,10 @@ another good, free editor for macOS (supports 10.6).</td></tr>
 
 
     <div class="footer">
-      &copy; 2013–2017 Dean Jackson.
+      &copy; 2013–2019 Dean Jackson.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>

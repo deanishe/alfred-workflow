@@ -100,6 +100,7 @@ class NoRedirectHandler(urllib2.HTTPRedirectHandler):
     """Prevent redirections."""
 
     def redirect_request(self, *args):
+        """Ignore redirect."""
         return None
 
 
@@ -136,6 +137,7 @@ class CaseInsensitiveDictionary(dict):
         return dict.__setitem__(self, key.lower(), {'key': key, 'val': value})
 
     def get(self, key, default=None):
+        """Return value for case-insensitive key or default."""
         try:
             v = dict.__getitem__(self, key.lower())
         except KeyError:
@@ -144,27 +146,34 @@ class CaseInsensitiveDictionary(dict):
             return v['val']
 
     def update(self, other):
+        """Update values from other ``dict``."""
         for k, v in other.items():
             self[k] = v
 
     def items(self):
+        """Return ``(key, value)`` pairs."""
         return [(v['key'], v['val']) for v in dict.itervalues(self)]
 
     def keys(self):
+        """Return original keys."""
         return [v['key'] for v in dict.itervalues(self)]
 
     def values(self):
+        """Return all values."""
         return [v['val'] for v in dict.itervalues(self)]
 
     def iteritems(self):
+        """Iterate over ``(key, value)`` pairs."""
         for v in dict.itervalues(self):
             yield v['key'], v['val']
 
     def iterkeys(self):
+        """Iterate over original keys."""
         for v in dict.itervalues(self):
             yield v['key']
 
     def itervalues(self):
+        """Interate over values."""
         for v in dict.itervalues(self):
             yield v['val']
 
@@ -431,9 +440,9 @@ class Response(object):
                 if m:
                     encoding = m.group(1)
 
-            elif ((self.mimetype.startswith('application/') or
-                   self.mimetype.startswith('text/')) and
-                  'xml' in self.mimetype):
+            elif ((self.mimetype.startswith('application/')
+                   or self.mimetype.startswith('text/'))
+                  and 'xml' in self.mimetype):
                 m = re.search(r"""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
                               self.content)
                 if m:

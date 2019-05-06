@@ -55,57 +55,6 @@ def test_lockfile_created(paths):
     assert not os.path.exists(paths.lockfile)
 
 
-# def test_lockfile_contains_pid(paths):
-#     """Lockfile contains process PID."""
-#     assert not os.path.exists(paths.testfile)
-#     assert not os.path.exists(paths.lockfile)
-
-#     with LockFile(paths.testfile, timeout=0.2):
-#         with open(paths.lockfile) as fp:
-#             s = fp.read()
-
-#     assert s == str(os.getpid())
-
-
-# def test_invalid_lockfile_removed(paths):
-#     """Invalid lockfile removed."""
-#     assert not os.path.exists(paths.testfile)
-#     assert not os.path.exists(paths.lockfile)
-
-#     # create invalid lock file
-#     with open(paths.lockfile, 'wb') as fp:
-#         fp.write("dean woz 'ere!")
-
-#     # the above invalid lockfile should be removed and
-#     # replaced with one containing this process's PID
-#     with LockFile(paths.testfile, timeout=0.2):
-#         with open(paths.lockfile) as fp:
-#             s = fp.read()
-
-#     assert s == str(os.getpid())
-
-
-# def test_stale_lockfile_removed(paths):
-#     """Stale lockfile removed."""
-#     assert not os.path.exists(paths.testfile)
-#     assert not os.path.exists(paths.lockfile)
-
-#     p = subprocess.Popen('true')
-#     pid = p.pid
-#     p.wait()
-#     # create invalid lock file
-#     with open(paths.lockfile, 'wb') as fp:
-#         fp.write(str(pid))
-
-#     # the above invalid lockfile should be removed and
-#     # replaced with one containing this process's PID
-#     with LockFile(paths.testfile, timeout=0.2):
-#         with open(paths.lockfile) as fp:
-#             s = fp.read()
-
-#     assert s == str(os.getpid())
-
-
 def test_sequential_access(paths):
     """Sequential access to locked file."""
     assert not os.path.exists(paths.testfile)
@@ -146,7 +95,8 @@ def test_concurrent_access(paths):
     lock = LockFile(paths.testfile, 0.5)
 
     pool = Pool(5)
-    pool.map(_write_test_data, [(paths, str(i) * 20) for i in range(1, 6)])
+    pool.map(_write_test_data,
+             [(paths, str(i) * 20) for i in range(1, 6)])
 
     assert not lock.locked
     assert not os.path.exists(paths.lockfile)
@@ -166,7 +116,8 @@ def _write_settings(args):
         s[key] = value
         print('Settings[{0}] = {1}'.format(key, value))
     except Exception as err:
-        print('error opening settings (%s): %s' % (key, traceback.format_exc()),
+        print('error opening settings (%s): %s' % (key,
+              traceback.format_exc()),
               file=sys.stderr)
         return err
 

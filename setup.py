@@ -8,7 +8,10 @@
 # Created on 2014-08-17
 #
 
+"""Alfred-Workflow library for building Alfred 3/4 workflows."""
+
 import os
+from os.path import dirname, join
 import subprocess
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
@@ -16,29 +19,33 @@ from setuptools.command.test import test as TestCommand
 
 def read(fname):
     """Return contents of file `fname` in this directory."""
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    return open(join(dirname(__file__), fname)).read()
 
 
 class PyTestCommand(TestCommand):
     """Enable running tests with `python setup.py test`."""
 
     def finalize_options(self):
+        """Implement TestCommand."""
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
 
     def run_tests(self):
-        subprocess.call(['/bin/bash', os.path.join(os.path.dirname(__file__),
-                                                   'run-tests.sh')])
+        """Implement TestCommand."""
+        subprocess.call(
+            ['/bin/bash', join(dirname(__file__), 'run-tests.sh')])
 
 
 version = read('workflow/version')
+long_description = read('README_PYPI.rst')
+
 name = 'Alfred-Workflow'
 author = 'Dean Jackson'
 author_email = 'deanishe@deanishe.net'
 url = 'http://www.deanishe.net/alfred-workflow/'
 description = 'Full-featured helper library for writing Alfred 2/3/4 workflows'
-keywords = 'alfred workflow'
+keywords = 'alfred workflow alfred4'
 packages = ['workflow']
 package_data = {'workflow': ['version', 'Notify.tgz']}
 classifiers = [
@@ -64,7 +71,7 @@ setup(
     name=name,
     version=version,
     description=description,
-    long_description=read('README_PYPI.rst'),
+    long_description=long_description,
     keywords=keywords,
     author=author,
     author_email=author_email,

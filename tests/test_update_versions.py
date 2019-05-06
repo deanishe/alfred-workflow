@@ -23,6 +23,7 @@ class VersionTests(unittest.TestCase):
     """Unit tests for Version."""
 
     def setUp(self):
+        """Initialise unit test data."""
         self.invalid_versions = [
             '',
             'bob',

@@ -10,11 +10,12 @@ testone <package.name> <tests/test_script.py>...
 Run test script(s) with coverage for one package.
 
 Usage:
-    testone [-v] <package.name> <test_script.py>...
+    testone [-v|-V] <package.name> <test_script.py>...
     testone -h
 
 Options:
     -v  verbose output
+    -V  very verbose output
     -h  show this message and exit
 
 Example:
@@ -46,7 +47,7 @@ function success() {
 }
 
 vopts=
-while getopts ":hv" opt; do
+while getopts ":hvV" opt; do
   case $opt in
     h)
       usage
@@ -54,6 +55,9 @@ while getopts ":hv" opt; do
       ;;
     v)
       vopts="-v"
+      ;;
+    V)
+      vopts="-vv"
       ;;
     \?)
       log "Invalid option: -$OPTARG"

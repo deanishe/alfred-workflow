@@ -8,8 +8,7 @@
 # Created on 2017-05-06
 #
 
-"""
-"""
+"""Unit tests for magic arguments."""
 
 from __future__ import print_function
 
@@ -19,10 +18,11 @@ import pytest
 
 from workflow import Workflow
 
-from util import VersionFile, WorkflowMock
+from .conftest import env
+from .util import VersionFile, WorkflowMock
 
 
-def test_list_magic(info2):
+def test_list_magic(infopl):
     """Magic: list magic"""
     # TODO: Verify output somehow
     with WorkflowMock(['script', 'workflow:magic']) as c:
@@ -30,33 +30,44 @@ def test_list_magic(info2):
         # Process magic arguments
         wf.args
         assert not c.cmd
+        wf.reset()
 
 
-def test_version_magic(info2):
+def test_version_magic(infopl):
     """Magic: version magic"""
     # TODO: Verify output somehow
 
     vstr = '1.9.7'
+    # Version from file(s)
+    with env(alfred_workflow_version=None):
+        # Version file
+        with WorkflowMock(['script', 'workflow:version']) as c:
+            with VersionFile(vstr):
+                wf = Workflow()
+                # Process magic arguments
+                wf.args
+                assert not c.cmd
+                wf.reset()
 
-    # Versioned
-    with WorkflowMock(['script', 'workflow:version']) as c:
-        with VersionFile(vstr):
+        # info.plist
+        with WorkflowMock(['script', 'workflow:version']) as c:
             wf = Workflow()
             # Process magic arguments
             wf.args
+            assert not c.cmd
+            wf.reset()
 
-        assert not c.cmd
-        # wf.logger.debug('STDERR : {0}'.format(c.stderr))
+    # Environment variable
+    with env(alfred_workflow_version=vstr):
+        with WorkflowMock(['script', 'workflow:version']) as c:
+            wf = Workflow()
+            # Process magic arguments
+            wf.args
+            assert not c.cmd
+            wf.reset()
 
-    # Unversioned
-    with WorkflowMock(['script', 'workflow:version']) as c:
-        wf = Workflow()
-        # Process magic arguments
-        wf.args
-        assert not c.cmd
 
-
-def test_openhelp(info2):
+def test_openhelp(infopl):
     """Magic: open help URL"""
     url = 'http://www.deanishe.net/alfred-workflow/'
     with WorkflowMock(['script', 'workflow:help']) as c:
@@ -64,63 +75,70 @@ def test_openhelp(info2):
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', url]
+        wf.reset()
 
 
-def test_openhelp_no_url(info2):
+def test_openhelp_no_url(infopl):
     """Magic: no help URL"""
     with WorkflowMock(['script', 'workflow:help']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert not c.cmd
+        wf.reset()
 
 
-def test_openlog(info2):
+def test_openlog(infopl):
     """Magic: open logfile"""
     with WorkflowMock(['script', 'workflow:openlog']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', wf.logfile]
+        wf.reset()
 
 
-def test_cachedir(info2):
+def test_cachedir(infopl):
     """Magic: open cachedir"""
     with WorkflowMock(['script', 'workflow:opencache']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', wf.cachedir]
+        wf.reset()
 
 
-def test_datadir(info2):
+def test_datadir(infopl):
     """Magic: open datadir"""
     with WorkflowMock(['script', 'workflow:opendata']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', wf.datadir]
+        wf.reset()
 
 
-def test_workflowdir(info2):
+def test_workflowdir(infopl):
     """Magic: open workflowdir"""
     with WorkflowMock(['script', 'workflow:openworkflow']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', wf.workflowdir]
+        wf.reset()
 
 
-def test_open_term(info2):
+def test_open_term(infopl):
     """Magic: open Terminal"""
     with WorkflowMock(['script', 'workflow:openterm']) as c:
         wf = Workflow()
         # Process magic arguments
         wf.args
         assert c.cmd == ['open', '-a', 'Terminal', wf.workflowdir]
+        wf.reset()
 
 
-def test_delete_data(info2):
+def test_delete_data(infopl):
     """Magic: delete data"""
     with WorkflowMock(['script', 'workflow:deldata']):
         wf = Workflow()
@@ -132,9 +150,10 @@ def test_delete_data(info2):
         # Process magic arguments
         wf.args
         assert not os.path.exists(testpath)
+        wf.reset()
 
 
-def test_delete_cache(info2):
+def test_delete_cache(infopl):
     """Magic: delete cache"""
     with WorkflowMock(['script', 'workflow:delcache']):
         wf = Workflow()
@@ -146,9 +165,10 @@ def test_delete_cache(info2):
         # Process magic arguments
         wf.args
         assert not os.path.exists(testpath)
+        wf.reset()
 
 
-def test_reset(info2):
+def test_reset(infopl):
     """Magic: reset"""
     with WorkflowMock(['script', 'workflow:reset']):
         wf = Workflow()
@@ -169,9 +189,10 @@ def test_reset(info2):
 
         for p in (datatest, cachetest, settings_path):
             assert not os.path.exists(p)
+        wf.reset()
 
 
-def test_delete_settings(info2):
+def test_delete_settings(infopl):
     """Magic: delete settings"""
     with WorkflowMock(['script', 'workflow:delsettings']):
         wf = Workflow()
@@ -187,9 +208,10 @@ def test_delete_settings(info2):
 
         wf3 = Workflow()
         assert 'key' not in wf3.settings
+        wf.reset()
 
 
-def test_folding(info2):
+def test_folding(infopl):
     """Magic: folding"""
     with WorkflowMock(['script', 'workflow:foldingdefault']):
         wf = Workflow()
@@ -214,9 +236,10 @@ def test_folding(info2):
         # Process magic arguments
         wf.args
         assert wf.settings.get('__workflow_diacritic_folding') is False
+        wf.reset()
 
 
-def test_prereleases(info2):
+def test_prereleases(infopl):
     """Magic: prereleases"""
     with WorkflowMock(['script', 'workflow:prereleases']):
         wf = Workflow()
@@ -224,6 +247,7 @@ def test_prereleases(info2):
         wf.args
         assert wf.settings.get('__workflow_prereleases') is True
         assert wf.prereleases is True
+        wf.reset()
 
     with WorkflowMock(['script', 'workflow:noprereleases']):
         wf = Workflow()
@@ -231,10 +255,11 @@ def test_prereleases(info2):
         wf.args
         assert wf.settings.get('__workflow_prereleases') is False
         assert wf.prereleases is False
+        wf.reset()
 
 
-def test_update_settings_override_magic_prereleases(info2):
-    """Magic: pre-release updates can be overridden by `True` value for `prereleases` key in `update_settings`"""
+def test_update_settings_override_magic_prereleases(infopl):
+    """Magic: pre-release updates can be overridden by `update_settings`"""
     with WorkflowMock(['script', 'workflow:prereleases']):
         d = {'prereleases': True}
         wf = Workflow(update_settings=d)
@@ -242,6 +267,7 @@ def test_update_settings_override_magic_prereleases(info2):
         wf.args
         assert wf.settings.get('__workflow_prereleases') is True
         assert wf.prereleases is True
+        wf.reset()
 
     with WorkflowMock(['script', 'workflow:noprereleases']):
         wf = Workflow(update_settings=d)
@@ -249,6 +275,7 @@ def test_update_settings_override_magic_prereleases(info2):
         wf.args
         assert wf.settings.get('__workflow_prereleases') is False
         assert wf.prereleases is True
+        wf.reset()
 
 
 if __name__ == '__main__':  # pragma: no cover

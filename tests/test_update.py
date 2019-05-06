@@ -15,12 +15,11 @@ from __future__ import print_function
 from contextlib import contextmanager
 import os
 import re
-import time
 
 import pytest
-import pytest_localserver
+import pytest_localserver  # noqa: F401
 
-from util import WorkflowMock, create_info_plist, delete_info_plist
+from util import WorkflowMock
 from workflow import Workflow, update, web
 from workflow.update import Download, Version
 
@@ -33,9 +32,11 @@ RELEASES_JSON_EMPTY = '[]'
 # A list of valid and invalid releases. The below variables
 # refer to these data.
 RELEASES_JSON = open(os.path.join(DATA_DIR, 'gh-releases.json')).read()
-RELEASES_4PLUS_JSON = open(os.path.join(DATA_DIR, 'gh-releases-4plus.json')).read()
+RELEASES_4PLUS_JSON = open(
+    os.path.join(DATA_DIR, 'gh-releases-4plus.json')).read()
 # A dummy Alfred workflow
-DATA_WORKFLOW = open(os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')).read()
+DATA_WORKFLOW = open(
+    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')).read()
 
 # Alfred 4
 RELEASE_LATEST = '9.0'
@@ -78,15 +79,6 @@ DL_BAD = Download(url='http://github.com/file.zip',
                   version=Version('0'))
 
 
-@pytest.fixture(scope='module')
-def info(request):
-    """Ensure `info.plist` exists in the working directory."""
-    create_info_plist()
-    os.environ['alfred_version'] = '4'
-    update._wf = None
-    request.addfinalizer(delete_info_plist)
-
-
 @contextmanager
 def fakeresponse(httpserver, content, headers=None):
     """Monkey patch `web.request()` to return the specified response."""
@@ -105,7 +97,7 @@ def fakeresponse(httpserver, content, headers=None):
     web.request = orig
 
 
-def test_parse_releases(info):
+def test_parse_releases(infopl, alfred4):
     """Parse releases JSON"""
     dls = Download.from_releases(RELEASES_JSON)
     assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
@@ -117,7 +109,7 @@ def test_parse_releases(info):
 
 def test_compare_downloads():
     """Compare Downloads"""
-    dl = Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v11/Dummy-11.0.alfredworkflow",
+    dl = Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v11/Dummy-11.0.alfredworkflow",  # noqa: E501
                   "Dummy-11.0.alfredworkflow",
                   "v11",
                   False)
@@ -127,36 +119,36 @@ def test_compare_downloads():
         assert dl != other, "unexpected equality"
 
 
-def test_bad_download_url(info):
+def test_bad_download_url(infopl, alfred4):
     """Bad update download URL"""
     with pytest.raises(ValueError):
         update.retrieve_download(DL_BAD)
 
 
-def test_valid_api_url(info):
+def test_valid_api_url(infopl, alfred4):
     """API URL for valid slug"""
     url = update.build_api_url(TEST_REPO)
     assert url == RELEASES_URL
 
 
-def test_invalid_api_url(info):
+def test_invalid_api_url(infopl, alfred4):
     """API URL for invalid slug"""
     with pytest.raises(ValueError):
         update.build_api_url('fniephausalfred-workflow')
 
 
-def test_empty_repo(httpserver, info):
+def test_empty_repo(httpserver, infopl):
     """No releases"""
     with fakeresponse(httpserver, RELEASES_JSON_EMPTY, HTTP_HEADERS_JSON):
         update.check_update(EMPTY_REPO, '1.0')
         assert len(update.get_downloads(EMPTY_REPO)) == 0
 
 
-def test_valid_downloads(httpserver, info):
+def test_valid_downloads(httpserver, infopl, alfred4):
     """Valid downloads"""
     with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
         dls = update.get_downloads(TEST_REPO)
-    
+
     assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
 
     for i, dl in enumerate(dls):
@@ -164,7 +156,7 @@ def test_valid_downloads(httpserver, info):
         assert dl == VALID_DOWNLOADS[i], "different downloads"
 
 
-def test_latest_download(info):
+def test_latest_download(infopl):
     """Latest download for Alfred version."""
     dls = Download.from_releases(RELEASES_JSON)
     tests = (
@@ -186,7 +178,7 @@ def test_latest_download(info):
             assert dl.version == Version(wanted), "unexpected version"
 
 
-def test_version_formats(httpserver, info):
+def test_version_formats(httpserver, infopl, alfred4):
     """Version formats"""
     tests = (
         # current version, prereleases, alfred version, expected value
@@ -210,7 +202,7 @@ def test_version_formats(httpserver, info):
             assert v == wanted, "unexpected update status"
 
 
-def test_check_update(httpserver, info):
+def test_check_update(httpserver, infopl, alfred4):
     """Check update"""
     key = '__workflow_latest_version'
     tests = [
@@ -235,14 +227,14 @@ def test_check_update(httpserver, info):
             assert status is not None
             assert status['available'] == wanted
             assert wf.update_available == wanted
-            
+
             if wanted:  # other data may not be set if available is False
                 v = update.check_update(TEST_REPO, status['version'],
                                         pre, alfred)
                 assert v is False
 
 
-def test_install_update(httpserver, info):
+def test_install_update(httpserver, infopl, alfred4):
     """Update is installed."""
     key = '__workflow_latest_version'
     # Clear any cached data
@@ -281,7 +273,7 @@ def test_install_update(httpserver, info):
             assert update.install_update() is False
 
 
-def test_no_auto_update(info):
+def test_no_auto_update(infopl, alfred4):
     """No update check."""
     key = '__workflow_latest_version'
     wf = Workflow()
@@ -306,7 +298,7 @@ def test_no_auto_update(info):
         assert wf.cached_data(key) is None
 
 
-def test_update_nondefault_serialiser(httpserver, info):
+def test_update_nondefault_serialiser(httpserver, infopl, alfred4):
     """Check update works when a custom serialiser is set on Workflow
 
     https://github.com/deanishe/alfred-workflow/issues/113
@@ -324,38 +316,38 @@ def test_update_nondefault_serialiser(httpserver, info):
 
 VALID_DOWNLOADS = [
     # Latest version for Alfred 4
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v10.0-beta/Dummy-10.0-beta.alfredworkflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v10.0-beta/Dummy-10.0-beta.alfredworkflow",  # noqa: E501
              "Dummy-10.0-beta.alfredworkflow",
              "v10.0-beta",
              True),
     # Latest stable version for Alfred 4
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v9.0/Dummy-9.0.alfred4workflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v9.0/Dummy-9.0.alfred4workflow",  # noqa: E501
              "Dummy-9.0.alfred4workflow",
              "v9.0",
              False),
     # Latest version for Alfred 3
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v7.1.0-beta/Dummy-7.1-beta.alfredworkflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v7.1.0-beta/Dummy-7.1-beta.alfredworkflow",  # noqa: E501
              "Dummy-7.1-beta.alfredworkflow",
              "v7.1.0-beta",
              True),
     # Latest stable version for Alfred 3
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred4workflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred4workflow",  # noqa: E501
              "Dummy-6.0.alfred4workflow",
              "v6.0",
              False),
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred3workflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred3workflow",  # noqa: E501
              "Dummy-6.0.alfred3workflow",
              "v6.0",
              False),
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfredworkflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfredworkflow",  # noqa: E501
              "Dummy-6.0.alfredworkflow",
              "v6.0",
              False),
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v2.0/Dummy-2.0.alfredworkflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v2.0/Dummy-2.0.alfredworkflow",  # noqa: E501
              "Dummy-2.0.alfredworkflow",
              "v2.0",
              False),
-    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v1.0/Dummy-1.0.alfredworkflow",
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v1.0/Dummy-1.0.alfredworkflow",  # noqa: E501
              "Dummy-1.0.alfredworkflow",
              "v1.0",
              False),

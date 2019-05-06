@@ -43,8 +43,9 @@ try:
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
+# imported to maintain API
+from util import AcquisitionError  # noqa: F401
 from util import (
-    AcquisitionError,  # imported to maintain API
     atomic_writer,
     LockFile,
     uninterruptible,
@@ -1112,12 +1113,7 @@ class Workflow(object):
         :rtype: ``bool``
 
         """
-        if self._debugging is None:
-            if self.alfred_env.get('debug') == 1:
-                self._debugging = True
-            else:
-                self._debugging = False
-        return self._debugging
+        return self.alfred_env.get('debug') == '1'
 
     @property
     def name(self):

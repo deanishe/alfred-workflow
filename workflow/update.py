@@ -56,7 +56,7 @@ class Download(object):
     """A workflow file that is available for download.
 
     .. versionadded: 1.37
-    
+
     Attributes:
         url (str): URL of workflow file.
         filename (str): Filename of workflow file.
@@ -64,7 +64,7 @@ class Download(object):
         prerelease (bool): Whether version is a pre-release.
         alfred_version (Version): Minimum compatible version
             of Alfred.
-    
+
     """
 
     @classmethod
@@ -88,7 +88,7 @@ class Download(object):
 
         Args:
             js (str): JSON response from GitHub's releases endpoint.
-        
+
         Returns:
             list: Sequence of `Download`.
         """
@@ -100,7 +100,8 @@ class Download(object):
             try:
                 version = Version(tag)
             except ValueError as err:
-                wf().logger.debug('ignored release: bad version "%s": %s', tag, err)
+                wf().logger.debug('ignored release: bad version "%s": %s',
+                                  tag, err)
                 continue
 
             dls = []
@@ -111,12 +112,12 @@ class Download(object):
                 if not m:
                     wf().logger.debug('unwanted file: %s', filename)
                     continue
-                
+
                 ext = m.group(0)
                 dupes[ext] = dupes[ext] + 1
                 dls.append(Download(url, filename, version,
                                     release['prerelease']))
-            
+
             valid = True
             for ext, n in dupes.items():
                 if n > 1:
@@ -124,18 +125,16 @@ class Download(object):
                                       'with extension "%s"', tag, ext)
                     valid = False
                     break
-            
+
             if valid:
                 downloads.extend(dls)
 
         downloads.sort(reverse=True)
-
         return downloads
-
 
     def __init__(self, url, filename, version, prerelease=False):
         """Create a new Download.
-        
+
         Args:
             url (str): URL of workflow file.
             filename (str): Filename of workflow file.
@@ -151,7 +150,7 @@ class Download(object):
         self.filename = filename
         self.version = version
         self.prerelease = prerelease
-    
+
     @property
     def alfred_version(self):
         """Minimum Alfred version based on filename extension."""
@@ -165,14 +164,13 @@ class Download(object):
         """Convert `Download` to `dict`."""
         return dict(url=self.url, filename=self.filename,
                     version=str(self.version), prerelease=self.prerelease)
-        
 
     def __str__(self):
         """Format `Download` for printing."""
         u = ('Download(url={dl.url!r}, '
-            'filename={dl.filename!r}, '
-            'version={dl.version!r}, '
-            'prerelease={dl.prerelease!r})'.format(dl=self))
+             'filename={dl.filename!r}, '
+             'version={dl.version!r}, '
+             'prerelease={dl.prerelease!r})'.format(dl=self))
 
         return u.encode('utf-8')
 
@@ -183,10 +181,10 @@ class Download(object):
     def __eq__(self, other):
         """Compare Downloads based on version numbers."""
         if self.url != other.url \
-            or self.filename != other.filename \
-            or self.version != other.version \
-            or self.prerelease != other.prerelease:
-                return False
+                or self.filename != other.filename \
+                or self.version != other.version \
+                or self.prerelease != other.prerelease:
+            return False
         return True
 
     def __ne__(self, other):
@@ -303,8 +301,8 @@ class Version(object):
                 return True
             if other.suffix and not self.suffix:
                 return False
-            return (self._parse_dotted_string(self.suffix) <
-                    self._parse_dotted_string(other.suffix))
+            return self._parse_dotted_string(self.suffix) \
+                < self._parse_dotted_string(other.suffix)
         # t > o
         return False
 
@@ -358,7 +356,7 @@ def retrieve_download(dl):
 
     Returns:
         unicode: path to downloaded file
-    
+
     """
     if not match_workflow(dl.filename):
         raise ValueError('attachment not a workflow: ' + dl.filename)
@@ -422,7 +420,7 @@ def latest_download(dls, alfred_version=None, prereleases=False):
     version = None
     if alfred_version:
         version = Version(alfred_version)
-    
+
     dls.sort(reverse=True)
     for dl in dls:
         if dl.prerelease and not prereleases:
@@ -433,10 +431,9 @@ def latest_download(dls, alfred_version=None, prereleases=False):
                               dl.alfred_version, version, dl.filename)
             continue
 
-
         wf().logger.debug('latest version: %s (%s)', dl.version, dl.filename)
         return dl
-    
+
     return None
 
 
@@ -473,7 +470,7 @@ def check_update(repo, current_version, prereleases=False,
         wf().logger.warning('no valid downloads for %s', repo)
         wf().cache_data(key, no_update)
         return False
-    
+
     wf().logger.info('%d download(s) for %s', len(dls), repo)
 
     dl = latest_download(dls, alfred_version, prereleases)
@@ -547,12 +544,12 @@ if __name__ == '__main__':  # pragma: nocover
 
     if '--prereleases' in argv:
         argv.remove('--prereleases')
-        prereleases = True     
+        prereleases = True
 
     if len(argv) != 4:
         show_help(1)
 
-    action  = argv[1]
+    action = argv[1]
     repo = argv[2]
     version = argv[3]
 

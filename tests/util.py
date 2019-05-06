@@ -8,9 +8,7 @@
 # Created on 2014-08-17
 #
 
-"""
-Stuff used in multiple tests.
-"""
+"""Stuff used in multiple tests."""
 
 from __future__ import print_function, unicode_literals
 
@@ -38,8 +36,34 @@ DEFAULT_SETTINGS = {
     'key1': 'value1',
     'key2': 'hübner',
     'mutable1': ['mutable', 'object'],
-    'mutable2': {'mutable':  ['nested', 'object']},
+    'mutable2': {'mutable': ['nested', 'object']},
 }
+
+
+class MockCall(object):
+    """Capture calls to `subprocess.check_output`."""
+
+    def __init__(self):
+        """Create new MockCall."""
+        self.cmd = None
+        self._check_output_orig = None
+
+    def _set_up(self):
+        self._check_output_orig = subprocess.check_output
+        subprocess.check_output = self._check_output
+
+    def _tear_down(self):
+        subprocess.check_output = self._check_output_orig
+
+    def _check_output(self, cmd, **kwargs):
+        self.cmd = cmd
+
+    def __enter__(self):
+        self._set_up()
+        return self
+
+    def __exit__(self, *args):
+        self._tear_down()
 
 
 class WorkflowMock(object):
@@ -47,22 +71,21 @@ class WorkflowMock(object):
 
     c = WorkflowMock()
     with c:
-        subprocess.call([arg1, arg2])
-    c.cmd -> (arg1, arg2)
+        subprocess.call(['program', 'arg'])
+    c.cmd  # -> ('program', 'arg')
 
     """
 
     def __init__(self, argv=None, exit=True, call=True, stderr=False):
         """Context manager that overrides funcs and variables for testing.
 
-        :param argv: list of arguments to replace ``sys.argv`` with
-        :type argv: list
-        :param exit: Override ``sys.exit`` with noop?
-        :param call: Override :func:`subprocess.call` and capture its
-            arguments in :attr:`cmd`, :attr:`args` and :attr:`kwargs`?
+        Args:
+            argv (list): list of arguments to replace ``sys.argv`` with
+            exit (bool): override ``sys.exit`` with noop?
+            call (bool): override :func:`subprocess.call` and capture its
+                arguments in :attr:`cmd`, :attr:`args` and :attr:`kwargs`?
 
         """
-
         self.argv = argv
         self.override_exit = exit
         self.override_call = call
@@ -123,7 +146,7 @@ class VersionFile(object):
     """Context manager to create and delete `version` file."""
 
     def __init__(self, version, path=None):
-
+        """Create new context manager."""
         self.version = version
         self.path = path or VERSION_PATH
 
@@ -142,6 +165,7 @@ class FakePrograms(object):
     """Context manager to inject fake programs into ``PATH``."""
 
     def __init__(self, *names, **names2codes):
+        """Create new context manager."""
         self.tempdir = None
         self.orig_path = None
         self.programs = {}
@@ -159,7 +183,7 @@ class FakePrograms(object):
 
         # Add new programs to front of PATH
         self.orig_path = os.getenv('PATH')
-        os.environ['PATH'] = '{0}:{1}'.format(self.tempdir, self.orig_path)
+        os.environ['PATH'] = self.tempdir + ':' + self.orig_path
 
     def __exit__(self, *args):
         os.environ['PATH'] = self.orig_path
@@ -190,6 +214,13 @@ class InfoPlist(object):
         """Create or delete ``info.plist``."""
         if self.present:
             delete_info_plist(self.dest_path)
+
+
+def dump_env():
+    """Print `os.environ` to STDOUT."""
+    for k, v in os.environ.items():
+        if k.startswith('alfred_'):
+            print('env: %s=%s' % (k, v))
 
 
 def create_info_plist(source=INFO_PLIST_TEST, dest=INFO_PLIST_PATH):

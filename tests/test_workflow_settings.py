@@ -8,6 +8,8 @@
 # Created on 2016-02-24
 #
 
+"""Unit tests for Workflow.settings API."""
+
 from __future__ import print_function, unicode_literals, absolute_import
 
 import json
@@ -26,12 +28,14 @@ class SettingsTests(unittest.TestCase):
     """Test suite for `workflow.workflow.Settings`."""
 
     def setUp(self):
+        """Initialise unit test environment."""
         self.tempdir = tempfile.mkdtemp()
         self.settings_file = os.path.join(self.tempdir, 'settings.json')
         with open(self.settings_file, 'wb') as file_obj:
             json.dump(DEFAULT_SETTINGS, file_obj)
 
     def tearDown(self):
+        """Reset unit test environment."""
         if os.path.exists(self.tempdir):
             shutil.rmtree(self.tempdir)
 
@@ -55,6 +59,14 @@ class SettingsTests(unittest.TestCase):
         s['key1'] = 'spoons!'
         s2 = Settings(self.settings_file)
         self.assertEqual(s['key1'], s2['key1'])
+
+    def test_delete_settings(self):
+        """Settings deleted"""
+        s = Settings(self.settings_file)
+        self.assertEqual(s['key1'], DEFAULT_SETTINGS['key1'])
+        del s['key1']
+        s2 = Settings(self.settings_file)
+        self.assertEqual(s2.get('key1'), None)
 
     def test_dict_methods(self):
         """Settings dict methods"""
@@ -87,9 +99,9 @@ class SettingsTests(unittest.TestCase):
         s = Settings(self.settings_file)
         mt1 = os.path.getmtime(self.settings_file)
         time.sleep(1)
-        l = s['mutable1']
-        l.append('another string')
-        s['mutable1'] = l
+        seq = s['mutable1']
+        seq.append('another string')
+        s['mutable1'] = seq
         mt2 = os.path.getmtime(self.settings_file)
         self.assertTrue(mt2 > mt1)
         s2 = Settings(self.settings_file)

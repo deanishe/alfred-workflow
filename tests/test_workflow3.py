@@ -21,10 +21,11 @@ import pytest
 
 from workflow import ICON_WARNING, Variables, Workflow3
 
-from .test_util import MockCall, AS_CONFIG_SET
+from .test_util import MockCall
+from .conftest import env
 
 
-def test_required_optional(info3):
+def test_required_optional(infopl):
     """Item3: Required and optional values."""
     wf = Workflow3()
     it = wf.add_item('Title')
@@ -36,7 +37,7 @@ def test_required_optional(info3):
     assert set(o.keys()) == {'title', 'valid', 'subtitle'}
 
 
-def test_optional(info3):
+def test_optional(infopl):
     """Item3: Optional values."""
     wf = Workflow3()
     it = wf.add_item('Title', 'Subtitle',
@@ -64,7 +65,7 @@ def test_optional(info3):
     assert o['type'] == 'file'
 
 
-def test_icontype(info3):
+def test_icontype(infopl):
     """Item3: Icon type."""
     wf = Workflow3()
     it = wf.add_item('Title', icon='icon.png', icontype='filetype')
@@ -73,7 +74,7 @@ def test_icontype(info3):
     assert o['icon']['type'] == 'filetype'
 
 
-def test_feedback(info3):
+def test_feedback(infopl):
     """Workflow3: Feedback."""
     wf = Workflow3()
     for i in range(10):
@@ -102,7 +103,7 @@ def test_feedback(info3):
         assert items[i]['title'] == 'Title {0:2d}'.format(i + 1)
 
 
-def test_warn_empty(info3):
+def test_warn_empty(infopl):
     """Workflow3: Warn empty."""
     wf = Workflow3()
     it = wf.warn_empty(u'My warning')
@@ -129,7 +130,7 @@ def test_warn_empty(info3):
     assert len(o['items']) == 1
 
 
-def test_arg_variables(info3):
+def test_arg_variables(infopl):
     """Item3: Variables in arg."""
     wf = Workflow3()
     it = wf.add_item('Title')
@@ -140,7 +141,7 @@ def test_arg_variables(info3):
     assert o['variables']['key1'] == 'value1'
 
 
-def test_feedback_variables(info3):
+def test_feedback_variables(infopl):
     """Workflow3: feedback variables."""
     wf = Workflow3()
 
@@ -167,16 +168,23 @@ def test_feedback_variables(info3):
     assert 'postval' not in o['variables']
 
 
-def test_persistent_variables(info3):
-    """Workflow3: persistent variables."""
-    wf = Workflow3()
+def test_persistent_variables3(alfred3):
+    """Persistent variables Alfred 3"""
+    _test_persistent_variables('Alfred 3')
 
+
+def test_persistent_variables(alfred4):
+    """Persistent variables Alfred 4+"""
+    _test_persistent_variables('com.runningwithcrayons.Alfred')
+
+
+def _test_persistent_variables(appname):
+    wf = Workflow3()
     o = wf.obj
     assert 'variables' not in o
 
     name = 'testvar'
     value = 'testval'
-    bundleid = 'net.deanishe.alfred-workflow'
 
     # Without persistence
     with MockCall() as m:
@@ -184,17 +192,21 @@ def test_persistent_variables(info3):
         assert m.cmd is None
 
     # With persistence
-    script = AS_CONFIG_SET.format(name=name, value=value,
-                                  bundleid=bundleid,
-                                  export='exportable false')
+        script = (
+            'Application("' + appname + '")'
+            '.setConfiguration("testvar", '
+            '{"exportable": false, '
+            '"inWorkflow": "net.deanishe.alfred-workflow", '
+            '"toValue": "testval"});'
+        )
 
-    cmd = ['/usr/bin/osascript', '-l', 'AppleScript', '-e', script]
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
     with MockCall() as m:
         wf.setvar(name, value, True)
         assert m.cmd == cmd
 
 
-def test_rerun(info3):
+def test_rerun(infopl):
     """Workflow3: rerun."""
     wf = Workflow3()
     o = wf.obj
@@ -209,7 +221,7 @@ def test_rerun(info3):
     assert wf.rerun == 1
 
 
-def test_session_id(info3):
+def test_session_id(infopl):
     """Workflow3: session_id."""
     wf = Workflow3()
     o = wf.obj
@@ -223,20 +235,18 @@ def test_session_id(info3):
     assert '_WF_SESSION_ID' in o['variables']
     assert o['variables']['_WF_SESSION_ID'] == sid
 
+    # load from environment variable
     sid = 'thisisatest'
-    os.environ['_WF_SESSION_ID'] = sid
-    wf = Workflow3()
-    try:
+    with env(_WF_SESSION_ID=sid):
+        wf = Workflow3()
         o = wf.obj
         assert 'variables' in o
         assert '_WF_SESSION_ID' in o['variables']
         assert o['variables']['_WF_SESSION_ID'] == sid
         assert wf.session_id == sid
-    finally:
-        del os.environ['_WF_SESSION_ID']
 
 
-def test_session_cache(info3):
+def test_session_cache(infopl):
     """Workflow3: session-scoped caching."""
     wf1 = Workflow3()
     wf2 = Workflow3()
@@ -249,7 +259,7 @@ def test_session_cache(info3):
     assert wf2.cached_data('data', session=True) == data2
 
 
-def test_clear_session_cache(info3):
+def test_clear_session_cache(infopl):
     """Workflow3: session-scoped caching."""
     wf = Workflow3()
     data = {'foo': 'bar'}
@@ -285,7 +295,7 @@ def test_clear_session_cache(info3):
     assert wf.cached_data('data', session=False) == data
 
 
-def test_modifiers(info3):
+def test_modifiers(infopl):
     """Item3: Modifiers."""
     wf = Workflow3()
     wf.setvar('wfprevar', 'wfpreval')
@@ -323,7 +333,7 @@ def test_modifiers(info3):
     assert m['variables']['modvar'] == 'hello'
 
 
-def test_modifier_icon(info3):
+def test_modifier_icon(infopl):
     """Item3: Modifier icon."""
     wf = Workflow3()
     it = wf.add_item('Title', 'Subtitle')
@@ -344,7 +354,7 @@ def test_modifier_icon(info3):
     }
 
 
-def test_item_config(info3):
+def test_item_config(infopl):
     """Item3: Config."""
     wf = Workflow3()
     it = wf.add_item('Title')
@@ -368,14 +378,38 @@ def test_item_config(info3):
     assert c['var1'] == 'val2'
 
 
-def test_default_directories(info3):
-    """Workflow3: Default directories."""
+def _test_default_directories(data, cache):
     wf3 = Workflow3()
-    assert '/Alfred/Workflow Data/' in wf3.datadir
-    assert 'com.runningwithcrayons.Alfred/Workflow Data/' in wf3.cachedir
+    assert wf3.datadir.startswith(data), "unexpected data directory"
+    assert wf3.cachedir.startswith(cache), "unexpected cache directory"
 
 
-def test_run_fails_with_json_output():
+def test_default_directories3(alfred3):
+    """Default directories (Alfred 3)"""
+    from os.path import expanduser
+    _test_default_directories(
+        expanduser('~/Library/Application Support/Alfred 3/Workflow Data/'),
+        expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-3/'
+                   'Workflow Data/'))
+
+
+def test_default_directories(alfred4):
+    """Default directories (Alfred 4+)"""
+    from os.path import expanduser
+    _test_default_directories(
+        expanduser('~/Library/Application Support/Alfred/Workflow Data/'),
+        expanduser('~/Library/Caches/com.runningwithcrayons.Alfred/'
+                   'Workflow Data/'))
+
+    with env(alfred_workflow_data=None, alfred_workflow_cache=None):
+        _test_default_directories(
+            expanduser('~/Library/Application Support/Alfred/'
+                       'Workflow Data/'),
+            expanduser('~/Library/Caches/com.runningwithcrayons.Alfred/'
+                       'Workflow Data/'))
+
+
+def test_run_fails_with_json_output(infopl):
     """Run fails with JSON output"""
     error_text = 'Have an error'
 
@@ -387,19 +421,19 @@ def test_run_fails_with_json_output():
     wf.bundleid
 
     stdout = sys.stdout
-    sio = StringIO()
-    sys.stdout = sio
+    buf = StringIO()
+    sys.stdout = buf
     ret = wf.run(cb)
     sys.stdout = stdout
-    output = sio.getvalue()
-    sio.close()
+    output = buf.getvalue()
+    buf.close()
 
     assert ret == 1
     assert error_text in output
     assert '{' in output
 
 
-def test_run_fails_with_plain_text_output():
+def test_run_fails_with_plain_text_output(infopl):
     """Run fails with plain text output"""
     error_text = 'Have an error'
 
@@ -411,12 +445,12 @@ def test_run_fails_with_plain_text_output():
     wf.bundleid
 
     stdout = sys.stdout
-    sio = StringIO()
-    sys.stdout = sio
+    buf = StringIO()
+    sys.stdout = buf
     ret = wf.run(cb, text_errors=True)
     sys.stdout = stdout
-    output = sio.getvalue()
-    sio.close()
+    output = buf.getvalue()
+    buf.close()
 
     assert ret == 1
     assert error_text in output

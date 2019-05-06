@@ -707,6 +707,7 @@ class Workflow3(Workflow):
 
         Returns:
             Item3: Newly-created item.
+
         """
         if len(self._items):
             return

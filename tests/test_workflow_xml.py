@@ -22,14 +22,11 @@ import pytest
 
 from workflow import Workflow
 
-from util import InfoPlist
-
 
 @pytest.fixture(scope='function')
-def wf():
+def wf(infopl):
     """Create a :class:`~workflow.Workflow` object."""
-    with InfoPlist():
-        yield Workflow()
+    yield Workflow()
 
 
 @contextmanager

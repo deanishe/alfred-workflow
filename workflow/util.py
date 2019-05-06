@@ -18,6 +18,7 @@ from contextlib import contextmanager
 import errno
 import fcntl
 import functools
+import json
 import os
 import signal
 import subprocess
@@ -25,26 +26,24 @@ import sys
 from threading import Event
 import time
 
-# AppleScript to call an External Trigger in Alfred
-AS_TRIGGER = """
-tell application "Alfred 3"
-run trigger "{name}" in workflow "{bundleid}" {arg}
-end tell
-"""
-
-# AppleScript to save a variable in info.plist
-AS_CONFIG_SET = """
-tell application "Alfred 3"
-set configuration "{name}" to value "{value}" in workflow "{bundleid}" {export}
-end tell
-"""
-
-# AppleScript to remove a variable from info.plist
-AS_CONFIG_UNSET = """
-tell application "Alfred 3"
-remove configuration "{name}" in workflow "{bundleid}"
-end tell
-"""
+# JXA scripts to call Alfred's API via the Scripting Bridge
+# {app} is automatically replaced with "Alfred 3" or
+# "com.runningwithcrayons.Alfred" depending on version.
+#
+# Open Alfred in search (regular) mode
+JXA_SEARCH = "Application({app}).search({arg});"
+# Open Alfred's File Actions on an argument
+JXA_ACTION = "Application({app}).action({arg});"
+# Open Alfred's navigation mode at path
+JXA_BROWSE = "Application({app}).browse({arg});"
+# Set the specified theme
+JXA_SET_THEME = "Application({app}).setTheme({arg});"
+# Call an External Trigger
+JXA_TRIGGER = "Application({app}).runTrigger({arg}, {opts});"
+# Save a variable to the workflow configuration sheet/info.plist
+JXA_SET_CONFIG = "Application({app}).setConfiguration({arg}, {opts});"
+# Delete a variable from the workflow configuration sheet/info.plist
+JXA_UNSET_CONFIG = "Application({app}).removeConfiguration({arg}, {opts});"
 
 
 class AcquisitionError(Exception):
@@ -69,6 +68,27 @@ Returned by :func:`appinfo`. All attributes are Unicode.
     Application's bundle ID, e.g. ``u'com.apple.Safari'``.
 
 """
+
+
+def jxa_app_name():
+    """Return name of application to call currently running Alfred.
+
+    .. versionadded: 1.37
+
+    Returns 'Alfred 3' or 'com.runningwithcrayons.Alfred' depending
+    on which version of Alfred is running.
+
+    This name is suitable for use with ``Application(name)`` in JXA.
+
+    Returns:
+        unicode: Application name or ID.
+
+    """
+    if os.getenv('alfred_version', '').startswith('3'):
+        # Alfred 3
+        return u'Alfred 3'
+    # Alfred 4+
+    return u'com.runningwithcrayons.Alfred'
 
 
 def unicodify(s, encoding='utf-8', norm=None):
@@ -130,10 +150,9 @@ def applescriptify(s):
     Replaces ``"`` with `"& quote &"`. Use this function if you want
 
     to insert a string into an AppleScript script:
-        >>> script = 'tell application "Alfred 3" to search "{}"'
         >>> query = 'g "python" test'
-        >>> script.format(applescriptify(query))
-        'tell application "Alfred 3" to search "g " & quote & "python" & quote & "test"'
+        >>> applescriptify(query)
+        'g " & quote & "python" & quote & "test'
 
     Args:
         s (unicode): Unicode string to escape.
@@ -183,7 +202,12 @@ def run_applescript(script, *args, **kwargs):
         str: Output of run command.
 
     """
-    cmd = ['/usr/bin/osascript', '-l', kwargs.get('lang', 'AppleScript')]
+    lang = 'AppleScript'
+    if 'lang' in kwargs:
+        lang = kwargs['lang']
+        del kwargs['lang']
+
+    cmd = ['/usr/bin/osascript', '-l', lang]
 
     if os.path.exists(script):
         cmd += [script]
@@ -192,7 +216,7 @@ def run_applescript(script, *args, **kwargs):
 
     cmd.extend(args)
 
-    return run_command(cmd)
+    return run_command(cmd, **kwargs)
 
 
 def run_jxa(script, *args):
@@ -227,18 +251,17 @@ def run_trigger(name, bundleid=None, arg=None):
         arg (str, optional): Argument to pass to trigger.
 
     """
-    if not bundleid:
-        bundleid = os.getenv('alfred_workflow_bundleid')
-
+    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    appname = jxa_app_name()
+    opts = {'inWorkflow': bundleid}
     if arg:
-        arg = 'with argument "{}"'.format(applescriptify(arg))
-    else:
-        arg = ''
+        opts['withArgument'] = arg
 
-    script = AS_TRIGGER.format(name=name, bundleid=bundleid,
-                               arg=arg)
+    script = JXA_TRIGGER.format(app=json.dumps(appname),
+                                arg=json.dumps(name),
+                                opts=json.dumps(opts, sort_keys=True))
 
-    run_applescript(script)
+    run_applescript(script, lang='JavaScript')
 
 
 def set_config(name, value, bundleid=None, exportable=False):
@@ -254,22 +277,19 @@ def set_config(name, value, bundleid=None, exportable=False):
             as exportable (Don't Export checkbox).
 
     """
-    if not bundleid:
-        bundleid = os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    appname = jxa_app_name()
+    opts = {
+        'toValue': value,
+        'inWorkflow': bundleid,
+        'exportable': exportable,
+    }
 
-    name = applescriptify(name)
-    value = applescriptify(value)
-    bundleid = applescriptify(bundleid)
+    script = JXA_SET_CONFIG.format(app=json.dumps(appname),
+                                   arg=json.dumps(name),
+                                   opts=json.dumps(opts, sort_keys=True))
 
-    if exportable:
-        export = 'exportable true'
-    else:
-        export = 'exportable false'
-
-    script = AS_CONFIG_SET.format(name=name, bundleid=bundleid,
-                                  value=value, export=export)
-
-    run_applescript(script)
+    run_applescript(script, lang='JavaScript')
 
 
 def unset_config(name, bundleid=None):
@@ -282,15 +302,15 @@ def unset_config(name, bundleid=None):
         bundleid (str, optional): Bundle ID of workflow variable belongs to.
 
     """
-    if not bundleid:
-        bundleid = os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    appname = jxa_app_name()
+    opts = {'inWorkflow': bundleid}
 
-    name = applescriptify(name)
-    bundleid = applescriptify(bundleid)
+    script = JXA_UNSET_CONFIG.format(app=json.dumps(appname),
+                                     arg=json.dumps(name),
+                                     opts=json.dumps(opts, sort_keys=True))
 
-    script = AS_CONFIG_UNSET.format(name=name, bundleid=bundleid)
-
-    run_applescript(script)
+    run_applescript(script, lang='JavaScript')
 
 
 def appinfo(name):
@@ -411,10 +431,9 @@ class LockFile(object):
 
         start = time.time()
         while True:
-
             # Raise error if we've been waiting too long to acquire the lock
             if self.timeout and (time.time() - start) >= self.timeout:
-                    raise AcquisitionError('lock acquisition timed out')
+                raise AcquisitionError('lock acquisition timed out')
 
             # If already locked, wait then try again
             if self.locked:

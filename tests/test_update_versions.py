@@ -23,12 +23,15 @@ class VersionTests(unittest.TestCase):
     """Unit tests for Version."""
 
     def setUp(self):
+        """Initialise unit test data."""
         self.invalid_versions = [
+            '',
             'bob',
             '1.x.8',
             '1.0b',
             '1.0.3a',
             '1.0.0.0',
+            '1.2.3.4',
         ]
         self.valid_versions = [
             ('1', '1.0.0'),
@@ -69,18 +72,6 @@ class VersionTests(unittest.TestCase):
         self.assertRaises(ValueError, lambda v, t: v != t, v, t)
         self.assertRaises(ValueError, lambda v, t: v > t, v, t)
         self.assertRaises(ValueError, lambda v, t: v < t, v, t)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') == (1, 0, 0)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') >= (1, 0, 0)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') <= (1, 0, 0)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') != (1, 0, 0)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') > (1, 0, 0)
-        # with self.assertRaises(ValueError):
-        #     Version('1.0.0') < (1, 0, 0)
 
     def test_compare_versions(self):
         """Versions: comparisons"""

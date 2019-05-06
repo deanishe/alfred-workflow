@@ -47,28 +47,34 @@ Alfred's default installation mechanism.
 
 .. important::
 
-    Releases marked as ``pre-release`` on GitHub will be ignored unless the
+    Releases marked ``Pre-release`` on GitHub will be ignored unless the
     ``workflow:prereleases`` :ref:`magic argument <magic-arguments>` has
     been enabled or the ``prereleases`` key is set to ``True`` in the
     ``update_settings`` :class:`dict`.
 
 
-Supporting Alfred 2 and Alfred 3
---------------------------------
+Supporting multiple Alfred versions
+-----------------------------------
 
-Workflows created *or edited* in Alfred 3 are fundamentally incompatible
-with Alfred 2, even if no Alfred 3-only features are used.
+Workflows created *or edited* in any version of Alfred are fundamentally
+incompatible with earlier versions, even if no new features are used.
 
 If you want to make a new release of an existing workflow that breaks
-compatibility with Alfred 2, it's important that you use the alternate
-``.alfred3workflow`` file extension for your release binaries to prevent Alfred
-2 installations trying to update themselves to death.
+compatibility with older versions of Alfred, it's important that you use
+an appropriate alternate versions-specific file extension to
+hide the files from older versions. That means, use
+``.alfred3workflow`` for workflows compatible with Alfred 3+,
+``.alfred4workflow`` for workflows compatible with Alfred 4+, and so
+on.
 
-You can have both an ``.alfredworkflow`` file and an ``.alfred3workflow`` file
-in the same release. If Alfred-Workflow is running under Alfred 3, it will
-prefer the ``.alfred3workflow`` if present. Under Alfred 2, or if the release
-contains no ``.alfred3workflow`` file, Alfred-Workflow will use the
-``.alfredworkflow`` file.
+Files with extensions that have a higher version number than the running
+version of Alfred are ignored by the updater. ``.alfredworkflow`` files
+are installed regardless of the Alfred version.
+
+You can have both an ``.alfredworkflow`` file and an ``.alfred4workflow`` file
+in the same release. If Alfred-Workflow is running under Alfred 4, it will
+prefer the ``.alfred4workflow`` if present. Under Alfred 3, or if the release
+contains no ``.alfred4workflow`` file, the ``.alfredworkflow`` file is used.
 
 There may only be one file of each type, however, or the release will be
 considered invalid.
@@ -80,11 +86,11 @@ Configuration
 To use self-updating, you must pass a :class:`dict` as the ``update_settings``
 argument to :class:`Workflow`. It **must** have the key/value
 pair ``github_slug``, which is your username and the name of the
-workflow's repo in the format ``username/reponame``. The version number of the currently
-installed workflow must also be specified (see below). There are several ways
-to specify the version number of your workflow:
+workflow's repo in the format ``username/reponame``. The version number
+of the currently installed workflow must also be specified (see below). There
+are several ways to specify the version number of your workflow:
 
-1. In Alfred 3, use the Workflow Version field in the workflow
+1. In Alfred 3+, use the Workflow Version field in the workflow
    configuration sheet. This saves the version number in ``info.plist``.
    :class:`Workflow` will retrieve the version from the
    environment variables set by Alfred when it runs your workflow (or by
@@ -181,9 +187,9 @@ number format and associated features.
 
 .. note::
 
-	Alfred-Workflow will automatically check in the background if a newer
-	version of your workflow is available, but will *not* automatically inform
-	the	user nor download and install the update.
+    Alfred-Workflow will automatically check in the background if a newer
+    version of your workflow is available, but will *not* automatically inform
+    the	user nor download and install the update.
 
 
 Usage

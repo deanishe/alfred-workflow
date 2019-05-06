@@ -98,19 +98,20 @@ def test_register_unregister(manager):
         manager.register(name, serializer)
 
 
+class InvalidSerializer(object):
+    """Bad serializer."""
+
+
 def test_register_invalid(manager):
     """Register invalid serializer."""
-    class Thing(object):
-        """Bad serializer."""
-        pass
-    invalid1 = Thing()
-    invalid2 = Thing()
+    invalid1 = InvalidSerializer()
+    invalid2 = InvalidSerializer()
     setattr(invalid2, 'load', lambda x: x)
 
     with pytest.raises(AttributeError):
-            manager.register('bork', invalid1)
+        manager.register('bork', invalid1)
     with pytest.raises(AttributeError):
-            manager.register('bork', invalid2)
+        manager.register('bork', invalid2)
 
 
 if __name__ == '__main__':  # pragma: no cover

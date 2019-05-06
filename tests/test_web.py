@@ -25,7 +25,7 @@ from pprint import pprint
 
 import pytest
 import pytest_httpbin
-import pytest_localserver
+import pytest_localserver  # noqa: F401
 
 from workflow import web
 
@@ -37,10 +37,12 @@ class CaseInsensitiveDictTests(unittest.TestCase):
     """Unit tests for CaseInsensitiveDict"""
 
     def setUp(self):
+        """Initialise test environment."""
         self.data_list = [('Aardvark', 'a'), ('Booty', 'b'), ('Clown', 'c')]
         self.data_dict = dict(self.data_list)
 
     def tearDown(self):
+        """Reset test environment."""
         pass
 
     def test_init_dict(self):
@@ -50,7 +52,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
         self.assertEqual(d1, d2)
 
     def test_retrieve(self):
-        """CaseInsensitiveDict retrieve values"""
+        """Retrieve CaseInsensitiveDict values"""
         d = web.CaseInsensitiveDictionary(self.data_list)
         for k, v in self.data_list:
             self.assertEqual(v, d[k])
@@ -70,7 +72,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
         self.assertFalse('This is not a key' in d)
 
     def test_set(self):
-        """CaseInsensitiveDict set values"""
+        """Set CaseInsensitiveDict values"""
         d = web.CaseInsensitiveDictionary()
         for k, v in self.data_list:
             self.assertFalse(k in d)
@@ -96,7 +98,7 @@ class CaseInsensitiveDictTests(unittest.TestCase):
             self.assertEqual(d.get(k), v)
 
     def test_iterators(self):
-        """CaseInsensitiveDict iterators"""
+        """Iterate CaseInsensitiveDict"""
         d = web.CaseInsensitiveDictionary(self.data_dict)
 
         self.assertEqual(sorted(d.keys()), sorted(self.data_dict.keys()))
@@ -116,9 +118,10 @@ class CaseInsensitiveDictTests(unittest.TestCase):
 
 @pytest_httpbin.use_class_based_httpbin
 class WebTests(unittest.TestCase):
-    """Unit tests for workflow.web."""
+    """Unit tests for workflow.web"""
 
     def setUp(self):
+        """Initialise unit test environment."""
         self.data = {'name': 'My name is Jürgen!',
                      'address': 'Hürterstr. 42\nEssen'}
         self.test_file = os.path.join(DATA_DIR,
@@ -127,6 +130,7 @@ class WebTests(unittest.TestCase):
                                     'web_py.{0:d}.tmp'.format(os.getpid()))
 
     def tearDown(self):
+        """Reset unit test environment."""
         if os.path.exists(self.tempdir):
             shutil.rmtree(self.tempdir)
 

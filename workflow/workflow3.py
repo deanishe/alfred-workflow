@@ -7,11 +7,11 @@
 # Created on 2016-06-25
 #
 
-"""An Alfred 3-only version of :class:`~workflow.Workflow`.
+"""An Alfred 3+ version of :class:`~workflow.Workflow`.
 
-:class:`~workflow.Workflow3` supports Alfred 3's new features, such as
+:class:`~workflow.Workflow3` supports new features, such as
 setting :ref:`workflow-variables` and
-:class:`the more advanced modifiers <Modifier>` supported by Alfred 3.
+:class:`the more advanced modifiers <Modifier>` supported by Alfred 3+.
 
 In order for the feedback mechanism to work correctly, it's important
 to create :class:`Item3` and :class:`Modifier` objects via the
@@ -250,7 +250,7 @@ class Modifier(object):
 
 
 class Item3(object):
-    """Represents a feedback item for Alfred 3.
+    """Represents a feedback item for Alfred 3+.
 
     Generates Alfred-compliant JSON for a single item.
 
@@ -447,7 +447,7 @@ class Item3(object):
 
 
 class Workflow3(Workflow):
-    """Workflow class that generates Alfred 3 feedback.
+    """Workflow class that generates Alfred 3+ feedback.
 
     It is a subclass of :class:`~workflow.Workflow` and most of its
     methods are documented there.
@@ -476,18 +476,18 @@ class Workflow3(Workflow):
 
     @property
     def _default_cachedir(self):
-        """Alfred 3's default cache directory."""
+        """Alfred 4's default cache directory."""
         return os.path.join(
             os.path.expanduser(
-                '~/Library/Caches/com.runningwithcrayons.Alfred-3/'
+                '~/Library/Caches/com.runningwithcrayons.Alfred/'
                 'Workflow Data/'),
             self.bundleid)
 
     @property
     def _default_datadir(self):
-        """Alfred 3's default data directory."""
+        """Alfred 4's default data directory."""
         return os.path.join(os.path.expanduser(
-            '~/Library/Application Support/Alfred 3/Workflow Data/'),
+            '~/Library/Application Support/Alfred/Workflow Data/'),
             self.bundleid)
 
     @property
@@ -707,6 +707,7 @@ class Workflow3(Workflow):
 
         Returns:
             Item3: Newly-created item.
+
         """
         if len(self._items):
             return

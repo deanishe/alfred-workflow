@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #
-# Copyright (c) 2014 Fabio Niephaus <fabio.niephaus@gmail.com>,
-# Dean Jackson <deanishe@deanishe.net>
+# Copyright (c) 2019 Dean Jackson <deanishe@deanishe.net>
 #
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
@@ -15,31 +14,36 @@ from __future__ import print_function
 
 from contextlib import contextmanager
 import os
+import re
 
 import pytest
-import pytest_localserver
+import pytest_localserver  # noqa: F401
 
-from util import WorkflowMock, create_info_plist, delete_info_plist
+from util import WorkflowMock
 from workflow import Workflow, update, web
+from workflow.update import Download, Version
 
 # Where test data is
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
 # GitHub API JSON for test repos
-DATA_JSON_EMPTY_PATH = os.path.join(DATA_DIR, 'gh-releases-empty.json')
-DATA_JSON_PATH = os.path.join(DATA_DIR, 'gh-releases.json')
-DATA_WORKFLOW_PATH = os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')
-
-# A dummy Alfred workflow
-DATA_WORKFLOW = open(DATA_WORKFLOW_PATH).read()
 # An empty list
-DATA_JSON_EMPTY = open(DATA_JSON_EMPTY_PATH).read()
+RELEASES_JSON_EMPTY = '[]'
 # A list of valid and invalid releases. The below variables
 # refer to these data.
-DATA_JSON = open(DATA_JSON_PATH).read()
+RELEASES_JSON = open(os.path.join(DATA_DIR, 'gh-releases.json')).read()
+RELEASES_4PLUS_JSON = open(
+    os.path.join(DATA_DIR, 'gh-releases-4plus.json')).read()
+# A dummy Alfred workflow
+DATA_WORKFLOW = open(
+    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')).read()
 
-RELEASE_LATEST = '6.0'
-RELEASE_LATEST_PRERELEASE = '7.1-beta'
+# Alfred 4
+RELEASE_LATEST = '9.0'
+RELEASE_LATEST_PRERELEASE = '10.0-beta'
+# Alfred 3
+RELEASE_LATEST_V3 = '6.0'
+RELEASE_LATEST_PRERELEASE_V3 = '7.1-beta'
 RELEASE_OLDEST = '1.0'
 # Use this as current version
 RELEASE_CURRENT = '2.0'
@@ -61,37 +65,31 @@ HTTP_HEADERS_JSON = {
 #
 # The repo has since been mirrored to the `tests/data` directory
 # (see DATA_* variables above), so the tests can run offline.
-TEST_REPO_SLUG = 'deanishe/alfred-workflow-dummy'
-EMPTY_REPO_SLUG = 'deanishe/alfred-workflow-empty-dummy'
-GH_ROOT = 'https://github.com/' + TEST_REPO_SLUG
-GH_API_ROOT = 'https://api.github.com/repos/' + TEST_REPO_SLUG
+TEST_REPO = 'deanishe/alfred-workflow-dummy'
+EMPTY_REPO = 'deanishe/alfred-workflow-empty-dummy'
+GH_ROOT = 'https://github.com/' + TEST_REPO
+GH_API_ROOT = 'https://api.github.com/repos/' + TEST_REPO
 RELEASES_URL = GH_API_ROOT + '/releases'
-# URL_DL = GH_ROOT + '/releases/download/v4.0/Dummy-4.0.alfredworkflow'
-URL_DL = GH_ROOT + '/releases/download/v6.0/Dummy-6.0.alfredworkflow'
+URL_DL = 'https://github.com/releases/download/v6.0/Dummy-6.0.alfredworkflow'
 URL_BAD = 'http://github.com/file.zip'
 # INVALID_RELEASE_URL = GH_ROOT + '/releases/download/v3.0/Dummy-3.0.zip'
 
-
-@pytest.fixture(scope='module')
-def info(request):
-    """Ensure `info.plist` exists in the working directory."""
-    create_info_plist()
-    os.environ['alfred_version'] = '2.4'
-    update._wf = None
-    request.addfinalizer(delete_info_plist)
+DL_BAD = Download(url='http://github.com/file.zip',
+                  filename='file.zip',
+                  version=Version('0'))
 
 
 @contextmanager
-def fakeresponse(server, content, headers=None):
+def fakeresponse(httpserver, content, headers=None):
     """Monkey patch `web.request()` to return the specified response."""
     orig = web.request
-    server.serve_content(content, headers=headers)
+    httpserver.serve_content(content, headers=headers)
 
     def _request(*args, **kwargs):
         """Replace request URL with `httpserver` URL"""
-        print('requested URL={0!r}'.format(args[1]))
-        args = (args[0], server.url) + args[2:]
-        print('request args={0!r}'.format(args))
+        # print('requested URL={!r}'.format(args[1]))
+        args = (args[0], httpserver.url) + args[2:]
+        # print('request args={!r}'.format(args))
         return orig(*args, **kwargs)
 
     web.request = _request
@@ -99,209 +97,208 @@ def fakeresponse(server, content, headers=None):
     web.request = orig
 
 
-def test_download_workflow(httpserver, info):
-    """Download workflow update"""
-    headers = {
-        'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'attachment; filename=Dummy-6.0.alfredworkflow',
-    }
-    with fakeresponse(httpserver, DATA_WORKFLOW, headers):
-        local_file = update.download_workflow(URL_DL)
-        assert local_file.endswith('.alfredworkflow')
-        assert os.path.isfile(local_file) is True
+def test_parse_releases(infopl, alfred4):
+    """Parse releases JSON"""
+    dls = Download.from_releases(RELEASES_JSON)
+    assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
+
+    for i, dl in enumerate(dls):
+        print('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i]))
+        assert dl == VALID_DOWNLOADS[i], "different downloads"
 
 
-def test_bad_download_url(info):
+def test_compare_downloads():
+    """Compare Downloads"""
+    dl = Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v11/Dummy-11.0.alfredworkflow",  # noqa: E501
+                  "Dummy-11.0.alfredworkflow",
+                  "v11",
+                  False)
+
+    for other in VALID_DOWNLOADS:
+        assert dl > other, "unexpected comparison"
+        assert dl != other, "unexpected equality"
+
+
+def test_bad_download_url(infopl, alfred4):
     """Bad update download URL"""
     with pytest.raises(ValueError):
-        update.download_workflow(URL_BAD)
+        update.retrieve_download(DL_BAD)
 
 
-def test_valid_api_url(info):
+def test_valid_api_url(infopl, alfred4):
     """API URL for valid slug"""
-    url = update.build_api_url(TEST_REPO_SLUG)
+    url = update.build_api_url(TEST_REPO)
     assert url == RELEASES_URL
 
 
-def test_invalid_api_url(info):
+def test_invalid_api_url(infopl, alfred4):
     """API URL for invalid slug"""
     with pytest.raises(ValueError):
         update.build_api_url('fniephausalfred-workflow')
 
 
-def test_empty_repo(httpserver, info):
+def test_empty_repo(httpserver, infopl):
     """No releases"""
-    # with webget(httpserver.url):
-    with fakeresponse(httpserver, DATA_JSON_EMPTY, HTTP_HEADERS_JSON):
-        update.check_update(EMPTY_REPO_SLUG, '1.0')
-        assert len(update.get_valid_releases(EMPTY_REPO_SLUG)) == 0
+    with fakeresponse(httpserver, RELEASES_JSON_EMPTY, HTTP_HEADERS_JSON):
+        update.check_update(EMPTY_REPO, '1.0')
+        assert len(update.get_downloads(EMPTY_REPO)) == 0
 
 
-def test_valid_releases(httpserver, info):
-    """Valid releases"""
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        releases = update.get_valid_releases(TEST_REPO_SLUG)
-        # Correct number of releases
-        assert len(releases) == 3
+def test_valid_downloads(httpserver, infopl, alfred4):
+    """Valid downloads"""
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
+        dls = update.get_downloads(TEST_REPO)
 
-        # Invalid releases are not in the list
-        versions = [d['version'] for d in releases]
-        for v in RELEASES_INVALID:
-            assert v not in versions
+    assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
 
-        # Correct latest release
-        assert update.Version(releases[0]['version']) == \
-            update.Version(RELEASE_LATEST)
+    for i, dl in enumerate(dls):
+        print('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i]))
+        assert dl == VALID_DOWNLOADS[i], "different downloads"
 
 
-def test_valid_releases_with_prereleases(httpserver, info):
-    """Valid releases with prereleases"""
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        releases = update.get_valid_releases(TEST_REPO_SLUG, prereleases=True)
+def test_latest_download(infopl):
+    """Latest download for Alfred version."""
+    dls = Download.from_releases(RELEASES_JSON)
+    tests = (
+        # downloads, alfred version, prereleases, wanted result
+        ([], None, False, None),
+        (dls, None, False, '9.0'),
+        (dls, None, True, '10.0-beta'),
+        (dls, '4', False, '9.0'),
+        (dls, '4', True, '10.0-beta'),
+        (dls, '3', False, '6.0'),
+        (dls, '3', True, '10.0-beta'),
+    )
 
-        # Correct number of releases
-        assert len(releases) == 4
-
-        # Invalid releases are not in the list
-        versions = [d['version'] for d in releases]
-        for v in RELEASES_INVALID:
-            assert v not in versions
-
-        # Correct latest release
-        assert update.Version(releases[0]['version']) == \
-            update.Version(RELEASE_LATEST_PRERELEASE)
+    for data, version, pre, wanted in tests:
+        dl = update.latest_download(data, version, pre)
+        if wanted is None:
+            assert dl is None, "latest is not None"
+        else:
+            assert dl.version == Version(wanted), "unexpected version"
 
 
-def test_version_formats(httpserver, info):
+def test_version_formats(httpserver, infopl, alfred4):
     """Version formats"""
-    falsey = (
-        # Up-to-date versions
-        '6.0', 'v6.0',
-        # Unknown versions
-        'v8.0', '8.0',
-    )
-    truthy = (
-        # Old versions
-        'v5.0', '5.0',
-    )
-
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        for vstr in falsey:
-            assert update.check_update(TEST_REPO_SLUG, vstr) is False
-        for vstr in truthy:
-            assert update.check_update(TEST_REPO_SLUG, vstr) is True
-
-
-def test_prerelease_version_formats(httpserver, info):
-    """Prerelease version formats"""
-    falsey = (
-        # Up-to-date versions
-        '7.1.0-beta', 'v7.1.0-beta',
-        # Unknown versions
-        'v8.0', '8.0',
-    )
-    truthy = (
-        # Old versions
-        'v5.0', '5.0',
+    tests = (
+        # current version, prereleases, alfred version, expected value
+        ('6.0', False, None, True),
+        ('6.0', False, '4', True),
+        ('6.0', False, '3', False),
+        ('6.0', True, None, True),
+        ('6.0', True, '4', True),
+        ('6.0', True, '3', True),
+        ('9.0', False, None, False),
+        ('9.0', False, '4', False),
+        ('9.0', False, '3', False),
+        ('9.0', True, None, True),
+        ('9.0', True, '4', True),
+        ('9.0', True, '3', True),
     )
 
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        for vstr in falsey:
-            assert update.check_update(TEST_REPO_SLUG, vstr,
-                                       prereleases=True) is False
-        for vstr in truthy:
-            assert update.check_update(TEST_REPO_SLUG, vstr,
-                                       prereleases=True) is True
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
+        for current, pre, alfred, wanted in tests:
+            v = update.check_update(TEST_REPO, current, pre, alfred)
+            assert v == wanted, "unexpected update status"
 
 
-def test_check_update(httpserver, info):
+def test_check_update(httpserver, infopl, alfred4):
     """Check update"""
-    wf = Workflow()
-    wf.reset()
+    key = '__workflow_latest_version'
+    tests = [
+        # data, alfred version, pre, expected value
+        (RELEASES_JSON, None, False, True),
+        (RELEASES_JSON, '3', False, True),
+        (RELEASES_4PLUS_JSON, None, False, True),
+        (RELEASES_4PLUS_JSON, '3', False, False),
+        (RELEASES_4PLUS_JSON, '3', True, False),
+    ]
 
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        assert update.check_update(TEST_REPO_SLUG,
-                                   RELEASE_CURRENT) is True
+    for data, alfred, pre, wanted in tests:
+        wf = Workflow()
+        wf.reset()
 
-        update_info = wf.cached_data('__workflow_update_status')
-        assert update_info is not None
-        assert wf.update_available is True
+        with fakeresponse(httpserver, data, HTTP_HEADERS_JSON):
+            v = update.check_update(TEST_REPO, RELEASE_CURRENT,
+                                    pre, alfred)
+            assert v == wanted, "unexpected update status"
 
-        assert update.check_update(TEST_REPO_SLUG,
-                                   update_info['version']) is False
+            status = wf.cached_data(key)
+            assert status is not None
+            assert status['available'] == wanted
+            assert wf.update_available == wanted
 
-
-def test_check_update_with_prereleases(httpserver, info):
-    """Check update with prereleases"""
-    wf = Workflow()
-    wf.reset()
-
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        assert update.check_update(TEST_REPO_SLUG,
-                                   RELEASE_CURRENT,
-                                   prereleases=True) is True
-
-        update_info = wf.cached_data('__workflow_update_status')
-        assert update_info is not None
-        assert wf.update_available is True
-
-        assert update.check_update(TEST_REPO_SLUG,
-                                   update_info['version'],
-                                   prereleases=True) is False
+            if wanted:  # other data may not be set if available is False
+                v = update.check_update(TEST_REPO, status['version'],
+                                        pre, alfred)
+                assert v is False
 
 
-def test_install_update(httpserver, info):
+def test_install_update(httpserver, infopl, alfred4):
     """Update is installed."""
+    key = '__workflow_latest_version'
     # Clear any cached data
     wf = Workflow()
     wf.reset()
 
     # Assert cache was cleared
-    assert wf.cached_data('__workflow_update_status') is None
+    assert wf.cached_data(key) is None
 
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        # No update for latest release
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
+        # No update because no update status has been cached
         assert update.install_update() is False
 
         # Check for updates
-        assert update.check_update(TEST_REPO_SLUG, RELEASE_CURRENT) is True
+        v = update.check_update(TEST_REPO, RELEASE_CURRENT)
+        assert v is True
 
         # Verify new workflow is downloaded and installed
-        c = WorkflowMock()
-        with c:
+        with WorkflowMock() as c:
             assert update.install_update() is True
+            assert c.cmd[0] == 'open'
+            assert re.search(r'\.alfred(\d+)?workflow$', c.cmd[1])
 
-        assert c.cmd[0] == 'open'
-        assert c.cmd[1].endswith('.alfredworkflow')
-        assert wf.cached_data(
-            '__workflow_update_status')['available'] is False
+        assert wf.cached_data(key)['available'] is False
+
+        # Test mangled update data
+        status = wf.cached_data(key)
+        assert status['available'] is False
+        assert status['download'] is None
+        assert status['version'] is None
+        # Flip available bit, but leave rest invalid
+        status['available'] = True
+        wf.cache_data(key, status)
+
+        with WorkflowMock():
+            assert update.install_update() is False
 
 
-def test_no_auto_update(info):
+def test_no_auto_update(infopl, alfred4):
     """No update check."""
+    key = '__workflow_latest_version'
     wf = Workflow()
     wf.reset()
     # Assert cache was cleared
-    assert wf.cached_data('__workflow_update_status') is None
+    assert wf.cached_data(key) is None
 
     c = WorkflowMock(['script', 'workflow:noautoupdate'])
     with c:
         wf = Workflow()
         wf.args
         assert wf.settings.get('__workflow_autoupdate') is False
-        assert wf.cached_data('__workflow_update_status') is None
+        assert wf.cached_data(key) is None
 
     c = WorkflowMock()
     with c:
         wf = Workflow(update_settings={
-            'github_slug': TEST_REPO_SLUG,
+            'github_slug': TEST_REPO,
             'version': RELEASE_CURRENT
         })
 
-        assert wf.cached_data('__workflow_update_status') is None
+        assert wf.cached_data(key) is None
 
 
-def test_update_nondefault_serialiser(httpserver, info):
+def test_update_nondefault_serialiser(httpserver, infopl, alfred4):
     """Check update works when a custom serialiser is set on Workflow
 
     https://github.com/deanishe/alfred-workflow/issues/113
@@ -310,11 +307,51 @@ def test_update_nondefault_serialiser(httpserver, info):
     wf.cache_serializer = 'json'
     wf.reset()
 
-    with fakeresponse(httpserver, DATA_JSON, HTTP_HEADERS_JSON):
-        assert update.check_update(TEST_REPO_SLUG,
+    with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
+        assert update.check_update(TEST_REPO,
                                    RELEASE_CURRENT) is True
 
         assert wf.update_available is True
+
+
+VALID_DOWNLOADS = [
+    # Latest version for Alfred 4
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v10.0-beta/Dummy-10.0-beta.alfredworkflow",  # noqa: E501
+             "Dummy-10.0-beta.alfredworkflow",
+             "v10.0-beta",
+             True),
+    # Latest stable version for Alfred 4
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v9.0/Dummy-9.0.alfred4workflow",  # noqa: E501
+             "Dummy-9.0.alfred4workflow",
+             "v9.0",
+             False),
+    # Latest version for Alfred 3
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v7.1.0-beta/Dummy-7.1-beta.alfredworkflow",  # noqa: E501
+             "Dummy-7.1-beta.alfredworkflow",
+             "v7.1.0-beta",
+             True),
+    # Latest stable version for Alfred 3
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred4workflow",  # noqa: E501
+             "Dummy-6.0.alfred4workflow",
+             "v6.0",
+             False),
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfred3workflow",  # noqa: E501
+             "Dummy-6.0.alfred3workflow",
+             "v6.0",
+             False),
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v6.0/Dummy-6.0.alfredworkflow",  # noqa: E501
+             "Dummy-6.0.alfredworkflow",
+             "v6.0",
+             False),
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v2.0/Dummy-2.0.alfredworkflow",  # noqa: E501
+             "Dummy-2.0.alfredworkflow",
+             "v2.0",
+             False),
+    Download("https://github.com/deanishe/alfred-workflow-dummy/releases/download/v1.0/Dummy-1.0.alfredworkflow",  # noqa: E501
+             "Dummy-1.0.alfredworkflow",
+             "v1.0",
+             False),
+]
 
 
 if __name__ == '__main__':  # pragma: no cover

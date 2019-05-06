@@ -37,7 +37,7 @@ def _delete_pidfile(name):
         os.unlink(pidfile)
 
 
-@pytest.mark.usefixtures('info2')
+@pytest.mark.usefixtures('infopl')
 class TestBackground(object):
     """Unit tests for background jobs."""
 

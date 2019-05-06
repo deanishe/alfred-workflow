@@ -1,11 +1,12 @@
 
-A helper library for writing `Alfred 2 and 3`_ workflows.
+A helper library for writing `Alfred 2, 3 and 4`_ workflows.
 
-Supports macOS 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
+Supports macOS 10.7+ and Python 2.7 (Alfred 3 is 10.9+/2.7 only).
 
 Alfred-Workflow is designed to take the grunt work out of writing a workflow.
 
-It gives you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
+It gives you the tools to create a fast and featureful Alfred workflow from an
+API, application or library in minutes.
 
 http://www.deanishe.net/alfred-workflow/
 
@@ -109,8 +110,9 @@ Download the ``alfred-workflow-X.X.X.zip`` file from the `GitHub releases`_
 page and extract the ZIP to the root directory of your workflow (where
 ``info.plist`` is).
 
-Alternatively, you can download `the source code`_ from the `GitHub repository`_
-and copy the ``workflow`` subfolder to the root directory of your workflow.
+Alternatively, you can download `the source code`_ from the
+`GitHub repository`_ and copy the ``workflow`` subfolder to the root
+directory of your workflow.
 
 Your workflow directory should look something like this (where
 ``yourscript.py`` contains your workflow code and ``info.plist`` is
@@ -140,7 +142,7 @@ http://www.deanishe.net/alfred-workflow/.
 
 .. _v2 branch: https://github.com/deanishe/alfred-workflow/tree/v2
 .. _requests: http://docs.python-requests.org/en/latest/
-.. _Alfred 2 and 3: http://www.alfredapp.com/
+.. _Alfred 2, 3 and 4: http://www.alfredapp.com/
 .. _GitHub releases: https://github.com/deanishe/alfred-workflow/releases
 .. _the source code: https://github.com/deanishe/alfred-workflow/archive/master.zip
 .. _GitHub repository: https://github.com/deanishe/alfred-workflow

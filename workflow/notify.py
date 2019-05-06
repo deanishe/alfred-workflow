@@ -11,9 +11,10 @@
 # TODO: Exclude this module from test and code coverage in py2.6
 
 """
-Post notifications via the macOS Notification Center. This feature
-is only available on Mountain Lion (10.8) and later. It will
-silently fail on older systems.
+Post notifications via the macOS Notification Center.
+
+This feature is only available on Mountain Lion (10.8) and later.
+It will silently fail on older systems.
 
 The main API is a single function, :func:`~workflow.notify.notify`.
 
@@ -198,7 +199,7 @@ def notify(title='', text='', sound=None):
     env = os.environ.copy()
     enc = 'utf-8'
     env['NOTIFY_TITLE'] = title.encode(enc)
-    env['NOTIFY_MESSAGE'] =  text.encode(enc)
+    env['NOTIFY_MESSAGE'] = text.encode(enc)
     env['NOTIFY_SOUND'] = sound.encode(enc)
     cmd = [n]
     retcode = subprocess.call(cmd, env=env)

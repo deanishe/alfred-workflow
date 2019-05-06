@@ -10,11 +10,13 @@ testone <package.name> <tests/test_script.py>...
 Run test script(s) with coverage for one package.
 
 Usage:
-    testone <package.name> <test_script.py>...
+    testone [-v|-V] <package.name> <test_script.py>...
     testone -h
 
 Options:
-    -h  Show this message and exit.
+    -v  verbose output
+    -V  very verbose output
+    -h  show this message and exit
 
 Example:
     testone workflow.notify tests/test_notify.py
@@ -44,12 +46,18 @@ function success() {
   printf "${green}$@${nc}\n"
 }
 
-
-while getopts ":h" opt; do
+vopts=
+while getopts ":hvV" opt; do
   case $opt in
     h)
       usage
       exit 0
+      ;;
+    v)
+      vopts="-v"
+      ;;
+    V)
+      vopts="-vv"
       ;;
     \?)
       log "Invalid option: -$OPTARG"
@@ -71,7 +79,7 @@ package="$1"
 shift
 
 # Run tests
-pytest --cov="${package}" "$@"
+pytest $vopts --cov="${package}" "$@"
 # ret1=$?
 ret1=${PIPESTATUS[0]}
 

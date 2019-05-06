@@ -1052,31 +1052,30 @@ class Workflow(object):
         data = {}
 
         for key in (
-                'alfred_debug',
-                'alfred_preferences',
-                'alfred_preferences_localhash',
-                'alfred_theme',
-                'alfred_theme_background',
-                'alfred_theme_subtext',
-                'alfred_version',
-                'alfred_version_build',
-                'alfred_workflow_bundleid',
-                'alfred_workflow_cache',
-                'alfred_workflow_data',
-                'alfred_workflow_name',
-                'alfred_workflow_uid',
-                'alfred_workflow_version'):
+                'debug',
+                'preferences',
+                'preferences_localhash',
+                'theme',
+                'theme_background',
+                'theme_subtext',
+                'version',
+                'version_build',
+                'workflow_bundleid',
+                'workflow_cache',
+                'workflow_data',
+                'workflow_name',
+                'workflow_uid',
+                'workflow_version'):
 
-            value = os.getenv(key)
+            value = os.getenv('alfred_' + key, '')
 
-            if isinstance(value, str):
-                if key in ('alfred_debug', 'alfred_version_build',
-                           'alfred_theme_subtext'):
+            if value:
+                if key in ('debug', 'version_build', 'theme_subtext'):
                     value = int(value)
                 else:
                     value = self.decode(value)
 
-            data[key[7:]] = value
+            data[key] = value
 
         self._alfred_env = data
 
@@ -1113,7 +1112,7 @@ class Workflow(object):
         :rtype: ``bool``
 
         """
-        return self.alfred_env.get('debug') == '1'
+        return self.alfred_env.get('debug') == 1
 
     @property
     def name(self):

@@ -102,6 +102,10 @@ def env(**kwargs):
             if k in os.environ:
                 del os.environ[k]
         else:
+            if isinstance(v, unicode):
+                v = v.encode('utf-8')
+            else:
+                v = str(v)
             os.environ[k] = v
 
     yield

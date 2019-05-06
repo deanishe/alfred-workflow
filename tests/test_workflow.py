@@ -22,6 +22,8 @@ import pytest
 
 from workflow import Workflow
 
+from .conftest import env
+
 
 def test_args(alfred4):
     """ARGV"""
@@ -104,6 +106,19 @@ def test_icons():
             path = getattr(workflow, name)
             print(name, path)
             assert os.path.exists(path)
+
+
+def test_debugging(alfred4):
+    """Debugging"""
+    tests = [
+        ('', False),
+        ('0', False),
+        ('1', True),
+    ]
+    for s, wanted in tests:
+        with env(alfred_debug=s):
+            wf = Workflow()
+            assert wf.debugging == wanted, "unexpected debugging"
 
 
 if __name__ == '__main__':  # pragma: no cover

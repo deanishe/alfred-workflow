@@ -6,17 +6,18 @@
 Alfred-Workflow
 ===============
 
-A helper library in Python for authors of workflows for [Alfred 2 and 3][alfred].
+A helper library in Python for authors of workflows for [Alfred 3 and 4][alfred].
 
 [![Build Status][shield-travis]][travis] [![Coverage Status][shield-coveralls]][coveralls] [![Latest Version][shield-version]][pypi] [![Development Status][shield-status]][pypi] [![Supported Python Versions][shield-pyversions]][pypi]
 
 <!-- [![Downloads][shield-download]][pypi] -->
 
-Supports OS X 10.6+ and Python 2.6 and 2.7 (Alfred 3 is 10.9+/2.7 only).
+Supports Alfred 3 and Alfred 4 on macOS 10.7+ (Python 2.7).
 
 Alfred-Workflow takes the grunt work out of writing a workflow by giving you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
 
 The only library, in any language, that *always* supports all current Alfred features.
+
 
 Features
 --------
@@ -37,7 +38,7 @@ Features
 - Painlessly add directories to `sys.path`
 
 
-### Alfred 3-only features ###
+### Alfred 3+ features ###
 
 - Set workflow variables from code
 - Advanced modifiers
@@ -65,7 +66,6 @@ Contents
   - [Adding a workflow to the list](#adding-a-workflow-to-the-list)
   - [Bug reports, pull requests](#bug-reports-pull-requests)
   - [Contributors](#contributors)
-- [Tests](#tests)
 - [Workflows using Alfred-Workflow](#workflows-using-alfred-workflow)
 
 <!-- /MarkdownTOC -->
@@ -332,7 +332,7 @@ Workflows using Alfred-Workflow
 [repo]: https://github.com/deanishe/alfred-workflow
 [requests]: http://docs.python-requests.org/en/latest/
 [rtd]: https://readthedocs.org/
-[shield-coveralls]: https://img.shields.io/coveralls/deanishe/alfred-workflow.svg?style=flat
+[shield-coveralls]: https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master
 [shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest&style=flat
 [shield-download]: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
 [shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat

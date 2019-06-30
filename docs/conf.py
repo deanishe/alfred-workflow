@@ -149,7 +149,7 @@ if not on_rtd:
         # 'codecov_button': True,
         'coveralls_button': True,
         'pypi_button': True,
-        'patreon_user_number': '890395',
+        # 'patreon_user_number': '890395',
         'logo_name': True,
         'logo_text_align': 'center',
         'description': "A helper library for creating Alfred 2 & 3 workflows.",

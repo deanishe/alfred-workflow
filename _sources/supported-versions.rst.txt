@@ -5,9 +5,8 @@
 Supported versions
 ==================
 
-Alfred-Workflow supports all versions of Alfred 2 & 3 and all versions
-of macOS supported by Alfred 2. It works with Python 2.6 and 2.7,
-but *not* Python 3.
+Alfred-Workflow supports all versions of Alfred 2–4. It works with
+Python 2.6 and 2.7, but *not yet* Python 3.
 
 Some features are not available on older versions of macOS.
 
@@ -18,15 +17,14 @@ Some features are not available on older versions of macOS.
 Alfred versions
 ===============
 
-Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
+Alfred-Workflow works with all versions of Alfred 2, 3 & 4, but you must
 own the `Powerpack`_ to use Alfred's workflow feature.
 
 All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-3 as of v3.6.2 are supported in the latest version of Alfred-Workflow.
+4 as of v4.0.2 are supported in the latest version of Alfred-Workflow.
 
-The :class:`~workflow.Workflow` class is compatible with both
-Alfred 2 and Alfred 3. The :class:`~workflow.Workflow3` class
-is only compatible with Alfred 3.
+The :class:`~workflow.Workflow` class is compatible with Alfred 2+.
+The :class:`~workflow.Workflow3` class is only compatible with Alfred 3+.
 
 .. important::
 
@@ -37,8 +35,8 @@ is only compatible with Alfred 3.
     As a result, versions 1.27+ of Alfred-Workflow are not compatible
     with versions of Alfred older than 3.4.1.
 
-:class:`~workflow.Workflow3` uses Alfred 3's JSON feedback
-format. It supports :ref:`workflow variables <workflow-variables>` and
+:class:`~workflow.Workflow3` uses the JSON feedback format in Alfred 3+.
+It supports :ref:`workflow variables <workflow-variables>` and
 more advanced modifiers than :class:`~workflow.Workflow`/Alfred 2.
 
 
@@ -54,7 +52,7 @@ macOS versions
     `update mechanism <guide-updates>`_ does not work on
     macOS 10.12/Sierra and older.
 
-Alfred-Workflow supports the same macOS versions as Alfred 2 and 3,
+Alfred-Workflow supports the same macOS versions as Alfred,
 namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).
 
 .. note::
@@ -80,8 +78,8 @@ on later versions.
 
     **This includes Python 3**.
 
-    (But if you manage to add full Python 3 support without breaking
-    2.6, a pull request would be gratefully accepted.)
+    Python 3 support will be added in a new major version of the library
+    when it is added to macOS in Catalina.
 
 
 Here is the `full list of new features in Python 2.7`_, but the
@@ -119,29 +117,9 @@ requiring users of their workflows to bugger about with their OS in
 order to get a workflow to work. This naturally includes requiring the
 installation of some non-default Python.
 
-Alfred-Workflow is also precisely the kind of project that's hard to make
-2- and 3-compatible for a few reasons.
-
-- Python 2.6 support is a hard requirement.
-- Alfred-Workflow's APIs are thin wrappers around I/O, and it is very much
-  a POSIX/command-line oriented library.
-- :mod:`workflow.web`, as an HTTP library, is all about working with strings
-  of non-specific encoding, which Python 3 `turned into a shit show`_
-  (though it's slowly getting better).
-
-Personally, I don't use Python 3 very much (Python 2 is a much better fit for
-command-line tools, which is what I usually write), and it's not part of macOS,
-so I consider the huge effort required to write 2.6- and 3.x-compatible code
-a waste of *my* time. If someone else wants to contribute Python 3
-support, it will be gratefully accepted.
-
-I realise that Python 3 solves many of the string-handling issues that
-catch out novice Pythonistas, but as stated, support for non-system
-Pythons is simply not a goal of this project.
-
-Python 3 will be supported when it ships with macOS by default, and never
-in version 1 of Alfred-Workflow, which must continue to support Python 2.6
-and Alfred 2 (which doesn't get along with Python 3 [1]_).
+Python 3 will be supported when it ships with macOS (Catalina),
+and never in version 1 of Alfred-Workflow, which must continue to support
+Python 2.6 and Alfred 2 (which doesn't get along with Python 3 [1]_).
 
 
 .. [1] Alfred uses UTF-8, but Alfred 2 doesn't specify an encoding in the
@@ -153,4 +131,3 @@ and Alfred 2 (which doesn't get along with Python 3 [1]_).
 .. _include argparse in your workflow: https://pypi.python.org/pypi/argparse
 .. _docopt: http://docopt.org/
 .. _Powerpack: https://buy.alfredapp.com/
-.. _turned into a shit show: http://lucumr.pocoo.org/2014/1/5/unicode-in-2-and-3/

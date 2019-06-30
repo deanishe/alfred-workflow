@@ -5,7 +5,7 @@
 Workflow variables
 ==================
 
-**Alfred 3 only**
+**Alfred 3+ only**
 
 .. currentmodule:: workflow.workflow3
 
@@ -304,14 +304,13 @@ More information
 
 Alfred's own help has a `few`_ `pages`_ on workflow variables.
 
-`Here`_ is a post I wrote on the Alfred forums about getting, setting and
-saving workflow variables.
+Also see this guide to `getting, setting and saving workflow variables`_.
 
 
 .. _workflow configuration sheet: https://www.alfredapp.com/help/workflows/advanced/variables/#environment
 .. _its workflow variables: https://www.alfredapp.com/help/workflows/utilities/argument/
 .. _few: https://www.alfredapp.com/help/workflows/utilities/argument/
 .. _pages: https://www.alfredapp.com/help/workflows/advanced/variables/
-.. _Here: http://www.alfredforum.com/topic/9070-how-to-workflowenvironment-variables/
+.. _getting, setting and saving workflow variables: https://www.deanishe.net/post/2018/10/workflow/environment-variables-in-alfred/
 
 .. _Click: http://click.pocoo.org/

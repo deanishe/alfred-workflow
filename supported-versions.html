@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Supported versions &#8212; Alfred-Workflow 1.37 documentation</title>
+    <title>Supported versions &#8212; Alfred-Workflow 1.37.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -43,9 +43,8 @@
             
   <div class="section" id="supported-versions">
 <span id="id1"></span><h1>Supported versions<a class="headerlink" href="#supported-versions" title="Permalink to this headline">¶</a></h1>
-<p>Alfred-Workflow supports all versions of Alfred 2 &amp; 3 and all versions
-of macOS supported by Alfred 2. It works with Python 2.6 and 2.7,
-but <em>not</em> Python 3.</p>
+<p>Alfred-Workflow supports all versions of Alfred 2–4. It works with
+Python 2.6 and 2.7, but <em>not yet</em> Python 3.</p>
 <p>Some features are not available on older versions of macOS.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -59,13 +58,12 @@ but <em>not</em> Python 3.</p>
 </div>
 <div class="section" id="alfred-versions">
 <h2><a class="toc-backref" href="#id4">Alfred versions</a><a class="headerlink" href="#alfred-versions" title="Permalink to this headline">¶</a></h2>
-<p>Alfred-Workflow works with all versions of Alfred 2 and 3, but you must
+<p>Alfred-Workflow works with all versions of Alfred 2, 3 &amp; 4, but you must
 own the <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a> to use Alfred’s workflow feature.</p>
 <p>All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-3 as of v3.6.2 are supported in the latest version of Alfred-Workflow.</p>
-<p>The <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> class is compatible with both
-Alfred 2 and Alfred 3. The <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> class
-is only compatible with Alfred 3.</p>
+4 as of v4.0.2 are supported in the latest version of Alfred-Workflow.</p>
+<p>The <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> class is compatible with Alfred 2+.
+The <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> class is only compatible with Alfred 3+.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p>Versions 3.4.1 altered the way <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a>
@@ -74,8 +72,8 @@ version 1.27 of Alfred-Workflow uses the new mechanism.</p>
 <p class="last">As a result, versions 1.27+ of Alfred-Workflow are not compatible
 with versions of Alfred older than 3.4.1.</p>
 </div>
-<p><a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> uses Alfred 3’s JSON feedback
-format. It supports <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> and
+<p><a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> uses the JSON feedback format in Alfred 3+.
+It supports <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> and
 more advanced modifiers than <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>/Alfred 2.</p>
 </div>
 <div class="section" id="macos-versions">
@@ -89,7 +87,7 @@ connect to these servers, which also means that the
 <a class="reference external" href="guide-updates">update mechanism</a> does not work on
 macOS 10.12/Sierra and older.</p>
 </div>
-<p>Alfred-Workflow supports the same macOS versions as Alfred 2 and 3,
+<p>Alfred-Workflow supports the same macOS versions as Alfred,
 namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -109,8 +107,8 @@ on later versions.</p>
 requests for support of, or bug reports concerning issues with any
 non-system Pythons.</p>
 <p><strong>This includes Python 3</strong>.</p>
-<p class="last">(But if you manage to add full Python 3 support without breaking
-2.6, a pull request would be gratefully accepted.)</p>
+<p class="last">Python 3 support will be added in a new major version of the library
+when it is added to macOS in Catalina.</p>
 </div>
 <p>Here is the <a class="reference external" href="https://docs.python.org/3/whatsnew/2.7.html">full list of new features in Python 2.7</a>, but the
 most important things if you want your workflow to run on Snow
@@ -142,27 +140,9 @@ vanilla installation of macOS since Snow Leopard.</p>
 requiring users of their workflows to bugger about with their OS in
 order to get a workflow to work. This naturally includes requiring the
 installation of some non-default Python.</p>
-<p>Alfred-Workflow is also precisely the kind of project that’s hard to make
-2- and 3-compatible for a few reasons.</p>
-<ul class="simple">
-<li>Python 2.6 support is a hard requirement.</li>
-<li>Alfred-Workflow’s APIs are thin wrappers around I/O, and it is very much
-a POSIX/command-line oriented library.</li>
-<li><a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.web</span></code></a>, as an HTTP library, is all about working with strings
-of non-specific encoding, which Python 3 <a class="reference external" href="http://lucumr.pocoo.org/2014/1/5/unicode-in-2-and-3/">turned into a shit show</a>
-(though it’s slowly getting better).</li>
-</ul>
-<p>Personally, I don’t use Python 3 very much (Python 2 is a much better fit for
-command-line tools, which is what I usually write), and it’s not part of macOS,
-so I consider the huge effort required to write 2.6- and 3.x-compatible code
-a waste of <em>my</em> time. If someone else wants to contribute Python 3
-support, it will be gratefully accepted.</p>
-<p>I realise that Python 3 solves many of the string-handling issues that
-catch out novice Pythonistas, but as stated, support for non-system
-Pythons is simply not a goal of this project.</p>
-<p>Python 3 will be supported when it ships with macOS by default, and never
-in version 1 of Alfred-Workflow, which must continue to support Python 2.6
-and Alfred 2 (which doesn’t get along with Python 3 <a class="footnote-reference" href="#id3" id="id2">[1]</a>).</p>
+<p>Python 3 will be supported when it ships with macOS (Catalina),
+and never in version 1 of Alfred-Workflow, which must continue to support
+Python 2.6 and Alfred 2 (which doesn’t get along with Python 3 <a class="footnote-reference" href="#id3" id="id2">[1]</a>).</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -295,8 +275,6 @@ dies in flames.</td></tr>
 	
 	<li class="donate"><a href="https://paypal.me/deanishe"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" title="PayPal"></a></li>
 	
-	
-	<li class="donate"><a href="https://www.patreon.com/bePatron?u=890395"><img src="_static/patreon.png" alt="Patreon" title="Patreon"></a></li>
 	
 </ul>
 

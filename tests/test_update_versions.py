@@ -32,6 +32,8 @@ class VersionTests(unittest.TestCase):
             '1.0.3a',
             '1.0.0.0',
             '1.2.3.4',
+            'v.1.1',
+            '.1.2.1',
         ]
         self.valid_versions = [
             ('1', '1.0.0'),

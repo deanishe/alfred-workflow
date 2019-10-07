@@ -2639,28 +2639,27 @@ class Workflow(object):
 
     def open_log(self):
         """Open :attr:`logfile` in default app (usually Console.app)."""
-        subprocess.call(['open', self.logfile])
+        subprocess.call(['open', self.logfile])  # nosec
 
     def open_cachedir(self):
         """Open the workflow's :attr:`cachedir` in Finder."""
-        subprocess.call(['open', self.cachedir])
+        subprocess.call(['open', self.cachedir])  # nosec
 
     def open_datadir(self):
         """Open the workflow's :attr:`datadir` in Finder."""
-        subprocess.call(['open', self.datadir])
+        subprocess.call(['open', self.datadir])  # nosec
 
     def open_workflowdir(self):
         """Open the workflow's :attr:`workflowdir` in Finder."""
-        subprocess.call(['open', self.workflowdir])
+        subprocess.call(['open', self.workflowdir])  # nosec
 
     def open_terminal(self):
         """Open a Terminal window at workflow's :attr:`workflowdir`."""
-        subprocess.call(['open', '-a', 'Terminal',
-                        self.workflowdir])
+        subprocess.call(['open', '-a', 'Terminal', self.workflowdir])  # nosec
 
     def open_help(self):
         """Open :attr:`help_url` in default browser."""
-        subprocess.call(['open', self.help_url])
+        subprocess.call(['open', self.help_url])  # nosec
 
         return 'Opening workflow help URL in browser'
 

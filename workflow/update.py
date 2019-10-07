@@ -519,7 +519,7 @@ def install_update():
     path = retrieve_download(Download.from_dict(dl))
 
     wf().logger.info('installing updated workflow ...')
-    subprocess.call(['open', path])
+    subprocess.call(['open', path])  # nosec
 
     wf().cache_data(key, no_update)
     return True

@@ -220,7 +220,7 @@ class Response(object):
 
         # Execute query
         try:
-            self.raw = urllib2.urlopen(request)
+            self.raw = urllib2.urlopen(request)  # nosec
         except urllib2.HTTPError as err:
             self.error = err
             try:
@@ -575,7 +575,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
         query = urllib.urlencode(str_dict(params), doseq=True)
         url = urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
-    req = urllib2.Request(url, data, headers)
+    req = urllib2.Request(url, data, headers)  # nosec
     return Response(req, stream)
 
 
@@ -638,7 +638,7 @@ def encode_multipart_formdata(fields, files):
         """
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
-    boundary = '-----' + ''.join(random.choice(BOUNDARY_CHARS)
+    boundary = '-----' + ''.join(random.choice(BOUNDARY_CHARS)  # nosec
                                  for i in range(30))
     CRLF = '\r\n'
     output = []

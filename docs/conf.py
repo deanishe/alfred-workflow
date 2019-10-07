@@ -152,7 +152,7 @@ if not on_rtd:
         # 'patreon_user_number': '890395',
         'logo_name': True,
         'logo_text_align': 'center',
-        'description': "A helper library for creating Alfred 2 & 3 workflows.",
+        'description': "A helper library for creating workflows for Alfred 2+.",
         # 'font_family': "Georgia, 'goudy old style', 'minion pro', 'bell mt', 'Hiragino Mincho Pro', serif",
     }
 

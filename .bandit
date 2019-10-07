@@ -1,0 +1,3 @@
+[bandit]
+skips: B301,B403,B404,B405,B603
+exclude: /tests

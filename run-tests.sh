@@ -141,6 +141,7 @@ if [[ "$dotest" -eq 1 ]]; then
 fi
 
 # Test coverage
+coverage xml
 coverage report --fail-under 100 --show-missing
 ret3=${PIPESTATUS[0]}
 

@@ -1,19 +1,16 @@
 *.log
+*.pyc
+*.egg-info
+/dist
+
+# virtual env
+/venv
+
+# tests
+/coverage_report
+/coverage.xml
 .coverage
 .coverage.*
-_build/
-*.pyc
-temp_*.py
-/MANIFEST
-/dist
-/dbfilter.py
-/pinboard.json
 .tox
-*.egg-info
-/.cache
-/coverage_report
-.tags
-.tags1
-.python-version
-.autoenv.zsh
-.autoenv_leave.zsh
+
+temp_*.py

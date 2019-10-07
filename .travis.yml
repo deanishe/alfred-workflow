@@ -23,5 +23,5 @@ script:
   - ./run-tests.sh
 
 after_success:
-  - cd tests
-  - coveralls
+  - python-codacy-coverage -r coverage.xml; exit 0
+  - cd tests && coveralls; exit 0

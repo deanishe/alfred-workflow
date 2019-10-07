@@ -117,7 +117,7 @@ def install_notifier():
     # z.extractall(destdir)
     tgz = tarfile.open(archive, 'r:gz')
     tgz.extractall(destdir)
-    if not os.path.exists(n):
+    if not os.path.exists(n):  # pragma: nocover
         raise RuntimeError('Notify.app could not be installed in ' + destdir)
 
     # Replace applet icon
@@ -253,7 +253,7 @@ def png_to_icns(png_path, icns_path):
     try:
         iconset = os.path.join(tempdir, 'Icon.iconset')
 
-        if os.path.exists(iconset):
+        if os.path.exists(iconset):  # pragma: nocover
             raise RuntimeError('iconset already exists: ' + iconset)
 
         os.makedirs(iconset)
@@ -284,7 +284,7 @@ def png_to_icns(png_path, icns_path):
         if retcode != 0:
             raise RuntimeError('iconset exited with %d' % retcode)
 
-        if not os.path.exists(icns_path):
+        if not os.path.exists(icns_path):  # pragma: nocover
             raise ValueError(
                 'generated ICNS file not found: ' + repr(icns_path))
     finally:

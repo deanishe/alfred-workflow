@@ -13,6 +13,7 @@ log "----------------- Test dependencies ----------------"
 pip install \
   pytest \
   coveralls \
+  codacy-coverage \
   pytest_cov \
   pytest_httpbin \
   pytest_localserver

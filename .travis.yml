@@ -23,6 +23,6 @@ script:
   - ./run-tests.sh
 
 after_success:
-  - python-codacy-coverage -r coverage.xml; exit 0
-  - cd tests && coveralls; exit 0
+  - python-codacy-coverage -r coverage.xml
+  - cd tests && coveralls
   - bash <(curl -s https://codecov.io/bash)

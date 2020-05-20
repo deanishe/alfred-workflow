@@ -25,3 +25,4 @@ script:
 after_success:
   - python-codacy-coverage -r coverage.xml; exit 0
   - cd tests && coveralls; exit 0
+  - bash <(curl -s https://codecov.io/bash)

@@ -102,7 +102,7 @@ def test_concurrent_access(paths):
     assert not os.path.exists(paths.lockfile)
 
     with open(paths.testfile) as fp:
-        lines = [l.strip() for l in fp.readlines()]
+        lines = [line.strip() for line in fp.readlines()]
 
     for line in lines:
         assert len(set(line)) == 1

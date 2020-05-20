@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>API documentation &#8212; Alfred-Workflow 1.37.2 documentation</title>
+    <title>API documentation &#8212; Alfred-Workflow 1.38.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -3465,9 +3465,12 @@ succeeds. The data is first written to a temporary file.</p>
 <dt id="subprocess.CalledProcessError">
 <em class="property">exception </em><code class="descclassname">subprocess.</code><code class="descname">CalledProcessError</code><span class="sig-paren">(</span><em>returncode</em>, <em>cmd</em>, <em>output=None</em><span class="sig-paren">)</span><a class="headerlink" href="#subprocess.CalledProcessError" title="Permalink to this definition">¶</a></dt>
 <dd><p>This exception is raised when a process run by check_call() or
-check_output() returns a non-zero exit status.
-The exit status will be stored in the returncode attribute;
-check_output() will also store the output in the output attribute.</p>
+check_output() returns a non-zero exit status.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">cmd, returncode, output</code></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3613,7 +3616,7 @@ check_output() will also store the output in the output attribute.</p>
 
 
     <div class="footer">
-      &copy; 2013–2019 Dean Jackson.
+      &copy; 2013–2020 Dean Jackson.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>

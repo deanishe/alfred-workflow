@@ -337,7 +337,7 @@ Workflows using Alfred-Workflow
 [repo]: https://github.com/deanishe/alfred-workflow
 [requests]: http://docs.python-requests.org/en/latest/
 [rtd]: https://readthedocs.org/
-[shield-coveralls]: https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master
+[shield-coveralls]: https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master&blah
 [shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest&style=flat
 [shield-download]: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
 [shield-github]: https://github.com/deanishe/alfred-workflow/workflows/build/badge.svg

@@ -169,16 +169,13 @@ class WebTests(unittest.TestCase):
         """POST request with JSON body"""
         url = self.httpbin.url + '/post'
         headers = {'content-type': 'application/json'}
-        print('Posting JSON ...')
         r = web.post(url, headers=headers, data=json.dumps(self.data))
         self.assert_(r.status_code == 200)
         data = r.json()
         pprint(data)
-        self.assertEqual(data['headers']['Content-Type'],
-                         'application/json')
+        self.assertEqual(data['headers']['Content-Type'], 'application/json')
         for key in self.data:
             self.assert_(data['json'][key] == self.data[key])
-        return
 
     def test_post_without_data(self):
         """POST request without data"""
@@ -186,6 +183,55 @@ class WebTests(unittest.TestCase):
         r = web.post(url)
         self.assert_(r.status_code == 200)
         r.raise_for_status()
+
+    def test_put_form(self):
+        """PUT Form data"""
+        url = self.httpbin.url + '/put'
+        r = web.put(url, data=self.data)
+        self.assert_(r.status_code == 200)
+        r.raise_for_status()
+        form = r.json()['form']
+        for key in self.data:
+            self.assert_(form[key] == self.data[key])
+
+    def test_put_json(self):
+        """PUT request with JSON body"""
+        url = self.httpbin + '/delete'
+        headers = {'content-type': 'application/json'}
+        r = web.delete(url, headers=headers, data=json.dumps(self.data))
+        self.assert_(r.status_code == 200)
+        data = r.json()
+        pprint(data)
+        self.assertEqual(data['headers']['Content-Type'], 'application/json')
+        for key in self.data:
+            self.assert_(data['json'][key] == self.data[key])
+
+    def test_put_without_data(self):
+        """PUT request without data"""
+        url = self.httpbin + '/put'
+        r = web.put(url)
+        self.assert_(r.status_code == 200)
+        r.raise_for_status()
+
+    def test_delete(self):
+        """DELETE request"""
+        url = self.httpbin + '/delete'
+        r = web.delete(url)
+        pprint(r.json())
+        self.assert_(r.status_code == 200)
+        r.raise_for_status()
+
+    def test_delete_with_json(self):
+        """DELETE request with JSON body"""
+        url = self.httpbin + '/delete'
+        headers = {'content-type': 'application/json'}
+        r = web.delete(url, headers=headers, data=json.dumps(self.data))
+        self.assert_(r.status_code == 200)
+        data = r.json()
+        pprint(data)
+        self.assertEqual(data['headers']['Content-Type'], 'application/json')
+        for key in self.data:
+            self.assert_(data['json'][key] == self.data[key])
 
     def test_timeout(self):
         """Request times out"""

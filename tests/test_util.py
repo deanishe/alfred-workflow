@@ -325,12 +325,18 @@ def test_appinfo():
     """App info for Safari."""
     for name, bundleid, path in [
         (u'Safari', u'com.apple.Safari', u'/Applications/Safari.app'),
-        (u'Digital Color Meter', u'com.apple.DigitalColorMeter',
-         u'/Applications/Utilities/Digital Color Meter.app'),
+        (u'Console', u'com.apple.Console',
+            u'/Applications/Utilities/Console.app'),
+        # Catalina
+        (u'Console', u'com.apple.Console',
+            u'/System/Applications/Utilities/Console.app'),
     ]:
 
+        if not os.path.exists(path):
+            continue
+
         info = appinfo(name)
-        assert info is not None
+        assert info is not None, name
         assert info.name == name
         assert info.path == path
         assert info.bundleid == bundleid

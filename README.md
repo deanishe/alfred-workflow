@@ -21,34 +21,32 @@ Supports Alfred 3 and Alfred 4 on macOS 10.7+ (Python 2.7).
 
 Alfred-Workflow takes the grunt work out of writing a workflow by giving you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
 
-The only library, in any language, that *always* supports all current Alfred features.
+Always supports all current Alfred features.
 
 
 Features
 --------
 
 - Auto-saved settings API for your workflow
-- Super-simple data caching
+- Super-simple data caching with expiry
 - Fuzzy filtering (with smart diacritic folding)
 - Keychain support for secure storage of passwords, API keys etc.
-- Simple generation of Alfred feedback (JSON/XML output)
-- Input/output decoding for handling non-ASCII text
 - Lightweight web API with [Requests][requests]-like interface
+- Background tasks to keep your workflow responsive
+- Simple generation of Alfred JSON feedback
+- Full support of Alfred's AppleScript/JXA API
 - Catches and logs workflow errors for easier development and support
 - "Magic" arguments to help development/debugging
+- Unicode support
 - Pre-configured logging
-- Easily launch background tasks (daemons) to keep your workflow responsive
 - Automatically check for workflow updates via GitHub releases
 - Post notifications via Notification Center
-- Painlessly add directories to `sys.path`
 
 
-### Alfred 3+ features ###
+### Alfred 4+ features ###
 
-- Set workflow variables from code
 - Advanced modifiers
-- Alfred 3-only updates (won't break Alfred 2 installs)
-- Re-running of Script Filters
+- Alfred 4-only updates (won't break older Alfred installs)
 
 
 Contents

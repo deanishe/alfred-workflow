@@ -1,0 +1,45 @@
+name: "CI"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  run:
+    name: "tests & coverage"
+    runs-on: macos-latest
+    env:
+      COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: 2.7
+
+    - name: Install test dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-test.txt
+
+    - name: Lint
+      run: ./run-tests.sh -l
+
+    - name: Unit tests
+      run: ./run-tests.sh
+
+    - name: Install coverage dependencies
+      run: pip install -r requirements-ci.txt
+
+    - name: Codacy
+      run: python-codacy-coverage -r coverage.xml -c ${{ github.sha }} || exit 0
+
+    - name: Coveralls
+      run: coveralls || exit 0
+
+    - name: Codecov
+      run: bash <(curl -s https://codecov.io/bash) || exit 0

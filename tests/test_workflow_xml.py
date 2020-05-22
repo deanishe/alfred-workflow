@@ -8,8 +8,7 @@
 # Created on 2017-05-06
 #
 
-"""
-"""
+"""Unit tests for Workflow's XML feedback generation."""
 
 from __future__ import print_function
 

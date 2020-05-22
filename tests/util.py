@@ -59,10 +59,12 @@ class MockCall(object):
         self.cmd = cmd
 
     def __enter__(self):
+        """Monkey-patch subprocess.check_output."""
         self._set_up()
         return self
 
     def __exit__(self, *args):
+        """Restore subprocess.check_output."""
         self._tear_down()
 
 
@@ -108,6 +110,7 @@ class WorkflowMock(object):
         self.kwargs = kwargs
 
     def __enter__(self):
+        """Monkey-patch "system" functions called by Workflow."""
         if self.override_call:
             self.call_orig = subprocess.call
             subprocess.call = self._call
@@ -127,6 +130,7 @@ class WorkflowMock(object):
         return self
 
     def __exit__(self, *args):
+        """Restore monkey-patched functions."""
         if self.call_orig:
             subprocess.call = self.call_orig
 
@@ -151,12 +155,14 @@ class VersionFile(object):
         self.path = path or VERSION_PATH
 
     def __enter__(self):
+        """Create version file."""
         with open(self.path, 'wb') as fp:
             fp.write(self.version)
         print('version {0} in {1}'.format(self.version, self.path),
               file=sys.stderr)
 
     def __exit__(self, *args):
+        """Remove version file."""
         if os.path.exists(self.path):
             os.unlink(self.path)
 
@@ -174,6 +180,7 @@ class FakePrograms(object):
         self.programs.update(names2codes)
 
     def __enter__(self):
+        """Inject program(s) into PATH."""
         self.tempdir = tempfile.mkdtemp()
         for name, retcode in self.programs.items():
             path = os.path.join(self.tempdir, name)
@@ -186,6 +193,7 @@ class FakePrograms(object):
         os.environ['PATH'] = self.tempdir + ':' + self.orig_path
 
     def __exit__(self, *args):
+        """Remove program(s) from PATH."""
         os.environ['PATH'] = self.orig_path
         try:
             shutil.rmtree(self.tempdir)
@@ -211,7 +219,7 @@ class InfoPlist(object):
             delete_info_plist(self.dest_path)
 
     def __exit__(self, *args):
-        """Create or delete ``info.plist``."""
+        """Delete ``info.plist``."""
         if self.present:
             delete_info_plist(self.dest_path)
 

@@ -1,27 +1,27 @@
-# .coveragerc to control coverage.py
-# [run]
-# branch = True
+; .coveragerc to control coverage.py
+; [run]
+; branch = True
 
 [report]
 include =
     workflow/*
-# fail_under = 100
+; fail_under = 100
 show_missing = 1
-# Regexes for lines to exclude from consideration
+; Regexes for lines to exclude from consideration
 exclude_lines =
-    # Have to re-enable the standard pragma
+    ; Have to re-enable the standard pragma
     pragma: no cover
     pragma: nocover
 
-    # Don't complain about missing debug-only code:
+    ; Don't complain about missing debug-only code:
     def __repr__
     if self\.debug
 
-    # Don't complain if tests don't hit defensive assertion code:
+    ; Don't complain if tests don't hit defensive assertion code:
     raise AssertionError
     raise NotImplementedError
 
-    # Don't complain if non-runnable code isn't run:
+    ; Don't complain if non-runnable code isn't run:
     if 0:
     if False:
     if __name__ == .__main__.:

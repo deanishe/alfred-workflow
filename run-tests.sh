@@ -152,5 +152,4 @@ case "$ret3" in
     *) fail "COVERAGE FAILED" ;;
 esac
 
-test -z "$TRAVIS" && coverage erase
 exit $ret3

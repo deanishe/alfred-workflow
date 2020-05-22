@@ -46,12 +46,8 @@
 <p>Alfred-Workflow is an open-source project and contributions are welcome.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p><strong>Do not submit a feature request for Python 3 support</strong></p>
-<p>Alfred-Workflow is targeted at the system Python installed on macOS.
-I will not consider adding Python 3 support until it’s installed
-by default on macOS.</p>
-<p class="last">A <em>pull request</em> with Python 3 support, however, would be gratefully
-accepted.</p>
+<p><strong>Do not submit yet another feature request for Python 3 support</strong></p>
+<p class="last">I am aware of the existence of Python 3. There will be a rewrite of the library that removes all the crufy and only supports Python 3 when I get around to it.</p>
 </div>
 <div class="section" id="feature-requests-and-bugs">
 <span id="bugs"></span><h2>Feature requests and bugs<a class="headerlink" href="#feature-requests-and-bugs" title="Permalink to this headline">¶</a></h2>
@@ -62,14 +58,9 @@ accepted.</p>
 <span id="id2"></span><h2>Pull requests<a class="headerlink" href="#pull-requests" title="Permalink to this headline">¶</a></h2>
 <p>If you’d like to submit a pull request, please observe the following:</p>
 <ul class="simple">
-<li>Please open pull requests against the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch. I try to keep
-<code class="docutils literal notranslate"><span class="pre">master</span></code> in sync with the latest release (at least regarding any files
-included in releases). <code class="docutils literal notranslate"><span class="pre">master</span></code> and <code class="docutils literal notranslate"><span class="pre">develop</span></code> are <em>usually</em> in sync,
-but if I’m working on new features, they’ll be in <code class="docutils literal notranslate"><span class="pre">develop</span></code> and won’t
-be pushed to <code class="docutils literal notranslate"><span class="pre">master</span></code> until they’re ready for release.</li>
 <li>Alfred-Workflow has very close to 100% test coverage. “Proof-of-concept”
-pull requests without tests are more than welcome. However, please be to
-add the appropriate tests if you want your pull request to be ultimately
+pull requests without tests are welcome. However, please be prepared
+to add the appropriate tests if you want your pull request to be ultimately
 accepted.</li>
 <li>Complete coverage is <em>only a proxy</em> for decent tests. Tests should also
 cover a decent variety of valid/invalid input. For example, if the code
@@ -90,15 +81,13 @@ every keypress. As a rule, 0.3 seconds execution time is decent, 0.2
 seconds or less is smooth. Alfred-Workflow should do its utmost to
 consume as little of that time as possible.</li>
 </ul>
-<p>The main entry point for unit testing is the <code class="docutils literal notranslate"><span class="pre">run-tests.sh</span></code> script in the root directory. This will fail <em>if code coverage is &lt; 100%</em>. Travis-CI also uses this script. Add <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code> with care.</p>
+<p>The main entry point for unit testing is the <code class="docutils literal notranslate"><span class="pre">run-tests.sh</span></code> script in the root directory. This will fail <em>if code coverage is &lt; 100%</em>. Travis-CI and GitHub Actions also use this script. Add <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code> with care.</p>
 </div>
 <div class="section" id="unit-tests">
 <span id="id3"></span><h2>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
 <p>Alfred-Workflow includes a full suite of unit tests. Please use the
-<code class="docutils literal notranslate"><span class="pre">run-tests.sh</span></code> script in the root directory of the repo to run the unit tests:
-it creates the necessary test environment to run the unit tests.
-<code class="docutils literal notranslate"><span class="pre">test_workflow.py</span></code> <em>will</em> fail if not run via <code class="docutils literal notranslate"><span class="pre">run-scripts.sh</span></code>, but the test
-suites for the other modules may also be run directly.</p>
+<code class="docutils literal notranslate"><span class="pre">run-tests.sh</span></code> script in the root directory of the repo to run the unit tests: it creates the necessary test environment to run the unit tests.
+<code class="docutils literal notranslate"><span class="pre">test_workflow.py</span></code> <em>will</em> fail if not run via <code class="docutils literal notranslate"><span class="pre">run-scripts.sh</span></code>, but the test suites for the other modules may also be run directly.</p>
 <p>Moreover, <code class="docutils literal notranslate"><span class="pre">run-tests.sh</span></code> checks the coverage of the unit tests and will fail if it is below 100%.</p>
 </div>
 <div class="section" id="questions-and-help">
@@ -141,7 +130,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 
     
 
-<p>
+<p class="shield">
 <a href="https://travis-ci.org/deanishe/alfred-workflow">
     <img
         alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
@@ -155,7 +144,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 
     
 
-<p>
+<p class="shield">
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
     alt="coverage icon"
@@ -172,7 +161,7 @@ the <a class="reference external" href="http://www.alfredforum.com/topic/4031-wo
 
     
 
-<p>
+<p class="shield">
 <a href="https://pypi.python.org/pypi/Alfred-Workflow">
     <img
     alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"

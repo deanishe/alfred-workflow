@@ -7,23 +7,14 @@
 .versionmodified {
 	font-style: italic;
 }
-
-cite {
-	font-style: normal !important;
-	// color: blue !important;
-	color: #404040;
-	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-	font-size: 75%;
-	font-weight: bold;
-	background: #fff;
-	border: solid 1px #e1e4e5;
-	padding: 2px 5px;
-}
-
-code.literal span.pre {
-	color: #404040;
-}
 */
+
+div.sphinxsidebar p.shield a,
+div.sphinxsidebar p.shield a:link,
+div.sphinxsidebar p.shield a:hover {
+	border-bottom: 0;
+	text-decoration: none;
+}
 
 /* Top navigation bar */
 div.related ul {

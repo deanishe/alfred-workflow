@@ -48,71 +48,51 @@ Python 2.6 and 2.7, but <em>not yet</em> Python 3.</p>
 <p>Some features are not available on older versions of macOS.</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#alfred-versions" id="id4">Alfred versions</a></li>
-<li><a class="reference internal" href="#macos-versions" id="id5">macOS versions</a></li>
-<li><a class="reference internal" href="#python-versions" id="id6">Python versions</a><ul>
-<li><a class="reference internal" href="#why-no-python-3-support" id="id7">Why no Python 3 support?</a></li>
+<li><a class="reference internal" href="#alfred-versions" id="id2">Alfred versions</a></li>
+<li><a class="reference internal" href="#macos-versions" id="id3">macOS versions</a></li>
+<li><a class="reference internal" href="#python-versions" id="id4">Python versions</a><ul>
+<li><a class="reference internal" href="#why-no-python-3-support" id="id5">Why no Python 3 support?</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="alfred-versions">
-<h2><a class="toc-backref" href="#id4">Alfred versions</a><a class="headerlink" href="#alfred-versions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Alfred versions</a><a class="headerlink" href="#alfred-versions" title="Permalink to this headline">¶</a></h2>
 <p>Alfred-Workflow works with all versions of Alfred 2, 3 &amp; 4, but you must
 own the <a class="reference external" href="https://buy.alfredapp.com/">Powerpack</a> to use Alfred’s workflow feature.</p>
-<p>All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred
-4 as of v4.0.2 are supported in the latest version of Alfred-Workflow.</p>
+<p>All Script Filter features provided by Alfred 2 as of v2.8.3 and by Alfred 4 as of v4.0.9 are supported in the latest version of Alfred-Workflow.</p>
 <p>The <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> class is compatible with Alfred 2+.
 The <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> class is only compatible with Alfred 3+.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p>Versions 3.4.1 altered the way <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a>
-are set via Script Filter feedback, and <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> as of
-version 1.27 of Alfred-Workflow uses the new mechanism.</p>
-<p class="last">As a result, versions 1.27+ of Alfred-Workflow are not compatible
-with versions of Alfred older than 3.4.1.</p>
+<p>Versions 3.4.1 altered the way <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> are set via Script Filter feedback, and <a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> as of version 1.27 of Alfred-Workflow uses the new mechanism.</p>
+<p class="last">As a result, versions 1.27+ of Alfred-Workflow are not compatible with versions of Alfred older than 3.4.1.</p>
 </div>
-<p><a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> uses the JSON feedback format in Alfred 3+.
-It supports <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> and
-more advanced modifiers than <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>/Alfred 2.</p>
+<p><a class="reference internal" href="api/index.html#workflow.Workflow3" title="workflow.Workflow3"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow3</span></code></a> uses the JSON feedback format in Alfred 3+. It supports <a class="reference internal" href="guide/variables.html#workflow-variables"><span class="std std-ref">workflow variables</span></a> and more advanced modifiers than <a class="reference internal" href="api/index.html#workflow.Workflow" title="workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>/Alfred 2.</p>
 </div>
 <div class="section" id="macos-versions">
-<h2><a class="toc-backref" href="#id5">macOS versions</a><a class="headerlink" href="#macos-versions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">macOS versions</a><a class="headerlink" href="#macos-versions" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Versions of macOS before High Sierra have an extremely old version
-of OpenSSL, which is not compatible with many servers’ SSL
-configurations, including GitHub’s. <a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.web</span></code></a> cannot
-connect to these servers, which also means that the
-<a class="reference external" href="guide-updates">update mechanism</a> does not work on
-macOS 10.12/Sierra and older.</p>
+<p class="last">Versions of macOS before High Sierra have an extremely old version of OpenSSL, which is not compatible with many servers’ SSL configurations, including GitHub’s. <a class="reference internal" href="api/index.html#module-workflow.web" title="workflow.web"><code class="xref py py-mod docutils literal notranslate"><span class="pre">workflow.web</span></code></a> cannot connect to these servers, which also means that the <a class="reference external" href="guide-updates">update mechanism</a> does not work on macOS 10.12/Sierra and older.</p>
 </div>
-<p>Alfred-Workflow supports the same macOS versions as Alfred,
-namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).</p>
+<p>Alfred-Workflow supports the same macOS versions as Alfred, namely 10.6 (Snow Leopard) and later (Alfred 3 is 10.9+ only).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="guide/notifications.html#notifications"><span class="std std-ref">Notifications</span></a>, added in version 1.15 of Alfred-Workflow, are
-only available on Mountain Lion (10.8) and above.</p>
+<p class="last"><a class="reference internal" href="guide/notifications.html#notifications"><span class="std std-ref">Notifications</span></a>, added in version 1.15 of Alfred-Workflow, are only available on Mountain Lion (10.8) and above.</p>
 </div>
 </div>
 <div class="section" id="python-versions">
-<h2><a class="toc-backref" href="#id6">Python versions</a><a class="headerlink" href="#python-versions" title="Permalink to this headline">¶</a></h2>
-<p>Alfred-Workflow only officially supports the system Pythons that come with
-macOS (i.e. <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code>), which is 2.6 on 10.6/Snow Leopard and 2.7
-on later versions.</p>
+<h2><a class="toc-backref" href="#id4">Python versions</a><a class="headerlink" href="#python-versions" title="Permalink to this headline">¶</a></h2>
+<p>Alfred-Workflow only officially supports the system Pythons that come with macOS (i.e. <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code>), which is 2.6 on 10.6/Snow Leopard and 2.7 on later versions.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p>Other Pythons (e.g. Homebrew, conda, pyenv etc.) are <em>not</em> supported.</p>
-<p>This is a deliberate design choice, so please do not submit feature
-requests for support of, or bug reports concerning issues with any
-non-system Pythons.</p>
+<p>This is a deliberate design choice, so please do not submit feature requests for support of, or bug reports concerning issues with any non-system Pythons.</p>
 <p><strong>This includes Python 3</strong>.</p>
-<p class="last">Python 3 support will be added in a new major version of the library
-when it is added to macOS in Catalina.</p>
+<p class="last">Python 3 support will be added in a new major version of the library when Catalina is more popular.</p>
 </div>
-<p>Here is the <a class="reference external" href="https://docs.python.org/3/whatsnew/2.7.html">full list of new features in Python 2.7</a>, but the
-most important things if you want your workflow to run on Snow
-Leopard/Python 2.6 are:</p>
+<p>Here is the <a class="reference external" href="https://docs.python.org/3/whatsnew/2.7.html">full list of new features in Python 2.7</a>, but the most important things if you want your workflow to run on Snow Leopard/Python 2.6 are:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://docs.python.org/2.7/library/argparse.html#module-argparse" title="(in Python v2.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a> is not available in 2.6. Use <a class="reference external" href="https://docs.python.org/2.7/library/getopt.html#module-getopt" title="(in Python v2.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getopt</span></code></a> or
 <a class="reference external" href="https://pypi.python.org/pypi/argparse">include argparse in your workflow</a>. Personally, I’m a big fan of
@@ -127,31 +107,12 @@ is better for certain use cases.</li>
 <li>No set literals.</li>
 <li>No dictionary or set comprehensions.</li>
 </ul>
-<p>Python 2.6 is still included in later versions of macOS (up to and
-including El Capitan), so run your Python scripts with
-<code class="docutils literal notranslate"><span class="pre">/usr/bin/python2.6</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> (2.7) to
-make sure they will run on Snow Leopard.</p>
+<p>Python 2.6 is still included in later versions of macOS (up to and including El Capitan), so run your Python scripts with <code class="docutils literal notranslate"><span class="pre">/usr/bin/python2.6</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> (2.7) to make sure they will run on Snow Leopard.</p>
 <div class="section" id="why-no-python-3-support">
-<h3><a class="toc-backref" href="#id7">Why no Python 3 support?</a><a class="headerlink" href="#why-no-python-3-support" title="Permalink to this headline">¶</a></h3>
-<p>Alfred-Workflow is targeted at the system Python on macOS. Its goal is to
-enable developers to build workflows that will “just work” for users on any
-vanilla installation of macOS since Snow Leopard.</p>
-<p>As such, it <a class="reference internal" href="guide/third-party.html#thirdparty"><span class="std std-ref">strongly discourages developers</span></a> from
-requiring users of their workflows to bugger about with their OS in
-order to get a workflow to work. This naturally includes requiring the
-installation of some non-default Python.</p>
-<p>Python 3 will be supported when it ships with macOS (Catalina),
-and never in version 1 of Alfred-Workflow, which must continue to support
-Python 2.6 and Alfred 2 (which doesn’t get along with Python 3 <a class="footnote-reference" href="#id3" id="id2">[1]</a>).</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Alfred uses UTF-8, but Alfred 2 doesn’t specify an encoding in the
-workflow environment. POSIX-compliant software, like Python, therefore
-assumes ASCII. Python 2 can handle this misconfiguration, but Python 3
-dies in flames.</td></tr>
-</tbody>
-</table>
+<h3><a class="toc-backref" href="#id5">Why no Python 3 support?</a><a class="headerlink" href="#why-no-python-3-support" title="Permalink to this headline">¶</a></h3>
+<p>Alfred-Workflow is targeted at the system Python on macOS. Its goal is to enable developers to build workflows that will “just work” for users on any vanilla installation of macOS since Snow Leopard.</p>
+<p>As such, it <a class="reference internal" href="guide/third-party.html#thirdparty"><span class="std std-ref">strongly discourages developers</span></a> from requiring users of their workflows to bugger about with their OS in order to get a workflow to work. This naturally includes requiring the installation of some non-default Python.</p>
+<p>Version 2 of Alfred-Workflow, which will be a complete rewrite, will support Python 3 and Alfred 4+ only.</p>
 </div>
 </div>
 </div>
@@ -189,7 +150,7 @@ dies in flames.</td></tr>
 
     
 
-<p>
+<p class="shield">
 <a href="https://travis-ci.org/deanishe/alfred-workflow">
     <img
         alt="https://secure.travis-ci.org/deanishe/alfred-workflow.svg?branch=master"
@@ -203,7 +164,7 @@ dies in flames.</td></tr>
 
     
 
-<p>
+<p class="shield">
 <a href="https://coveralls.io/github/deanishe/alfred-workflow">
     <img
     alt="coverage icon"
@@ -220,7 +181,7 @@ dies in flames.</td></tr>
 
     
 
-<p>
+<p class="shield">
 <a href="https://pypi.python.org/pypi/Alfred-Workflow">
     <img
     alt="https://img.shields.io/pypi/v/Alfred-Workflow.svg?style=flat"

@@ -9,14 +9,9 @@ Alfred-Workflow is an open-source project and contributions are welcome.
 
 .. important::
 
-    **Do not submit a feature request for Python 3 support**
+    **Do not submit yet another feature request for Python 3 support**
 
-    Alfred-Workflow is targeted at the system Python installed on macOS.
-    I will not consider adding Python 3 support until it's installed
-    by default on macOS.
-
-    A *pull request* with Python 3 support, however, would be gratefully
-    accepted.
+    I am aware of the existence of Python 3. There will be a rewrite of the library that removes all the crufy and only supports Python 3 when I get around to it.
 
 
 .. _bugs:
@@ -35,14 +30,9 @@ Pull requests
 
 If you'd like to submit a pull request, please observe the following:
 
-- Please open pull requests against the ``develop`` branch. I try to keep
-  ``master`` in sync with the latest release (at least regarding any files
-  included in releases). ``master`` and ``develop`` are *usually* in sync,
-  but if I'm working on new features, they'll be in ``develop`` and won't
-  be pushed to ``master`` until they're ready for release.
 - Alfred-Workflow has very close to 100% test coverage. "Proof-of-concept"
-  pull requests without tests are more than welcome. However, please be to
-  add the appropriate tests if you want your pull request to be ultimately
+  pull requests without tests are welcome. However, please be prepared
+  to add the appropriate tests if you want your pull request to be ultimately
   accepted.
 - Complete coverage is *only a proxy* for decent tests. Tests should also
   cover a decent variety of valid/invalid input. For example, if the code
@@ -63,7 +53,7 @@ If you'd like to submit a pull request, please observe the following:
   seconds or less is smooth. Alfred-Workflow should do its utmost to
   consume as little of that time as possible.
 
-The main entry point for unit testing is the ``run-tests.sh`` script in the root directory. This will fail *if code coverage is < 100%*. Travis-CI also uses this script. Add ``# pragma: no cover`` with care.
+The main entry point for unit testing is the ``run-tests.sh`` script in the root directory. This will fail *if code coverage is < 100%*. Travis-CI and GitHub Actions also use this script. Add ``# pragma: no cover`` with care.
 
 
 .. _unit-tests:
@@ -72,10 +62,8 @@ Unit tests
 ==========
 
 Alfred-Workflow includes a full suite of unit tests. Please use the
-``run-tests.sh`` script in the root directory of the repo to run the unit tests:
-it creates the necessary test environment to run the unit tests.
-``test_workflow.py`` *will* fail if not run via ``run-scripts.sh``, but the test
-suites for the other modules may also be run directly.
+``run-tests.sh`` script in the root directory of the repo to run the unit tests: it creates the necessary test environment to run the unit tests.
+``test_workflow.py`` *will* fail if not run via ``run-scripts.sh``, but the test suites for the other modules may also be run directly.
 
 Moreover, ``run-tests.sh`` checks the coverage of the unit tests and will fail if it is below 100%.
 

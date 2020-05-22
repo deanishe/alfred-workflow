@@ -5,6 +5,8 @@
 Welcome to Alfred-Workflow
 ==========================
 
+.. include:: badges.rst.inc
+
 Go to :ref:`quickindex`.
 
 

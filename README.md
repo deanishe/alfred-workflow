@@ -228,7 +228,7 @@ files = {'fieldname' : {'filename': "It's not unusual.mp3",
 r = web.post('http://www.example.com/upload/', files=files)
 ```
 
-**WARNING**: As this module is based on Python 2's standard HTTP libraries, *on older versions of OS X/Python, it does not validate SSL certificates when making HTTPS connections*. If your workflow uses sensitive passwords/API keys, you should *strongly consider* using the [requests][requests] library upon which the `web.py` API is based.
+**WARNING**: As this module is based on Python 2's standard HTTP libraries, *on old versions of OS X/Python, it does not validate SSL certificates when making HTTPS connections*. If your workflow uses sensitive passwords/API keys, you should *strongly consider* using the [requests][requests] library upon which the `web.py` API is based.
 
 
 <a name="keychain-access"></a>

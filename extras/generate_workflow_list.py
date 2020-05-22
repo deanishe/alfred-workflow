@@ -241,9 +241,9 @@ def read_manifest(path):
         data = {'packal': True}
         for child in workflow:
             if child.tag == 'short':
-                data['description'] = child.text
+                data['description'] = child.text.strip()
             else:
-                data[child.tag] = child.text
+                data[child.tag] = child.text.strip() if child.text else None
             # print(child.tag, ':', child.text)
         data['author_url'] = packal_user_url(data['author'])
         if 'bundle' in data:

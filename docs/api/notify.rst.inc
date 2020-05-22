@@ -26,14 +26,3 @@ icon and then calls the application to post notifications.
 
 .. autofunction:: notify
 
-
-Helper functions
-^^^^^^^^^^^^^^^^
-
-These internal helper functions may also be useful in your workflow.
-
-.. autofunction:: convert_image
-
-.. autofunction:: png_to_icns
-
-.. autofunction:: validate_sound

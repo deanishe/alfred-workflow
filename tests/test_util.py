@@ -2,14 +2,12 @@
 # encoding: utf-8
 #
 # Copyright (c) 2017 Dean Jackson <deanishe@deanishe.net>
-#
 # MIT Licence. See http://opensource.org/licenses/MIT
 #
 # Created on 2017-12-17
 #
 
-"""
-"""
+"""Unit tests for workflow/util.py."""
 
 from __future__ import print_function, absolute_import
 
@@ -22,14 +20,19 @@ import pytest
 
 from .conftest import env
 from workflow.util import (
+    action_in_alfred,
     appinfo,
     applescriptify,
+    browse_in_alfred,
     jxa_app_name,
+    reload_workflow,
     run_applescript,
     run_command,
     run_jxa,
     run_trigger,
+    search_in_alfred,
     set_config,
+    set_theme,
     unicodify,
     unset_config,
     utf8ify,
@@ -145,6 +148,7 @@ def test_run_jxa(testfile):
         return "1"
     }
     """
+
     # Run script passed as text
     out = run_jxa(script)
     assert out.strip() == '1'
@@ -188,14 +192,14 @@ def test_app_name():
 def test_run_trigger(alfred4):
     """Call External Trigger"""
     name = 'test'
-    bundleid = 'net.deanishe.alfred-workflow'
+    bundleid = 'com.example.workflow'
     arg = 'test arg'
 
     # With bundle ID
     script = (
         'Application("com.runningwithcrayons.Alfred")'
         '.runTrigger("test", '
-        '{"inWorkflow": "net.deanishe.alfred-workflow"});'
+        '{"inWorkflow": "com.example.workflow"});'
     )
     cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
     with MockCall() as m:
@@ -206,7 +210,7 @@ def test_run_trigger(alfred4):
     script = (
         'Application("com.runningwithcrayons.Alfred")'
         '.runTrigger("test", '
-        '{"inWorkflow": "net.deanishe.alfred-workflow", '
+        '{"inWorkflow": "com.example.workflow", '
         '"withArgument": "test arg"});'
     )
     cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
@@ -220,34 +224,26 @@ def test_run_trigger(alfred4):
         '.runTrigger("test", '
         '{"inWorkflow": "net.deanishe.alfred-workflow"});'
     )
-    os.environ['alfred_workflow_bundleid'] = bundleid
-    try:
-        cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
-        with MockCall() as m:
-            run_trigger(name)
-            assert m.cmd == cmd
-    finally:
-        del os.environ['alfred_workflow_bundleid']
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        run_trigger(name)
+        assert m.cmd == cmd
 
 
 def test_set_config(alfred4):
     """Set Configuration."""
     name = 'test'
-    bundleid = 'net.deanishe.alfred-workflow'
+    bundleid = 'com.example.workflow'
     value = 'test'
-    # argclause = 'with argument "test arg"'
 
     # With bundle ID
     script = (
         'Application("com.runningwithcrayons.Alfred")'
         '.setConfiguration("test", '
         '{"exportable": false, '
-        '"inWorkflow": "net.deanishe.alfred-workflow", '
+        '"inWorkflow": "com.example.workflow", '
         '"toValue": "test"});'
     )
-    # script = AS_CONFIG_SET.format(name=name, value=value,
-    #                               bundleid=bundleid,
-    #                               export='exportable false')
 
     cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
     with MockCall() as m:
@@ -259,12 +255,9 @@ def test_set_config(alfred4):
         'Application("com.runningwithcrayons.Alfred")'
         '.setConfiguration("test", '
         '{"exportable": true, '
-        '"inWorkflow": "net.deanishe.alfred-workflow", '
+        '"inWorkflow": "com.example.workflow", '
         '"toValue": "test"});'
     )
-    # script = AS_CONFIG_SET.format(name=name, value=value,
-    #                               bundleid=bundleid,
-    #                               export='exportable true')
 
     cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
     with MockCall() as m:
@@ -272,7 +265,6 @@ def test_set_config(alfred4):
         assert m.cmd == cmd
 
     # With bundle ID from env
-    os.environ['alfred_workflow_bundleid'] = bundleid
     script = (
         'Application("com.runningwithcrayons.Alfred")'
         '.setConfiguration("test", '
@@ -280,30 +272,22 @@ def test_set_config(alfred4):
         '"inWorkflow": "net.deanishe.alfred-workflow", '
         '"toValue": "test"});'
     )
-    try:
-        # script = AS_CONFIG_SET.format(name=name, value=value,
-        #                               bundleid=bundleid,
-        #                               export='exportable false')
-
-        cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
-        with MockCall() as m:
-            set_config(name, value)
-            assert m.cmd == cmd
-    finally:
-        del os.environ['alfred_workflow_bundleid']
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        set_config(name, value)
+        assert m.cmd == cmd
 
 
 def test_unset_config(alfred4):
     """Unset Configuration."""
     name = 'test'
-    bundleid = 'net.deanishe.alfred-workflow'
-    # argclause = 'with argument "test arg"'
+    bundleid = 'com.example.workflow'
 
     # With bundle ID
     script = (
         'Application("com.runningwithcrayons.Alfred")'
         '.removeConfiguration("test", '
-        '{"inWorkflow": "net.deanishe.alfred-workflow"});'
+        '{"inWorkflow": "com.example.workflow"});'
     )
     cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
     with MockCall() as m:
@@ -319,6 +303,94 @@ def test_unset_config(alfred4):
             assert m.cmd == cmd
     finally:
         del os.environ['alfred_workflow_bundleid']
+
+
+def test_search_in_alfred(alfred4):
+    """Search."""
+    query = 'badger, badger, badger'
+
+    # With query
+    script = (
+        'Application("com.runningwithcrayons.Alfred")'
+        '.search("badger, badger, badger");'
+    )
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        search_in_alfred(query)
+        assert m.cmd == cmd
+
+    # Without query (just opens Alfred)
+    script = 'Application("com.runningwithcrayons.Alfred").search("");'
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        search_in_alfred()
+        assert m.cmd == cmd
+
+
+def test_action_in_alfred(alfred4):
+    """Action."""
+    paths = ['~/Documents', '~/Desktop']
+
+    script = (
+        'Application("com.runningwithcrayons.Alfred")'
+        '.action(["~/Documents", "~/Desktop"]);'
+    )
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        action_in_alfred(paths)
+        assert m.cmd == cmd
+
+
+def test_browse_in_alfred(alfred4):
+    """Browse."""
+    path = '~/Documents'
+    script = 'Application("com.runningwithcrayons.Alfred").browse("~/Documents");'
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        browse_in_alfred(path)
+        assert m.cmd == cmd
+
+
+def test_reload_workflow(alfred4):
+    """Reload workflow."""
+    bundleid = 'com.example.workflow'
+    script = (
+        'Application("com.runningwithcrayons.Alfred")'
+        '.reloadWorkflow("com.example.workflow");'
+    )
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        reload_workflow(bundleid)
+        assert m.cmd == cmd
+
+    # With bundle ID from env
+    script = (
+        'Application("com.runningwithcrayons.Alfred")'
+        '.reloadWorkflow("net.deanishe.alfred-workflow");'
+    )
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        reload_workflow()
+        assert m.cmd == cmd
+
+
+def test_set_theme(alfred4):
+    """Set Alfred theme."""
+    theme = 'Alfred Dark'
+    script = (
+        'Application("com.runningwithcrayons.Alfred")'
+        '.setTheme("Alfred Dark");'
+    )
+
+    cmd = ['/usr/bin/osascript', '-l', 'JavaScript', '-e', script]
+    with MockCall() as m:
+        set_theme(theme)
+        assert m.cmd == cmd
 
 
 def test_appinfo():

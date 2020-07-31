@@ -1670,29 +1670,13 @@ methods are documented there.</p>
 <dl class="attribute">
 <dt id="workflow.Workflow3.item_class">
 <code class="descname">item_class</code><a class="headerlink" href="#workflow.Workflow3.item_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class used to generate feedback items.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">class</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>class</em> – Class used to generate feedback items.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.Workflow3.variables">
 <code class="descname">variables</code><a class="headerlink" href="#workflow.Workflow3.variables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Top level workflow variables.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>dict</em> – Top level workflow variables.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1709,6 +1693,8 @@ above) will filter against this field, not <code class="docutils literal notrans
 </tr>
 </tbody>
 </table>
+<p>In Alfred 4.1+ and Alfred-Workflow 1.40+, <code class="docutils literal notranslate"><span class="pre">arg</span></code> may also be a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
 <p>See <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.add_item()</span></code></a> for
 the main documentation and other parameters.</p>
 <p>The key difference is that this method does not support the
@@ -1970,45 +1956,33 @@ information.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>arg</strong> (<em>unicode</em><em>, </em><em>optional</em>) – Main output/<code class="docutils literal notranslate"><span class="pre">{query}</span></code>.</li>
+<li><strong>arg</strong> (<em>unicode</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – Main output/<code class="docutils literal notranslate"><span class="pre">{query}</span></code>.</li>
 <li><strong>**variables</strong> – Workflow variables to set.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>In Alfred 4.1+ and Alfred-Workflow 1.40+, <code class="docutils literal notranslate"><span class="pre">arg</span></code> may also be a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
 <dl class="attribute">
 <dt id="workflow.Variables.arg">
 <code class="descname">arg</code><a class="headerlink" href="#workflow.Variables.arg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Output value (<code class="docutils literal notranslate"><span class="pre">{query}</span></code>).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode or list</em> – Output value (<code class="docutils literal notranslate"><span class="pre">{query}</span></code>).
+In Alfred 4.1+ and Alfred-Workflow 1.40+, <code class="docutils literal notranslate"><span class="pre">arg</span></code> may also be a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.Variables.config">
 <code class="descname">config</code><a class="headerlink" href="#workflow.Variables.config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration for downstream workflow element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>dict</em> – Configuration for downstream workflow element.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.Variables.obj">
 <code class="descname">obj</code><a class="headerlink" href="#workflow.Variables.obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <code class="docutils literal notranslate"><span class="pre">alfredworkflow</span></code> <cite>dict</cite>.</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">alfredworkflow</span></code> <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2046,7 +2020,7 @@ See <a class="reference internal" href="#workflow.Workflow3.add_item" title="wor
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>key</strong> (<em>unicode</em>) – Modifier key, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;cmd&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;alt&quot;</span></code></li>
 <li><strong>subtitle</strong> (<em>unicode</em><em>, </em><em>optional</em>) – Override item subtitle.</li>
 <li><strong>arg</strong> (<em>unicode</em><em>, </em><em>optional</em>) – Input for following action.</li>
@@ -2058,11 +2032,17 @@ for valid values.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Configured <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Modifier</span></code></a>.</p>
-</td>
+</tbody>
+</table>
+<p>In Alfred 4.1+ and Alfred-Workflow 1.40+, <code class="docutils literal notranslate"><span class="pre">arg</span></code> may also be a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Configured <a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Modifier</span></code></a>.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier">Modifier</a></p>
-</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#workflow.workflow3.Modifier" title="workflow.workflow3.Modifier">Modifier</a></td>
 </tr>
 </tbody>
 </table>
@@ -2164,116 +2144,52 @@ for valid values.</li>
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.arg">
 <code class="descname">arg</code><a class="headerlink" href="#workflow.workflow3.Modifier.arg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Arg to pass to following action.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode</em> – Arg to pass to following action.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.config">
 <code class="descname">config</code><a class="headerlink" href="#workflow.workflow3.Modifier.config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration for a downstream element, such as
+<dd><p><em>dict</em> – Configuration for a downstream element, such as
 a File Filter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.icon">
 <code class="descname">icon</code><a class="headerlink" href="#workflow.workflow3.Modifier.icon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filepath/UTI of icon.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode</em> – Filepath/UTI of icon.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.icontype">
 <code class="descname">icontype</code><a class="headerlink" href="#workflow.workflow3.Modifier.icontype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of icon. See
+<dd><p><em>unicode</em> – Type of icon. See
 <a class="reference internal" href="#workflow.Workflow.add_item" title="workflow.Workflow.add_item"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Workflow.add_item()</span></code></a>
 for valid values.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.key">
 <code class="descname">key</code><a class="headerlink" href="#workflow.workflow3.Modifier.key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Modifier key (see above).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode</em> – Modifier key (see above).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.subtitle">
 <code class="descname">subtitle</code><a class="headerlink" href="#workflow.workflow3.Modifier.subtitle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override item subtitle.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode</em> – Override item subtitle.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.valid">
 <code class="descname">valid</code><a class="headerlink" href="#workflow.workflow3.Modifier.valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override item validity.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>bool</em> – Override item validity.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.workflow3.Modifier.variables">
 <code class="descname">variables</code><a class="headerlink" href="#workflow.workflow3.Modifier.variables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Workflow variables set by this modifier.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>dict</em> – Workflow variables set by this modifier.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2751,72 +2667,32 @@ be cached.</p>
 <dl class="attribute">
 <dt id="workflow.update.Download.url">
 <code class="descname">url</code><a class="headerlink" href="#workflow.update.Download.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>URL of workflow file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>str</em> – URL of workflow file.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.update.Download.filename">
 <code class="descname">filename</code><a class="headerlink" href="#workflow.update.Download.filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filename of workflow file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>str</em> – Filename of workflow file.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.update.Download.version">
 <code class="descname">version</code><a class="headerlink" href="#workflow.update.Download.version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Semantic version of workflow.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#workflow.update.Version" title="workflow.update.Version">Version</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>Version</em> – Semantic version of workflow.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.update.Download.prerelease">
 <code class="descname">prerelease</code><a class="headerlink" href="#workflow.update.Download.prerelease" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether version is a pre-release.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)">bool</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>bool</em> – Whether version is a pre-release.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.update.Download.alfred_version">
 <code class="descname">alfred_version</code><a class="headerlink" href="#workflow.update.Download.alfred_version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Minimum compatible version
+<dd><p><em>Version</em> – Minimum compatible version
 of Alfred.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#workflow.update.Version" title="workflow.update.Version">Version</a></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -3412,44 +3288,20 @@ lock has been released.</li>
 <dl class="attribute">
 <dt id="workflow.util.LockFile.delay">
 <code class="descname">delay</code><a class="headerlink" href="#workflow.util.LockFile.delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>How often to check (in seconds) whether the lock
+<dd><p><em>float</em> – How often to check (in seconds) whether the lock
 can be acquired.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.util.LockFile.lockfile">
 <code class="descname">lockfile</code><a class="headerlink" href="#workflow.util.LockFile.lockfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path of the lockfile.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">unicode</td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>unicode</em> – Path of the lockfile.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="workflow.util.LockFile.timeout">
 <code class="descname">timeout</code><a class="headerlink" href="#workflow.util.LockFile.timeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>How long to wait to acquire the lock.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
-</tr>
-</tbody>
-</table>
+<dd><p><em>float</em> – How long to wait to acquire the lock.</p>
 </dd></dl>
 
 <dl class="method">

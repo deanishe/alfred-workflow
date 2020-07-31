@@ -80,9 +80,15 @@ corresponding section in the `GitHub README`_.
 - `Alphy <http://www.packal.org/workflow/alphy>`__
   by `maximepeschard <http://www.packal.org/users/maximepeschard>`__.
   Search and get links for GIFs on Giphy with Alfred.
+- `Ancient Chinese online query <http://www.packal.org/workflow/ancient-chinese-online-query>`__
+  by `anzhihe <http://www.packal.org/users/anzhihe>`__.
+  Ancient Chinese explanation inquiry from zdic.net.
 - `AppScripts <http://www.packal.org/workflow/appscripts>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   List, search and run/open AppleScripts for the active application.
+- `AppStorrent <https://github.com/jag-k/alfred-appstorrent>`__
+  by `jag-k <https://github.com/jag-k>`__.
+  Search and download programs and games to Mac OS.
 - `Ariafred <http://www.packal.org/workflow/ariafred>`__
   by `Wildog <http://www.packal.org/users/wildog>`__.
   Manage Aria2 downloads directly in Alfred, with background notification.
@@ -128,6 +134,9 @@ corresponding section in the `GitHub README`_.
 - `Blur <http://www.packal.org/workflow/blur>`__
   by `Tyler Eich <http://www.packal.org/users/tyler-eich>`__.
   Set Alfred's background blur radius.
+- `CakePHP Documentation <http://www.packal.org/workflow/cakephp-documentation>`__
+  by `techouse <http://www.packal.org/users/techouse>`__.
+  A friendly-fast CakePHP documentation search.
 - `Calendar <http://www.packal.org/workflow/calendar>`__
   by `owenwater <http://www.packal.org/users/owenwater>`__.
   Displays a monthly calendar with Alfred Workflow.
@@ -191,6 +200,9 @@ corresponding section in the `GitHub README`_.
 - `Default Folder X <http://www.packal.org/workflow/default-folder-x>`__
   by `deanishe <http://www.packal.org/users/deanishe>`__.
   Show and search Default Folder X favourites and recent items.
+- `Dev.to <http://www.packal.org/workflow/devto>`__
+  by `mijailr <http://www.packal.org/users/mijailr>`__.
+  Get top 10 articles from dev.to.
 - `Dict.cc for Alfred <http://www.packal.org/workflow/dictcc-alfred>`__
   by `PhilippN <http://www.packal.org/users/philippn>`__.
   This Alfred workflow uses the offline translation databases provided by dict.cc.
@@ -323,6 +335,9 @@ corresponding section in the `GitHub README`_.
 - `ironmq <http://www.packal.org/workflow/ironmq>`__
   by `eldardamari <http://www.packal.org/users/eldardamari>`__.
   Quick productive access to your ironMQ queues.
+- `Japanese Translator <http://www.packal.org/workflow/japanese-translator>`__
+  by `MrMonkey006 <http://www.packal.org/users/mrmonkey006>`__.
+  Translate or conjugate any Japanese word, verb, or sentence you want.
 - `Jenkins <http://www.packal.org/workflow/jenkins>`__
   by `Amwam <http://www.packal.org/users/amwam>`__.
   Show and search through jobs on Jenkins.
@@ -449,9 +464,9 @@ corresponding section in the `GitHub README`_.
 - `Pomodoro Alfred <https://github.com/ecbrodie/pomodoro-alfred>`__
   by `Evan Brodie <https://github.com/ecbrodie>`__.
   Track Pomodoros through Alfred.
-- `Powerthesaurus Search <http://www.packal.org/workflow/powerthesaurus-search>`__
+- `Power Thesaurus Search <http://www.packal.org/workflow/power-thesaurus-search>`__
   by `clarencecastillo <http://www.packal.org/users/clarencecastillo>`__.
-  Search Powerthesaurus synonyms and antonyms from Alfred.
+  Search Power Thesaurus synonyms and antonyms from Alfred.
 - `Product Hunt <http://www.packal.org/workflow/product-hunt>`__
   by `loris <http://www.packal.org/users/loris>`__.
   List Product Hunt today's hunts.

@@ -335,11 +335,11 @@ Workflows using Alfred-Workflow
 [repo]: https://github.com/deanishe/alfred-workflow
 [requests]: http://docs.python-requests.org/en/latest/
 [rtd]: https://readthedocs.org/
-[shield-coveralls]: https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master&blah
+[shield-coveralls]: https://coveralls.io/repos/github/deanishe/alfred-workflow/badge.svg?branch=master
 [shield-docs]: https://readthedocs.org/projects/alfredworkflow/badge/?version=latest&style=flat
 [shield-download]: https://img.shields.io/pypi/dm/Alfred-Workflow.svg?style=flat
-[shield-github]: https://github.com/deanishe/alfred-workflow/workflows/build/badge.svg
-[action-github]: https://github.com/deanishe/alfred-workflow/actions?query=workflow%3Abuild
+[shield-github]: https://github.com/deanishe/alfred-workflow/workflows/CI/badge.svg
+[action-github]: https://github.com/deanishe/alfred-workflow/actions?query=workflow%3ACI
 [shield-health]: https://landscape.io/github/deanishe/alfred-workflow/master/landscape.png?style=flat
 [shield-licence]: https://pypip.in/license/Alfred-Workflow/badge.svg?style=flat
 [shield-status]: https://img.shields.io/pypi/status/Alfred-Workflow.svg?style=flat

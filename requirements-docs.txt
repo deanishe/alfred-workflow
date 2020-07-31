@@ -1,4 +1,4 @@
 -e git+https://github.com/deanishe/alabaster/@a5ec3ee9827bcebe6112fb1b4319443a340a33c5#egg=alabaster
 doc2dash==2.3.0
 Sphinx==1.8.5
-sphinxcontrib-napoleon==0.7
+sphinxcontrib-napoleon2==1.0

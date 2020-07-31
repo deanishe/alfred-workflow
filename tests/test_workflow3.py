@@ -130,6 +130,21 @@ def test_warn_empty(infopl):
     assert len(o['items']) == 1
 
 
+def test_arg_multiple(infopl):
+    """Item3: multiple args."""
+    wf = Workflow3()
+    arg = ['one', 'two']
+    it = wf.add_item('Title', arg=arg)
+
+    o = it.obj
+    assert o['arg'] == arg
+
+    o = wf.obj
+    assert len(o['items']) == 1
+    o = o['items'][0]
+    assert o['arg'] == arg
+
+
 def test_arg_variables(infopl):
     """Item3: Variables in arg."""
     wf = Workflow3()
@@ -333,6 +348,23 @@ def test_modifiers(infopl):
     assert m['variables']['modvar'] == 'hello'
 
 
+def test_modifier_multiple_args(infopl):
+    """Item3: Modifier multiple args."""
+    wf = Workflow3()
+    arg = ['one', 'two']
+    marg = ['three', 'four']
+    it = wf.add_item('Title', arg=arg)
+    mod = it.add_modifier('cmd', arg=marg)
+
+    o = it.obj
+    assert o['arg'] == arg
+
+    assert o['mods']['cmd']['arg'] == marg
+
+    assert mod.arg == marg
+    assert mod.obj['arg'] == marg
+
+
 def test_modifier_icon(infopl):
     """Item3: Modifier icon."""
     wf = Workflow3()
@@ -462,6 +494,16 @@ def test_variables_plain_arg():
     v = Variables(arg=u'test')
     assert unicode(v) == u'test'
     assert str(v) == 'test'
+
+
+def test_variables_multiple_args(infopl):
+    """Variables: multiple args."""
+    arg = ['one', 'two']
+    js = '{"alfredworkflow": {"arg": ["one", "two"]}}'
+    v = Variables(arg=arg)
+    assert v.obj == {'alfredworkflow': {'arg': arg}}
+    assert str(v) == js
+    assert unicode(v) == js
 
 
 def test_variables_empty():

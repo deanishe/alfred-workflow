@@ -944,7 +944,7 @@ class Workflow(object):
         self._default_settings = default_settings or {}
         self._update_settings = update_settings or {}
         self._input_encoding = input_encoding
-        self._normalizsation = normalization
+        self._normalization = normalization
         self._capture_args = capture_args
         self.help_url = help_url
         self._workflowdir = None
@@ -2696,7 +2696,7 @@ class Workflow(object):
 
         """
         encoding = encoding or self._input_encoding
-        normalization = normalization or self._normalizsation
+        normalization = normalization or self._normalization
         if not isinstance(text, unicode):
             text = unicode(text, encoding)
         return unicodedata.normalize(normalization, text)

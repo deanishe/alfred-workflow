@@ -10,20 +10,22 @@
 
 """Unit tests for serializer classes."""
 
-from __future__ import print_function, absolute_import
+
 
 import os
+import sys
 
 import pytest
 
 from workflow.workflow import (
     SerializerManager,
     JSONSerializer,
-    CPickleSerializer,
     PickleSerializer,
     manager as default_manager,
 )
 
+if sys.version_info[0] < 3:
+    from workflow.workflow import CPickleSerializer
 
 # default serializers
 SERIALIZERS = ('json', 'cpickle', 'pickle')

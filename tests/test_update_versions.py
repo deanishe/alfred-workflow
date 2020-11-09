@@ -10,7 +10,7 @@
 
 """Test `update.Version` class."""
 
-from __future__ import print_function
+
 
 import unittest
 

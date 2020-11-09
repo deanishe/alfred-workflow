@@ -9,12 +9,12 @@
 #
 """Unit tests for :mod:`workflow.web`"""
 
-from __future__ import print_function, unicode_literals
+
 
 
 import os
 import unittest
-import urllib2
+import urllib.request, urllib.parse, urllib.error
 import json
 import shutil
 import socket
@@ -86,13 +86,13 @@ class CaseInsensitiveDictTests(unittest.TestCase):
             self.assertEqual(d[k.lower()], v)
 
         d2 = {'Dogs': 'd', 'Elephants': 'e'}
-        for k, v in d2.items():
+        for k, v in list(d2.items()):
             self.assertFalse(k in d)
             self.assertTrue(d.get(k) is None)
 
         d.update(d2)
 
-        for k, v in d2.items():
+        for k, v in list(d2.items()):
             self.assertTrue(k in d)
             self.assertTrue(k.upper() in d)
             self.assertEqual(d.get(k), v)
@@ -104,15 +104,15 @@ class CaseInsensitiveDictTests(unittest.TestCase):
         self.assertEqual(sorted(d.keys()), sorted(self.data_dict.keys()))
         self.assertEqual(sorted(d.values()), sorted(self.data_dict.values()))
 
-        for k in d.iterkeys():
+        for k in d.keys():
             self.assertTrue(k in self.data_dict)
 
-        values = self.data_dict.values()
+        values = list(self.data_dict.values())
 
-        for v in d.itervalues():
+        for v in d.values():
             self.assertTrue(v in values)
 
-        for t in d.iteritems():
+        for t in d.items():
             self.assertTrue(t in self.data_list)
 
 
@@ -138,8 +138,8 @@ class WebTests(unittest.TestCase):
         """Non-existant URL raises HTTPError w/ 404"""
         url = self.httpbin.url + '/status/404'
         r = web.get(url)
-        self.assertRaises(urllib2.HTTPError, r.raise_for_status)
-        self.assert_(r.status_code == 404)
+        self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
+        self.assertTrue(r.status_code == 404)
 
     def test_follow_redirect(self):
         """Redirects are followed"""
@@ -151,66 +151,66 @@ class WebTests(unittest.TestCase):
         """Redirects are not followed"""
         url = self.httpbin.url + '/redirect-to?url=' + self.httpbin.url
         r = web.get(url, allow_redirects=False)
-        self.assertNotEquals(r.url, self.httpbin.url)
-        self.assertRaises(urllib2.HTTPError, r.raise_for_status)
+        self.assertNotEqual(r.url, self.httpbin.url)
+        self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
         self.assertEqual(r.status_code, 302)
 
     def test_post_form(self):
         """POST Form data"""
         url = self.httpbin.url + '/post'
         r = web.post(url, data=self.data)
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         r.raise_for_status()
         form = r.json()['form']
         for key in self.data:
-            self.assert_(form[key] == self.data[key])
+            self.assertTrue(form[key] == self.data[key])
 
     def test_post_json(self):
         """POST request with JSON body"""
         url = self.httpbin.url + '/post'
         headers = {'content-type': 'application/json'}
         r = web.post(url, headers=headers, data=json.dumps(self.data))
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         data = r.json()
         pprint(data)
         self.assertEqual(data['headers']['Content-Type'], 'application/json')
         for key in self.data:
-            self.assert_(data['json'][key] == self.data[key])
+            self.assertTrue(data['json'][key] == self.data[key])
 
     def test_post_without_data(self):
         """POST request without data"""
         url = self.httpbin + '/post'
         r = web.post(url)
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         r.raise_for_status()
 
     def test_put_form(self):
         """PUT Form data"""
         url = self.httpbin.url + '/put'
         r = web.put(url, data=self.data)
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         r.raise_for_status()
         form = r.json()['form']
         for key in self.data:
-            self.assert_(form[key] == self.data[key])
+            self.assertTrue(form[key] == self.data[key])
 
     def test_put_json(self):
         """PUT request with JSON body"""
         url = self.httpbin + '/delete'
         headers = {'content-type': 'application/json'}
         r = web.delete(url, headers=headers, data=json.dumps(self.data))
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         data = r.json()
         pprint(data)
         self.assertEqual(data['headers']['Content-Type'], 'application/json')
         for key in self.data:
-            self.assert_(data['json'][key] == self.data[key])
+            self.assertTrue(data['json'][key] == self.data[key])
 
     def test_put_without_data(self):
         """PUT request without data"""
         url = self.httpbin + '/put'
         r = web.put(url)
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         r.raise_for_status()
 
     def test_delete(self):
@@ -218,7 +218,7 @@ class WebTests(unittest.TestCase):
         url = self.httpbin + '/delete'
         r = web.delete(url)
         pprint(r.json())
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         r.raise_for_status()
 
     def test_delete_with_json(self):
@@ -226,18 +226,18 @@ class WebTests(unittest.TestCase):
         url = self.httpbin + '/delete'
         headers = {'content-type': 'application/json'}
         r = web.delete(url, headers=headers, data=json.dumps(self.data))
-        self.assert_(r.status_code == 200)
+        self.assertTrue(r.status_code == 200)
         data = r.json()
         pprint(data)
         self.assertEqual(data['headers']['Content-Type'], 'application/json')
         for key in self.data:
-            self.assert_(data['json'][key] == self.data[key])
+            self.assertTrue(data['json'][key] == self.data[key])
 
     def test_timeout(self):
         """Request times out"""
         url = self.httpbin.url + '/delay/3'
         if sys.version_info < (2, 7):
-            self.assertRaises(urllib2.URLError, web.get, url, timeout=1)
+            self.assertRaises(urllib.error.URLError, web.get, url, timeout=1)
         else:
             self.assertRaises(socket.timeout, web.get, url, timeout=1)
 
@@ -246,7 +246,7 @@ class WebTests(unittest.TestCase):
         url = self.httpbin.url + '/html'
         r = web.get(url)
         self.assertEqual(r.encoding, 'utf-8')
-        self.assert_(isinstance(r.text, unicode))
+        self.assertTrue(isinstance(r.text, str))
 
     def test_no_encoding(self):
         """No encoding"""
@@ -254,14 +254,14 @@ class WebTests(unittest.TestCase):
         url = self.httpbin.url + '/bytes/100'
         r = web.get(url)
         self.assertEqual(r.encoding, None)
-        self.assert_(isinstance(r.text, str))
+        self.assertTrue(isinstance(r.text, str))
 
     def test_html_encoding(self):
         """HTML is decoded"""
         url = self.httpbin.url + '/html'
         r = web.get(url)
         self.assertEqual(r.encoding, 'utf-8')
-        self.assert_(isinstance(r.text, unicode))
+        self.assertTrue(isinstance(r.text, str))
 
     def test_default_encoding(self):
         """Default encodings for mimetypes."""
@@ -271,7 +271,7 @@ class WebTests(unittest.TestCase):
         # httpbin returns JSON by default. web.py should automatically
         # set `encoding` to UTF-8 when mimetype = 'application/json'
         assert r.encoding == 'utf-8'
-        assert isinstance(r.text, unicode)
+        assert isinstance(r.text, str)
 
     def test_xml_encoding(self):
         """XML is decoded."""
@@ -280,7 +280,7 @@ class WebTests(unittest.TestCase):
         r = web.get(url, params)
         r.raise_for_status()
         assert r.encoding == 'utf-8'
-        assert isinstance(r.text, unicode)
+        assert isinstance(r.text, str)
 
     def test_get_vars(self):
         """GET vars"""
@@ -305,7 +305,7 @@ class WebTests(unittest.TestCase):
         url = self.httpbin.url + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password2'))
         self.assertEqual(r.status_code, 401)
-        self.assertRaises(urllib2.HTTPError, r.raise_for_status)
+        self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
 
     def test_file_upload(self):
         """File upload"""
@@ -323,7 +323,7 @@ class WebTests(unittest.TestCase):
         # image
         bindata = data['files']['file']
         preamble = 'data:image/gif;base64,'
-        self.assert_(bindata.startswith(preamble))
+        self.assertTrue(bindata.startswith(preamble))
         bindata = b64decode(bindata[len(preamble):])
         self.assertEqual(bindata, open(self.test_file, 'rb').read())
 
@@ -339,7 +339,7 @@ class WebTests(unittest.TestCase):
         # image
         bindata = data['files']['file']
         preamble = 'data:image/gif;base64,'
-        self.assert_(bindata.startswith(preamble))
+        self.assertTrue(bindata.startswith(preamble))
         bindata = b64decode(bindata[len(preamble):])
         self.assertEqual(bindata, open(self.test_file, 'rb').read())
 
@@ -401,21 +401,21 @@ class WebTests(unittest.TestCase):
 
 fubar_path = os.path.join(DATA_DIR, 'fubar.txt')
 fubar_bytes = open(fubar_path).read()
-fubar_unicode = unicode(fubar_bytes, 'utf-8')
+fubar_unicode = str(fubar_bytes)
 
 utf8html_path = os.path.join(DATA_DIR, 'utf8.html')
 utf8html_bytes = open(utf8html_path).read()
-utf8html_unicode = unicode(utf8html_bytes, 'utf-8')
+utf8html_unicode = str(utf8html_bytes)
 
 utf8xml_path = os.path.join(DATA_DIR, 'utf8.xml')
 utf8xml_bytes = open(utf8xml_path).read()
-utf8xml_unicode = unicode(utf8xml_bytes, 'utf-8')
+utf8xml_unicode = str(utf8xml_bytes)
 
 gifpath = os.path.join(DATA_DIR, 'cönfüsed.gif')
-gifbytes = open(gifpath).read()
+gifbytes = open(gifpath, 'rb').read()
 
 gifpath_gzip = os.path.join(DATA_DIR, 'cönfüsed.gif.gz')
-gifbytes_gzip = open(gifpath_gzip).read()
+gifbytes_gzip = open(gifpath_gzip, 'rb').read()
 
 tempdir = os.path.join(tempfile.gettempdir(),
                        'web_py.{0}.tmp'.format(os.getpid()))
@@ -430,7 +430,7 @@ def test_charset_sniffing(httpserver):
         r = web.get(httpserver.url)
         r.raise_for_status()
         assert r.encoding == 'utf-8'
-        assert isinstance(r.text, unicode)
+        assert isinstance(r.text, str)
 
 
 def test_save_to_path(httpserver):

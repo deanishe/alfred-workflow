@@ -10,7 +10,7 @@
 
 """Unit tests for :mod:`workflow.background`."""
 
-from __future__ import print_function, absolute_import
+
 
 import os
 from time import sleep

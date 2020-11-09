@@ -6,7 +6,7 @@
 
 """Unit tests for Workflow directory & file APIs."""
 
-from __future__ import print_function, unicode_literals
+
 
 import json
 import os
@@ -16,8 +16,10 @@ import pytest
 
 from workflow import manager, Workflow
 
-from conftest import env, ENV_V4, ENV_V2
+from .conftest import env, ENV_V4, ENV_V2
 
+_serializer = 'pickle'
+_other_serializer = 'json'
 
 def test_directories(alfred4):
     """Workflow directories"""
@@ -73,7 +75,7 @@ def test_cached_data_deleted(wf):
     d = wf.cached_data('test', lambda: data, max_age=10)
     assert data == d
     assert wf.cache_data('test', None) is None
-    assert not os.path.exists(wf.cachefile('test.cpickle'))
+    assert not os.path.exists(wf.cachefile(f'test.{_serializer}'))
     # Test alternate code path for non-existent file
     assert wf.cache_data('test', None) is None
 
@@ -81,8 +83,8 @@ def test_cached_data_deleted(wf):
 def test_delete_all_cache_file(wf):
     """Cached data are all deleted"""
     data = {'key1': 'value1'}
-    test_file1 = 'test1.cpickle'
-    test_file2 = 'test2.cpickle'
+    test_file1 = f'test1.{_serializer}'
+    test_file2 = f'test2.{_serializer}'
 
     wf.cached_data('test1', lambda: data, max_age=10)
     wf.cached_data('test2', lambda: data, max_age=10)
@@ -96,8 +98,8 @@ def test_delete_all_cache_file(wf):
 def test_delete_all_cache_file_with_filter_func(wf):
     """Only part of cached data are deleted"""
     data = {'key1': 'value1'}
-    test_file1 = 'test1.cpickle'
-    test_file2 = 'test2.cpickle'
+    test_file1 = f'test1.{_serializer}'
+    test_file2 = f'test2.{_serializer}'
 
     def filter_func(file):
         if file == test_file1:
@@ -181,35 +183,29 @@ def test_cache_fresh_non_existent(wf):
 def test_cache_serializer(wf):
     """Cache serializer"""
     # default
-    assert wf.cache_serializer == 'cpickle'
+    assert wf.cache_serializer == _serializer
     # unsupported format
     with pytest.raises(ValueError):
         wf.cache_serializer = 'non-existent'
     # default unchanged
-    assert wf.cache_serializer == 'cpickle'
-    wf.cache_serializer = 'pickle'
+    assert wf.cache_serializer == _serializer
+    wf.cache_serializer = _other_serializer
     # other built-in
-    assert wf.cache_serializer == 'pickle'
+    assert wf.cache_serializer == _other_serializer
 
 
 def test_alternative_cache_serializer(wf):
     """Alternative cache serializer"""
     data = {'key1': 'value1'}
-    assert wf.cache_serializer == 'cpickle'
+    assert wf.cache_serializer == _serializer
     wf.cache_data('test', data)
-    assert os.path.exists(wf.cachefile('test.cpickle'))
+    assert os.path.exists(wf.cachefile(f'test.{_serializer}'))
     assert wf.cached_data('test') == data
 
-    wf.cache_serializer = 'pickle'
+    wf.cache_serializer = _other_serializer
     assert wf.cached_data('test') is None
     wf.cache_data('test', data)
-    assert os.path.exists(wf.cachefile('test.pickle'))
-    assert wf.cached_data('test') == data
-
-    wf.cache_serializer = 'json'
-    assert wf.cached_data('test') is None
-    wf.cache_data('test', data)
-    assert os.path.exists(wf.cachefile('test.json'))
+    assert os.path.exists(wf.cachefile(f'test.{_other_serializer}'))
     assert wf.cached_data('test') == data
 
 
@@ -249,30 +245,30 @@ def _stored_data_paths(wf, name, serializer):
 def test_data_serializer(wf):
     """Data serializer"""
     # default
-    assert wf.data_serializer == 'cpickle'
+    assert wf.data_serializer == _serializer
     # unsupported format
     with pytest.raises(ValueError):
         wf.data_serializer = 'non-existent'
     # default unchanged
-    assert wf.data_serializer == 'cpickle'
-    wf.data_serializer = 'pickle'
+    assert wf.data_serializer == _serializer
+    wf.data_serializer = _other_serializer
     # other built-in
-    assert wf.data_serializer == 'pickle'
+    assert wf.data_serializer == _other_serializer
 
 
 def test_alternative_data_serializer(wf):
     """Alternative data serializer"""
     data = {'key1': 'value1'}
-    assert wf.data_serializer == 'cpickle'
+    assert wf.data_serializer == _serializer
     wf.store_data('test', data)
-    for path in _stored_data_paths(wf, 'test', 'cpickle'):
+    for path in _stored_data_paths(wf, 'test', _serializer):
         assert os.path.exists(path)
     assert wf.stored_data('test') == data
 
-    wf.data_serializer = 'pickle'
+    wf.data_serializer = _other_serializer
     assert wf.stored_data('test') == data
     wf.store_data('test', data)
-    for path in _stored_data_paths(wf, 'test', 'pickle'):
+    for path in _stored_data_paths(wf, 'test', _other_serializer):
         assert os.path.exists(path)
     assert wf.stored_data('test') == data
 
@@ -294,17 +290,17 @@ def test_borked_stored_data(wf):
     data = {'key7': 'value7'}
 
     wf.store_data('test', data)
-    metadata, datapath = _stored_data_paths(wf, 'test', 'cpickle')
+    metadata, datapath = _stored_data_paths(wf, 'test', _serializer)
     os.unlink(metadata)
     assert wf.stored_data('test') is None
 
     wf.store_data('test', data)
-    metadata, datapath = _stored_data_paths(wf, 'test', 'cpickle')
+    metadata, datapath = _stored_data_paths(wf, 'test', _serializer)
     os.unlink(datapath)
     assert wf.stored_data('test') is None
 
     wf.store_data('test', data)
-    metadata, datapath = _stored_data_paths(wf, 'test', 'cpickle')
+    metadata, datapath = _stored_data_paths(wf, 'test', _serializer)
     with open(metadata, 'wb') as file_obj:
         file_obj.write('bangers and mash')
         wf.logger.debug('Changed format to `bangers and mash`')
@@ -331,7 +327,7 @@ def test_delete_stored_data(wf):
     """Delete stored data"""
     data = {'key7': 'value7'}
 
-    paths = _stored_data_paths(wf, 'test', 'cpickle')
+    paths = _stored_data_paths(wf, 'test', _serializer)
 
     wf.store_data('test', data)
     assert wf.stored_data('test') == data
@@ -345,8 +341,8 @@ def test_delete_stored_data(wf):
 def test_delete_all_stored_data_file(wf):
     """Stored data are all deleted"""
     data = {'key1': 'value1'}
-    test_file1 = 'test1.cpickle'
-    test_file2 = 'test2.cpickle'
+    test_file1 = f'test1.{_serializer}'
+    test_file2 = f'test2.{_serializer}'
 
     wf.store_data('test1', data)
     wf.store_data('test2', data)
@@ -360,8 +356,8 @@ def test_delete_all_stored_data_file(wf):
 def test_delete_all_data_file_with_filter_func(wf):
     """Only part of stored data are deleted"""
     data = {'key1': 'value1'}
-    test_file1 = 'test1.cpickle'
-    test_file2 = 'test2.cpickle'
+    test_file1 = f'test1.{_serializer}'
+    test_file2 = f'test2.{_serializer}'
 
     def filter_func(file):
         if file == test_file1:

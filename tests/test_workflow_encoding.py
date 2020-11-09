@@ -6,7 +6,7 @@
 
 """Unit tests for serializers."""
 
-from __future__ import print_function, unicode_literals
+
 
 import pytest
 
@@ -14,16 +14,16 @@ import pytest
 def test_unicode_paths(wf):
     """Workflow paths are Unicode"""
     s = b'test.txt'
-    u = u'über.txt'
-    assert isinstance(wf.datadir, unicode)
-    assert isinstance(wf.datafile(s), unicode)
-    assert isinstance(wf.datafile(u), unicode)
-    assert isinstance(wf.cachedir, unicode)
-    assert isinstance(wf.cachefile(s), unicode)
-    assert isinstance(wf.cachefile(u), unicode)
-    assert isinstance(wf.workflowdir, unicode)
-    assert isinstance(wf.workflowfile(s), unicode)
-    assert isinstance(wf.workflowfile(u), unicode)
+    u = 'über.txt'
+    assert isinstance(wf.datadir, str)
+    assert isinstance(wf.datafile(s), str)
+    assert isinstance(wf.datafile(u), str)
+    assert isinstance(wf.cachedir, str)
+    assert isinstance(wf.cachefile(s), str)
+    assert isinstance(wf.cachefile(u), str)
+    assert isinstance(wf.workflowdir, str)
+    assert isinstance(wf.workflowfile(s), str)
+    assert isinstance(wf.workflowfile(u), str)
 
 
 if __name__ == '__main__':  # pragma: no cover

@@ -10,14 +10,14 @@
 
 """Unit tests for :func:`~workflow.util.atomic_writer`."""
 
-from __future__ import print_function
+
 
 import json
 import os
 
 import pytest
 
-from util import DEFAULT_SETTINGS
+from .util import DEFAULT_SETTINGS
 
 from workflow.util import atomic_writer
 

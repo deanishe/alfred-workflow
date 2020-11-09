@@ -58,6 +58,9 @@ classifiers = [
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
+requirements = [
+    'six'
+]
 tests_require = [
     'coverage',
     'pytest',
@@ -80,6 +83,7 @@ setup(
     package_data=package_data,
     include_package_data=True,
     classifiers=classifiers,
+    requirements=requirements,
     tests_require=tests_require,
     cmdclass={'test': PyTestCommand},
     zip_safe=zip_safe,

@@ -542,8 +542,8 @@ def test_variables_unicode():
                 'config': {'über': 'über'}
             }
     }
-    print(repr(v.obj))
-    print(repr(d))
+    print((repr(v.obj)))
+    print((repr(d)))
     assert v.obj == d
 
     # Round-trip to JSON and back

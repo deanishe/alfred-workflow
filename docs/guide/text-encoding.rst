@@ -262,7 +262,7 @@ recognise them as being the same:
     >>> name = u'München.txt'  # German for 'Munich'. NFC-normalized, as it's Python source code
     >>> print(repr(name))
     u'M\xfcnchen.txt'
-    >>> open(name, 'wb').write('')  # Create an empty text file called `München.txt`
+    >>> open(name, 'w').write('')  # Create an empty text file called `München.txt`
 
     >>> for filename in glob(u'*.txt'):
     ...     if filename == name:

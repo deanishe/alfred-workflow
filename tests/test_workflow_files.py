@@ -11,6 +11,7 @@
 import json
 import os
 import time
+from workflow.workflow import BaseSerializer
 
 import pytest
 
@@ -213,8 +214,9 @@ def test_custom_cache_serializer(wf):
     """Custom cache serializer"""
     data = {'key1': 'value1'}
 
-    class MySerializer(object):
+    class MySerializer(BaseSerializer):
         """Simple serializer"""
+        is_binary = False
 
         @classmethod
         def load(self, file_obj):
@@ -301,7 +303,7 @@ def test_borked_stored_data(wf):
 
     wf.store_data('test', data)
     metadata, datapath = _stored_data_paths(wf, 'test', _serializer)
-    with open(metadata, 'wb') as file_obj:
+    with open(metadata, 'w') as file_obj:
         file_obj.write('bangers and mash')
         wf.logger.debug('Changed format to `bangers and mash`')
     with pytest.raises(ValueError):

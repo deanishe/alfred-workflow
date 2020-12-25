@@ -12,7 +12,7 @@
 
 
 
-import os
+import os, sys
 from time import sleep
 
 import pytest
@@ -28,7 +28,7 @@ def _pidfile(name):
 def _write_pidfile(name, pid):
     pidfile = _pidfile(name)
     with open(pidfile, 'wb') as file:
-        file.write('{0}'.format(pid))
+        file.write(pid.to_bytes(4, sys.byteorder))
 
 
 def _delete_pidfile(name):
@@ -62,24 +62,24 @@ class TestBackground(object):
 
     def test_run_in_background(self):
         """Run in background"""
-        cmd = ['sleep', '1']
+        cmd = ['sleep', '0.01']
         assert run_in_background('test', cmd) == 0
         assert is_running('test')
         assert os.path.exists(_pidfile('test'))
         # Already running
         assert run_in_background('test', cmd) is None
-        sleep(1.1)  # wait for job to finish
+        sleep(0.1)  # wait for job to finish
         assert not is_running('test')
         assert not os.path.exists(_pidfile('test'))
 
     def test_kill(self):
         """Kill"""
         assert kill('test') is False
-        cmd = ['sleep', '1']
+        cmd = ['sleep', '0.01']
         assert run_in_background('test', cmd) == 0
         assert is_running('test')
         assert kill('test') is True
-        sleep(0.3)  # give process time to exit
+        sleep(0.1)  # give process time to exit
         assert not is_running('test')
 
 

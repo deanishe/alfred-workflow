@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # encoding: utf-8
 #
 # Copyright (c) 2014 deanishe@deanishe.net
@@ -18,14 +17,13 @@ and examples.
 """
 
 
-
 import signal
 import sys
 import os
 import subprocess
 import pickle
 
-from .workflow import Workflow
+from workflow import Workflow
 
 __all__ = ['is_running', 'run_in_background']
 
@@ -97,7 +95,10 @@ def _job_pid(name):
         return
 
     with open(pidfile, 'rb') as fp:
-        pid = int(fp.read())
+        read = fp.read()
+        print(str(read))
+        pid = int.from_bytes(read, sys.byteorder)
+        print(pid)
 
         if _process_exists(pid):
             return pid
@@ -141,7 +142,7 @@ def _background(pidfile, stdin='/dev/null', stdout='/dev/null',
                 if write:  # write PID of child process to `pidfile`
                     tmp = pidfile + '.tmp'
                     with open(tmp, 'wb') as fp:
-                        fp.write(str(pid))
+                        fp.write(pid.to_bytes(4, sys.byteorder))
                     os.rename(tmp, pidfile)
                 if wait:  # wait for child process to exit
                     os.waitpid(pid, 0)
@@ -162,9 +163,9 @@ def _background(pidfile, stdin='/dev/null', stdout='/dev/null',
 
     # Now I am a daemon!
     # Redirect standard file descriptors.
-    si = open(stdin, 'r', 0)
-    so = open(stdout, 'a+', 0)
-    se = open(stderr, 'a+', 0)
+    si = open(stdin, 'r', 1)
+    so = open(stdout, 'a+', 1)
+    se = open(stderr, 'a+', 1)
     if hasattr(sys.stdin, 'fileno'):
         os.dup2(si.fileno(), sys.stdin.fileno())
     if hasattr(sys.stdout, 'fileno'):
@@ -230,9 +231,9 @@ def run_in_background(name, args, **kwargs):
         _log().debug('[%s] command cached: %s', name, argcache)
 
     # Call this script
-    cmd = ['/usr/bin/python', __file__, name]
+    cmd = [sys.executable, '-m', 'workflow.background', name]
     _log().debug('[%s] passing job to background runner: %r', name, cmd)
-    retcode = subprocess.call(cmd)
+    retcode = subprocess.call(cmd, env={'PYTHONPATH': ':'.join(sys.path)})
 
     if retcode:  # pragma: no cover
         _log().error('[%s] background runner failed with %d', name, retcode)

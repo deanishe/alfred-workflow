@@ -59,8 +59,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Alfred-Workflow'
-copyright = u' 2013–{} Dean Jackson'.format(date.today().year)
+project = 'Alfred-Workflow'
+copyright = ' 2013–{} Dean Jackson'.format(date.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -246,8 +246,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('index', 'Alfred-Workflow.tex', u'Alfred-Workflow Documentation',
-     u'Dean Jackson <deanishe@deanishe.net>', 'manual'),
+    ('index', 'Alfred-Workflow.tex', 'Alfred-Workflow Documentation',
+     'Dean Jackson <deanishe@deanishe.net>', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -276,8 +276,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'alfred-workflow', u'Alfred-Workflow Documentation',
-     [u'Dean Jackson <deanishe@deanishe.net>'], 1)
+    ('index', 'alfred-workflow', 'Alfred-Workflow Documentation',
+     ['Dean Jackson <deanishe@deanishe.net>'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -290,8 +290,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'Alfred-Workflow', u'Alfred-Workflow Documentation',
-     u'Dean Jackson <deanishe@deanishe.net>',
+    ('index', 'Alfred-Workflow', 'Alfred-Workflow Documentation',
+     'Dean Jackson <deanishe@deanishe.net>',
      'Alfred-Workflow',
      'Python helper library for Alfred Workflows',
      'Miscellaneous'),
@@ -313,10 +313,10 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'Alfred-Workflow'
-epub_author = u'Dean Jackson <deanishe@deanishe.net>'
-epub_publisher = u'Dean Jackson <deanishe@deanishe.net>'
-epub_copyright = u'2014, Dean Jackson <deanishe@deanishe.net>'
+epub_title = 'Alfred-Workflow'
+epub_author = 'Dean Jackson <deanishe@deanishe.net>'
+epub_publisher = 'Dean Jackson <deanishe@deanishe.net>'
+epub_copyright = '2014, Dean Jackson <deanishe@deanishe.net>'
 
 # The basename for the epub file. It defaults to the project name.
 # epub_basename = u'Alfred-Workflow'

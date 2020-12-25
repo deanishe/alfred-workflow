@@ -14,7 +14,7 @@
 
 from contextlib import contextmanager
 
-import os
+import os,sys
 import pytest
 import pytest_localserver  # noqa: F401
 
@@ -91,15 +91,15 @@ def test_check_update(httpserver, alfred4):
     with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
         with ctx() as (wf, c):
             wf.run(update)
-            assert c.cmd[0] == '/usr/bin/python'
-            assert c.cmd[2] == '__workflow_update_check'
+            assert c.cmd[0] == sys.executable
+            assert c.cmd[-1] == '__workflow_update_check'
 
         update_settings = UPDATE_SETTINGS.copy()
         update_settings['prereleases'] = True
         with ctx(update_settings=update_settings) as (wf, c):
             wf.run(update)
-            assert c.cmd[0] == '/usr/bin/python'
-            assert c.cmd[2] == '__workflow_update_check'
+            assert c.cmd[0] == sys.executable
+            assert c.cmd[-1] == '__workflow_update_check'
 
 
 def test_install_update(httpserver, alfred4):
@@ -114,10 +114,10 @@ def test_install_update(httpserver, alfred4):
             wf.run(fake)
             wf.args
 
-            print('Magic update command : {0!r}'.format(c.cmd))
+            print(('Magic update command : {0!r}'.format(c.cmd)))
 
-            assert c.cmd[0] == '/usr/bin/python'
-            assert c.cmd[2] == '__workflow_update_install'
+            assert c.cmd[0] == sys.executable
+            assert c.cmd[-1] == '__workflow_update_install'
 
         update_settings = UPDATE_SETTINGS.copy()
         del update_settings['version']
@@ -164,8 +164,8 @@ def test_install_update_prereleases(httpserver, alfred4):
 
             print('Magic update command : {!r}'.format(c.cmd))
 
-            assert c.cmd[0] == '/usr/bin/python'
-            assert c.cmd[2] == '__workflow_update_install'
+            assert c.cmd[0] == sys.executable
+            assert c.cmd[-1] == '__workflow_update_install'
 
         with env(alfred_workflow_version='v10.0-beta'):
             update_settings = UPDATE_SETTINGS.copy()

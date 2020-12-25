@@ -58,6 +58,7 @@ class MockCall(object):
 
     def _check_output(self, cmd, **kwargs):
         self.cmd = cmd
+        return b'fakereturn'
 
     def __enter__(self):
         """Monkey-patch subprocess.check_output."""
@@ -157,7 +158,7 @@ class VersionFile(object):
 
     def __enter__(self):
         """Create version file."""
-        with open(self.path, 'wb') as fp:
+        with open(self.path, 'w') as fp:
             fp.write(self.version)
         print('version {0} in {1}'.format(self.version, self.path),
               file=sys.stderr)
@@ -185,13 +186,15 @@ class FakePrograms(object):
         self.tempdir = tempfile.mkdtemp()
         for name, retcode in list(self.programs.items()):
             path = os.path.join(self.tempdir, name)
-            with open(path, 'wb') as fp:
+            with open(path, 'w') as fp:
+                print(name, retcode)
                 fp.write("#!/bin/bash\n\nexit {0}\n".format(retcode))
             os.chmod(path, 700)
 
         # Add new programs to front of PATH
         self.orig_path = os.getenv('PATH')
         os.environ['PATH'] = self.tempdir + ':' + self.orig_path
+        return self
 
     def __exit__(self, *args):
         """Remove program(s) from PATH."""

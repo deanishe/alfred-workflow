@@ -14,7 +14,7 @@ Generate a ReST table of icons in :mod:`workflow.workflow` with previews.
 
 """
 
-from __future__ import print_function, unicode_literals
+
 
 import os
 import subprocess
@@ -50,11 +50,11 @@ for name in dir(workflow):
 col1 += 5
 
 
-print('+' + ('-' * col1) + '+' + ('-' * col2) + '+')
-print('| Name'.ljust(col1 + 1) + '| Preview'.ljust(col2 + 1) + '|')
-print('+' + ('=' * col1) + '+' + ('=' * col2) + '+')
+print(('+' + ('-' * col1) + '+' + ('-' * col2) + '+'))
+print(('| Name'.ljust(col1 + 1) + '| Preview'.ljust(col2 + 1) + '|'))
+print(('+' + ('=' * col1) + '+' + ('=' * col2) + '+'))
 for name, image in entries:
-    print('|``{}``'.format(name).ljust(col1 + 1) + '|' +
-          image.ljust(col2) + '|')
-    print('+' + ('-' * col1) + '+' + ('-' * col2) + '+')
+    print(('|``{}``'.format(name).ljust(col1 + 1) + '|' +
+          image.ljust(col2) + '|'))
+    print(('+' + ('-' * col1) + '+' + ('-' * col2) + '+'))
 

@@ -58,7 +58,7 @@ def test_env(wf):
 def test_alfred_debugger(alfred4):
     """Alfred debugger status"""
     # With debugger on
-    with env(alfred_debug='1'):
+    with env(alfred_debug='1', PYTEST_RUNNING=None):
         dump_env()
         wf = Workflow()
         assert wf.debugging, "Alfred's debugger not open"
@@ -66,7 +66,7 @@ def test_alfred_debugger(alfred4):
         wf.reset()
 
     # With debugger off
-    with env(alfred_debug=None):
+    with env(alfred_debug=None, PYTEST_RUNNING=None):
         dump_env()
         wf = Workflow()
         assert not wf.debugging, "Alfred's debugger is not closed"

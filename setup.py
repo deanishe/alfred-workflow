@@ -54,12 +54,13 @@ classifiers = [
     'Operating System :: MacOS :: MacOS X',
     'Intended Audience :: Developers',
     'Natural Language :: English',
-    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3.7',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
 ]
 requirements = [
-    'six'
+    'six',
+    'requests>=2.25,<3',
 ]
 tests_require = [
     'coverage',
@@ -83,7 +84,7 @@ setup(
     package_data=package_data,
     include_package_data=True,
     classifiers=classifiers,
-    requirements=requirements,
+    install_requires=requirements,
     tests_require=tests_require,
     cmdclass={'test': PyTestCommand},
     zip_safe=zip_safe,

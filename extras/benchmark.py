@@ -10,7 +10,7 @@
 
 """Benchmark the loading speed of Alfred-Workflow."""
 
-from __future__ import print_function, unicode_literals, absolute_import
+
 
 import os
 import subprocess
@@ -101,7 +101,7 @@ class Table(object):
         str_row = [is_title]
 
         for cell in data:
-            if isinstance(cell, unicode):
+            if isinstance(cell, str):
                 cell = cell.encode('utf-8')
             elif isinstance(cell, str):
                 pass
@@ -202,7 +202,7 @@ class Benchmark(object):
 
             start = time.time()
             try:
-                with open(os.devnull, 'wb') as devnull:
+                with open(os.devnull, 'w') as devnull:
                     subprocess.check_call(self.cmd, cwd=self.cwd, env=env,
                                           stdout=devnull,
                                           stderr=subprocess.STDOUT,

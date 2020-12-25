@@ -25,14 +25,16 @@
 
 from collections import defaultdict
 from functools import total_ordering
+from itertools import zip_longest
 import json
 import os
 import tempfile
 import re
 import subprocess
+from workflow.util import atomic_writer
+import requests
 
 from . import workflow
-from . import web
 
 # __all__ = []
 
@@ -167,12 +169,14 @@ class Download(object):
 
     def __str__(self):
         """Format `Download` for printing."""
-        u = ('Download(url={dl.url!r}, '
-             'filename={dl.filename!r}, '
-             'version={dl.version!r}, '
-             'prerelease={dl.prerelease!r})'.format(dl=self))
-
-        return u.encode('utf-8')
+        return (
+            'Download('
+                'url={dl.url!r}, '
+                'filename={dl.filename!r}, '
+                'version={dl.version!r}, '
+                'prerelease={dl.prerelease!r}'
+            ')'
+        ).format(dl=self)
 
     def __repr__(self):
         """Code-like representation of `Download`."""
@@ -242,6 +246,7 @@ class Version(object):
         self._parse(vstr)
 
     def _parse(self, vstr):
+        vstr = str(vstr)
         if vstr.startswith('v'):
             m = self.match_version(vstr[1:])
         else:
@@ -299,8 +304,20 @@ class Version(object):
                 return True
             if other.suffix and not self.suffix:
                 return False
-            return self._parse_dotted_string(self.suffix) \
-                < self._parse_dotted_string(other.suffix)
+
+            self_suffix = self._parse_dotted_string(self.suffix)
+            other_suffix = self._parse_dotted_string(other.suffix)
+
+            for s, o in zip_longest(self_suffix, other_suffix):
+                if s is None:  # shorter value wins
+                    return True
+                elif o is None:  # longer value loses
+                    return False
+                elif type(s) != type(o):  # type coersion
+                    s, o = str(s), str(o)
+                if s == o:  # next if the same compare
+                    continue
+                return s < o  # finally compare
         # t > o
         return False
 
@@ -363,10 +380,11 @@ def retrieve_download(dl):
     wf().logger.debug('downloading update from '
                       '%r to %r ...', dl.url, path)
 
-    r = web.get(dl.url)
+    r = requests.get(dl.url)
     r.raise_for_status()
 
-    r.save_to_path(path)
+    with atomic_writer(path, 'wb') as file_obj:
+        file_obj.write(r.content)
 
     return path
 
@@ -402,7 +420,7 @@ def get_downloads(repo):
 
     def _fetch():
         wf().logger.info('retrieving releases for %r ...', repo)
-        r = web.get(url)
+        r = requests.get(url)
         r.raise_for_status()
         return r.content
 

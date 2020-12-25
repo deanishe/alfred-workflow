@@ -96,7 +96,7 @@ the same way as in the built-in :mod:`json` and :mod:`pickle` libraries, i.e.:
     # Reading
     obj = serializer.load(open('filename', 'rb'))
     # Writing
-    serializer.dump(obj, open('filename', 'wb'))
+    serializer.dump(obj, open('filename', 'w'))
 
 To register a new serializer, call the
 :meth:`~workflow.workflow.SerializerManager.register` method of the

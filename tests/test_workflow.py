@@ -82,10 +82,10 @@ def test_magic_args(alfred4):
         cachepath = wf.cachefile('somedir')
         os.makedirs(cachepath)
         wf.cached_data('test', somedata)
-        assert os.path.exists(wf.cachefile('test.cpickle'))
+        assert os.path.exists(wf.cachefile('test.pickle'))
         with pytest.raises(SystemExit):
             wf.args
-        assert not os.path.exists(wf.cachefile('test.cpickle'))
+        assert not os.path.exists(wf.cachefile('test.pickle'))
     finally:
         sys.argv = oargs[:]
 
@@ -104,21 +104,20 @@ def test_icons():
     for name in dir(workflow):
         if name.startswith('ICON_'):
             path = getattr(workflow, name)
-            print(name, path)
+            print((name, path))
             assert os.path.exists(path)
 
 
-def test_debugging(alfred4):
-    """Debugging"""
-    tests = [
+@pytest.mark.parametrize('state,expected', [
         ('', False),
         ('0', False),
         ('1', True),
-    ]
-    for s, wanted in tests:
-        with env(alfred_debug=s):
-            wf = Workflow()
-            assert wf.debugging == wanted, "unexpected debugging"
+    ])
+def test_debugging(alfred4, state, expected):
+    """Debugging"""
+    with env(alfred_debug=state, PYTEST_RUNNING=''):
+        wf = Workflow()
+        assert wf.debugging == expected, "unexpected debugging"
 
 
 if __name__ == '__main__':  # pragma: no cover

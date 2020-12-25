@@ -13,7 +13,7 @@ import pytest
 
 def test_unicode_paths(wf):
     """Workflow paths are Unicode"""
-    s = b'test.txt'
+    s = 'test.txt'
     u = 'über.txt'
     assert isinstance(wf.datadir, str)
     assert isinstance(wf.datafile(s), str)

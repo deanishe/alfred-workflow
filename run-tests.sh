@@ -53,7 +53,7 @@ vopts=
 dolint=1
 dotest=0
 forcetest=1
-while getopts ":c:hltvV" opt; do
+while getopts ":c:hltvVx" opt; do
   case $opt in
     c)
       coverpkg="$OPTARG"
@@ -70,6 +70,9 @@ while getopts ":c:hltvV" opt; do
       ;;
     v)
       vopts="-v"
+      ;;
+    x)
+      PYTEST_ADDOPTS="$PYTEST_ADDOPTS --last-failed --last-failed-no-failures all"
       ;;
     V)
       vopts="-vv"
@@ -106,8 +109,11 @@ coverage erase
 
 if [[ $dotest -eq 0 ]]; then
   # More options are in tox.ini
-  export PYTEST_ADDOPTS="--cov-report=html"
-  pytest $vopts --cov="$coverpkg" $files
+  set -x
+  export PYTEST_ADDOPTS="$PYTEST_ADDOPTS --cov-report=html"
+  export PYTEST_RUNNING=1
+  python3 -m pytest $vopts --cov="$coverpkg" -vv tests "$@" 
+  set +x
   ret1=${PIPESTATUS[0]}
   echo
 

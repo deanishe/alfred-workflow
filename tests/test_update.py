@@ -20,8 +20,10 @@ import pytest
 import pytest_localserver  # noqa: F401
 
 from .util import WorkflowMock
-from workflow import Workflow, update, web
+from workflow import Workflow, update
 from workflow.update import Download, Version
+from unittest.mock import patch
+import requests
 
 # Where test data is
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -82,19 +84,17 @@ DL_BAD = Download(url='http://github.com/file.zip',
 @contextmanager
 def fakeresponse(httpserver, content, headers=None):
     """Monkey patch `web.request()` to return the specified response."""
-    orig = web.request
     httpserver.serve_content(content, headers=headers)
+    orig = requests.request
 
     def _request(*args, **kwargs):
         """Replace request URL with `httpserver` URL"""
-        # print('requested URL={!r}'.format(args[1]))
-        args = (args[0], httpserver.url) + args[2:]
-        # print('request args={!r}'.format(args))
-        return orig(*args, **kwargs)
+        new_args = (args[0], httpserver.url) + args[2:]
+        print('intercept', args, kwargs, '->', new_args)
+        return orig(*new_args, **kwargs)
 
-    web.request = _request
-    yield
-    web.request = orig
+    with patch('requests.api.request', _request):
+        yield
 
 
 def test_parse_releases(infopl, alfred4):
@@ -103,7 +103,7 @@ def test_parse_releases(infopl, alfred4):
     assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
 
     for i, dl in enumerate(dls):
-        print('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i]))
+        print(('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i])))
         assert dl == VALID_DOWNLOADS[i], "different downloads"
 
 
@@ -152,7 +152,7 @@ def test_valid_downloads(httpserver, infopl, alfred4):
     assert len(dls) == len(VALID_DOWNLOADS), "wrong no. of downloads"
 
     for i, dl in enumerate(dls):
-        print('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i]))
+        print(('dl=%r, x=%r' % (dl, VALID_DOWNLOADS[i])))
         assert dl == VALID_DOWNLOADS[i], "different downloads"
 
 

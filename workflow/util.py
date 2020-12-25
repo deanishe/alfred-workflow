@@ -181,8 +181,8 @@ def run_command(cmd, **kwargs):
         str: Output returned by :func:`~subprocess.check_output`.
 
     """
-    cmd = [utf8ify(s) for s in cmd]
-    return subprocess.check_output(cmd, **kwargs)
+    cmd = [str(s) for s in cmd]
+    return subprocess.check_output(cmd, **kwargs).decode()
 
 
 def run_applescript(script, *args, **kwargs):
@@ -434,7 +434,7 @@ def appinfo(name):
     if not bid:  # pragma: no cover
         return None
 
-    return AppInfo(unicodify(name), unicodify(path), unicodify(bid))
+    return AppInfo(name, path, bid)
 
 
 @contextmanager
@@ -475,7 +475,7 @@ class LockFile(object):
 
     >>> path = '/path/to/file'
     >>> with LockFile(path):
-    >>>     with open(path, 'wb') as fp:
+    >>>     with open(path, 'w') as fp:
     >>>         fp.write(data)
 
     Args:

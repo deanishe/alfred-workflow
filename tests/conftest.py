@@ -18,7 +18,6 @@ from shutil import rmtree
 from tempfile import mkdtemp
 
 import pytest
-
 from workflow.workflow import Workflow
 
 
@@ -102,11 +101,7 @@ def env(**kwargs):
             if k in os.environ:
                 del os.environ[k]
         else:
-            if isinstance(v, str):
-                v = v.encode('utf-8')
-            else:
-                v = str(v)
-            os.environ[k] = v
+            os.environ[k] = str(v)
 
     yield
 

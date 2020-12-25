@@ -55,7 +55,7 @@ PUNCTUATION_DATA = [
 def _print_results(results):
     """Print results of Workflow.filter"""
     for item, score, rule in results:
-        print('{!r} (rule {}) : {}'.format(item[0], rule, score))
+        print(('{!r} (rule {}) : {}'.format(item[0], rule, score)))
 
 
 def test_filter_all_rules(wf):
@@ -127,32 +127,32 @@ def test_filter_no_folding(wf):
     assert len(results) == 2
 
 
-def test_filter_folding_off(wf):
+@pytest.mark.parametrize('key,query', SEARCH_ITEMS_DIACRITICS)
+def test_filter_folding_off(wf, key, query):
     """Filter: diacritic folding off"""
-    for key, query in SEARCH_ITEMS_DIACRITICS:
-        results = wf.filter(query, [key], min_score=90,
-                            include_score=True,
-                            fold_diacritics=False)
-        assert len(results) == 0
+    results = wf.filter(query, [key], min_score=90,
+                        include_score=True,
+                        fold_diacritics=False)
+    assert len(results) == 0
 
 
-def test_filter_folding_force_on(wf):
+@pytest.mark.parametrize('key,query', SEARCH_ITEMS_DIACRITICS)
+def test_filter_folding_force_on(wf, key, query):
     """Filter: diacritic folding forced on"""
     wf.settings['__workflow_diacritic_folding'] = True
-    for key, query in SEARCH_ITEMS_DIACRITICS:
-        results = wf.filter(query, [key], min_score=90,
-                            include_score=True,
-                            fold_diacritics=False)
-        assert len(results) == 1
+    results = wf.filter(query, [key], min_score=90,
+                        include_score=True,
+                        fold_diacritics=False)
+    assert len(results) == 1, f'expected q={query} over "{key}" to find one result'
 
 
-def test_filter_folding_force_off(wf):
+@pytest.mark.parametrize('key,query', SEARCH_ITEMS_DIACRITICS)
+def test_filter_folding_force_off(wf, key, query):
     """Filter: diacritic folding forced off"""
     wf.settings['__workflow_diacritic_folding'] = False
-    for key, query in SEARCH_ITEMS_DIACRITICS:
-        results = wf.filter(query, [key], min_score=90,
-                            include_score=True)
-        assert len(results) == 0
+    results = wf.filter(query, [key], min_score=90,
+                        include_score=True)
+    assert len(results) == 0
 
 
 def test_filter_empty_key(wf):

@@ -25,13 +25,17 @@ icon and then calls the application to post notifications.
 
 
 
+from multiprocessing import process
 import os
 import plistlib
+from re import sub
+import re
 import shutil
 import subprocess
 import sys
 import tarfile
 import tempfile
+from typing import List
 import uuid
 
 from . import workflow
@@ -209,6 +213,8 @@ def notify(title='', text='', sound=None):
     log().error('Notify.app exited with status {0}.'.format(retcode))
     return False
 
+def usr_bin_env(*args: str) -> List[str]:
+    return ['/usr/bin/env', f'PATH={os.environ["PATH"]}'] + list(args)
 
 def convert_image(inpath, outpath, size):
     """Convert an image file using ``sips``.
@@ -221,14 +227,10 @@ def convert_image(inpath, outpath, size):
     Raises:
         RuntimeError: Raised if ``sips`` exits with non-zero status.
     """
-    cmd = [
-        b'sips',
-        b'-z', str(size), str(size),
-        inpath,
-        b'--out', outpath]
+    cmd = ['sips', '-z', str(size), str(size), inpath, '--out', outpath]
     # log().debug(cmd)
     with open(os.devnull, 'w') as pipe:
-        retcode = subprocess.call(cmd, stdout=pipe, stderr=subprocess.STDOUT)
+        retcode = subprocess.call(cmd, shell=True, stdout=pipe, stderr=subprocess.STDOUT)
 
     if retcode != 0:
         raise RuntimeError('sips exited with %d' % retcode)
@@ -275,10 +277,11 @@ def png_to_icns(png_path, icns_path):
             convert_image(png_path, outpath, size)
 
         cmd = [
-            b'iconutil',
-            b'-c', b'icns',
-            b'-o', icns_path,
-            iconset]
+            'iconutil',
+            '-c', 'icns',
+            '-o', icns_path,
+            iconset
+        ]
 
         retcode = subprocess.call(cmd)
         if retcode != 0:

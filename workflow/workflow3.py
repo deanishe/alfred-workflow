@@ -88,7 +88,7 @@ class Variables(dict):
 
         return {'alfredworkflow': o}
 
-    def __unicode__(self):
+    def __str__(self):
         """Convert to ``alfredworkflow`` JSON object.
 
         Returns:
@@ -102,15 +102,6 @@ class Variables(dict):
                 return self.arg
 
         return json.dumps(self.obj)
-
-    def __str__(self):
-        """Convert to ``alfredworkflow`` JSON object.
-
-        Returns:
-            str: UTF-8 encoded ``alfredworkflow`` JSON object
-
-        """
-        return str(self).encode('utf-8')
 
 
 class Modifier(object):

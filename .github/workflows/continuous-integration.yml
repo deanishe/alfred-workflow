@@ -54,7 +54,7 @@ jobs:
         pip install -e .
 
     - name: Unit tests
-      run: python3 setup.py test
+      run: tox -e py${{ matrix.python-version }}
 
     # - name: Install coverage dependencies
     #   run: pip install -r requirements-ci.txt

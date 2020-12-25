@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    name: "lint"
+    name: "Lint"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
 
 
   test:
-    name: "tests & coverage"
+    name: "Test"
     runs-on: macos-latest
     strategy:
       matrix:

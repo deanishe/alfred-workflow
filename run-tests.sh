@@ -1,5 +1,4 @@
 #!/bin/bash
-
 rootdir="$( cd "$( dirname "$0" )"; pwd )"
 
 usage() {
@@ -57,6 +56,7 @@ while getopts ":c:hltvVx" opt; do
   case $opt in
     c)
       coverpkg="$OPTARG"
+      PYTEST_ADDOPTS="$PYTEST_ADDOPTS --cov-report=html --cov="$coverpkg""
       ;;
     l)
       dolint=0
@@ -109,11 +109,10 @@ coverage erase
 
 if [[ $dotest -eq 0 ]]; then
   # More options are in tox.ini
-  set -x
-  export PYTEST_ADDOPTS="$PYTEST_ADDOPTS --cov-report=html"
+
+  export PYTEST_ADDOPTS
   export PYTEST_RUNNING=1
-  python3 -m pytest $vopts --cov="$coverpkg" -vv tests "$@" 
-  set +x
+  python3 -m pytest $vopts -vv tests "$@" 
   ret1=${PIPESTATUS[0]}
   echo
 

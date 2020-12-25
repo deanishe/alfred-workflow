@@ -1,9 +1,0 @@
-pyobjc-framework-Cocoa==5.3
-pytest==4.6.10
-pytest-cov==2.8.1
-pytest-httpbin==1.0.0
-pytest-localserver==0.5.0
-# tox==3.15.1
-# twine==1.15.0
-flake8==3.8.1
-flake8-docstrings==1.5.0

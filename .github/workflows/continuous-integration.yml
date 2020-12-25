@@ -53,11 +53,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
 
-    - name: Lint
-      run: ./run-tests.sh -l
-
     - name: Unit tests
-      run: ./run-tests.sh
+      run: python3 setup.py test
 
     # - name: Install coverage dependencies
     #   run: pip install -r requirements-ci.txt

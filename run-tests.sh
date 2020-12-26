@@ -146,15 +146,15 @@ if [[ "$dotest" -eq 1 ]]; then
 fi
 
 # Test coverage
-coverage xml
-coverage report --fail-under 100 --show-missing
-ret3=${PIPESTATUS[0]}
+# coverage xml
+# coverage report --fail-under 100 --show-missing
+# ret3=${PIPESTATUS[0]}
 
-echo
+# echo
 
-case "$ret3" in
-    0) success "COVERAGE OK" ;;
-    *) fail "COVERAGE FAILED" ;;
-esac
+# case "$ret3" in
+#     0) success "COVERAGE OK" ;;
+#     *) fail "COVERAGE FAILED" ;;
+# esac
 
-exit $ret3
+# exit $ret3

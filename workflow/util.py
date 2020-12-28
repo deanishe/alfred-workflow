@@ -125,7 +125,7 @@ def utf8ify(s):
 
     .. versionadded:: 1.31
 
-    Returns `str` objects unchanced, encodes `unicode` objects to
+    Returns `str` objects unchanged, encodes `unicode` objects to
     UTF-8, and calls :func:`str` on anything else.
 
     Args:

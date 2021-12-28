@@ -75,3 +75,9 @@ instead of simply:
 
     import requests
 
+If you encounter a `ModuleNotFoundError` error, e.g. due to sub-dependencies not being aware of the `./lib` path, you can add it like this:
+
+.. code-block:: python
+
+    sys.path.append("lib")
+    from lib import requests

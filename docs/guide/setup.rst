@@ -20,7 +20,7 @@ following (and only the following) **Escaping** options:
 
 The **Script** field should contain the following::
 
-    /usr/bin/python yourscript.py "{query}"
+    /usr/bin/env python yourscript.py "{query}"
 
 
 where ``yourscript.py`` is the name of your script [#]_.
@@ -31,7 +31,7 @@ to capture any errors thrown by your scripts:
 .. code-block:: python
     :linenos:
 
-    #!/usr/bin/python
+    #!/usr/bin/env python
     # encoding: utf-8
 
     import sys
@@ -67,7 +67,20 @@ to capture any errors thrown by your scripts:
         log = wf.logger
         sys.exit(wf.run(main))
 
+**Important note**: Python 2 was `removed in macOS 12.3 <https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes#:~:text=Python%202.7%20was%20removed%20from%20macOS%20in%20this%20update>`_. Users that run macOS 12.3 or newer will have to `install Python 2.7.18 manually <https://www.python.org/downloads/release/python-2718/>`_.
+Additionally, the following code needs to be added to the ``info.plist`` file after ``<plist><dict>``:
 
-.. [#] It's better to specify ``/usr/bin/python`` over just ``python``. This
-       ensures that the script will always be run with the system default
-       Python regardless of what ``PATH`` might be.
+.. code-block:: xml
+    :linenos:
+
+    <key>variables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin</string>
+    </dict>
+
+This is required because Alfred doesn't inherit environment variables and doesn't source shell configuration files (such as `.zshrc`).
+
+
+.. [#] It's better to specify ``/usr/bin/env python`` over just ``python``. This
+       ensures that the script will always be found.

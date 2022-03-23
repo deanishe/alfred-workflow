@@ -230,7 +230,7 @@ def run_in_background(name, args, **kwargs):
         _log().debug('[%s] command cached: %s', name, argcache)
 
     # Call this script
-    cmd = ['/usr/bin/python', __file__, name]
+    cmd = ['/usr/bin/env', 'python', __file__, name]
     _log().debug('[%s] passing job to background runner: %r', name, cmd)
     retcode = subprocess.call(cmd)
 

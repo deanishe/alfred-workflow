@@ -66,7 +66,7 @@ Use :meth:`Workflow.decode` to decode input and
 .. code-block:: python
     :linenos:
 
-    #!/usr/bin/python
+    #!/usr/bin/env python
     # encoding: utf-8
 
     # Because we want to work with Unicode, it's simpler if we make

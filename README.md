@@ -57,6 +57,7 @@ Contents
 - [Installation](#installation)
   - [With pip](#with-pip)
   - [From source](#from-source)
+  - [Python 2 support on macOS 12.3+](#python-2-support-on-macos-123)
 - [Usage](#usage)
   - [Workflow script skeleton](#workflow-script-skeleton)
   - [Examples](#examples)
@@ -96,7 +97,6 @@ You can install any other library available on the [Cheese Shop][cheeseshop] the
 
 It is highly advisable to bundle all your workflow's dependencies with your workflow in this way. That way, it will "just work".
 
-
 <a name="from-source"></a>
 ### From source ###
 
@@ -122,6 +122,21 @@ Your workflow should look something like this:
 
 Alternatively, you can clone/download the Alfred-Workflow [repository][repo] and copy the `workflow` subdirectory to your workflow's root directory.
 
+<a name="python-2-support-on-macos-123"></a>
+### Python 2 support on macOS 12.3+ ###
+
+Python 2 was [removed in macOS 12.3](https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes#:~:text=Python%202.7%20was%20removed%20from%20macOS%20in%20this%20update). Users that run macOS 12.3 or newer will have to [install Python 2.7.18 manually](https://www.python.org/downloads/release/python-2718/).
+Additionally, the following code needs to be added to the `info.plist` file after `<plist><dict>`:
+
+```xml
+<key>variables</key>
+<dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin</string>
+</dict>
+```
+
+This is required because Alfred doesn't inherit environment variables and doesn't source shell configuration files (such as `.zshrc`).
 
 <a name="usage"></a>
 Usage
@@ -136,7 +151,7 @@ A few examples of how to use Alfred-Workflow.
 Set up your workflow scripts as follows (if you wish to use the built-in error handling or `sys.path` modification):
 
 ```python
-#!/usr/bin/python
+#!/usr/bin/env python
 # encoding: utf-8
 
 import sys

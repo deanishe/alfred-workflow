@@ -39,7 +39,8 @@ background). What we're doing is:
         # Is cache over 1 hour old or non-existent?
         if not wf.cached_data_fresh('exchange-rates', 3600):
             run_in_background('update',
-                              ['/usr/bin/python',
+                              ['/usr/bin/env',
+                               'python',
                                wf.workflowfile('update_exchange_rates.py')])
 
         if is_running('update'):

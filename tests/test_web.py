@@ -10,22 +10,22 @@
 """Unit tests for :mod:`workflow.web`"""
 
 
-import os
-import unittest
-import urllib.request, urllib.error, urllib.parse
 import json
+import os
 import shutil
 import socket
 import sys
 import tempfile
+import unittest
+import urllib.error
+import urllib.parse
+import urllib.request
 from base64 import b64decode
 from pprint import pprint
 
 import pytest
 import pytest_localserver  # noqa: F401
-
 from workflow import web
-
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -340,6 +340,16 @@ class WebTests(unittest.TestCase):
         self.assertTrue(bindata.startswith(preamble))
         bindata = b64decode(bindata[len(preamble):])
         self.assertEqual(bindata, open(self.test_file, 'rb').read())
+
+    def test_file_upload_with_unicode(self):
+        """File upload with Unicode contents is converted to bytes"""
+        url = HTTPBIN_URL + '/post'
+        files = {'file': {'filename': 'cönfüsed.txt',
+                          'content': 'Hére ïs søme ÜÑÎÇÒDÈ™'
+                          }}
+        r = web.post(url, files=files)
+        self.assertEqual(r.status_code, 200)
+        data = r.json()
 
     def test_json_encoding(self):
         """JSON decoded correctly"""

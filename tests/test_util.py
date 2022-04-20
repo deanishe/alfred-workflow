@@ -79,6 +79,7 @@ def test_utf8ify():
         ('UTF-8', 'UTF-8'),
         (10, '10'),
         ([1, 2, 3], '[1, 2, 3]'),
+        (b'foo', 'foo'),
     ]
 
     for s, x in data:

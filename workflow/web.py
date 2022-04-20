@@ -166,21 +166,6 @@ class CaseInsensitiveDictionary(dict):
         """Return all values."""
         return [v['val'] for v in dict.values(self)]
 
-    def iteritems(self):
-        """Iterate over ``(key, value)`` pairs."""
-        for v in dict.values(self):
-            yield v['key'], v['val']
-
-    def iterkeys(self):
-        """Iterate over original keys."""
-        for v in dict.values(self):
-            yield v['key']
-
-    def itervalues(self):
-        """Interate over values."""
-        for v in dict.values(self):
-            yield v['val']
-
 
 class Request(urllib.request.Request):
     """Subclass of :class:`urllib.Request` that supports custom methods."""
@@ -575,9 +560,6 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     if isinstance(data, str):
         data = data.encode('utf-8')
-
-    if isinstance(url, bytes):
-        url = url.decode('utf-8')
 
     if params:  # GET args (POST args are handled in encode_multipart_formdata)
 

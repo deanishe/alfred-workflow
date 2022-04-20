@@ -306,14 +306,9 @@ class Version(object):
                     lft.pop(0)
                     rgt.pop(0)
 
-                if lft and not rgt:
-                    return False
-                elif rgt and not lft:
-                    return True
-                else:
-                    # Alphanumeric versions are earlier than numeric versions,
-                    # therefore lft < rgt if the right version is numeric.
-                    return isinstance(rgt[0], int)
+                # Alphanumeric versions are earlier than numeric versions,
+                # therefore lft < rgt if the right version is numeric.
+                return isinstance(rgt[0], int)
 
         # t > o
         return False

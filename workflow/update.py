@@ -167,12 +167,10 @@ class Download(object):
 
     def __str__(self):
         """Format `Download` for printing."""
-        u = ('Download(url={dl.url!r}, '
-             'filename={dl.filename!r}, '
-             'version={dl.version!r}, '
-             'prerelease={dl.prerelease!r})'.format(dl=self))
-
-        return u.encode('utf-8')
+        return ('Download(url={dl.url!r}, '
+                'filename={dl.filename!r}, '
+                'version={dl.version!r}, '
+                'prerelease={dl.prerelease!r})'.format(dl=self))
 
     def __repr__(self):
         """Code-like representation of `Download`."""

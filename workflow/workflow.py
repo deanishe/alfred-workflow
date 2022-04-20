@@ -619,7 +619,7 @@ class JSONSerializer(object):
         :type file_obj: ``file`` object
 
         """
-        return json.dump(obj, file_obj, indent=2, encoding='utf-8')
+        return json.dump(obj, file_obj, indent=2)
 
 
 class CPickleSerializer(object):
@@ -858,9 +858,8 @@ class Settings(dict):
         data.update(self)
 
         with LockFile(self._filepath, 0.5):
-            with atomic_writer(self._filepath, 'wb') as fp:
-                json.dump(data, fp, sort_keys=True, indent=2,
-                          encoding='utf-8')
+            with atomic_writer(self._filepath, 'w') as fp:
+                json.dump(data, fp, sort_keys=True, indent=2)
 
     # dict methods
     def __setitem__(self, key, value):
@@ -2083,7 +2082,7 @@ class Workflow(object):
 
             if not sys.stdout.isatty():  # Show error in Alfred
                 if text_errors:
-                    print(str(err).encode('utf-8'), end='')
+                    print(str(err), end='')
                 else:
                     self._items = []
                     if self._name:
@@ -2178,9 +2177,8 @@ class Workflow(object):
         root = ET.Element('items')
         for item in self._items:
             root.append(item.elem)
-        sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        sys.stdout.write(ET.tostring(root).encode('utf-8'))
-        sys.stdout.flush()
+        print('<?xml version="1.0" encoding="utf-8"?>', file=sys.stdout)
+        print(ET.tostring(root), file=sys.stdout)
 
     ####################################################################
     # Updating methods

@@ -156,34 +156,34 @@ class CaseInsensitiveDictionary(dict):
 
     def items(self):
         """Return ``(key, value)`` pairs."""
-        return [(v['key'], v['val']) for v in dict.itervalues(self)]
+        return [(v['key'], v['val']) for v in dict.values(self)]
 
     def keys(self):
         """Return original keys."""
-        return [v['key'] for v in dict.itervalues(self)]
+        return [v['key'] for v in dict.values(self)]
 
     def values(self):
         """Return all values."""
-        return [v['val'] for v in dict.itervalues(self)]
+        return [v['val'] for v in dict.values(self)]
 
     def iteritems(self):
         """Iterate over ``(key, value)`` pairs."""
-        for v in dict.itervalues(self):
+        for v in dict.values(self):
             yield v['key'], v['val']
 
     def iterkeys(self):
         """Iterate over original keys."""
-        for v in dict.itervalues(self):
+        for v in dict.values(self):
             yield v['key']
 
     def itervalues(self):
         """Interate over values."""
-        for v in dict.itervalues(self):
+        for v in dict.values(self):
             yield v['val']
 
 
 class Request(urllib.request.Request):
-    """Subclass of :class:`urllib2.Request` that supports custom methods."""
+    """Subclass of :class:`urllib.Request` that supports custom methods."""
 
     def __init__(self, *args, **kwargs):
         """Create a new :class:`Request`."""
@@ -214,7 +214,7 @@ class Response(object):
     """
 
     def __init__(self, request, stream=False):
-        """Call `request` with :mod:`urllib2` and process results.
+        """Call `request` with :mod:`urllib` and process results.
 
         :param request: :class:`Request` instance
         :param stream: Whether to stream response or retrieve it all at once
@@ -256,8 +256,8 @@ class Response(object):
         # Parse additional info if request succeeded
         if not self.error:
             headers = self.raw.info()
-            self.transfer_encoding = headers.getencoding()
-            self.mimetype = headers.gettype()
+            self.transfer_encoding = headers.get_content_charset()
+            self.mimetype = headers.get_content_type()
             for key in list(headers.keys()):
                 self.headers[key.lower()] = headers.get(key)
 
@@ -423,7 +423,7 @@ class Response(object):
     def raise_for_status(self):
         """Raise stored error if one occurred.
 
-        error will be instance of :class:`urllib2.HTTPError`
+        error will be instance of :class:`urllib.HTTPError`
         """
         if self.error is not None:
             raise self.error
@@ -528,7 +528,7 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     socket.setdefaulttimeout(timeout)
 
     # Default handlers
-    openers = [urllib.request.ProxyHandler(urllib2.getproxies())]
+    openers = [urllib.request.ProxyHandler(urllib.request.getproxies())]
 
     if not allow_redirects:
         openers.append(NoRedirectHandler())
@@ -571,8 +571,8 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     # Make sure everything is encoded text
     headers = str_dict(headers)
 
-    if isinstance(url, str):
-        url = url.encode('utf-8')
+    if isinstance(url, bytes):
+        url = url.decode('utf-8')
 
     if params:  # GET args (POST args are handled in encode_multipart_formdata)
 

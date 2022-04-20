@@ -1100,7 +1100,7 @@ class Workflow(object):
             if self.alfred_env.get('workflow_bundleid'):
                 self._bundleid = self.alfred_env.get('workflow_bundleid')
             else:
-                self._bundleid = str(self.info['bundleid'], 'utf-8')
+                self._bundleid = self.info['bundleid']
 
         return self._bundleid
 

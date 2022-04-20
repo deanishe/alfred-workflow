@@ -16,7 +16,7 @@ import pytest
 from workflow.workflow import Workflow
 
 
-LIBS = [os.path.join(os.path.dirname(__file__), b'lib')]
+LIBS = [os.path.join(os.path.dirname(__file__), 'lib')]
 
 
 def test_additional_libs(alfred4, infopl):

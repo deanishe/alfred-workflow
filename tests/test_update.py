@@ -35,7 +35,7 @@ RELEASES_4PLUS_JSON = open(
     os.path.join(DATA_DIR, 'gh-releases-4plus.json')).read()
 # A dummy Alfred workflow
 DATA_WORKFLOW = open(
-    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')).read()
+    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow'), 'rb').read()
 
 # Alfred 4
 RELEASE_LATEST = '9.0'

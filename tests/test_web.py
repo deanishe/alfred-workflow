@@ -398,22 +398,22 @@ class WebTests(unittest.TestCase):
 # dP        d8888P
 
 fubar_path = os.path.join(DATA_DIR, 'fubar.txt')
-fubar_bytes = open(fubar_path).read()
+fubar_bytes = open(fubar_path, 'rb').read()
 fubar_unicode = str(fubar_bytes, 'utf-8')
 
 utf8html_path = os.path.join(DATA_DIR, 'utf8.html')
-utf8html_bytes = open(utf8html_path).read()
+utf8html_bytes = open(utf8html_path, 'rb').read()
 utf8html_unicode = str(utf8html_bytes, 'utf-8')
 
 utf8xml_path = os.path.join(DATA_DIR, 'utf8.xml')
-utf8xml_bytes = open(utf8xml_path).read()
+utf8xml_bytes = open(utf8xml_path, 'rb').read()
 utf8xml_unicode = str(utf8xml_bytes, 'utf-8')
 
 gifpath = os.path.join(DATA_DIR, 'cönfüsed.gif')
-gifbytes = open(gifpath).read()
+gifbytes = open(gifpath, 'rb').read()
 
 gifpath_gzip = os.path.join(DATA_DIR, 'cönfüsed.gif.gz')
-gifbytes_gzip = open(gifpath_gzip).read()
+gifbytes_gzip = open(gifpath_gzip, 'rb').read()
 
 tempdir = os.path.join(tempfile.gettempdir(),
                        'web_py.{0}.tmp'.format(os.getpid()))

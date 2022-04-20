@@ -66,11 +66,8 @@ Built-in serializers
 
 There are 3 built-in, pre-configured serializers:
 
-- :class:`cpickle <workflow.workflow.CPickleSerializer>` — the default serializer
-  for both cached and stored data, with very good support for native Python
-  data types;
-- :class:`pickle <workflow.workflow.PickleSerializer>` — a more flexible, but
-  much slower alternative to ``cpickle``; and
+- :class:`cpickle <workflow.workflow.PickleSerializer>` — the default serializer
+  for both cached and stored data, with support for native Python data types;
 - :class:`json <workflow.workflow.JSONSerializer>` — a very common data format,
   but with limited support for native Python data types.
 

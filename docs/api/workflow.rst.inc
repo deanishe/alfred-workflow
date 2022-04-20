@@ -58,9 +58,6 @@ The default manager (which supports JSON, pickle and cPickle) is at
 .. autoclass:: JSONSerializer
    :members:
 
-.. autoclass:: CPickleSerializer
-   :members:
-
 .. autoclass:: PickleSerializer
    :members:
 

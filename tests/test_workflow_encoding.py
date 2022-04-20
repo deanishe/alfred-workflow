@@ -13,17 +13,17 @@ import pytest
 
 def test_unicode_paths(wf):
     """Workflow paths are Unicode"""
-    s = b'test.txt'
-    u = 'über.txt'
+    b = b'test.txt'
+    s = 'über.txt'
     assert isinstance(wf.datadir, str)
+    assert isinstance(wf.datafile(b), str)
     assert isinstance(wf.datafile(s), str)
-    assert isinstance(wf.datafile(u), str)
     assert isinstance(wf.cachedir, str)
+    assert isinstance(wf.cachefile(b), str)
     assert isinstance(wf.cachefile(s), str)
-    assert isinstance(wf.cachefile(u), str)
     assert isinstance(wf.workflowdir, str)
+    assert isinstance(wf.workflowfile(b), str)
     assert isinstance(wf.workflowfile(s), str)
-    assert isinstance(wf.workflowfile(u), str)
 
 
 if __name__ == '__main__':  # pragma: no cover

@@ -1340,6 +1340,8 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
+        if isinstance(filename, bytes):
+            filename = filename.decode('utf8')
         return os.path.join(self.cachedir, filename)
 
     def datafile(self, filename):
@@ -1354,6 +1356,8 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
+        if isinstance(filename, bytes):
+            filename = filename.decode('utf8')
         return os.path.join(self.datadir, filename)
 
     def workflowfile(self, filename):
@@ -1365,6 +1369,8 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
+        if isinstance(filename, bytes):
+            filename = filename.decode('utf8')
         return os.path.join(self.workflowdir, filename)
 
     @property

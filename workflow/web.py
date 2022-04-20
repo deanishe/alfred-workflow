@@ -294,7 +294,7 @@ class Response(object):
         :rtype: list, dict or unicode
 
         """
-        return json.loads(self.content, self.encoding or 'utf-8')
+        return json.loads(self.content)
 
     @property
     def encoding(self):
@@ -343,8 +343,9 @@ class Response(object):
 
         """
         if self.encoding:
-            return unicodedata.normalize('NFC', str(self.content,
-                                                        self.encoding))
+            return unicodedata.normalize(
+                'NFC', str(self.content, self.encoding)
+            )
         return self.content
 
     def iter_content(self, chunk_size=4096, decode_unicode=False):
@@ -439,30 +440,30 @@ class Response(object):
         headers = self.raw.info()
         encoding = None
 
-        if headers.getparam('charset'):
-            encoding = headers.getparam('charset')
+        if headers.get_content_charset():
+            encoding = headers.get_content_charset()
 
         # HTTP Content-Type header
-        for param in headers.getplist():
-            if param.startswith('charset='):
-                encoding = param[8:]
+        for param, value in (headers.get_params() or []):
+            if param.startswith('charset'):
+                encoding = value
                 break
 
         if not self.stream:  # Try sniffing response content
             # Encoding declared in document should override HTTP headers
             if self.mimetype == 'text/html':  # sniff HTML headers
-                m = re.search(r"""<meta.+charset=["']{0,1}(.+?)["'].*>""",
+                m = re.search(br"""<meta.+charset=["']{0,1}(.+?)["'].*>""",
                               self.content)
                 if m:
-                    encoding = m.group(1)
+                    encoding = m.group(1).decode('utf8')
 
             elif ((self.mimetype.startswith('application/')
                    or self.mimetype.startswith('text/'))
                   and 'xml' in self.mimetype):
-                m = re.search(r"""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
+                m = re.search(br"""<?xml.+encoding=["'](.+?)["'][^>]*\?>""",
                               self.content)
                 if m:
-                    encoding = m.group(1)
+                    encoding = m.group(1).decode('utf8')
 
         # Format defaults
         if self.mimetype == 'application/json' and not encoding:
@@ -554,7 +555,8 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     # Accept gzip-encoded content
     encodings = [s.strip() for s in
-                 headers.get('accept-encoding', '').split(',')]
+                 headers.get('accept-encoding', '').split(',')
+                 if s.strip()]
     if 'gzip' not in encodings:
         encodings.append('gzip')
 
@@ -570,6 +572,9 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
 
     # Make sure everything is encoded text
     headers = str_dict(headers)
+
+    if isinstance(data, str):
+        data = data.encode('utf-8')
 
     if isinstance(url, bytes):
         url = url.decode('utf-8')
@@ -673,9 +678,10 @@ def encode_multipart_formdata(fields, files):
         """
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
-    boundary = '-----' + ''.join(random.choice(BOUNDARY_CHARS)
-                                 for i in range(30))
-    CRLF = '\r\n'
+    boundary = b'-----' + b''.join(
+        random.choice(BOUNDARY_CHARS).encode('ascii') for i in range(30)
+    )
+    CRLF = b'\r\n'
     output = []
 
     # Normal form fields
@@ -684,9 +690,9 @@ def encode_multipart_formdata(fields, files):
             name = name.encode('utf-8')
         if isinstance(value, str):
             value = value.encode('utf-8')
-        output.append('--' + boundary)
-        output.append('Content-Disposition: form-data; name="%s"' % name)
-        output.append('')
+        output.append(b'--' + boundary)
+        output.append(b'Content-Disposition: form-data; name="%b"' % name)
+        output.append(b'')
         output.append(value)
 
     # Files to upload
@@ -703,18 +709,19 @@ def encode_multipart_formdata(fields, files):
             filename = filename.encode('utf-8')
         if isinstance(mimetype, str):
             mimetype = mimetype.encode('utf-8')
-        output.append('--' + boundary)
-        output.append('Content-Disposition: form-data; '
-                      'name="%s"; filename="%s"' % (name, filename))
-        output.append('Content-Type: %s' % mimetype)
-        output.append('')
+        if isinstance(content, str):
+            content = content.encode('utf-8')
+        output.append(b'--' + boundary)
+        output.append(b'Content-Disposition: form-data; '
+                      b'name="%b"; filename="%b"' % (name, filename))
+        output.append(b'Content-Type: %b' % mimetype)
+        output.append(b'')
         output.append(content)
 
-    output.append('--' + boundary + '--')
-    output.append('')
+    output.append(b'--' + boundary + b'--')
+    output.append(b'')
     body = CRLF.join(output)
     headers = {
-        'Content-Type': 'multipart/form-data; boundary=%s' % boundary,
-        'Content-Length': str(len(body)),
+        'Content-Type': 'multipart/form-data; boundary=%s' % boundary.decode('ascii'),
     }
     return (headers, body)

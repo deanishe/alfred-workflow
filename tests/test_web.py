@@ -252,7 +252,7 @@ class WebTests(unittest.TestCase):
         url = HTTPBIN_URL + '/bytes/100'
         r = web.get(url)
         self.assertEqual(r.encoding, None)
-        self.assertTrue(isinstance(r.text, str))
+        self.assertTrue(isinstance(r.text, bytes))
 
     def test_html_encoding(self):
         """HTML is decoded"""
@@ -444,7 +444,7 @@ def test_save_to_path(httpserver):
         r.save_to_path(filepath)
 
         assert os.path.exists(filepath)
-        data = open(filepath).read()
+        data = open(filepath, 'rb').read()
         assert data == fubar_bytes
 
     finally:

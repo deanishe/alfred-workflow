@@ -427,7 +427,7 @@ def appinfo(name):
     if not output:
         return None
 
-    path = output.split('\n')[0]
+    path = output.decode('utf-8').split('\n')[0]
 
     cmd = ['mdls', '-raw', '-name', 'kMDItemCFBundleIdentifier', path]
     bid = run_command(cmd).strip()

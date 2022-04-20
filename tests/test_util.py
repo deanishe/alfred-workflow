@@ -10,7 +10,6 @@
 """Unit tests for workflow/util.py."""
 
 
-
 import os
 import shutil
 import subprocess
@@ -111,7 +110,7 @@ def test_run_command():
     ]
 
     for cmd, x in data:
-        r = run_command(cmd)
+        r = run_command(cmd).decode('utf-8')
         assert r == x
 
     with pytest.raises(subprocess.CalledProcessError):
@@ -122,14 +121,14 @@ def test_run_applescript(testfile):
     """Run AppleScript."""
     # Run script passed as text
     out = run_applescript('return "1"')
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Run script file
-    with open(testfile, 'wb') as fp:
+    with open(testfile, 'w') as fp:
         fp.write('return "1"')
 
     out = run_applescript(testfile)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Test args
     script = """
@@ -138,7 +137,7 @@ def test_run_applescript(testfile):
     end run
     """
     out = run_applescript(script, 1)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
 
 def test_run_jxa(testfile):
@@ -151,14 +150,14 @@ def test_run_jxa(testfile):
 
     # Run script passed as text
     out = run_jxa(script)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Run script file
-    with open(testfile, 'wb') as fp:
+    with open(testfile, 'w') as fp:
         fp.write(script)
 
     out = run_jxa(testfile)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Test args
     script = """
@@ -167,7 +166,7 @@ def test_run_jxa(testfile):
     }
     """
     out = run_jxa(script, 1)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
 
 def test_app_name():

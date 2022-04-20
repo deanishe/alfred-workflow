@@ -120,30 +120,6 @@ def unicodify(s, encoding='utf-8', norm=None):
     return s
 
 
-def utf8ify(s):
-    """Ensure string is a bytestring.
-
-    .. versionadded:: 1.31
-
-    Returns `str` objects unchanced, encodes `unicode` objects to
-    UTF-8, and calls :func:`str` on anything else.
-
-    Args:
-        s (object): A Python object
-
-    Returns:
-        str: UTF-8 string or string representation of s.
-
-    """
-    if isinstance(s, str):
-        return s
-
-    if isinstance(s, str):
-        return s.encode('utf-8')
-
-    return str(s)
-
-
 def applescriptify(s):
     """Escape string for insertion into an AppleScript string.
 
@@ -181,7 +157,7 @@ def run_command(cmd, **kwargs):
         str: Output returned by :func:`~subprocess.check_output`.
 
     """
-    cmd = [utf8ify(s) for s in cmd]
+    cmd = [str(s) for s in cmd]
     return subprocess.check_output(cmd, **kwargs)
 
 

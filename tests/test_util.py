@@ -34,7 +34,6 @@ from workflow.util import (
     set_theme,
     unicodify,
     unset_config,
-    utf8ify,
 )
 
 from .util import MockCall
@@ -69,23 +68,6 @@ def test_unicodify():
         s = unicodify(b, norm=n)
         assert s == x
         assert isinstance(s, str)
-
-
-def test_utf8ify():
-    """UTF-8 encoding."""
-    data = [
-        # input, expected output
-        ('Köln', 'Köln'),
-        ('UTF-8', 'UTF-8'),
-        (10, '10'),
-        ([1, 2, 3], '[1, 2, 3]'),
-        (b'foo', 'foo'),
-    ]
-
-    for s, x in data:
-        r = utf8ify(s)
-        assert x == r
-        assert isinstance(x, str)
 
 
 def test_applescript_escape():

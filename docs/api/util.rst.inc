@@ -36,8 +36,6 @@ Text encoding and formatting.
 
 .. autofunction:: unicodify
 
-.. autofunction:: utf8ify
-
 .. autofunction:: applescriptify
 
 

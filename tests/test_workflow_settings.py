@@ -31,7 +31,7 @@ class SettingsTests(unittest.TestCase):
         """Initialise unit test environment."""
         self.tempdir = tempfile.mkdtemp()
         self.settings_file = os.path.join(self.tempdir, 'settings.json')
-        with open(self.settings_file, 'wb') as file_obj:
+        with open(self.settings_file, 'w') as file_obj:
             json.dump(DEFAULT_SETTINGS, file_obj)
 
     def tearDown(self):

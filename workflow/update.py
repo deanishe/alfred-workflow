@@ -22,7 +22,6 @@
 """
 
 
-
 from collections import defaultdict
 from functools import total_ordering
 import json
@@ -274,7 +273,7 @@ class Version(object):
         parsed = []
         parts = s.split('.')
         for p in parts:
-            if p.isdigit():
+            if all(c.isdigit() for c in p):
                 p = int(p)
             parsed.append(p)
         return parsed
@@ -297,8 +296,25 @@ class Version(object):
                 return True
             if other.suffix and not self.suffix:
                 return False
-            return self._parse_dotted_string(self.suffix) \
-                < self._parse_dotted_string(other.suffix)
+            lft = self._parse_dotted_string(self.suffix)
+            rgt = self._parse_dotted_string(other.suffix)
+            try:
+                return lft < rgt
+            except TypeError:
+                # Python 3 will not allow lt/gt comparisons of int & str.
+                while lft and rgt and lft[0] == rgt[0]:
+                    lft.pop(0)
+                    rgt.pop(0)
+
+                if lft and not rgt:
+                    return False
+                elif rgt and not lft:
+                    return True
+                else:
+                    # Alphanumeric versions are earlier than numeric versions,
+                    # therefore lft < rgt if the right version is numeric.
+                    return isinstance(rgt[0], int)
+
         # t > o
         return False
 

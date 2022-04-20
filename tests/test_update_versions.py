@@ -11,7 +11,6 @@
 """Test `update.Version` class."""
 
 
-
 import unittest
 
 import pytest
@@ -114,7 +113,7 @@ class VersionTests(unittest.TestCase):
         self.assertTrue(Version('v1.10.0-alpha') < Version('1.10.0-beta'))
         # Complex suffixes
         self.assertTrue(Version('1.0.0-alpha') < Version('1.0.0-alpha.1'))
-        self.assertTrue(Version('1.0.0-alpha.1') < Version('1.0.0-alpha.beta'))
+        self.assertTrue(Version('1.0.0-alpha.1') > Version('1.0.0-alpha.beta'))
         self.assertTrue(Version('1.0.0-alpha.beta') < Version('1.0.0-beta'))
         self.assertTrue(Version('1.0.0-beta') < Version('1.0.0-beta.2'))
         self.assertTrue(Version('1.0.0-beta.2') < Version('1.0.0-beta.11'))

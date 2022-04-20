@@ -46,7 +46,7 @@ Here's how to show recent `Pinboard.in <https://pinboard.in/>`_ posts
 in Alfred.
 
 Create a new workflow in Alfred's preferences. Add a **Script Filter** with
-Language ``/usr/bin/python`` and paste the following into the **Script**
+Language ``/usr/bin/python3`` and paste the following into the **Script**
 field (changing ``API_KEY``):
 
 

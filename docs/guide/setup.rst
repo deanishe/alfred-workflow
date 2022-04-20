@@ -20,7 +20,7 @@ following (and only the following) **Escaping** options:
 
 The **Script** field should contain the following::
 
-    /usr/bin/python yourscript.py "{query}"
+    /usr/bin/python3 yourscript.py "{query}"
 
 
 where ``yourscript.py`` is the name of your script [#]_.
@@ -31,7 +31,7 @@ to capture any errors thrown by your scripts:
 .. code-block:: python
     :linenos:
 
-    #!/usr/bin/python
+    #!/usr/bin/python3
     # encoding: utf-8
 
     import sys
@@ -68,6 +68,6 @@ to capture any errors thrown by your scripts:
         sys.exit(wf.run(main))
 
 
-.. [#] It's better to specify ``/usr/bin/python`` over just ``python``. This
+.. [#] It's better to specify ``/usr/bin/python3`` over just ``python``. This
        ensures that the script will always be run with the system default
        Python regardless of what ``PATH`` might be.

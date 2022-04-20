@@ -5,8 +5,8 @@
 Supported versions
 ==================
 
-Alfred-Workflow supports all versions of Alfred 2–4. It works with
-Python 2.6 and 2.7, but *not yet* Python 3.
+Alfred-Workflow supports all versions of Alfred 2–4. It works with Python 3.8
+and does not support Python 2 any longer.
 
 Some features are not available on older versions of macOS.
 
@@ -51,7 +51,7 @@ Alfred-Workflow supports the same macOS versions as Alfred, namely 10.6 (Snow Le
 Python versions
 ===============
 
-Alfred-Workflow only officially supports the system Pythons that come with macOS (i.e. ``/usr/bin/python``), which is 2.6 on 10.6/Snow Leopard and 2.7 on later versions.
+Alfred-Workflow only officially supports the system Pythons that come with macOS (i.e. ``/usr/bin/python3``), which is 2.6 on 10.6/Snow Leopard and 2.7 on later versions.
 
 .. important::
 
@@ -79,7 +79,7 @@ Here is the `full list of new features in Python 2.7`_, but the most important t
 - No set literals.
 - No dictionary or set comprehensions.
 
-Python 2.6 is still included in later versions of macOS (up to and including El Capitan), so run your Python scripts with ``/usr/bin/python2.6`` in addition to ``/usr/bin/python`` (2.7) to make sure they will run on Snow Leopard.
+Python 2.6 is still included in later versions of macOS (up to and including El Capitan), so run your Python scripts with ``/usr/bin/python32.6`` in addition to ``/usr/bin/python3`` (2.7) to make sure they will run on Snow Leopard.
 
 
 Why no Python 3 support?

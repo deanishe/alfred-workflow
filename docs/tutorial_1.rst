@@ -79,7 +79,7 @@ argument.
 
 .. note::
 
-    You *can* choose ``/usr/bin/python`` as the **Language** and paste
+    You *can* choose ``/usr/bin/python3`` as the **Language** and paste
     your Python code into the **Script** box, but this isn't the best idea.
 
     If you do this, you can't run the script from the Terminal (which can be

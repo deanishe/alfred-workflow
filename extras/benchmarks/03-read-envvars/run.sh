@@ -7,4 +7,4 @@ export alfred_workflow_data="$HOME/Library/Application Support/Alfred 2/Workflow
 # export alfred_workflow_name="Alfred Workflow"
 # export alfred_workflow_version="1.1.1"
 
-/usr/bin/python ./script.py
+/usr/bin/python3 ./script.py

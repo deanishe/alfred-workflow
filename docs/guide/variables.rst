@@ -190,7 +190,7 @@ read:
 
 .. code-block:: bash
 
-    /usr/bin/python myscript.py pages
+    /usr/bin/python3 myscript.py pages
 
 
 The other options (``--view``, ``--edit``, ``--share``) are set via the

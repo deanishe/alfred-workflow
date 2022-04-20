@@ -21,7 +21,7 @@
 
 """
 
-from __future__ import print_function, unicode_literals
+
 
 from collections import defaultdict
 from functools import total_ordering
@@ -31,8 +31,8 @@ import tempfile
 import re
 import subprocess
 
-import workflow
-import web
+from . import workflow
+from . import web
 
 # __all__ = []
 
@@ -119,7 +119,7 @@ class Download(object):
                                     release['prerelease']))
 
             valid = True
-            for ext, n in dupes.items():
+            for ext, n in list(dupes.items()):
                 if n > 1:
                     wf().logger.debug('ignored release "%s": multiple assets '
                                       'with extension "%s"', tag, ext)
@@ -143,7 +143,7 @@ class Download(object):
                 pre-release. Defaults to False.
 
         """
-        if isinstance(version, basestring):
+        if isinstance(version, str):
             version = Version(version)
 
         self.url = url

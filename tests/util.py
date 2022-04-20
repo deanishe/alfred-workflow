@@ -10,9 +10,9 @@
 
 """Stuff used in multiple tests."""
 
-from __future__ import print_function, unicode_literals
 
-from cStringIO import StringIO
+
+from io import StringIO
 import sys
 import os
 import shutil
@@ -26,10 +26,10 @@ INFO_PLIST_TEST3 = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'data/info.plist.alfred3')
 
 
-INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwdu()),
+INFO_PLIST_PATH = os.path.join(os.path.abspath(os.getcwd()),
                                'info.plist')
 
-VERSION_PATH = os.path.join(os.path.abspath(os.getcwdu()),
+VERSION_PATH = os.path.join(os.path.abspath(os.getcwd()),
                             'version')
 
 DEFAULT_SETTINGS = {
@@ -182,11 +182,11 @@ class FakePrograms(object):
     def __enter__(self):
         """Inject program(s) into PATH."""
         self.tempdir = tempfile.mkdtemp()
-        for name, retcode in self.programs.items():
+        for name, retcode in list(self.programs.items()):
             path = os.path.join(self.tempdir, name)
             with open(path, 'wb') as fp:
                 fp.write("#!/bin/bash\n\nexit {0}\n".format(retcode))
-            os.chmod(path, 0700)
+            os.chmod(path, 0o700)
 
         # Add new programs to front of PATH
         self.orig_path = os.getenv('PATH')
@@ -226,7 +226,7 @@ class InfoPlist(object):
 
 def dump_env():
     """Print `os.environ` to STDOUT."""
-    for k, v in os.environ.items():
+    for k, v in list(os.environ.items()):
         if k.startswith('alfred_'):
             print('env: %s=%s' % (k, v))
 

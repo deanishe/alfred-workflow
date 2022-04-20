@@ -10,7 +10,7 @@
 
 """Common pytest fixtures."""
 
-from __future__ import print_function, absolute_import
+
 
 from contextlib import contextmanager
 import os
@@ -97,12 +97,12 @@ COMMON = dict(
 def env(**kwargs):
     """Context manager to alter and restore system environment."""
     prev = os.environ.copy()
-    for k, v in kwargs.items():
+    for k, v in list(kwargs.items()):
         if v is None:
             if k in os.environ:
                 del os.environ[k]
         else:
-            if isinstance(v, unicode):
+            if isinstance(v, str):
                 v = v.encode('utf-8')
             else:
                 v = str(v)
@@ -129,7 +129,7 @@ def setenv(*dicts):
 
 def cleanenv():
     """Remove Alfred variables from ``os.environ``."""
-    for k in os.environ.keys():
+    for k in list(os.environ.keys()):
         if k.startswith('alfred_'):
             del os.environ[k]
 

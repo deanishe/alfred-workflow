@@ -10,7 +10,7 @@
 
 """A selection of helper functions useful for building workflows."""
 
-from __future__ import print_function, absolute_import
+
 
 import atexit
 from collections import namedtuple
@@ -88,9 +88,9 @@ def jxa_app_name():
     """
     if os.getenv('alfred_version', '').startswith('3'):
         # Alfred 3
-        return u'Alfred 3'
+        return 'Alfred 3'
     # Alfred 4+
-    return u'com.runningwithcrayons.Alfred'
+    return 'com.runningwithcrayons.Alfred'
 
 
 def unicodify(s, encoding='utf-8', norm=None):
@@ -110,8 +110,8 @@ def unicodify(s, encoding='utf-8', norm=None):
         unicode: Decoded, optionally normalised, Unicode string.
 
     """
-    if not isinstance(s, unicode):
-        s = unicode(s, encoding)
+    if not isinstance(s, str):
+        s = str(s, encoding)
 
     if norm:
         from unicodedata import normalize
@@ -138,7 +138,7 @@ def utf8ify(s):
     if isinstance(s, str):
         return s
 
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s.encode('utf-8')
 
     return str(s)
@@ -162,7 +162,7 @@ def applescriptify(s):
         unicode: Escaped string.
 
     """
-    return s.replace(u'"', u'" & quote & "')
+    return s.replace('"', '" & quote & "')
 
 
 def run_command(cmd, **kwargs):
@@ -347,7 +347,7 @@ def search_in_alfred(query=None):
         query (unicode, optional): Search query.
 
     """
-    query = query or u''
+    query = query or ''
     appname = jxa_app_name()
     script = JXA_SEARCH.format(app=json.dumps(appname), arg=json.dumps(query))
     run_applescript(script, lang='JavaScript')

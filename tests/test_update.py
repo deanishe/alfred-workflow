@@ -10,7 +10,7 @@
 
 """Unit tests for update mechanism."""
 
-from __future__ import print_function
+
 
 from contextlib import contextmanager
 import os
@@ -19,7 +19,7 @@ import re
 import pytest
 import pytest_localserver  # noqa: F401
 
-from util import WorkflowMock
+from .util import WorkflowMock
 from workflow import Workflow, update, web
 from workflow.update import Download, Version
 

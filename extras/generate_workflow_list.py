@@ -10,7 +10,7 @@
 
 """Generate a list of workflows on Packal that use Alfred-Workflow."""
 
-from __future__ import print_function, unicode_literals, absolute_import
+
 
 import argparse
 import csv
@@ -212,7 +212,7 @@ def read_list(path):
         for workflow in reader:
             # Decode text
             # log.debug('workflow=%r', workflow)
-            for k, v in workflow.items():
+            for k, v in list(workflow.items()):
                 if v is not None:
                     workflow[k] = v.decode('utf-8')
 

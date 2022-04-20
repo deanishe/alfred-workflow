@@ -10,7 +10,7 @@
 
 """Unit tests for notifications."""
 
-from __future__ import print_function
+
 
 import hashlib
 import logging
@@ -24,8 +24,8 @@ import pytest
 from workflow import notify
 from workflow.workflow import Workflow
 
-from conftest import BUNDLE_ID
-from util import (
+from .conftest import BUNDLE_ID
+from .util import (
     FakePrograms,
     WorkflowMock,
 )

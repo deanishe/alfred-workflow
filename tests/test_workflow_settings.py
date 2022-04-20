@@ -10,7 +10,7 @@
 
 """Unit tests for Workflow.settings API."""
 
-from __future__ import print_function, unicode_literals, absolute_import
+
 
 import json
 import os
@@ -86,7 +86,7 @@ class SettingsTests(unittest.TestCase):
         mt = os.path.getmtime(self.settings_file)
         time.sleep(1)  # wait long enough to register changes in `time.time()`
         now = time.time()
-        for k, v in DEFAULT_SETTINGS.items():
+        for k, v in list(DEFAULT_SETTINGS.items()):
             s[k] = v
         self.assertTrue(os.path.getmtime(self.settings_file) == mt)
         s['finished_at'] = now

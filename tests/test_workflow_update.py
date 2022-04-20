@@ -10,7 +10,7 @@
 
 """Unit tests for Workflow's update API."""
 
-from __future__ import print_function
+
 
 from contextlib import contextmanager
 
@@ -28,7 +28,7 @@ from .util import (
     delete_info_plist,
     dump_env,
 )
-from test_update import fakeresponse, RELEASES_JSON, HTTP_HEADERS_JSON
+from .test_update import fakeresponse, RELEASES_JSON, HTTP_HEADERS_JSON
 
 
 UPDATE_SETTINGS = {

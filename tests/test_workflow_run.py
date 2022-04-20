@@ -6,16 +6,16 @@
 
 """Unit tests for Workflow.run."""
 
-from __future__ import print_function, unicode_literals
 
-from StringIO import StringIO
+
+from io import StringIO
 import sys
 
 import pytest
 
 from workflow.workflow import Workflow
 
-from conftest import env
+from .conftest import env
 
 
 def test_run_fails(infopl):

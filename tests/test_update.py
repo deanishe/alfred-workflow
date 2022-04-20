@@ -11,7 +11,6 @@
 """Unit tests for update mechanism."""
 
 
-
 from contextlib import contextmanager
 import os
 import re

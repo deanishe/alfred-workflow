@@ -62,7 +62,6 @@ tests_require = [
     'coverage',
     'pytest',
     'pytest_cov',
-    'pytest_httpbin',
     'pytest_localserver',
 ]
 zip_safe = False

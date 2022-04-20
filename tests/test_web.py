@@ -10,8 +10,6 @@
 """Unit tests for :mod:`workflow.web`"""
 
 
-
-
 import os
 import unittest
 import urllib.request, urllib.error, urllib.parse
@@ -24,13 +22,14 @@ from base64 import b64decode
 from pprint import pprint
 
 import pytest
-import pytest_httpbin
 import pytest_localserver  # noqa: F401
 
 from workflow import web
 
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
+
+HTTPBIN_URL = 'https://eu.httpbin.org'
 
 
 class CaseInsensitiveDictTests(unittest.TestCase):
@@ -116,7 +115,6 @@ class CaseInsensitiveDictTests(unittest.TestCase):
             self.assertTrue(t in self.data_list)
 
 
-@pytest_httpbin.use_class_based_httpbin
 class WebTests(unittest.TestCase):
     """Unit tests for workflow.web"""
 
@@ -136,28 +134,28 @@ class WebTests(unittest.TestCase):
 
     def test_404(self):
         """Non-existant URL raises HTTPError w/ 404"""
-        url = self.httpbin.url + '/status/404'
+        url = HTTPBIN_URL + '/status/404'
         r = web.get(url)
         self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
         self.assertTrue(r.status_code == 404)
 
     def test_follow_redirect(self):
         """Redirects are followed"""
-        url = self.httpbin.url + '/redirect-to?url=' + self.httpbin.url
+        url = HTTPBIN_URL + '/redirect-to?url=' + HTTPBIN_URL
         r = web.get(url)
-        self.assertEqual(r.url.rstrip('/'), self.httpbin.url.rstrip('/'))
+        self.assertEqual(r.url.rstrip('/'), HTTPBIN_URL.rstrip('/'))
 
     def test_no_follow_redirect(self):
         """Redirects are not followed"""
-        url = self.httpbin.url + '/redirect-to?url=' + self.httpbin.url
+        url = HTTPBIN_URL + '/redirect-to?url=' + HTTPBIN_URL
         r = web.get(url, allow_redirects=False)
-        self.assertNotEqual(r.url, self.httpbin.url)
+        self.assertNotEqual(r.url, HTTPBIN_URL)
         self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
         self.assertEqual(r.status_code, 302)
 
     def test_post_form(self):
         """POST Form data"""
-        url = self.httpbin.url + '/post'
+        url = HTTPBIN_URL + '/post'
         r = web.post(url, data=self.data)
         self.assertTrue(r.status_code == 200)
         r.raise_for_status()
@@ -167,7 +165,7 @@ class WebTests(unittest.TestCase):
 
     def test_post_json(self):
         """POST request with JSON body"""
-        url = self.httpbin.url + '/post'
+        url = HTTPBIN_URL + '/post'
         headers = {'content-type': 'application/json'}
         r = web.post(url, headers=headers, data=json.dumps(self.data))
         self.assertTrue(r.status_code == 200)
@@ -179,14 +177,14 @@ class WebTests(unittest.TestCase):
 
     def test_post_without_data(self):
         """POST request without data"""
-        url = self.httpbin + '/post'
+        url = HTTPBIN_URL + '/post'
         r = web.post(url)
         self.assertTrue(r.status_code == 200)
         r.raise_for_status()
 
     def test_put_form(self):
         """PUT Form data"""
-        url = self.httpbin.url + '/put'
+        url = HTTPBIN_URL + '/put'
         r = web.put(url, data=self.data)
         self.assertTrue(r.status_code == 200)
         r.raise_for_status()
@@ -196,7 +194,7 @@ class WebTests(unittest.TestCase):
 
     def test_put_json(self):
         """PUT request with JSON body"""
-        url = self.httpbin + '/delete'
+        url = HTTPBIN_URL + '/delete'
         headers = {'content-type': 'application/json'}
         r = web.delete(url, headers=headers, data=json.dumps(self.data))
         self.assertTrue(r.status_code == 200)
@@ -208,14 +206,14 @@ class WebTests(unittest.TestCase):
 
     def test_put_without_data(self):
         """PUT request without data"""
-        url = self.httpbin + '/put'
+        url = HTTPBIN_URL + '/put'
         r = web.put(url)
         self.assertTrue(r.status_code == 200)
         r.raise_for_status()
 
     def test_delete(self):
         """DELETE request"""
-        url = self.httpbin + '/delete'
+        url = HTTPBIN_URL + '/delete'
         r = web.delete(url)
         pprint(r.json())
         self.assertTrue(r.status_code == 200)
@@ -223,7 +221,7 @@ class WebTests(unittest.TestCase):
 
     def test_delete_with_json(self):
         """DELETE request with JSON body"""
-        url = self.httpbin + '/delete'
+        url = HTTPBIN_URL + '/delete'
         headers = {'content-type': 'application/json'}
         r = web.delete(url, headers=headers, data=json.dumps(self.data))
         self.assertTrue(r.status_code == 200)
@@ -235,7 +233,7 @@ class WebTests(unittest.TestCase):
 
     def test_timeout(self):
         """Request times out"""
-        url = self.httpbin.url + '/delay/3'
+        url = HTTPBIN_URL + '/delay/3'
         if sys.version_info < (2, 7):
             self.assertRaises(urllib.error.URLError, web.get, url, timeout=1)
         else:
@@ -243,7 +241,7 @@ class WebTests(unittest.TestCase):
 
     def test_encoding(self):
         """HTML is decoded"""
-        url = self.httpbin.url + '/html'
+        url = HTTPBIN_URL + '/html'
         r = web.get(url)
         self.assertEqual(r.encoding, 'utf-8')
         self.assertTrue(isinstance(r.text, str))
@@ -251,21 +249,21 @@ class WebTests(unittest.TestCase):
     def test_no_encoding(self):
         """No encoding"""
         # Is an image
-        url = self.httpbin.url + '/bytes/100'
+        url = HTTPBIN_URL + '/bytes/100'
         r = web.get(url)
         self.assertEqual(r.encoding, None)
         self.assertTrue(isinstance(r.text, str))
 
     def test_html_encoding(self):
         """HTML is decoded"""
-        url = self.httpbin.url + '/html'
+        url = HTTPBIN_URL + '/html'
         r = web.get(url)
         self.assertEqual(r.encoding, 'utf-8')
         self.assertTrue(isinstance(r.text, str))
 
     def test_default_encoding(self):
         """Default encodings for mimetypes."""
-        url = self.httpbin.url + '/response-headers'
+        url = HTTPBIN_URL + '/response-headers'
         r = web.get(url)
         r.raise_for_status()
         # httpbin returns JSON by default. web.py should automatically
@@ -275,7 +273,7 @@ class WebTests(unittest.TestCase):
 
     def test_xml_encoding(self):
         """XML is decoded."""
-        url = self.httpbin.url + '/response-headers'
+        url = HTTPBIN_URL + '/response-headers'
         params = {'Content-Type': 'text/xml; charset=UTF-8'}
         r = web.get(url, params)
         r.raise_for_status()
@@ -284,7 +282,7 @@ class WebTests(unittest.TestCase):
 
     def test_get_vars(self):
         """GET vars"""
-        url = self.httpbin.url + '/get'
+        url = HTTPBIN_URL + '/get'
         r = web.get(url, params=self.data)
         self.assertEqual(r.status_code, 200)
         args = r.json()['args']
@@ -293,7 +291,7 @@ class WebTests(unittest.TestCase):
 
     def test_auth_succeeds(self):
         """Basic AUTH succeeds"""
-        url = self.httpbin.url + '/basic-auth/bobsmith/password1'
+        url = HTTPBIN_URL + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password1'))
         self.assertEqual(r.status_code, 200)
         data = r.json()
@@ -302,14 +300,14 @@ class WebTests(unittest.TestCase):
 
     def test_auth_fails(self):
         """Basic AUTH fails"""
-        url = self.httpbin.url + '/basic-auth/bobsmith/password1'
+        url = HTTPBIN_URL + '/basic-auth/bobsmith/password1'
         r = web.get(url, auth=('bobsmith', 'password2'))
         self.assertEqual(r.status_code, 401)
         self.assertRaises(urllib.error.HTTPError, r.raise_for_status)
 
     def test_file_upload(self):
         """File upload"""
-        url = self.httpbin.url + '/post'
+        url = HTTPBIN_URL + '/post'
         files = {'file': {'filename': 'cönfüsed.gif',
                           'content': open(self.test_file, 'rb').read(),
                           'mimetype': 'image/gif',
@@ -329,7 +327,7 @@ class WebTests(unittest.TestCase):
 
     def test_file_upload_without_form_data(self):
         """File upload w/o form data"""
-        url = self.httpbin.url + '/post'
+        url = HTTPBIN_URL + '/post'
         files = {'file': {'filename': 'cönfüsed.gif',
                           'content': open(self.test_file, 'rb').read()
                           }}
@@ -345,7 +343,7 @@ class WebTests(unittest.TestCase):
 
     def test_json_encoding(self):
         """JSON decoded correctly"""
-        url = self.httpbin.url + '/get'
+        url = HTTPBIN_URL + '/get'
         params = {'town': 'münchen'}
         r = web.get(url, params)
         self.assertEqual(r.status_code, 200)
@@ -354,7 +352,7 @@ class WebTests(unittest.TestCase):
 
     def test_gzipped_content(self):
         """Gzipped content decoded"""
-        url = self.httpbin.url + '/gzip'
+        url = HTTPBIN_URL + '/gzip'
         r = web.get(url)
         self.assertEqual(r.status_code, 200)
         data = r.json()
@@ -362,7 +360,7 @@ class WebTests(unittest.TestCase):
 
     def test_gzipped_iter_content(self):
         """Gzipped iter_content decoded"""
-        url = self.httpbin.url + '/gzip'
+        url = HTTPBIN_URL + '/gzip'
         r = web.get(url, stream=True)
         self.assertEqual(r.status_code, 200)
         data = b''
@@ -373,7 +371,7 @@ class WebTests(unittest.TestCase):
 
     def test_params_added_to_url(self):
         """`params` are added to existing GET args"""
-        url = self.httpbin.url + '/get?existing=one'
+        url = HTTPBIN_URL + '/get?existing=one'
         r = web.get(url)
         r.raise_for_status()
         args = r.json()['args']

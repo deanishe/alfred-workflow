@@ -184,7 +184,7 @@ class FakePrograms(object):
         self.tempdir = tempfile.mkdtemp()
         for name, retcode in list(self.programs.items()):
             path = os.path.join(self.tempdir, name)
-            with open(path, 'wb') as fp:
+            with open(path, 'w') as fp:
                 fp.write("#!/bin/bash\n\nexit {0}\n".format(retcode))
             os.chmod(path, 0o700)
 

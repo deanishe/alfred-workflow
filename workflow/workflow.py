@@ -2146,7 +2146,7 @@ class Workflow(object):
         for item in self._items:
             root.append(item.elem)
         print('<?xml version="1.0" encoding="utf-8"?>', file=sys.stdout)
-        print(ET.tostring(root), file=sys.stdout)
+        print(ET.tostring(root, encoding='unicode'), file=sys.stdout)
 
     ####################################################################
     # Updating methods

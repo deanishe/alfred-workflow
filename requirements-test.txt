@@ -1,4 +1,4 @@
-pyobjc-framework-Cocoa==5.3
+pyobjc-framework-Cocoa==8.5
 pytest==4.6.10
 pytest-cov==2.8.1
 pytest-httpbin==1.0.0

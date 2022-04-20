@@ -2679,12 +2679,13 @@ class Workflow(object):
         :returns: text containing only ASCII characters
         :rtype: ``str``
 
+        >>> fold_to_ascii('Fußpilz')
+        'Fusspilz'
         """
         if isascii(text):
             return text
         text = ''.join([ASCII_REPLACEMENTS.get(c, c) for c in text])
-        return str(unicodedata.normalize('NFKD',
-                       text).encode('ascii', 'ignore'))
+        return unicodedata.normalize('NFKD', text)
 
     def dumbify_punctuation(self, text):
         """Convert non-ASCII punctuation to closest ASCII equivalent.

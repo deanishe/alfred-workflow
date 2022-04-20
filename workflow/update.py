@@ -273,7 +273,7 @@ class Version(object):
         parsed = []
         parts = s.split('.')
         for p in parts:
-            if all(c.isdigit() for c in p):
+            if p and all(c.isdigit() for c in p):
                 p = int(p)
             parsed.append(p)
         return parsed

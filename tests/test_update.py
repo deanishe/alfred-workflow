@@ -12,6 +12,7 @@
 
 
 from contextlib import contextmanager
+from unittest import mock
 import os
 import re
 
@@ -81,19 +82,18 @@ DL_BAD = Download(url='http://github.com/file.zip',
 @contextmanager
 def fakeresponse(httpserver, content, headers=None):
     """Monkey patch `web.request()` to return the specified response."""
-    orig = web.request
-    httpserver.serve_content(content, headers=headers)
+    original_request = web.request
 
     def _request(*args, **kwargs):
         """Replace request URL with `httpserver` URL"""
         # print('requested URL={!r}'.format(args[1]))
         args = (args[0], httpserver.url) + args[2:]
         # print('request args={!r}'.format(args))
-        return orig(*args, **kwargs)
+        return original_request(*args, **kwargs)
 
-    web.request = _request
-    yield
-    web.request = orig
+    httpserver.serve_content(content, headers=headers)
+    with mock.patch('workflow.web.request', _request):
+        yield
 
 
 def test_parse_releases(infopl, alfred4):

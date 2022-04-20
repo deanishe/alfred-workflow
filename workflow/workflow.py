@@ -487,7 +487,7 @@ def isascii(text):
     """Test if ``text`` contains only ASCII characters.
 
     :param text: text to test for ASCII-ness
-    :type text: ``unicode``
+    :type text: ``str``
     :returns: ``True`` if ``text`` contains only ASCII characters
     :rtype: ``Boolean``
 
@@ -534,7 +534,7 @@ class SerializerManager(object):
             ``name`` will be used as the file extension of the saved files.
 
         :param name: Name to register ``serializer`` under
-        :type name: ``str``
+        :type name: ``bytes``
         :param serializer: object with ``load()`` and ``dump()``
             methods
 
@@ -549,7 +549,7 @@ class SerializerManager(object):
         """Return serializer object for ``name``.
 
         :param name: Name of serializer to return
-        :type name: ``unicode`` or ``str``
+        :type name: ``str`` or ``bytes``
         :returns: serializer object or ``None`` if no such serializer
             is registered.
 
@@ -563,7 +563,7 @@ class SerializerManager(object):
         serializer.
 
         :param name: Name of serializer to remove
-        :type name: ``unicode`` or ``str``
+        :type name: ``str`` or ``bytes``
         :returns: serializer object
 
         """
@@ -769,7 +769,7 @@ class Settings(dict):
     (and settings file) will be initialised with ``defaults``.
 
     :param filepath: where to save the settings
-    :type filepath: :class:`unicode`
+    :type filepath: :class:`str`
     :param defaults: dict of default settings
     :type defaults: :class:`dict`
 
@@ -873,10 +873,10 @@ class Workflow(object):
     :param input_encoding: encoding of command line arguments. You
         should probably leave this as the default (``utf-8``), which
         is the encoding Alfred uses.
-    :type input_encoding: :class:`unicode`
+    :type input_encoding: :class:`str`
     :param normalization: normalisation to apply to CLI args.
         See :meth:`Workflow.decode` for more details.
-    :type normalization: :class:`unicode`
+    :type normalization: :class:`str`
     :param capture_args: Capture and act on ``workflow:*`` arguments. See
         :ref:`Magic arguments <magic-arguments>` for details.
     :type capture_args: :class:`Boolean`
@@ -889,7 +889,7 @@ class Workflow(object):
         this URL will be displayed in the log and Alfred's debugger. It can
         also be opened directly in a web browser with the ``workflow:help``
         :ref:`magic argument <magic-arguments>`.
-    :type help_url: :class:`unicode` or :class:`str`
+    :type help_url: :class:`str` or :class:`str`
 
     """
 
@@ -937,7 +937,7 @@ class Workflow(object):
         #: what the user should enter (prefixed with :attr:`magic_prefix`)
         #: and the value is a callable that will be called when the argument
         #: is entered. If you would like to display a message in Alfred, the
-        #: function should return a ``unicode`` string.
+        #: function should return a ``str`` string.
         #:
         #: By default, the magic arguments documented
         #: :ref:`here <magic-arguments>` are registered.
@@ -1054,7 +1054,7 @@ class Workflow(object):
         """Workflow bundle ID from environmental vars or ``info.plist``.
 
         :returns: bundle ID
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if not self._bundleid:
@@ -1080,7 +1080,7 @@ class Workflow(object):
         """Workflow name from Alfred's environmental vars or ``info.plist``.
 
         :returns: workflow name
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if not self._name:
@@ -1297,9 +1297,9 @@ class Workflow(object):
         :attr:`cache directory <Workflow.cachedir>`.
 
         :param filename: basename of file
-        :type filename: ``unicode``
+        :type filename: ``str``
         :returns: full path to file within cache directory
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if isinstance(filename, bytes):
@@ -1313,9 +1313,9 @@ class Workflow(object):
         :attr:`data directory <Workflow.datadir>`.
 
         :param filename: basename of file
-        :type filename: ``unicode``
+        :type filename: ``str``
         :returns: full path to file within data directory
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if isinstance(filename, bytes):
@@ -1326,9 +1326,9 @@ class Workflow(object):
         """Return full path to ``filename`` in workflow's root directory.
 
         :param filename: basename of file
-        :type filename: ``unicode``
+        :type filename: ``str``
         :returns: full path to file within data directory
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if isinstance(filename, bytes):
@@ -1340,7 +1340,7 @@ class Workflow(object):
         """Path to logfile.
 
         :returns: path to logfile within workflow's cache directory
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         return self.cachefile('%s.log' % self.bundleid)
@@ -1408,7 +1408,7 @@ class Workflow(object):
         """Path to settings file within workflow's data directory.
 
         :returns: path to ``settings.json`` file
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if not self._settings_path:
@@ -1449,7 +1449,7 @@ class Workflow(object):
         See :class:`SerializerManager` for details.
 
         :returns: serializer name
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         return self._cache_serializer
@@ -1492,7 +1492,7 @@ class Workflow(object):
         See :class:`SerializerManager` for details.
 
         :returns: serializer name
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         return self._data_serializer
@@ -1717,7 +1717,7 @@ class Workflow(object):
         """Return age in seconds of cache `name` or 0 if cache doesn't exist.
 
         :param name: name of datastore
-        :type name: ``unicode``
+        :type name: ``str``
         :returns: age of datastore in seconds
         :rtype: ``int``
 
@@ -1741,11 +1741,11 @@ class Workflow(object):
         all items will match.
 
         :param query: query to test items against
-        :type query: ``unicode``
+        :type query: ``str``
         :param items: iterable of items to test
         :type items: ``list`` or ``tuple``
         :param key: function to get comparison key from ``items``.
-            Must return a ``unicode`` string. The default simply returns
+            Must return a ``str`` string. The default simply returns
             the item.
         :type key: ``callable``
         :param ascending: set to ``True`` to get worst matches first
@@ -2080,24 +2080,24 @@ class Workflow(object):
         """Add an item to be output to Alfred.
 
         :param title: Title shown in Alfred
-        :type title: ``unicode``
+        :type title: ``str``
         :param subtitle: Subtitle shown in Alfred
-        :type subtitle: ``unicode``
+        :type subtitle: ``str``
         :param modifier_subtitles: Subtitles shown when modifier
             (CMD, OPT etc.) is pressed. Use a ``dict`` with the lowercase
             keys ``cmd``, ``ctrl``, ``shift``, ``alt`` and ``fn``
         :type modifier_subtitles: ``dict``
         :param arg: Argument passed by Alfred as ``{query}`` when item is
             actioned
-        :type arg: ``unicode``
+        :type arg: ``str``
         :param autocomplete: Text expanded in Alfred when item is TABbed
-        :type autocomplete: ``unicode``
+        :type autocomplete: ``str``
         :param valid: Whether or not item can be actioned
         :type valid: ``Boolean``
         :param uid: Used by Alfred to remember/sort items
-        :type uid: ``unicode``
+        :type uid: ``str``
         :param icon: Filename of icon to use
-        :type icon: ``unicode``
+        :type icon: ``str``
         :param icontype: Type of icon. Must be one of ``None`` , ``'filetype'``
            or ``'fileicon'``. Use ``'filetype'`` when ``icon`` is a filetype
            such as ``'public.folder'``. Use ``'fileicon'`` when you wish to
@@ -2105,20 +2105,20 @@ class Workflow(object):
            ``icon='/Applications/Safari.app', icontype='fileicon'``.
            Leave as `None` if ``icon`` points to an actual
            icon file.
-        :type icontype: ``unicode``
+        :type icontype: ``str``
         :param type: Result type. Currently only ``'file'`` is supported
             (by Alfred). This will tell Alfred to enable file actions for
             this item.
-        :type type: ``unicode``
+        :type type: ``str``
         :param largetext: Text to be displayed in Alfred's large text box
             if user presses CMD+L on item.
-        :type largetext: ``unicode``
+        :type largetext: ``str``
         :param copytext: Text to be copied to pasteboard if user presses
             CMD+C on item.
-        :type copytext: ``unicode``
+        :type copytext: ``str``
         :param quicklookurl: URL to be displayed using Alfred's Quick Look
             feature (tapping ``SHIFT`` or ``⌘+Y`` on a result).
-        :type quicklookurl: ``unicode``
+        :type quicklookurl: ``str``
         :returns: :class:`Item` instance
 
         See :ref:`icons` for a list of the supported system icons.
@@ -2199,7 +2199,7 @@ class Workflow(object):
 
         :param version: version to store (default is current version)
         :type version: :class:`~workflow.update.Version` instance
-            or ``unicode``
+            or ``str``
         :returns: ``True`` if version is saved, else ``False``
 
         """
@@ -2360,12 +2360,12 @@ class Workflow(object):
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
-        :type account: ``unicode``
+        :type account: ``str``
         :param password: the password to secure
-        :type password: ``unicode``
+        :type password: ``str``
         :param service: Name of the service. By default, this is the
             workflow's bundle ID
-        :type service: ``unicode``
+        :type service: ``str``
 
         """
         if not service:
@@ -2396,12 +2396,12 @@ class Workflow(object):
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
-        :type account: ``unicode``
+        :type account: ``str``
         :param service: Name of the service. By default, this is the workflow's
                         bundle ID
-        :type service: ``unicode``
+        :type service: ``str``
         :returns: account password
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if not service:
@@ -2435,10 +2435,10 @@ class Workflow(object):
 
         :param account: name of the account the password is for, e.g.
             "Pinboard"
-        :type account: ``unicode``
+        :type account: ``str``
         :param service: Name of the service. By default, this is the workflow's
                         bundle ID
-        :type service: ``unicode``
+        :type service: ``str``
 
         """
         if not service:
@@ -2645,10 +2645,10 @@ class Workflow(object):
             Unicode string, it will only be normalised.
         :param encoding: The text encoding to use to decode ``text`` to
             Unicode.
-        :type encoding: ``unicode`` or ``None``
+        :type encoding: ``str`` or ``None``
         :param normalization: The nomalisation form to apply to ``text``.
-        :type normalization: ``unicode`` or ``None``
-        :returns: decoded and normalised ``unicode``
+        :type normalization: ``str`` or ``None``
+        :returns: decoded and normalised ``str``
 
         :class:`Workflow` uses "NFC" normalisation by default. This is the
         standard for Python and will work well with data from the web (via
@@ -2675,9 +2675,9 @@ class Workflow(object):
         .. note:: This only works for a subset of European languages.
 
         :param text: text to convert
-        :type text: ``unicode``
+        :type text: ``str``
         :returns: text containing only ASCII characters
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if isascii(text):
@@ -2696,9 +2696,9 @@ class Workflow(object):
         .. versionadded: 1.9.7
 
         :param text: text to convert
-        :type text: ``unicode``
+        :type text: ``str``
         :returns: text with only ASCII punctuation
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if isascii(text):
@@ -2711,7 +2711,7 @@ class Workflow(object):
         """Delete all files in a directory.
 
         :param dirpath: path to directory to clear
-        :type dirpath: ``unicode`` or ``str``
+        :type dirpath: ``str`` or ``bytes``
         :param filter_func function to determine whether a file shall be
             deleted or not.
         :type filter_func ``callable``
@@ -2738,9 +2738,9 @@ class Workflow(object):
         """Create directory `dirpath` if it doesn't exist.
 
         :param dirpath: path to directory
-        :type dirpath: ``unicode``
+        :type dirpath: ``str``
         :returns: ``dirpath`` argument
-        :rtype: ``unicode``
+        :rtype: ``str``
 
         """
         if not os.path.exists(dirpath):
@@ -2755,20 +2755,20 @@ class Workflow(object):
 
         :param action: The ``security`` action to call, e.g.
                            ``add-generic-password``
-        :type action: ``unicode``
+        :type action: ``str``
         :param service: Name of the service.
-        :type service: ``unicode``
+        :type service: ``str``
         :param account: name of the account the password is for, e.g.
             "Pinboard"
-        :type account: ``unicode``
+        :type account: ``str``
         :param password: the password to secure
-        :type password: ``unicode``
+        :type password: ``str``
         :param *args: list of command line arguments to be passed to
                       ``security``
         :type *args: `list` or `tuple`
         :returns: ``(retcode, output)``. ``retcode`` is an `int`, ``output`` a
-                  ``unicode`` string.
-        :rtype: `tuple` (`int`, ``unicode``)
+                  ``str`` string.
+        :rtype: `tuple` (`int`, ``str``)
 
         """
         cmd = ['security', action, '-s', service, '-a', account] + list(args)

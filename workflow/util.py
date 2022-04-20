@@ -447,7 +447,7 @@ def atomic_writer(fpath, mode):
     succeeds. The data is first written to a temporary file.
 
     :param fpath: path of file to write to.
-    :type fpath: ``unicode``
+    :type fpath: ``str``
     :param mode: sames as for :func:`open`
     :type mode: string
 

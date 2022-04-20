@@ -95,7 +95,7 @@ The magic arguments are defined in the :attr:`Workflow.magic_arguments <workflow
 The dictionary keys are the keywords for the arguments (without the
 prefix) and the values are functions that should be called when the magic
 argument is entered. You can show a message in Alfred by returning a
-``unicode`` string from the function.
+``str`` string from the function.
 
 To add a new magic argument that opens the workflow's settings file, you
 could do:

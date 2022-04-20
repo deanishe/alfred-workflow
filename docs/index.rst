@@ -18,7 +18,7 @@ elsewhere, filter them and display results to the user. Alfred-Workflow takes
 care of a lot of the details for you, allowing you to concentrate your efforts
 on your workflow's functionality.
 
-Alfred-Workflow supports macOS 10.7+ (Python 2.7).
+Alfred-Workflow supports macOS Catalina or later.
 
 
 Features

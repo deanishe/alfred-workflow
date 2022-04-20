@@ -17,7 +17,7 @@ A helper library in Python for authors of workflows for [Alfred 3 and 4][alfred]
 
 <!-- [![Downloads][shield-download]][pypi] -->
 
-Supports Alfred 3 and Alfred 4 on macOS 10.7+ (Python 2.7).
+Supports Alfred 3 and Alfred 4 on macOS Catalina or later (with Python 3).
 
 Alfred-Workflow takes the grunt work out of writing a workflow by giving you the tools to create a fast and featureful Alfred workflow from an API, application or library in minutes.
 

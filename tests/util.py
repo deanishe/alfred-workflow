@@ -156,7 +156,7 @@ class VersionFile(object):
 
     def __enter__(self):
         """Create version file."""
-        with open(self.path, 'wb') as fp:
+        with open(self.path, 'w') as fp:
             fp.write(self.version)
         print('version {0} in {1}'.format(self.version, self.path),
               file=sys.stderr)

@@ -1124,7 +1124,7 @@ class Workflow(object):
                 filepath = self.workflowfile('version')
 
                 if os.path.exists(filepath):
-                    with open(filepath, 'rb') as fileobj:
+                    with open(filepath, 'r') as fileobj:
                         version = fileobj.read()
 
             # info.plist

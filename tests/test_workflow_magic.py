@@ -143,7 +143,7 @@ def test_delete_data(infopl):
     with WorkflowMock(['script', 'workflow:deldata']):
         wf = Workflow()
         testpath = wf.datafile('file.test')
-        with open(testpath, 'wb') as fp:
+        with open(testpath, 'w') as fp:
             fp.write('test!')
 
         assert os.path.exists(testpath)
@@ -158,7 +158,7 @@ def test_delete_cache(infopl):
     with WorkflowMock(['script', 'workflow:delcache']):
         wf = Workflow()
         testpath = wf.cachefile('file.test')
-        with open(testpath, 'wb') as fp:
+        with open(testpath, 'w') as fp:
             fp.write('test!')
 
         assert os.path.exists(testpath)
@@ -178,7 +178,7 @@ def test_reset(infopl):
         settings_path = wf.datafile('settings.json')
 
         for p in (datatest, cachetest):
-            with open(p, 'wb') as file_obj:
+            with open(p, 'w') as file_obj:
                 file_obj.write('test!')
 
         for p in (datatest, cachetest, settings_path):

@@ -225,7 +225,7 @@ class Version(object):
         """Create new `Version` object.
 
         Args:
-            vstr (basestring): Semantic version string.
+            vstr (``str``): Semantic version string.
         """
         if not vstr:
             raise ValueError('invalid version number: {!r}'.format(vstr))

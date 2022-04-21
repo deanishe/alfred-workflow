@@ -11,7 +11,6 @@
 """Unit tests for Workflow's update API."""
 
 
-
 from contextlib import contextmanager
 
 import os
@@ -91,13 +90,19 @@ def test_check_update(httpserver, alfred4):
     with fakeresponse(httpserver, RELEASES_JSON, HTTP_HEADERS_JSON):
         with ctx() as (wf, c):
             wf.run(update)
-            assert c.cmd == ['/usr/bin/python3', '-m', 'workflow.background', '__workflow_update_check']
+            assert c.cmd == [
+                '/usr/bin/python3', '-m', 'workflow.background',
+                '__workflow_update_check'
+            ]
 
         update_settings = UPDATE_SETTINGS.copy()
         update_settings['prereleases'] = True
         with ctx(update_settings=update_settings) as (wf, c):
             wf.run(update)
-            assert c.cmd == ['/usr/bin/python3', '-m', 'workflow.background', '__workflow_update_check']
+            assert c.cmd == [
+                '/usr/bin/python3', '-m', 'workflow.background',
+                '__workflow_update_check'
+            ]
 
 
 def test_install_update(httpserver, alfred4):
@@ -114,7 +119,10 @@ def test_install_update(httpserver, alfred4):
 
             print('Magic update command : {0!r}'.format(c.cmd))
 
-            assert c.cmd == ['/usr/bin/python3', '-m', 'workflow.background', '__workflow_update_install']
+            assert c.cmd == [
+                '/usr/bin/python3', '-m', 'workflow.background',
+                '__workflow_update_install'
+            ]
 
         update_settings = UPDATE_SETTINGS.copy()
         del update_settings['version']
@@ -161,7 +169,10 @@ def test_install_update_prereleases(httpserver, alfred4):
 
             print('Magic update command : {!r}'.format(c.cmd))
 
-            assert c.cmd == ['/usr/bin/python3', '-m', 'workflow.background', '__workflow_update_install']
+            assert c.cmd == [
+                '/usr/bin/python3', '-m', 'workflow.background',
+                '__workflow_update_install'
+            ]
 
         with env(alfred_workflow_version='v10.0-beta'):
             update_settings = UPDATE_SETTINGS.copy()

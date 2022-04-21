@@ -344,12 +344,15 @@ class WebTests(unittest.TestCase):
     def test_file_upload_with_unicode(self):
         """File upload with Unicode contents is converted to bytes"""
         url = HTTPBIN_URL + '/post'
+        content = 'Hére ïs søme ÜÑÎÇÒDÈ™'
         files = {'file': {'filename': 'cönfüsed.txt',
-                          'content': 'Hére ïs søme ÜÑÎÇÒDÈ™'
+                          'content': content
                           }}
         r = web.post(url, files=files)
         self.assertEqual(r.status_code, 200)
         data = r.json()
+        bindata = data['files']['file']
+        self.assertEqual(bindata, content)
 
     def test_json_encoding(self):
         """JSON decoded correctly"""

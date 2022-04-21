@@ -11,7 +11,6 @@
 """Unit tests for :mod:`workflow.Workflow`."""
 
 
-
 import logging
 import os
 import sys

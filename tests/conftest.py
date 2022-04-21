@@ -11,7 +11,6 @@
 """Common pytest fixtures."""
 
 
-
 from contextlib import contextmanager
 import os
 from shutil import rmtree

@@ -11,7 +11,6 @@
 """Stuff used in multiple tests."""
 
 
-
 from io import StringIO
 import sys
 import os

@@ -7,7 +7,6 @@
 """Unit tests for Workflow.run."""
 
 
-
 from io import StringIO
 import sys
 

@@ -11,7 +11,6 @@
 """Unit tests for magic arguments."""
 
 
-
 import os
 
 import pytest

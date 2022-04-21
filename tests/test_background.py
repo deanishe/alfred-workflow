@@ -11,7 +11,6 @@
 """Unit tests for :mod:`workflow.background`."""
 
 
-
 import os
 from time import sleep
 

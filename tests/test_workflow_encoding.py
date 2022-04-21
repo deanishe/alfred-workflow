@@ -7,7 +7,6 @@
 """Unit tests for serializers."""
 
 
-
 import pytest
 
 

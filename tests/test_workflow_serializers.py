@@ -11,7 +11,6 @@
 """Unit tests for serializer classes."""
 
 
-
 import os
 
 import pytest

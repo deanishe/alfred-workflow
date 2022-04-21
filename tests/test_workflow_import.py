@@ -7,7 +7,6 @@
 """Unit tests for sys.path manipulation."""
 
 
-
 import os
 import sys
 

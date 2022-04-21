@@ -11,7 +11,6 @@
 """Unit tests for Workflow.settings API."""
 
 
-
 import json
 import os
 import shutil

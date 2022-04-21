@@ -7,7 +7,6 @@
 """Unit tests for workflow version determination."""
 
 
-
 import pytest
 
 from workflow.update import Version

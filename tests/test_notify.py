@@ -11,7 +11,6 @@
 """Unit tests for notifications."""
 
 
-
 import hashlib
 import logging
 import os

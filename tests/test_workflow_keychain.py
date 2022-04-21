@@ -7,7 +7,6 @@
 """Unit tests for Keychain API."""
 
 
-
 import pytest
 
 from workflow.workflow import PasswordNotFound, KeychainError

@@ -7,7 +7,6 @@
 """Unit tests for environment/info.plist."""
 
 
-
 import logging
 import os
 

@@ -7,7 +7,6 @@
 """Unit tests for :meth:`workflow.Workflow.filter`."""
 
 
-
 import pytest
 
 from workflow.workflow import (

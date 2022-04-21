@@ -10,6 +10,10 @@ jobs:
   run:
     name: "tests & coverage"
     runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     env:
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -19,7 +23,7 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: ${{ matrix.python-version }}
 
     - name: Install test dependencies
       run: |

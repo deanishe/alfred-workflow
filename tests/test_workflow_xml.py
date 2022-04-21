@@ -11,7 +11,6 @@
 """Unit tests for Workflow's XML feedback generation."""
 
 
-
 from contextlib import contextmanager
 from io import StringIO
 import sys

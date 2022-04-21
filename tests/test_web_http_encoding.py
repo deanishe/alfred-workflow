@@ -11,7 +11,6 @@
 """HTTP unit tests."""
 
 
-
 import os
 
 import pytest

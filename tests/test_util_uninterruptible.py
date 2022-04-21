@@ -11,7 +11,6 @@
 """Unit tests for ``uninterruptible`` decorator."""
 
 
-
 import os
 import signal
 

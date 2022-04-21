@@ -7,7 +7,6 @@
 """Unit tests for Alfred 2 magic argument handling."""
 
 
-
 import pytest
 
 from workflow import Workflow

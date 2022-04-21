@@ -11,7 +11,6 @@
 """Unit tests for :func:`~workflow.util.atomic_writer`."""
 
 
-
 import json
 import os
 

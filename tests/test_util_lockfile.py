@@ -11,7 +11,6 @@
 """Test LockFile functionality."""
 
 
-
 from collections import namedtuple
 from multiprocessing import Pool
 import os

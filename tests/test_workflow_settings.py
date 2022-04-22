@@ -10,7 +10,6 @@
 
 """Unit tests for Workflow.settings API."""
 
-from __future__ import print_function, unicode_literals, absolute_import
 
 import json
 import os
@@ -31,7 +30,7 @@ class SettingsTests(unittest.TestCase):
         """Initialise unit test environment."""
         self.tempdir = tempfile.mkdtemp()
         self.settings_file = os.path.join(self.tempdir, 'settings.json')
-        with open(self.settings_file, 'wb') as file_obj:
+        with open(self.settings_file, 'w') as file_obj:
             json.dump(DEFAULT_SETTINGS, file_obj)
 
     def tearDown(self):
@@ -86,7 +85,7 @@ class SettingsTests(unittest.TestCase):
         mt = os.path.getmtime(self.settings_file)
         time.sleep(1)  # wait long enough to register changes in `time.time()`
         now = time.time()
-        for k, v in DEFAULT_SETTINGS.items():
+        for k, v in list(DEFAULT_SETTINGS.items()):
             s[k] = v
         self.assertTrue(os.path.getmtime(self.settings_file) == mt)
         s['finished_at'] = now

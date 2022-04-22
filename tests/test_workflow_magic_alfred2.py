@@ -6,7 +6,6 @@
 
 """Unit tests for Alfred 2 magic argument handling."""
 
-from __future__ import print_function
 
 import pytest
 

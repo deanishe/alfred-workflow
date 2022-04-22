@@ -6,7 +6,6 @@
 
 """Unit tests for sys.path manipulation."""
 
-from __future__ import print_function, unicode_literals
 
 import os
 import sys
@@ -16,7 +15,7 @@ import pytest
 from workflow.workflow import Workflow
 
 
-LIBS = [os.path.join(os.path.dirname(__file__), b'lib')]
+LIBS = [os.path.join(os.path.dirname(__file__), 'lib')]
 
 
 def test_additional_libs(alfred4, infopl):

@@ -16,7 +16,7 @@ in the project root to run the full test suite in place with coverage.
 ```bash
 tox
 ```
-in the project root to build, install and test with Python 2.6 and 2.7.
+in the project root to build, install and test with Python.
 
 
 Testing a single module with coverage

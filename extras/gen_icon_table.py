@@ -14,7 +14,7 @@ Generate a ReST table of icons in :mod:`workflow.workflow` with previews.
 
 """
 
-from __future__ import print_function, unicode_literals
+
 
 import os
 import subprocess

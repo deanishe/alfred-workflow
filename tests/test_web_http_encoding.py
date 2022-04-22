@@ -10,7 +10,6 @@
 
 """HTTP unit tests."""
 
-from __future__ import print_function
 
 import os
 
@@ -55,7 +54,7 @@ def test_web_encoding(httpserver):
         print('filepath={0!r}, headers={1!r}, encoding={2!r}'.format(
               filepath, headers, encoding))
 
-        content = open(filepath).read()
+        content = open(filepath, 'rb').read()
 
         httpserver.serve_content(content, headers=headers)
         r = web.get(httpserver.url)

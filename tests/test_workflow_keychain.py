@@ -6,7 +6,6 @@
 
 """Unit tests for Keychain API."""
 
-from __future__ import print_function, unicode_literals
 
 import pytest
 

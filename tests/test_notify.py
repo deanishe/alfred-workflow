@@ -10,7 +10,6 @@
 
 """Unit tests for notifications."""
 
-from __future__ import print_function
 
 import hashlib
 import logging
@@ -24,8 +23,8 @@ import pytest
 from workflow import notify
 from workflow.workflow import Workflow
 
-from conftest import BUNDLE_ID
-from util import (
+from .conftest import BUNDLE_ID
+from .util import (
     FakePrograms,
     WorkflowMock,
 )
@@ -80,11 +79,15 @@ def test_install(infopl, alfred4, applet):
     notify.install_notifier()
     for p in (APP_PATH, APPLET_PATH, ICON_PATH, INFO_PATH):
         assert os.path.exists(p) is True, "path not found"
+
     # Ensure applet is executable
     assert (os.stat(APPLET_PATH).st_mode & stat.S_IXUSR), \
         "applet not executable"
+
     # Verify bundle ID was changed
-    data = plistlib.readPlist(INFO_PATH)
+    with open(INFO_PATH, 'rb') as plist_fp:
+        data = plistlib.load(plist_fp)
+
     bid = data.get('CFBundleIdentifier')
     assert bid != BUNDLE_ID, "bundle IDs identical"
     assert bid.startswith(BUNDLE_ID) is True, "bundle ID not prefix"

@@ -10,11 +10,10 @@
 
 """Test Workflow3 feedback."""
 
-from __future__ import print_function, absolute_import
 
 import json
 import os
-from StringIO import StringIO
+from io import StringIO
 import sys
 
 import pytest
@@ -106,10 +105,10 @@ def test_feedback(infopl):
 def test_warn_empty(infopl):
     """Workflow3: Warn empty."""
     wf = Workflow3()
-    it = wf.warn_empty(u'My warning')
+    it = wf.warn_empty('My warning')
 
-    assert it.title == u'My warning'
-    assert it.subtitle == u''
+    assert it.title == 'My warning'
+    assert it.subtitle == ''
     assert it.valid is False
     assert it.icon == ICON_WARNING
 
@@ -120,8 +119,8 @@ def test_warn_empty(infopl):
 
     # Non-empty feedback
     wf = Workflow3()
-    wf.add_item(u'Real item')
-    it = wf.warn_empty(u'Warning')
+    wf.add_item('Real item')
+    it = wf.warn_empty('Warning')
 
     assert it is None
 
@@ -491,8 +490,8 @@ def test_run_fails_with_plain_text_output(infopl):
 
 def test_variables_plain_arg():
     """Arg-only returns string, not JSON."""
-    v = Variables(arg=u'test')
-    assert unicode(v) == u'test'
+    v = Variables(arg='test')
+    assert str(v) == 'test'
     assert str(v) == 'test'
 
 
@@ -503,13 +502,13 @@ def test_variables_multiple_args(infopl):
     v = Variables(arg=arg)
     assert v.obj == {'alfredworkflow': {'arg': arg}}
     assert str(v) == js
-    assert unicode(v) == js
+    assert str(v) == js
 
 
 def test_variables_empty():
     """Empty Variables returns empty string."""
     v = Variables()
-    assert unicode(v) == u''
+    assert str(v) == ''
     assert str(v) == ''
 
 
@@ -528,18 +527,18 @@ def test_variables_config():
 
 def test_variables_unicode():
     """Unicode handled correctly."""
-    v = Variables(arg=u'fübar', englisch='englisch')
-    v[u'französisch'] = u'französisch'
-    v.config[u'über'] = u'über'
+    v = Variables(arg='fübar', englisch='englisch')
+    v['französisch'] = 'französisch'
+    v.config['über'] = 'über'
     d = {
         'alfredworkflow':
             {
-                'arg': u'fübar',
+                'arg': 'fübar',
                 'variables': {
-                    'englisch': u'englisch',
-                    u'französisch': u'französisch',
+                    'englisch': 'englisch',
+                    'französisch': 'französisch',
                 },
-                'config': {u'über': u'über'}
+                'config': {'über': 'über'}
             }
     }
     print(repr(v.obj))
@@ -547,7 +546,7 @@ def test_variables_unicode():
     assert v.obj == d
 
     # Round-trip to JSON and back
-    d2 = json.loads(unicode(v))
+    d2 = json.loads(str(v))
     assert d2 == d
 
 

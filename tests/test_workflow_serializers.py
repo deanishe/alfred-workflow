@@ -10,7 +10,6 @@
 
 """Unit tests for serializer classes."""
 
-from __future__ import print_function, absolute_import
 
 import os
 
@@ -19,7 +18,6 @@ import pytest
 from workflow.workflow import (
     SerializerManager,
     JSONSerializer,
-    CPickleSerializer,
     PickleSerializer,
     manager as default_manager,
 )
@@ -33,7 +31,7 @@ SERIALIZERS = ('json', 'cpickle', 'pickle')
 def manager():
     """Create a `SerializerManager` with the default config."""
     m = SerializerManager()
-    m.register('cpickle', CPickleSerializer)
+    m.register('cpickle', PickleSerializer)
     m.register('pickle', PickleSerializer)
     m.register('json', JSONSerializer)
     yield m

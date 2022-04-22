@@ -9,7 +9,6 @@
 
 """Unit tests for workflow/util.py."""
 
-from __future__ import print_function, absolute_import
 
 import os
 import shutil
@@ -35,7 +34,6 @@ from workflow.util import (
     set_theme,
     unicodify,
     unset_config,
-    utf8ify,
 )
 
 from .util import MockCall
@@ -59,59 +57,43 @@ def test_unicodify():
     """Unicode decoding."""
     data = [
         # input, normalisation form, expected output
-        (u'Köln', None, u'Köln'),
-        ('Köln', None, u'Köln'),
-        (u'Köln', 'NFC', u'K\xf6ln'),
-        (u'Köln', 'NFD', u'Ko\u0308ln'),
-        ('UTF-8', None, u'UTF-8'),
+        ('Köln', None, 'Köln'),
+        ('Köln', None, 'Köln'),
+        ('Köln', 'NFC', 'K\xf6ln'),
+        ('Köln', 'NFD', 'Ko\u0308ln'),
+        ('UTF-8', None, 'UTF-8'),
     ]
 
     for b, n, x in data:
         s = unicodify(b, norm=n)
         assert s == x
-        assert isinstance(s, unicode)
-
-
-def test_utf8ify():
-    """UTF-8 encoding."""
-    data = [
-        # input, expected output
-        (u'Köln', 'Köln'),
-        ('UTF-8', 'UTF-8'),
-        (10, '10'),
-        ([1, 2, 3], '[1, 2, 3]'),
-    ]
-
-    for s, x in data:
-        r = utf8ify(s)
-        assert x == r
-        assert isinstance(x, str)
+        assert isinstance(s, str)
 
 
 def test_applescript_escape():
     """Escape AppleScript strings."""
     data = [
         # input, expected output
-        (u'no change', u'no change'),
-        (u'has "quotes" in it', u'has " & quote & "quotes" & quote & " in it'),
+        ('no change', 'no change'),
+        ('has "quotes" in it', 'has " & quote & "quotes" & quote & " in it'),
     ]
 
     for s, x in data:
         r = applescriptify(s)
         assert x == r
-        assert isinstance(x, unicode)
+        assert isinstance(x, str)
 
 
 def test_run_command():
     """Run command."""
     data = [
         # command, expected output
-        ([u'echo', '-n', 1], '1'),
-        ([u'echo', '-n', u'Köln'], 'Köln'),
+        (['echo', '-n', 1], '1'),
+        (['echo', '-n', 'Köln'], 'Köln'),
     ]
 
     for cmd, x in data:
-        r = run_command(cmd)
+        r = run_command(cmd).decode('utf-8')
         assert r == x
 
     with pytest.raises(subprocess.CalledProcessError):
@@ -122,14 +104,14 @@ def test_run_applescript(testfile):
     """Run AppleScript."""
     # Run script passed as text
     out = run_applescript('return "1"')
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Run script file
-    with open(testfile, 'wb') as fp:
+    with open(testfile, 'w') as fp:
         fp.write('return "1"')
 
     out = run_applescript(testfile)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Test args
     script = """
@@ -138,7 +120,7 @@ def test_run_applescript(testfile):
     end run
     """
     out = run_applescript(script, 1)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
 
 def test_run_jxa(testfile):
@@ -151,14 +133,14 @@ def test_run_jxa(testfile):
 
     # Run script passed as text
     out = run_jxa(script)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Run script file
-    with open(testfile, 'wb') as fp:
+    with open(testfile, 'w') as fp:
         fp.write(script)
 
     out = run_jxa(testfile)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
     # Test args
     script = """
@@ -167,7 +149,7 @@ def test_run_jxa(testfile):
     }
     """
     out = run_jxa(script, 1)
-    assert out.strip() == '1'
+    assert out.strip() == b'1'
 
 
 def test_app_name():
@@ -396,12 +378,12 @@ def test_set_theme(alfred4):
 def test_appinfo():
     """App info for Safari."""
     for name, bundleid, path in [
-        (u'Safari', u'com.apple.Safari', u'/Applications/Safari.app'),
-        (u'Console', u'com.apple.Console',
-            u'/Applications/Utilities/Console.app'),
+        ('Safari', 'com.apple.Safari', '/Applications/Safari.app'),
+        ('Console', 'com.apple.Console',
+            '/Applications/Utilities/Console.app'),
         # Catalina
-        (u'Console', u'com.apple.Console',
-            u'/System/Applications/Utilities/Console.app'),
+        ('Console', 'com.apple.Console',
+            '/System/Applications/Utilities/Console.app'),
     ]:
 
         if not os.path.exists(path):
@@ -413,7 +395,7 @@ def test_appinfo():
         assert info.path == path
         assert info.bundleid == bundleid
         for s in info:
-            assert isinstance(s, unicode)
+            assert isinstance(s, str)
 
     # Non-existant app
     info = appinfo("Big, Hairy Man's Special Breakfast Pants")

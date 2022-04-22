@@ -21,7 +21,6 @@
 
 """
 
-from __future__ import print_function, unicode_literals
 
 from collections import defaultdict
 from functools import total_ordering
@@ -31,8 +30,8 @@ import tempfile
 import re
 import subprocess
 
-import workflow
-import web
+from . import workflow
+from . import web
 
 # __all__ = []
 
@@ -119,7 +118,7 @@ class Download(object):
                                     release['prerelease']))
 
             valid = True
-            for ext, n in dupes.items():
+            for ext, n in list(dupes.items()):
                 if n > 1:
                     wf().logger.debug('ignored release "%s": multiple assets '
                                       'with extension "%s"', tag, ext)
@@ -143,7 +142,7 @@ class Download(object):
                 pre-release. Defaults to False.
 
         """
-        if isinstance(version, basestring):
+        if isinstance(version, str):
             version = Version(version)
 
         self.url = url
@@ -167,12 +166,10 @@ class Download(object):
 
     def __str__(self):
         """Format `Download` for printing."""
-        u = ('Download(url={dl.url!r}, '
-             'filename={dl.filename!r}, '
-             'version={dl.version!r}, '
-             'prerelease={dl.prerelease!r})'.format(dl=self))
-
-        return u.encode('utf-8')
+        return ('Download(url={dl.url!r}, '
+                'filename={dl.filename!r}, '
+                'version={dl.version!r}, '
+                'prerelease={dl.prerelease!r})'.format(dl=self))
 
     def __repr__(self):
         """Code-like representation of `Download`."""
@@ -228,7 +225,7 @@ class Version(object):
         """Create new `Version` object.
 
         Args:
-            vstr (basestring): Semantic version string.
+            vstr (``str``): Semantic version string.
         """
         if not vstr:
             raise ValueError('invalid version number: {!r}'.format(vstr))
@@ -276,7 +273,7 @@ class Version(object):
         parsed = []
         parts = s.split('.')
         for p in parts:
-            if p.isdigit():
+            if p and all(c.isdigit() for c in p):
                 p = int(p)
             parsed.append(p)
         return parsed
@@ -299,8 +296,20 @@ class Version(object):
                 return True
             if other.suffix and not self.suffix:
                 return False
-            return self._parse_dotted_string(self.suffix) \
-                < self._parse_dotted_string(other.suffix)
+            lft = self._parse_dotted_string(self.suffix)
+            rgt = self._parse_dotted_string(other.suffix)
+            try:
+                return lft < rgt
+            except TypeError:
+                # Python 3 will not allow lt/gt comparisons of int & str.
+                while lft and rgt and lft[0] == rgt[0]:
+                    lft.pop(0)
+                    rgt.pop(0)
+
+                # Alphanumeric versions are earlier than numeric versions,
+                # therefore lft < rgt if the right version is numeric.
+                return isinstance(rgt[0], int)
+
         # t > o
         return False
 

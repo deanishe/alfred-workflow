@@ -892,7 +892,7 @@ update itself:
 
         # Start update script if cached data are too old (or doesn't exist)
         if not wf.cached_data_fresh('posts', max_age=600):
-            cmd = ['/usr/bin/python', wf.workflowfile('update.py')]
+            cmd = ['/usr/bin/python3', wf.workflowfile('update.py')]
             run_in_background('update', cmd)
 
         # Notify the user if the cache is being updated

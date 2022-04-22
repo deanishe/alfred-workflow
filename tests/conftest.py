@@ -10,12 +10,12 @@
 
 """Common pytest fixtures."""
 
-from __future__ import print_function, absolute_import
 
 from contextlib import contextmanager
 import os
 from shutil import rmtree
 from tempfile import mkdtemp
+from unittest import mock
 
 import pytest
 
@@ -96,21 +96,24 @@ COMMON = dict(
 @contextmanager
 def env(**kwargs):
     """Context manager to alter and restore system environment."""
-    prev = os.environ.copy()
-    for k, v in kwargs.items():
-        if v is None:
-            if k in os.environ:
-                del os.environ[k]
-        else:
-            if isinstance(v, unicode):
-                v = v.encode('utf-8')
-            else:
-                v = str(v)
-            os.environ[k] = v
-
-    yield
-
-    os.environ = prev
+    deleted_items = {
+        key: os.environ[key]
+        for key in kwargs
+        if kwargs[key] is None
+        and key in os.environ
+    }
+    changed_items = {
+        key: value
+        for (key, value) in kwargs.items()
+        if value is not None
+    }
+    with mock.patch.dict(os.environ, changed_items):
+        for key in deleted_items:
+            del os.environ[key]
+        try:
+            yield
+        finally:
+            os.environ.update(deleted_items)
 
 
 @pytest.fixture
@@ -129,7 +132,7 @@ def setenv(*dicts):
 
 def cleanenv():
     """Remove Alfred variables from ``os.environ``."""
-    for k in os.environ.keys():
+    for k in list(os.environ.keys()):
         if k.startswith('alfred_'):
             del os.environ[k]
 

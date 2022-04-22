@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 #
 # Copyright (c) 2014 deanishe@deanishe.net
@@ -17,15 +17,16 @@ See :ref:`the User Manual <background-processes>` for more information
 and examples.
 """
 
-from __future__ import print_function, unicode_literals
+
 
 import signal
 import sys
 import os
 import subprocess
 import pickle
+from pathlib import Path
 
-from workflow import Workflow
+from .workflow import Workflow
 
 __all__ = ['is_running', 'run_in_background']
 
@@ -47,9 +48,9 @@ def _arg_cache(name):
     """Return path to pickle cache file for arguments.
 
     :param name: name of task
-    :type name: ``unicode``
+    :type name: ``str``
     :returns: Path to cache file
-    :rtype: ``unicode`` filepath
+    :rtype: ``str`` filepath
 
     """
     return wf().cachefile(name + '.argcache')
@@ -59,9 +60,9 @@ def _pid_file(name):
     """Return path to PID file for ``name``.
 
     :param name: name of task
-    :type name: ``unicode``
+    :type name: ``str``
     :returns: Path to PID file for task
-    :rtype: ``unicode`` filepath
+    :rtype: ``str`` filepath
 
     """
     return wf().cachefile(name + '.pid')
@@ -140,8 +141,8 @@ def _background(pidfile, stdin='/dev/null', stdout='/dev/null',
             if pid > 0:
                 if write:  # write PID of child process to `pidfile`
                     tmp = pidfile + '.tmp'
-                    with open(tmp, 'wb') as fp:
-                        fp.write(str(pid))
+                    with open(tmp, 'w') as fp:
+                        fp.write(str(int(pid)))
                     os.rename(tmp, pidfile)
                 if wait:  # wait for child process to exit
                     os.waitpid(pid, 0)
@@ -162,9 +163,9 @@ def _background(pidfile, stdin='/dev/null', stdout='/dev/null',
 
     # Now I am a daemon!
     # Redirect standard file descriptors.
-    si = open(stdin, 'r', 0)
-    so = open(stdout, 'a+', 0)
-    se = open(stderr, 'a+', 0)
+    si = open(stdin, 'rb', 0)
+    so = open(stdout, 'ab+', 0)
+    se = open(stderr, 'ab+', 0)
     if hasattr(sys.stdin, 'fileno'):
         os.dup2(si.fileno(), sys.stdin.fileno())
     if hasattr(sys.stdout, 'fileno'):
@@ -230,12 +231,12 @@ def run_in_background(name, args, **kwargs):
         _log().debug('[%s] command cached: %s', name, argcache)
 
     # Call this script
-    cmd = ['/usr/bin/python', __file__, name]
+    cmd = ['/usr/bin/python3', '-m', 'workflow.background', name]
     _log().debug('[%s] passing job to background runner: %r', name, cmd)
-    retcode = subprocess.call(cmd)
+    retcode = subprocess.call(cmd, cwd=Path(__file__).parent.parent)
 
     if retcode:  # pragma: no cover
-        _log().error('[%s] background runner failed with %d', name, retcode)
+        _log().error('[%s] background runner (%r) failed with %d', name, cmd, retcode)
     else:
         _log().debug('[%s] background job started', name)
 

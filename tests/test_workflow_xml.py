@@ -10,10 +10,9 @@
 
 """Unit tests for Workflow's XML feedback generation."""
 
-from __future__ import print_function
 
 from contextlib import contextmanager
-from StringIO import StringIO
+from io import StringIO
 import sys
 from xml.etree import ElementTree as ET
 

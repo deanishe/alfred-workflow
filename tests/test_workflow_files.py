@@ -6,7 +6,6 @@
 
 """Unit tests for Workflow directory & file APIs."""
 
-from __future__ import print_function, unicode_literals
 
 import json
 import os
@@ -16,7 +15,7 @@ import pytest
 
 from workflow import manager, Workflow
 
-from conftest import env, ENV_V4, ENV_V2
+from .conftest import env, ENV_V4, ENV_V2
 
 
 def test_directories(alfred4):
@@ -226,7 +225,7 @@ def test_custom_cache_serializer(wf):
 
         @classmethod
         def dump(self, obj, file_obj):
-            return json.dump(obj, file_obj, indent=2)
+            file_obj.write(json.dumps(obj).encode('utf8'))
 
     manager.register('spoons', MySerializer)
     try:
@@ -305,7 +304,7 @@ def test_borked_stored_data(wf):
 
     wf.store_data('test', data)
     metadata, datapath = _stored_data_paths(wf, 'test', 'cpickle')
-    with open(metadata, 'wb') as file_obj:
+    with open(metadata, 'w') as file_obj:
         file_obj.write('bangers and mash')
         wf.logger.debug('Changed format to `bangers and mash`')
     with pytest.raises(ValueError):

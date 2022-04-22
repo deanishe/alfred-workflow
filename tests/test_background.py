@@ -10,7 +10,6 @@
 
 """Unit tests for :mod:`workflow.background`."""
 
-from __future__ import print_function, absolute_import
 
 import os
 from time import sleep
@@ -27,8 +26,8 @@ def _pidfile(name):
 
 def _write_pidfile(name, pid):
     pidfile = _pidfile(name)
-    with open(pidfile, 'wb') as file:
-        file.write('{0}'.format(pid))
+    with open(pidfile, 'w') as file:
+        file.write(str(int(pid)))
 
 
 def _delete_pidfile(name):

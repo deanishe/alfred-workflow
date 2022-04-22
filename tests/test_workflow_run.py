@@ -6,16 +6,15 @@
 
 """Unit tests for Workflow.run."""
 
-from __future__ import print_function, unicode_literals
 
-from StringIO import StringIO
+from io import StringIO
 import sys
 
 import pytest
 
 from workflow.workflow import Workflow
 
-from conftest import env
+from .conftest import env
 
 
 def test_run_fails(infopl):
@@ -93,7 +92,7 @@ def test_run_fails_with_plain_text_output(wf):
 def test_run_fails_borked_settings(wf):
     """Run fails with borked settings.json"""
     # Create invalid settings.json file
-    with open(wf.settings_path, 'wb') as fp:
+    with open(wf.settings_path, 'w') as fp:
         fp.write('')
 
     def fake(wf):

@@ -23,7 +23,7 @@ directory. It replaces the application's icon with your workflow's
 icon and then calls the application to post notifications.
 """
 
-from __future__ import print_function, unicode_literals
+
 
 import os
 import plistlib
@@ -34,7 +34,7 @@ import tarfile
 import tempfile
 import uuid
 
-import workflow
+from . import workflow
 
 
 _wf = None
@@ -144,10 +144,13 @@ def install_notifier():
     # Change bundle ID of installed app
     ip_path = os.path.join(app_path, 'Contents/Info.plist')
     bundle_id = '{0}.{1}'.format(wf().bundleid, uuid.uuid4().hex)
-    data = plistlib.readPlist(ip_path)
+    with open(ip_path, 'rb') as plist_fp:
+        data = plistlib.load(plist_fp)
+
     log().debug('changing bundle ID to %r', bundle_id)
     data['CFBundleIdentifier'] = bundle_id
-    plistlib.writePlist(data, ip_path)
+    with open(ip_path, 'wb') as plist_fp:
+        plistlib.dump(data, plist_fp)
 
 
 def validate_sound(sound):

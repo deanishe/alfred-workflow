@@ -119,7 +119,7 @@ than a concrete implementation), while encoded strings are binary data that are
 encoded according to some scheme that maps characters to a specific binary
 representation (e.g. UTF-8 or ASCII).
 
-In Python, these have the types ``unicode`` and ``str`` respectively.
+In Python, these have the types ``str`` and ``bytes`` respectively.
 
 As noted, Unicode strings only exist within a running program. Any text stored
 on disk, passed into or out of a program or transmitted over a network *must*
@@ -351,7 +351,7 @@ an empty environment. This tells Python (and other POSIX software) by omission
 that encoding is ASCII.
 
 Although this won't affect Python 2's auto-promotion of encoded strings
-(``str`` objects) to Unicode (it always uses ASCII), it *does*
+(``bytes`` objects) to Unicode (it always uses ASCII), it *does*
 affect the printing of Unicode strings, so using :func:`print` may work
 perfectly in your shell where the environmental encoding is UTF-8 but not in
 Alfred 2, where encoding is ASCII by default.

@@ -10,14 +10,13 @@
 
 """Unit tests for :func:`~workflow.util.atomic_writer`."""
 
-from __future__ import print_function
 
 import json
 import os
 
 import pytest
 
-from util import DEFAULT_SETTINGS
+from .util import DEFAULT_SETTINGS
 
 from workflow.util import atomic_writer
 
@@ -30,7 +29,7 @@ def _settings(tempdir):
 def test_write_file_succeed(tempdir):
     """Succeed, no temp file left"""
     p = _settings(tempdir)
-    with atomic_writer(p, 'wb') as fp:
+    with atomic_writer(p, 'w') as fp:
         json.dump(DEFAULT_SETTINGS, fp)
 
     assert len(os.listdir(tempdir)) == 1
@@ -56,7 +55,7 @@ def test_failed_after_writing(tempdir):
     p = _settings(tempdir)
 
     def write():
-        with atomic_writer(p, 'wb') as fp:
+        with atomic_writer(p, 'w') as fp:
             json.dump(DEFAULT_SETTINGS, fp)
             raise Exception()
 
@@ -72,11 +71,11 @@ def test_failed_without_overwriting(tempdir):
     mockSettings = {}
 
     def write():
-        with atomic_writer(p, 'wb') as fp:
+        with atomic_writer(p, 'w') as fp:
             json.dump(mockSettings, fp)
             raise Exception()
 
-    with atomic_writer(p, 'wb') as fp:
+    with atomic_writer(p, 'w') as fp:
         json.dump(DEFAULT_SETTINGS, fp)
 
     assert len(os.listdir(tempdir)) == 1

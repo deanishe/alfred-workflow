@@ -10,16 +10,16 @@
 
 """Unit tests for update mechanism."""
 
-from __future__ import print_function
 
 from contextlib import contextmanager
+from unittest import mock
 import os
 import re
 
 import pytest
 import pytest_localserver  # noqa: F401
 
-from util import WorkflowMock
+from .util import WorkflowMock
 from workflow import Workflow, update, web
 from workflow.update import Download, Version
 
@@ -36,7 +36,7 @@ RELEASES_4PLUS_JSON = open(
     os.path.join(DATA_DIR, 'gh-releases-4plus.json')).read()
 # A dummy Alfred workflow
 DATA_WORKFLOW = open(
-    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow')).read()
+    os.path.join(DATA_DIR, 'Dummy-6.0.alfredworkflow'), 'rb').read()
 
 # Alfred 4
 RELEASE_LATEST = '9.0'
@@ -82,19 +82,18 @@ DL_BAD = Download(url='http://github.com/file.zip',
 @contextmanager
 def fakeresponse(httpserver, content, headers=None):
     """Monkey patch `web.request()` to return the specified response."""
-    orig = web.request
-    httpserver.serve_content(content, headers=headers)
+    original_request = web.request
 
     def _request(*args, **kwargs):
         """Replace request URL with `httpserver` URL"""
         # print('requested URL={!r}'.format(args[1]))
         args = (args[0], httpserver.url) + args[2:]
         # print('request args={!r}'.format(args))
-        return orig(*args, **kwargs)
+        return original_request(*args, **kwargs)
 
-    web.request = _request
-    yield
-    web.request = orig
+    httpserver.serve_content(content, headers=headers)
+    with mock.patch('workflow.web.request', _request):
+        yield
 
 
 def test_parse_releases(infopl, alfred4):

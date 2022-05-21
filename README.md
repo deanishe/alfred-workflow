@@ -132,7 +132,7 @@ Additionally, the following code needs to be added to the `info.plist` file afte
 <key>variables</key>
 <dict>
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin</string>
+    <string>/usr/local/bin:/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin</string>
 </dict>
 ```
 

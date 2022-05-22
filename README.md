@@ -132,11 +132,11 @@ Additionally, the following code needs to be added to the `info.plist` file afte
 <key>variables</key>
 <dict>
     <key>PATH</key>
-    <string>/usr/local/bin:/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin</string>
+    <string>/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin</string>
 </dict>
 ```
 
-This is required because Alfred doesn't inherit environment variables and doesn't source shell configuration files (such as `.zshrc`).
+This is required because Alfred doesn't inherit environment variables and doesn't source shell configuration files (such as `.zshrc`). By default, the `PATH` variable is [set to `/usr/bin:/bin:/usr/sbin:/sbin`](https://www.alfredapp.com/help/workflows/advanced/understanding-scripting-environment/) by Alfred.
 
 <a name="usage"></a>
 Usage

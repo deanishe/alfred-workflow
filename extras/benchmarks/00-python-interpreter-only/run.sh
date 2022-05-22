@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/python -c ''
+/usr/bin/env python -c ''

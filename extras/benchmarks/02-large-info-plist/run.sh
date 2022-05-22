@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/python ./script.py
+/usr/bin/env python ./script.py

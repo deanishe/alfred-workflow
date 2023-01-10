@@ -12,6 +12,8 @@
 
 from __future__ import print_function, absolute_import
 
+from builtins import str
+from builtins import object
 import atexit
 from collections import namedtuple
 from contextlib import contextmanager
@@ -110,8 +112,8 @@ def unicodify(s, encoding='utf-8', norm=None):
         unicode: Decoded, optionally normalised, Unicode string.
 
     """
-    if not isinstance(s, unicode):
-        s = unicode(s, encoding)
+    if not isinstance(s, str):
+        s = str(s, encoding)
 
     if norm:
         from unicodedata import normalize
@@ -138,7 +140,7 @@ def utf8ify(s):
     if isinstance(s, str):
         return s
 
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s.encode('utf-8')
 
     return str(s)

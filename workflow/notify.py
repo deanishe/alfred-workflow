@@ -24,7 +24,9 @@ icon and then calls the application to post notifications.
 """
 
 from __future__ import print_function, unicode_literals
+from __future__ import absolute_import
 
+from builtins import str
 import os
 import plistlib
 import shutil
@@ -34,7 +36,7 @@ import tarfile
 import tempfile
 import uuid
 
-import workflow
+from . import workflow
 
 
 _wf = None

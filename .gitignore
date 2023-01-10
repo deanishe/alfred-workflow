@@ -5,6 +5,7 @@
 
 # virtual env
 /venv
+.venv
 
 # tests
 /coverage_report
